@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <!-- USER -->
+        <parameter key="sonata.user.admin.user.class">Sonata\UserBundle\Admin\Entity\UserAdmin</parameter>
+        <parameter key="sonata.user.admin.user.controller"></parameter>
+        <parameter key="sonata.user.admin.user.entity">Application\Sonata\UserBundle\Entity\User</parameter>
+
+        <!-- GROUP -->
+        <parameter key="sonata.user.admin.group.class">Sonata\UserBundle\Admin\Entity\GroupAdmin</parameter>
+        <parameter key="sonata.user.admin.group.controller"></parameter>
+        <parameter key="sonata.user.admin.group.entity">Application\Sonata\UserBundle\Entity\Group</parameter>
+    </parameters>
+
+    <services>
+        <service id="sonata.user.admin.user" class="%sonata.user.admin.user.class%">
+            <tag name="sonata.admin" manager_type="orm" group="fos_user" />
+            <argument />
+            <argument>%sonata.user.admin.user.entity%</argument>
+            <argument />
+        </service>
+
+        <service id="sonata.user.admin.group" class="%sonata.user.admin.group.class%">
+            <tag name="sonata.admin" manager_type="orm" group="fos_user"/>
+            <argument />
+            <argument>%sonata.user.admin.group.entity%</argument>
+            <argument />
+        </service>
+    </services>
+
+</container>
