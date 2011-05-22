@@ -27,7 +27,6 @@ class SonataUserExtension extends Extension
 {
 
     /**
-     * Loads the url shortener configuration.
      *
      * @param array            $config    An array of configuration settings
      * @param ContainerBuilder $container A ContainerBuilder instance
@@ -36,6 +35,7 @@ class SonataUserExtension extends Extension
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('admin_orm.xml');
+        $loader->load('form.xml');
     }
 
     /**

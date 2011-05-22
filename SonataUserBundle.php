@@ -12,7 +12,6 @@ namespace Sonata\UserBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Sonata\PageBundle\DependencyInjection\AddBlockServicePass;
 
 class SonataUserBundle extends Bundle
 {

@@ -12,6 +12,10 @@
 namespace Sonata\UserBundle\Admin\Entity;
 
 use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 class UserAdmin extends Admin
 {
@@ -28,7 +32,6 @@ class UserAdmin extends Admin
         'username',
         'email',
         'enabled',
-        'plainPassword' => array('type' => 'string'),
         'locked',
         'expired',
         'credentialsExpired',
@@ -44,7 +47,7 @@ class UserAdmin extends Admin
             'fields' => array('groups')
         ),
         'Management' => array(
-            'fields' => array('locked', 'expired', 'enabled', 'credentialsExpired', 'credentialsExpireAt')
+            'fields' => array('roles', 'locked', 'expired', 'enabled', 'credentialsExpired', 'credentialsExpireAt')
         )
     );
 
@@ -58,4 +61,14 @@ class UserAdmin extends Admin
         'email',
         'id',
     );
+
+    public function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper->addType('roles', 'sonata_security_roles', array(
+            'multiple' => true,
+//            'expanded' => true,
+        ), array(
+            'type' => 'choice'
+        ));
+    }
 }

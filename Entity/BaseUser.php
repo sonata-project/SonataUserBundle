@@ -24,6 +24,11 @@ class BaseUser extends AbstractedUser
         return $this->credentialsExpireAt;
     }
 
+    public function setCredentialsExpireAt(\DateTime $date = null)
+    {
+        $this->credentialsExpireAt = $date;
+    }
+
     public function __toString()
     {
         return $this->getUsername();

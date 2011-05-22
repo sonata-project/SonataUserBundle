@@ -12,6 +12,10 @@
 namespace Sonata\UserBundle\Admin\Entity;
 
 use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 class GroupAdmin extends Admin
 {
@@ -22,7 +26,6 @@ class GroupAdmin extends Admin
 
     protected $form = array(
         'name',
-//        'roles'
     );
 
     public function getNewInstance()
@@ -30,5 +33,15 @@ class GroupAdmin extends Admin
         $class = $this->getClass();
 
         return new $class('', array());
+    }
+
+    public function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper->addType('roles', 'sonata_security_roles', array(
+            'multiple' => true,
+//            'expanded' => true,
+        ), array(
+            'type' => 'choice'
+        ));
     }
 }
