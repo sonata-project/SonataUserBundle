@@ -31,6 +31,6 @@ class BaseUser extends AbstractedUser
 
     public function __toString()
     {
-        return $this->getUsername();
+        return $this->getUsername() ?: '-';
     }
 }
