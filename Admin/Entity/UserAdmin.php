@@ -28,17 +28,6 @@ class UserAdmin extends Admin
         'createdAt',
     );
 
-    protected $form = array(
-        'username',
-        'email',
-        'enabled',
-        'locked',
-        'expired',
-        'credentialsExpired',
-        'credentialsExpireAt',
-        'groups'
-    );
-
     protected $formGroups = array(
         'General' => array(
             'fields' => array('username', 'email', 'plainPassword')
@@ -64,6 +53,16 @@ class UserAdmin extends Admin
 
     public function configureFormFields(FormMapper $formMapper)
     {
+        $formMapper
+            ->add('username')
+            ->add('email')
+            ->add('groups', array('required' => false))
+            ->add('locked', array('required' => false))
+            ->add('expired', array('required' => false))
+            ->add('enabled', array('required' => false))
+            ->add('credentialsExpired', array('required' => false))
+        ;
+
         $formMapper->addType('roles', 'sonata_security_roles', array(
             'multiple' => true,
 //            'expanded' => true,

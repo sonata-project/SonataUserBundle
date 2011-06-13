@@ -15,11 +15,5 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class SonataUserBundle extends Bundle
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function getParent()
-    {
-        return 'FOSUserBundle';
-    }
+
 }

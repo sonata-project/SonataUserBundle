@@ -13,14 +13,15 @@
 namespace Sonata\UserBundle\Form\Type;
 
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Sonata\AdminBundle\Admin\Pool;
 
 class SecurityRolesType extends ChoiceType
 {
-    protected $rolesHierarchy = array();
+    protected $pool;
 
-    public function __construct($container)
+    public function __construct(Pool $pool)
     {
-        $this->rolesHierarchy = $container->getParameter('security.role_hierarchy.roles');
+        $this->pool = $pool;
     }
 
     public function getDefaultOptions(array $options)
@@ -29,7 +30,21 @@ class SecurityRolesType extends ChoiceType
 
         $roles = array();
         if (count($options['choices']) == 0) {
-            foreach ($this->rolesHierarchy as $name => $rolesHierarchy) {
+            // get roles from the Admin classes
+            foreach ($this->pool->getAdminServiceIds() as $id) {
+                try {
+                    $admin = $this->pool->getInstance($id);
+                } catch (\Exception $e) {
+                    continue;
+                }
+
+                foreach ($admin->getSecurityInformation() as $role => $acls) {
+                    $roles[$role] = $role;
+                }
+            }
+
+            // get roles from the service container
+            foreach ($this->pool->getContainer()->getParameter('security.role_hierarchy.roles') as $name => $rolesHierarchy) {
                 $roles[$name] = $name;
                 foreach ($rolesHierarchy as $role) {
                     if (!isset($roles[$role])) {
