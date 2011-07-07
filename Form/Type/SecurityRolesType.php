@@ -38,7 +38,9 @@ class SecurityRolesType extends ChoiceType
                     continue;
                 }
 
-                foreach ($admin->getSecurityInformation() as $role => $acls) {
+                $securityHandler = $admin->getSecurityHandler();
+
+                foreach ($securityHandler->buildSecurityInformation($admin) as $role => $acls) {
                     $roles[$role] = $role;
                 }
             }
