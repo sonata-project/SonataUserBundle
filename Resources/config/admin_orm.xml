@@ -21,6 +21,9 @@
             <argument />
             <argument>%sonata.user.admin.user.entity%</argument>
             <argument />
+            <call method="setUserManager">
+                <argument type="service" id="fos_user.user_manager" />
+            </call>
         </service>
 
         <service id="sonata.user.admin.group" class="%sonata.user.admin.group.class%">
