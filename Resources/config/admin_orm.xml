@@ -20,14 +20,14 @@
             <tag name="sonata.admin" manager_type="orm" group="fos_user" />
             <argument />
             <argument>%sonata.user.admin.user.entity%</argument>
-            <argument />
+            <argument>%sonata.user.admin.user.controller%</argument>
         </service>
 
         <service id="sonata.user.admin.group" class="%sonata.user.admin.group.class%">
             <tag name="sonata.admin" manager_type="orm" group="fos_user"/>
             <argument />
             <argument>%sonata.user.admin.group.entity%</argument>
-            <argument />
+            <argument>%sonata.user.admin.group.controller%</argument>
         </service>
     </services>
 
