@@ -8,16 +8,20 @@
         <parameter key="sonata.user.admin.user.class">Sonata\UserBundle\Admin\Entity\UserAdmin</parameter>
         <parameter key="sonata.user.admin.user.controller"></parameter>
         <parameter key="sonata.user.admin.user.entity">Application\Sonata\UserBundle\Entity\User</parameter>
-
+        <parameter key="sonata.user.admin.user.label">Users</parameter>
+    
         <!-- GROUP -->
         <parameter key="sonata.user.admin.group.class">Sonata\UserBundle\Admin\Entity\GroupAdmin</parameter>
         <parameter key="sonata.user.admin.group.controller"></parameter>
         <parameter key="sonata.user.admin.group.entity">Application\Sonata\UserBundle\Entity\Group</parameter>
+        <parameter key="sonata.user.admin.group.label">Groups</parameter>
+
+        <parameter key="sonata.user.admin.groupname">FOS User</parameter>
     </parameters>
 
     <services>
         <service id="sonata.user.admin.user" class="%sonata.user.admin.user.class%">
-            <tag name="sonata.admin" manager_type="orm" group="fos_user" />
+            <tag name="sonata.admin" manager_type="orm" group="%sonata.user.admin.groupname%" label="%sonata.user.admin.user.label%" />
             <argument />
             <argument>%sonata.user.admin.user.entity%</argument>
             <argument />
@@ -27,7 +31,7 @@
         </service>
 
         <service id="sonata.user.admin.group" class="%sonata.user.admin.group.class%">
-            <tag name="sonata.admin" manager_type="orm" group="fos_user"/>
+            <tag name="sonata.admin" manager_type="orm" group="%sonata.user.admin.groupname%" label="%sonata.user.admin.group.label%" />
             <argument />
             <argument>%sonata.user.admin.group.entity%</argument>
             <argument />
