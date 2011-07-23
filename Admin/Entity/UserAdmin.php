@@ -17,6 +17,8 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
+use FOS\UserBundle\Model\UserManagerInterface;
+
 class UserAdmin extends Admin
 {
 
@@ -69,5 +71,21 @@ class UserAdmin extends Admin
         ), array(
             'type' => 'choice'
         ));
+    }
+    
+    public function preUpdate($user)
+    {
+        $this->getUserManager()->updateCanonicalFields($user);
+        $this->getUserManager()->updatePassword($user);
+    }
+    
+    public function setUserManager(UserManagerInterface $userManager)
+    {
+        $this->userManager = $userManager;
+    }
+    
+    public function getUserManager()
+    {
+        return $this->userManager;
     }
 }
