@@ -1,5 +1,5 @@
-Welcome to UserBundle Documentation
-====================================
+Welcome to SonataUserBundle Documentation
+=========================================
 
 Reference Guide
 ---------------

@@ -1,3 +1,6 @@
+SonataUserBundle
+================
+
 # Integrate the FOS/UserBundle in the Sonata Project
 
     - AdminBundle: add user and group management
