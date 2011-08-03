@@ -19,15 +19,6 @@ use Sonata\AdminBundle\Route\RouteCollection;
 
 class GroupAdmin extends Admin
 {
-    protected $list = array(
-        'name' => array('identifier' => true),
-        'roles'
-    );
-
-    protected $form = array(
-        'name',
-    );
-
     public function getNewInstance()
     {
         $class = $this->getClass();
@@ -35,13 +26,25 @@ class GroupAdmin extends Admin
         return new $class('', array());
     }
 
+    public function configureListFields(ListMapper $listMapper)
+    {
+        $listMapper
+            ->addIdentifier('name')
+            ->add('roles')
+        ;
+    }
+
+    public function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add('name')
+        ;
+    }
     public function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->addType('roles', 'sonata_security_roles', array(
-            'multiple' => true,
-//            'expanded' => true,
-        ), array(
-            'type' => 'choice'
-        ));
+        $formMapper
+            ->add('name')
+            ->add('roles', 'sonata_security_roles', array( 'multiple' => true))
+        ;
     }
 }

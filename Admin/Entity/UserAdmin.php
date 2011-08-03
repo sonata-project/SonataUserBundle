@@ -21,56 +21,50 @@ use FOS\UserBundle\Model\UserManagerInterface;
 
 class UserAdmin extends Admin
 {
-
-    protected $list = array(
-        'username' => array('identifier' => true),
-        'email',
-        'enabled',
-        'locked',
-        'createdAt',
-    );
-
-    protected $formGroups = array(
-        'General' => array(
-            'fields' => array('username', 'email', 'plainPassword')
-        ),
-        'Groups' => array(
-            'fields' => array('groups')
-        ),
-        'Management' => array(
-            'fields' => array('roles', 'locked', 'expired', 'enabled', 'credentialsExpired', 'credentialsExpireAt')
-        )
-    );
-
     protected $formOptions = array(
         'validation_groups' => 'admin'
     );
 
-    protected $filter = array(
-        'username',
-        'locked',
-        'email',
-        'id',
-    );
+    public function configureListFields(ListMapper $listMapper)
+    {
+        $listMapper
+            ->addIdentifier('username')
+            ->add('email')
+            ->add('enabled')
+            ->add('locked')
+            ->add('createdAt')
+        ;
+    }
+
+    public function configureDatagridFilters(DatagridMapper $filterMapper)
+    {
+        $filterMapper
+            ->add('username')
+            ->add('locked')
+            ->add('email')
+            ->add('id')
+        ;
+    }
 
     public function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('username')
-            ->add('email')
-            ->add('groups', array('required' => false))
-            ->add('locked', array('required' => false))
-            ->add('expired', array('required' => false))
-            ->add('enabled', array('required' => false))
-            ->add('credentialsExpired', array('required' => false))
+            ->with('General')
+                ->add('username')
+                ->add('email')
+                ->add('plainPassword', 'text')
+            ->end()
+            ->with('Groups')
+                ->add('groups', 'sonata_type_model', array('required' => false))
+            ->end()
+            ->with('Management')
+                ->add('roles', 'sonata_security_roles', array( 'multiple' => true))
+                ->add('locked', null, array('required' => false))
+                ->add('expired', null, array('required' => false))
+                ->add('enabled', null, array('required' => false))
+                ->add('credentialsExpired', null, array('required' => false))
+            ->end()
         ;
-
-        $formMapper->addType('roles', 'sonata_security_roles', array(
-            'multiple' => true,
-//            'expanded' => true,
-        ), array(
-            'type' => 'choice'
-        ));
     }
     
     public function preUpdate($user)
