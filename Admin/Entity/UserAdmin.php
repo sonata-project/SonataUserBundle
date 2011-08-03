@@ -25,7 +25,7 @@ class UserAdmin extends Admin
         'validation_groups' => 'admin'
     );
 
-    public function configureListFields(ListMapper $listMapper)
+    protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
             ->addIdentifier('username')
@@ -36,7 +36,7 @@ class UserAdmin extends Admin
         ;
     }
 
-    public function configureDatagridFilters(DatagridMapper $filterMapper)
+    protected function configureDatagridFilters(DatagridMapper $filterMapper)
     {
         $filterMapper
             ->add('username')
@@ -46,7 +46,7 @@ class UserAdmin extends Admin
         ;
     }
 
-    public function configureFormFields(FormMapper $formMapper)
+    protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
             ->with('General')
@@ -66,18 +66,18 @@ class UserAdmin extends Admin
             ->end()
         ;
     }
-    
+
     public function preUpdate($user)
     {
         $this->getUserManager()->updateCanonicalFields($user);
         $this->getUserManager()->updatePassword($user);
     }
-    
+
     public function setUserManager(UserManagerInterface $userManager)
     {
         $this->userManager = $userManager;
     }
-    
+
     public function getUserManager()
     {
         return $this->userManager;
