@@ -22,7 +22,8 @@ class BaseUser extends AbstractedUser
     /**
      * Set createdAt
      *
-     * @param \DateTime $createdAt
+     * @param \DateTime|null $createdAt
+     * @return void
      */
     public function setCreatedAt(\DateTime $createdAt = null)
     {
@@ -32,7 +33,7 @@ class BaseUser extends AbstractedUser
     /**
      * Get createdAt
      *
-     * @return \DateTime $createdAt
+     * @return \DateTime|null
      */
     public function getCreatedAt()
     {
@@ -42,7 +43,8 @@ class BaseUser extends AbstractedUser
     /**
      * Set updatedAt
      *
-     * @param \DateTime $updatedAt
+     * @param \DateTime|null $updatedAt
+     * @return void
      */
     public function setUpdatedAt(\DateTime $updatedAt = null)
     {
@@ -52,19 +54,25 @@ class BaseUser extends AbstractedUser
     /**
      * Get updatedAt
      *
-     * @return \DateTime $updatedAt
+     * @return \DateTime|null
      */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
 
+    /**
+     * @return void
+     */
     public function prePersist()
     {
         $this->createdAt = new \DateTime;
         $this->updatedAt = new \DateTime;
     }
 
+    /**
+     * @return void
+     */
     public function preUpdate()
     {
         $this->updatedAt = new \DateTime;
@@ -78,13 +86,32 @@ class BaseUser extends AbstractedUser
         return $this->credentialsExpireAt;
     }
 
+    /**
+     * @param \DateTime|null $date
+     * @return void
+     */
     public function setCredentialsExpireAt(\DateTime $date = null)
     {
         $this->credentialsExpireAt = $date;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->getUsername() ?: '-';
+    }
+
+    /**
+     * Set related groups
+     *
+     * @param aarrat $groups
+     */
+    public function setGroups($groups)
+    {
+        foreach ($groups as $group){
+            $this->addGroup($group);
+        }
     }
 }
