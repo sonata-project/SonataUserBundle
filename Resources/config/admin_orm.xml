@@ -8,33 +8,39 @@
         <parameter key="sonata.user.admin.user.class">Sonata\UserBundle\Admin\Entity\UserAdmin</parameter>
         <parameter key="sonata.user.admin.user.controller"></parameter>
         <parameter key="sonata.user.admin.user.entity">Application\Sonata\UserBundle\Entity\User</parameter>
-        <parameter key="sonata.user.admin.user.label">users</parameter>
+        <parameter key="sonata.user.admin.user.translation_domain">SonataUserBundle</parameter>
 
         <!-- GROUP -->
         <parameter key="sonata.user.admin.group.class">Sonata\UserBundle\Admin\Entity\GroupAdmin</parameter>
         <parameter key="sonata.user.admin.group.controller"></parameter>
         <parameter key="sonata.user.admin.group.entity">Application\Sonata\UserBundle\Entity\Group</parameter>
-        <parameter key="sonata.user.admin.group.label">groups</parameter>
+        <parameter key="sonata.user.admin.group.translation_domain">%sonata.user.admin.user.translation_domain%</parameter>
 
         <parameter key="sonata.user.admin.groupname">sonata_user</parameter>
     </parameters>
 
     <services>
         <service id="sonata.user.admin.user" class="%sonata.user.admin.user.class%">
-            <tag name="sonata.admin" manager_type="orm" group="%sonata.user.admin.groupname%" label="%sonata.user.admin.user.label%" />
+            <tag name="sonata.admin" manager_type="orm" group="%sonata.user.admin.groupname%" label="users" />
             <argument />
             <argument>%sonata.user.admin.user.entity%</argument>
             <argument />
             <call method="setUserManager">
                 <argument type="service" id="fos_user.user_manager" />
             </call>
+            <call method="setTranslationDomain">
+                <argument>%sonata.user.admin.user.translation_domain%</argument>
+            </call>
         </service>
 
         <service id="sonata.user.admin.group" class="%sonata.user.admin.group.class%">
-            <tag name="sonata.admin" manager_type="orm" group="%sonata.user.admin.groupname%" label="%sonata.user.admin.group.label%" />
+            <tag name="sonata.admin" manager_type="orm" group="%sonata.user.admin.groupname%" label="groups" />
             <argument />
             <argument>%sonata.user.admin.group.entity%</argument>
             <argument />
+            <call method="setTranslationDomain">
+                <argument>%sonata.user.admin.group.translation_domain%</argument>
+            </call>
         </service>
     </services>
 
