@@ -109,3 +109,85 @@ Then add these bundles in the config mapping definition (or enable `auto_mapping
                     mappings:
                         ApplicationSonataUserBundle: ~
                         SonataUserBundle: ~
+
+
+Integrating the bundle into the Sonata Admin Bundle
+---------------------------------------------------
+
+Add the related security routing information
+
+.. code-block:: yaml
+
+    soanata_user:
+        resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
+        prefix: /admin
+
+
+Then add a new custom firewall handlers for the admin
+
+.. code-block:: yaml
+
+    security:
+        role_hierarchy:
+            ROLE_ADMIN:       ROLE_USER
+            ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_SONATA_ADMIN, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+            SONATA:
+                - ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT  # if you are not using acl then this line must be uncommented
+
+        providers:
+            fos_userbundle:
+                id: fos_user.user_manager
+
+        firewalls:
+
+            # -> custom firewall for the admin area of the URL
+            admin:
+                pattern:      /admin(.*)
+                form_login:
+                    provider:       fos_userbundle
+                    login_path:     /admin/login
+                    use_forward:    false
+                    check_path:     /admin/login_check
+                    failure_path:   null
+                logout:
+                    path:           /admin/logout
+                anonymous:    true
+            # -> end custom configuration
+
+            # defaut login area for standard users
+            main:
+                pattern:      .*
+                form_login:
+                    provider:       fos_userbundle
+                    login_path:     /login
+                    use_forward:    false
+                    check_path:     /login_check
+                    failure_path:   null
+                logout:       true
+                anonymous:    true
+
+The last part is to define 3 new access control rules :
+
+.. code-block:: yaml
+
+    security:
+        access_control:
+            # URL of FOSUserBundle which need to be available to anonymous users
+            - { path: ^/_wdt, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/_profiler, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+            # -> custom access control for the admin area of the URL
+            - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/admin/login-check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            # -> end
+
+            - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+            # Secured part of the site
+            # This config requires being logged for the whole site and having the admin role for the admin part.
+            # Change these rules to adapt them to your needs
+            - { path: ^/admin, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
+            - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
