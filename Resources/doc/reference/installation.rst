@@ -4,21 +4,43 @@ Installation
 Set up the SonataUserBundle
 ---------------------------
 
-Add the bundle to your project:
+To begin, add the dependent bundles to the ``vendor/bundles`` directory. Add
+the following lines to the file ``deps``::
 
-    git://github.com/sonata-project/SonataUserBundle.git
+    [SonataUserBundle]
+        git=git://github.com/sonata-project/SonataUserBundle.git
+        target=/bundles/Sonata/SonataUserBundle
 
-    // dependency bundle
-    git://github.com/sonata-project/SonataEasyExtendsBundle.git
-    git://github.com/sonata-project/SonataAdminBundle.git
+    [SonataEasyExtendsBundle]
+        git=git://github.com/sonata-project/SonataEasyExtendsBundle.git
+        target=/bundles/Sonata/SonataEasyExtendsBundle
 
-Adjust your autoload.php so they are found.
+    [SonataAdminBundle]
+        git=git://github.com/sonata-project/SonataAdminBundle.git
+        target=/bundles/Sonata/SonataAdminBundle
 
-In your AppKernel you enable the bundles:
+and run::
+
+  bin/vendors install
+
+Autoload and AppKernel Configuration
+------------------------------------
+
+Next, be sure to enable the bundles in your autoload.php and AppKernel.php
+files:
 
 .. code-block:: php
 
     <?php
+    // app/autoload.php
+    $loader->registerNamespaces(array(
+        // ...
+        'Sonata'        => __DIR__.'/../vendor/bundles',
+        'Application'   => __DIR__,
+        // ...
+    ));
+
+
     // app/appkernel.php
     public function registerbundles()
     {
@@ -71,30 +93,16 @@ Now, add the new `Application` Bundle into the kernel
   {
       return array(
           // Application Bundles
+          // ...
           new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
+          // ...
 
-          // Vendor specifics bundles
-          new Sonata\UserBundle\SonataUserBundle(),
-          new Sonata\AdminBundle\SonataAdminBundle(),
-          new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
-      );
+      )
   }
 
-Update the ``autoload.php`` to add a new namespace:
 
-.. code-block:: php
-
-  <?php
-  $loader->registerNamespaces(array(
-    'Sonata'        => __DIR__.'../vendor/bundles',
-    'Application'   => __DIR__,
-
-    // ... other declarations
-  ));
-
-
-Configuration
--------------
+Doctrine Configuration
+----------------------
 
 Then add these bundles in the config mapping definition (or enable `auto_mapping <http://symfony.com/doc/2.0/reference/configuration/doctrine.html#configuration-overview>`_):
 
