@@ -9,15 +9,15 @@ the following lines to the file ``deps``::
 
     [SonataUserBundle]
         git=git://github.com/sonata-project/SonataUserBundle.git
-        target=/bundles/Sonata/SonataUserBundle
+        target=/bundles/Sonata/UserBundle
 
     [SonataEasyExtendsBundle]
         git=git://github.com/sonata-project/SonataEasyExtendsBundle.git
-        target=/bundles/Sonata/SonataEasyExtendsBundle
+        target=/bundles/Sonata/EasyExtendsBundle
 
     [SonataAdminBundle]
         git=git://github.com/sonata-project/SonataAdminBundle.git
-        target=/bundles/Sonata/SonataAdminBundle
+        target=/bundles/Sonata/AdminBundle
 
 and run::
 
