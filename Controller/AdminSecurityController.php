@@ -16,6 +16,7 @@ use FOS\UserBundle\Controller\SecurityController;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class AdminSecurityController extends SecurityController
 {
@@ -42,6 +43,12 @@ class AdminSecurityController extends SecurityController
         }
         // last username entered by the user
         $lastUsername = (null === $session) ? '' : $session->get(SecurityContext::LAST_USERNAME);
+
+        if ($this->container->get('security.context')->isGranted('ROLE_ADMIN')) {
+            $refererUri = $request->server->get('HTTP_REFERER');
+
+            return new RedirectResponse($refererUri && $refererUri != $request->getUri() ? $refererUri : $this->container->get('router')->generate('sonata_admin_dashboard'));
+        }
 
         return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/login.html.'.$this->container->getParameter('fos_user.template.engine'), array(
             'last_username' => $lastUsername,

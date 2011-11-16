@@ -147,7 +147,6 @@ Then add a new custom firewall handlers for the admin
                 id: fos_user.user_manager
 
         firewalls:
-
             # -> custom firewall for the admin area of the URL
             admin:
                 pattern:      /admin(.*)
@@ -157,8 +156,11 @@ Then add a new custom firewall handlers for the admin
                     use_forward:    false
                     check_path:     /admin/login_check
                     failure_path:   null
+                    use_referer:    true
                 logout:
                     path:           /admin/logout
+                    target:         /admin/login
+
                 anonymous:    true
             # -> end custom configuration
 
