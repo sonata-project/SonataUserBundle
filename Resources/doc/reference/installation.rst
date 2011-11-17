@@ -49,10 +49,10 @@ files:
             // You have 2 options to initialize the SonataUserBundle in your AppKernel,
             // you can select which bundle SonataUserBundle extends
             // extend the ``FOSUserBundle``
-            new Sonata\UserBundle\SonataUserBundle('FOSUserBundle');
+            new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
             // OR
             // the bundle will NOT extend ``FOSUserBundle``
-            new Sonata\UserBundle\SonataUserBundle();
+            new Sonata\UserBundle\SonataUserBundle(),
 
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
@@ -126,7 +126,7 @@ Add the related security routing information
 
 .. code-block:: yaml
 
-    soanata_user:
+    sonata_user:
         resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
         prefix: /admin
 
