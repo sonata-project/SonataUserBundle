@@ -7,7 +7,7 @@
             <form class="form-stacked" action="{{ path("sonata_user_admin_security_check") }}" method="post">
 
                 {% if error %}
-                    <div class="alert-message error">{{ error }}</div>
+                    <div class="alert-message error">{{ error|trans({}, 'SonataUserBundle') }}</div>
                 {% endif %}
 
                 <div class="clearfix">
