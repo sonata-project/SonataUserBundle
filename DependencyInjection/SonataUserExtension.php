@@ -11,6 +11,7 @@
 
 namespace Sonata\UserBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

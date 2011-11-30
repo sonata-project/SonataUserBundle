@@ -16,6 +16,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\AdminBundle\Security\Acl\Permission\MaskBuilder;
 
 use FOS\UserBundle\Model\UserManagerInterface;
 
@@ -28,7 +29,7 @@ class UserAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('username')
+            ->addIdentifier('username', null, array('template' => 'SonataUserBundle:UserAdmin:list_field_username.html.twig'))
             ->add('email')
             ->add('enabled')
             ->add('locked')
