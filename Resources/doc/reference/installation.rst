@@ -201,3 +201,10 @@ The last part is to define 3 new access control rules :
             # Change these rules to adapt them to your needs
             - { path: ^/admin, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
             - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+
+Using the roles
+---------------------------------------------------
+
+Each admin has its own roles, use the user form to assign them to other users. The available roles to assign to others
+are limited to the roles available to the user editing the form.
