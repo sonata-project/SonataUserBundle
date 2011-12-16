@@ -1,5 +1,5 @@
-Welcome to SonataUserBundle Documentation
-=========================================
+User Bundle
+===========
 
 **Google Groups**: For questions and proposals you can post on this google groups
 
