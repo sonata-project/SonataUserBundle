@@ -29,7 +29,7 @@ class UserAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('username', null, array('template' => 'SonataUserBundle:UserAdmin:list_field_username.html.twig'))
+            ->addIdentifier('username')
             ->add('email')
             ->add('enabled')
             ->add('locked')
