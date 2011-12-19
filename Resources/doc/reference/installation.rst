@@ -101,6 +101,18 @@ Now, add the new `Application` Bundle into the kernel
   }
 
 
+Acl Configuration
+-----------------
+
+When using ACL, the UserBundle can prevent ``normal`` user to change settings of ``super-admin`` users, to enable this
+add to the configuration:
+
+.. code-block:: yaml
+
+    # app/config/config.yml
+    sonata_user:
+        security_acl: true
+
 Doctrine Configuration
 ----------------------
 
@@ -137,10 +149,10 @@ Then add a new custom firewall handlers for the admin
 
     security:
         role_hierarchy:
-            ROLE_ADMIN:       ROLE_USER
-            ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_SONATA_ADMIN, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+            ROLE_ADMIN:       [ROLE_USER, ROLE_SONATA_ADMIN]
+            ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]        
             SONATA:
-                - ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT  # if you are not using acl then this line must be uncommented
+                - ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT  # if you are using acl then this line must be commented
 
         providers:
             fos_userbundle:
@@ -204,7 +216,7 @@ The last part is to define 3 new access control rules :
 
 
 Using the roles
----------------------------------------------------
+---------------
 
 Each admin has its own roles, use the user form to assign them to other users. The available roles to assign to others
 are limited to the roles available to the user editing the form.
