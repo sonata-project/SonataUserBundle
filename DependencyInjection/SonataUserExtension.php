@@ -39,13 +39,13 @@ class SonataUserExtension extends Extension
         $loader->load('form.xml');
 
         if (isset($config[0]['security_acl']) && $config[0]['security_acl']) {
-			$loader->load('security_acl.xml');
+            $loader->load('security_acl.xml');
         }
 
         // add custom form widgets
         $container->setParameter('twig.form.resources', array_merge(
-                $container->getParameter('twig.form.resources'),
-                array('SonataUserBundle:Form:form_admin_fields.html.twig')
+            $container->getParameter('twig.form.resources'),
+            array('SonataUserBundle:Form:form_admin_fields.html.twig')
         ));
     }
 
