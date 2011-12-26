@@ -67,6 +67,10 @@
                 <source>form.label_expired</source>
                 <target>Expiré</target>
             </trans-unit>
+            <trans-unit id="form.label_enabled">
+                <source>form.label_enabled</source>
+                <target>Activé</target>
+            </trans-unit>
             <trans-unit id="form.label_credentials_expired">
                 <source>form.label_credentials_expired</source>
                 <target>Droits expirés</target>
