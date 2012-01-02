@@ -1,0 +1,31 @@
+{
+    "name": "sonata/user-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony SonataUserBundle",
+    "keywords": ["user", "sonata"],
+    "homepage": "http://sonata-project.org/bundles/user",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Thomas Rabaix",
+            "email": "thomas.rabaix@sonata-project.org"
+        },
+        {
+            "name": "Sonata Community",
+            "homepage": "https://github.com/sonata-project/SonataUserBundle/contributors"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "symfony/framework-bundle": "2.*",
+        "sonata/admin-bundle": "master-dev",
+        "friendsofsymfony/user-bundle": "1.*"
+    },
+    "suggest": {
+        "sonata/doctrine-orm-admin-bundle": "*"
+    },
+    "autoload": {
+        "psr-0": { "Sonata\\UserBundle": "" }
+    },
+    "target-dir": "Sonata/UserBundle"
+}
