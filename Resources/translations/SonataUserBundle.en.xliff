@@ -42,6 +42,10 @@
                 <source>switch_user</source>
                 <target>Impersonate User</target>
             </trans-unit>
+            <trans-unit id="user_block_logout">
+                <source>user_block_logout</source>
+                <target>Logout</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
