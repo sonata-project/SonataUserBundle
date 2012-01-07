@@ -11,6 +11,7 @@
 
 namespace Sonata\UserBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -36,6 +37,16 @@ class SonataUserExtension extends Extension
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('admin_orm.xml');
         $loader->load('form.xml');
+
+        if (isset($config[0]['security_acl']) && $config[0]['security_acl']) {
+            $loader->load('security_acl.xml');
+        }
+
+        // add custom form widgets
+        $container->setParameter('twig.form.resources', array_merge(
+            $container->getParameter('twig.form.resources'),
+            array('SonataUserBundle:Form:form_admin_fields.html.twig')
+        ));
     }
 
     /**

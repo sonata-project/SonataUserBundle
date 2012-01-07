@@ -16,6 +16,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\AdminBundle\Security\Acl\Permission\MaskBuilder;
 
 use FOS\UserBundle\Model\UserManagerInterface;
 
