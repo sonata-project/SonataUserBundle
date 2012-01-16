@@ -18,6 +18,7 @@ use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Config\FileLocator;
+use Sonata\EasyExtendsBundle\Mapper\DoctrineCollector;
 
 /**
  *
@@ -36,25 +37,36 @@ class SonataUserExtension extends Extension
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('admin_orm.xml');
         $loader->load('form.xml');
+
+        $this->registerDoctrineMapping($config, $container);
     }
 
     /**
-     * Returns the base path for the XSD files.
-     *
-     * @return string The XSD base path
+     * @param array $config
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @return void
      */
-    public function getXsdValidationBasePath()
+    public function registerDoctrineMapping(array $config)
     {
-        return __DIR__.'/../Resources/config/schema';
-    }
+        $collector = DoctrineCollector::getInstance();
 
-    public function getNamespace()
-    {
-        return 'http://www.sonata-project.org/schema/dic/page';
-    }
-
-    public function getAlias()
-    {
-        return "sonata_user";
+        $collector->addAssociation('Application\\Sonata\\UserBundle\\Entity\\User', 'mapManyToMany', array(
+            'fieldName' => 'groups',
+            'targetEntity' => 'Application\\Sonata\\UserBundle\\Entity\\Group',
+            'cascade' => array( ),
+            'joinTable' => array(
+                'name' => 'fos_user_user_group',
+                'joinColumns' => array(
+                    array(
+                        'name' => 'user_id',
+                        'referencedColumnName' => 'id',
+                    ),
+                ),
+                'inverseJoinColumns' => array( array(
+                    'name' => 'group_id',
+                    'referencedColumnName' => 'id',
+                )),
+            )
+        ));
     }
 }

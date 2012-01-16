@@ -10,17 +10,6 @@
             <generator strategy="AUTO" />
         </id>
 
-        <many-to-many target-entity="Group" field="groups">
-            <join-table name="fos_user_user_group">
-                <join-columns>
-                    <join-column name="user_id" referenced-column-name="id" />
-                </join-columns>
-                <inverse-join-columns>
-                    <join-column name="group_id" referenced-column-name="id" />
-                </inverse-join-columns>
-            </join-table>
-        </many-to-many>
-
     </entity>
 
 </doctrine-mapping>
