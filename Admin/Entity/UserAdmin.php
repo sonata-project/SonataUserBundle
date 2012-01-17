@@ -22,7 +22,7 @@ use FOS\UserBundle\Model\UserManagerInterface;
 class UserAdmin extends Admin
 {
     protected $formOptions = array(
-        'validation_groups' => 'admin'
+        'validation_groups' => 'Profile'
     );
 
     protected function configureListFields(ListMapper $listMapper)
