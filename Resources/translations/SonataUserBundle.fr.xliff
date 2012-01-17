@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="" >
+        <body>
+            <trans-unit id="breadcrumb.link_user_list">
+                <source>breadcrumb.link_user_list</source>
+                <target>Utilisateurs</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_user_create">
+                <source>breadcrumb.link_user_create</source>
+                <target>Ajouter</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_user_edit">
+                <source>breadcrumb.link_user_edit</source>
+                <target>Éditer</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_group_list">
+                <source>breadcrumb.link_group_list</source>
+                <target>Groupes</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_group_create">
+                <source>breadcrumb.link_group_create</source>
+                <target>Ajouter</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_group_edit">
+                <source>breadcrumb.link_group_edit</source>
+                <target>Éditer</target>
+            </trans-unit>
+
+            <trans-unit id="users">
+                <source>users</source>
+                <target>Utilisateurs</target>
+            </trans-unit>
+            <trans-unit id="groups">
+                <source>groups</source>
+                <target>Groupes</target>
+            </trans-unit>
+            <trans-unit id="user_block_logout">
+                <source>user_block_logout</source>
+                <target>Déconnexion</target>
+            </trans-unit>
+            <trans-unit id="user_form.label_username">
+                <source>form.label_username</source>
+                <target>Nom d'utilisateur</target>
+            </trans-unit>
+            <trans-unit id="form.label_email">
+                <source>form.label_email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="form.label_plain_password">
+                <source>form.label_plain_password</source>
+                <target>Mot de passe</target>
+            </trans-unit>
+            <trans-unit id="form.label_groups">
+                <source>form.label_groups</source>
+                <target>Groupes</target>
+            </trans-unit>
+            <trans-unit id="form.label_roles">
+                <source>form.label_roles</source>
+                <target>Rôles</target>
+            </trans-unit>
+            <trans-unit id="form.label_locked">
+                <source>form.label_locked</source>
+                <target>Verouillé</target>
+            </trans-unit>
+            <trans-unit id="form.label_expired">
+                <source>form.label_expired</source>
+                <target>Expiré</target>
+            </trans-unit>
+            <trans-unit id="form.label_enabled">
+                <source>form.label_enabled</source>
+                <target>Activé</target>
+            </trans-unit>
+            <trans-unit id="form.label_credentials_expired">
+                <source>form.label_credentials_expired</source>
+                <target>Droits expirés</target>
+            </trans-unit>
+            <trans-unit id="filter.label_username">
+                <source>filter.label_username</source>
+                <target>Nom d'utilisateur</target>
+            </trans-unit>
+            <trans-unit id="filter.label_email">
+                <source>filter.label_email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="filter.label_locked">
+                <source>filter.label_locked</source>
+                <target>Verouillé</target>
+            </trans-unit>
+            <trans-unit id="filter.label_id">
+                <source>filter.label_id</source>
+                <target>ID</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
