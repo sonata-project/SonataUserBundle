@@ -110,6 +110,14 @@ Then add these bundles in the config mapping definition (or enable `auto_mapping
 
     # app/config/config.yml
 
+    fos_user:
+        db_driver:      orm # can be orm or odm
+        firewall_name:  main
+        user_class:     Application\Sonata\UserBundle\Entity\User
+
+        group:
+            group_class: Application\Sonata\UserBundle\Entity\Group
+
     doctrine:
         orm:
             entity_managers:
