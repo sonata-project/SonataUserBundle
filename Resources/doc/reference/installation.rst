@@ -138,6 +138,7 @@ Add the related security routing information
         resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
         prefix: /admin
 
+You also need to define a ``sonata_user_impersonating`` route, used as a redirection after an user impersonating.
 
 Then add a new custom firewall handlers for the admin
 
