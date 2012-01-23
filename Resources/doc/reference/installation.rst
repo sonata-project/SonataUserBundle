@@ -113,6 +113,13 @@ add to the configuration:
     sonata_user:
         security_acl: true
 
+
+    # app/config/security.yml
+    security:
+        # [...]
+        acl:
+            connection: default
+
 Doctrine Configuration
 ----------------------
 
@@ -158,7 +165,7 @@ Then add a new custom firewall handlers for the admin
     security:
         role_hierarchy:
             ROLE_ADMIN:       [ROLE_USER, ROLE_SONATA_ADMIN]
-            ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]        
+            ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
             SONATA:
                 - ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT  # if you are using acl then this line must be commented
 
@@ -169,7 +176,9 @@ Then add a new custom firewall handlers for the admin
         firewalls:
             # -> custom firewall for the admin area of the URL
             admin:
-                pattern:      /admin(.*)
+                switch_user:        true
+                context:            user
+                pattern:            /admin(.*)
                 form_login:
                     provider:       fos_userbundle
                     login_path:     /admin/login
@@ -186,15 +195,17 @@ Then add a new custom firewall handlers for the admin
 
             # defaut login area for standard users
             main:
-                pattern:      .*
+                switch_user:        true
+                context:            user
+                pattern:            .*
                 form_login:
                     provider:       fos_userbundle
                     login_path:     /login
                     use_forward:    false
                     check_path:     /login_check
                     failure_path:   null
-                logout:       true
-                anonymous:    true
+                logout:             true
+                anonymous:          true
 
 The last part is to define 3 new access control rules :
 
