@@ -34,7 +34,7 @@ class GroupAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('name')
-            ->add('roles')
+            ->add('roles', 'array')
         ;
     }
 
