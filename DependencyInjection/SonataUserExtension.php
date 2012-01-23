@@ -29,7 +29,7 @@ class SonataUserExtension extends Extension
 
     /**
      *
-     * @param array            $config    An array of configuration settings
+     * @param array            $configs   An array of configuration settings
      * @param ContainerBuilder $container A ContainerBuilder instance
      */
     public function load(array $configs, ContainerBuilder $container)
@@ -45,10 +45,6 @@ class SonataUserExtension extends Extension
         if ($config['security_acl']) {
             $loader->load('security_acl.xml');
         }
-
-        $this->registerDoctrineMapping($config);
-        $this->configureClass($config, $container);
-
 
         $this->registerDoctrineMapping($config);
         $this->configureClass($config, $container);
