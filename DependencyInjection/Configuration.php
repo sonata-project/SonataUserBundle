@@ -30,6 +30,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->booleanNode('security_acl')->defaultValue(false)->end()
                 ->arrayNode('class')
                     ->addDefaultsIfNotSet()
                     ->children()

@@ -41,13 +41,26 @@ class SonataUserExtension extends Extension
         $configuration = new Configuration();
         $config = $processor->processConfiguration($configuration, $configs);
 
-
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('admin_orm.xml');
         $loader->load('form.xml');
 
+        if ($config['security_acl']) {
+            $loader->load('security_acl.xml');
+        }
+
         $this->registerDoctrineMapping($config);
         $this->configureClass($config, $container);
+
+
+        $this->registerDoctrineMapping($config);
+        $this->configureClass($config, $container);
+
+        // add custom form widgets
+        $container->setParameter('twig.form.resources', array_merge(
+            $container->getParameter('twig.form.resources'),
+            array('SonataUserBundle:Form:form_admin_fields.html.twig')
+        ));
     }
 
     /**
