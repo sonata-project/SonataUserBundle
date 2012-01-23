@@ -61,7 +61,7 @@
             </trans-unit>
             <trans-unit id="form.label_locked">
                 <source>form.label_locked</source>
-                <target>Verouillé</target>
+                <target>Verrouillé</target>
             </trans-unit>
             <trans-unit id="form.label_expired">
                 <source>form.label_expired</source>
@@ -85,7 +85,7 @@
             </trans-unit>
             <trans-unit id="filter.label_locked">
                 <source>filter.label_locked</source>
-                <target>Verouillé</target>
+                <target>Verrouillé</target>
             </trans-unit>
             <trans-unit id="filter.label_id">
                 <source>filter.label_id</source>
