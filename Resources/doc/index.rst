@@ -10,3 +10,4 @@ Reference Guide
 
    reference/introduction
    reference/installation
+   reference/advanced_configuration
