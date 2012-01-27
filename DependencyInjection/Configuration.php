@@ -31,6 +31,12 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->booleanNode('security_acl')->defaultValue(false)->end()
+                ->arrayNode('table')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('user_group')->defaultValue('fos_user_user_group')->end()
+                    ->end()
+                ->end()
                 ->arrayNode('class')
                     ->addDefaultsIfNotSet()
                     ->children()

@@ -86,7 +86,7 @@ class SonataUserExtension extends Extension
             'targetEntity'    => $config['class']['group'],
             'cascade'         => array( ),
             'joinTable'       => array(
-                'name' => 'fos_user_user_group',
+                'name' => $config['table']['user_group'],
                 'joinColumns' => array(
                     array(
                         'name' => 'user_id',
