@@ -1,12 +1,12 @@
 {% block sonata_security_roles_widget %}
 {% spaceless %}
     <div class="editable">
-        <h4>{{ 'field.label_roles_editable'|trans }}</h4>
+        <h4>{{ 'field.label_roles_editable'|trans({}, sonata.user.admin.user.translation_domain) }}</h4>
         {{ block('choice_widget') }}
     </div>
     {% if read_only_choices|length > 0 %}
     <div class="readonly">
-        <h4>{{ 'field.label_roles_readonly'|trans }}</h4>
+        <h4>{{ 'field.label_roles_readonly'|trans({}, sonata.user.admin.user.translation_domain) }}</h4>
         <ul>
         {% for choice in read_only_choices %}
             <li>{{ choice }}</li>
