@@ -12,5 +12,7 @@ file that was distributed with this source code.
 {% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
 
 {% block field %}
-    <a href="{{ url('sonata_user_impersonating', {'_switch_user': object.username}) }}">{{ "switch_user"|trans({}, 'SonataUserBundle')}}</a>
+    <a href="{{ url('sonata_user_impersonating', {'_switch_user': object.username}) }}" title="{{ 'switch_user'|trans({}, 'SonataUserBundle')}}">
+        <img src="{{ asset('bundles/sonataadmin/famfamfam/group_go.png') }}"  alt="{{ 'switch_user'|trans({}, 'SonataUserBundle')}}" />
+    </a>
 {% endblock %}
