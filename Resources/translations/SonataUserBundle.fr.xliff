@@ -14,6 +14,10 @@
                 <source>breadcrumb.link_user_edit</source>
                 <target>Éditer</target>
             </trans-unit>
+            <trans-unit id="breadcrumb.link_user_delete">
+                <source>breadcrumb.link_user_delete</source>
+                <target>Supprimer</target>
+            </trans-unit>
             <trans-unit id="breadcrumb.link_group_list">
                 <source>breadcrumb.link_group_list</source>
                 <target>Groupes</target>
@@ -26,7 +30,6 @@
                 <source>breadcrumb.link_group_edit</source>
                 <target>Éditer</target>
             </trans-unit>
-
             <trans-unit id="users">
                 <source>users</source>
                 <target>Utilisateurs</target>
@@ -34,6 +37,14 @@
             <trans-unit id="groups">
                 <source>groups</source>
                 <target>Groupes</target>
+            </trans-unit>
+            <trans-unit id="switch_user_exit">
+                <source>switch_user_exit</source>
+                <target>Quitter l'identité</target>
+            </trans-unit>
+            <trans-unit id="switch_user">
+                <source>switch_user</source>
+                <target>Changer d'identité</target>
             </trans-unit>
             <trans-unit id="user_block_logout">
                 <source>user_block_logout</source>
@@ -75,6 +86,10 @@
                 <source>form.label_credentials_expired</source>
                 <target>Droits expirés</target>
             </trans-unit>
+            <trans-unit id="user_form.label_name">
+                <source>form.label_name</source>
+                <target>Nom</target>
+            </trans-unit>
             <trans-unit id="filter.label_username">
                 <source>filter.label_username</source>
                 <target>Nom d'utilisateur</target>
@@ -90,6 +105,38 @@
             <trans-unit id="filter.label_id">
                 <source>filter.label_id</source>
                 <target>ID</target>
+            </trans-unit>
+            <trans-unit id="list.label_username">
+                <source>list.label_username</source>
+                <target>Nom d'utilisateur</target>
+            </trans-unit>
+            <trans-unit id="list.label_name">
+                <source>list.label_name</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="list.label_email">
+                <source>list.label_email</source>
+                <target>Adresse email</target>
+            </trans-unit>
+            <trans-unit id="list.label_locked">
+                <source>list.label_locked</source>
+                <target>Verrouillé</target>
+            </trans-unit>
+            <trans-unit id="list.label_enabled">
+                <source>list.label_enabled</source>
+                <target>Activé</target>
+            </trans-unit>
+            <trans-unit id="list.label_created_at">
+                <source>list.label_created_at</source>
+                <target>Créé le</target>
+            </trans-unit>
+            <trans-unit id="list.label_impersonating">
+                <source>list.label_impersonating</source>
+                <target>Changer d'identité</target>
+            </trans-unit>
+            <trans-unit id="list.label_roles">
+                <source>list.label_roles</source>
+                <target>Rôles</target>
             </trans-unit>
         </body>
     </file>
