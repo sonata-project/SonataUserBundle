@@ -28,6 +28,8 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('sonata_user');
 
+        $supportedManagerTypes = array('orm', 'mongodb');
+
         $rootNode
             ->children()
                 ->booleanNode('security_acl')->defaultValue(false)->end()
@@ -37,11 +39,17 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('user_group')->defaultValue('fos_user_user_group')->end()
                     ->end()
                 ->end()
+                ->scalarNode('manager_type')
+                    ->defaultValue('orm')
+                    ->validate()
+                        ->ifNotInArray($supportedManagerTypes)
+                        ->thenInvalid('The manager type %s is not supported. Please choose one of '.json_encode($supportedManagerTypes))
+                    ->end()
+                ->end()
                 ->arrayNode('class')
-                    ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('group')->defaultValue('Application\\Sonata\\UserBundle\\Entity\\Group')->end()
-                        ->scalarNode('user')->defaultValue('Application\\Sonata\\UserBundle\\Entity\\User')->end()
+                        ->scalarNode('group')->end()
+                        ->scalarNode('user')->end()
                     ->end()
                 ->end()
             ->end()

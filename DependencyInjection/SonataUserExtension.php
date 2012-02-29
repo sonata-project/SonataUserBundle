@@ -39,12 +39,14 @@ class SonataUserExtension extends Extension
         $config = $processor->processConfiguration($configuration, $configs);
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('admin_orm.xml');
+        $loader->load(sprintf('admin_%s.xml', $config['manager_type']));
         $loader->load('form.xml');
 
         if ($config['security_acl']) {
             $loader->load('security_acl.xml');
         }
+
+        $config = $this->addDefaults($config);
 
         $this->registerDoctrineMapping($config);
         $this->configureClass($config, $container);
@@ -57,14 +59,38 @@ class SonataUserExtension extends Extension
     }
 
     /**
+     * @param array $config
+     * @return array
+     */
+    public function addDefaults(array $config)
+    {
+        if ('orm' === $config['manager_type']) {
+            $modelType = 'Entity';
+        } elseif ('mongodb' === $config['manager_type']) {
+            $modelType = 'Document';
+        }
+
+        $defaultConfig['class']['user']  = sprintf('Application\\Sonata\\UserBundle\\%s\\User', $modelType);
+        $defaultConfig['class']['group'] = sprintf('Application\\Sonata\\UserBundle\\%s\\Group', $modelType);
+
+        return array_merge($defaultConfig, $config);
+    }
+
+    /**
      * @param $config
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @return void
      */
     public function configureClass($config, ContainerBuilder $container)
     {
-        $container->setParameter('sonata.user.admin.user.entity', $config['class']['user']);
-        $container->setParameter('sonata.user.admin.group.entity', $config['class']['group']);
+        if ('orm' === $config['manager_type']) {
+            $modelType = 'entity';
+        } elseif ('mongodb' === $config['manager_type']) {
+            $modelType = 'document';
+        }
+
+        $container->setParameter(sprintf('sonata.user.admin.user.%s', $modelType), $config['class']['user']);
+        $container->setParameter(sprintf('sonata.user.admin.group.%s', $modelType), $config['class']['group']);
     }
 
     /**
