@@ -14,6 +14,10 @@
                 <source>breadcrumb.link_user_edit</source>
                 <target>Modifica</target>
             </trans-unit>
+            <trans-unit id="breadcrumb.link_user_delete">
+                <source>breadcrumb.link_user_delete</source>
+                <target>Elimina</target>
+            </trans-unit>
             <trans-unit id="breadcrumb.link_group_list">
                 <source>breadcrumb.link_group_list</source>
                 <target>Gruppi</target>
@@ -45,6 +49,98 @@
             <trans-unit id="user_block_logout">
                 <source>user_block_logout</source>
                 <target>Logout</target>
+            </trans-unit>
+            <trans-unit id="user_form.label_username">
+                <source>form.label_username</source>
+                <target>Username</target>
+            </trans-unit>
+            <trans-unit id="form.label_email">
+                <source>form.label_email</source>
+                <target>Indirizzo Email</target>
+            </trans-unit>
+            <trans-unit id="form.label_plain_password">
+                <source>form.label_plain_password</source>
+                <target>Password (testo semplice)</target>
+            </trans-unit>
+            <trans-unit id="form.label_groups">
+                <source>form.label_groups</source>
+                <target>Gruppi</target>
+            </trans-unit>
+            <trans-unit id="form.label_roles">
+                <source>form.label_roles</source>
+                <target>Ruoli</target>
+            </trans-unit>
+            <trans-unit id="form.label_locked">
+                <source>form.label_locked</source>
+                <target>Bloccato</target>
+            </trans-unit>
+            <trans-unit id="form.label_expired">
+                <source>form.label_expired</source>
+                <target>Scaduto</target>
+            </trans-unit>
+            <trans-unit id="form.label_enabled">
+                <source>form.label_enabled</source>
+                <target>Abilitato</target>
+            </trans-unit>
+            <trans-unit id="form.label_credentials_expired">
+                <source>form.label_credentials_expired</source>
+                <target>Credenziali scadute</target>
+            </trans-unit>
+            <trans-unit id="user_form.label_name">
+                <source>form.label_name</source>
+                <target>Nome</target>
+            </trans-unit>
+            <trans-unit id="filter.label_username">
+                <source>filter.label_username</source>
+                <target>Username</target>
+            </trans-unit>
+            <trans-unit id="filter.label_name">
+                <source>filter.label_name</source>
+                <target>Nome</target>
+            </trans-unit>
+            <trans-unit id="filter.label_email">
+                <source>filter.label_email</source>
+                <target>Indirizzo Email</target>
+            </trans-unit>
+            <trans-unit id="filter.label_locked">
+                <source>filter.label_locked</source>
+                <target>Bloocato</target>
+            </trans-unit>
+            <trans-unit id="filter.label_id">
+                <source>filter.label_id</source>
+                <target>ID</target>
+            </trans-unit>
+            <trans-unit id="list.label_username">
+                <source>list.label_username</source>
+                <target>Username</target>
+            </trans-unit>
+            <trans-unit id="list.label_name">
+                <source>list.label_name</source>
+                <target>Nome</target>
+            </trans-unit>
+            <trans-unit id="list.label_email">
+                <source>list.label_email</source>
+                <target>Indirizzo Email</target>
+            </trans-unit>
+            <trans-unit id="list.label_locked">
+                <source>list.label_locked</source>
+                <target>Bloccato</target>
+            </trans-unit>
+            <trans-unit id="list.label_enabled">
+                <source>list.label_enabled</source>
+                <target>Abilitato</target>
+            </trans-unit>
+            <trans-unit id="list.label_created_at">
+                <source>list.label_created_at</source>
+                <target>Creato il</target>
+            </trans-unit>
+            <trans-unit id="list.label_impersonating">
+                <source>list.label_impersonating</source>
+                <target>Impersonifica Utente</target>
+            </trans-unit>
+            <trans-unit id="list.label_roles">
+                <source>list.label_roles</source>
+                <target>Ruoli</target>
             </trans-unit>
         </body>
     </file>
