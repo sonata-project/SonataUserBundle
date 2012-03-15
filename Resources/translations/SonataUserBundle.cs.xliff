@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="" >
+        <body>
+            <trans-unit id="breadcrumb.link_user_list">
+                <source>breadcrumb.link_user_list</source>
+                <target>Uživatelé</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_user_create">
+                <source>breadcrumb.link_user_create</source>
+                <target>Vytvořit</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_user_edit">
+                <source>breadcrumb.link_user_edit</source>
+                <target>Upravit</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_user_delete">
+                <source>breadcrumb.link_user_delete</source>
+                <target>Odstranit</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_group_list">
+                <source>breadcrumb.link_group_list</source>
+                <target>Skupiny</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_group_create">
+                <source>breadcrumb.link_group_create</source>
+                <target>Vytvořit</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_group_edit">
+                <source>breadcrumb.link_group_edit</source>
+                <target>Upravit</target>
+            </trans-unit>
+            <trans-unit id="users">
+                <source>users</source>
+                <target>Uživatelé</target>
+            </trans-unit>
+            <trans-unit id="groups">
+                <source>groups</source>
+                <target>Skupiny</target>
+            </trans-unit>
+            <trans-unit id="switch_user_exit">
+                <source>switch_user_exit</source>
+                <target>Opustit přepnutí uživatele</target>
+            </trans-unit>
+            <trans-unit id="switch_user">
+                <source>switch_user</source>
+                <target>Přepnout uživatele</target>
+            </trans-unit>
+            <trans-unit id="user_block_logout">
+                <source>user_block_logout</source>
+                <target>Odhlásit</target>
+            </trans-unit>
+            <trans-unit id="user_form.label_username">
+                <source>form.label_username</source>
+                <target>Uživatelské jméno</target>
+            </trans-unit>
+            <trans-unit id="form.label_email">
+                <source>form.label_email</source>
+                <target>E-Mailová adresa</target>
+            </trans-unit>
+            <trans-unit id="form.label_plain_password">
+                <source>form.label_plain_password</source>
+                <target>Heslo</target>
+            </trans-unit>
+            <trans-unit id="form.label_groups">
+                <source>form.label_groups</source>
+                <target>Skupiny</target>
+            </trans-unit>
+            <trans-unit id="form.label_roles">
+                <source>form.label_roles</source>
+                <target>Role</target>
+            </trans-unit>
+            <trans-unit id="form.label_locked">
+                <source>form.label_locked</source>
+                <target>Zámek</target>
+            </trans-unit>
+            <trans-unit id="form.label_expired">
+                <source>form.label_expired</source>
+                <target>Expirováno</target>
+            </trans-unit>
+            <trans-unit id="form.label_enabled">
+                <source>form.label_enabled</source>
+                <target>Povoleno</target>
+            </trans-unit>
+            <trans-unit id="form.label_credentials_expired">
+                <source>form.label_credentials_expired</source>
+                <target>Platnost příst. údajů vypršela</target>
+            </trans-unit>
+            <trans-unit id="user_form.label_name">
+                <source>form.label_name</source>
+                <target>Jméno</target>
+            </trans-unit>
+            <trans-unit id="filter.label_username">
+                <source>filter.label_username</source>
+                <target>Uživ. jméno</target>
+            </trans-unit>
+            <trans-unit id="filter.label_name">
+                <source>filter.label_name</source>
+                <target>Jméno</target>
+            </trans-unit>
+            <trans-unit id="filter.label_email">
+                <source>filter.label_email</source>
+                <target>E-Mailová adresa</target>
+            </trans-unit>
+            <trans-unit id="filter.label_locked">
+                <source>filter.label_locked</source>
+                <target>Zámek</target>
+            </trans-unit>
+            <trans-unit id="filter.label_id">
+                <source>filter.label_id</source>
+                <target>ID</target>
+            </trans-unit>
+            <trans-unit id="list.label_username">
+                <source>list.label_username</source>
+                <target>Uživatelské jméno</target>
+            </trans-unit>
+            <trans-unit id="list.label_name">
+                <source>list.label_name</source>
+                <target>Název</target>
+            </trans-unit>
+            <trans-unit id="list.label_email">
+                <source>list.label_email</source>
+                <target>E-Mailová adresa</target>
+            </trans-unit>
+            <trans-unit id="list.label_locked">
+                <source>list.label_locked</source>
+                <target>Zámek</target>
+            </trans-unit>
+            <trans-unit id="list.label_enabled">
+                <source>list.label_enabled</source>
+                <target>Povoleno</target>
+            </trans-unit>
+            <trans-unit id="list.label_created_at">
+                <source>list.label_created_at</source>
+                <target>Vytvořeno</target>
+            </trans-unit>
+            <trans-unit id="list.label_impersonating">
+                <source>list.label_impersonating</source>
+                <target>Přepnout uživatele</target>
+            </trans-unit>
+            <trans-unit id="list.label_roles">
+                <source>list.label_roles</source>
+                <target>Role</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
