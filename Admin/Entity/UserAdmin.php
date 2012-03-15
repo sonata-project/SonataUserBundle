@@ -65,7 +65,11 @@ class UserAdmin extends Admin
                 ->add('groups', 'sonata_type_model', array('required' => false))
             ->end()
             ->with('Management')
-                ->add('roles', 'sonata_security_roles', array( 'multiple' => true, 'required' => false))
+                ->add('roles', 'sonata_security_roles', array(
+                    'expanded' => true,
+                    'multiple' => true,
+                    'required' => false
+                ))
                 ->add('locked', null, array('required' => false))
                 ->add('expired', null, array('required' => false))
                 ->add('enabled', null, array('required' => false))
