@@ -11,3 +11,4 @@ Reference Guide
    reference/introduction
    reference/installation
    reference/advanced_configuration
+   reference/two_step_validation

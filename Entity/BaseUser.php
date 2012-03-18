@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Sonata project.
  *
@@ -8,16 +9,18 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Sonata\UserBundle\Entity;
 
 use FOS\UserBundle\Entity\User as AbstractedUser;
+use Sonata\UserBundle\Model\UserInterface;
 
-class BaseUser extends AbstractedUser
+class BaseUser extends AbstractedUser implements UserInterface
 {
     protected $createdAt;
 
     protected $updatedAt;
+
+    protected $twoStepVerificationCode;
 
     /**
      * Set createdAt
@@ -113,5 +116,22 @@ class BaseUser extends AbstractedUser
         foreach ($groups as $group){
             $this->addGroup($group);
         }
+    }
+
+    /**
+     * @param string $twoStepVerificationCode
+     * @return void
+     */
+    public function setTwoStepVerificationCode($twoStepVerificationCode)
+    {
+        $this->twoStepVerificationCode = $twoStepVerificationCode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTwoStepVerificationCode()
+    {
+        return $this->twoStepVerificationCode;
     }
 }

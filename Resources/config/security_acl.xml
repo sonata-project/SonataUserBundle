@@ -11,12 +11,13 @@
     <services>
         <service id="security.acl.voter.user_permissions" class="%security.acl.user_voter.class%" public="false">
             <tag name="monolog.logger" channel="security" />
+            <tag name="security.voter" priority="255" />
+
             <argument type="service" id="security.acl.provider" />
             <argument type="service" id="security.acl.object_identity_retrieval_strategy" />
             <argument type="service" id="security.acl.security_identity_retrieval_strategy" />
             <argument type="service" id="security.acl.permission.map" />
             <argument type="service" id="logger" on-invalid="null" />
-            <tag name="security.voter" priority="255" />
         </service>
-    </services>    
+    </services>
 </container>

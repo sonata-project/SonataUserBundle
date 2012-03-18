@@ -7,6 +7,7 @@
     <mapped-superclass name="Sonata\UserBundle\Entity\BaseUser">
         <field name="createdAt"    type="datetime"   column="created_at" />
         <field name="updatedAt"    type="datetime"   column="updated_at" />
+        <field name="twoStepVerificationCode" type="string" length="255" column="two_step_code" />
 
         <lifecycle-callbacks>
             <lifecycle-callback type="prePersist" method="prePersist" />

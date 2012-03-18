@@ -138,6 +138,18 @@
                 <source>list.label_roles</source>
                 <target>Роли</target>
             </trans-unit>
+            <trans-unit id="label_two_step_code">
+                <source>label_two_step_code</source>
+                <target>label_two_step_code</target>
+            </trans-unit>
+            <trans-unit id="message_two_step_code_help">
+                <source>message_two_step_code_help</source>
+                <target>message_two_step_code_help</target>
+            </trans-unit>
+            <trans-unit id="label_two_step_code_error">
+                <source>label_two_step_code_error</source>
+                <target>label_two_step_code_error</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
