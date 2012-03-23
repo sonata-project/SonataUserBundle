@@ -19,9 +19,9 @@ Installation
 
 Add the following lines to the file ``deps``::
 
-    [SonataUserBundle]
-        git=git://github.com/sonata-project/SonataUserBundle.git
-        target=/bundles/Sonata/UserBundle
+    [GoogleAuthenticator]
+        git=git://github.com/rande/GoogleAuthenticator.php.git
+        target=/google-authenticator
 
 Update the autoload.php file::
 
