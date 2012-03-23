@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file source-language="en" datatype="plaintext" original="SonataUserBundle.en.xliff">
+        <body>
+            <trans-unit id="breadcrumb.link_user_list" approved="yes">
+                <source>breadcrumb.link_user_list</source> <target state="translated">使用者</target> </trans-unit>
+            <trans-unit id="breadcrumb.link_user_create">
+                <source>breadcrumb.link_user_create</source> <target>建立</target> </trans-unit>
+            <trans-unit id="breadcrumb.link_user_edit">
+                <source>breadcrumb.link_user_edit</source> <target>編輯</target> </trans-unit>
+            <trans-unit id="breadcrumb.link_group_list">
+                <source>breadcrumb.link_group_list</source> <target>群組</target> </trans-unit>
+            <trans-unit id="breadcrumb.link_group_create">
+                <source>breadcrumb.link_group_create</source> <target>建立</target> </trans-unit>
+            <trans-unit id="breadcrumb.link_group_edit">
+                <source>breadcrumb.link_group_edit</source> <target>編輯</target> </trans-unit>
+            <trans-unit id="users">
+                <source>users</source> <target>使用者</target> </trans-unit>
+            <trans-unit id="groups">
+                <source>groups</source> <target>群組</target> </trans-unit>
+            <trans-unit id="switch_user_exit">
+                <source>switch_user_exit</source> <target>離開切換模式</target> </trans-unit>
+            <trans-unit id="switch_user">
+                <source>switch_user</source> <target>切換使用者</target> </trans-unit>
+            <trans-unit id="user_block_logout">
+                <source>user_block_logout</source> <target>登出</target> </trans-unit>
+        </body>
+    </file>
+</xliff>
