@@ -4,19 +4,19 @@
         <body>
             <trans-unit id="breadcrumb.link_user_list">
                 <source>breadcrumb.link_user_list</source>
-                <target>Uživatelé</target>
+                <target>Používatelia</target>
             </trans-unit>
             <trans-unit id="breadcrumb.link_user_create">
                 <source>breadcrumb.link_user_create</source>
-                <target>Vytvořit</target>
+                <target>Vytvoriť</target>
             </trans-unit>
             <trans-unit id="breadcrumb.link_user_edit">
                 <source>breadcrumb.link_user_edit</source>
-                <target>Upravit</target>
+                <target>Upraviť</target>
             </trans-unit>
             <trans-unit id="breadcrumb.link_user_delete">
                 <source>breadcrumb.link_user_delete</source>
-                <target>Odstranit</target>
+                <target>Vymazať</target>
             </trans-unit>
             <trans-unit id="breadcrumb.link_group_list">
                 <source>breadcrumb.link_group_list</source>
@@ -24,15 +24,15 @@
             </trans-unit>
             <trans-unit id="breadcrumb.link_group_create">
                 <source>breadcrumb.link_group_create</source>
-                <target>Vytvořit</target>
+                <target>Vytvoriť</target>
             </trans-unit>
             <trans-unit id="breadcrumb.link_group_edit">
                 <source>breadcrumb.link_group_edit</source>
-                <target>Upravit</target>
+                <target>Upraviť</target>
             </trans-unit>
             <trans-unit id="users">
                 <source>users</source>
-                <target>Uživatelé</target>
+                <target>Používatelia</target>
             </trans-unit>
             <trans-unit id="groups">
                 <source>groups</source>
@@ -40,23 +40,23 @@
             </trans-unit>
             <trans-unit id="switch_user_exit">
                 <source>switch_user_exit</source>
-                <target>Opustit přepnutí uživatele</target>
+                <target>Opustiť prepnutie používateľa</target>
             </trans-unit>
             <trans-unit id="switch_user">
                 <source>switch_user</source>
-                <target>Přepnout uživatele</target>
+                <target>Prepnúť používateľa</target>
             </trans-unit>
             <trans-unit id="user_block_logout">
                 <source>user_block_logout</source>
-                <target>Odhlásit</target>
+                <target>Odhlásiť</target>
             </trans-unit>
             <trans-unit id="user_form.label_username">
                 <source>form.label_username</source>
-                <target>Uživatelské jméno</target>
+                <target>Používateľské meno</target>
             </trans-unit>
             <trans-unit id="form.label_email">
                 <source>form.label_email</source>
-                <target>E-Mailová adresa</target>
+                <target>E-mailová adresa</target>
             </trans-unit>
             <trans-unit id="form.label_plain_password">
                 <source>form.label_plain_password</source>
@@ -72,39 +72,39 @@
             </trans-unit>
             <trans-unit id="form.label_locked">
                 <source>form.label_locked</source>
-                <target>Zámek</target>
+                <target>Zámok</target>
             </trans-unit>
             <trans-unit id="form.label_expired">
                 <source>form.label_expired</source>
-                <target>Expirováno</target>
+                <target>Expirované</target>
             </trans-unit>
             <trans-unit id="form.label_enabled">
                 <source>form.label_enabled</source>
-                <target>Povoleno</target>
+                <target>Povolený</target>
             </trans-unit>
             <trans-unit id="form.label_credentials_expired">
                 <source>form.label_credentials_expired</source>
-                <target>Platnost příst. údajů vypršela</target>
+                <target>Platnosť prihlasovacích údajov vypršala</target>
             </trans-unit>
             <trans-unit id="user_form.label_name">
                 <source>form.label_name</source>
-                <target>Jméno</target>
+                <target>Meno</target>
             </trans-unit>
             <trans-unit id="filter.label_username">
                 <source>filter.label_username</source>
-                <target>Uživ. jméno</target>
+                <target>Používateľské meno</target>
             </trans-unit>
             <trans-unit id="filter.label_name">
                 <source>filter.label_name</source>
-                <target>Jméno</target>
+                <target>Meno</target>
             </trans-unit>
             <trans-unit id="filter.label_email">
                 <source>filter.label_email</source>
-                <target>E-Mailová adresa</target>
+                <target>E-mailová adresa</target>
             </trans-unit>
             <trans-unit id="filter.label_locked">
                 <source>filter.label_locked</source>
-                <target>Zámek</target>
+                <target>Zámok</target>
             </trans-unit>
             <trans-unit id="filter.label_id">
                 <source>filter.label_id</source>
@@ -112,31 +112,31 @@
             </trans-unit>
             <trans-unit id="list.label_username">
                 <source>list.label_username</source>
-                <target>Uživatelské jméno</target>
+                <target>Používateľské meno</target>
             </trans-unit>
             <trans-unit id="list.label_name">
                 <source>list.label_name</source>
-                <target>Název</target>
+                <target>Meno</target>
             </trans-unit>
             <trans-unit id="list.label_email">
                 <source>list.label_email</source>
-                <target>E-Mailová adresa</target>
+                <target>E-mailová adresa</target>
             </trans-unit>
             <trans-unit id="list.label_locked">
                 <source>list.label_locked</source>
-                <target>Zámek</target>
+                <target>Zámok</target>
             </trans-unit>
             <trans-unit id="list.label_enabled">
                 <source>list.label_enabled</source>
-                <target>Povoleno</target>
+                <target>Povolený</target>
             </trans-unit>
             <trans-unit id="list.label_created_at">
                 <source>list.label_created_at</source>
-                <target>Vytvořeno</target>
+                <target>Vytvorený</target>
             </trans-unit>
             <trans-unit id="list.label_impersonating">
                 <source>list.label_impersonating</source>
-                <target>Přepnout uživatele</target>
+                <target>Prepnúť používateľa</target>
             </trans-unit>
             <trans-unit id="list.label_roles">
                 <source>list.label_roles</source>
@@ -144,15 +144,15 @@
             </trans-unit>
             <trans-unit id="label_two_step_code">
                 <source>label_two_step_code</source>
-                <target>Dvoustupňové ověření</target>
+                <target>Dvojstupňové overenie</target>
             </trans-unit>
             <trans-unit id="message_two_step_code_help">
                 <source>message_two_step_code_help</source>
-                <target>Zadejte ověřovací kód vytvořen vaší mobilní aplikací</target>
+                <target>Zadajte overovací kód vytvorený vašou mobilnou aplikáciou</target>
             </trans-unit>
             <trans-unit id="label_two_step_code_error">
                 <source>label_two_step_code_error</source>
-                <target>Ověřovací kód není platný</target>
+                <target>Overovací kód nie je platný</target>
             </trans-unit>
         </body>
     </file>
