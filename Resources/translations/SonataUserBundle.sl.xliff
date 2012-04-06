@@ -26,7 +26,6 @@
                 <source>breadcrumb.link_group_edit</source>
                 <target>Uredi</target>
             </trans-unit>
-
             <trans-unit id="users">
                 <source>users</source>
                 <target>Uporabniki</target>
@@ -37,15 +36,15 @@
             </trans-unit>
             <trans-unit id="label_two_step_code">
                 <source>label_two_step_code</source>
-                <target>label_two_step_code</target>
+                <target>Validacija v dveh korakih</target>
             </trans-unit>
             <trans-unit id="message_two_step_code_help">
                 <source>message_two_step_code_help</source>
-                <target>message_two_step_code_help</target>
+                <target>Vpišite validacijsko kodo iz telefona</target>
             </trans-unit>
             <trans-unit id="label_two_step_code_error">
                 <source>label_two_step_code_error</source>
-                <target>label_two_step_code_error</target>
+                <target>Potrjevanje kode ni veljavno</target>
             </trans-unit>
         </body>
     </file>
