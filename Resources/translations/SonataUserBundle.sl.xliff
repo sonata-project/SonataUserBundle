@@ -26,7 +26,6 @@
                 <source>breadcrumb.link_group_edit</source>
                 <target>Uredi</target>
             </trans-unit>
-
             <trans-unit id="users">
                 <source>users</source>
                 <target>Uporabniki</target>
