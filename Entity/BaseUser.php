@@ -63,6 +63,16 @@ class BaseUser extends AbstractedUser implements UserInterface
     {
         return $this->updatedAt;
     }
+    
+    /**
+     * Get ExpiresAt
+     * 
+     * @return \DateTime|null
+     */
+    public function getExpiresAt()
+    {
+        return $this->expiresAt;
+    }
 
     /**
      * @return void
