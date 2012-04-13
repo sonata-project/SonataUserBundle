@@ -29,4 +29,5 @@
         "psr-0": { "Sonata\\UserBundle": "" }
     },
     "target-dir": "Sonata/UserBundle"
+    
 }
