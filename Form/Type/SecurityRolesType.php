@@ -55,9 +55,9 @@ class SecurityRolesType extends ChoiceType
         $view->set('read_only_choices', $form->getAttribute('read_only_choices'));
     }
 
-    public function getDefaultOptions(array $options)
+    public function getDefaultOptions()
     {
-        $options = parent::getDefaultOptions($options);
+        $options = parent::getDefaultOptions();
 
         $roles = array();
         $rolesReadOnly = array();
