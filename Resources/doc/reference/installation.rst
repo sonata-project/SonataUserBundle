@@ -10,6 +10,7 @@ the following lines to the file ``deps``::
     [SonataUserBundle]
         git=git://github.com/sonata-project/SonataUserBundle.git
         target=/bundles/Sonata/UserBundle
+        version=origin/2.0
 
     [SonataEasyExtendsBundle]
         git=git://github.com/sonata-project/SonataEasyExtendsBundle.git
@@ -18,6 +19,7 @@ the following lines to the file ``deps``::
     [SonataAdminBundle]
         git=git://github.com/sonata-project/SonataAdminBundle.git
         target=/bundles/Sonata/AdminBundle
+        version=origin/2.0
 
 and run::
 
