@@ -49,6 +49,7 @@ class UserAdmin extends Admin
             ->add('username')
             ->add('locked')
             ->add('email')
+            ->add('groups')
             ->add('id')
         ;
     }
