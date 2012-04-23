@@ -46,6 +46,10 @@
                 <source>user_block_logout</source>
                 <target>登出</target>
             </trans-unit>
+            <trans-unit id="sonata_user">
+                <source>sonata_user</source>
+                <target>Users</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

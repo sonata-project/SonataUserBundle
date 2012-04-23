@@ -46,6 +46,10 @@
                 <source>label_two_step_code_error</source>
                 <target>Potrjevanje kode ni veljavno</target>
             </trans-unit>
+            <trans-unit id="sonata_user">
+                <source>sonata_user</source>
+                <target>Users</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
