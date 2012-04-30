@@ -14,19 +14,30 @@ namespace Sonata\UserBundle\Entity;
 use FOS\UserBundle\Entity\User as AbstractedUser;
 use Sonata\UserBundle\Model\UserInterface;
 
+/**
+ * Represents a Base User Entity
+ */
 class BaseUser extends AbstractedUser implements UserInterface
 {
+    /**
+     * @var \DateTime
+     */
     protected $createdAt;
 
+    /**
+     * @var \DateTime
+     */
     protected $updatedAt;
 
+    /**
+     * @var string
+     */
     protected $twoStepVerificationCode;
 
     /**
-     * Set createdAt
+     * Sets the creation date
      *
      * @param \DateTime|null $createdAt
-     * @return void
      */
     public function setCreatedAt(\DateTime $createdAt = null)
     {
@@ -34,7 +45,7 @@ class BaseUser extends AbstractedUser implements UserInterface
     }
 
     /**
-     * Get createdAt
+     * Returns the creation date
      *
      * @return \DateTime|null
      */
@@ -44,10 +55,9 @@ class BaseUser extends AbstractedUser implements UserInterface
     }
 
     /**
-     * Set updatedAt
+     * Sets the last update date
      *
      * @param \DateTime|null $updatedAt
-     * @return void
      */
     public function setUpdatedAt(\DateTime $updatedAt = null)
     {
@@ -55,7 +65,7 @@ class BaseUser extends AbstractedUser implements UserInterface
     }
 
     /**
-     * Get updatedAt
+     * Returns the last update date
      *
      * @return \DateTime|null
      */
@@ -65,7 +75,7 @@ class BaseUser extends AbstractedUser implements UserInterface
     }
     
     /**
-     * Get ExpiresAt
+     * Returns the expiration date
      * 
      * @return \DateTime|null
      */
@@ -75,7 +85,7 @@ class BaseUser extends AbstractedUser implements UserInterface
     }
 
     /**
-     * @return void
+     * Hook on pre-persist operations
      */
     public function prePersist()
     {
@@ -84,7 +94,7 @@ class BaseUser extends AbstractedUser implements UserInterface
     }
 
     /**
-     * @return void
+     * Hook on pre-update operations
      */
     public function preUpdate()
     {
@@ -92,6 +102,8 @@ class BaseUser extends AbstractedUser implements UserInterface
     }
 
     /**
+     * Returns the credentials expiration date
+     *
      * @return \DateTime
      */
     public function getCredentialsExpireAt()
@@ -100,8 +112,9 @@ class BaseUser extends AbstractedUser implements UserInterface
     }
 
     /**
+     * Sets the credentials expiration date
+     *
      * @param \DateTime|null $date
-     * @return void
      */
     public function setCredentialsExpireAt(\DateTime $date = null)
     {
@@ -109,6 +122,8 @@ class BaseUser extends AbstractedUser implements UserInterface
     }
 
     /**
+     * Returns a string representation
+     *
      * @return string
      */
     public function __toString()
@@ -117,9 +132,9 @@ class BaseUser extends AbstractedUser implements UserInterface
     }
 
     /**
-     * Set related groups
+     * Sets the user groups
      *
-     * @param aarrat $groups
+     * @param array $groups
      */
     public function setGroups($groups)
     {
@@ -129,8 +144,9 @@ class BaseUser extends AbstractedUser implements UserInterface
     }
 
     /**
+     * Sets the two-step verification code
+     *
      * @param string $twoStepVerificationCode
-     * @return void
      */
     public function setTwoStepVerificationCode($twoStepVerificationCode)
     {
@@ -138,6 +154,8 @@ class BaseUser extends AbstractedUser implements UserInterface
     }
 
     /**
+     * Returns the two-step verification code
+     *
      * @return string
      */
     public function getTwoStepVerificationCode()
