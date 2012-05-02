@@ -75,6 +75,26 @@ class BaseUser extends AbstractedUser implements UserInterface
     }
 
     /**
+     * Returns the credentials expiration date
+     *
+     * @return \DateTime
+     */
+    public function getCredentialsExpireAt()
+    {
+        return $this->credentialsExpireAt;
+    }
+
+    /**
+     * Sets the credentials expiration date
+     *
+     * @param \DateTime|null $date
+     */
+    public function setCredentialsExpireAt(\DateTime $date = null)
+    {
+        $this->credentialsExpireAt = $date;
+    }
+
+    /**
      * Hook on pre-persist operations
      */
     public function prePersist()
