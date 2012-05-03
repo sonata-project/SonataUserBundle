@@ -38,7 +38,7 @@ files:
     $loader->registerNamespaces(array(
         // ...
         'Sonata'        => __DIR__.'/../vendor/bundles',
-        'Application'   => __DIR__,
+        'Application'   => __DIR__.'/../src',
         // ...
     ));
 
@@ -106,8 +106,8 @@ Now, add the new `Application` Bundle into the kernel
 Acl Configuration
 -----------------
 
-When using ACL, the UserBundle can prevent ``normal`` user to change settings of ``super-admin`` users, to enable this
-add to the configuration:
+When using ACL, the UserBundle can prevent ``normal`` user to change settings 
+of ``super-admin`` users, to enable this add to the configuration:
 
 .. code-block:: yaml
 
@@ -159,7 +159,8 @@ Add the related security routing information
         resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
         prefix: /admin
 
-You also need to define a ``sonata_user_impersonating`` route, used as a redirection after an user impersonating.
+You also need to define a ``sonata_user_impersonating`` route, used as a 
+redirection after an user impersonating.
 
 Then add a new custom firewall handlers for the admin
 
@@ -240,5 +241,6 @@ The last part is to define 3 new access control rules :
 Using the roles
 ---------------
 
-Each admin has its own roles, use the user form to assign them to other users. The available roles to assign to others
-are limited to the roles available to the user editing the form.
+Each admin has its own roles, use the user form to assign them to other users. 
+The available roles to assign to others are limited to the roles available to 
+the user editing the form.
