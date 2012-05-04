@@ -19,7 +19,8 @@
     "require": {
         "php": ">=5.3.2",
         "friendsofsymfony/user-bundle": "1.2.*",
-        "sonata-project/admin-bundle": "2.0.*"
+        "sonata-project/admin-bundle": "2.0.*",
+        "sonata-project/easy-extends-bundle": "*"
     },
     "suggest": {
         "sonata-project/doctrine-orm-admin-bundle": "2.0.*"
