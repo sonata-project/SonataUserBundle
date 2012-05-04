@@ -162,6 +162,22 @@
                 <source>sonata_user</source>
                 <target>Użytkownicy</target>
             </trans-unit>
+            <trans-unit id="form_general">
+                <source>General</source>
+                <target>Ogólne</target>
+            </trans-unit>
+            <trans-unit id="form_groups">
+                <source>Groups</source>
+                <target>Grupy</target>
+            </trans-unit>
+            <trans-unit id="form_management">
+                <source>Management</source>
+                <target>Uprawnienia</target>
+            </trans-unit>
+            <trans-unit id="field.label_roles_editable">
+                <source>field.label_roles_editable</source>
+                <target>Zaznacz uprawnienia użytkownika</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
