@@ -44,7 +44,7 @@ class GroupAdmin extends Admin
             ->add('name')
         ;
     }
-    
+
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper

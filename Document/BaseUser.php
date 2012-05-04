@@ -128,7 +128,7 @@ class BaseUser extends AbstractedUser implements UserInterface
      */
     public function setGroups($groups)
     {
-        foreach ($groups as $group){
+        foreach ($groups as $group) {
             $this->addGroup($group);
         }
     }
