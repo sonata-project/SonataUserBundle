@@ -73,10 +73,10 @@ class BaseUser extends AbstractedUser implements UserInterface
     {
         return $this->updatedAt;
     }
-    
+
     /**
      * Returns the expiration date
-     * 
+     *
      * @return \DateTime|null
      */
     public function getExpiresAt()
@@ -138,7 +138,7 @@ class BaseUser extends AbstractedUser implements UserInterface
      */
     public function setGroups($groups)
     {
-        foreach ($groups as $group){
+        foreach ($groups as $group) {
             $this->addGroup($group);
         }
     }
