@@ -1,32 +1,35 @@
 Installation
 ============
+Prerequisites
+-------------
+PHP 5.3 and Symfony 2 are needed to make this bundle work ; there are also some
+Sonata dependencies that need to be installed and configured beforehand :
 
-Set up the SonataUserBundle
----------------------------
+    - `SonataAdminBundle <http://sonata-project.org/bundles/admin>`_
+    - `SonataEasyExtendsBundle <http://sonata-project.org/bundles/easy-extends>`_
 
-To begin, add the dependent bundles to the ``vendor/bundles`` directory. Add
-the following lines to the file ``deps``::
+You will need to install those in their 2.0 branches (or master if they don't
+have a similar branch). Follow also their configuration step ; you will find
+everything you need in their installation chapter.
+
+.. note::
+    If a dependency is already installed somewhere in your project or in
+    another dependency, you won't need to install it again.
+
+Enable the Bundle
+-----------------
+Add the following lines to your ``deps`` file :
+
+.. code-block:: ini
 
     [SonataUserBundle]
         git=git://github.com/sonata-project/SonataUserBundle.git
         target=/bundles/Sonata/UserBundle
         version=origin/2.0
 
-    [SonataEasyExtendsBundle]
-        git=git://github.com/sonata-project/SonataEasyExtendsBundle.git
-        target=/bundles/Sonata/EasyExtendsBundle
-
-    [SonataAdminBundle]
-        git=git://github.com/sonata-project/SonataAdminBundle.git
-        target=/bundles/Sonata/AdminBundle
-        version=origin/2.0
-
 and run::
 
   bin/vendors install
-
-Autoload and AppKernel Configuration
-------------------------------------
 
 Next, be sure to enable the bundles in your autoload.php and AppKernel.php
 files:
@@ -38,7 +41,6 @@ files:
     $loader->registerNamespaces(array(
         // ...
         'Sonata'        => __DIR__.'/../vendor/bundles',
-        'Application'   => __DIR__.'/../src',
         // ...
     ));
 
@@ -55,57 +57,16 @@ files:
             // OR
             // the bundle will NOT extend ``FOSUserBundle``
             new Sonata\UserBundle\SonataUserBundle(),
-
-            new Sonata\AdminBundle\SonataAdminBundle(),
-            new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
             // ...
         );
     }
 
-
-Generate the ApplicationSonataUserBundle
-----------------------------------------
-
-At this point, the bundle is not yet ready. You need to generate the correct
-entities for the media::
-
-    php app/console sonata:easy-extends:generate SonataUserBundle
-
-If you specify no parameter, the files are generated in app/Application/Sonata...
-but you can specify the path with ``--dest=src``
-
 .. note::
+    If you already have installed a Sonata dependency, you may ignore the step
+    on the modification of the ``autoload.php`` file.
 
-    The command will generate domain objects in an ``Application`` namespace.
-    So you can point entities' associations to a global and common namespace.
-    This will make Entities sharing easier as your models will allow to
-    point to a global namespace. For instance the user will be
-    ``Application\Sonata\UserBundle\Entity\User``.
-
-
-Set up the ApplicationSonataUserBundle
---------------------------------------
-
-Now, add the new `Application` Bundle into the kernel
-
-.. code-block:: php
-
-  <?php
-  public function registerbundles()
-  {
-      return array(
-          // Application Bundles
-          // ...
-          new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
-          // ...
-
-      )
-  }
-
-
-Acl Configuration
------------------
-
+Configuration
+-------------
 When using ACL, the UserBundle can prevent ``normal`` user to change settings 
 of ``super-admin`` users, to enable this add to the configuration:
 
@@ -123,8 +84,7 @@ of ``super-admin`` users, to enable this add to the configuration:
             connection: default
 
 Doctrine Configuration
-----------------------
-
+~~~~~~~~~~~~~~~~~~~~~~
 Then add these bundles in the config mapping definition (or enable `auto_mapping <http://symfony.com/doc/2.0/reference/configuration/doctrine.html#configuration-overview>`_):
 
 .. code-block:: yaml
@@ -149,8 +109,7 @@ Then add these bundles in the config mapping definition (or enable `auto_mapping
 
 
 Integrating the bundle into the Sonata Admin Bundle
----------------------------------------------------
-
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Add the related security routing information
 
 .. code-block:: yaml
@@ -244,3 +203,48 @@ Using the roles
 Each admin has its own roles, use the user form to assign them to other users. 
 The available roles to assign to others are limited to the roles available to 
 the user editing the form.
+
+Extending the Bundle
+--------------------
+At this point, the bundle is functionnal, but not quite ready yet. You need to 
+generate the correct entities for the media::
+
+    php app/console sonata:easy-extends:generate SonataUserBundle
+
+If you specify no parameter, the files are generated in app/Application/Sonata...
+but you can specify the path with ``--dest=src``
+
+.. note::
+
+    The command will generate domain objects in an ``Application`` namespace.
+    So you can point entities' associations to a global and common namespace.
+    This will make Entities sharing easier as your models will allow to
+    point to a global namespace. For instance the user will be
+    ``Application\Sonata\UserBundle\Entity\User``.
+
+Now, add the new `Application` Bundle into the kernel and your autoload :
+
+.. code-block:: php
+
+    <?php
+    // autoload.php
+    $loader->registerNamespaces(array(
+        // ...
+        'Application' => __DIR__ . '/../src/',
+        // ...
+
+      ));
+
+    // AppKernel.php
+    class AppKernel {
+        public function registerbundles()
+        {
+            return array(
+                // Application Bundles
+                // ...
+                new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
+                // ...
+
+            )
+        }
+    }
