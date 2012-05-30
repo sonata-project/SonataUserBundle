@@ -111,11 +111,11 @@ class SecurityRolesType extends ChoiceType
         }
         
         $choices = function (Options $options) use ($roles) {
-            return count($options['choices']) === 0 ? $roles : array();
+            return empty($options['choices']) ? $roles : array();
         };
         
         $read_only_choices = function (Options $options) use ($rolesReadOnly) {
-            return count($options['choices']) === 0 ? $rolesReadOnly : array();
+            return empty($options['choices']) ? $rolesReadOnly : array();
         };
         
         $resolver->setDefaults(array(
