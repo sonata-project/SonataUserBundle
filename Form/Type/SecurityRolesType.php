@@ -110,17 +110,15 @@ class SecurityRolesType extends ChoiceType
             }
         }
         
-        $choices = function (Options $options) use ($roles) {
-            return empty($options['choices']) ? $roles : array();
-        };
-        
-        $read_only_choices = function (Options $options) use ($rolesReadOnly) {
-            return empty($options['choices']) ? $rolesReadOnly : array();
-        };
-        
         $resolver->setDefaults(array(
-            'choices' => $choices,
-            'read_only_choices' => $read_only_choices,
+            'choices' => function (Options $options) use ($roles) {
+                return empty($options['choices']) ? $roles : array();
+            },
+              
+            'read_only_choices' => function (Options $options) use ($rolesReadOnly) {
+                return empty($options['choices']) ? $rolesReadOnly : array();
+            },
+              
             'data_class' => null
         ));
     }
