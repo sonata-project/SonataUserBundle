@@ -55,59 +55,67 @@ class SecurityRolesType extends ChoiceType
         $view->set('read_only_choices', $form->getAttribute('read_only_choices'));
     }
 
-    public function getDefaultOptions()
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $options = parent::getDefaultOptions();
+        parent::setDefaultOptions($resolver);
 
         $roles = array();
         $rolesReadOnly = array();
-        if (count($options['choices']) == 0) {
-            $securityContext = $this->pool->getContainer()->get('security.context');
+        
+        $securityContext = $this->pool->getContainer()->get('security.context');
 
-            // get roles from the Admin classes
-            foreach ($this->pool->getAdminServiceIds() as $id) {
-                try {
-                    $admin = $this->pool->getInstance($id);
-                } catch (\Exception $e) {
-                    continue;
-                }
-
-                $isMaster = $admin->isGranted('MASTER');
-                $securityHandler = $admin->getSecurityHandler();
-                // TODO get the base role from the admin or security handler
-                $baseRole = $securityHandler->getBaseRole($admin);
-
-                foreach ($admin->getSecurityInformation() as $role => $permissions) {
-                    $role = sprintf($baseRole, $role);
-                    if ($isMaster) {
-                        // if the user has the MASTER permission, allow to grant access the admin roles to other users
-                        $roles[$role] = $role;
-                    } elseif ($securityContext->isGranted($role)) {
-                        // although the user has no MASTER permission, allow the currently logged in user to view the role
-                        $rolesReadOnly[$role] = $role;
-                    }
-                }
+        // get roles from the Admin classes
+        foreach ($this->pool->getAdminServiceIds() as $id) {
+            try {
+                $admin = $this->pool->getInstance($id);
+            } catch (\Exception $e) {
+                continue;
             }
 
-            // get roles from the service container
-            foreach ($this->pool->getContainer()->getParameter('security.role_hierarchy.roles') as $name => $rolesHierarchy) {
+            $isMaster = $admin->isGranted('MASTER');
+            $securityHandler = $admin->getSecurityHandler();
+            // TODO get the base role from the admin or security handler
+            $baseRole = $securityHandler->getBaseRole($admin);
 
-                if ($securityContext->isGranted($name)) {
-                    $roles[$name] = $name . ': ' . implode(', ', $rolesHierarchy);
-
-                    foreach ($rolesHierarchy as $role) {
-                        if (!isset($roles[$role])) {
-                            $roles[$role] = $role;
-                        }
-                    }
+            foreach ($admin->getSecurityInformation() as $role => $permissions) {
+                $role = sprintf($baseRole, $role);
+                
+                if ($isMaster) {
+                    // if the user has the MASTER permission, allow to grant access the admin roles to other users
+                    $roles[$role] = $role;
+                } elseif ($securityContext->isGranted($role)) {
+                    // although the user has no MASTER permission, allow the currently logged in user to view the role
+                    $rolesReadOnly[$role] = $role;
                 }
             }
         }
 
-        $options['choices'] = $roles;
-        $options['read_only_choices'] = $rolesReadOnly;
+        // get roles from the service container
+        foreach ($this->pool->getContainer()->getParameter('security.role_hierarchy.roles') as $name => $rolesHierarchy) {
 
-        return $options;
+            if ($securityContext->isGranted($name)) {
+                $roles[$name] = $name . ': ' . implode(', ', $rolesHierarchy);
+
+                foreach ($rolesHierarchy as $role) {
+                    if (!isset($roles[$role])) {
+                        $roles[$role] = $role;
+                    }
+                }
+            }
+        }
+        
+        $choices = function (Options $options) use ($roles) {
+            return count($options['choices']) === 0 ? $roles : array();
+        };
+        
+        $read_only_choices = function (Options $options) use ($rolesReadOnly) {
+            return count($options['choices']) === 0 ? $rolesReadOnly : array();
+        };
+        
+        $resolver->setDefaults(array(
+            'choices' => $choices,
+            'read_only_choices' => $read_only_choices
+        ));
     }
 
     /**
