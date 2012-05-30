@@ -122,6 +122,10 @@
                 <source>list.label_email</source>
                 <target>E-Mail-Address</target>
             </trans-unit>
+            <trans-unit id="list.label_groups">
+                <source>list.label_groups</source>
+                <target>Groups</target>
+            </trans-unit>
             <trans-unit id="list.label_locked">
                 <source>list.label_locked</source>
                 <target>Locked</target>
