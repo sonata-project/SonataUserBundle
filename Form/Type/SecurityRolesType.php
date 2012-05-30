@@ -13,9 +13,14 @@
 namespace Sonata\UserBundle\Form\Type;
 
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormViewInterface;
+
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\Options;
+
 use Sonata\AdminBundle\Admin\Pool;
 
 class SecurityRolesType extends ChoiceType
@@ -44,15 +49,16 @@ class SecurityRolesType extends ChoiceType
     {
         parent::buildView($view, $form, $options);
 
-        $attr = $view->get('attr', array());
+        $attr = $view->getVar('attr', array());
 
         if (isset($attr['class']) && empty($attr['class'])) {
             $attr['class'] = 'sonata-medium';
         }
 
-        $view->set('attr', $attr);
-
-        $view->set('read_only_choices', $form->getAttribute('read_only_choices'));
+        $view->setVars(array(
+            'attr' => $attr,
+            'read_only_choices' => $form->getConfig()->getAttribute('read_only_choices')
+        ));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -114,7 +120,8 @@ class SecurityRolesType extends ChoiceType
         
         $resolver->setDefaults(array(
             'choices' => $choices,
-            'read_only_choices' => $read_only_choices
+            'read_only_choices' => $read_only_choices,
+            'data_class' => null
         ));
     }
 
