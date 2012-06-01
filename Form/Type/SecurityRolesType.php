@@ -38,8 +38,6 @@ class SecurityRolesType extends ChoiceType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
-
-        $builder->getForm()->getConfig()->setAttribute('read_only_choices', $options['read_only_choices']);
     }
 
     /**
@@ -57,7 +55,7 @@ class SecurityRolesType extends ChoiceType
 
         $view->setVars(array(
             'attr' => $attr,
-            'read_only_choices' => $form->getConfig()->getAttribute('read_only_choices')
+            'read_only_choices' => $options['read_only_choices']
         ));
     }
 
