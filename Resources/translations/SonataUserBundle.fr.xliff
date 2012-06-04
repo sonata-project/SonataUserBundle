@@ -106,6 +106,10 @@
                 <source>filter.label_id</source>
                 <target>ID</target>
             </trans-unit>
+            <trans-unit id="filter.label_groups">
+                <source>filter.label_groups</source>
+                <target>Groupes</target>
+            </trans-unit>
             <trans-unit id="list.label_username">
                 <source>list.label_username</source>
                 <target>Nom d'utilisateur</target>
@@ -157,6 +161,18 @@
             <trans-unit id="sonata_user">
                 <source>sonata_user</source>
                 <target>Utilisateurs</target>
+            </trans-unit>
+            <trans-unit id="form_general">
+                <source>General</source>
+                <target>Général</target>
+            </trans-unit>
+            <trans-unit id="form_groups">
+                <source>Groups</source>
+                <target>Groupes</target>
+            </trans-unit>
+            <trans-unit id="form_management">
+                <source>Management</source>
+                <target>Gestion</target>
             </trans-unit>
         </body>
     </file>

@@ -11,45 +11,8 @@
 
 namespace Sonata\UserBundle\Admin\Document;
 
-use Sonata\AdminBundle\Admin\Admin;
-use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Datagrid\DatagridMapper;
-use Sonata\AdminBundle\Datagrid\ListMapper;
-use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\UserBundle\Admin\Model\GroupAdmin as BaseGroupAdmin;
 
-class GroupAdmin extends Admin
+class GroupAdmin extends BaseGroupAdmin
 {
-    protected $formOptions = array(
-        'validation_groups' => 'Registration'
-    );
-
-    public function getNewInstance()
-    {
-        $class = $this->getClass();
-
-        return new $class('', array());
-    }
-
-    protected function configureListFields(ListMapper $listMapper)
-    {
-        $listMapper
-            ->addIdentifier('name')
-            ->add('roles')
-        ;
-    }
-
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-        $datagridMapper
-            ->add('name')
-        ;
-    }
-
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-        $formMapper
-            ->add('name')
-            ->add('roles', 'sonata_security_roles', array( 'multiple' => true, 'required' => false))
-        ;
-    }
 }
