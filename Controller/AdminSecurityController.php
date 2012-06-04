@@ -20,6 +20,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class AdminSecurityController extends SecurityController
 {
+    /**
+     * {@inheritdoc}
+     */
     public function loginAction()
     {
         $request = $this->container->get('request');

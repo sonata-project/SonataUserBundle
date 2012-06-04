@@ -22,6 +22,9 @@ class GroupAdmin extends Admin
         'validation_groups' => 'Registration'
     );
 
+    /**
+     * {@inheritdoc}
+     */
     public function getNewInstance()
     {
         $class = $this->getClass();
@@ -29,6 +32,9 @@ class GroupAdmin extends Admin
         return new $class('', array());
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
@@ -37,12 +43,19 @@ class GroupAdmin extends Admin
         ;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
             ->add('name')
         ;
     }
+
+    /**
+     * {@inheritdoc}
+     */
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper

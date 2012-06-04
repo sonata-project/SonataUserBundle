@@ -16,6 +16,9 @@ use Sonata\AdminBundle\Form\FormMapper;
 
 class UserAdmin extends BaseUserAdmin
 {
+    /**
+     * {@inheritdoc}
+     */
     protected function configureFormFields(FormMapper $formMapper)
     {
         parent::configureFormFields($formMapper);

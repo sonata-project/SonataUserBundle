@@ -20,6 +20,9 @@ use Symfony\Component\Console\Output\Output;
 
 class TwoStepVerificationCommand extends ContainerAwareCommand
 {
+    /**
+     * {@inheritdoc}
+     */
     public function configure()
     {
         $this->setName('sonata:user:two-step-verification');
@@ -27,6 +30,9 @@ class TwoStepVerificationCommand extends ContainerAwareCommand
         $this->setDescription('Generate a two step verification process to secure an access (Ideal for super admin protection)');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function execute(InputInterface $input, OutputInterface $output)
     {
         if (!$this->getContainer()->has('sonata.user.google.authenticator.provider')) {

@@ -62,10 +62,11 @@ class SonataUserExtension extends Extension
     }
 
     /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     *
+     * @return mixed
      * @throws \RuntimeException
-     * @param $config
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     * @return
      */
     public function configureGoogleAuthenticator($config, ContainerBuilder $container)
     {
@@ -91,6 +92,7 @@ class SonataUserExtension extends Extension
 
     /**
      * @param array $config
+     *
      * @return array
      */
     public function addDefaults(array $config)
@@ -108,8 +110,9 @@ class SonataUserExtension extends Extension
     }
 
     /**
-     * @param $config
+     * @param array                                                   $config
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     *
      * @return void
      */
     public function configureClass($config, ContainerBuilder $container)
@@ -126,7 +129,6 @@ class SonataUserExtension extends Extension
 
     /**
      * @param array $config
-     * @return void
      */
     public function registerDoctrineMapping(array $config)
     {

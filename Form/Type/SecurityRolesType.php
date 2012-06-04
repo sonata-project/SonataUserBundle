@@ -22,6 +22,9 @@ class SecurityRolesType extends ChoiceType
 {
     protected $pool;
 
+    /**
+     * @param Pool $pool
+     */
     public function __construct(Pool $pool)
     {
         $this->pool = $pool;
@@ -55,6 +58,9 @@ class SecurityRolesType extends ChoiceType
         $view->set('read_only_choices', $form->getAttribute('read_only_choices'));
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getDefaultOptions(array $options)
     {
         $options = parent::getDefaultOptions($options);
