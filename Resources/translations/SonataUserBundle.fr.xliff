@@ -162,6 +162,18 @@
                 <source>sonata_user</source>
                 <target>Utilisateurs</target>
             </trans-unit>
+            <trans-unit id="form_general">
+                <source>General</source>
+                <target>Général</target>
+            </trans-unit>
+            <trans-unit id="form_groups">
+                <source>Groups</source>
+                <target>Groupes</target>
+            </trans-unit>
+            <trans-unit id="form_management">
+                <source>Management</source>
+                <target>Gestion</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
