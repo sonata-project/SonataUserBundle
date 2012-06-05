@@ -16,17 +16,5 @@ use Sonata\AdminBundle\Form\FormMapper;
 
 class UserAdmin extends BaseUserAdmin
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-        parent::configureFormFields($formMapper);
 
-        $formMapper
-            ->with('Management')
-                ->add('credentialsExpired', null, array('required' => false))
-            ->end()
-        ;
-    }
 }
