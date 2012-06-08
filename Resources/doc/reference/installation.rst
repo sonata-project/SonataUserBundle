@@ -27,6 +27,9 @@ Add the following lines to your ``deps`` file :
         target=/bundles/Sonata/UserBundle
         version=origin/2.0
 
+    [SonataDoctrineExtension]
+        git=git://github.com/sonata-project/sonata-doctrine-extensions.git
+
 and run::
 
   bin/vendors install
@@ -40,7 +43,10 @@ files:
     // app/autoload.php
     $loader->registerNamespaces(array(
         // ...
-        'Sonata'        => __DIR__.'/../vendor/bundles',
+        'Sonata'        => array(
+            __DIR__.'/../vendor/bundles',
+            __DIR__.'/../sonata-doctrine-extensions/src'
+        ),
         // ...
     ));
 
@@ -67,7 +73,7 @@ files:
 
 Configuration
 -------------
-When using ACL, the UserBundle can prevent ``normal`` user to change settings 
+When using ACL, the UserBundle can prevent ``normal`` user to change settings
 of ``super-admin`` users, to enable this add to the configuration:
 
 .. code-block:: yaml
@@ -107,6 +113,9 @@ Then add these bundles in the config mapping definition (or enable `auto_mapping
                         ApplicationSonataUserBundle: ~
                         SonataUserBundle: ~
 
+        dbal:
+            types:
+                json: Sonata\Doctrine\Types\JsonType
 
 Integrating the bundle into the Sonata Admin Bundle
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -118,7 +127,7 @@ Add the related security routing information
         resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
         prefix: /admin
 
-You also need to define a ``sonata_user_impersonating`` route, used as a 
+You also need to define a ``sonata_user_impersonating`` route, used as a
 redirection after an user impersonating.
 
 Then add a new custom firewall handlers for the admin
@@ -200,13 +209,13 @@ The last part is to define 3 new access control rules :
 Using the roles
 ---------------
 
-Each admin has its own roles, use the user form to assign them to other users. 
-The available roles to assign to others are limited to the roles available to 
+Each admin has its own roles, use the user form to assign them to other users.
+The available roles to assign to others are limited to the roles available to
 the user editing the form.
 
 Extending the Bundle
 --------------------
-At this point, the bundle is functionnal, but not quite ready yet. You need to 
+At this point, the bundle is functionnal, but not quite ready yet. You need to
 generate the correct entities for the media::
 
     php app/console sonata:easy-extends:generate SonataUserBundle
