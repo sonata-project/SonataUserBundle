@@ -53,7 +53,7 @@ class SecurityRolesType extends ChoiceType
             $attr['class'] = 'sonata-medium';
         }
 
-        $view->setVars(array(
+        $view->addVars(array(
             'attr' => $attr,
             'read_only_choices' => $options['read_only_choices']
         ));
@@ -109,8 +109,8 @@ class SecurityRolesType extends ChoiceType
         }
         
         $resolver->setDefaults(array(
-            'choices' => function (Options $options) use ($roles) {
-                return empty($options['choices']) ? $roles : array();
+            'choices' => function (Options $options, $parentChoices) use ($roles) {
+                return empty($parentChoices) ? $roles : array();
             },
               
             'read_only_choices' => function (Options $options) use ($rolesReadOnly) {
