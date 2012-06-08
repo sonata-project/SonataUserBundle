@@ -1,0 +1,7 @@
+CHANGELOG
+=========
+
+### 2012-06-08
+
+* Introduce new field for user: firstname, lastname, gender, etc ...
+* add frontend edition of profile information

@@ -544,4 +544,12 @@ abstract class User extends AbstractedUser implements UserInterface
     {
         return $this->token;
     }
+
+    /**
+     * @return string
+     */
+    public function getFullname()
+    {
+        return sprintf("%s %s", $this->getFirstname(), $this->getLastname());
+    }
 }

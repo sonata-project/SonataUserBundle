@@ -1,0 +1,20 @@
+{#
+
+This file is part of the Sonata package.
+
+(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
+<div class="sonata-user-show">
+
+    <b>{{ app.user.fullname }}</b>
+
+    <ul>
+        <li><a href="{{ path('sonata_user_profile_edit') }}">{{ "link_edit_profile" | trans({}, 'SonataUserBundle')}}</a></li>
+        <li><a href="{{ path('sonata_user_profile_edit_authentication') }}">{{ "link_edit_authentication" | trans({}, 'SonataUserBundle')}}</a></li>
+    </ul>
+</div>
