@@ -14,12 +14,11 @@
         <parameter key="sonata.user.admin.group.controller">SonataAdminBundle:CRUD</parameter>
         <parameter key="sonata.user.admin.group.translation_domain">%sonata.user.admin.user.translation_domain%</parameter>
 
-        <parameter key="sonata.user.admin.groupname">sonata_user</parameter>
     </parameters>
 
     <services>
         <service id="sonata.user.admin.user" class="%sonata.user.admin.user.class%">
-            <tag name="sonata.admin" manager_type="doctrine_mongodb" group="%sonata.user.admin.groupname%" label="users" label_translator_strategy="sonata.admin.label.strategy.underscore" />
+            <tag name="sonata.admin" manager_type="doctrine_mongodb" group="sonata_user" label="users" label_translator_strategy="sonata.admin.label.strategy.underscore" />
             <argument />
             <argument>%sonata.user.admin.user.document%</argument>
             <argument>%sonata.user.admin.user.controller%</argument>
@@ -32,7 +31,7 @@
         </service>
 
         <service id="sonata.user.admin.group" class="%sonata.user.admin.group.class%">
-            <tag name="sonata.admin" manager_type="doctrine_mongodb" group="%sonata.user.admin.groupname%" label="groups" label_translator_strategy="sonata.admin.label.strategy.underscore" />
+            <tag name="sonata.admin" manager_type="doctrine_mongodb" group="sonata_user" label="groups" label_translator_strategy="sonata.admin.label.strategy.underscore" />
             <argument />
             <argument>%sonata.user.admin.group.document%</argument>
             <argument>%sonata.user.admin.group.controller%</argument>
