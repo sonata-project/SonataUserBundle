@@ -2,7 +2,7 @@
     "name": "sonata-project/user-bundle",
     "type": "symfony-bundle",
     "description": "Symfony SonataUserBundle",
-    "keywords": ["user", "sonata"],
+    "keywords": ["user", "sonata", "google authenticator"],
     "homepage": "http://sonata-project.org/bundles/user",
     "license": "MIT",
     "authors": [
@@ -20,14 +20,15 @@
         "php": ">=5.3.2",
         "symfony/framework-bundle": "2.*",
         "sonata-project/admin-bundle": "master-dev",
-        "friendsofsymfony/user-bundle": "dev-master"
+        "friendsofsymfony/user-bundle": "dev-master",
+        "sonata-project/doctrine-extensions": "dev-master",
+        "sonata-project/easy-extends-bundle": "*"
     },
     "suggest": {
-        "sonata-project/doctrine-orm-admin-bundle": "*"
+        "sonata-project/doctrine-orm-admin-bundle": "2.0.*"
     },
     "autoload": {
         "psr-0": { "Sonata\\UserBundle": "" }
     },
     "target-dir": "Sonata/UserBundle"
-    
 }

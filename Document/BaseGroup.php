@@ -13,9 +13,16 @@ namespace Sonata\UserBundle\Document;
 
 use FOS\UserBundle\Document\Group as AbstractedGroup;
 
+/**
+ * Represents a Base Group Document
+ */
 class BaseGroup extends AbstractedGroup
 {
-
+    /**
+     * Returns a string representation
+     *
+     * @return string
+     */
     public function __toString()
     {
         return $this->getName();

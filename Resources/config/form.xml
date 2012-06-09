@@ -6,7 +6,29 @@
     <services>
         <service id="sonata.user.form.type.security_roles" class="Sonata\UserBundle\Form\Type\SecurityRolesType">
             <tag name="form.type" alias="sonata_security_roles" />
+
             <argument type="service" id="sonata.admin.pool" />
+        </service>
+
+        <!-- profile form -->
+        <service id="sonata.user.profile.form" factory-method="createNamed" factory-service="form.factory" class="Symfony\Component\Form\Form">
+            <argument>%sonata.user.profile.form.type%</argument>
+            <argument>%sonata.user.profile.form.name%</argument>
+            <argument />
+            <argument type="collection">
+                <argument key="validation_groups">%sonata.user.profile.form.validation_groups%</argument>
+            </argument>
+        </service>
+
+        <service id="sonata.user.profile.form.type" class="Sonata\UserBundle\Form\Type\ProfileType">
+            <argument>%fos_user.model.user.class%</argument>
+            <tag name="form.type" alias="sonata_user_profile" />
+        </service>
+
+        <service id="sonata.user.profile.form.handler.default" class="Sonata\UserBundle\Form\Handler\ProfileFormHandler" scope="request" public="false">
+            <argument type="service" id="sonata.user.profile.form" />
+            <argument type="service" id="request" />
+            <argument type="service" id="fos_user.user_manager" />
         </service>
     </services>
 

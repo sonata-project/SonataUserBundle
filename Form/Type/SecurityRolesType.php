@@ -27,6 +27,9 @@ class SecurityRolesType extends ChoiceType
 {
     protected $pool;
 
+    /**
+     * @param Pool $pool
+     */
     public function __construct(Pool $pool)
     {
         $this->pool = $pool;
@@ -59,13 +62,16 @@ class SecurityRolesType extends ChoiceType
         ));
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         parent::setDefaultOptions($resolver);
 
         $roles = array();
         $rolesReadOnly = array();
-        
+
         $securityContext = $this->pool->getContainer()->get('security.context');
 
         // get roles from the Admin classes
@@ -83,7 +89,7 @@ class SecurityRolesType extends ChoiceType
 
             foreach ($admin->getSecurityInformation() as $role => $permissions) {
                 $role = sprintf($baseRole, $role);
-                
+
                 if ($isMaster) {
                     // if the user has the MASTER permission, allow to grant access the admin roles to other users
                     $roles[$role] = $role;
@@ -107,16 +113,16 @@ class SecurityRolesType extends ChoiceType
                 }
             }
         }
-        
+
         $resolver->setDefaults(array(
             'choices' => function (Options $options, $parentChoices) use ($roles) {
                 return empty($parentChoices) ? $roles : array();
             },
-              
+
             'read_only_choices' => function (Options $options) use ($rolesReadOnly) {
                 return empty($options['choices']) ? $rolesReadOnly : array();
             },
-              
+
             'data_class' => null
         ));
     }

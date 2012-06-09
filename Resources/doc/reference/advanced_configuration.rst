@@ -13,11 +13,25 @@ Full configuration options:
         group:
             group_class:  Application\Sonata\UserBundle\Entity\Group
 
+        profile:  # Authentication Form
+            form:
+                type:               fos_user_profile
+                handler:            fos_user.profile.form.handler.default
+                name:               fos_user_profile_form
+                validation_groups:  [Authentication] # Please note : this is not the default value
+
     sonata_user:
         security_acl:     false
         class:
             user:         Application\Sonata\UserBundle\Entity\User
             group:        Application\Sonata\UserBundle\Entity\Group
+
+        profile:  # Profile Form (firstname, lastname, etc ...)
+            form:
+                type:               sonata.user.profile
+                handler:            sonata.user.profile.form.handler.default
+                name:               sonata_user_profile_form
+                validation_groups:  [Profile]
 
     # Enable Doctrine to map the provided entities
     doctrine:

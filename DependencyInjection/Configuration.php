@@ -59,6 +59,26 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('user')->end()
                     ->end()
                 ->end()
+
+                // Original code from the FOS User Bundle
+                ->arrayNode('profile')
+                    ->addDefaultsIfNotSet()
+                    ->canBeUnset()
+                    ->children()
+                        ->arrayNode('form')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('type')->defaultValue('sonata_user_profile')->end()
+                                ->scalarNode('handler')->defaultValue('sonata.user.profile.form.handler.default')->end()
+                                ->scalarNode('name')->defaultValue('sonata_user_profile_form')->cannotBeEmpty()->end()
+                                ->arrayNode('validation_groups')
+                                    ->prototype('scalar')->end()
+                                    ->defaultValue(array('Profile', 'Default'))
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
             ->end()
         ;
 

@@ -59,13 +59,16 @@ class SonataUserExtension extends Extension
         ));
 
         $this->configureGoogleAuthenticator($config, $container);
+        $this->configureShortcut($container);
+        $this->configureProfile($config, $container);
     }
 
     /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     *
+     * @return mixed
      * @throws \RuntimeException
-     * @param $config
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     * @return
      */
     public function configureGoogleAuthenticator($config, ContainerBuilder $container)
     {
@@ -91,6 +94,7 @@ class SonataUserExtension extends Extension
 
     /**
      * @param array $config
+     *
      * @return array
      */
     public function addDefaults(array $config)
@@ -108,8 +112,9 @@ class SonataUserExtension extends Extension
     }
 
     /**
-     * @param $config
+     * @param array                                                   $config
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     *
      * @return void
      */
     public function configureClass($config, ContainerBuilder $container)
@@ -126,7 +131,6 @@ class SonataUserExtension extends Extension
 
     /**
      * @param array $config
-     * @return void
      */
     public function registerDoctrineMapping(array $config)
     {
@@ -156,5 +160,27 @@ class SonataUserExtension extends Extension
                 )),
             )
         ));
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     */
+    public function configureShortcut(ContainerBuilder $container)
+    {
+        $container->setAlias('sonata_user_authentication_form', 'fos_user.profile.form');
+        $container->setAlias('sonata_user_authentication_form_handler', 'fos_user.profile.form.handler');
+    }
+
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     */
+    public function configureProfile(array $config, ContainerBuilder $container)
+    {
+        $container->setParameter('sonata.user.profile.form.type', $config['profile']['form']['type']);
+        $container->setParameter('sonata.user.profile.form.name', $config['profile']['form']['name']);
+        $container->setParameter('sonata.user.profile.form.validation_groups', $config['profile']['form']['validation_groups']);
+
+        $container->setAlias('sonata.user.profile.form.handler', $config['profile']['form']['handler']);
     }
 }
