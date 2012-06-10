@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="" >
+        <body>
+            <trans-unit id="breadcrumb.link_user_list">
+                <source>breadcrumb.link_user_list</source>
+                <target>Потребители</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_user_create">
+                <source>breadcrumb.link_user_create</source>
+                <target>Създай</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_user_edit">
+                <source>breadcrumb.link_user_edit</source>
+                <target>Редактирай</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_user_delete">
+                <source>breadcrumb.link_user_delete</source>
+                <target>Изтрий</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_group_list">
+                <source>breadcrumb.link_group_list</source>
+                <target>Групи</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_group_create">
+                <source>breadcrumb.link_group_create</source>
+                <target>Създай</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_group_edit">
+                <source>breadcrumb.link_group_edit</source>
+                <target>Редактирай</target>
+            </trans-unit>
+            <trans-unit id="users">
+                <source>users</source>
+                <target>Потребители</target>
+            </trans-unit>
+            <trans-unit id="groups">
+                <source>groups</source>
+                <target>Групи</target>
+            </trans-unit>
+            <trans-unit id="switch_user_exit">
+                <source>switch_user_exit</source>
+                <target>Прекъсване на представянето</target>
+            </trans-unit>
+            <trans-unit id="switch_user">
+                <source>switch_user</source>
+                <target>Представи се като</target>
+            </trans-unit>
+            <trans-unit id="user_block_logout">
+                <source>user_block_logout</source>
+                <target>Изход</target>
+            </trans-unit>
+            <trans-unit id="user_form.label_username">
+                <source>form.label_username</source>
+                <target>Потребителско име</target>
+            </trans-unit>
+            <trans-unit id="form.label_email">
+                <source>form.label_email</source>
+                <target>E-mail адрес</target>
+            </trans-unit>
+            <trans-unit id="form.label_plain_password">
+                <source>form.label_plain_password</source>
+                <target>Парола (немаскирана)</target>
+            </trans-unit>
+            <trans-unit id="form.label_groups">
+                <source>form.label_groups</source>
+                <target>Групи</target>
+            </trans-unit>
+            <trans-unit id="form.label_roles">
+                <source>form.label_roles</source>
+                <target>Права</target>
+            </trans-unit>
+            <trans-unit id="form.label_locked">
+                <source>form.label_locked</source>
+                <target>Заключен</target>
+            </trans-unit>
+            <trans-unit id="form.label_expired">
+                <source>form.label_expired</source>
+                <target>Изтекъл</target>
+            </trans-unit>
+            <trans-unit id="form.label_enabled">
+                <source>form.label_enabled</source>
+                <target>Включен</target>
+            </trans-unit>
+            <trans-unit id="form.label_credentials_expired">
+                <source>form.label_credentials_expired</source>
+                <target>Изтекли пълномощия</target>
+            </trans-unit>
+            <trans-unit id="user_form.label_name">
+                <source>form.label_name</source>
+                <target>Име</target>
+            </trans-unit>
+            <trans-unit id="filter.label_username">
+                <source>filter.label_username</source>
+                <target>Потребителско име</target>
+            </trans-unit>
+            <trans-unit id="filter.label_name">
+                <source>filter.label_name</source>
+                <target>Име</target>
+            </trans-unit>
+            <trans-unit id="filter.label_email">
+                <source>filter.label_email</source>
+                <target>E-mail адрес</target>
+            </trans-unit>
+            <trans-unit id="filter.label_locked">
+                <source>filter.label_locked</source>
+                <target>Заключен</target>
+            </trans-unit>
+            <trans-unit id="filter.label_id">
+                <source>filter.label_id</source>
+                <target>ID</target>
+            </trans-unit>
+            <trans-unit id="list.label_username">
+                <source>list.label_username</source>
+                <target>Потребителско име</target>
+            </trans-unit>
+            <trans-unit id="list.label_name">
+                <source>list.label_name</source>
+                <target>Име</target>
+            </trans-unit>
+            <trans-unit id="list.label_email">
+                <source>list.label_email</source>
+                <target>E-mail адрес</target>
+            </trans-unit>
+            <trans-unit id="list.label_locked">
+                <source>list.label_locked</source>
+                <target>Заключен</target>
+            </trans-unit>
+            <trans-unit id="list.label_enabled">
+                <source>list.label_enabled</source>
+                <target>Включен</target>
+            </trans-unit>
+            <trans-unit id="list.label_created_at">
+                <source>list.label_created_at</source>
+                <target>Създаден на</target>
+            </trans-unit>
+            <trans-unit id="list.label_impersonating">
+                <source>list.label_impersonating</source>
+                <target>Представи се като</target>
+            </trans-unit>
+            <trans-unit id="list.label_roles">
+                <source>list.label_roles</source>
+                <target>Права</target>
+            </trans-unit>
+            <trans-unit id="label_two_step_code">
+                <source>label_two_step_code</source>
+                <target>Верификация в 2 стъпки</target>
+            </trans-unit>
+            <trans-unit id="message_two_step_code_help">
+                <source>message_two_step_code_help</source>
+                <target>Въведете верификационния код генериран от мобилната Ви апликация.</target>
+            </trans-unit>
+            <trans-unit id="label_two_step_code_error">
+                <source>label_two_step_code_error</source>
+                <target>Верификационния код е невалиден</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
