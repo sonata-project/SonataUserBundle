@@ -12,8 +12,8 @@
 
         <!-- profile form -->
         <service id="sonata.user.profile.form" factory-method="createNamed" factory-service="form.factory" class="Symfony\Component\Form\Form">
-            <argument>%sonata.user.profile.form.type%</argument>
             <argument>%sonata.user.profile.form.name%</argument>
+            <argument>%sonata.user.profile.form.type%</argument>
             <argument />
             <argument type="collection">
                 <argument key="validation_groups">%sonata.user.profile.form.validation_groups%</argument>
