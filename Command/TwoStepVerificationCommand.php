@@ -20,6 +20,7 @@ use Symfony\Component\Console\Output\Output;
 
 class TwoStepVerificationCommand extends ContainerAwareCommand
 {
+
     /**
      * {@inheritdoc}
      */
