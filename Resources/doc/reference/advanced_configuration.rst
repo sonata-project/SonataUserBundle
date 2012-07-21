@@ -21,10 +21,11 @@ Full configuration options:
                 validation_groups:  [Authentication] # Please note : this is not the default value
 
     sonata_user:
-        security_acl:     false
+        security_acl:           false
+        impersonating_route:    homepage # or any route you want to use
         class:
-            user:         Application\Sonata\UserBundle\Entity\User
-            group:        Application\Sonata\UserBundle\Entity\Group
+            user:               Application\Sonata\UserBundle\Entity\User
+            group:              Application\Sonata\UserBundle\Entity\Group
 
         profile:  # Profile Form (firstname, lastname, etc ...)
             form:

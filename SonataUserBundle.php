@@ -12,6 +12,7 @@ namespace Sonata\UserBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Sonata\UserBundle\DependencyInjection\Compiler\GlobalVariablesCompilerPass;
 
 class SonataUserBundle extends Bundle
 {
@@ -31,5 +32,13 @@ class SonataUserBundle extends Bundle
     public function getParent()
     {
         return $this->parent;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function build(ContainerBuilder $container)
+    {
+        $container->addCompilerPass(new GlobalVariablesCompilerPass());
     }
 }

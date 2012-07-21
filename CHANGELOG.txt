@@ -1,6 +1,14 @@
 CHANGELOG
 =========
 
+### [BC BREAK] 2012-07-21
+
+* change impersonating definition, now the url is defined as a configuration, you don't need to create
+  a custom route anymore.
+
+     * remove ``sonata_user_impersonating`` from the routing file
+     * add ``impersonating_route`` into the ``sonata_user`` configuration section
+
 ### 2012-06-08
 
 * Introduce new field for user: firstname, lastname, gender, etc ...
