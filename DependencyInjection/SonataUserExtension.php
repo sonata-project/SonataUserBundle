@@ -42,6 +42,7 @@ class SonataUserExtension extends Extension
         $loader->load(sprintf('admin_%s.xml', $config['manager_type']));
         $loader->load('form.xml');
         $loader->load('google_authenticator.xml');
+        $loader->load('twig.xml');
 
         if ($config['security_acl']) {
             $loader->load('security_acl.xml');
@@ -57,6 +58,8 @@ class SonataUserExtension extends Extension
             $container->getParameter('twig.form.resources'),
             array('SonataUserBundle:Form:form_admin_fields.html.twig')
         ));
+
+        $container->setParameter('sonata.user.impersonating_route', $config['impersonating_route']);
 
         $this->configureGoogleAuthenticator($config, $container);
         $this->configureShortcut($container);
