@@ -68,7 +68,6 @@ class ProfileController extends Controller
 
         return $this->render('SonataUserBundle:Profile:edit_authentication.html.twig', array(
             'form' => $form->createView(),
-            'theme' => $this->container->getParameter('fos_user.template.theme')
         ));
     }
 
@@ -96,7 +95,6 @@ class ProfileController extends Controller
 
         return $this->render('SonataUserBundle:Profile:edit_profile.html.twig', array(
             'form' => $form->createView(),
-            'theme' => $this->container->getParameter('fos_user.template.theme')
         ));
     }
 
