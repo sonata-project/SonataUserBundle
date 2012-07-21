@@ -16,7 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormViewInterface;
+use Symfony\Component\Form\FormView;
 
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\OptionsResolver\Options;
@@ -50,16 +50,14 @@ class SecurityRolesType extends ChoiceType
     {
         parent::buildView($view, $form, $options);
 
-        $attr = $view->getVar('attr', array());
+        $attr = $view->vars['attr'];
 
         if (isset($attr['class']) && empty($attr['class'])) {
             $attr['class'] = 'sonata-medium';
         }
 
-        $view->addVars(array(
-            'attr' => $attr,
-            'read_only_choices' => $options['read_only_choices']
-        ));
+        $view->vars['attr'] = $attr;
+        $view->vars['read_only_choices'] = $options['read_only_choices'];
     }
 
     /**
