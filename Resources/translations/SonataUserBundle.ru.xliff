@@ -8,11 +8,15 @@
             </trans-unit>
             <trans-unit id="breadcrumb.link_user_create">
                 <source>breadcrumb.link_user_create</source>
-                <target>Создать пользователя</target>
+                <target>Создать</target>
             </trans-unit>
             <trans-unit id="breadcrumb.link_user_edit">
                 <source>breadcrumb.link_user_edit</source>
                 <target>Редактировать</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_user_show">
+                <source>breadcrumb.link_user_show</source>
+                <target>Показать</target>
             </trans-unit>
             <trans-unit id="breadcrumb.link_group_list">
                 <source>breadcrumb.link_group_list</source>
@@ -20,7 +24,7 @@
             </trans-unit>
             <trans-unit id="breadcrumb.link_group_create">
                 <source>breadcrumb.link_group_create</source>
-                <target>Создать группу</target>
+                <target>Создать</target>
             </trans-unit>
             <trans-unit id="breadcrumb.link_group_edit">
                 <source>breadcrumb.link_group_edit</source>
@@ -118,6 +122,10 @@
                 <source>list.label_email</source>
                 <target>E-Mail</target>
             </trans-unit>
+            <trans-unit id="list.label_groups">
+                <source>list.label_groups</source>
+                <target>Группы</target>
+            </trans-unit>
             <trans-unit id="list.label_locked">
                 <source>list.label_locked</source>
                 <target>Заблокирован</target>
@@ -152,35 +160,59 @@
             </trans-unit>
             <trans-unit id="sonata_user">
                 <source>sonata_user</source>
-                <target>Users</target>
+                <target>Пользователи</target>
+            </trans-unit>
+            <trans-unit id="form_general">
+                <source>General</source>
+                <target>Основные сведения</target>
+            </trans-unit>
+            <trans-unit id="form_groups">
+                <source>Groups</source>
+                <target>Группы</target>
+            </trans-unit>
+            <trans-unit id="form_management">
+                <source>Management</source>
+                <target>Управление ролями</target>
+            </trans-unit>
+            <trans-unit id="form_profile">
+                <source>Profile</source>
+                <target>Профиль</target>
+            </trans-unit>
+            <trans-unit id="form_social">
+                <source>Social</source>
+                <target>Социальные сети</target>
+            </trans-unit>
+            <trans-unit id="form_security">
+                <source>Security</source>
+                <target>Безопасность</target>
             </trans-unit>
             <trans-unit id="form.label_website">
                 <source>form.label_website</source>
-                <target>form.label_website</target>
+                <target>Веб-сайт</target>
             </trans-unit>
             <trans-unit id="form.label_biography">
                 <source>form.label_biography</source>
-                <target>form.label_biography</target>
+                <target>Биография</target>
             </trans-unit>
             <trans-unit id="form.label_gender">
                 <source>form.label_gender</source>
-                <target>form.label_gender</target>
+                <target>Пол</target>
             </trans-unit>
             <trans-unit id="form.label_locale">
                 <source>form.label_locale</source>
-                <target>form.label_locale</target>
+                <target>Локаль</target>
             </trans-unit>
             <trans-unit id="form.label_timezone">
                 <source>form.label_timezone</source>
-                <target>form.label_timezone</target>
+                <target>Часовой пояс</target>
             </trans-unit>
             <trans-unit id="form.label_phone">
                 <source>form.label_phone</source>
-                <target>form.label_phone</target>
+                <target>Телефон</target>
             </trans-unit>
             <trans-unit id="form.label_facebook_uid">
                 <source>form.label_facebook_uid</source>
-                <target>form.label_facebook_uid</target>
+                <target>Facebook UID</target>
             </trans-unit>
             <trans-unit id="form.label_facebook_name">
                 <source>form.label_facebook_name</source>
@@ -188,7 +220,7 @@
             </trans-unit>
             <trans-unit id="form.label_twitter_uid">
                 <source>form.label_twitter_uid</source>
-                <target>form.label_twitter_uid</target>
+                <target>Twitter UID</target>
             </trans-unit>
             <trans-unit id="form.label_twitter_name">
                 <source>form.label_twitter_name</source>
@@ -196,7 +228,7 @@
             </trans-unit>
             <trans-unit id="form.label_gplus_uid">
                 <source>form.label_gplus_uid</source>
-                <target>form.label_gplus_uid</target>
+                <target>Google+ UID</target>
             </trans-unit>
             <trans-unit id="form.label_gplus_name">
                 <source>form.label_gplus_name</source>
@@ -212,55 +244,55 @@
             </trans-unit>
             <trans-unit id="show.label_username">
                 <source>show.label_username</source>
-                <target>show.label_username</target>
+                <target>Имя пользователя</target>
             </trans-unit>
             <trans-unit id="show.label_email">
                 <source>show.label_email</source>
-                <target>show.label_email</target>
+                <target>E-Mail</target>
             </trans-unit>
             <trans-unit id="show.label_groups">
                 <source>show.label_groups</source>
-                <target>show.label_groups</target>
+                <target>Группы</target>
             </trans-unit>
             <trans-unit id="show.label_date_of_birth">
                 <source>show.label_date_of_birth</source>
-                <target>show.label_date_of_birth</target>
+                <target>Дата рождения</target>
             </trans-unit>
             <trans-unit id="show.label_firstname">
                 <source>show.label_firstname</source>
-                <target>show.label_firstname</target>
+                <target>Имя</target>
             </trans-unit>
             <trans-unit id="show.label_lastname">
                 <source>show.label_lastname</source>
-                <target>show.label_lastname</target>
+                <target>Фамилия</target>
             </trans-unit>
             <trans-unit id="show.label_website">
                 <source>show.label_website</source>
-                <target>show.label_website</target>
+                <target>Веб-сайт</target>
             </trans-unit>
             <trans-unit id="show.label_biography">
                 <source>show.label_biography</source>
-                <target>show.label_biography</target>
+                <target>Биография</target>
             </trans-unit>
             <trans-unit id="show.label_gender">
                 <source>show.label_gender</source>
-                <target>show.label_gender</target>
+                <target>Пол</target>
             </trans-unit>
             <trans-unit id="show.label_locale">
                 <source>show.label_locale</source>
-                <target>show.label_locale</target>
+                <target>Локаль</target>
             </trans-unit>
             <trans-unit id="show.label_timezone">
                 <source>show.label_timezone</source>
-                <target>show.label_timezone</target>
+                <target>Часовой пояс</target>
             </trans-unit>
             <trans-unit id="show.label_phone">
                 <source>show.label_phone</source>
-                <target>show.label_phone</target>
+                <target>Телефон</target>
             </trans-unit>
             <trans-unit id="show.label_facebook_uid">
                 <source>show.label_facebook_uid</source>
-                <target>show.label_facebook_uid</target>
+                <target>Facebook UID</target>
             </trans-unit>
             <trans-unit id="show.label_facebook_name">
                 <source>show.label_facebook_name</source>
@@ -268,7 +300,7 @@
             </trans-unit>
             <trans-unit id="show.label_twitter_uid">
                 <source>show.label_twitter_uid</source>
-                <target>show.label_twitter_uid</target>
+                <target>Twitter UID</target>
             </trans-unit>
             <trans-unit id="show.label_twitter_name">
                 <source>show.label_twitter_name</source>
@@ -276,7 +308,7 @@
             </trans-unit>
             <trans-unit id="show.label_gplus_uid">
                 <source>show.label_gplus_uid</source>
-                <target>show.label_gplus_uid</target>
+                <target>Google+ UID</target>
             </trans-unit>
             <trans-unit id="show.label_gplus_name">
                 <source>show.label_gplus_name</source>
@@ -290,13 +322,9 @@
                 <source>show.label_two_step_verification_code</source>
                 <target>show.label_two_step_verification_code</target>
             </trans-unit>
-            <trans-unit id="breadcrumb.link_user_show">
-                <source>breadcrumb.link_user_show</source>
-                <target>breadcrumb.link_user_show</target>
-            </trans-unit>
             <trans-unit id="form.label_date_of_birth">
                 <source>form.label_date_of_birth</source>
-                <target>Date of birth</target>
+                <target>Дата рождения</target>
             </trans-unit>
         </body>
     </file>
