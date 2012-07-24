@@ -13,9 +13,14 @@
 namespace Sonata\UserBundle\Form\Type;
 
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\FormBuilder;
+
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
+
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\Options;
+
 use Sonata\AdminBundle\Admin\Pool;
 
 class SecurityRolesType extends ChoiceType
@@ -33,87 +38,91 @@ class SecurityRolesType extends ChoiceType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilder $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
-
-        $builder->setAttribute('read_only_choices', $options['read_only_choices']);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function buildView(FormView $view, FormInterface $form)
+    public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        parent::buildView($view, $form);
+        parent::buildView($view, $form, $options);
 
-        $attr = $view->get('attr', array());
+        $attr = $view->vars['attr'];
 
         if (isset($attr['class']) && empty($attr['class'])) {
             $attr['class'] = 'sonata-medium';
         }
 
-        $view->set('attr', $attr);
-
-        $view->set('read_only_choices', $form->getAttribute('read_only_choices'));
+        $view->vars['attr'] = $attr;
+        $view->vars['read_only_choices'] = $options['read_only_choices'];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getDefaultOptions(array $options)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $options = parent::getDefaultOptions($options);
+        parent::setDefaultOptions($resolver);
 
         $roles = array();
         $rolesReadOnly = array();
-        if (count($options['choices']) == 0) {
-            $securityContext = $this->pool->getContainer()->get('security.context');
 
-            // get roles from the Admin classes
-            foreach ($this->pool->getAdminServiceIds() as $id) {
-                try {
-                    $admin = $this->pool->getInstance($id);
-                } catch (\Exception $e) {
-                    continue;
-                }
+        $securityContext = $this->pool->getContainer()->get('security.context');
 
-                $isMaster = $admin->isGranted('MASTER');
-                $securityHandler = $admin->getSecurityHandler();
-                // TODO get the base role from the admin or security handler
-                $baseRole = $securityHandler->getBaseRole($admin);
-
-                foreach ($admin->getSecurityInformation() as $role => $permissions) {
-                    $role = sprintf($baseRole, $role);
-                    if ($isMaster) {
-                        // if the user has the MASTER permission, allow to grant access the admin roles to other users
-                        $roles[$role] = $role;
-                    } elseif ($securityContext->isGranted($role)) {
-                        // although the user has no MASTER permission, allow the currently logged in user to view the role
-                        $rolesReadOnly[$role] = $role;
-                    }
-                }
+        // get roles from the Admin classes
+        foreach ($this->pool->getAdminServiceIds() as $id) {
+            try {
+                $admin = $this->pool->getInstance($id);
+            } catch (\Exception $e) {
+                continue;
             }
 
-            // get roles from the service container
-            foreach ($this->pool->getContainer()->getParameter('security.role_hierarchy.roles') as $name => $rolesHierarchy) {
+            $isMaster = $admin->isGranted('MASTER');
+            $securityHandler = $admin->getSecurityHandler();
+            // TODO get the base role from the admin or security handler
+            $baseRole = $securityHandler->getBaseRole($admin);
 
-                if ($securityContext->isGranted($name)) {
-                    $roles[$name] = $name . ': ' . implode(', ', $rolesHierarchy);
+            foreach ($admin->getSecurityInformation() as $role => $permissions) {
+                $role = sprintf($baseRole, $role);
 
-                    foreach ($rolesHierarchy as $role) {
-                        if (!isset($roles[$role])) {
-                            $roles[$role] = $role;
-                        }
+                if ($isMaster) {
+                    // if the user has the MASTER permission, allow to grant access the admin roles to other users
+                    $roles[$role] = $role;
+                } elseif ($securityContext->isGranted($role)) {
+                    // although the user has no MASTER permission, allow the currently logged in user to view the role
+                    $rolesReadOnly[$role] = $role;
+                }
+            }
+        }
+
+        // get roles from the service container
+        foreach ($this->pool->getContainer()->getParameter('security.role_hierarchy.roles') as $name => $rolesHierarchy) {
+
+            if ($securityContext->isGranted($name)) {
+                $roles[$name] = $name . ': ' . implode(', ', $rolesHierarchy);
+
+                foreach ($rolesHierarchy as $role) {
+                    if (!isset($roles[$role])) {
+                        $roles[$role] = $role;
                     }
                 }
             }
         }
 
-        $options['choices'] = $roles;
-        $options['read_only_choices'] = $rolesReadOnly;
+        $resolver->setDefaults(array(
+            'choices' => function (Options $options, $parentChoices) use ($roles) {
+                return empty($parentChoices) ? $roles : array();
+            },
 
-        return $options;
+            'read_only_choices' => function (Options $options) use ($rolesReadOnly) {
+                return empty($options['choices']) ? $rolesReadOnly : array();
+            },
+
+            'data_class' => null
+        ));
     }
 
     /**
