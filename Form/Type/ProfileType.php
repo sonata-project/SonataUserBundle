@@ -40,9 +40,9 @@ class ProfileType extends AbstractType
             ->add('lastname', null, array('required' => false))
             ->add('dateOfBirth', 'birthday', array('required' => false))
             ->add('website', null, array('required' => false))
-            ->add('biography', null, array('required' => false))
-            ->add('locale', null, array('required' => false))
-            ->add('timezone', null, array('required' => false))
+            ->add('biography', 'textarea', array('required' => false))
+            ->add('locale', 'locale', array('required' => false))
+            ->add('timezone', 'timezone', array('required' => false))
             ->add('phone', null, array('required' => false))
         ;
     }
