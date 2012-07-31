@@ -1,42 +1,39 @@
 {% extends base_template %}
 
 {% block content %}
+    <div class="connection">
+        <form action="{{ path("sonata_user_admin_security_check") }}" method="post">
 
-    <div class="row">
-        <div class="span8 offset5 border connection">
-            <form class="form-stacked" action="{{ path("sonata_user_admin_security_check") }}" method="post">
+            {% if error %}
+                <div class="alert alert-error">{{ error|trans({}, 'SonataUserBundle') }}</div>
+            {% endif %}
 
-                {% if error %}
-                    <div class="alert-message error">{{ error|trans({}, 'SonataUserBundle') }}</div>
-                {% endif %}
+            <div class="control-group">
+                <label for="username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
 
-                <div class="clearfix">
-                    <label for="username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
-
-                    <div class="input">
-                        <input type="text" id="username" name="_username" value="{{ last_username }}" class="big sonata-medium"/>
-                    </div>
+                <div class="controls">
+                    <input type="text" id="username" name="_username" value="{{ last_username }}" class="big sonata-medium"/>
                 </div>
+            </div>
 
-                <div class="clearfix">
-                    <label for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
+            <div class="control-group">
+                <label for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
 
-                    <div class="input">
-                        <input type="password" id="password" name="_password" class="big sonata-medium" />
-                    </div>
+                <div class="controls">
+                    <input type="password" id="password" name="_password" class="big sonata-medium" />
                 </div>
+            </div>
 
-                <div class="clearfix">
-                    <label for="remember_me">
-                        <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-                        {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
-                    </label>
-                </div>
+            <div class="control-group">
+                <label for="remember_me">
+                    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                    {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
+                </label>
+            </div>
 
-                <div class="actions">
-                    <input type="submit" class="btn primary" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
-                </div>
-            </form>
-        </div>
+            <div class="form-actions">
+                <input type="submit" class="btn btn-primary" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+            </div>
+        </form>
     </div>
 {% endblock content %}
