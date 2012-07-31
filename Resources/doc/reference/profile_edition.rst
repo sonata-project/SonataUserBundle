@@ -60,6 +60,9 @@ Next, you need to configure the ``profile`` section of ``sonata_user``:
                 name:               sonata_user_profile_form
                 validation_groups:  [Profile]
 
+You can also only override the service parameter to use your own php class, for example to override or
+disable some fields. So you don't need to redefine the hole service definition.
+
 And finally, just change the default ``profile`` routing. Actually it is the only configuration you need
 to define to make it works.
 
