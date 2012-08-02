@@ -5,6 +5,22 @@ Full configuration options:
 
 .. code-block:: yaml
 
+    parameters:
+        sonata.user.form.type.security_roles.class: Sonata\UserBundle\Form\Type\SecurityRolesType
+
+        sonata.user.profile.form.type.class:            Sonata\UserBundle\Form\Type\ProfileType
+        sonata.user.profile.form.handler.default.class: Sonata\UserBundle\Form\Handler\ProfileFormHandler
+
+        sonata.user.admin.user.class:              Sonata\UserBundle\Admin\Entity\UserAdmin
+        sonata.user.admin.user.controller:         SonataAdminBundle:CRUD
+        sonata.user.admin.user.translation_domain: SonataUserBundle
+
+        sonata.user.admin.group.class:              Sonata\UserBundle\Admin\Entity\GroupAdmin
+        sonata.user.admin.group.controller:         SonataAdminBundle:CRUD
+        sonata.user.admin.group.translation_domain: %sonata.user.admin.user.translation_domain%
+
+        sonata.user.admin.groupname: sonata_user
+
     fos_user:
         db_driver:        orm # can be orm or odm
         firewall_name:    main
