@@ -45,7 +45,7 @@ files:
         // ...
         'Sonata'        => array(
             __DIR__.'/../vendor/bundles',
-            __DIR__.'/../sonata-doctrine-extensions/src'
+            __DIR__.'/../vendor/sonata-doctrine-extensions/src'
         ),
         // ...
     ));
