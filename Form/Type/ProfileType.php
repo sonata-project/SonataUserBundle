@@ -13,7 +13,9 @@
 namespace Sonata\UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormBuilderInterface;
+
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ProfileType extends AbstractType
 {
@@ -30,17 +32,17 @@ class ProfileType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilder $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('gender', null, array('required' => false))
             ->add('firstname', null, array('required' => false))
             ->add('lastname', null, array('required' => false))
-            ->add('dateOfBirth', 'date', array('required' => false))
+            ->add('dateOfBirth', 'birthday', array('required' => false))
             ->add('website', null, array('required' => false))
-            ->add('biography', null, array('required' => false))
-            ->add('locale', null, array('required' => false))
-            ->add('timezone', null, array('required' => false))
+            ->add('biography', 'textarea', array('required' => false))
+            ->add('locale', 'locale', array('required' => false))
+            ->add('timezone', 'timezone', array('required' => false))
             ->add('phone', null, array('required' => false))
         ;
     }
@@ -48,11 +50,11 @@ class ProfileType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getDefaultOptions(array $options)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        return array(
+        $resolver->setDefaults(array(
             'data_class' => $this->class
-        );
+        ));
     }
 
     /**

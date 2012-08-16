@@ -48,7 +48,7 @@
             </trans-unit>
             <trans-unit id="sonata_user">
                 <source>sonata_user</source>
-                <target>Users</target>
+                <target>Uporabniki</target>
             </trans-unit>
             <trans-unit id="form.label_website">
                 <source>form.label_website</source>
