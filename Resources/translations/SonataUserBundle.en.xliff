@@ -30,6 +30,10 @@
                 <source>breadcrumb.link_group_edit</source>
                 <target>Edit</target>
             </trans-unit>
+            <trans-unit id="breadcrumb.link_group_delete">
+                <source>breadcrumb.link_group_delete</source>
+                <target>Delete</target>
+            </trans-unit>
             <trans-unit id="users">
                 <source>users</source>
                 <target>Users</target>
