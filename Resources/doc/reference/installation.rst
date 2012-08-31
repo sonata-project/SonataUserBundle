@@ -18,21 +18,12 @@ everything you need in their installation chapter.
 
 Enable the Bundle
 -----------------
-Add the following lines to your ``deps`` file :
 
 .. code-block:: ini
 
-    [SonataUserBundle]
-        git=git://github.com/sonata-project/SonataUserBundle.git
-        target=/bundles/Sonata/UserBundle
-        version=origin/2.0
-
-    [SonataDoctrineExtension]
-        git=git://github.com/sonata-project/sonata-doctrine-extensions.git
-
-and run::
-
-  bin/vendors install
+    php composer require sonata-project/user-bundle --no-update
+    php composer require sonata-project/doctrine-orm-admin-bundle  --no-update # optional
+    php composer update
 
 Next, be sure to enable the bundles in your autoload.php and AppKernel.php
 files:
@@ -40,16 +31,6 @@ files:
 .. code-block:: php
 
     <?php
-    // app/autoload.php
-    $loader->registerNamespaces(array(
-        // ...
-        'Sonata'        => array(
-            __DIR__.'/../vendor/bundles',
-            __DIR__.'/../sonata-doctrine-extensions/src'
-        ),
-        // ...
-    ));
-
 
     // app/appkernel.php
     public function registerbundles()
@@ -228,18 +209,11 @@ but you can specify the path with ``--dest=src``
     point to a global namespace. For instance the user will be
     ``Application\Sonata\UserBundle\Entity\User``.
 
-Now, add the new `Application` Bundle into the kernel and your autoload :
+Now, add the new `Application` Bundle into the kernel:
 
 .. code-block:: php
 
     <?php
-    // autoload.php
-    $loader->registerNamespaces(array(
-        // ...
-        'Application' => __DIR__ . '/../src/',
-        // ...
-
-      ));
 
     // AppKernel.php
     class AppKernel {

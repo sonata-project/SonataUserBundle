@@ -16,14 +16,15 @@
             "homepage": "https://github.com/sonata-project/SonataUserBundle/contributors"
         }
     ],
+    "minimum-stability": "dev",
     "require": {
-        "php": ">=5.3.2",
         "symfony/framework-bundle": "2.1.*",
         "sonata-project/admin-bundle": "dev-master",
         "friendsofsymfony/user-bundle": "dev-master",
         "sonata-project/doctrine-extensions": "dev-master",
         "sonata-project/easy-extends-bundle": "dev-master"
     },
+
     "suggest": {
         "sonata-project/doctrine-orm-admin-bundle": "dev-master"
     },
