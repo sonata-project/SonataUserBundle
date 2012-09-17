@@ -29,7 +29,7 @@ Full configuration options:
 
         profile:  # Profile Form (firstname, lastname, etc ...)
             form:
-                type:               sonata.user.profile
+                type:               sonata_user_profile
                 handler:            sonata.user.profile.form.handler.default
                 name:               sonata_user_profile_form
                 validation_groups:  [Profile]
