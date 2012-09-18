@@ -52,7 +52,7 @@
             </trans-unit>
             <trans-unit id="user_form.label_username">
                 <source>form.label_username</source>
-                <target>Nom d'usuario</target>
+                <target>Nom d'usuari</target>
             </trans-unit>
             <trans-unit id="form.label_email">
                 <source>form.label_email</source>
