@@ -39,7 +39,7 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('user_group')->defaultValue('fos_user_user_group')->end()
                     ->end()
                 ->end()
-                ->scalarNode('impersonating_route')->defaultValue('homepage')->end()
+                ->scalarNode('impersonating_route')->defaultValue(false)->end()
                 ->arrayNode('google_authenticator')
                     ->addDefaultsIfNotSet()
                     ->children()
