@@ -118,13 +118,7 @@ class SonataUserExtension extends Extension
         $defaultConfig['admin']['user']['class']  = sprintf('Sonata\\UserBundle\\Admin\\%s\\UserAdmin', $modelType);
         $defaultConfig['admin']['group']['class'] = sprintf('Sonata\\UserBundle\\Admin\\%s\\GroupAdmin', $modelType);
 
-        $defaultConfig['admin']['user']['controller'] = 'SonataAdminBundle:CRUD';
-        $defaultConfig['admin']['group']['controller'] = 'SonataAdminBundle:CRUD';
-
-        $defaultConfig['admin']['user']['translation'] = 'SonataUserBundle';
-        $defaultConfig['admin']['group']['translation'] = 'SonataUserBundle';
-
-        return array_merge($defaultConfig, $config);
+        return array_replace_recursive($defaultConfig, $config);
     }
 
     /**
