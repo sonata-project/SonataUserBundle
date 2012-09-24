@@ -23,9 +23,21 @@ Full configuration options:
     sonata_user:
         security_acl:           false
         impersonating_route:    homepage # or any route you want to use
-        class:
+        class:                  # Entity Classes
             user:               Application\Sonata\UserBundle\Entity\User
             group:              Application\Sonata\UserBundle\Entity\Group
+
+        admin:                  # Admin Classes
+            user:               Sonata\UserBundle\Admin\Entity\UserAdmin
+            group:              Sonata\UserBundle\Admin\Entity\GroupAdmin
+
+        controller:
+            user:               SonataAdminBundle:CRUD
+            group:              SonataAdminBundle:CRUD
+
+        translation_domain:
+            user:               SonataUserBundle
+            group:              SonataUserBundle
 
         profile:  # Profile Form (firstname, lastname, etc ...)
             form:

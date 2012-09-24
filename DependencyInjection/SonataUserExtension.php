@@ -51,7 +51,11 @@ class SonataUserExtension extends Extension
         $config = $this->addDefaults($config);
 
         $this->registerDoctrineMapping($config);
+        $this->configureAdminClass($config, $container);
         $this->configureClass($config, $container);
+
+        $this->configureTranslationDomain($config, $container);
+        $this->configureController($config, $container);
 
         // add custom form widgets
         $container->setParameter('twig.form.resources', array_merge(
@@ -111,6 +115,15 @@ class SonataUserExtension extends Extension
         $defaultConfig['class']['user']  = sprintf('Application\\Sonata\\UserBundle\\%s\\User', $modelType);
         $defaultConfig['class']['group'] = sprintf('Application\\Sonata\\UserBundle\\%s\\Group', $modelType);
 
+        $defaultConfig['admin']['user']  = sprintf('Sonata\\UserBundle\\Admin\\%s\\UserAdmin', $modelType);
+        $defaultConfig['admin']['group'] = sprintf('Sonata\\UserBundle\\Admin\\%s\\GroupAdmin', $modelType);
+
+        $defaultConfig['controller']['user'] = 'SonataAdminBundle:CRUD';
+        $defaultConfig['controller']['group'] = 'SonataAdminBundle:CRUD';
+
+        $defaultConfig['translation_domain']['user'] = 'SonataUserBundle';
+        $defaultConfig['translation_domain']['group'] = 'SonataUserBundle';
+
         return array_merge($defaultConfig, $config);
     }
 
@@ -130,6 +143,42 @@ class SonataUserExtension extends Extension
 
         $container->setParameter(sprintf('sonata.user.admin.user.%s', $modelType), $config['class']['user']);
         $container->setParameter(sprintf('sonata.user.admin.group.%s', $modelType), $config['class']['group']);
+    }
+
+    /**
+     * @param array                                                   $config
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     *
+     * @return void
+     */
+    public function configureAdminClass($config, ContainerBuilder $container)
+    {
+        $container->setParameter('sonata.user.admin.user.class', $config['admin']['user']);
+        $container->setParameter('sonata.user.admin.group.class', $config['admin']['group']);
+    }
+
+    /**
+     * @param array                                                   $config
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     *
+     * @return void
+     */
+    public function configureTranslationDomain($config, ContainerBuilder $container)
+    {
+        $container->setParameter('sonata.user.admin.user.translation_domain', $config['translation_domain']['user']);
+        $container->setParameter('sonata.user.admin.group.translation_domain', $config['translation_domain']['group']);
+    }
+
+    /**
+     * @param array                                                   $config
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     *
+     * @return void
+     */
+    public function configureController($config, ContainerBuilder $container)
+    {
+        $container->setParameter('sonata.user.admin.user.controller', $config['controller']['user']);
+        $container->setParameter('sonata.user.admin.group.controller', $config['controller']['group']);
     }
 
     /**
