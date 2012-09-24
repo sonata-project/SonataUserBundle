@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+### 2012-09-24
+
+* changed service parameters into options that come through the configuration with the old values as the new defaults.
+
 ### [BC BREAK] 2012-07-21
 
 * change impersonating definition, now the url is defined as a configuration, you don't need to create
