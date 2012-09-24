@@ -28,16 +28,15 @@ Full configuration options:
             group:              Application\Sonata\UserBundle\Entity\Group
 
         admin:                  # Admin Classes
-            user:               Sonata\UserBundle\Admin\Entity\UserAdmin
-            group:              Sonata\UserBundle\Admin\Entity\GroupAdmin
+            user:
+                class:          Sonata\UserBundle\Admin\Entity\UserAdmin
+                controller:     SonataAdminBundle:CRUD
+                translation:    SonataUserBundle
 
-        controller:
-            user:               SonataAdminBundle:CRUD
-            group:              SonataAdminBundle:CRUD
-
-        translation_domain:
-            user:               SonataUserBundle
-            group:              SonataUserBundle
+            group:
+                class:          Sonata\UserBundle\Admin\Entity\GroupAdmin
+                controller:     SonataAdminBundle:CRUD
+                translation:    SonataUserBundle
 
         profile:  # Profile Form (firstname, lastname, etc ...)
             form:

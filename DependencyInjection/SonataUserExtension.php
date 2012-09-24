@@ -115,14 +115,14 @@ class SonataUserExtension extends Extension
         $defaultConfig['class']['user']  = sprintf('Application\\Sonata\\UserBundle\\%s\\User', $modelType);
         $defaultConfig['class']['group'] = sprintf('Application\\Sonata\\UserBundle\\%s\\Group', $modelType);
 
-        $defaultConfig['admin']['user']  = sprintf('Sonata\\UserBundle\\Admin\\%s\\UserAdmin', $modelType);
-        $defaultConfig['admin']['group'] = sprintf('Sonata\\UserBundle\\Admin\\%s\\GroupAdmin', $modelType);
+        $defaultConfig['admin']['user']['class']  = sprintf('Sonata\\UserBundle\\Admin\\%s\\UserAdmin', $modelType);
+        $defaultConfig['admin']['group']['class'] = sprintf('Sonata\\UserBundle\\Admin\\%s\\GroupAdmin', $modelType);
 
-        $defaultConfig['controller']['user'] = 'SonataAdminBundle:CRUD';
-        $defaultConfig['controller']['group'] = 'SonataAdminBundle:CRUD';
+        $defaultConfig['admin']['user']['controller'] = 'SonataAdminBundle:CRUD';
+        $defaultConfig['admin']['group']['controller'] = 'SonataAdminBundle:CRUD';
 
-        $defaultConfig['translation_domain']['user'] = 'SonataUserBundle';
-        $defaultConfig['translation_domain']['group'] = 'SonataUserBundle';
+        $defaultConfig['admin']['user']['translation'] = 'SonataUserBundle';
+        $defaultConfig['admin']['group']['translation'] = 'SonataUserBundle';
 
         return array_merge($defaultConfig, $config);
     }
@@ -153,8 +153,8 @@ class SonataUserExtension extends Extension
      */
     public function configureAdminClass($config, ContainerBuilder $container)
     {
-        $container->setParameter('sonata.user.admin.user.class', $config['admin']['user']);
-        $container->setParameter('sonata.user.admin.group.class', $config['admin']['group']);
+        $container->setParameter('sonata.user.admin.user.class', $config['admin']['user']['class']);
+        $container->setParameter('sonata.user.admin.group.class', $config['admin']['group']['class']);
     }
 
     /**
@@ -165,8 +165,8 @@ class SonataUserExtension extends Extension
      */
     public function configureTranslationDomain($config, ContainerBuilder $container)
     {
-        $container->setParameter('sonata.user.admin.user.translation_domain', $config['translation_domain']['user']);
-        $container->setParameter('sonata.user.admin.group.translation_domain', $config['translation_domain']['group']);
+        $container->setParameter('sonata.user.admin.user.translation_domain', $config['admin']['user']['translation']);
+        $container->setParameter('sonata.user.admin.group.translation_domain', $config['admin']['group']['translation']);
     }
 
     /**
@@ -177,8 +177,8 @@ class SonataUserExtension extends Extension
      */
     public function configureController($config, ContainerBuilder $container)
     {
-        $container->setParameter('sonata.user.admin.user.controller', $config['controller']['user']);
-        $container->setParameter('sonata.user.admin.group.controller', $config['controller']['group']);
+        $container->setParameter('sonata.user.admin.user.controller', $config['admin']['user']['controller']);
+        $container->setParameter('sonata.user.admin.group.controller', $config['admin']['group']['controller']);
     }
 
     /**
