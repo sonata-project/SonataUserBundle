@@ -22,13 +22,13 @@
         <!-- social fields -->
         <field name="facebookUid"     type="string"  />
         <field name="facebookName"    type="string"  />
-        <field name="facebookData"    type="json"    />
+        <field name="facebookData"    type="hash"    />
         <field name="twitterUid"      type="string"  />
         <field name="twitterName"     type="string"  />
-        <field name="twitterData"     type="json"    />
+        <field name="twitterData"     type="hash"    />
         <field name="gplusUid"        type="string"  />
         <field name="gplusName"       type="string"  />
-        <field name="gplusData"       type="json"    />
+        <field name="gplusData"       type="hash"    />
 
         <!-- extra security fields -->
         <field name="token"                   type="string" />
