@@ -34,8 +34,8 @@ class UserAdmin extends Admin
             ->addIdentifier('username')
             ->add('email')
             ->add('groups')
-            ->add('enabled')
-            ->add('locked')
+            ->add('enabled', null, array('editable' => true))
+            ->add('locked', null, array('editable' => true))
             ->add('createdAt')
         ;
 
