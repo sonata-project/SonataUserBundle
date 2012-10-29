@@ -91,7 +91,7 @@ class SonataUserExtension extends Extension
         }
 
         if (!class_exists('Google\Authenticator\GoogleAuthenticator')) {
-            throw new \RuntimeException('Please install GoogleAuthenticator.php available on github.com');
+            throw new \RuntimeException('Please add ``sonata-project/google-authenticator`` package');
         }
 
         $container->getDefinition('sonata.user.google.authenticator.provider')
