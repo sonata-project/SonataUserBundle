@@ -22,7 +22,11 @@ Full configuration options:
 
     sonata_user:
         security_acl:           false
-        impersonating_route:    homepage # or any route you want to use
+
+        impersonating:
+            route:                page_slug
+            parameters:           { path: / }
+
         class:                  # Entity Classes
             user:               Application\Sonata\UserBundle\Entity\User
             group:              Application\Sonata\UserBundle\Entity\Group
