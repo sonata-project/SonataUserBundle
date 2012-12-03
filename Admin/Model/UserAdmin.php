@@ -119,7 +119,11 @@ class UserAdmin extends Admin
                 ->add('lastname', null, array('required' => false))
                 ->add('website', 'url', array('required' => false))
                 ->add('biography', 'text', array('required' => false))
-                ->add('gender', 'textarea', array('required' => false))
+                ->add('gender', 'choice', array(
+                    'choices' => array('m' => 'male', 'f' => 'female'),
+                    'required' => false,
+                    'translation_domain' => $this->getTranslationDomain()
+                ))
                 ->add('locale', 'locale', array('required' => false))
                 ->add('timezone', 'timezone', array('required' => false))
                 ->add('phone', null, array('required' => false))

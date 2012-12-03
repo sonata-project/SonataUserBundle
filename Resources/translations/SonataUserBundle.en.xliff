@@ -346,6 +346,14 @@
                 <source>breadcrumb.link_user_show</source>
                 <target>Show</target>
             </trans-unit>
+            <trans-unit id="male">
+                <source>male</source>
+                <target>male</target>
+            </trans-unit>
+            <trans-unit id="female">
+                <source>female</source>
+                <target>female</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
