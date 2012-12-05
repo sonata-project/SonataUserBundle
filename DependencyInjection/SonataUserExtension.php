@@ -227,11 +227,13 @@ class SonataUserExtension extends Extension
                     array(
                         'name' => 'user_id',
                         'referencedColumnName' => 'id',
+                        'onDelete' => 'CASCADE'
                     ),
                 ),
                 'inverseJoinColumns' => array( array(
                     'name' => 'group_id',
                     'referencedColumnName' => 'id',
+                    'onDelete' => 'CASCADE'
                 )),
             )
         ));
