@@ -101,7 +101,7 @@ class SecurityRolesType extends ChoiceType
         // get roles from the service container
         foreach ($this->pool->getContainer()->getParameter('security.role_hierarchy.roles') as $name => $rolesHierarchy) {
 
-            if ($securityContext->isGranted($name)) {
+            if ($securityContext->isGranted($name) || $isMaster) {
                 $roles[$name] = $name . ': ' . implode(', ', $rolesHierarchy);
 
                 foreach ($rolesHierarchy as $role) {
