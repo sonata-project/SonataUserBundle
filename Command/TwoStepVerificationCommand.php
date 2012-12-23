@@ -28,6 +28,7 @@ class TwoStepVerificationCommand extends ContainerAwareCommand
     {
         $this->setName('sonata:user:two-step-verification');
         $this->addArgument('username', InputArgument::REQUIRED, 'The username to protect with a two step verification process');
+        $this->addOption('reset', null, InputOption::VALUE_NONE, 'Reset the current two step verification token');
         $this->setDescription('Generate a two step verification process to secure an access (Ideal for super admin protection)');
     }
 
@@ -49,7 +50,7 @@ class TwoStepVerificationCommand extends ContainerAwareCommand
             throw new \RuntimeException(sprintf('Unable to find the username : %s', $input->getArgument('username')));
         }
 
-        if (!$user->getTwoStepVerificationCode()) {
+        if (!$user->getTwoStepVerificationCode() || $input->getOption('reset')) {
             $user->setTwoStepVerificationCode($helper->generateSecret());
             $manager->updateUser($user);
         }
