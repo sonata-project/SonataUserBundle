@@ -2,7 +2,7 @@
     "name": "rmzamora/user-bundle",
     "type": "symfony-bundle",
     "description": "Symfony SonataUserBundle",
-    "keywords": ["user", "sonata", "google authenticator"],
+    "keywords": ["user", "sonata", "google authenticator", "rmzamora forked"],
     "homepage": "http://sonata-project.org/bundles/user",
     "license": "MIT",
     "authors": [
@@ -10,6 +10,11 @@
             "name": "Thomas Rabaix",
             "email": "thomas.rabaix@sonata-project.org",
             "homepage": "http://sonata-project.org"
+        },
+        {
+            "name": "mell zamora",
+            "email": "me@rmzamora.com",
+            "homepage": "http://rmzamora.com"
         },
         {
             "name": "Sonata Community",
