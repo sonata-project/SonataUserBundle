@@ -37,6 +37,7 @@ class SonataUserExtension extends Extension
         $processor = new Processor();
         $configuration = new Configuration();
         $config = $processor->processConfiguration($configuration, $configs);
+        $config = $this->fixImpersonating($config);
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load(sprintf('admin_%s.xml', $config['manager_type']));
@@ -63,11 +64,41 @@ class SonataUserExtension extends Extension
             array('SonataUserBundle:Form:form_admin_fields.html.twig')
         ));
 
-        $container->setParameter('sonata.user.impersonating_route', $config['impersonating_route']);
+        $container->setParameter('sonata.user.impersonating', $config['impersonating']);
 
         $this->configureGoogleAuthenticator($config, $container);
         $this->configureShortcut($container);
         $this->configureProfile($config, $container);
+    }
+
+    /**
+     * @param array $config
+     *
+     * @return array
+     * @throws \RuntimeException
+     */
+    public function fixImpersonating(array $config)
+    {
+        if (isset($config['impersonating']) && isset($config['impersonating_route'])) {
+            throw new \RuntimeException('you can\'t have `impersonating` and `impersonating_route` keys defined at the same time');
+        }
+
+        if (isset($config['impersonating_route'])) {
+            $config['impersonating'] = array(
+                'route' =>  $config['impersonating_route'],
+                'parameters' => array()
+            );
+        }
+
+        if (!isset($config['impersonating']['parameters'])) {
+            $config['impersonating']['parameters'] = array();
+        }
+
+        if (!isset($config['impersonating']['route'])) {
+            $config['impersonating'] = false;
+        }
+
+        return $config;
     }
 
     /**
@@ -91,7 +122,7 @@ class SonataUserExtension extends Extension
         }
 
         if (!class_exists('Google\Authenticator\GoogleAuthenticator')) {
-            throw new \RuntimeException('Please install GoogleAuthenticator.php available on github.com');
+            throw new \RuntimeException('Please add ``sonata-project/google-authenticator`` package');
         }
 
         $container->getDefinition('sonata.user.google.authenticator.provider')

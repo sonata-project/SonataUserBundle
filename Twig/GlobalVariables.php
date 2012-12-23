@@ -23,7 +23,7 @@ class GlobalVariables
     protected $container;
 
     /**
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     * @param ContainerInterface $container
      */
     public function __construct(ContainerInterface $container)
     {
@@ -33,8 +33,8 @@ class GlobalVariables
     /**
      * @return string
      */
-    public function getImpersonatingRoute()
+    public function getImpersonating()
     {
-        return $this->container->getParameter('sonata.user.impersonating_route');
+        return $this->container->getParameter('sonata.user.impersonating');
     }
 }

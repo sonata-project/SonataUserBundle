@@ -1,40 +1,29 @@
 Two Step Validation (with Google Authenticator)
 ===============================================
 
-The SonataUserBundle provides an optional layer of security by including a 
+The SonataUserBundle provides an optional layer of security by including a
 support for a Two Step Validation process.
 
-When the option is enabled, the login process is done with the following 
+When the option is enabled, the login process is done with the following
 workflow :
 
 * the user enters the login and password
 * if the user get the correct credentials, then
 * a code validation form is diplayed
-* at this point the user must enter a time based code provided by the Google 
+* at this point the user must enter a time based code provided by the Google
   Authenticator application
 * the code is valid only once per minute
 
-So if your login and password are compromised then the hacker must also hold 
+So if your login and password are compromised then the hacker must also hold
 your phone!
 
 
 Installation
 ------------
 
-Add the following lines to the file ``deps``::
+Add the following line to the ``composer.json`` file::
 
-    [GoogleAuthenticator]
-        git=git://github.com/rande/GoogleAuthenticator.php.git
-        target=/google-authenticator
-
-Update the autoload.php file::
-
-    // app/autoload.php
-    $loader->registerNamespaces(array(
-        // ...
-        'Google'            => __DIR__.'/../vendor/google-authenticator/lib'
-        // ...
-    ));
+    "sonata-project/google-authenticator": "dev-master"
 
 Edit the configuration file
 
