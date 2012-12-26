@@ -80,7 +80,8 @@ class ProfileController extends Controller
                 $userManager->updateUser($user);
 
                 if (null === $response = $event->getResponse()) {
-                    $response = $this->redirect('sonata_user_profile_show');
+                    $url = $this->get('router')->generate('sonata_user_profile_show');
+                    $response = $this->redirect($url);
                 }
 
                 $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
