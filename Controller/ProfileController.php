@@ -16,7 +16,11 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\UserBundle\Model\UserInterface;
+use FOS\UserBundle\Event\FormEvent;
+use FOS\UserBundle\Event\FilterUserResponseEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use FOS\UserBundle\FOSUserEvents;
+
 
 /**
  * This class is inspirated from the FOS Profile Controller, except :
@@ -76,7 +80,8 @@ class ProfileController extends Controller
                 $userManager->updateUser($user);
 
                 if (null === $response = $event->getResponse()) {
-                    $response = $this->redirect('sonata_user_profile_show');
+                    $url = $this->get('router')->generate('sonata_user_profile_show');
+                    $response = $this->redirect($url);
                 }
 
                 $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
