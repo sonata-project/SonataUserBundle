@@ -22,6 +22,9 @@ Full configuration options:
     sonata_user:
         security_acl:           false
 
+        table:
+            user_group: "my_custom_user_group_association_table_name"
+
         impersonating:
             route:                page_slug
             parameters:           { path: / }
