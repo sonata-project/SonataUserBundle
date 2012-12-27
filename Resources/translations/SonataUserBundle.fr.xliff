@@ -198,6 +198,10 @@
                 <source>Security</source>
                 <target>Sécurité</target>
             </trans-unit>
+            <trans-unit id="field.label_roles_editable">
+                <source>field.label_roles_editable</source>
+                <target>Rôles</target>
+            </trans-unit>
             <trans-unit id="form.label_date_of_birth">
                 <source>form.label_date_of_birth</source>
                 <target>Date de naissance</target>
