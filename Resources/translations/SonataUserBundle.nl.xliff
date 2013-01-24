@@ -2,6 +2,10 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" datatype="plaintext" original="" target-language="nl">
         <body>
+            <trans-unit id="sonata_user">
+                <source>sonata_user</source>
+                <target>Gebruikersbeheer</target>
+            </trans-unit>
             <trans-unit id="title_user_account">
                 <source>title_user_account</source>
                 <target>Gebruikers profiel</target>
@@ -193,10 +197,6 @@
             <trans-unit id="label_two_step_code_error">
                 <source>label_two_step_code_error</source>
                 <target>De verificatie code is niet correct</target>
-            </trans-unit>
-            <trans-unit id="sonata_user">
-                <source>sonata_user</source>
-                <target>Gebruikers</target>
             </trans-unit>
             <trans-unit id="form_general">
                 <source>General</source>
