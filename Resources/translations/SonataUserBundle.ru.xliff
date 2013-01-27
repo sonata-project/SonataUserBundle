@@ -100,7 +100,7 @@
             </trans-unit>
             <trans-unit id="form.label_firstname">
                 <source>form.label_firstname</source>
-    		<target>Имя</target>
+                <target>Имя</target>
             </trans-unit>
             <trans-unit id="form.label_lastname">
                 <source>form.label_lastname</source>
