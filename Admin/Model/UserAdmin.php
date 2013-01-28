@@ -95,7 +95,7 @@ class UserAdmin extends Admin
             ->with('Security')
                 ->add('token')
                 ->add('twoStepVerificationCode')
-            ->end();
+            ->end()
         ;
     }
 
@@ -135,24 +135,27 @@ class UserAdmin extends Admin
         ;
 
         if (!$this->getSubject()->hasRole('ROLE_SUPER_ADMIN')) {
-            $formMapper->with('Management')
-                ->add('roles', 'sonata_security_roles', array(
-                    'expanded' => true,
-                    'multiple' => true,
-                    'required' => false
-                ))
-                ->add('locked', null, array('required' => false))
-                ->add('expired', null, array('required' => false))
-                ->add('enabled', null, array('required' => false))
-                ->add('credentialsExpired', null, array('required' => false))
-            ->end();
+            $formMapper
+                ->with('Management')
+                    ->add('roles', 'sonata_security_roles', array(
+                        'expanded' => true,
+                        'multiple' => true,
+                        'required' => false
+                    ))
+                    ->add('locked', null, array('required' => false))
+                    ->add('expired', null, array('required' => false))
+                    ->add('enabled', null, array('required' => false))
+                    ->add('credentialsExpired', null, array('required' => false))
+                ->end()
+            ;
         }
 
         $formMapper
             ->with('Security')
                 ->add('token', null, array('required' => false))
                 ->add('twoStepVerificationCode', null, array('required' => false))
-            ->end();
+            ->end()
+        ;
     }
 
     /**

@@ -2,7 +2,7 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" datatype="plaintext" original="" >
         <body>
-        	<trans-unit id="title_user_account">
+            <trans-unit id="title_user_account">
                 <source>title_user_account</source>
                 <target>User Profile</target>
             </trans-unit>
@@ -88,7 +88,7 @@
             </trans-unit>
             <trans-unit id="form.label_expired">
                 <source>form.label_expired</source>
-                <target>Expired</target>
+                <target>Просрочен</target>
             </trans-unit>
             <trans-unit id="form.label_enabled">
                 <source>form.label_enabled</source>
@@ -97,6 +97,14 @@
             <trans-unit id="form.label_credentials_expired">
                 <source>form.label_credentials_expired</source>
                 <target>Пароль устарел</target>
+            </trans-unit>
+            <trans-unit id="form.label_firstname">
+                <source>form.label_firstname</source>
+                <target>Имя</target>
+            </trans-unit>
+            <trans-unit id="form.label_lastname">
+                <source>form.label_lastname</source>
+                <target>Фамилия</target>
             </trans-unit>
             <trans-unit id="user_form.label_name">
                 <source>form.label_name</source>
@@ -244,7 +252,7 @@
             </trans-unit>
             <trans-unit id="form.label_facebook_name">
                 <source>form.label_facebook_name</source>
-                <target>form.label_facebook_name</target>
+                <target>Facebook имя</target>
             </trans-unit>
             <trans-unit id="form.label_twitter_uid">
                 <source>form.label_twitter_uid</source>
@@ -252,7 +260,7 @@
             </trans-unit>
             <trans-unit id="form.label_twitter_name">
                 <source>form.label_twitter_name</source>
-                <target>form.label_twitter_name</target>
+                <target>Twitter имя</target>
             </trans-unit>
             <trans-unit id="form.label_gplus_uid">
                 <source>form.label_gplus_uid</source>
@@ -260,15 +268,15 @@
             </trans-unit>
             <trans-unit id="form.label_gplus_name">
                 <source>form.label_gplus_name</source>
-                <target>form.label_gplus_name</target>
+                <target>Google+ имя</target>
             </trans-unit>
             <trans-unit id="form.label_token">
                 <source>form.label_token</source>
-                <target>form.label_token</target>
+                <target>Ключ доступа</target>
             </trans-unit>
             <trans-unit id="form.label_two_step_verification_code">
                 <source>form.label_two_step_verification_code</source>
-                <target>form.label_two_step_verification_code</target>
+                <target>Ключ двухэтапной аутентификации</target>
             </trans-unit>
             <trans-unit id="show.label_username">
                 <source>show.label_username</source>
@@ -324,7 +332,7 @@
             </trans-unit>
             <trans-unit id="show.label_facebook_name">
                 <source>show.label_facebook_name</source>
-                <target>show.label_facebook_name</target>
+                <target>Facebook имя</target>
             </trans-unit>
             <trans-unit id="show.label_twitter_uid">
                 <source>show.label_twitter_uid</source>
@@ -332,7 +340,7 @@
             </trans-unit>
             <trans-unit id="show.label_twitter_name">
                 <source>show.label_twitter_name</source>
-                <target>show.label_twitter_name</target>
+                <target>Twitter имя</target>
             </trans-unit>
             <trans-unit id="show.label_gplus_uid">
                 <source>show.label_gplus_uid</source>
@@ -340,15 +348,15 @@
             </trans-unit>
             <trans-unit id="show.label_gplus_name">
                 <source>show.label_gplus_name</source>
-                <target>show.label_gplus_name</target>
+                <target>Google+ имя</target>
             </trans-unit>
             <trans-unit id="show.label_token">
                 <source>show.label_token</source>
-                <target>show.label_token</target>
+                <target>Ключ доступа</target>
             </trans-unit>
             <trans-unit id="show.label_two_step_verification_code">
                 <source>show.label_two_step_verification_code</source>
-                <target>show.label_two_step_verification_code</target>
+                <target>Ключ двухэтапной аутентификации</target>
             </trans-unit>
             <trans-unit id="form.label_date_of_birth">
                 <source>form.label_date_of_birth</source>
@@ -361,6 +369,10 @@
             <trans-unit id="form.label_lastname">
                 <source>form.label_lastname</source>
                 <target>Фамилия</target>
+            </trans-unit>
+            <trans-unit id="field.label_roles_editable">
+                <source>field.label_roles_editable</source>
+                <target>Роли</target>
             </trans-unit>
         </body>
     </file>
