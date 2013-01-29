@@ -130,6 +130,14 @@
                 <source>filter.label_groups</source>
                 <target>Skupine</target>
             </trans-unit>
+            <trans-unit id="filter.label_firstname">
+                <source>filter.label_firstname</source>
+                <target>Ime</target>
+            </trans-unit>
+            <trans-unit id="filter.label_lastname">
+                <source>filter.label_lastname</source>
+                <target>Priimek</target>
+            </trans-unit>
             <trans-unit id="list.label_username">
                 <source>list.label_username</source>
                 <target>Uporabniško ime</target>
@@ -165,6 +173,14 @@
             <trans-unit id="list.label_roles">
                 <source>list.label_roles</source>
                 <target>Vloge</target>
+            </trans-unit>
+            <trans-unit id="list.label_firstname">
+                <source>list.label_firstname</source>
+                <target>Ime</target>
+            </trans-unit>
+            <trans-unit id="list.label_lastname">
+                <source>list.label_lastname</source>
+                <target>Priimek</target>
             </trans-unit>
             <trans-unit id="label_two_step_code">
                 <source>label_two_step_code</source>

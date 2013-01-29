@@ -146,6 +146,14 @@
                 <source>filter.label_last_login</source>
                 <target>Laatst ingelogd</target>
             </trans-unit>
+            <trans-unit id="filter.label_firstname">
+                <source>filter.label_firstname</source>
+                <target>Voornaam</target>
+            </trans-unit>
+            <trans-unit id="filter.label_lastname">
+                <source>filter.label_lastname</source>
+                <target>Achternaam</target>
+            </trans-unit>
             <trans-unit id="list.label_username">
                 <source>list.label_username</source>
                 <target>Gebruikersnaam</target>
@@ -185,6 +193,14 @@
             <trans-unit id="list.label_roles">
                 <source>list.label_roles</source>
                 <target>Rollen</target>
+            </trans-unit>
+            <trans-unit id="list.label_firstname">
+                <source>list.label_firstname</source>
+                <target>Voornaam</target>
+            </trans-unit>
+            <trans-unit id="list.label_lastname">
+                <source>list.label_lastname</source>
+                <target>Achternaam</target>
             </trans-unit>
             <trans-unit id="label_two_step_code">
                 <source>label_two_step_code</source>

@@ -126,6 +126,14 @@
                 <source>filter.label_groups</source>
                 <target>Grupos</target>
             </trans-unit>
+            <trans-unit id="filter.label_firstname">
+                <source>filter.label_firstname</source>
+                <target>Nombre</target>
+            </trans-unit>
+            <trans-unit id="filter.label_lastname">
+                <source>filter.label_lastname</source>
+                <target>Apellido</target>
+            </trans-unit>
             <trans-unit id="list.label_username">
                 <source>list.label_username</source>
                 <target>Nombre de usuario</target>
@@ -161,6 +169,14 @@
             <trans-unit id="list.label_roles">
                 <source>list.label_roles</source>
                 <target>Perfiles</target>
+            </trans-unit>
+            <trans-unit id="list.label_firstname">
+                <source>list.label_firstname</source>
+                <target>Nombre</target>
+            </trans-unit>
+            <trans-unit id="list.label_lastname">
+                <source>list.label_lastname</source>
+                <target>Apellido</target>
             </trans-unit>
             <trans-unit id="label_two_step_code">
                 <source>label_two_step_code</source>

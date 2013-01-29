@@ -142,6 +142,14 @@
                 <source>filter.label_last_login</source>
                 <target>Last login</target>
             </trans-unit>
+            <trans-unit id="filter.label_firstname">
+                <source>filter.label_firstname</source>
+                <target>Firstname</target>
+            </trans-unit>
+            <trans-unit id="filter.label_lastname">
+                <source>filter.label_lastname</source>
+                <target>Lastname</target>
+            </trans-unit>
             <trans-unit id="list.label_username">
                 <source>list.label_username</source>
                 <target>Username</target>
@@ -181,6 +189,14 @@
             <trans-unit id="list.label_roles">
                 <source>list.label_roles</source>
                 <target>Roles</target>
+            </trans-unit>
+            <trans-unit id="list.label_firstname">
+                <source>list.label_firstname</source>
+                <target>Firstname</target>
+            </trans-unit>
+            <trans-unit id="list.label_lastname">
+                <source>list.label_lastname</source>
+                <target>Lastname</target>
             </trans-unit>
             <trans-unit id="label_two_step_code">
                 <source>label_two_step_code</source>
