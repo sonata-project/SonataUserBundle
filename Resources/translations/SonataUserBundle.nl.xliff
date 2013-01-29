@@ -391,8 +391,12 @@
                 <target>E-mailadres</target>
             </trans-unit>
             <trans-unit id="filter_locked">
-                <source>email</source>
+                <source>locked</source>
                 <target>Vergrendeld</target>
+            </trans-unit>
+            <trans-unit id="filter_name">
+                <source>name</source>
+                <target>Naam</target>
             </trans-unit>
         </body>
     </file>
