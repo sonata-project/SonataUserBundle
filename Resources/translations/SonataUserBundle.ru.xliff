@@ -130,6 +130,14 @@
                 <source>filter.label_id</source>
                 <target>ID</target>
             </trans-unit>
+            <trans-unit id="filter.label_firstname">
+                <source>filter.label_firstname</source>
+                <target>Имя</target>
+            </trans-unit>
+            <trans-unit id="filter.label_lastname">
+                <source>filter.label_lastname</source>
+                <target>Фамилия</target>
+            </trans-unit>
             <trans-unit id="list.label_username">
                 <source>list.label_username</source>
                 <target>Имя пользователя</target>
@@ -165,6 +173,14 @@
             <trans-unit id="list.label_roles">
                 <source>list.label_roles</source>
                 <target>Роли</target>
+            </trans-unit>
+            <trans-unit id="list.label_firstname">
+                <source>list.label_firstname</source>
+                <target>Имя</target>
+            </trans-unit>
+            <trans-unit id="list.label_lastname">
+                <source>list.label_lastname</source>
+                <target>Фамилия</target>
             </trans-unit>
             <trans-unit id="label_two_step_code">
                 <source>label_two_step_code</source>
@@ -345,6 +361,14 @@
             <trans-unit id="form.label_date_of_birth">
                 <source>form.label_date_of_birth</source>
                 <target>Дата рождения</target>
+            </trans-unit>
+            <trans-unit id="form.label_firstname">
+                <source>form.label_firstname</source>
+                <target>Имя</target>
+            </trans-unit>
+            <trans-unit id="form.label_lastname">
+                <source>form.label_lastname</source>
+                <target>Фамилия</target>
             </trans-unit>
             <trans-unit id="field.label_roles_editable">
                 <source>field.label_roles_editable</source>
