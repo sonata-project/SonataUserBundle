@@ -362,14 +362,6 @@
                 <source>form.label_date_of_birth</source>
                 <target>Дата рождения</target>
             </trans-unit>
-            <trans-unit id="form.label_firstname">
-                <source>form.label_firstname</source>
-                <target>Имя</target>
-            </trans-unit>
-            <trans-unit id="form.label_lastname">
-                <source>form.label_lastname</source>
-                <target>Фамилия</target>
-            </trans-unit>
             <trans-unit id="field.label_roles_editable">
                 <source>field.label_roles_editable</source>
                 <target>Роли</target>
