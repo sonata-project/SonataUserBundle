@@ -2,7 +2,7 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" datatype="plaintext" original="" >
         <body>
-        	<trans-unit id="title_user_account">
+            <trans-unit id="title_user_account">
                 <source>title_user_account</source>
                 <target>User Profile</target>
             </trans-unit>
@@ -313,6 +313,18 @@
             <trans-unit id="form.label_date_of_birth">
                 <source>form.label_date_of_birth</source>
                 <target>Geburtsdatum</target>
+            </trans-unit>
+            <trans-unit id="form.label_firstname">
+                <source>form.label_firstname</source>
+                <target>Vorname</target>
+            </trans-unit>
+            <trans-unit id="form.label_lastname">
+                <source>form.label_lastname</source>
+                <target>Nachname</target>
+            </trans-unit>
+            <trans-unit id="field.label_roles_editable">
+                <source>field.label_roles_editable</source>
+                <target>Rollen</target>
             </trans-unit>
         </body>
     </file>
