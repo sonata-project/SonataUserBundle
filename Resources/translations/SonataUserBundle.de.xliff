@@ -94,6 +94,10 @@
                 <source>form.label_credentials_expired</source>
                 <target>Rechte abgelaufen</target>
             </trans-unit>
+            <trans-unit id="form.label_country">
+                <source>form.label_country</source>
+                <target>Land</target>
+            </trans-unit>
             <trans-unit id="user_form.label_name">
                 <source>form.label_name</source>
                 <target>Name</target>
