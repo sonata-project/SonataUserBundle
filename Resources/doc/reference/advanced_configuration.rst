@@ -6,7 +6,7 @@ Full configuration options:
 .. code-block:: yaml
 
     fos_user:
-        db_driver:        orm # can be orm or odm
+        db_driver:        orm # can be orm or mongodb (support is also available within FOSUser for couchdb, propel but none is given for SonataUserBundle)
         firewall_name:    main
         user_class:       Application\Sonata\UserBundle\Entity\User
 
@@ -21,6 +21,8 @@ Full configuration options:
 
     sonata_user:
         security_acl:           false
+
+		manager_type: orm # Can be orm for mongodb
 
         table:
             user_group: "my_custom_user_group_association_table_name"
