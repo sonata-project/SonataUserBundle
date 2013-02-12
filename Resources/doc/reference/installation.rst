@@ -62,7 +62,7 @@ of ``super-admin`` users, to enable this add to the configuration:
     # app/config/config.yml
     sonata_user:
         security_acl: true
-		manager_type: orm # can be orm or mongodb
+        manager_type: orm # can be orm or mongodb
 
 
     # app/config/security.yml
