@@ -114,6 +114,10 @@
                 <source>filter.label_username</source>
                 <target>Nom d'utilisateur</target>
             </trans-unit>
+            <trans-unit id="filter.label_name">
+                <source>filter.label_name</source>
+                <target>Nom</target>
+            </trans-unit>            
             <trans-unit id="filter.label_email">
                 <source>filter.label_email</source>
                 <target>Email</target>
