@@ -21,7 +21,7 @@ class BaseGroupTest extends \PHPUnit_Framework_TestCase
         $group = new BaseGroup('Group');
 
         // When
-        $string = (string)$group;
+        $string = (string) $group;
 
         // Then
         $this->assertEquals('Group', $string, 'Should return the group name as string representation');

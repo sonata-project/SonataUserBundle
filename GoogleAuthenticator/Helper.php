@@ -42,7 +42,7 @@ class Helper
     }
 
     /**
-     * @param \Sonata\UserBundle\Model\UserInterface $user
+     * @param  \Sonata\UserBundle\Model\UserInterface $user
      * @return string
      */
     public function getUrl(UserInterface $user)
@@ -59,7 +59,7 @@ class Helper
     }
 
     /**
-     * @param \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken $token
+     * @param  \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken $token
      * @return string
      */
     public function getSessionKey(UsernamePasswordToken $token)

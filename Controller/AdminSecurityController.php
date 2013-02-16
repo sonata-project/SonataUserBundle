@@ -13,9 +13,7 @@ namespace Sonata\UserBundle\Controller;
 
 use FOS\UserBundle\Controller\SecurityController;
 
-use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\Security\Core\SecurityContext;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
