@@ -58,34 +58,14 @@ class ProfileController extends Controller
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        $formFactory = $this->container->get('sonata_user_authentication_form_factory');
-        $form = $formFactory->createForm();
-        $form->setData($user);
+        $form = $this->container->get('sonata_user_authentication_form');
+        $formHandler = $this->container->get('sonata_user_authentication_form_handler');
 
-        $request = $this->getRequest();
-        if ($request->isMethod('POST')) {
-            $form->bind($request);
+        $process = $formHandler->process($user);
+        if ($process) {
+            $this->setFlash('fos_user_success', 'profile.flash.updated');
 
-            if ($form->isValid()) {
-                /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
-                $userManager = $this->container->get('fos_user.user_manager');
-                /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-                $dispatcher = $this->container->get('event_dispatcher');
-
-                $event = new FormEvent($form, $request);
-                $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_SUCCESS, $event);
-
-                $userManager->updateUser($user);
-
-                if (null === $response = $event->getResponse()) {
-                    $url = $this->get('router')->generate('sonata_user_profile_show');
-                    $response = $this->redirect($url);
-                }
-
-                $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
-
-                return $response;
-            }
+            return new RedirectResponse($this->generateUrl('sonata_user_profile_show'));
         }
 
         return $this->render('SonataUserBundle:Profile:edit_authentication.html.twig', array(

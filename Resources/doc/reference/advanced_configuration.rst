@@ -16,6 +16,7 @@ Full configuration options:
         profile:  # Authentication Form
             form:
                 type:               fos_user_profile
+                handler:            fos_user.profile.form.handler.default
                 name:               fos_user_profile_form
                 validation_groups:  [Authentication] # Please note : this is not the default value
 
