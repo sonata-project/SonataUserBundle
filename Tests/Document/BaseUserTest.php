@@ -109,7 +109,7 @@ class BaseUserTest extends \PHPUnit_Framework_TestCase
         $user->setUsername('John');
 
         // When
-        $string = (string)$user;
+        $string = (string) $user;
 
         // Then
         $this->assertEquals('John', $string, 'Should return the username as string representation');
@@ -121,7 +121,7 @@ class BaseUserTest extends \PHPUnit_Framework_TestCase
         $user = new BaseUser();
 
         // When
-        $string = (string)$user;
+        $string = (string) $user;
 
         // Then
         $this->assertEquals('-', $string, 'Should return a string representation');

@@ -8,7 +8,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Sonata\UserBundle\Entity;
 
 use FOS\UserBundle\Entity\Group as AbstractedGroup;
@@ -20,7 +19,7 @@ class BaseGroup extends AbstractedGroup
 {
     /**
      * Represents a string representation
-     * 
+     *
      * @return string
      */
     public function __toString()

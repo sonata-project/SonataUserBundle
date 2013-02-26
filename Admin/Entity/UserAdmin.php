@@ -12,7 +12,6 @@
 namespace Sonata\UserBundle\Admin\Entity;
 
 use Sonata\UserBundle\Admin\Model\UserAdmin as BaseUserAdmin;
-use Sonata\AdminBundle\Form\FormMapper;
 
 class UserAdmin extends BaseUserAdmin
 {

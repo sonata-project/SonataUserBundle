@@ -8,7 +8,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Sonata\UserBundle\Document;
 
 use FOS\UserBundle\Document\Group as AbstractedGroup;

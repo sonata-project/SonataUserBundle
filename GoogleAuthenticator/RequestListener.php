@@ -12,11 +12,9 @@
 namespace Sonata\UserBundle\GoogleAuthenticator;
 
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Sonata\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-
 
 class RequestListener
 {
@@ -27,8 +25,8 @@ class RequestListener
     protected $templating;
 
     /**
-     * @param Helper $helper
-     * @param \Symfony\Component\Security\Core\SecurityContextInterface $securityContext
+     * @param Helper                                                     $helper
+     * @param \Symfony\Component\Security\Core\SecurityContextInterface  $securityContext
      * @param \Symfony\Bundle\FrameworkBundle\Templating\EngineInterface $templating
      */
     public function __construct(Helper $helper, SecurityContextInterface $securityContext, EngineInterface $templating)
