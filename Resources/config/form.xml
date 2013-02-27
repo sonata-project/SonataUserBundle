@@ -10,14 +10,15 @@
             <argument type="service" id="sonata.admin.pool" />
         </service>
 
-        <!-- profile form -->
-        <service id="sonata.user.profile.form" factory-method="createNamed" factory-service="form.factory" class="Symfony\Component\Form\Form">
+        <!--
+            use FOSUser FormFactory
+            implementation of SonataUser FormFactory can also be considered.
+        !-->
+        <service id="sonata.user.profile.form.factory" class="FOS\UserBundle\Form\Factory\FormFactory">
+            <argument type="service" id="form.factory" />
             <argument>%sonata.user.profile.form.name%</argument>
             <argument>%sonata.user.profile.form.type%</argument>
-            <argument>null</argument>
-            <argument type="collection">
-                <argument key="validation_groups">%sonata.user.profile.form.validation_groups%</argument>
-            </argument>
+            <argument>%sonata.user.profile.form.validation_groups%</argument>
         </service>
 
         <service id="sonata.user.profile.form.type" class="Sonata\UserBundle\Form\Type\ProfileType">
@@ -25,11 +26,18 @@
             <tag name="form.type" alias="sonata_user_profile" />
         </service>
 
-        <service id="sonata.user.profile.form.handler.default" class="Sonata\UserBundle\Form\Handler\ProfileFormHandler" scope="request" public="false">
-            <argument type="service" id="sonata.user.profile.form" />
-            <argument type="service" id="request" />
-            <argument type="service" id="fos_user.user_manager" />
+        <service id="sonata.user.update_password.form.factory" class="FOS\UserBundle\Form\Factory\FormFactory">
+            <argument type="service" id="form.factory" />
+            <argument>%sonata.user.update_password.form.name%</argument>
+            <argument>%sonata.user.update_password.form.type%</argument>
+            <argument>%sonata.user.update_password.form.validation_groups%</argument>
         </service>
+
+        <service id="sonata.user.update_password.form.type" class="Sonata\UserBundle\Form\Type\ProfileUpdatePasswordType">
+            <argument>%fos_user.model.user.class%</argument>
+            <tag name="form.type" alias="sonata_user_update_password" />
+        </service>
+
     </services>
 
 </container>
