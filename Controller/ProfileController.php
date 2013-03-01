@@ -21,7 +21,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\UserBundle\FOSUserEvents;
 
 /**
- * This class is inspirated from the FOS Profile Controller, except :
+ * This class is inspired from the FOS Profile Controller, except :
  *   - only twig is supported
  *   - separation of the user authentication form with the profile form
  *
