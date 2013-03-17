@@ -122,6 +122,10 @@
                 <source>filter.label_id</source>
                 <target>ID</target>
             </trans-unit>
+            <trans-unit id="filter.label_groups">
+                <source>filter.label_groups</source>
+                <target>Gruppen</target>
+            </trans-unit>
             <trans-unit id="list.label_username">
                 <source>list.label_username</source>
                 <target>Benutzername</target>
@@ -139,7 +143,7 @@
                 <target>Gruppen</target>
             </trans-unit>
             <trans-unit id="list.label_locked">
-                <source>Gepserrt</source>
+                <source>list.label_locked</source>
                 <target>Gesperrt</target>
             </trans-unit>
             <trans-unit id="list.label_enabled">
