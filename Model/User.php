@@ -552,4 +552,20 @@ abstract class User extends AbstractedUser implements UserInterface
     {
         return sprintf("%s %s", $this->getFirstname(), $this->getLastname());
     }
+
+    /**
+     * @return array
+     */
+    public function getRealRoles()
+    {
+        return $this->roles;
+    }
+
+    /**
+     * @param array $roles
+     */
+    public function setRealRoles(array $roles)
+    {
+        $this->setRoles($roles);
+    }
 }

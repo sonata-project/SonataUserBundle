@@ -1,6 +1,16 @@
 CHANGELOG
 =========
 
+### [BC BREAK] 2013-05-06
+
+* User's groups roles are not merged anymore when editing `User` entity. A `getRealRoles()` method has been
+  added in `Sonata\UserBundle\Model\User` and is now used in `Sonata\UserBundle\Admin\UserAdmin`.
+
+  If you still want to merge user's groups roles, you can:
+
+     * add a `getRealRoles()` in your entity by overriding `Sonata\UserBundle\Model\User` method and
+       referencing `getRoles()` parent method
+
 ### 2012-09-24
 
 * changed service parameters into options that come through the configuration with the old values as the new defaults.
