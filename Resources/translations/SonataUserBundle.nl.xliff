@@ -414,6 +414,18 @@
                 <source>name</source>
                 <target>Naam</target>
             </trans-unit>
+            <trans-unit id="gender_unknown">
+                <source>gender_unknown</source>
+                <target>gender_unknown</target>
+            </trans-unit>
+            <trans-unit id="gender_female">
+                <source>gender_female</source>
+                <target>gender_female</target>
+            </trans-unit>
+            <trans-unit id="gender_male">
+                <source>gender_male</source>
+                <target>gender_male</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
