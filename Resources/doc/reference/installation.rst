@@ -125,30 +125,34 @@ Then add a new custom firewall handlers for the admin
                 id: fos_user.user_manager
 
         firewalls:
+            # Disabling the security for the web debug toolbar, the profiler and Assetic.
+            dev:
+                pattern:  ^/(_(profiler|wdt)|css|images|js)/
+                security: false
+
             # -> custom firewall for the admin area of the URL
             admin:
-                switch_user:        true
-                context:            user
                 pattern:            /admin(.*)
+                context:            user
                 form_login:
                     provider:       fos_userbundle
                     login_path:     /admin/login
                     use_forward:    false
                     check_path:     /admin/login_check
                     failure_path:   null
-                    use_referer:    true
                 logout:
                     path:           /admin/logout
-                    target:         /admin/login
+                anonymous:          true
 
-                anonymous:    true
             # -> end custom configuration
 
             # defaut login area for standard users
+
+            # This firewall is used to handle the public login area
+            # This part is handled by the FOS User Bundle
             main:
-                switch_user:        true
-                context:            user
-                pattern:            .*
+                pattern:             .*
+                context:             user
                 form_login:
                     provider:       fos_userbundle
                     login_path:     /login
@@ -165,23 +169,19 @@ The last part is to define 3 new access control rules :
     security:
         access_control:
             # URL of FOSUserBundle which need to be available to anonymous users
-            - { path: ^/_wdt, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/_profiler, role: IS_AUTHENTICATED_ANONYMOUSLY }
             - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-
-            # -> custom access control for the admin area of the URL
-            - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/admin/login-check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            # -> end
-
             - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
             - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+            # Admin login page needs to be access without credential
+            - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/admin/login_check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
             # Secured part of the site
             # This config requires being logged for the whole site and having the admin role for the admin part.
             # Change these rules to adapt them to your needs
-            - { path: ^/admin, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
+            - { path: ^/admin/, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
             - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
 
