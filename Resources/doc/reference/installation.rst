@@ -172,7 +172,7 @@ The last part is to define 3 new access control rules :
             # -> custom access control for the admin area of the URL
             - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
             - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/admin/login-check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/admin/login_check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
             # -> end
 
             - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
