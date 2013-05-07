@@ -117,7 +117,7 @@
             <trans-unit id="filter.label_name">
                 <source>filter.label_name</source>
                 <target>Nom</target>
-            </trans-unit>            
+            </trans-unit>
             <trans-unit id="filter.label_email">
                 <source>filter.label_email</source>
                 <target>Email</target>
@@ -401,6 +401,18 @@
             <trans-unit id="breadcrumb.link_user_show">
                 <source>breadcrumb.link_user_show</source>
                 <target>Voir</target>
+            </trans-unit>
+            <trans-unit id="gender_unknown">
+                <source>gender_unknown</source>
+                <target>non défini</target>
+            </trans-unit>
+            <trans-unit id="gender_female">
+                <source>gender_female</source>
+                <target>femme</target>
+            </trans-unit>
+            <trans-unit id="gender_male">
+                <source>gender_male</source>
+                <target>homme</target>
             </trans-unit>
         </body>
     </file>

@@ -62,7 +62,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * @var string
      */
-    protected $gender;
+    protected $gender = UserInterface::GENDER_UNKNOWN; // set the default to unknown
 
     /**
      * @var string
