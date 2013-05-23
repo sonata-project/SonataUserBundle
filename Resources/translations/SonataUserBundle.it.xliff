@@ -116,7 +116,7 @@
             </trans-unit>
             <trans-unit id="filter.label_locked">
                 <source>filter.label_locked</source>
-                <target>Bloocato</target>
+                <target>Bloccato</target>
             </trans-unit>
             <trans-unit id="filter.label_id">
                 <source>filter.label_id</source>
