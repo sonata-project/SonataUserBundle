@@ -17,10 +17,10 @@ file that was distributed with this source code.
 
     {% form_theme form _self %}
 
-    {% block field_row %}
+    {% block form_row %}
 
         {# custom field row output #}
-    {% endblock field_row %}
+    {% endblock form_row %}
 
     <form action="{{ path('sonata_user_profile_edit') }}" method="POST" class="form-horizontal">
         <div class="control-group">
