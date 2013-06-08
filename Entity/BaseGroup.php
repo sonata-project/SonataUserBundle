@@ -24,6 +24,6 @@ class BaseGroup extends AbstractedGroup
      */
     public function __toString()
     {
-        return $this->getName();
+        return $this->getName() ?: '';
     }
 }
