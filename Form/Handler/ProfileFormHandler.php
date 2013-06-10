@@ -61,7 +61,7 @@ class ProfileFormHandler
         $this->form->setData($user);
 
         if ('POST' == $this->request->getMethod()) {
-            $this->form->bindRequest($this->request);
+            $this->form->bind($this->request);
 
             if ($this->form->isValid()) {
                 $this->onSuccess($user);
