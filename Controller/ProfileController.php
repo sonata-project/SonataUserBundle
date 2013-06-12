@@ -106,6 +106,6 @@ class ProfileController extends Controller
      */
     protected function setFlash($action, $value)
     {
-        $this->container->get('session')->setFlash($action, $value);
+        $this->container->get('session')->getFlashBag()->set($action, $value);
     }
 }
