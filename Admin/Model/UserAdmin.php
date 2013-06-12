@@ -75,7 +75,7 @@ class UserAdmin extends Admin
                 ->add('groups')
             ->end()
             ->with('Profile')
-                ->add('dateOfBirth', 'birthday')
+                ->add('dateOfBirth')
                 ->add('firstname')
                 ->add('lastname')
                 ->add('website')
