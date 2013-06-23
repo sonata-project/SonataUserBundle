@@ -11,28 +11,12 @@
 
 namespace Sonata\UserBundle\Document;
 
-use Sonata\UserBundle\Model\User as AbstractedUser;
-use Sonata\UserBundle\Model\UserInterface;
+use Sonata\UserBundle\Model\User;
 
 /**
  * Represents a Base User Document
+ * @deprecated directly extend the classes in the Model namespace
  */
-class BaseUser extends AbstractedUser implements UserInterface
+class BaseUser extends User
 {
-    /**
-     * Hook on pre-persist operations
-     */
-    public function prePersist()
-    {
-        $this->createdAt = new \DateTime;
-        $this->updatedAt = new \DateTime;
-    }
-
-    /**
-     * Hook on pre-update operations
-     */
-    public function preUpdate()
-    {
-        $this->updatedAt = new \DateTime;
-    }
 }

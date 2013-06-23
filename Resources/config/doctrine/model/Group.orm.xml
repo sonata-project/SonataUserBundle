@@ -4,6 +4,6 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                   http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <mapped-superclass name="Sonata\UserBundle\Document\BaseUser" />
+    <mapped-superclass name="Sonata\UserBundle\Model\Group" />
 
 </doctrine-mapping>
