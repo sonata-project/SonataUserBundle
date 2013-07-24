@@ -143,7 +143,7 @@
                 <target>Gruppen</target>
             </trans-unit>
             <trans-unit id="list.label_locked">
-                <source>Gepserrt</source>
+                <source>list.label_locked</source>
                 <target>Gesperrt</target>
             </trans-unit>
             <trans-unit id="list.label_enabled">
@@ -336,15 +336,15 @@
             </trans-unit>
             <trans-unit id="gender_unknown">
                 <source>gender_unknown</source>
-                <target>gender_unknown</target>
+                <target>Unbekannt</target>
             </trans-unit>
             <trans-unit id="gender_female">
                 <source>gender_female</source>
-                <target>gender_female</target>
+                <target>Weiblich</target>
             </trans-unit>
             <trans-unit id="gender_male">
                 <source>gender_male</source>
-                <target>gender_male</target>
+                <target>Männlich</target>
             </trans-unit>
         </body>
     </file>
