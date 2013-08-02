@@ -11,13 +11,13 @@
 
 namespace Sonata\UserBundle\Model;
 
-use FOS\UserBundle\Entity\User as AbstractedUser;
+use FOS\UserBundle\Model\User as FOSUser;
 use Sonata\UserBundle\Model\UserInterface;
 
 /**
  * Represents a User model
  */
-abstract class User extends AbstractedUser implements UserInterface
+abstract class User extends FOSUser implements UserInterface
 {
     /**
      * @var \DateTime
@@ -567,5 +567,22 @@ abstract class User extends AbstractedUser implements UserInterface
     public function setRealRoles(array $roles)
     {
         $this->setRoles($roles);
+    }
+
+    /**
+     * Hook on pre-persist operations
+     */
+    public function prePersist ()
+    {
+        $this->createdAt = new \DateTime;
+        $this->updatedAt = new \DateTime;
+    }
+
+    /**
+     * Hook on pre-update operations
+     */
+    public function preUpdate ()
+    {
+        $this->updatedAt = new \DateTime;
     }
 }

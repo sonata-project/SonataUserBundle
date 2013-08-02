@@ -24,12 +24,6 @@
             <argument>%fos_user.model.user.class%</argument>
             <tag name="form.type" alias="sonata_user_profile" />
         </service>
-
-        <service id="sonata.user.profile.form.handler.default" class="Sonata\UserBundle\Form\Handler\ProfileFormHandler" scope="request" public="false">
-            <argument type="service" id="sonata.user.profile.form" />
-            <argument type="service" id="request" />
-            <argument type="service" id="fos_user.user_manager" />
-        </service>
     </services>
 
 </container>

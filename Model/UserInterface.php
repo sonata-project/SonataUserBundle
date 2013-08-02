@@ -11,7 +11,9 @@
 
 namespace Sonata\UserBundle\Model;
 
-interface UserInterface extends \FOS\UserBundle\Model\UserInterface
+use FOS\UserBundle\Model\UserInterface as FOSUserInterface;
+
+interface UserInterface extends FOSUserInterface
 {
     const GENDER_FEMALE  = 'f';
     const GENDER_MAN     = 'm';

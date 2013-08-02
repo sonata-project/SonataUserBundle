@@ -10,20 +10,12 @@
 
 namespace Sonata\UserBundle\Document;
 
-use FOS\UserBundle\Document\Group as AbstractedGroup;
+use Sonata\UserBundle\Model\Group;
 
 /**
  * Represents a Base Group Document
+ * @deprecated directly extend the classes in the Model namespace
  */
-class BaseGroup extends AbstractedGroup
+class BaseGroup extends Group
 {
-    /**
-     * Returns a string representation
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->getName() ?: '';
-    }
 }

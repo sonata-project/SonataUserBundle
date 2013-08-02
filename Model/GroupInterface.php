@@ -8,14 +8,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Sonata\UserBundle\Entity;
+namespace Sonata\UserBundle\Model;
 
-use Sonata\UserBundle\Model\Group;
+use FOS\UserBundle\Model\GroupInterface as FOSGroupInterface;
 
-/**
- * Represents a Base Group Entity
- * @deprecated directly extend the classes in the Model namespace
- */
-class BaseGroup extends Group
+interface GroupInterface extends FOSGroupInterface
 {
 }
