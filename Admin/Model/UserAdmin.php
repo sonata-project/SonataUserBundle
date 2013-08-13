@@ -143,7 +143,7 @@ class UserAdmin extends Admin
             ->end()
         ;
 
-        if (!$this->getSubject()->hasRole('ROLE_SUPER_ADMIN')) {
+        if ($this->getSubject() && !$this->getSubject()->hasRole('ROLE_SUPER_ADMIN')) {
             $formMapper
                 ->with('Management')
                     ->add('realRoles', 'sonata_security_roles', array(
