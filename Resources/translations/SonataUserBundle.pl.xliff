@@ -146,6 +146,10 @@
                 <source>list.label_email</source>
                 <target equiv-trans="yes" state="final">Adres e-mail</target>
             </trans-unit>
+            <trans-unit id="list.label_groups">
+                <source>list.label_groups</source>
+                <target>Grupy</target>
+            </trans-unit>
             <trans-unit id="list.label_locked">
                 <source>list.label_locked</source>
                 <target equiv-trans="yes" state="final">Zablokowane</target>
