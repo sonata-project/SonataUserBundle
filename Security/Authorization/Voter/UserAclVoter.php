@@ -35,7 +35,7 @@ class UserAclVoter extends AclVoter
         }
 
         foreach ($attributes as $attribute) {
-            if ($this->supportsAttribute($attribute) && $object instanceof UserInterface) {
+            if ($this->supportsAttribute($attribute) && $object instanceof UserInterface && $token->getUser() instanceof UserInterface) {
                 if ($object->isSuperAdmin() && !$token->getUser()->isSuperAdmin()) {
                     // deny a non super admin user to edit or delete a super admin user
                     return self::ACCESS_DENIED;
