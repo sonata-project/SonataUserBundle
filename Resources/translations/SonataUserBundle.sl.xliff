@@ -4,15 +4,15 @@
         <body>
             <trans-unit id="title_user_account">
                 <source>title_user_account</source>
-                <target>User Profile</target>
+                <target>Uporabniški profil</target>
             </trans-unit>
             <trans-unit id="title_user_edit_profile">
                 <source>title_user_edit_profile</source>
-                <target>Edit</target>
+                <target>Uredi</target>
             </trans-unit>
             <trans-unit id="sonata_user_submit">
                 <source>sonata_user_submit</source>
-                <target>Submit</target>
+                <target>Pošlji</target>
             </trans-unit>
             <trans-unit id="breadcrumb.link_user_list">
                 <source>breadcrumb.link_user_list</source>
@@ -41,10 +41,6 @@
             <trans-unit id="breadcrumb.link_group_edit">
                 <source>breadcrumb.link_group_edit</source>
                 <target>Uredi</target>
-            </trans-unit>
-            <trans-unit id="breadcrumb.link_group_delete">
-                <source>breadcrumb.link_group_delete</source>
-                <target>Izbriši</target>
             </trans-unit>
             <trans-unit id="users">
                 <source>users</source>
@@ -102,6 +98,14 @@
                 <source>form.label_credentials_expired</source>
                 <target>Pravice pretečene</target>
             </trans-unit>
+            <trans-unit id="form.label_created_at">
+                <source>form.label_created_at</source>
+                <target>Ustvarjeno ob</target>
+            </trans-unit>
+            <trans-unit id="form.label_last_login">
+                <source>form.label_last_login</source>
+                <target>Zadnja prijava</target>
+            </trans-unit>
             <trans-unit id="user_form.label_name">
                 <source>form.label_name</source>
                 <target>Ime</target>
@@ -129,6 +133,14 @@
             <trans-unit id="filter.label_groups">
                 <source>filter.label_groups</source>
                 <target>Skupine</target>
+            </trans-unit>
+            <trans-unit id="filter.label_created_at">
+                <source>filter.label_created_at</source>
+                <target>Ustvarjeno ob</target>
+            </trans-unit>
+            <trans-unit id="filter.label_last_login">
+                <source>filter.label_last_login</source>
+                <target>Zadnja prijava</target>
             </trans-unit>
             <trans-unit id="filter.label_firstname">
                 <source>filter.label_firstname</source>
@@ -166,6 +178,10 @@
                 <source>list.label_created_at</source>
                 <target>Ustvarjeno ob</target>
             </trans-unit>
+            <trans-unit id="list.label_last_login">
+                <source>list.label_last_login</source>
+                <target>Zadnja prijava</target>
+            </trans-unit>
             <trans-unit id="list.label_impersonating">
                 <source>list.label_impersonating</source>
                 <target>Preklopi uporabnika</target>
@@ -184,11 +200,11 @@
             </trans-unit>
             <trans-unit id="label_two_step_code">
                 <source>label_two_step_code</source>
-                <target>Validacija v dveh korakih</target>
+                <target>Potrditev v dveh korakih</target>
             </trans-unit>
             <trans-unit id="message_two_step_code_help">
                 <source>message_two_step_code_help</source>
-                <target>Vpišite validacijsko kodo iz telefona</target>
+                <target>Vpišite potrditveno kodo iz telefona</target>
             </trans-unit>
             <trans-unit id="label_two_step_code_error">
                 <source>label_two_step_code_error</source>
@@ -362,21 +378,29 @@
                 <source>show.label_two_step_verification_code</source>
                 <target>Potrditvena koda</target>
             </trans-unit>
+            <trans-unit id="show.label_created_at">
+                <source>show.label_created_at</source>
+                <target>Ustvarjeno ob</target>
+            </trans-unit>
+            <trans-unit id="show.label_last_login">
+                <source>show.label_last_login</source>
+                <target>Zadnja prijava</target>
+            </trans-unit>
             <trans-unit id="breadcrumb.link_user_show">
                 <source>breadcrumb.link_user_show</source>
-                <target>Uporabnik</target>
+                <target>Prikaži</target>
             </trans-unit>
             <trans-unit id="gender_unknown">
                 <source>gender_unknown</source>
-                <target>gender_unknown</target>
+                <target>neznan spol</target>
             </trans-unit>
             <trans-unit id="gender_female">
                 <source>gender_female</source>
-                <target>gender_female</target>
+                <target>ženska</target>
             </trans-unit>
             <trans-unit id="gender_male">
                 <source>gender_male</source>
-                <target>gender_male</target>
+                <target>moški</target>
             </trans-unit>
         </body>
     </file>
