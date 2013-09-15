@@ -45,6 +45,10 @@ class AdminSecurityController extends SecurityController
         // last username entered by the user
         $lastUsername = (null === $session) ? '' : $session->get(SecurityContext::LAST_USERNAME);
 
+        $csrfToken = $this->container->has('form.csrf_provider')
+            ? $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate')
+            : null;
+
         if ($this->container->get('security.context')->isGranted('ROLE_ADMIN')) {
             $refererUri = $request->server->get('HTTP_REFERER');
 
@@ -54,6 +58,7 @@ class AdminSecurityController extends SecurityController
         return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/login.html.'.$this->container->getParameter('fos_user.template.engine'), array(
             'last_username' => $lastUsername,
             'error'         => $error,
+            'csrf_token'    => $csrfToken,
             'base_template' => $this->container->get('sonata.admin.pool')->getTemplate('layout'),
             'admin_pool'    => $this->container->get('sonata.admin.pool')
         ));

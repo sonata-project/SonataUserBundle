@@ -8,6 +8,8 @@
                 <div class="alert alert-error">{{ error|trans({}, 'SonataUserBundle') }}</div>
             {% endif %}
 
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
             <div class="control-group">
                 <label for="username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
 
