@@ -434,7 +434,7 @@
                 <source>gender_male</source>
                 <target>Männlich</target>
             </trans-unit>
-           
+
             <trans-unit id="form.label_users">
                 <source>form.label_users</source>
                 <target>Benutzer</target>
@@ -462,6 +462,10 @@
             <trans-unit id="Gender">
                 <source>Gender</source>
                 <target>Geschlecht</target>
+            </trans-unit>
+            <trans-unit id="Bad credentials">
+                <source>Bad credentials</source>
+                <target>Benutzername oder Passwort ungültig</target>
             </trans-unit>
         </body>
     </file>
