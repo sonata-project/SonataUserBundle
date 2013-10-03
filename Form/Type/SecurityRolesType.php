@@ -12,35 +12,56 @@
 
 namespace Sonata\UserBundle\Form\Type;
 
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Sonata\UserBundle\Form\Transformer\RestoreRolesTransformer;
+use Sonata\UserBundle\Security\EditableRolesBuilder;
+use Symfony\Component\Form\AbstractType;
 
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\OptionsResolver\Options;
 
-use Sonata\AdminBundle\Admin\Pool;
-
-class SecurityRolesType extends ChoiceType
+class SecurityRolesType extends AbstractType
 {
-    protected $pool;
+    protected $rolesBuilder;
 
     /**
-     * @param Pool $pool
+     * @param EditableRolesBuilder $rolesBuilder
      */
-    public function __construct(Pool $pool)
+    public function __construct(EditableRolesBuilder $rolesBuilder)
     {
-        $this->pool = $pool;
+        $this->rolesBuilder = $rolesBuilder;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $formBuilder, array $options)
     {
-        parent::buildForm($builder, $options);
+        /**
+         * The form shows only roles that the current user can edit for the targeted user. Now we still need to persist
+         * all other roles. It is not possible to alter those values inside an event listener as the selected
+         * key will be validated. So we use a Transformer to alter the value and an listener to catch the original values
+         *
+         * The transformer will then append non editable roles to the user ...
+         */
+        $tranformer = new RestoreRolesTransformer($this->rolesBuilder);
+
+        // GET METHOD
+        $formBuilder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($tranformer) {
+            $tranformer->setOriginalRoles($event->getData());
+        });
+
+        // POST METHOD
+        $formBuilder->addEventListener(FormEvents::PRE_SUBMIT, function(FormEvent $event) use ($tranformer) {
+            $tranformer->setOriginalRoles($event->getForm()->getData());
+        });
+
+        $formBuilder->addModelTransformer($tranformer);
     }
 
     /**
@@ -48,8 +69,6 @@ class SecurityRolesType extends ChoiceType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        parent::buildView($view, $form, $options);
-
         $attr = $view->vars['attr'];
 
         if (isset($attr['class']) && empty($attr['class'])) {
@@ -65,55 +84,7 @@ class SecurityRolesType extends ChoiceType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        parent::setDefaultOptions($resolver);
-
-        $roles = array();
-        $rolesReadOnly = array();
-
-        $securityContext = $this->pool->getContainer()->get('security.context');
-
-
-        if ($securityContext->getToken()) {
-            // get roles from the Admin classes
-            foreach ($this->pool->getAdminServiceIds() as $id) {
-                try {
-                    $admin = $this->pool->getInstance($id);
-                } catch (\Exception $e) {
-                    continue;
-                }
-
-                $isMaster = $admin->isGranted('MASTER');
-                $securityHandler = $admin->getSecurityHandler();
-                // TODO get the base role from the admin or security handler
-                $baseRole = $securityHandler->getBaseRole($admin);
-
-                foreach ($admin->getSecurityInformation() as $role => $permissions) {
-                    $role = sprintf($baseRole, $role);
-
-                    if ($isMaster) {
-                        // if the user has the MASTER permission, allow to grant access the admin roles to other users
-                        $roles[$role] = $role;
-                    } elseif ($securityContext->isGranted($role)) {
-                        // although the user has no MASTER permission, allow the currently logged in user to view the role
-                        $rolesReadOnly[$role] = $role;
-                    }
-                }
-            }
-
-            // get roles from the service container
-            foreach ($this->pool->getContainer()->getParameter('security.role_hierarchy.roles') as $name => $rolesHierarchy) {
-
-                if ($securityContext->isGranted($name) || $isMaster) {
-                    $roles[$name] = $name . ': ' . implode(', ', $rolesHierarchy);
-
-                    foreach ($rolesHierarchy as $role) {
-                        if (!isset($roles[$role])) {
-                            $roles[$role] = $role;
-                        }
-                    }
-                }
-            }
-        }
+        list($roles, $rolesReadOnly) = $this->rolesBuilder->getRoles();
 
         $resolver->setDefaults(array(
             'choices' => function (Options $options, $parentChoices) use ($roles) {
@@ -126,6 +97,14 @@ class SecurityRolesType extends ChoiceType
 
             'data_class' => null
         ));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getParent()
+    {
+        return 'choice';
     }
 
     /**
