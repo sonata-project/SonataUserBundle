@@ -4,15 +4,15 @@
         <body>
             <trans-unit id="title_user_account">
                 <source>title_user_account</source>
-                <target>User Profile</target>
+                <target>Profil uživatele</target>
             </trans-unit>
             <trans-unit id="title_user_edit_profile">
                 <source>title_user_edit_profile</source>
-                <target>Edit</target>
+                <target>Upravit</target>
             </trans-unit>
             <trans-unit id="sonata_user_submit">
                 <source>sonata_user_submit</source>
-                <target>Submit</target>
+                <target>Odeslat</target>
             </trans-unit>
             <trans-unit id="breadcrumb.link_user_list">
                 <source>breadcrumb.link_user_list</source>
@@ -244,87 +244,87 @@
             </trans-unit>
             <trans-unit id="show.label_firstname">
                 <source>show.label_firstname</source>
-                <target>show.label_firstname</target>
+                <target>jméno</target>
             </trans-unit>
             <trans-unit id="show.label_lastname">
                 <source>show.label_lastname</source>
-                <target>show.label_lastname</target>
+                <target>Příjmení</target>
             </trans-unit>
             <trans-unit id="show.label_website">
                 <source>show.label_website</source>
-                <target>show.label_website</target>
+                <target>Webová stránka</target>
             </trans-unit>
             <trans-unit id="show.label_biography">
                 <source>show.label_biography</source>
-                <target>show.label_biography</target>
+                <target>Životopis</target>
             </trans-unit>
             <trans-unit id="show.label_gender">
                 <source>show.label_gender</source>
-                <target>show.label_gender</target>
+                <target>Pohlaví</target>
             </trans-unit>
             <trans-unit id="show.label_locale">
                 <source>show.label_locale</source>
-                <target>show.label_locale</target>
+                <target>Jazyk</target>
             </trans-unit>
             <trans-unit id="show.label_timezone">
                 <source>show.label_timezone</source>
-                <target>show.label_timezone</target>
+                <target>Časové pásmo</target>
             </trans-unit>
             <trans-unit id="show.label_phone">
                 <source>show.label_phone</source>
-                <target>show.label_phone</target>
+                <target>Telefon</target>
             </trans-unit>
             <trans-unit id="show.label_facebook_uid">
                 <source>show.label_facebook_uid</source>
-                <target>show.label_facebook_uid</target>
+                <target>Facebook UID</target>
             </trans-unit>
             <trans-unit id="show.label_facebook_name">
                 <source>show.label_facebook_name</source>
-                <target>show.label_facebook_name</target>
+                <target>Facebook jméno</target>
             </trans-unit>
             <trans-unit id="show.label_twitter_uid">
                 <source>show.label_twitter_uid</source>
-                <target>show.label_twitter_uid</target>
+                <target>Twitter UID</target>
             </trans-unit>
             <trans-unit id="show.label_twitter_name">
                 <source>show.label_twitter_name</source>
-                <target>show.label_twitter_name</target>
+                <target>Twitter jméno</target>
             </trans-unit>
             <trans-unit id="show.label_gplus_uid">
                 <source>show.label_gplus_uid</source>
-                <target>show.label_gplus_uid</target>
+                <target>Google+ UID</target>
             </trans-unit>
             <trans-unit id="show.label_gplus_name">
                 <source>show.label_gplus_name</source>
-                <target>show.label_gplus_name</target>
+                <target>Google+ jméno</target>
             </trans-unit>
             <trans-unit id="show.label_token">
                 <source>show.label_token</source>
-                <target>show.label_token</target>
+                <target>Token</target>
             </trans-unit>
             <trans-unit id="show.label_two_step_verification_code">
                 <source>show.label_two_step_verification_code</source>
-                <target>show.label_two_step_verification_code</target>
+                <target>Ověřovací kód</target>
             </trans-unit>
             <trans-unit id="breadcrumb.link_user_show">
                 <source>breadcrumb.link_user_show</source>
-                <target>breadcrumb.link_user_show</target>
+                <target>Ukázat</target>
             </trans-unit>
             <trans-unit id="form.label_date_of_birth">
                 <source>form.label_date_of_birth</source>
-                <target>Date of birth</target>
+                <target>Datum narození</target>
             </trans-unit>
             <trans-unit id="gender_unknown">
                 <source>gender_unknown</source>
-                <target>gender_unknown</target>
+                <target>neznámé pohlaví</target>
             </trans-unit>
             <trans-unit id="gender_female">
                 <source>gender_female</source>
-                <target>gender_female</target>
+                <target>žena</target>
             </trans-unit>
             <trans-unit id="gender_male">
                 <source>gender_male</source>
-                <target>gender_male</target>
+                <target>muž</target>
             </trans-unit>
         </body>
     </file>
