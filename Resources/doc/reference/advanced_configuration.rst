@@ -14,9 +14,9 @@ Full configuration options:
             group_class:  Application\Sonata\UserBundle\Entity\Group
 
         profile:
-            # Customize user portal menu by adding links
+            # Customize user portal menu by setting links
             menu:
-                - { route: 'sonata_user_profile_edit_authentication', label: 'link_edit_authentication', domain: 'SonataUserBundle'}
+                - { route: 'sonata_user_profile_edit', label: 'link_edit_profile', domain: 'SonataUserBundle'}
 
             # Authentication Form
             form:

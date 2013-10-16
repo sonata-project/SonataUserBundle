@@ -271,11 +271,11 @@ class SonataUserExtension extends Extension
      */
     public function configureMenu(array $config, ContainerBuilder $container)
     {
-        $defaultElements = array(
-            array('label' => 'link_edit_profile', 'route' => 'sonata_user_profile_edit', 'domain' => 'SonataUserBundle')
-        );
+        $elements = $config['profile']['menu'];
+        if (count($elements) === 0) {
+            $elements[] = array('label' => 'link_edit_profile', 'route' => 'sonata_user_profile_edit', 'domain' => 'SonataUserBundle');
+        }
 
-        $elements = array_merge($defaultElements, $config['profile']['menu']);
         $container->setParameter('sonata.user.profile.menu.elements', $elements);
     }
 }
