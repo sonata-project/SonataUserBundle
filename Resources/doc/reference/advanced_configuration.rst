@@ -13,7 +13,12 @@ Full configuration options:
         group:
             group_class:  Application\Sonata\UserBundle\Entity\Group
 
-        profile:  # Authentication Form
+        profile:
+            # Customize user portal menu by adding links
+            menu:
+                - { route: 'sonata_user_profile_edit_authentication', label: 'link_edit_authentication', domain: 'SonataUserBundle'}
+
+            # Authentication Form
             form:
                 type:               fos_user_profile
                 handler:            fos_user.profile.form.handler.default
