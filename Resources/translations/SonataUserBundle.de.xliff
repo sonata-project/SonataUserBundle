@@ -467,6 +467,14 @@
                 <source>Bad credentials</source>
                 <target>Benutzername oder Passwort ungültig</target>
             </trans-unit>
+            <trans-unit id="sonata_profile_title">
+                <source>sonata_profile_title</source>
+                <target>My Profile</target>
+            </trans-unit>
+            <trans-unit id="link_edit_profile">
+                <source>link_edit_profile</source>
+                <target>Edit Profile</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

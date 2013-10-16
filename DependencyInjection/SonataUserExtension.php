@@ -39,6 +39,8 @@ class SonataUserExtension extends Extension
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load(sprintf('admin_%s.xml', $config['manager_type']));
+        $loader->load('block.xml');
+        $loader->load('menu.xml');
         $loader->load('form.xml');
         $loader->load('google_authenticator.xml');
         $loader->load('twig.xml');
@@ -67,6 +69,8 @@ class SonataUserExtension extends Extension
         $this->configureGoogleAuthenticator($config, $container);
         $this->configureShortcut($container);
         $this->configureProfile($config, $container);
+
+        $this->configureMenu($config, $container);
     }
 
     /**
@@ -259,5 +263,19 @@ class SonataUserExtension extends Extension
         $container->setParameter('sonata.user.profile.form.validation_groups', $config['profile']['form']['validation_groups']);
 
         $container->setAlias('sonata.user.profile.form.handler', $config['profile']['form']['handler']);
+    }
+
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     */
+    public function configureMenu(array $config, ContainerBuilder $container)
+    {
+        $defaultElements = array(
+            array('label' => 'link_edit_profile', 'route' => 'sonata_user_profile_edit', 'domain' => 'SonataUserBundle')
+        );
+
+        $elements = array_merge($defaultElements, $config['profile']['menu']);
+        $container->setParameter('sonata.user.profile.menu.elements', $elements);
     }
 }

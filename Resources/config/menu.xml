@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="sonata.user.profile.menu_builder" class="Sonata\UserBundle\Menu\ProfileMenuBuilder">
+            <argument type="service" id="knp_menu.factory" />
+            <argument type="service" id="translator" />
+            <argument>%sonata.user.profile.menu.elements%</argument>
+        </service>
+
+        <service id="sonata.user.profile.menu" class="Knp\Menu\MenuItem"
+                 factory-service="sonata.user.profile.menu_builder" factory-method="createProfileMenu" scope="request">
+            <tag name="knp_menu.menu" alias="sonata.user.profile"/>
+            <argument type="service" id="request"/>
+        </service>
+    </services>
+</container>
