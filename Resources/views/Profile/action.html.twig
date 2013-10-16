@@ -1,0 +1,27 @@
+{#
+
+This file is part of the Sonata package.
+
+(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
+<h4>{% block sonata_profile_title %}{% trans from 'SonataUserBundle' %}sonata_profile_title{% endtrans %}{% endblock %}</h4>
+
+<div class="sonata-user-show">
+
+    <div class="span2 well" style="padding: 8px 0;">
+        {% block sonata_profile_menu %}
+            {{ sonata_block_render({'type': 'sonata.user.block.menu'}, {'current_uri': app.request.requestUri}) }}
+        {% endblock %}
+    </div>
+
+    <div class="span8">
+        {% block sonata_profile_content %}
+        {% endblock %}
+    </div>
+
+</div>

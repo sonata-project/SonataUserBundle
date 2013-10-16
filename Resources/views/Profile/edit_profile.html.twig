@@ -9,10 +9,12 @@ file that was distributed with this source code.
 
 #}
 
-<div class="sonata-user-edit-profile">
+{% extends "SonataUserBundle:Profile:action.html.twig" %}
 
-    <h2>{{ "title_user_account" | trans({}, 'SonataUserBundle')}} - {{ "title_user_edit_profile" | trans({}, 'SonataUserBundle')}}</h2>
-
+{% block sonata_profile_title %}
+    {{ "title_user_account" | trans({}, 'SonataUserBundle')}} - {{ "title_user_edit_profile" | trans({}, 'SonataUserBundle')}}
+{% endblock %}
+{% block sonata_profile_content %}
     {{ form_errors(form) }}
 
     {% form_theme form _self %}
@@ -63,4 +65,4 @@ file that was distributed with this source code.
         {{ form_rest(form) }}
         <input type="submit" name="submit" value="{{ 'sonata_user_submit'|trans({}, 'SonataUserBundle') }}" />
     </form>
-</div>
+{% endblock %}
