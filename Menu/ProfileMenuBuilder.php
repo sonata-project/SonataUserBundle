@@ -12,6 +12,7 @@
 namespace Sonata\UserBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
+use Knp\Menu\ItemInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -60,14 +61,15 @@ class ProfileMenuBuilder
     }
 
     /**
-     * @param string $currentUri
+     * @param \Knp\Menu\ItemInterface $menu
      *
      * @return \Knp\Menu\ItemInterface
      */
-    public function createProfileMenu($currentUri)
+    public function createProfileMenu(ItemInterface $menu = null)
     {
-        $menu = $this->factory->createItem('profile', array('childrenAttributes' => array('class' => 'nav nav-list')));
-        $menu->setCurrentUri($currentUri);
+        if (null === $menu) {
+            $menu = $this->factory->createItem('profile', array('childrenAttributes' => array('class' => 'nav nav-list')));
+        }
 
         foreach ($this->routes as $route) {
             $menu->addChild(

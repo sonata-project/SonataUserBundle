@@ -44,12 +44,4 @@ class ProfileMenuEvent extends Event
     {
         return $this->menu;
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'sonata.user.profile.configure_menu';
-    }
 }

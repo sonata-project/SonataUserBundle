@@ -55,12 +55,12 @@ class ProfileMenuBlockService extends BaseBlockService
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
-        $menu    = $this->menuBuilder->createProfileMenu($blockContext->getSetting('current_uri'));
-        $options = $this->getMenuOptions($blockContext->getSettings());
+        $menu    = $this->menuBuilder->createProfileMenu();
+        $menu->setCurrentUri($blockContext->getSetting('current_uri'));
 
         return $this->renderResponse($blockContext->getTemplate(), array(
             'menu'         => $menu,
-            'menu_options' => $options
+            'menu_options' => $this->getMenuOptions($blockContext->getSettings())
         ));
     }
 

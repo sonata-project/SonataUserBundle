@@ -118,7 +118,7 @@ class Configuration implements ConfigurationInterface
                                         ->prototype('scalar')->end()
                                     ->end()
                                     ->scalarNode('label')->cannotBeEmpty()->end()
-                                    ->scalarNode('domain')->end()
+                                    ->scalarNode('domain')->defaultValue('messages')->end()
                                 ->end()
                             ->end()
                             ->defaultValue($this->getProfileMenuDefaultValues())

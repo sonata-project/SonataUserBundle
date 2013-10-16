@@ -428,11 +428,11 @@
             </trans-unit>
             <trans-unit id="sonata_profile_title">
                 <source>sonata_profile_title</source>
-                <target>My Profile</target>
+                <target>sonata_profile_title</target>
             </trans-unit>
             <trans-unit id="link_edit_profile">
                 <source>link_edit_profile</source>
-                <target>Edit Profile</target>
+                <target>link_edit_profile</target>
             </trans-unit>
         </body>
     </file>

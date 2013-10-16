@@ -69,7 +69,6 @@ class SonataUserExtension extends Extension
         $this->configureGoogleAuthenticator($config, $container);
         $this->configureShortcut($container);
         $this->configureProfile($config, $container);
-
         $this->configureMenu($config, $container);
     }
 
@@ -271,17 +270,6 @@ class SonataUserExtension extends Extension
      */
     public function configureMenu(array $config, ContainerBuilder $container)
     {
-        $defaultRoute = array(
-            'domain'           => 'messages',
-            'route_parameters' => array()
-        );
-
-        $routes = array();
-
-        foreach ($config['profile']['menu'] as $route) {
-            $routes[] = array_merge($defaultRoute, $route);
-        }
-
-        $container->getDefinition('sonata.user.profile.menu_builder')->replaceArgument(2, $routes);
+        $container->getDefinition('sonata.user.profile.menu_builder')->replaceArgument(2, $config['profile']['menu']);
     }
 }
