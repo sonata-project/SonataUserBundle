@@ -16,6 +16,8 @@ use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\BlockBundle\Block\BaseBlockService;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\BlockBundle\Model\BlockInterface;
+use Sonata\UserBundle\Menu\ProfileMenuBuilder;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -30,12 +32,35 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class ProfileMenuBlockService extends BaseBlockService
 {
     /**
+     * @var ProfileMenuBuilder
+     */
+    private $menuBuilder;
+
+    /**
+     * Constructor
+     *
+     * @param string             $name
+     * @param EngineInterface    $templating
+     * @param ProfileMenuBuilder $menuBuilder
+     */
+    public function __construct($name, EngineInterface $templating, ProfileMenuBuilder $menuBuilder)
+    {
+        parent::__construct($name, $templating);
+
+        $this->menuBuilder = $menuBuilder;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
+        $menu    = $this->menuBuilder->createProfileMenu($blockContext->getSetting('current_uri'));
+        $options = $this->getMenuOptions($blockContext->getSettings());
+
         return $this->renderResponse($blockContext->getTemplate(), array(
-            'menuName' => $blockContext->getSetting('menuName')
+            'menu'         => $menu,
+            'menu_options' => $options
         ));
     }
 
@@ -46,7 +71,10 @@ class ProfileMenuBlockService extends BaseBlockService
     {
         $form->add('settings', 'sonata_type_immutable_array', array(
             'keys' => array(
-                array('menuName', 'string', array('required' => false)),
+                array('menu_name', 'string', array('required' => false)),
+                array('current_class', 'string', array('required' => false)),
+                array('first_class', 'string', array('required' => false)),
+                array('last_class', 'string', array('required' => false)),
                 array('title', 'text', array('required' => false)),
             )
         ));
@@ -65,12 +93,15 @@ class ProfileMenuBlockService extends BaseBlockService
     public function setDefaultSettings(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'menuName' => 'sonata.user.profile',
-            'template' => 'SonataUserBundle:Block:profile_menu.html.twig',
-            'title'    => 'User Profile Menu'
+            'menu_name'     => 'sonata.user.profile',
+            'template'      => 'SonataUserBundle:Block:profile_menu.html.twig',
+            'title'         => 'User Profile Menu',
+            'current_class' => 'active',
+            'first_class'   => false,
+            'last_class'    => false,
+            'current_uri'   => null
         ));
     }
-
 
     /**
      * {@inheritdoc}
@@ -78,5 +109,29 @@ class ProfileMenuBlockService extends BaseBlockService
     public function getName()
     {
         return 'User Profile Menu';
+    }
+
+    /**
+     * Replaces setting keys with knp menu item options keys
+     *
+     * @param array $settings
+     */
+    protected function getMenuOptions(array $settings)
+    {
+        $mapping = array(
+            'current_class' => 'currentClass',
+            'first_class'   => 'firstClass',
+            'last_class'    => 'lastClass'
+        );
+
+        $options = array();
+
+        foreach ($settings as $key => $value) {
+            if (array_key_exists($key, $mapping)) {
+                $options[$mapping[$key]] = $value;
+            }
+        }
+
+        return $options;
     }
 }

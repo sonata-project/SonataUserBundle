@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+### 2013-10-16
+
+* Edited SonataUserBundle:Profile:edit_authentication.html.twig & SonataUserBundle:Profile:edit_profile.html.twig templates
+
 ### [BC BREAK] 2013-05-06
 
 * User's groups roles are not merged anymore when editing `User` entity. A `getRealRoles()` method has been

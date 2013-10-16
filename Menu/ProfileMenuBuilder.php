@@ -12,6 +12,7 @@
 namespace Sonata\UserBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -35,32 +36,48 @@ class ProfileMenuBuilder
     private $routes;
 
     /**
-     * @param FactoryInterface    $factory
-     * @param TranslatorInterface $translator
-     * @param array               $routes     Routes to add to the menu (format: array(array('label' => ..., 'route' => ...)))
+     * @var TranslatorInterface
      */
-    public function __construct(FactoryInterface $factory, TranslatorInterface $translator, array $routes)
+    private $translator;
+
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
+    /**
+     * @param FactoryInterface         $factory
+     * @param TranslatorInterface      $translator
+     * @param array                    $routes     Routes to add to the menu (format: array(array('label' => ..., 'route' => ...)))
+     * @param EventDispatcherInterface $eventDispatcher
+     */
+    public function __construct(FactoryInterface $factory, TranslatorInterface $translator, array $routes, EventDispatcherInterface $eventDispatcher)
     {
-        $this->factory    = $factory;
-        $this->translator = $translator;
-        $this->routes     = $routes;
+        $this->factory         = $factory;
+        $this->translator      = $translator;
+        $this->routes          = $routes;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
-     * @param Request $request
+     * @param string $currentUri
      *
      * @return \Knp\Menu\ItemInterface
      */
-    public function createProfileMenu(Request $request)
+    public function createProfileMenu($currentUri)
     {
         $menu = $this->factory->createItem('profile', array('childrenAttributes' => array('class' => 'nav nav-list')));
-
-        $menu->setCurrentUri($request->getRequestUri());
+        $menu->setCurrentUri($currentUri);
 
         foreach ($this->routes as $route) {
-            $label = array_key_exists('domain', $route) ? $this->translator->trans($route['label'], array(), $route['domain']) : $route['label'];
-            $menu->addChild($label, array('route' => $route['route']));
+            $menu->addChild(
+                $this->translator->trans($route['label'], array(), $route['domain']),
+                array('route' => $route['route'], 'routeParameters' => $route['route_parameters'])
+            );
         }
+
+        $event = new ProfileMenuEvent($menu);
+        $this->eventDispatcher->dispatch('sonata.user.profile.configure_menu', $event);
 
         return $menu;
     }

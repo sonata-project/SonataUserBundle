@@ -17,6 +17,7 @@ Full configuration options:
             # Customize user portal menu by setting links
             menu:
                 - { route: 'sonata_user_profile_edit', label: 'link_edit_profile', domain: 'SonataUserBundle'}
+                - { route: 'sonata_user_profile_edit_authentication', label: 'link_edit_authentication', domain: 'SonataUserBundle'}
 
             # Authentication Form
             form:

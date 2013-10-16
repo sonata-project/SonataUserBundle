@@ -7,13 +7,9 @@
         <service id="sonata.user.profile.menu_builder" class="Sonata\UserBundle\Menu\ProfileMenuBuilder">
             <argument type="service" id="knp_menu.factory" />
             <argument type="service" id="translator" />
-            <argument>%sonata.user.profile.menu.elements%</argument>
-        </service>
-
-        <service id="sonata.user.profile.menu" class="Knp\Menu\MenuItem"
-                 factory-service="sonata.user.profile.menu_builder" factory-method="createProfileMenu" scope="request">
-            <tag name="knp_menu.menu" alias="sonata.user.profile"/>
-            <argument type="service" id="request"/>
+            <argument></argument>
+            <argument type="service" id="event_dispatcher" />
         </service>
     </services>
+
 </container>
