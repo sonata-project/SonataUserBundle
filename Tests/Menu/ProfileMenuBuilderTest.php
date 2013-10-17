@@ -37,7 +37,7 @@ class ProfileMenuBuilderTest extends \PHPUnit_Framework_TestCase
 
         $builder = new ProfileMenuBuilder($factory, $translator, array(), $eventDispatcher);
 
-        $genMenu = $builder->createProfileMenu("");
+        $genMenu = $builder->createProfileMenu();
 
         $this->assertInstanceOf('Knp\Menu\ItemInterface', $genMenu);
     }
