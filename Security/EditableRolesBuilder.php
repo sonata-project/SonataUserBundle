@@ -43,6 +43,10 @@ class EditableRolesBuilder
         $roles = array();
         $rolesReadOnly = array();
 
+        if (!$this->securityContext->getToken()) {
+            return array($roles, $rolesReadOnly);
+        }
+
         // get roles from the Admin classes
         foreach ($this->pool->getAdminServiceIds() as $id) {
             try {
