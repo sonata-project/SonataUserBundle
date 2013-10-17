@@ -12,4 +12,5 @@ Reference Guide
    reference/installation
    reference/advanced_configuration
    reference/two_step_validation
+   reference/user_portal
    reference/profile_edition

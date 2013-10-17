@@ -414,6 +414,14 @@
                 <source>gender_male</source>
                 <target>homme</target>
             </trans-unit>
+            <trans-unit id="sonata_profile_title">
+                <source>sonata_profile_title</source>
+                <target>Mon Profil</target>
+            </trans-unit>
+            <trans-unit id="link_edit_profile">
+                <source>link_edit_profile</source>
+                <target>Éditer mon profil</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
