@@ -108,11 +108,47 @@ class Configuration implements ConfigurationInterface
                                 ->end()
                             ->end()
                         ->end()
+                        ->arrayNode('menu')
+                            ->prototype('array')
+                                ->addDefaultsIfNotSet()
+                                ->cannotBeEmpty()
+                                ->children()
+                                    ->scalarNode('route')->cannotBeEmpty()->end()
+                                    ->arrayNode('route_parameters')
+                                        ->prototype('scalar')->end()
+                                    ->end()
+                                    ->scalarNode('label')->cannotBeEmpty()->end()
+                                    ->scalarNode('domain')->defaultValue('messages')->end()
+                                ->end()
+                            ->end()
+                            ->defaultValue($this->getProfileMenuDefaultValues())
+                        ->end()
                     ->end()
                 ->end()
             ->end()
         ;
 
         return $treeBuilder;
+    }
+
+    /**
+     * Returns default values for profile menu (to avoid BC Break)
+     *
+     * @return array
+     */
+    protected function getProfileMenuDefaultValues()
+    {
+        return array(
+            array(
+                'route'  => 'sonata_user_profile_edit',
+                'label'  => 'link_edit_profile',
+                'domain' => 'SonataUserBundle'
+            ),
+            array(
+                'route'  => 'sonata_user_profile_edit_authentication',
+                'label'  => 'link_edit_authentication',
+                'domain' => 'SonataUserBundle'
+            ),
+        );
     }
 }

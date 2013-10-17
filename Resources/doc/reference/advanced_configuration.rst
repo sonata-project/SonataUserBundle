@@ -13,7 +13,8 @@ Full configuration options:
         group:
             group_class:  Application\Sonata\UserBundle\Entity\Group
 
-        profile:  # Authentication Form
+        profile:
+            # Authentication Form
             form:
                 type:               fos_user_profile
                 handler:            fos_user.profile.form.handler.default
@@ -47,7 +48,13 @@ Full configuration options:
                 controller:     SonataAdminBundle:CRUD
                 translation:    SonataUserBundle
 
-        profile:  # Profile Form (firstname, lastname, etc ...)
+        profile:
+            # Customize user portal menu by setting links
+            menu:
+                - { route: 'sonata_user_profile_edit', label: 'link_edit_profile', domain: 'SonataUserBundle'}
+                - { route: 'sonata_user_profile_edit_authentication', label: 'link_edit_authentication', domain: 'SonataUserBundle'}
+
+            # Profile Form (firstname, lastname, etc ...)
             form:
                 type:               sonata_user_profile
                 handler:            sonata.user.profile.form.handler.default

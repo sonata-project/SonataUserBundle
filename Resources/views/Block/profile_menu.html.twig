@@ -9,7 +9,8 @@ file that was distributed with this source code.
 
 #}
 
-{% extends "SonataUserBundle:Profile:action.html.twig" %}
+{% extends sonata_block.templates.block_base %}
 
-{% block sonata_profile_content %}
+{% block block %}
+    {{ knp_menu_render(menu, menu_options) }}
 {% endblock %}

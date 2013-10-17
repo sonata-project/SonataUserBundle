@@ -9,14 +9,17 @@ file that was distributed with this source code.
 
 #}
 
-<div class="sonata-user-edit-authentication">
+{% extends "SonataUserBundle:Profile:action.html.twig" %}
 
-    <h2>{{ "title_user_account" | trans({}, 'SonataUserBundle')}} - {{ "title_user_edit_authentication" | trans({}, 'SonataUserBundle')}}</h2>
+{% block sonata_profile_title %}
+    {{ "title_user_account" | trans({}, 'SonataUserBundle')}} - {{ "title_user_edit_authentication" | trans({}, 'SonataUserBundle')}}
+{% endblock %}
 
+
+{% block sonata_profile_content %}
     <form action="{{ path('sonata_user_profile_edit_authentication') }}" method="POST">
         {{ form_rest(form) }}
 
         <input type="submit" name="submit" value="{{ 'sonata_user_submit'|trans({}, 'SonataUserBundle') }}" />
     </form>
-
-</div>
+{% endblock %}
