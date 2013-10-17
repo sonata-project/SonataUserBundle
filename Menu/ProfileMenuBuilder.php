@@ -61,7 +61,7 @@ class ProfileMenuBuilder
     }
 
     /**
-     * @param \Knp\Menu\ItemInterface $menu
+     * @param array $itemOptions The options given to the created menuItem
      *
      * @return \Knp\Menu\ItemInterface
      */
@@ -75,7 +75,7 @@ class ProfileMenuBuilder
     }
 
     /**
-     * @param \Knp\Menu\ItemInterface $menu
+     * @param \Knp\Menu\ItemInterface $menu The item to fill with $routes
      */
     public function buildProfileMenu(ItemInterface $menu)
     {
