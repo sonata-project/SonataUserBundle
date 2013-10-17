@@ -3,7 +3,9 @@ CHANGELOG
 
 ### 2013-10-16
 
-* Edited SonataUserBundle:Profile:edit_authentication.html.twig & SonataUserBundle:Profile:edit_profile.html.twig templates
+* Refactored SonataUserBundle:Profile:edit_authentication.html.twig & SonataUserBundle:Profile:edit_profile.html.twig templates
+    Those templates are now embedding the profile menu block and extending base action.html.twig template.
+
 
 ### [BC BREAK] 2013-05-06
 

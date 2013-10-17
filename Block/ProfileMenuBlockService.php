@@ -21,7 +21,6 @@ use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-
 /**
  * Class ProfileMenuBlockService
  *
@@ -55,8 +54,10 @@ class ProfileMenuBlockService extends BaseBlockService
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
-        $menu    = $this->menuBuilder->createProfileMenu();
-        $menu->setCurrentUri($blockContext->getSetting('current_uri'));
+        if ("" === ($menu = $blockContext->getSetting('menu_name')) || null === $menu) {
+            $menu = $this->menuBuilder->createProfileMenu(array('childrenAttributes' => array('class' => $blockContext->getSetting('menu_class'))));
+            $menu->setCurrentUri($blockContext->getSetting('current_uri'));
+        }
 
         return $this->renderResponse($blockContext->getTemplate(), array(
             'menu'         => $menu,
@@ -71,11 +72,12 @@ class ProfileMenuBlockService extends BaseBlockService
     {
         $form->add('settings', 'sonata_type_immutable_array', array(
             'keys' => array(
+                array('title', 'text', array('required' => false)),
                 array('menu_name', 'string', array('required' => false)),
+                array('menu_class'), 'string', array('required' => false),
                 array('current_class', 'string', array('required' => false)),
                 array('first_class', 'string', array('required' => false)),
                 array('last_class', 'string', array('required' => false)),
-                array('title', 'text', array('required' => false)),
             )
         ));
     }
@@ -93,9 +95,10 @@ class ProfileMenuBlockService extends BaseBlockService
     public function setDefaultSettings(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'menu_name'     => 'sonata.user.profile',
-            'template'      => 'SonataUserBundle:Block:profile_menu.html.twig',
             'title'         => 'User Profile Menu',
+            'template'      => 'SonataUserBundle:Block:profile_menu.html.twig',
+            'menu_name'     => "",
+            'menu_class'    => "nav nav-list",
             'current_class' => 'active',
             'first_class'   => false,
             'last_class'    => false,

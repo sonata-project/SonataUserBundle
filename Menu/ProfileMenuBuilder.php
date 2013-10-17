@@ -65,12 +65,20 @@ class ProfileMenuBuilder
      *
      * @return \Knp\Menu\ItemInterface
      */
-    public function createProfileMenu(ItemInterface $menu = null)
+    public function createProfileMenu(array $itemOptions = array())
     {
-        if (null === $menu) {
-            $menu = $this->factory->createItem('profile', array('childrenAttributes' => array('class' => 'nav nav-list')));
-        }
+        $menu = $this->factory->createItem('profile', $itemOptions);
 
+        $this->buildProfileMenu($menu);
+
+        return $menu;
+    }
+
+    /**
+     * @param \Knp\Menu\ItemInterface $menu
+     */
+    public function buildProfileMenu(ItemInterface $menu)
+    {
         foreach ($this->routes as $route) {
             $menu->addChild(
                 $this->translator->trans($route['label'], array(), $route['domain']),
@@ -80,7 +88,5 @@ class ProfileMenuBuilder
 
         $event = new ProfileMenuEvent($menu);
         $this->eventDispatcher->dispatch('sonata.user.profile.configure_menu', $event);
-
-        return $menu;
     }
 }
