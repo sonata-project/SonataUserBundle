@@ -61,7 +61,9 @@ class ProfileMenuBlockService extends BaseBlockService
 
         return $this->renderResponse($blockContext->getTemplate(), array(
             'menu'         => $menu,
-            'menu_options' => $this->getMenuOptions($blockContext->getSettings())
+            'menu_options' => $this->getMenuOptions($blockContext->getSettings()),
+            'block'        => $blockContext->getBlock(),
+            'context'      => $blockContext
         ));
     }
 
