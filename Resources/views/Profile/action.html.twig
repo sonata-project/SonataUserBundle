@@ -20,6 +20,12 @@ file that was distributed with this source code.
     </div>
 
     <div class="span8">
+        {% for message in app.session.flashbag.get('fos_user_success') %}
+            <div class="alert alert-success">
+                {{ message|trans({}, "SonataUserBundle") }}
+            </div>
+        {% endfor %}
+
         {% block sonata_profile_content %}
         {% endblock %}
     </div>
