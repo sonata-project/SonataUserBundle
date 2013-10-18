@@ -12,6 +12,7 @@
 namespace Sonata\UserBundle\Entity;
 
 use Sonata\UserBundle\Model\User as AbstractedUser;
+use Sonata\UserBundle\Model\UserInterface;
 
 /**
  * Represents a Base User Entity
@@ -33,5 +34,19 @@ class BaseUser extends AbstractedUser
     public function preUpdate()
     {
         $this->updatedAt = new \DateTime;
+    }
+
+    /**
+     * Returns the gender list
+     *
+     * @return array
+     */
+    public static function getGenderList()
+    {
+        return array(
+            UserInterface::GENDER_UNKNOWN => 'gender_unknown',
+            UserInterface::GENDER_FEMALE  => 'gender_female',
+            UserInterface::GENDER_MALE    => 'gender_male',
+        );
     }
 }

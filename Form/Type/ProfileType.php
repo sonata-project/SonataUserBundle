@@ -16,6 +16,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Sonata\UserBundle\Model\UserInterface;
 
 class ProfileType extends AbstractType
 {
@@ -35,11 +36,18 @@ class ProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('gender', null, array('required' => false))
+            ->add('gender', 'sonata_user_gender', array(
+                'required' => true,
+                'translation_domain' => 'SonataUserBundle',
+                'choices' => array(
+                    UserInterface::GENDER_FEMALE => 'gender_female',
+                    UserInterface::GENDER_MALE   => 'gender_male',
+                )
+            ))
             ->add('firstname', null, array('required' => false))
             ->add('lastname', null, array('required' => false))
-            ->add('dateOfBirth', 'birthday', array('required' => false))
-            ->add('website', null, array('required' => false))
+            ->add('dateOfBirth', 'birthday', array('required' => false, 'widget' => 'single_text'))
+            ->add('website', 'url', array('required' => false))
             ->add('biography', 'textarea', array('required' => false))
             ->add('locale', 'locale', array('required' => false))
             ->add('timezone', 'timezone', array('required' => false))
