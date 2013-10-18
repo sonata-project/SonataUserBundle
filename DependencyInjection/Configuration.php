@@ -115,7 +115,8 @@ class Configuration implements ConfigurationInterface
                                 ->children()
                                     ->scalarNode('route')->cannotBeEmpty()->end()
                                     ->arrayNode('route_parameters')
-                                        ->prototype('scalar')->end()
+                                        ->defaultValue(array())
+                                        ->prototype('array')->end()
                                     ->end()
                                     ->scalarNode('label')->cannotBeEmpty()->end()
                                     ->scalarNode('domain')->defaultValue('messages')->end()
@@ -142,12 +143,14 @@ class Configuration implements ConfigurationInterface
             array(
                 'route'  => 'sonata_user_profile_edit',
                 'label'  => 'link_edit_profile',
-                'domain' => 'SonataUserBundle'
+                'domain' => 'SonataUserBundle',
+                'route_parameters' => array()
             ),
             array(
                 'route'  => 'sonata_user_profile_edit_authentication',
                 'label'  => 'link_edit_authentication',
-                'domain' => 'SonataUserBundle'
+                'domain' => 'SonataUserBundle',
+                'route_parameters' => array()
             ),
         );
     }
