@@ -63,10 +63,12 @@ of ``super-admin`` users, to enable this add to the configuration:
     sonata_user:
         security_acl: true
         manager_type: orm # can be orm or mongodb
+
     sonata_block:
         blocks:
             #...
-            sonata.user.block.menu:
+            sonata.user.block.menu:    # used to display the menu in profile pages
+            sonata.user.block.account: # used to display menu option (login option)
 
     # app/config/security.yml
     security:

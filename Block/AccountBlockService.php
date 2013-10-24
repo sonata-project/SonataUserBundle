@@ -67,7 +67,7 @@ class AccountBlockService extends BaseBlockService
             $user = false;
         }
 
-        return $this->renderResponse($blockContext->getTemplate(), array(
+        return $this->renderPrivateResponse($blockContext->getTemplate(), array(
             'user'    => $user,
             'block'   => $blockContext->getBlock(),
             'context' => $blockContext
@@ -95,7 +95,8 @@ class AccountBlockService extends BaseBlockService
     public function setDefaultSettings(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'template'      => 'SonataUserBundle:Block:account.html.twig',
+            'template' => 'SonataUserBundle:Block:account.html.twig',
+            'ttl'      => 0
         ));
     }
 

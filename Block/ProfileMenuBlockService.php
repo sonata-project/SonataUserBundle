@@ -59,7 +59,7 @@ class ProfileMenuBlockService extends BaseBlockService
             $menu->setCurrentUri($blockContext->getSetting('current_uri'));
         }
 
-        return $this->renderResponse($blockContext->getTemplate(), array(
+        return $this->renderPrivateResponse($blockContext->getTemplate(), array(
             'menu'         => $menu,
             'menu_options' => $this->getMenuOptions($blockContext->getSettings()),
             'block'        => $blockContext->getBlock(),
