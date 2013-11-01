@@ -11,7 +11,7 @@
 
 namespace Sonata\UserBundle\Document;
 
-use Sonata\UserBundle\Model\User as AbstractedUser;
+use Sonata\UserBundle\Model\UserODM as AbstractedUser;
 use Sonata\UserBundle\Model\UserInterface;
 
 /**
