@@ -470,6 +470,10 @@
                 <source>profile.flash.updated</source>
                 <target>Votre profil a été mis à jour.</target>
             </trans-unit>
+            <trans-unit id="sonata_change_password_link">
+                <source>sonata_change_password_link</source>
+                <target>Changer votre mot de passe</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

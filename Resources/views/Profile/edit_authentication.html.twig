@@ -17,9 +17,16 @@ file that was distributed with this source code.
 
 
 {% block sonata_profile_content %}
-    <form action="{{ path('sonata_user_profile_edit_authentication') }}" method="POST">
-        {{ form_rest(form) }}
+    <div class="row">
+        <div class="span6">
+            <form action="{{ path('sonata_user_profile_edit_authentication') }}" method="POST">
+                {{ form_rest(form) }}
 
-        <input type="submit" name="submit" class="btn btn-primary" value="{{ 'sonata_user_submit'|trans({}, 'SonataUserBundle') }}" />
-    </form>
+                <input type="submit" name="submit" class="btn btn-primary" value="{{ 'sonata_user_submit'|trans({}, 'SonataUserBundle') }}" />
+            </form>
+        </div>
+        <div class="span6">
+            <a href="{{ path('fos_user_change_password') }}" class="btn btn-warning"><i class="icon-lock icon-white"></i>&nbsp;{{ 'sonata_change_password_link'|trans({}, 'SonataUserBundle') }}</a>
+        </div>
+    </div>
 {% endblock %}
