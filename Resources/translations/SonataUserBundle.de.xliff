@@ -523,6 +523,10 @@
                 <source>profile.flash.updated</source>
                 <target>profile.flash.updated</target>
             </trans-unit>
+            <trans-unit id="sonata_change_password_link">
+                <source>sonata_change_password_link</source>
+                <target>sonata_change_password_link</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
