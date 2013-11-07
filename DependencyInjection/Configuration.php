@@ -124,6 +124,7 @@ class Configuration implements ConfigurationInterface
                             ->end()
                             ->defaultValue($this->getProfileMenuDefaultValues())
                         ->end()
+                        ->scalarNode('register_confirm_redirect_route')->defaultValue('sonata_user_profile_show')->end()
                     ->end()
                 ->end()
             ->end()
