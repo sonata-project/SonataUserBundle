@@ -33,8 +33,7 @@ class RegistrationController extends BaseController
         $response = parent::confirmedAction();
 
         if ($redirectRoute = $this->container->getParameter('sonata.user.register.confirm.redirect_route')) {
-            $url = $this->container->get('router')->generate('sonata_user_profile_show');
-            return new RedirectResponse($url);
+            return new RedirectResponse($this->container->get('router')->generate($redirectRoute, $this->container->getParameter('sonata.user.register.confirm.redirect_route_params')));
         }
 
         return $response;

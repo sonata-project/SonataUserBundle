@@ -50,8 +50,12 @@ Full configuration options:
 
         profile:
             # This allows you to specify where you want your user redirected once he activated his account
-            # Set it to false to disable redirection
-            register_confirm_redirect_route: sonata_user_profile_show
+            register:
+                confirm:
+                    redirect:
+                        # Set it to false to disable redirection
+                        route: 'sonata_user_profile_show'
+                        route_parameters: ~
 
             # Customize user portal menu by setting links
             menu:
