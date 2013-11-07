@@ -254,6 +254,10 @@
                 <source>registration.flash.user_created</source>
                 <target>registration.flash.user_created</target>
             </trans-unit>
+            <trans-unit id="forgotten_password">
+                <source>forgotten_password</source>
+                <target>forgotten_password</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
