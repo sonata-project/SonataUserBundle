@@ -490,6 +490,10 @@
                 <source>registration.flash.user_created</source>
                 <target>Votre compte est créé avec succès !</target>
             </trans-unit>
+            <trans-unit id="forgotten_password">
+                <source>forgotten_password</source>
+                <target>Mot de passe oublié ?</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

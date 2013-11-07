@@ -37,6 +37,12 @@ file that was distributed with this source code.
             </label>
         </div>
 
+        <div class="control-group">
+            <div class="controls">
+                <a href="{{ path('fos_user_resetting_request') }}">{{ 'forgotten_password'|trans({}, 'SonataUserBundle') }}</a>
+            </div>
+        </div>
+
         <input type="submit" id="_submit" name="_submit" class="btn btn-primary" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
     </form>
 {% endblock fos_user_content %}
