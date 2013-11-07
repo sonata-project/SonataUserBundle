@@ -462,6 +462,22 @@
                 <source>sonata_change_password_link</source>
                 <target>Change your password</target>
             </trans-unit>
+            <trans-unit id="link_register">
+                <source>link_register</source>
+                <target>Register</target>
+            </trans-unit>
+            <trans-unit id="link_login">
+                <source>link_login</source>
+                <target>Log In</target>
+            </trans-unit>
+            <trans-unit id="link_logout">
+                <source>link_logout</source>
+                <target>Log out</target>
+            </trans-unit>
+            <trans-unit id="registration.flash.user_created">
+                <source>registration.flash.user_created</source>
+                <target>Your account has been created successfully!</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
