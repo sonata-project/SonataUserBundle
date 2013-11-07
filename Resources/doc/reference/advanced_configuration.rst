@@ -49,6 +49,14 @@ Full configuration options:
                 translation:    SonataUserBundle
 
         profile:
+            # This allows you to specify where you want your user redirected once he activated his account
+            register:
+                confirm:
+                    redirect:
+                        # Set it to false to disable redirection
+                        route: 'sonata_user_profile_show'
+                        route_parameters: ~
+
             # Customize user portal menu by setting links
             menu:
                 - { route: 'sonata_user_profile_edit', label: 'link_edit_profile', domain: 'SonataUserBundle'}
