@@ -49,6 +49,24 @@ Full configuration options:
                 translation:    SonataUserBundle
 
         profile:
+            # As in SonataAdminBundle's dashboard
+            dashboard:
+                groups:
+
+                    # Prototype
+                    id:
+                        label:                ~
+                        label_catalogue:      ~
+                        items:                []
+                        item_adds:            []
+                        roles:                []
+                blocks:
+                    type:                 ~
+                    settings:
+
+                        # Prototype
+                        id:                   []
+                    position:             right
             # This allows you to specify where you want your user redirected once he activated his account
             register:
                 confirm:
