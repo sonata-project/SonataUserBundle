@@ -19,7 +19,7 @@ file that was distributed with this source code.
         {% endblock %}
     </div>
 
-    <div class="span8">
+    <div class="span10">
         {% for message in app.session.flashbag.get('fos_user_success') %}
             <div class="alert alert-success">
                 {{ message|trans({}, "SonataUserBundle") }}
