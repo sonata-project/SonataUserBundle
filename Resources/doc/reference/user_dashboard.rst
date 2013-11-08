@@ -5,7 +5,10 @@ SonataUserBundle provides an easy way to customize the user portal (reachable th
 
 Here's a preview:
 
-.. image:: ../images/profileDashboard.png
+.. figure:: ../images/profile_dashboard.png
+   :align: center
+   :alt: The user profile dashboard
+   :width: 700px
 
 Configuration
 -------------
