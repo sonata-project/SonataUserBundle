@@ -12,4 +12,38 @@ file that was distributed with this source code.
 {% extends "SonataUserBundle:Profile:action.html.twig" %}
 
 {% block sonata_profile_content %}
+    <div class="row-fluid">
+        {% set has_center = false %}
+        {% for block in blocks %}
+            {% if block.position == 'center' %}
+                {% set has_center = true %}
+            {% endif %}
+        {% endfor %}
+
+        <div class="{% if has_center %}span3{% else %}span6{% endif %}">
+            {% for block in blocks %}
+                {% if block.position == 'left' %}
+                    {{ sonata_block_render({ 'type': block.type, 'settings': block.settings}) }}
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        {% if has_center %}
+            <div class="span4">
+                {% for block in blocks %}
+                    {% if block.position == 'center' %}
+                        {{ sonata_block_render({ 'type': block.type, 'settings': block.settings}) }}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="{% if has_center %}span4{% else %}span6{% endif %}">
+            {% for block in blocks %}
+                {% if block.position == 'right' %}
+                    {{ sonata_block_render({ 'type': block.type, 'settings': block.settings}) }}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

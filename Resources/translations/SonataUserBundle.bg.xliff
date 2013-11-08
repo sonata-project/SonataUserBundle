@@ -182,6 +182,10 @@
                 <source>sonata_profile_title</source>
                 <target>sonata_profile_title</target>
             </trans-unit>
+            <trans-unit id="link_show_profile">
+                <source>link_show_profile</source>
+                <target>link_show_profile</target>
+            </trans-unit>
             <trans-unit id="link_edit_profile">
                 <source>link_edit_profile</source>
                 <target>link_edit_profile</target>
