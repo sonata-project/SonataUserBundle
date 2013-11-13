@@ -46,7 +46,7 @@ class ProfileMenuBlockService extends MenuBlockService
      */
     public function __construct($name, EngineInterface $templating, MenuProviderInterface $menuProvider, ProfileMenuBuilder $menuBuilder)
     {
-        parent::__construct($name, $templating, $menuProvider);
+        parent::__construct($name, $templating, $menuProvider, array());
 
         $this->menuBuilder = $menuBuilder;
     }
@@ -57,6 +57,29 @@ class ProfileMenuBlockService extends MenuBlockService
     public function getName()
     {
         return 'User Profile Menu';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setDefaultSettings(OptionsResolverInterface $resolver)
+    {
+        parent::setDefaultSettings($resolver);
+
+        $resolver->setDefaults(array(
+            'cache_policy' => 'private',
+            'menu_class'   => "nav nav-list",
+        ));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getFormSettingsKeys()
+    {
+        return array_merge(parent::getFormSettingsKeys(), array(
+            array('menu_class', 'text', array('required' => false)),
+        ));
     }
 
     /**
