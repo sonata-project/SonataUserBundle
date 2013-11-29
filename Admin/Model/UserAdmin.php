@@ -22,9 +22,23 @@ use FOS\UserBundle\Model\UserManagerInterface;
 
 class UserAdmin extends Admin
 {
-    protected $formOptions = array(
-        'validation_groups' => 'Profile'
-    );
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getFormBuilder()
+    {
+        $this->formOptions['data_class'] = $this->getClass();
+
+        $options = $this->formOptions;
+        $options['validation_groups'] = is_null($this->getSubject()->getId()) ? 'Registration' : 'Profile';
+
+        $formBuilder = $this->getFormContractor()->getFormBuilder( $this->getUniqid(), $options);
+
+        $this->defineFormBuilder($formBuilder);
+
+        return $formBuilder;
+    }
 
     /**
      * {@inheritdoc}
@@ -109,10 +123,16 @@ class UserAdmin extends Admin
             ->with('General')
                 ->add('username')
                 ->add('email')
-                ->add('plainPassword', 'text', array('required' => false))
+                ->add('plainPassword', 'text', array(
+                    'required' => is_null($this->getSubject()->getId())
+                ))
             ->end()
             ->with('Groups')
-                ->add('groups', 'sonata_type_model', array('required' => false, 'expanded' => true, 'multiple' => true))
+                ->add('groups', 'sonata_type_model', array(
+                    'required' => false,
+                    'expanded' => true,
+                    'multiple' => true
+                ))
             ->end()
             ->with('Profile')
                 ->add('dateOfBirth', 'birthday', array('required' => false))
