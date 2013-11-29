@@ -162,6 +162,7 @@ class UserAdmin extends Admin
             $formMapper
                 ->with('Management')
                     ->add('realRoles', 'sonata_security_roles', array(
+                        'label'    => 'form.label_roles',
                         'expanded' => true,
                         'multiple' => true,
                         'required' => false
