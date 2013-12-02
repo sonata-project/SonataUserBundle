@@ -135,7 +135,7 @@ class UserAdmin extends Admin
                 ->add('username')
                 ->add('email')
                 ->add('plainPassword', 'text', array(
-                    'required' => is_null($this->getSubject()->getId())
+                    'required' => (!$this->getSubject() || is_null($this->getSubject()->getId()))
                 ))
             ->end()
             ->with('Groups')
