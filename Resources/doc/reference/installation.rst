@@ -36,6 +36,7 @@ files:
     public function registerbundles()
     {
         return array(
+            new Sonata\BlockBundle\SonataBlockBundle(),
             // ...
             // You have 2 options to initialize the SonataUserBundle in your AppKernel,
             // you can select which bundle SonataUserBundle extends

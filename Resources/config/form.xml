@@ -38,7 +38,7 @@
             <argument>%security.role_hierarchy.roles%</argument>
         </service>
 
-        <service id="sonata.user.form.gender_list" class="Sonata\AdminBundle\Form\Type\StatusType">
+        <service id="sonata.user.form.gender_list" class="Sonata\CoreBundle\Form\Type\StatusType">
             <argument>%fos_user.model.user.class%</argument>
             <argument>getGenderList</argument>
             <argument>sonata_user_gender</argument>
