@@ -14,7 +14,10 @@ file that was distributed with this source code.
 {% block sonata_profile_title %}
     {{ "title_user_account" | trans({}, 'SonataUserBundle')}} - {{ "title_user_edit_profile" | trans({}, 'SonataUserBundle')}}
 {% endblock %}
+
 {% block sonata_profile_content %}
+    {% sonata_template_box 'This is the user profile edition template. Feel free to override it.' %}
+
     {{ form_errors(form) }}
 
     {% form_theme form _self %}
