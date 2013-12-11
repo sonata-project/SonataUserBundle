@@ -17,6 +17,8 @@ file that was distributed with this source code.
 
 
 {% block sonata_profile_content %}
+    {% sonata_template_box 'This is the user authentication edition template. Feel free to override it.' %}
+
     <div class="row">
         <div class="span6">
             <form action="{{ path('sonata_user_profile_edit_authentication') }}" method="POST">

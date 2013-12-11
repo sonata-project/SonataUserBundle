@@ -36,6 +36,7 @@ files:
     public function registerbundles()
     {
         return array(
+            new Sonata\CoreBundle\SonataCoreBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             // ...
             // You have 2 options to initialize the SonataUserBundle in your AppKernel,
