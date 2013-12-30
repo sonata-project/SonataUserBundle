@@ -8,15 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Sonata\UserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
+use FOS\UserBundle\Event\GetResponseUserEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\UserBundle\FOSUserEvents;
 
@@ -41,9 +42,10 @@ class ProfileController extends Controller
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        return $this->render('SonataUserBundle:Profile:show.html.twig', array(
-            'user'   => $user,
-            'blocks' => $this->container->getParameter('sonata.user.configuration.profile_blocks')
+        return $this->render('SonataUserBundle:Profile:show.html.twig',
+                array(
+                'user' => $user,
+                'blocks' => $this->container->getParameter('sonata.user.configuration.profile_blocks')
         ));
     }
 
@@ -52,25 +54,55 @@ class ProfileController extends Controller
      *
      * @throws AccessDeniedException
      */
-    public function editAuthenticationAction()
+    public function editAuthenticationAction(Request $request)
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        $form = $this->container->get('sonata.user.authentication.form');
-        $formHandler = $this->container->get('sonata.user.authentication.form_handler');
+        /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
+        $dispatcher = $this->container->get('event_dispatcher');
 
-        $process = $formHandler->process($user);
-        if ($process) {
-            $this->setFlash('sonata_user_success', 'profile.flash.updated');
+        $event = new GetResponseUserEvent($user, $request);
+        $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_INITIALIZE, $event);
 
-            return new RedirectResponse($this->generateUrl('sonata_user_profile_show'));
+        if (null !== $event->getResponse()) {
+            return $event->getResponse();
         }
 
-        return $this->render('SonataUserBundle:Profile:edit_authentication.html.twig', array(
-            'form' => $form->createView(),
+        $formFactory = $this->container->get('sonata.user.authentication.form.factory');
+        $form = $formFactory->createForm();
+        $form->setData($user);
+
+        if ('POST' === $request->getMethod()) {
+            $form->bind($request);
+
+            if ($form->isValid()) {
+                /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
+                $userManager = $this->container->get('fos_user.user_manager');
+
+                $event = new FormEvent($form, $request);
+                $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_SUCCESS,
+                    $event);
+
+                $userManager->updateUser($user);
+
+                if (null === $response = $event->getResponse()) {
+                    $url = $this->container->get('router')->generate('fos_user_profile_show');
+                    $response = new RedirectResponse($url);
+                }
+
+                $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_COMPLETED,
+                    new FilterUserResponseEvent($user, $request, $response));
+
+                return $response;
+            }
+        }
+
+        return $this->render('SonataUserBundle:Profile:edit_authentication.html.twig',
+                array(
+                'form' => $form->createView(),
         ));
     }
 
@@ -96,8 +128,9 @@ class ProfileController extends Controller
             return new RedirectResponse($this->generateUrl('sonata_user_profile_show'));
         }
 
-        return $this->render('SonataUserBundle:Profile:edit_profile.html.twig', array(
-            'form' => $form->createView(),
+        return $this->render('SonataUserBundle:Profile:edit_profile.html.twig',
+                array(
+                'form' => $form->createView(),
         ));
     }
 
@@ -109,4 +142,5 @@ class ProfileController extends Controller
     {
         $this->container->get('session')->getFlashBag()->set($action, $value);
     }
+
 }
