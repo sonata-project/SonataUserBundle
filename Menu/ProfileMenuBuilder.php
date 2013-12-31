@@ -69,7 +69,7 @@ class ProfileMenuBuilder
     {
         $menu = $this->factory->createItem('profile', $itemOptions);
 
-        $this->buildProfileMenu($menu);
+        $this->buildProfileMenu($menu, $itemOptions);
 
         return $menu;
     }
@@ -77,12 +77,12 @@ class ProfileMenuBuilder
     /**
      * @param \Knp\Menu\ItemInterface $menu The item to fill with $routes
      */
-    public function buildProfileMenu(ItemInterface $menu)
+    public function buildProfileMenu(ItemInterface $menu, array $itemOptions = array())
     {
         foreach ($this->routes as $route) {
             $menu->addChild(
                 $this->translator->trans($route['label'], array(), $route['domain']),
-                array('route' => $route['route'], 'routeParameters' => $route['route_parameters'])
+                array_merge($itemOptions, array('route' => $route['route'], 'routeParameters' => $route['route_parameters']))
             );
         }
 
