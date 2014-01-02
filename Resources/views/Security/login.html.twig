@@ -16,28 +16,28 @@ file that was distributed with this source code.
         <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
     {% endif %}
 
-    <form action="{{ path("fos_user_security_check") }}" method="post">
+    <form action="{{ path("fos_user_security_check") }}" method="post" role="form">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
-        <div class="control-group">
+        <div class="form-group control-group">
             <label for="username" class="control-label">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
-            <div class="controls"><input type="text" id="username" name="_username" value="{{ last_username }}" required="required" /></div>
+            <div class="controls"><input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}" required="required" /></div>
         </div>
 
 
-        <div class="control-group">
+        <div class="form-group control-group">
             <label for="password" class="control-label">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
-            <div class="controls"><input type="password" id="password" name="_password" required="required" /></div>
+            <div class="controls"><input type="password" class="form-control" id="password" name="_password" required="required" /></div>
         </div>
 
-        <div class="control-group">
+        <div class="checkbox control-group">
             <label for="remember_me">
                 <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
                 {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
             </label>
         </div>
 
-        <div class="control-group">
+        <div class="form-group control-group">
             <div class="controls">
                 <a href="{{ path('fos_user_resetting_request') }}">{{ 'forgotten_password'|trans({}, 'SonataUserBundle') }}</a>
             </div>

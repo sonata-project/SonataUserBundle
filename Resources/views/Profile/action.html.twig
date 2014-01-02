@@ -11,15 +11,15 @@ file that was distributed with this source code.
 
 <h4>{% block sonata_profile_title %}{% trans from 'SonataUserBundle' %}sonata_profile_title{% endtrans %}{% endblock %}</h4>
 
-<div class="sonata-user-show">
+<div class="sonata-user-show row row-fluid">
 
-    <div class="span2 well" style="padding: 8px 0;">
+    <div class="span2 col-lg-2" style="padding: 8px 0;">
         {% block sonata_profile_menu %}
             {{ sonata_block_render({'type': 'sonata.user.block.menu'}, {'current_uri': app.request.requestUri}) }}
         {% endblock %}
     </div>
 
-    <div class="span10">
+    <div class="span10 col-lg-10">
         {% for message in app.session.flashbag.get('fos_user_success') %}
             <div class="alert alert-success">
                 {{ message|trans({}, "FOSUserBundle") }}
