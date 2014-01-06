@@ -12,7 +12,7 @@ file that was distributed with this source code.
 {% extends sonata_block.templates.block_base %}
 
 {% block block %}
-    <div style="text-align: right; margin-bottom: 10px;">
+    <div class="row" style="text-align: right; margin-bottom: 10px;">
         {% if user %}
             <a href="{{ path('sonata_user_profile_show') }}">{{ user.username }}</a> |
             <a href="{{ path('fos_user_security_logout') }}">{{ 'link_logout' | trans({}, "SonataUserBundle") }}</a>

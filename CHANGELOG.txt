@@ -1,13 +1,17 @@
 CHANGELOG
 =========
 
+### [BC BREAK] 2014-01-06
+
+* Refactored ``SonataUserBundle:Security:login.html.twig`` & ``SonataUserBundle:Block:account.html.twig`` templates to add Bootstrap3 classes support.
+
 ### [BC BREAK] 2013-10-16
 
 * Refactored SonataUserBundle:Profile:edit_authentication.html.twig & SonataUserBundle:Profile:edit_profile.html.twig templates
     Those templates are now embedding the profile menu block and extending base action.html.twig template.
-    
+
     You'll need to add the following to the sonata_block configuration:
-    
+
     sonata_block:
         blocks:
             sonata.user.block.menu:
