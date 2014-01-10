@@ -10,6 +10,10 @@
                 <source>title_user_edit_profile</source>
                 <target>Uredi</target>
             </trans-unit>
+            <trans-unit id="title_user_authentication">
+                <source>title_user_authentication</source>
+                <target>Authentication</target>
+            </trans-unit>
             <trans-unit id="sonata_user_submit">
                 <source>sonata_user_submit</source>
                 <target>Pošlji</target>
