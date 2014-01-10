@@ -75,9 +75,11 @@ class ProfileMenuBlockService extends MenuBlockService
     /**
      * {@inheritdoc}
      */
-    protected function getMenu(array $settings)
+    protected function getMenu(BlockContextInterface $blockContext)
     {
-        $menu = parent::getMenu($settings);
+        $settings = $blockContext->getSettings();
+
+        $menu = parent::getMenu($blockContext);
 
         if (null === $menu || "" === $menu) {
             $menu = $this->menuBuilder->createProfileMenu(
