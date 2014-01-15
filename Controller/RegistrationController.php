@@ -39,4 +39,23 @@ class RegistrationController extends BaseController
         return $response;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function registerAction()
+    {
+        $response = parent::registerAction();
+
+        if ($response instanceof RedirectResponse && ($url = $this->container->get('session')->get('sonata_user_redirect_url'))) {
+            // Form has been submitted and we're redirected...
+            return new RedirectResponse($url);
+        }
+
+        if (!$url) {
+            // Set URL
+            $this->container->get('session')->set('sonata_user_redirect_url', $this->container->get('request')->headers->get('referer'));
+        }
+
+        return $response;
+    }
 }
