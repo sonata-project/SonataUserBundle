@@ -420,15 +420,15 @@
             </trans-unit>
             <trans-unit id="sonata_profile_title">
                 <source>sonata_profile_title</source>
-                <target>Mon Profil</target>
+                <target>Mon tableau de bord</target>
             </trans-unit>
             <trans-unit id="link_show_profile">
                 <source>link_show_profile</source>
-                <target>Mon Profil</target>
+                <target>Mon tableau de bord</target>
             </trans-unit>
             <trans-unit id="link_edit_profile">
                 <source>link_edit_profile</source>
-                <target>Éditer mon profil</target>
+                <target>Mon profil</target>
             </trans-unit>
             <trans-unit id="title_user_edit_authentication">
                 <source>title_user_edit_authentication</source>
