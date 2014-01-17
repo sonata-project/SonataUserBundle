@@ -52,7 +52,7 @@ class RegistrationController extends BaseController
             return new RedirectResponse($url);
         }
 
-        if (!$url) {
+        if (!isset($url)) {
             // Set URL
             $this->container->get('session')->set('sonata_user_redirect_url', $this->container->get('request')->headers->get('referer'));
         }
