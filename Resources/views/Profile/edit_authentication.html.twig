@@ -9,26 +9,32 @@ file that was distributed with this source code.
 
 #}
 
-{% extends "SonataUserBundle:Profile:action.html.twig" %}
+{% sonata_template_box 'This is the user authentication edition template. Feel free to override it.' %}
 
-{% block sonata_profile_title %}
-    {{ "title_user_account" | trans({}, 'SonataUserBundle')}} - {{ "title_user_edit_authentication" | trans({}, 'SonataUserBundle')}}
-{% endblock %}
+<div class="row">
+    <div class="span6 col-lg-6">
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ 'title_user_edit_authentication'|trans({}, 'SonataUserBundle') }}</h3>
+            </div>
+            <div class="panel-body">
+                <form action="{{ path('sonata_user_profile_edit_authentication') }}" method="POST" class="form-horizontal">
+                    {{ form_widget(form) }}
 
-
-{% block sonata_profile_content %}
-    {% sonata_template_box 'This is the user authentication edition template. Feel free to override it.' %}
-
-    <div class="row">
-        <div class="span6 col-lg-6">
-            <form action="{{ path('sonata_user_profile_edit_authentication') }}" method="POST" class="form-horizontal">
-                {{ form_widget(form) }}
-
-                <button type="submit" name="submit" class="btn btn-primary pull-right">{{ 'sonata_user_submit'|trans({}, 'SonataUserBundle') }}</button>
-            </form>
-        </div>
-        <div class="span6 col-lg-6">
-            <a href="{{ path('fos_user_change_password') }}" class="btn btn-primary"><i class="icon-lock icon-white glyphicon glyphicon-lock"></i>&nbsp;{{ 'sonata_change_password_link'|trans({}, 'SonataUserBundle') }}</a>
+                    <button type="submit" name="submit" class="btn btn-primary pull-right">{{ 'sonata_user_submit'|trans({}, 'SonataUserBundle') }}</button>
+                </form>
+            </div>
         </div>
     </div>
-{% endblock %}
+    <div class="span6 col-lg-6">
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ 'sonata_change_password_link'|trans({}, 'SonataUserBundle') }}</h3>
+            </div>
+            <div class="panel-body">
+                {% render controller("SonataUserBundle:ChangePassword:changePassword") %}
+                {#<a href="{{ path('fos_user_change_password') }}" class="btn btn-primary pull-right"><i class="icon-lock icon-white glyphicon glyphicon-lock"></i>&nbsp;{{ 'sonata_change_password_link'|trans({}, 'SonataUserBundle') }}</a>#}
+            </div>
+        </div>
+    </div>
+</div>

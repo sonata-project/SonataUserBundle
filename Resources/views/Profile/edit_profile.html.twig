@@ -22,10 +22,19 @@ file that was distributed with this source code.
 
     {% form_theme form _self %}
 
-    <form action="{{ path('sonata_user_profile_edit') }}" method="POST" class="form-horizontal">
-        {{ form_widget(form) }}
-        <div class="form-actions">
-            <button type="submit" name="submit"  class="btn btn-primary pull-right">{{ 'sonata_user_submit'|trans({}, 'SonataUserBundle') }}</button>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ "title_user_account" | trans({}, 'SonataUserBundle')}}</h3>
         </div>
-    </form>
+        <div class="panel-body">
+            <form action="{{ path('sonata_user_profile_edit') }}" method="POST" class="form-horizontal">
+                {{ form_widget(form) }}
+                <div class="form-actions">
+                    <button type="submit" name="submit"  class="btn btn-primary pull-right">{{ 'sonata_user_submit'|trans({}, 'SonataUserBundle') }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% render controller("SonataUserBundle:Profile:editAuthentication") %}
 {% endblock %}
