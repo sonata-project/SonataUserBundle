@@ -25,7 +25,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 class ChangePasswordController extends BaseController
 {
-    public function changePasswordAction(Request $request)
+    public function changePasswordAction()
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
