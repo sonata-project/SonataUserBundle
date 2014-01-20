@@ -25,7 +25,7 @@ use FOS\UserBundle\FOSUserEvents;
  *   - only twig is supported
  *   - separation of the user authentication form with the profile form
  */
-class ProfileController extends Controller
+class ProfileFOSUser1Controller extends Controller
 {
     /**
      * @return Response

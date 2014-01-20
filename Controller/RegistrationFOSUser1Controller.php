@@ -23,13 +23,13 @@ use FOS\UserBundle\Model\UserInterface;
 /**
  * Class SonataRegistrationController
  *
+ * This class is inspired from the FOS RegistrationController
+ *
  * @package Sonata\UserBundle\Controller
  *
  * @author Hugo Briand <briand@ekino.com>
- * @author Thibault Duplessis <thibault.duplessis@gmail.com>
- * @author Christophe Coevoet <stof@notk.org>
  */
-class RegistrationController extends ContainerAware
+class RegistrationFOSUser1Controller extends ContainerAware
 {
     public function registerAction()
     {

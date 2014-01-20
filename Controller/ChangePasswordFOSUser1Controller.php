@@ -17,15 +17,15 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class ChangePasswordController
+ * Class ChangePasswordFOSUser1Controller
+ *
+ * This class is inspired from the FOS Change Password Controller
  *
  * @package Sonata\UserBundle\Controller
  *
- * @author  Thibault Duplessis <thibault.duplessis@gmail.com>
- * @author  Christophe Coevoet <stof@notk.org>
  * @author  Hugo Briand <briand@ekino.com>
  */
-class ChangePasswordController extends ContainerAware
+class ChangePasswordFOSUser1Controller extends ContainerAware
 {
     public function changePasswordAction(Request $request)
     {

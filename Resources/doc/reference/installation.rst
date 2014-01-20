@@ -106,6 +106,34 @@ Then add these bundles in the config mapping definition (or enable `auto_mapping
             types:
                 json: Sonata\Doctrine\Types\JsonType
 
+
+
+Use custom SonataUser controllers and templates instead of FOSUser ones
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Update your routing file, replace _profile, _register and _change_password FOS routing resources with Sonata ones as follows:
+
+.. code-block:: yaml
+
+    fos_user_security:
+        resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+    fos_user_resetting:
+        resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+        prefix: /resetting
+
+    sonata_user_profile:
+        resource: "@SonataUserBundle/Resources/config/routing/fos_user_override/profile.xml"
+        prefix: /profile
+
+    sonata_user_register:
+        resource: "@SonataUserBundle/Resources/config/routing/fos_user_override/registration.xml"
+        prefix: /register
+
+    sonata_user_change_password:
+        resource: "@SonataUserBundle/Resources/config/routing/fos_user_override/change_password.xml"
+        prefix: /profile
+
+
 Integrating the bundle into the Sonata Admin Bundle
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Add the related security routing information
