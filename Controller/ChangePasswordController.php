@@ -10,20 +10,22 @@
 
 namespace Sonata\UserBundle\Controller;
 
-use FOS\UserBundle\Controller\ChangePasswordController as BaseController;
 use FOS\UserBundle\Model\UserInterface;
+use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class ChangePasswordController
  *
  * @package Sonata\UserBundle\Controller
  *
+ * @author  Thibault Duplessis <thibault.duplessis@gmail.com>
+ * @author  Christophe Coevoet <stof@notk.org>
  * @author  Hugo Briand <briand@ekino.com>
  */
-class ChangePasswordController extends BaseController
+class ChangePasswordController extends ContainerAware
 {
     public function changePasswordAction(Request $request)
     {
@@ -54,5 +56,14 @@ class ChangePasswordController extends BaseController
     protected function getRedirectionUrl(UserInterface $user)
     {
         return $this->container->get('router')->generate('sonata_user_profile_show');
+    }
+
+    /**
+     * @param string $action
+     * @param string $value
+     */
+    protected function setFlash($action, $value)
+    {
+        $this->container->get('session')->getFlashBag()->set($action, $value);
     }
 }
