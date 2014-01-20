@@ -11,12 +11,11 @@
 
 namespace Sonata\UserBundle\Controller;
 
-use FOS\UserBundle\Controller\SecurityController;
-
+use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-class AdminSecurityController extends SecurityController
+class AdminSecurityController extends ContainerAware
 {
     /**
      * {@inheritdoc}
@@ -56,11 +55,36 @@ class AdminSecurityController extends SecurityController
         }
 
         return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/login.html.'.$this->container->getParameter('fos_user.template.engine'), array(
-            'last_username' => $lastUsername,
-            'error'         => $error,
-            'csrf_token'    => $csrfToken,
-            'base_template' => $this->container->get('sonata.admin.pool')->getTemplate('layout'),
-            'admin_pool'    => $this->container->get('sonata.admin.pool')
-        ));
+                'last_username' => $lastUsername,
+                'error'         => $error,
+                'csrf_token'    => $csrfToken,
+                'base_template' => $this->container->get('sonata.admin.pool')->getTemplate('layout'),
+                'admin_pool'    => $this->container->get('sonata.admin.pool')
+            ));
+    }
+
+    /**
+     * Renders the login template with the given parameters. Overwrite this function in
+     * an extended controller to provide additional data for the login template.
+     *
+     * @param array $data
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function renderLogin(array $data)
+    {
+        $template = sprintf('FOSUserBundle:Security:login.html.%s', $this->container->getParameter('fos_user.template.engine'));
+
+        return $this->container->get('templating')->renderResponse($template, $data);
+    }
+
+    public function checkAction()
+    {
+        throw new \RuntimeException('You must configure the check path to be handled by the firewall using form_login in your security firewall configuration.');
+    }
+
+    public function logoutAction()
+    {
+        throw new \RuntimeException('You must activate the logout in your security firewall configuration.');
     }
 }

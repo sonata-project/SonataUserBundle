@@ -32,8 +32,7 @@ file that was distributed with this source code.
                 <h3 class="panel-title">{{ 'sonata_change_password_link'|trans({}, 'SonataUserBundle') }}</h3>
             </div>
             <div class="panel-body">
-                {% render controller("SonataUserBundle:ChangePassword:changePassword") %}
-                {#<a href="{{ path('fos_user_change_password') }}" class="btn btn-primary pull-right"><i class="icon-lock icon-white glyphicon glyphicon-lock"></i>&nbsp;{{ 'sonata_change_password_link'|trans({}, 'SonataUserBundle') }}</a>#}
+                {% render url("sonata_user_change_password") %}
             </div>
         </div>
     </div>

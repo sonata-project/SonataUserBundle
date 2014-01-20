@@ -106,6 +106,60 @@ Then add these bundles in the config mapping definition (or enable `auto_mapping
             types:
                 json: Sonata\Doctrine\Types\JsonType
 
+
+
+Use custom SonataUser controllers and templates instead of FOSUser ones
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you wish to use custom SonataUser templates and controllers instead of FOSUser ones, you will have to update your ``routing.yml`` file as follows:
+
+Replace
+
+.. code-block:: yaml
+
+    fos_user_security:
+        resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+    fos_user_resetting:
+        resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+        prefix: /resetting
+
+    fos_user_profile:
+        resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+        prefix: /profile
+
+    fos_user_register:
+        resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+        prefix: /register
+
+    fos_user_change_password:
+        resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+        prefix: /profile
+
+With:
+
+.. code-block:: yaml
+
+    sonata_user_security:
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_security_1.xml"
+
+    sonata_user_resetting:
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_resetting_1.xml"
+        prefix: /resetting
+
+    sonata_user_profile:
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_profile_1.xml"
+        prefix: /profile
+
+    sonata_user_register:
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_registration_1.xml"
+        prefix: /register
+
+    sonata_user_change_password:
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_change_password_1.xml"
+        prefix: /profile
+
+
 Integrating the bundle into the Sonata Admin Bundle
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Add the related security routing information
