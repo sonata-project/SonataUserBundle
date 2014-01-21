@@ -110,7 +110,10 @@ Then add these bundles in the config mapping definition (or enable `auto_mapping
 
 Use custom SonataUser controllers and templates instead of FOSUser ones
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Update your routing file, replace _profile, _register and _change_password FOS routing resources with Sonata ones as follows:
+
+If you wish to use custom SonataUser templates and controllers instead of FOSUser ones, you will have to update your ``routing.yml`` file as follows:
+
+Replace
 
 .. code-block:: yaml
 
@@ -121,16 +124,39 @@ Update your routing file, replace _profile, _register and _change_password FOS r
         resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
         prefix: /resetting
 
+    fos_user_profile:
+        resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+        prefix: /profile
+
+    fos_user_register:
+        resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+        prefix: /register
+
+    fos_user_change_password:
+        resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+        prefix: /profile
+
+With:
+
+.. code-block:: yaml
+
+    sonata_user_security:
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_security_1.xml"
+
+    sonata_user_resetting:
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_resetting_1.xml"
+        prefix: /resetting
+
     sonata_user_profile:
-        resource: "@SonataUserBundle/Resources/config/routing/fos_user_override/profile.xml"
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_profile_1.xml"
         prefix: /profile
 
     sonata_user_register:
-        resource: "@SonataUserBundle/Resources/config/routing/fos_user_override/registration.xml"
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_registration_1.xml"
         prefix: /register
 
     sonata_user_change_password:
-        resource: "@SonataUserBundle/Resources/config/routing/fos_user_override/change_password.xml"
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_change_password_1.xml"
         prefix: /profile
 
 
