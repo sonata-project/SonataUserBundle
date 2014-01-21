@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+### [BC BREAK] 2014-01-21
+
+* Refactored ``SonataUserBundle:Security:login.html.twig`` & ``SonataUserBundle:Block:account.html.twig`` templates to replace {% render controller(...) %} calls by {% render url(...) %} calls.
+* Added routing files to fully override FOSUser routing & controllers.
+* Added controllers to fullyu override FOSUser controllers.
+* Those overrides are optionnal, see documentation to see which routing files use depending on your usage.
+
 ### [BC BREAK] 2014-01-06
 
 * Refactored ``SonataUserBundle:Security:login.html.twig`` & ``SonataUserBundle:Block:account.html.twig`` templates to add Bootstrap3 classes support.
