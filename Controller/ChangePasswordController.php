@@ -13,7 +13,6 @@ namespace Sonata\UserBundle\Controller;
 use FOS\UserBundle\Controller\ChangePasswordController as BaseController;
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -25,7 +24,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 class ChangePasswordController extends BaseController
 {
-    public function changePasswordAction(Request $request)
+    public function changePasswordAction()
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
