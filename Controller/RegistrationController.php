@@ -15,7 +15,6 @@ use FOS\UserBundle\Controller\RegistrationController as BaseController;
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class RegistrationController
@@ -43,9 +42,9 @@ class RegistrationController extends BaseController
     /**
      * {@inheritdoc}
      */
-    public function registerAction(Request $request)
+    public function registerAction()
     {
-        $response = parent::registerAction($request);
+        $response = parent::registerAction();
 
         if ($response instanceof RedirectResponse && ($url = $this->container->get('session')->get('sonata_user_redirect_url'))) {
             // Form has been submitted and we're redirected...
