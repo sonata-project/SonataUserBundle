@@ -21,10 +21,8 @@ class AdminSecurityController extends SecurityController
     /**
      * {@inheritdoc}
      */
-    public function loginAction()
+    public function loginAction(\Symfony\Component\HttpFoundation\Request $request)
     {
-        $request = $this->container->get('request');
-        /* @var $request \Symfony\Component\HttpFoundation\Request */
         $session = $request->getSession();
         /* @var $session \Symfony\Component\HttpFoundation\Session */
 
