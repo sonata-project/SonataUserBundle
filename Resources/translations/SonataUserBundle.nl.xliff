@@ -514,6 +514,14 @@
                 <source>forgotten_password</source>
                 <target>forgotten_password</target>
             </trans-unit>
+            <trans-unit id="sonata_user_profile_breadcrumb_index">
+                <source>sonata_user_profile_breadcrumb_index</source>
+                <target>sonata_user_profile_breadcrumb_index</target>
+            </trans-unit>
+            <trans-unit id="sonata_user_profile_breadcrumb_edit">
+                <source>sonata_user_profile_breadcrumb_edit</source>
+                <target>sonata_user_profile_breadcrumb_edit</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -37,6 +37,8 @@ class SonataUserExtension extends Extension
         $config = $processor->processConfiguration($configuration, $configs);
         $config = $this->fixImpersonating($config);
 
+        $bundles = $container->getParameter('kernel.bundles');
+
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load(sprintf('admin_%s.xml', $config['manager_type']));
         $loader->load('block.xml');
@@ -44,6 +46,10 @@ class SonataUserExtension extends Extension
         $loader->load('form.xml');
         $loader->load('google_authenticator.xml');
         $loader->load('twig.xml');
+
+        if (isset($bundles['SonataSeoBundle'])) {
+            $loader->load('seo_block.xml');
+        }
 
         if ($config['security_acl']) {
             $loader->load('security_acl.xml');
