@@ -490,6 +490,14 @@
                 <source>forgotten_password</source>
                 <target>Forgotten password?</target>
             </trans-unit>
+            <trans-unit id="sonata_user_profile_breadcrumb_index">
+                <source>sonata_user_profile_breadcrumb_index</source>
+                <target>Dashboard</target>
+            </trans-unit>
+            <trans-unit id="sonata_user_profile_breadcrumb_edit">
+                <source>sonata_user_profile_breadcrumb_edit</source>
+                <target>Edit profile</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

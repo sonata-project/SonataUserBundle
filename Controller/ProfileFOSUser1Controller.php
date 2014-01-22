@@ -95,7 +95,8 @@ class ProfileFOSUser1Controller extends Controller
         }
 
         return $this->render('SonataUserBundle:Profile:edit_profile.html.twig', array(
-            'form' => $form->createView(),
+            'form'               => $form->createView(),
+            'breadcrumb_context' => 'user_profile',
         ));
     }
 

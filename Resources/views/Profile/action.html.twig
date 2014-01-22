@@ -9,7 +9,16 @@ file that was distributed with this source code.
 
 #}
 
-<h4>{% block sonata_profile_title %}{% trans from 'SonataUserBundle' %}sonata_profile_title{% endtrans %}{% endblock %}</h4>
+{% block sonata_page_breadcrumb %}
+    {% if breadcrumb_context is not defined %}
+        {% set breadcrumb_context = 'user_index' %}
+    {% endif %}
+    <div class="row-fluid clearfix">
+        {{ sonata_block_render_event('breadcrumb', { 'context': breadcrumb_context, 'current_uri': app.request.requestUri }) }}
+    </div>
+{% endblock %}
+
+<h2>{% block sonata_profile_title %}{% trans from 'SonataUserBundle' %}sonata_profile_title{% endtrans %}{% endblock %}</h2>
 
 <div class="sonata-user-show row row-fluid">
 
