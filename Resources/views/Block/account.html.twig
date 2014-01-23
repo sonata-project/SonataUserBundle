@@ -17,8 +17,7 @@ file that was distributed with this source code.
             <a href="{{ path('sonata_user_profile_show') }}">{{ user.username }}</a> |
             <a href="{{ path('fos_user_security_logout') }}">{{ 'link_logout' | trans({}, "SonataUserBundle") }}</a>
         {% else %}
-            <a href="{{ path('fos_user_security_login') }}">{{ 'link_login'|trans({}, 'SonataUserBundle') }}</a> |
-            <a href="{{ path('fos_user_registration_register') }}">{{ 'link_register'|trans({}, 'SonataUserBundle') }}</a>
+            <a href="{{ path('fos_user_security_login') }}">{{ 'link_login'|trans({}, 'SonataUserBundle') }} / {{ 'link_register'|trans({}, 'SonataUserBundle') }}</a>
         {% endif %}
     </div>
 {% endblock %}
