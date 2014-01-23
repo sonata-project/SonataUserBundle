@@ -53,12 +53,12 @@ class SecurityRolesType extends AbstractType
 
         // GET METHOD
         $formBuilder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($tranformer) {
-            $tranformer->setOriginalRoles($event->getData());
+            $tranformer->setOriginalRoles($event->getData() ? $event->getData() : array());
         });
 
         // POST METHOD
         $formBuilder->addEventListener(FormEvents::PRE_BIND, function(FormEvent $event) use ($tranformer) {
-            $tranformer->setOriginalRoles($event->getForm()->getData());
+            $tranformer->setOriginalRoles($event->getData() ? $event->getData() : array());
         });
 
         $formBuilder->addModelTransformer($tranformer);
