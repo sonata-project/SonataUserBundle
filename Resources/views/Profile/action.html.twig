@@ -29,19 +29,9 @@ file that was distributed with this source code.
     </div>
 
     <div class="span10 col-lg-10">
-        {% for message in app.session.flashbag.get('fos_user_success') %}
-            <div class="alert alert-success">
-                {{ message|trans({}, "FOSUserBundle") }}
-            </div>
-        {% endfor %}
-        {% for message in app.session.flashbag.get('sonata_user_success') %}
-            <div class="alert alert-success">
-                {{ message|trans({}, "SonataUserBundle") }}
-            </div>
-        {% endfor %}
+        {% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
 
-        {% block sonata_profile_content %}
-        {% endblock %}
+        {% block sonata_profile_content '' %}
     </div>
 
 </div>

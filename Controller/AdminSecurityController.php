@@ -14,6 +14,7 @@ namespace Sonata\UserBundle\Controller;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use FOS\UserBundle\Model\UserInterface;
 
 class AdminSecurityController extends ContainerAware
 {
@@ -22,6 +23,15 @@ class AdminSecurityController extends ContainerAware
      */
     public function loginAction()
     {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+
+        if ($user instanceof UserInterface) {
+            $this->container->get('session')->getFlashBag()->set('sonata_user_error', 'sonata_user_already_authenticated');
+            $url = $this->container->get('router')->generate('sonata_user_profile_show');
+
+            return new RedirectResponse($url);
+        }
+
         $request = $this->container->get('request');
         /* @var $request \Symfony\Component\HttpFoundation\Request */
         $session = $request->getSession();
