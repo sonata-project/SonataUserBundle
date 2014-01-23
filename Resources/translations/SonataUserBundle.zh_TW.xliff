@@ -314,6 +314,10 @@
                 <source>sonata_user_profile_breadcrumb_edit</source>
                 <target>sonata_user_profile_breadcrumb_edit</target>
             </trans-unit>
+            <trans-unit id="sonata_user_already_authenticated">
+                <source>sonata_user_already_authenticated</source>
+                <target>You are already logged in</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

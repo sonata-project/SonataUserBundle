@@ -33,6 +33,15 @@ class RegistrationFOSUser1Controller extends ContainerAware
 {
     public function registerAction()
     {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+
+        if ($user instanceof UserInterface) {
+            $this->container->get('session')->getFlashBag()->set('sonata_user_error', 'sonata_user_already_authenticated');
+            $url = $this->container->get('router')->generate('sonata_user_profile_show');
+
+            return new RedirectResponse($url);
+        }
+
         $form = $this->container->get('fos_user.registration.form');
         $formHandler = $this->container->get('fos_user.registration.form.handler');
         $confirmationEnabled = $this->container->getParameter('fos_user.registration.confirmation.enabled');
