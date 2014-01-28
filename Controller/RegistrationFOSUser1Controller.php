@@ -56,7 +56,7 @@ class RegistrationFOSUser1Controller extends ContainerAware
                 $route = 'fos_user_registration_check_email';
             } else {
                 $authUser = true;
-                $route = 'fos_user_registration_confirmed';
+                $route = 'sonata_user_profile_show';
             }
 
             $this->setFlash('fos_user_success', 'registration.flash.user_created');
