@@ -4,11 +4,11 @@
         <body>
             <trans-unit id="title_user_registration">
                 <source>title_user_registration</source>
-                <target>title_user_registration</target>
+                <target>Inscription</target>
             </trans-unit>
             <trans-unit id="title_user_account">
                 <source>title_user_account</source>
-                <target>User Profile</target>
+                <target>Profil utilisateur</target>
             </trans-unit>
             <trans-unit id="title_user_edit_profile">
                 <source>title_user_edit_profile</source>
@@ -16,7 +16,7 @@
             </trans-unit>
             <trans-unit id="title_user_authentication">
                 <source>title_user_authentication</source>
-                <target>Authentification</target>
+                <target>Identification</target>
             </trans-unit>
             <trans-unit id="sonata_user_submit">
                 <source>sonata_user_submit</source>
@@ -316,7 +316,7 @@
             </trans-unit>
             <trans-unit id="form.label_two_step_verification_code">
                 <source>form.label_two_step_verification_code</source>
-                <target>Code validation en deux étapes</target>
+                <target>Code de validation en deux étapes</target>
             </trans-unit>
             <trans-unit id="show.label_username">
                 <source>show.label_username</source>
@@ -396,7 +396,7 @@
             </trans-unit>
             <trans-unit id="show.label_two_step_verification_code">
                 <source>show.label_two_step_verification_code</source>
-                <target>Code validation en deux étapes</target>
+                <target>Code de validation en deux étapes</target>
             </trans-unit>
             <trans-unit id="show.label_created_at">
                 <source>show.label_created_at</source>
@@ -436,7 +436,7 @@
             </trans-unit>
             <trans-unit id="title_user_edit_authentication">
                 <source>title_user_edit_authentication</source>
-                <target>title_user_edit_authentication</target>
+                <target>Informations de connexion</target>
             </trans-unit>
             <trans-unit id="link_edit_authentication">
                 <source>link_edit_authentication</source>
@@ -512,11 +512,11 @@
             </trans-unit>
             <trans-unit id="sonata_user_profile_breadcrumb_edit">
                 <source>sonata_user_profile_breadcrumb_edit</source>
-                <target>Editer votre profil</target>
+                <target>Éditer votre profil</target>
             </trans-unit>
             <trans-unit id="sonata_user_already_authenticated">
                 <source>sonata_user_already_authenticated</source>
-                <target>Vous êtes déjà identifiés</target>
+                <target>Vous êtes déjà identifié</target>
             </trans-unit>
         </body>
     </file>
