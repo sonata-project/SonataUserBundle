@@ -4,12 +4,6 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="sonata.user.form.type.security_roles" class="Sonata\UserBundle\Form\Type\SecurityRolesType">
-            <tag name="form.type" alias="sonata_security_roles" />
-
-            <argument type="service" id="sonata.user.editable_role_builder" />
-        </service>
-
         <!-- profile form -->
         <service id="sonata.user.profile.form" factory-method="createNamed" factory-service="form.factory" class="Symfony\Component\Form\Form">
             <argument>%sonata.user.profile.form.name%</argument>
@@ -30,12 +24,6 @@
             <argument type="service" id="sonata.user.profile.form" />
             <argument type="service" id="request" />
             <argument type="service" id="fos_user.user_manager" />
-        </service>
-
-        <service id="sonata.user.editable_role_builder" class="Sonata\UserBundle\Security\EditableRolesBuilder">
-            <argument type="service" id="security.context" />
-            <argument type="service" id="sonata.admin.pool" />
-            <argument>%security.role_hierarchy.roles%</argument>
         </service>
 
         <service id="sonata.user.form.gender_list" class="Sonata\CoreBundle\Form\Type\StatusType">

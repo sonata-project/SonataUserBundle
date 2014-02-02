@@ -40,7 +40,12 @@ class SonataUserExtension extends Extension
         $bundles = $container->getParameter('kernel.bundles');
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load(sprintf('admin_%s.xml', $config['manager_type']));
+
+        if (isset($bundles['SonataAdminBundle'])) {
+            $loader->load('admin.xml');
+            $loader->load(sprintf('admin_%s.xml', $config['manager_type']));
+        }
+
         $loader->load('block.xml');
         $loader->load('menu.xml');
         $loader->load('form.xml');
