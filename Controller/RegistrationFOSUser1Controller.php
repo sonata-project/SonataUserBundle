@@ -35,7 +35,7 @@ class RegistrationFOSUser1Controller extends ContainerAware
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
 
-        if ($user instanceof UserInterface) {
+        if ($user instanceof UserInterface && 'POST' === $this->container->get('request')->getMethod()) {
             $this->container->get('session')->getFlashBag()->set('sonata_user_error', 'sonata_user_already_authenticated');
             $url = $this->container->get('router')->generate('sonata_user_profile_show');
 
@@ -60,7 +60,12 @@ class RegistrationFOSUser1Controller extends ContainerAware
             }
 
             $this->setFlash('fos_user_success', 'registration.flash.user_created');
-            $url = $this->container->get('session')->get('sonata_user_redirect_url', $this->container->get('router')->generate($route));
+            $url = $this->container->get('session')->get('sonata_user_redirect_url');
+
+            if (null === $url || "" === $url) {
+                $url = $this->container->get('router')->generate($route);
+            }
+
             $response = new RedirectResponse($url);
 
             if ($authUser) {
