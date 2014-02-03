@@ -8,7 +8,7 @@ Sonata dependencies that need to be installed and configured beforehand :
     - `SonataAdminBundle <http://sonata-project.org/bundles/admin>`_
     - `SonataEasyExtendsBundle <http://sonata-project.org/bundles/easy-extends>`_
 
-You will need to install those in their 2.0 branches (or master if they don't
+You will need to install those in their 2.0<-(((Should this be 2.1?)))) branches (or master if they don't
 have a similar branch). Follow also their configuration step ; you will find
 everything you need in their installation chapter.
 
