@@ -56,7 +56,8 @@ class RegistrationFOSUser1Controller extends ContainerAware
                 $route = 'fos_user_registration_check_email';
             } else {
                 $authUser = true;
-                $route = 'sonata_user_profile_show';
+                $route = $this->container->get('session')->get('sonata_basket_delivery_redirect', 'sonata_user_profile_show');
+                $this->container->get('session')->remove('sonata_basket_delivery_redirect');
             }
 
             $this->setFlash('fos_user_success', 'registration.flash.user_created');
@@ -78,8 +79,8 @@ class RegistrationFOSUser1Controller extends ContainerAware
         $this->container->get('session')->set('sonata_user_redirect_url', $this->container->get('request')->headers->get('referer'));
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:register.html.'.$this->getEngine(), array(
-                'form' => $form->createView(),
-            ));
+            'form' => $form->createView(),
+        ));
     }
 
     /**
@@ -96,8 +97,8 @@ class RegistrationFOSUser1Controller extends ContainerAware
         }
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:checkEmail.html.'.$this->getEngine(), array(
-                'user' => $user,
-            ));
+            'user' => $user,
+        ));
     }
 
     /**
@@ -138,8 +139,8 @@ class RegistrationFOSUser1Controller extends ContainerAware
         }
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:confirmed.html.'.$this->getEngine(), array(
-                'user' => $user,
-            ));
+            'user' => $user,
+        ));
     }
 
     /**
