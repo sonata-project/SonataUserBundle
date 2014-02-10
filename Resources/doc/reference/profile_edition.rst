@@ -61,7 +61,7 @@ Next, you need to configure the ``profile`` section of ``sonata_user``:
                 validation_groups:  [Profile]
 
 And finally, just change the default ``profile`` routing. Actually it is the only configuration you need
-to define to make it works.
+to define to make it work.
 
 .. code-block:: yaml
 
