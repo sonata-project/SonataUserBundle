@@ -72,7 +72,7 @@ to define to make it work.
 
     # by those lines :
     sonata_user_profile:
-        resource: "@SonataUserBundle/Resources/config/routing/profile.xml"
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_profile_1.xml"
         prefix: /profile
 
 Actions
