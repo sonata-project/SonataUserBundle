@@ -87,6 +87,12 @@ Full configuration options:
                 name:               sonata_user_profile_form
                 validation_groups:  [Profile]
 
+    # override FOSUser default serialization
+    jms_serializer:
+        metadata:
+            directories:
+                - { path: %kernel.root_dir%/../vendor/sonata-project/user-bundle/Sonata/UserBundle/Resources/config/serializer/FOSUserBundle, namespace_prefix: 'FOS\UserBundle' }
+
     # Enable Doctrine to map the provided entities
     doctrine:
         orm:
