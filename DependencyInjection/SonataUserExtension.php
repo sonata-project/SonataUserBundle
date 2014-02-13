@@ -41,6 +41,10 @@ class SonataUserExtension extends Extension
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
+        if (isset($bundles['FOSRestBundle'])) {
+            $loader->load('api_controllers.xml');
+        }
+
         if (isset($bundles['SonataAdminBundle'])) {
             $loader->load('admin.xml');
             $loader->load(sprintf('admin_%s.xml', $config['manager_type']));
@@ -48,6 +52,7 @@ class SonataUserExtension extends Extension
 
         $loader->load('block.xml');
         $loader->load('menu.xml');
+        $loader->load('orm.xml');
         $loader->load('form.xml');
         $loader->load('google_authenticator.xml');
         $loader->load('twig.xml');

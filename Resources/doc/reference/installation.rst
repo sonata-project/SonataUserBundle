@@ -91,8 +91,13 @@ Then add these bundles in the config mapping definition (or enable `auto_mapping
         firewall_name:  main
         user_class:     Application\Sonata\UserBundle\Entity\User
 
+
         group:
-            group_class: Application\Sonata\UserBundle\Entity\Group
+            group_class:   Application\Sonata\UserBundle\Entity\Group
+            group_manager: sonata.user.orm.group_manager                    # If you're using doctrine orm
+
+        service:
+            user_manager: sonata.user.orm.user_manager                      # If you're using doctrine orm
 
     doctrine:
         orm:
