@@ -1,9 +1,9 @@
 <?php
 
 $autoloads = array(
-    __DIR__.'/../vendor/autoload.php',                 // travis or standalone test
-    __DIR__.'/../../../../../app/autoload.php',        // symfony & deps file
-    __DIR__.'/../../../../../../vendor/autoload.php',  // symfony & composer test
+    __DIR__.'/../../vendor/autoload.php',
+    __DIR__.'/../../../../../app/autoload.php',
+    __DIR__.'/../../../../../apps/autoload.php',
 );
 
 $autoloadFile = false;
