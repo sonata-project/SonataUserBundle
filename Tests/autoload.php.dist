@@ -1,9 +1,9 @@
 <?php
 
 $autoloads = array(
-    __DIR__.'/../../vendor/autoload.php',
-    __DIR__.'/../../../../../app/autoload.php',
-    __DIR__.'/../../../../../apps/autoload.php',
+    __DIR__.'/../vendor/autoload.php',
+    __DIR__.'/../../../../app/autoload.php',
+    __DIR__.'/../../../../apps/autoload.php',
 );
 
 $autoloadFile = false;
