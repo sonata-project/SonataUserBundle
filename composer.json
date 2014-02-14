@@ -39,9 +39,8 @@
         "sonata-project/seo-bundle": "~1.1"
     },
     "autoload": {
-        "psr-0": { "Sonata\\UserBundle": "" }
+        "psr-4": { "Sonata\\UserBundle\\": "" }
     },
-    "target-dir": "Sonata/UserBundle",
     "extra": {
         "branch-alias": {
             "dev-master": "2.2.x-dev"
