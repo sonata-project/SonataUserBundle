@@ -9,15 +9,15 @@
  */
 
 
-namespace Sonata\UserBundle\Entity;
+namespace Sonata\UserBundle\Document;
 
-use FOS\UserBundle\Entity\UserManager as BaseUserManager;
+use FOS\UserBundle\Document\UserManager as BaseUserManager;
 use Sonata\UserBundle\Model\UserManagerInterface;
 
 /**
  * Class UserManager
  *
- * @package Sonata\UserBundle\Entity
+ * @package Sonata\UserBundle\Document
  *
  * @author Hugo Briand <briand@ekino.com>
  */

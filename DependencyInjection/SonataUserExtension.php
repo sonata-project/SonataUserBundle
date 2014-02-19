@@ -41,21 +41,24 @@ class SonataUserExtension extends Extension
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
-        if (isset($bundles['FOSRestBundle']) && isset($bundles['NelmioApiDocBundle'])) {
-            $loader->load('api_controllers.xml');
-        }
-
         if (isset($bundles['SonataAdminBundle'])) {
             $loader->load('admin.xml');
             $loader->load(sprintf('admin_%s.xml', $config['manager_type']));
         }
 
+        $loader->load(sprintf('%s.xml', $config['manager_type']));
+
+        $this->aliasManagers($container, $config['manager_type']);
+
         $loader->load('block.xml');
         $loader->load('menu.xml');
-        $loader->load('orm.xml');
         $loader->load('form.xml');
         $loader->load('google_authenticator.xml');
         $loader->load('twig.xml');
+
+        if (isset($bundles['FOSRestBundle']) && isset($bundles['NelmioApiDocBundle'])) {
+            $loader->load('api_controllers.xml');
+        }
 
         if (isset($bundles['SonataSeoBundle'])) {
             $loader->load('seo_block.xml');
@@ -86,6 +89,18 @@ class SonataUserExtension extends Extension
         $this->configureShortcut($container);
         $this->configureProfile($config, $container);
         $this->configureMenu($config, $container);
+    }
+
+    /**
+     * Adds aliases for user & group managers depending on $managerType
+     *
+     * @param ContainerBuilder $container
+     * @param                  $managerType
+     */
+    protected function aliasManagers(ContainerBuilder $container, $managerType)
+    {
+        $container->setAlias('sonata.user.user_manager', sprintf('sonata.user.%s.user_manager', $managerType));
+        $container->setAlias('sonata.user.group_manager', sprintf('sonata.user.%s.group_manager', $managerType));
     }
 
     /**
