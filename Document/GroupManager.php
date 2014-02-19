@@ -9,24 +9,24 @@
  */
 
 
-namespace Sonata\UserBundle\Entity;
+namespace Sonata\UserBundle\Document;
 
-use FOS\UserBundle\Entity\UserManager as BaseUserManager;
-use Sonata\UserBundle\Model\UserManagerInterface;
+use FOS\UserBundle\Document\GroupManager as BaseGroupManager;
+use Sonata\UserBundle\Model\GroupManagerInterface;
 
 /**
- * Class UserManager
+ * Class GroupManager
  *
- * @package Sonata\UserBundle\Entity
+ * @package Sonata\UserBundle\Document
  *
  * @author Hugo Briand <briand@ekino.com>
  */
-class UserManager extends BaseUserManager implements UserManagerInterface
+class GroupManager extends BaseGroupManager implements GroupManagerInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function findUsersBy(array $criteria = null, array $orderBy = null, $limit = null, $offset = null)
+    public function findGroupsBy(array $criteria = null, array $orderBy = null, $limit = null, $offset = null)
     {
         return $this->repository->findBy($criteria, $orderBy, $limit, $offset);
     }
