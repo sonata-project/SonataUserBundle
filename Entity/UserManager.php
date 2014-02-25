@@ -34,6 +34,14 @@ class UserManager extends BaseUserManager implements UserManagerInterface, Manag
     /**
      * {@inheritdoc}
      */
+    public function find($id)
+    {
+        return $this->repository->find($id);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function findAll()
     {
         return $this->repository->findAll();
