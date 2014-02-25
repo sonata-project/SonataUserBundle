@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+### [BC BREAK] 2014-02-25
+
+* Refactored ``SonataUserBundle:Security:login.html.twig`` template to add twig blocks and change layout.
+* Added a registration form handling solution (configuration has changed as well but default values are present).
+
 ### [BC BREAK] 2014-01-21
 
 * Refactored ``SonataUserBundle:Security:login.html.twig`` & ``SonataUserBundle:Block:account.html.twig`` templates to replace {% render controller(...) %} calls by {% render url(...) %} calls.

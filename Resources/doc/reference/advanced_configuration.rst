@@ -67,8 +67,18 @@ Full configuration options:
                         # Prototype
                         id:                   []
                     position:             right
-            # This allows you to specify where you want your user redirected once he activated his account
             register:
+                # You may customize the registration forms over here
+                form:
+                    type:                 sonata_user_registration
+                    handler:              sonata.user.registration.form.handler.default
+                    name:                 sonata_user_registration_form
+                    validation_groups:
+
+                        # Defaults:
+                        - Registration
+                        - Default
+                # This allows you to specify where you want your user redirected once he activated his account
                 confirm:
                     redirect:
                         # Set it to false to disable redirection
