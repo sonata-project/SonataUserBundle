@@ -1,11 +1,13 @@
 {% block user_block %}
     {% if app.user %}
-        {{ app.user }}
+        <p class="navbar-text">
+            {{ app.user }}
 
-        {% if is_granted('ROLE_PREVIOUS_ADMIN') and sonata_user.impersonating %}
-            <a href="{{ url(sonata_user.impersonating.route, sonata_user.impersonating.parameters| merge({'_switch_user': '_exit'})) }}">(exit)</a>
-        {% endif %}
+            {% if is_granted('ROLE_PREVIOUS_ADMIN') and sonata_user.impersonating %}
+                <a class="navbar-link" href="{{ url(sonata_user.impersonating.route, sonata_user.impersonating.parameters| merge({'_switch_user': '_exit'})) }}">(exit)</a>
+            {% endif %}
 
-        - <a href="{{ url('sonata_user_admin_security_logout') }}">{{ 'user_block_logout'|trans({}, 'SonataUserBundle') }}</a>
+            <a class="navbar-link" href="{{ url('sonata_user_admin_security_logout') }}">{{ 'user_block_logout'|trans({}, 'SonataUserBundle') }}</a>
+        </p>
     {% endif %}
 {% endblock %}
