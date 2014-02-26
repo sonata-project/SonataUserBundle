@@ -25,14 +25,13 @@ Enable the Bundle
     php composer require sonata-project/doctrine-orm-admin-bundle  --no-update # optional
     php composer update
 
-Next, be sure to enable the bundles in your autoload.php and AppKernel.php
-files:
+Next, be sure to enable the bundles in your and AppKernel.php file:
 
 .. code-block:: php
 
     <?php
 
-    // app/appkernel.php
+    // app/AppKernel.php
     public function registerbundles()
     {
         return array(
@@ -41,6 +40,7 @@ files:
             // ...
             // You have 2 options to initialize the SonataUserBundle in your AppKernel,
             // you can select which bundle SonataUserBundle extends
+            // Most of the cases, you'll want to extend FOSUserBundle though ;)
             // extend the ``FOSUserBundle``
             new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
             // OR
@@ -49,10 +49,6 @@ files:
             // ...
         );
     }
-
-.. note::
-    If you already have installed a Sonata dependency, you may ignore the step
-    on the modification of the ``autoload.php`` file.
 
 Configuration
 -------------
@@ -261,9 +257,11 @@ the user editing the form.
 Extending the Bundle
 --------------------
 At this point, the bundle is functionnal, but not quite ready yet. You need to
-generate the correct entities for the media::
+generate the correct entities for the media:
 
-    php app/console sonata:easy-extends:generate SonataUserBundle
+.. code-block:: bash
+
+    php app/console sonata:easy-extends:generate SonataUserBundle -d src
 
 If you specify no parameter, the files are generated in app/Application/Sonata...
 but you can specify the path with ``--dest=src``
@@ -276,7 +274,7 @@ but you can specify the path with ``--dest=src``
     point to a global namespace. For instance the user will be
     ``Application\Sonata\UserBundle\Entity\User``.
 
-Now, add the new `Application` Bundle into the kernel:
+Now, add the new ``Application`` Bundle into the kernel:
 
 .. code-block:: php
 
