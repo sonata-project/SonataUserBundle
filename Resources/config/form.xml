@@ -46,6 +46,7 @@
         <service id="sonata.user.registration.form.type" class="Sonata\UserBundle\Form\Type\RegistrationFormType">
             <tag name="form.type" alias="sonata_user_registration" />
             <argument>%fos_user.model.user.class%</argument>
+            <argument>%sonata.user.registration.form.options%</argument>
         </service>
 
         <service id="sonata.user.registration.form.handler.default" class="Sonata\UserBundle\Form\Handler\RegistrationFormHandler" scope="request" public="false">
