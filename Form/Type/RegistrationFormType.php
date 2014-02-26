@@ -20,45 +20,42 @@ class RegistrationFormType extends AbstractType
     private $class;
 
     /**
-     * @param string $class The User class name
+     * @var array
      */
-    public function __construct($class)
+    protected $mergeOptions;
+
+    /**
+     * @param string $class        The User class name
+     * @param array  $mergeOptions Add options to elements
+     */
+    public function __construct($class, array $mergeOptions = array())
     {
-        $this->class = $class;
+        $this->class        = $class;
+        $this->mergeOptions = $mergeOptions;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', null, array(
+            ->add('username', null, array_merge(array(
                 'label' => 'form.username',
                 'translation_domain' => 'FOSUserBundle',
-                'horizontal_input_wrapper_class' => "col-lg-8",
-                'horizontal_label_class' => "col-lg-4 control-label"
-            ))
-            ->add('email', 'email', array(
+            ), $this->mergeOptions))
+            ->add('email', 'email', array_merge(array(
                 'label' => 'form.email',
                 'translation_domain' => 'FOSUserBundle',
-                'horizontal_input_wrapper_class' => "col-lg-8",
-                'horizontal_label_class' => "col-lg-4 control-label"
-            ))
-            ->add('plainPassword', 'repeated', array(
+            ), $this->mergeOptions))
+            ->add('plainPassword', 'repeated', array_merge(array(
                 'type' => 'password',
                 'options' => array('translation_domain' => 'FOSUserBundle'),
-                'first_options' => array(
+                'first_options' => array_merge(array(
                     'label' => 'form.password',
-                    'horizontal_input_wrapper_class' => "col-lg-8",
-                    'horizontal_label_class' => "col-lg-4 control-label"
-                ),
-                'second_options' => array(
+                ), $this->mergeOptions),
+                'second_options' => array_merge(array(
                     'label' => 'form.password_confirmation',
-                    'horizontal_input_wrapper_class' => "col-lg-8",
-                    'horizontal_label_class' => "col-lg-4 control-label"
-                ),
+                ), $this->mergeOptions),
                 'invalid_message' => 'fos_user.password.mismatch',
-                'horizontal_input_wrapper_class' => "col-lg-8",
-                'horizontal_label_class' => "col-lg-4 control-label"
-            ))
+            ), $this->mergeOptions))
         ;
     }
 

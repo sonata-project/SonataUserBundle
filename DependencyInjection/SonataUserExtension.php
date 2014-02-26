@@ -308,6 +308,19 @@ class SonataUserExtension extends Extension
      */
     public function configureRegistration(array $config, ContainerBuilder $container)
     {
+        $bundles = $container->getParameter('kernel.bundles');
+
+        if (isset($bundles['MopaBootstrapBundle'])) {
+            $options = array(
+                'horizontal_input_wrapper_class' => "col-lg-8",
+                'horizontal_label_class' => "col-lg-4 control-label"
+            );
+        } else {
+            $options = array();
+        }
+
+        $container->setParameter('sonata.user.registration.form.options', $options);
+
         $container->setParameter('sonata.user.registration.form.type', $config['profile']['register']['form']['type']);
         $container->setParameter('sonata.user.registration.form.name', $config['profile']['register']['form']['name']);
         $container->setParameter('sonata.user.registration.form.validation_groups', $config['profile']['register']['form']['validation_groups']);
