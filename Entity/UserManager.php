@@ -11,7 +11,6 @@
 namespace Sonata\UserBundle\Entity;
 
 use FOS\UserBundle\Doctrine\UserManager as BaseUserManager;
-use Sonata\CoreBundle\Model\ManagerInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
 
 /**
@@ -21,7 +20,7 @@ use Sonata\UserBundle\Model\UserManagerInterface;
  *
  * @author Hugo Briand <briand@ekino.com>
  */
-class UserManager extends BaseUserManager implements UserManagerInterface, ManagerInterface
+class UserManager extends BaseUserManager implements UserManagerInterface
 {
     /**
      * {@inheritdoc}
