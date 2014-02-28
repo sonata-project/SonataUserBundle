@@ -17,7 +17,7 @@ class UserManagerProxyTest extends \PHPUnit_Framework_TestCase
 {
     public function testProxy()
     {
-        $doctrine = $this->getMockBuilder('Doctrine\Bundle\DoctrineBundle\Registry')->disableOriginalConstructor()->getMock();
+        $doctrine = $this->getMockBuilder('Doctrine\Common\Persistence\ManagerRegistry')->disableOriginalConstructor()->getMock();
 
         $userManager = $this->getMockBuilder('Sonata\UserBundle\Entity\UserManager')->disableOriginalConstructor()->getMock();
 
