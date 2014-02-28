@@ -39,15 +39,15 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('username', null, array_merge(array(
                 'label' => 'form.username',
-                'translation_domain' => 'FOSUserBundle',
+                'translation_domain' => 'SonataUserBundle',
             ), $this->mergeOptions))
             ->add('email', 'email', array_merge(array(
                 'label' => 'form.email',
-                'translation_domain' => 'FOSUserBundle',
+                'translation_domain' => 'SonataUserBundle',
             ), $this->mergeOptions))
             ->add('plainPassword', 'repeated', array_merge(array(
                 'type' => 'password',
-                'options' => array('translation_domain' => 'FOSUserBundle'),
+                'options' => array('translation_domain' => 'SonataUserBundle'),
                 'first_options' => array_merge(array(
                     'label' => 'form.password',
                 ), $this->mergeOptions),
