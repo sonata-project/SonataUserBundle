@@ -1,3 +1,7 @@
+.. index::
+    single: Advanced configuration
+    single: Options
+
 Advanced Configuration
 ======================
 
