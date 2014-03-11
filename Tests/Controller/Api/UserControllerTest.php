@@ -58,7 +58,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
      *
      * @return UserController
      */
-    public function createUserController($user = null, $userManager = null)
+    public function createUserController($user = null, $userManager = null, $formFactory = null)
     {
         if (null === $userManager) {
             $userManager = $this->getMock('Sonata\UserBundle\Model\UserManagerInterface');
@@ -66,7 +66,10 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         if (null !== $user) {
             $userManager->expects($this->once())->method('findUserBy')->will($this->returnValue($user));
         }
+        if (null === $formFactory) {
+            $formFactory = $this->getMock('Symfony\Component\Form\FormFactoryInterface');
+        }
 
-        return new UserController($userManager);
+        return new UserController($userManager, $formFactory);
     }
 }
