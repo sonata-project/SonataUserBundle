@@ -127,7 +127,7 @@ class UserController
      *  output={"class"="Sonata\UserBundle\Model\User", "groups"={"sonata_api_read"}},
      *  statusCodes={
      *      200="Returned when successful",
-     *      400="Returned when an error has occured while user creation",
+     *      400="Returned when an error has occurred while user creation",
      *  }
      * )
      *
@@ -153,7 +153,7 @@ class UserController
      *  output={"class"="Sonata\UserBundle\Model\User", "groups"={"sonata_api_read"}},
      *  statusCodes={
      *      200="Returned when successful",
-     *      400="Returned when an error has occured while user creation",
+     *      400="Returned when an error has occurred while user creation",
      *      404="Returned when unable to find user"
      *  }
      * )
@@ -179,7 +179,7 @@ class UserController
      *  },
      *  statusCodes={
      *      200="Returned when user is successfully deleted",
-     *      400="Returned when an error has occured while user deletion",
+     *      400="Returned when an error has occurred while user deletion",
      *      404="Returned when unable to find user"
      *  }
      * )

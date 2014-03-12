@@ -214,7 +214,7 @@ Then, add a new custom firewall handlers for the admin:
 
             # -> end custom configuration
 
-            # defaut login area for standard users
+            # default login area for standard users
 
             # This firewall is used to handle the public login area
             # This part is handled by the FOS User Bundle
