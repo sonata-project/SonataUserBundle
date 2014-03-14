@@ -24,9 +24,9 @@ Enable the Bundle
 
 .. code-block:: bash
 
-    php composer require sonata-project/user-bundle --no-update
-    php composer require sonata-project/doctrine-orm-admin-bundle  --no-update # optional
-    php composer update
+    php composer.phar require sonata-project/user-bundle --no-update
+    php composer.phar require sonata-project/doctrine-orm-admin-bundle  --no-update # optional
+    php composer.phar update
 
 Next, be sure to enable the bundles in your and ``AppKernel.php`` file:
 
