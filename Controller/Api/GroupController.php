@@ -14,10 +14,17 @@ namespace Sonata\UserBundle\Controller\Api;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Sonata\UserBundle\Model\GroupManagerInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use FOS\RestBundle\View\View as FOSRestView;
 
+use JMS\Serializer\SerializationContext;
+
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+
+use Sonata\UserBundle\Model\GroupManagerInterface;
+
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class GroupController
@@ -34,13 +41,20 @@ class GroupController
     protected $groupManager;
 
     /**
+     * @var FormFactoryInterface
+     */
+    protected $formFactory;
+
+    /**
      * Constructor
      *
-     * @param GroupManagerInterface $groupManager
+     * @param GroupManagerInterface $groupManager Sonata group manager
+     * @param FormFactoryInterface  $formFactory  Symfony form factory
      */
-    public function __construct(GroupManagerInterface $groupManager)
+    public function __construct(GroupManagerInterface $groupManager, FormFactoryInterface $formFactory)
     {
         $this->groupManager = $groupManager;
+        $this->formFactory  = $formFactory;
     }
 
     /**
@@ -105,6 +119,120 @@ class GroupController
     public function getGroupAction($id)
     {
         return $this->getGroup($id);
+    }
+
+    /**
+     * Adds a group
+     *
+     * @ApiDoc(
+     *  input={"class"="sonata_user_api_form_group", "name"="", "groups"={"sonata_api_write"}},
+     *  output={"class"="Sonata\UserBundle\Model\Group", "groups"={"sonata_api_read"}},
+     *  statusCodes={
+     *      200="Returned when successful",
+     *      400="Returned when an error has occurred while group creation",
+     *  }
+     * )
+     *
+     * @param Request $request A Symfony request
+     *
+     * @return GroupInterface
+     *
+     * @throws NotFoundHttpException
+     */
+    public function postGroupAction(Request $request)
+    {
+        return $this->handleWriteGroup($request);
+    }
+
+    /**
+     * Updates a group
+     *
+     * @ApiDoc(
+     *  requirements={
+     *      {"name"="id", "dataType"="integer", "requirement"="\d+", "description"="group identifier"}
+     *  },
+     *  input={"class"="sonata_user_api_form_group", "name"="", "groups"={"sonata_api_write"}},
+     *  output={"class"="Sonata\UserBundle\Model\Group", "groups"={"sonata_api_read"}},
+     *  statusCodes={
+     *      200="Returned when successful",
+     *      400="Returned when an error has occurred while group creation",
+     *      404="Returned when unable to find group"
+     *  }
+     * )
+     *
+     * @param int     $id      Group identifier
+     * @param Request $request A Symfony request
+     *
+     * @return GroupInterface
+     *
+     * @throws NotFoundHttpException
+     */
+    public function putGroupAction($id, Request $request)
+    {
+        return $this->handleWriteGroup($request, $id);
+    }
+
+    /**
+     * Write a Group, this method is used by both POST and PUT action methods
+     *
+     * @param Request      $request Symfony request
+     * @param integer|null $id      A Group identifier
+     *
+     * @return \FOS\RestBundle\View\View|FormInterface
+     */
+    protected function handleWriteGroup($request, $id = null)
+    {
+        $group = $id ? $this->getGroup($id) : null;
+
+        $form = $this->formFactory->createNamed(null, 'sonata_user_api_form_group', $group, array(
+            'csrf_protection' => false
+        ));
+
+        $form->bind($request);
+
+        if ($form->isValid()) {
+            $group = $form->getData();
+            $this->groupManager->updateGroup($group);
+
+            $view = FOSRestView::create($group);
+            $serializationContext = SerializationContext::create();
+            $serializationContext->setGroups(array('sonata_api_read'));
+            $serializationContext->enableMaxDepthChecks();
+            $view->setSerializationContext($serializationContext);
+
+            return $view;
+        }
+
+        return $form;
+    }
+
+    /**
+     * Deletes a group
+     *
+     * @ApiDoc(
+     *  requirements={
+     *      {"name"="id", "dataType"="integer", "requirement"="\d+", "description"="group identifier"}
+     *  },
+     *  statusCodes={
+     *      200="Returned when group is successfully deleted",
+     *      400="Returned when an error has occurred while group deletion",
+     *      404="Returned when unable to find group"
+     *  }
+     * )
+     *
+     * @param integer $id A Group identifier
+     *
+     * @return \FOS\RestBundle\View\View
+     *
+     * @throws NotFoundHttpException
+     */
+    public function deleteGroupAction($id)
+    {
+        $group = $this->getGroup($id);
+
+        $this->groupManager->deleteGroup($group);
+
+        return array('deleted' => true);
     }
 
     /**
