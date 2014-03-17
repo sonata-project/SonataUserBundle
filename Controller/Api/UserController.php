@@ -18,6 +18,7 @@ use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Sonata\UserBundle\Model\GroupManagerInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -39,6 +40,11 @@ class UserController
     protected $userManager;
 
     /**
+     * @var GroupManagerInterface
+     */
+    protected $groupManager;
+
+    /**
      * @var FormFactoryInterface
      */
     protected $formFactory;
@@ -46,13 +52,15 @@ class UserController
     /**
      * Constructor
      *
-     * @param UserManagerInterface $userManager
-     * @param FormFactoryInterface $formFactory
+     * @param UserManagerInterface  $userManager
+     * @param GroupManagerInterface $groupManager
+     * @param FormFactoryInterface  $formFactory
      */
-    public function __construct(UserManagerInterface $userManager, FormFactoryInterface $formFactory)
+    public function __construct(UserManagerInterface $userManager, GroupManagerInterface $groupManager, FormFactoryInterface $formFactory)
     {
-        $this->userManager = $userManager;
-        $this->formFactory = $formFactory;
+        $this->userManager  = $userManager;
+        $this->groupManager = $groupManager;
+        $this->formFactory  = $formFactory;
     }
 
     /**
@@ -194,9 +202,50 @@ class UserController
     {
         $user = $this->getUser($id);
 
-        $this->userManager->delete($user);
+        $this->userManager->deleteUser($user);
 
         return array('deleted' => true);
+    }
+
+    /**
+     * Attach a group to a user
+     *
+     * @ApiDoc(
+     *  requirements={
+     *      {"name"="userId", "dataType"="integer", "requirement"="\d+", "description"="user identifier"},
+     *      {"name"="groupId", "dataType"="integer", "requirement"="\d+", "description"="group identifier"}
+     *  },
+     *  output={"class"="Sonata\UserBundle\Model\User", "groups"={"sonata_api_read"}},
+     *  statusCodes={
+     *      200="Returned when successful",
+     *      400="Returned when an error has occurred while user/group attachment",
+     *      404="Returned when unable to find user or group"
+     *  }
+     * )
+     *
+     * @param integer $userId  A User identifier
+     * @param integer $groupId A Group identifier
+     *
+     * @return UserInterface
+     *
+     * @throws NotFoundHttpException
+     * @throws \RuntimeException
+     */
+    public function postUserGroupAction($userId, $groupId)
+    {
+        $user = $this->getUser($userId);
+        $group = $this->getGroup($groupId);
+
+        if ($user->hasGroup($group)) {
+            return FOSRestView::create(array(
+                'error' => sprintf('User "%s" already has group "%s"', $userId, $groupId)
+            ), 400);
+        }
+
+        $user->addGroup($group);
+        $this->userManager->updateUser($user);
+
+        return array('added' => true);
     }
 
     /**
@@ -219,6 +268,25 @@ class UserController
     }
 
     /**
+     * Retrieves user with id $id or throws an exception if it doesn't exist
+     *
+     * @param $id
+     *
+     * @return GroupInterface
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    protected function getGroup($id)
+    {
+        $group = $this->groupManager->findGroupBy(array('id' => $id));
+
+        if (null === $group) {
+            throw new NotFoundHttpException(sprintf('Group (%d) not found', $id));
+        }
+
+        return $group;
+    }
+
+    /**
      * Write an User, this method is used by both POST and PUT action methods
      *
      * @param Request      $request Symfony request
@@ -238,7 +306,7 @@ class UserController
 
         if ($form->isValid()) {
             $user = $form->getData();
-            $this->userManager->save($user);
+            $this->userManager->updateUser($user);
 
             $view = FOSRestView::create($user);
             $serializationContext = SerializationContext::create();
