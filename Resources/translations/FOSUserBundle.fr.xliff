@@ -8,7 +8,7 @@
             </trans-unit>
             <trans-unit id="form.email">
                 <source>form.email</source>
-                <target>Addresse e-mail</target>
+                <target>Adresse e-mail</target>
             </trans-unit>
             <trans-unit id="form.password">
                 <source>form.password</source>
