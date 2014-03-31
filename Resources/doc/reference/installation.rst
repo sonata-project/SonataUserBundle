@@ -81,7 +81,7 @@ When using ACL, the ``UserBundle`` can prevent `normal` user to change settings 
 Doctrine Configuration
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Then, add these bundles in the config mapping definition (or enable `auto_mapping <http://symfony.com/doc/2.0/reference/configuration/doctrine.html#configuration-overview>`_):
+Add these config lines
 
 .. code-block:: yaml
 
@@ -99,6 +99,19 @@ Then, add these bundles in the config mapping definition (or enable `auto_mappin
 
         service:
             user_manager: sonata.user.orm.user_manager                      # If you're using doctrine orm (use sonata.user.mongodb.group_manager for mongodb)
+    
+    doctrine:
+
+        dbal:
+            types:
+                json: Sonata\Doctrine\Types\JsonType
+
+
+And these in the config mapping definition (or enable `auto_mapping <http://symfony.com/doc/2.0/reference/configuration/doctrine.html#configuration-overview>`_):
+
+.. code-block:: yaml
+
+    # app/config/config.yml
 
     doctrine:
         orm:
@@ -107,10 +120,6 @@ Then, add these bundles in the config mapping definition (or enable `auto_mappin
                     mappings:
                         ApplicationSonataUserBundle: ~
                         SonataUserBundle: ~
-
-        dbal:
-            types:
-                json: Sonata\Doctrine\Types\JsonType
 
 
 
