@@ -95,10 +95,10 @@ Then, add these bundles in the config mapping definition (or enable `auto_mappin
 
         group:
             group_class:   Application\Sonata\UserBundle\Entity\Group
-            group_manager: sonata.user.orm.group_manager                    # If you're using doctrine orm
+            group_manager: sonata.user.orm.group_manager                    # If you're using doctrine orm (use sonata.user.mongodb.user_manager for mongodb)
 
         service:
-            user_manager: sonata.user.orm.user_manager                      # If you're using doctrine orm
+            user_manager: sonata.user.orm.user_manager                      # If you're using doctrine orm (use sonata.user.mongodb.group_manager for mongodb)
 
     doctrine:
         orm:
