@@ -55,10 +55,11 @@ class SonataUserExtension extends Extension
         $loader->load('form.xml');
         $loader->load('google_authenticator.xml');
         $loader->load('twig.xml');
+        $loader->load('serializer.xml');
 
-        if (isset($bundles['FOSRestBundle']) && isset($bundles['NelmioApiDocBundle'])) {
+        if ('orm' === $config['manager_type'] && isset($bundles['FOSRestBundle']) && isset($bundles['NelmioApiDocBundle'])) {
+            $loader->load('api_form.xml');
             $loader->load('api_controllers.xml');
-            $loader->load('serializer.xml');
         }
 
         if (isset($bundles['SonataSeoBundle'])) {
@@ -308,6 +309,19 @@ class SonataUserExtension extends Extension
      */
     public function configureRegistration(array $config, ContainerBuilder $container)
     {
+        $bundles = $container->getParameter('kernel.bundles');
+
+        if (isset($bundles['MopaBootstrapBundle'])) {
+            $options = array(
+                'horizontal_input_wrapper_class' => "col-lg-8",
+                'horizontal_label_class' => "col-lg-4 control-label"
+            );
+        } else {
+            $options = array();
+        }
+
+        $container->setParameter('sonata.user.registration.form.options', $options);
+
         $container->setParameter('sonata.user.registration.form.type', $config['profile']['register']['form']['type']);
         $container->setParameter('sonata.user.registration.form.name', $config['profile']['register']['form']['name']);
         $container->setParameter('sonata.user.registration.form.validation_groups', $config['profile']['register']['form']['validation_groups']);

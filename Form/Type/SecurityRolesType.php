@@ -49,19 +49,19 @@ class SecurityRolesType extends AbstractType
          *
          * The transformer will then append non editable roles to the user ...
          */
-        $tranformer = new RestoreRolesTransformer($this->rolesBuilder);
+        $transformer = new RestoreRolesTransformer($this->rolesBuilder);
 
         // GET METHOD
-        $formBuilder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($tranformer) {
-            $tranformer->setOriginalRoles($event->getData());
+        $formBuilder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($transformer) {
+            $transformer->setOriginalRoles($event->getData());
         });
 
         // POST METHOD
-        $formBuilder->addEventListener(FormEvents::PRE_BIND, function(FormEvent $event) use ($tranformer) {
-            $tranformer->setOriginalRoles($event->getForm()->getData());
+        $formBuilder->addEventListener(FormEvents::PRE_BIND, function(FormEvent $event) use ($transformer) {
+            $transformer->setOriginalRoles($event->getForm()->getData());
         });
 
-        $formBuilder->addModelTransformer($tranformer);
+        $formBuilder->addModelTransformer($transformer);
     }
 
     /**
