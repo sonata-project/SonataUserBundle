@@ -46,6 +46,7 @@ Next, be sure to enable the bundles in your and ``AppKernel.php`` file:
             // you can select which bundle SonataUserBundle extends
             // Most of the cases, you'll want to extend FOSUserBundle though ;)
             // extend the ``FOSUserBundle``
+            new FOS\UserBundle\FOSUserBundle(),
             new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
             // OR
             // the bundle will NOT extend ``FOSUserBundle``
