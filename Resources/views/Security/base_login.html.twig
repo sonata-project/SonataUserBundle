@@ -13,7 +13,7 @@ file that was distributed with this source code.
 
 {% block fos_user_content %}
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-sm-6">
             {% block sonata_user_login %}
                 <div class="panel panel-info">
 
@@ -36,9 +36,9 @@ file that was distributed with this source code.
 
                             <div class="form-group">
                                 <label for="username"
-                                       class="col-lg-4 col-sm-4 control-label">{{ 'security.login.username'|trans({}, 'SonataUserBundle') }}</label>
+                                       class="col-sm-4 control-label">{{ 'security.login.username'|trans({}, 'SonataUserBundle') }}</label>
 
-                                <div class="col-lg-8 col-sm-8"><input type="text" class="form-control" id="username"
+                                <div class="col-sm-8"><input type="text" class="form-control" id="username"
                                                                       name="_username" value="{{ last_username }}"
                                                                       required="required"/></div>
                             </div>
@@ -46,9 +46,9 @@ file that was distributed with this source code.
 
                             <div class="form-group control-group">
                                 <label for="password"
-                                       class="col-lg-4 col-sm-4 control-label">{{ 'security.login.password'|trans({}, 'SonataUserBundle') }}</label>
+                                       class="col-sm-4 control-label">{{ 'security.login.password'|trans({}, 'SonataUserBundle') }}</label>
 
-                                <div class="col-lg-8 col-sm-8"><input type="password" class="form-control" id="password"
+                                <div class="col-sm-8"><input type="password" class="form-control" id="password"
                                                                       name="_password" required="required"/></div>
                             </div>
 
@@ -81,7 +81,7 @@ file that was distributed with this source code.
             </div>
             {% endblock %}
         </div>
-        <div class="col-md-6">
+        <div class="col-sm-6">
             {% block sonata_user_registration %}
                 {% render controller("SonataUserBundle:RegistrationFOSUser1:register") %}
             {% endblock %}
