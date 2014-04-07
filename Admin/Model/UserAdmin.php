@@ -16,12 +16,12 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\UserBundle\Model\UserInterface;
 
 use FOS\UserBundle\Model\UserManagerInterface;
 
 class UserAdmin extends Admin
 {
+    protected $userManager;
 
     /**
      * {@inheritdoc}
@@ -130,19 +130,23 @@ class UserAdmin extends Admin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+                // define group zoning
+        $formMapper
+            ->with('Profile', array('class' => 'col-md-6'))
+            ->with('General', array('class' => 'col-md-6'))
+            ->with('Security', array('class' => 'col-md-6'))
+            ->with('Management', array('class' => 'col-md-6'))
+
+            ->with('Social', array('class' => 'col-md-6'))
+
+        ;
+
         $formMapper
             ->with('General')
                 ->add('username')
                 ->add('email')
                 ->add('plainPassword', 'text', array(
                     'required' => (!$this->getSubject() || is_null($this->getSubject()->getId()))
-                ))
-            ->end()
-            ->with('Groups')
-                ->add('groups', 'sonata_type_model', array(
-                    'required' => false,
-                    'expanded' => true,
-                    'multiple' => true
                 ))
             ->end()
             ->with('Profile')
@@ -172,9 +176,14 @@ class UserAdmin extends Admin
         if ($this->getSubject() && !$this->getSubject()->hasRole('ROLE_SUPER_ADMIN')) {
             $formMapper
                 ->with('Management')
+                    ->add('groups', 'sonata_type_model', array(
+                        'required' => false,
+                        'expanded' => true,
+                        'multiple' => true
+                    ))
                     ->add('realRoles', 'sonata_security_roles', array(
                         'label'    => 'form.label_roles',
-                        'expanded' => true,
+                        'expanded' => false,
                         'multiple' => true,
                         'required' => false
                     ))
