@@ -37,4 +37,12 @@ class GlobalVariables
     {
         return $this->container->getParameter('sonata.user.impersonating');
     }
+
+    /**
+     * @return string
+     */
+    public function getDefaultAvatar()
+    {
+        return $this->container->getParameter('sonata.user.default_avatar');
+    }
 }
