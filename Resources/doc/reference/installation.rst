@@ -183,6 +183,8 @@ Add the related security routing information:
 
 .. code-block:: yaml
 
+    # app/config/routing.yml
+
     sonata_user:
         resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
         prefix: /admin
@@ -190,6 +192,8 @@ Add the related security routing information:
 Then, add a new custom firewall handlers for the admin:
 
 .. code-block:: yaml
+
+    # app/config/security.yml
 
     security:
         role_hierarchy:
@@ -243,6 +247,8 @@ Then, add a new custom firewall handlers for the admin:
 The last part is to define 3 new access control rules:
 
 .. code-block:: yaml
+
+    # app/config/config.yml
 
     security:
         access_control:
