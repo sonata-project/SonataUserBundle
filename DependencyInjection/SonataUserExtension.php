@@ -85,6 +85,8 @@ class SonataUserExtension extends Extension
             array('SonataUserBundle:Form:form_admin_fields.html.twig')
         ));
 
+        $container->setParameter('sonata.user.default_avatar', $config['profile']['default_avatar']);
+
         $container->setParameter('sonata.user.impersonating', $config['impersonating']);
 
         $this->configureGoogleAuthenticator($config, $container);

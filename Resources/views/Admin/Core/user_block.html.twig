@@ -4,7 +4,9 @@
         {% set _bg_class    = "bg-light-blue" %}
         {% set _logout_uri  = url('sonata_user_admin_security_logout') %}
         {% set _logout_text = 'user_block_logout'|trans({}, 'SonataUserBundle') %}
-        {% set _user_image  = app.user.profilePicture|default(asset(admin_pool.getOption('default_avatar'))) %}
+        {% set _user_image  = asset(sonata_user.defaultAvatar) %}
+        {# Customize this with your profile picture implementation, see below for example #}
+        {#{% set _user_image  = app.user.profilePicture|default(asset(sonata_user.defaultAvatar)) %}#}
 
         {% if is_granted('ROLE_PREVIOUS_ADMIN') and sonata_user.impersonating %}
             {% set _bg_class    = "bg-light-green" %}
