@@ -35,7 +35,7 @@ class RegistrationFOSUser1Controller extends ContainerAware
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
 
-        if ($user instanceof UserInterface && 'POST' === $this->container->get('request')->getMethod()) {
+        if ($user instanceof UserInterface) {
             $this->container->get('session')->getFlashBag()->set('sonata_user_error', 'sonata_user_already_authenticated');
             $url = $this->container->get('router')->generate('sonata_user_profile_show');
 
