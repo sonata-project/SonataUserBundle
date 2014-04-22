@@ -43,7 +43,7 @@ class RequestListener
      */
     public function onCoreRequest(GetResponseEvent $event)
     {
-		if (HttpKernel::MASTER_REQUEST != $event->getRequestType()) {
+        if (HttpKernel::MASTER_REQUEST != $event->getRequestType()) {
             return;
         }
     
