@@ -12,6 +12,7 @@
 namespace Sonata\UserBundle\GoogleAuthenticator;
 
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
@@ -42,6 +43,10 @@ class RequestListener
      */
     public function onCoreRequest(GetResponseEvent $event)
     {
+        if (HttpKernel::MASTER_REQUEST != $event->getRequestType()) {
+            return;
+        }
+    
         $token = $this->securityContext->getToken();
 
         if (!$token) {
