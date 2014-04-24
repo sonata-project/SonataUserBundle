@@ -27,7 +27,7 @@ Full configuration options:
 
     sonata_user:
         security_acl:           false
-	
+
 	manager_type: orm # Can be orm for mongodb
 
         table:
@@ -53,6 +53,7 @@ Full configuration options:
                 translation:    SonataUserBundle
 
         profile:
+            default_avatar: 'bundles/sonatauser/default_avatar.png' # Default avatar displayed if user doesn't have one
             # As in SonataAdminBundle's dashboard
             dashboard:
                 groups:

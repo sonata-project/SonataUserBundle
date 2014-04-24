@@ -96,6 +96,7 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->canBeUnset()
                     ->children()
+                        ->scalarNode('default_avatar')->defaultValue('bundles/sonatauser/default_avatar.png')->end()
                         ->arrayNode('dashboard')
                             ->addDefaultsIfNotSet()
                             ->fixXmlConfig('group')
