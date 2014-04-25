@@ -121,6 +121,7 @@ And these in the config mapping definition (or enable `auto_mapping <http://symf
                     mappings:
                         ApplicationSonataUserBundle: ~
                         SonataUserBundle: ~
+                        FOSUserBundle: ~                                    # If SonataUserBundle extends it
 
 
 
