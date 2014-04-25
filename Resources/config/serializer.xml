@@ -8,7 +8,7 @@
 
         <service id="sonata.user.serializer.handler.user" class="Sonata\UserBundle\Serializer\UserSerializerHandler">
             <tag name="jms_serializer.subscribing_handler" />
-            <argument type="service" id="sonata.user.manager.user" />
+            <argument type="service" id="sonata.user.user_manager" />
         </service>
 
     </services>
