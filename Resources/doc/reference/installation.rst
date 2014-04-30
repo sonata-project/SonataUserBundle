@@ -72,6 +72,7 @@ When using ACL, the ``UserBundle`` can prevent `normal` user to change settings 
             #...
             sonata.user.block.menu:    # used to display the menu in profile pages
             sonata.user.block.account: # used to display menu option (login option)
+            sonata.block.service.text: # used to if you plan to use Sonata user routes
 
     # app/config/security.yml
     security:
