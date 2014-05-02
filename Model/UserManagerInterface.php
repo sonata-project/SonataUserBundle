@@ -12,6 +12,7 @@
 namespace Sonata\UserBundle\Model;
 
 use FOS\UserBundle\Model\UserManagerInterface as BaseInterface;
+use Sonata\CoreBundle\Model\PageableManagerInterface;
 
 /**
  * Class UserManagerInterface
@@ -20,7 +21,7 @@ use FOS\UserBundle\Model\UserManagerInterface as BaseInterface;
  *
  * @author Hugo Briand <briand@ekino.com>
  */
-interface UserManagerInterface extends BaseInterface
+interface UserManagerInterface extends BaseInterface, PageableManagerInterface
 {
     /**
      * Alias for the repository method

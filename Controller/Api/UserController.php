@@ -75,6 +75,7 @@ class UserController
      * @QueryParam(name="count", requirements="\d+", default="10", description="Number of users by page")
      * @QueryParam(name="orderBy", array=true, requirements="ASC|DESC", nullable=true, strict=true, description="Query users order by clause (key is field, value is direction")
      * @QueryParam(name="enabled", requirements="0|1", nullable=true, strict=true, description="Enabled/disabled users only?")
+     * @QueryParam(name="locked", requirements="0|1", nullable=true, strict=true, description="Locked/Non-locked users only?")
      *
      * @View(serializerGroups="sonata_api_read", serializerEnableMaxDepthChecks=true)
      *
@@ -84,22 +85,29 @@ class UserController
      */
     public function getUsersAction(ParamFetcherInterface $paramFetcher)
     {
-        $supportedFilters = array(
-            'enabled' => "",
+        $supporedCriteria = array(
+            'enabled' => '',
+            'locked'  => '',
         );
 
-        $page    = $paramFetcher->get('page') - 1;
-        $count   = $paramFetcher->get('count');
-        $orderBy = $paramFetcher->get('orderBy');
-        $filters = array_intersect_key($paramFetcher->all(), $supportedFilters);
+        $page     = $paramFetcher->get('page') - 1;
+        $limit    = $paramFetcher->get('count');
+        $sort     = $paramFetcher->get('orderBy');
+        $criteria = array_intersect_key($paramFetcher->all(), $supporedCriteria);
 
-        foreach ($filters as $key => $value) {
+        foreach ($criteria as $key => $value) {
             if (null === $value) {
-                unset($filters[$key]);
+                unset($criteria[$key]);
             }
         }
 
-        return $this->userManager->findUsersBy($filters, $orderBy, $count, $page);
+        if (!$sort) {
+            $sort = array();
+        } elseif (!is_array($sort)) {
+            $sort = array($sort, 'asc');
+        }
+
+        return $this->userManager->getPager($criteria, $page, $limit, $sort);
     }
 
     /**
