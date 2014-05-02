@@ -28,13 +28,13 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
     {
         $user        = $this->getMock('Sonata\UserBundle\Model\UserInterface');
         $userManager = $this->getMock('Sonata\UserBundle\Model\UserManagerInterface');
-        $userManager->expects($this->once())->method('findUsersBy')->will($this->returnValue(array($user)));
+        $userManager->expects($this->once())->method('getPager')->will($this->returnValue(array()));
 
         $paramFetcher = $this->getMock('FOS\RestBundle\Request\ParamFetcherInterface');
         $paramFetcher->expects($this->exactly(3))->method('get');
         $paramFetcher->expects($this->once())->method('all')->will($this->returnValue(array()));
 
-        $this->assertEquals(array($user), $this->createUserController(null, $userManager)->getUsersAction($paramFetcher));
+        $this->assertEquals(array(), $this->createUserController(null, $userManager)->getUsersAction($paramFetcher));
     }
 
     public function testGetUserAction()
