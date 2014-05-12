@@ -92,11 +92,11 @@ Add these config lines
     fos_user:
         db_driver:      orm # can be orm or odm
         firewall_name:  main
-        user_class:     Application\Sonata\UserBundle\Entity\User
+        user_class:     Sonata\UserBundle\Entity\BaseUser
 
 
         group:
-            group_class:   Application\Sonata\UserBundle\Entity\Group
+            group_class:   Sonata\UserBundle\Entity\BaseGroup
             group_manager: sonata.user.orm.group_manager                    # If you're using doctrine orm (use sonata.user.mongodb.user_manager for mongodb)
 
         service:
@@ -315,3 +315,30 @@ Now, add the new ``Application`` Bundle into the kernel:
             )
         }
     }
+
+And configure ``FosUserBundle`` to use the newly generated ``User`` and ``Group``
+classes:
+
+
+.. code-block:: yaml
+
+    # app/config/config.yml
+
+    fos_user:
+        db_driver:      orm # can be orm or odm
+        firewall_name:  main
+        user_class:     Application\Sonata\UserBundle\Entity\User
+
+
+        group:
+            group_class:   Application\Sonata\UserBundle\Entity\Group
+            group_manager: sonata.user.orm.group_manager                    # If you're using doctrine orm (use sonata.user.mongodb.user_manager for mongodb)
+
+        service:
+            user_manager: sonata.user.orm.user_manager                      # If you're using doctrine orm (use sonata.user.mongodb.group_manager for mongodb)
+
+    doctrine:
+
+        dbal:
+            types:
+                json: Sonata\Doctrine\Types\JsonType
