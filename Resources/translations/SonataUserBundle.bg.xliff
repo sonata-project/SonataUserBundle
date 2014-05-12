@@ -4,23 +4,23 @@
         <body>
             <trans-unit id="title_user_registration">
                 <source>title_user_registration</source>
-                <target>title_user_registration</target>
+                <target>Регистрация</target>
             </trans-unit>
             <trans-unit id="title_user_account">
                 <source>title_user_account</source>
-                <target>User Profile</target>
+                <target>Потребителски профил</target>
             </trans-unit>
             <trans-unit id="title_user_edit_profile">
                 <source>title_user_edit_profile</source>
-                <target>Edit</target>
+                <target>Редактирай</target>
             </trans-unit>
             <trans-unit id="title_user_authentication">
                 <source>title_user_authentication</source>
-                <target>Authentication</target>
+                <target>Вход</target>
             </trans-unit>
             <trans-unit id="sonata_user_submit">
                 <source>sonata_user_submit</source>
-                <target>Submit</target>
+                <target>Изпрати</target>
             </trans-unit>
             <trans-unit id="breadcrumb.link_user_list">
                 <source>breadcrumb.link_user_list</source>
@@ -72,35 +72,35 @@
             </trans-unit>
             <trans-unit id="user_form.label_username">
                 <source>form.label_username</source>
-                <target>Потребителско име</target>
+                <target>Потребителско име: </target>
             </trans-unit>
             <trans-unit id="form.label_email">
                 <source>form.label_email</source>
-                <target>E-mail адрес</target>
+                <target>E-mail адрес:</target>
             </trans-unit>
             <trans-unit id="form.label_plain_password">
                 <source>form.label_plain_password</source>
-                <target>Парола (немаскирана)</target>
+                <target>Парола (немаскирана):</target>
             </trans-unit>
             <trans-unit id="form.label_groups">
                 <source>form.label_groups</source>
-                <target>Групи</target>
+                <target>Групи:</target>
             </trans-unit>
             <trans-unit id="form.label_roles">
                 <source>form.label_roles</source>
-                <target>Права</target>
+                <target>Права:</target>
             </trans-unit>
             <trans-unit id="form.label_locked">
                 <source>form.label_locked</source>
-                <target>Заключен</target>
+                <target>Заключен:</target>
             </trans-unit>
             <trans-unit id="form.label_expired">
                 <source>form.label_expired</source>
-                <target>Изтекъл</target>
+                <target>Изтекъл:</target>
             </trans-unit>
             <trans-unit id="form.label_enabled">
                 <source>form.label_enabled</source>
-                <target>Включен</target>
+                <target>Включен:</target>
             </trans-unit>
             <trans-unit id="form.label_credentials_expired">
                 <source>form.label_credentials_expired</source>
@@ -108,7 +108,7 @@
             </trans-unit>
             <trans-unit id="user_form.label_name">
                 <source>form.label_name</source>
-                <target>Име</target>
+                <target>Име:</target>
             </trans-unit>
             <trans-unit id="filter.label_username">
                 <source>filter.label_username</source>
@@ -176,51 +176,51 @@
             </trans-unit>
             <trans-unit id="gender_unknown">
                 <source>gender_unknown</source>
-                <target>gender_unknown</target>
+                <target>Недифиниран пол</target>
             </trans-unit>
             <trans-unit id="gender_female">
                 <source>gender_female</source>
-                <target>gender_female</target>
+                <target>Жена</target>
             </trans-unit>
             <trans-unit id="gender_male">
                 <source>gender_male</source>
-                <target>gender_male</target>
+                <target>Мъж</target>
             </trans-unit>
             <trans-unit id="sonata_profile_title">
                 <source>sonata_profile_title</source>
-                <target>sonata_profile_title</target>
+                <target>Профил</target>
             </trans-unit>
             <trans-unit id="link_show_profile">
                 <source>link_show_profile</source>
-                <target>link_show_profile</target>
+                <target>Профил</target>
             </trans-unit>
             <trans-unit id="link_edit_profile">
                 <source>link_edit_profile</source>
-                <target>link_edit_profile</target>
+                <target>Профил</target>
             </trans-unit>
             <trans-unit id="title_user_edit_authentication">
                 <source>title_user_edit_authentication</source>
-                <target>title_user_edit_authentication</target>
+                <target>Данни за вход</target>
             </trans-unit>
             <trans-unit id="link_edit_authentication">
                 <source>link_edit_authentication</source>
-                <target>link_edit_authentication</target>
+                <target>Данни за вход</target>
             </trans-unit>
             <trans-unit id="label_profile_gender">
                 <source>label_profile_gender</source>
-                <target>label_profile_gender</target>
+                <target>Пол</target>
             </trans-unit>
             <trans-unit id="label_profile_firstname">
                 <source>label_profile_firstname</source>
-                <target>label_profile_firstname</target>
+                <target>Име</target>
             </trans-unit>
             <trans-unit id="label_profile_lastname">
                 <source>label_profile_lastname</source>
-                <target>label_profile_lastname</target>
+                <target>Фамилия</target>
             </trans-unit>
             <trans-unit id="label_profile_website">
                 <source>label_profile_website</source>
-                <target>label_profile_website</target>
+                <target>Уебсайт</target>
             </trans-unit>
             <trans-unit id="label_profile_dob">
                 <source>label_profile_dob</source>
@@ -228,47 +228,47 @@
             </trans-unit>
             <trans-unit id="label_profile_biography">
                 <source>label_profile_biography</source>
-                <target>label_profile_biography</target>
+                <target>Биография</target>
             </trans-unit>
             <trans-unit id="label_profile_locale">
                 <source>label_profile_locale</source>
-                <target>label_profile_locale</target>
+                <target>Език</target>
             </trans-unit>
             <trans-unit id="label_profile_timezone">
                 <source>label_profile_timezone</source>
-                <target>label_profile_timezone</target>
+                <target>Времева зона</target>
             </trans-unit>
             <trans-unit id="label_profile_phone">
                 <source>label_profile_phone</source>
-                <target>label_profile_phone</target>
+                <target>Телефонен номер</target>
             </trans-unit>
             <trans-unit id="profile.flash.updated">
                 <source>profile.flash.updated</source>
-                <target>profile.flash.updated</target>
+                <target>Профилът е променен успешно!</target>
             </trans-unit>
             <trans-unit id="sonata_change_password_link">
                 <source>sonata_change_password_link</source>
-                <target>sonata_change_password_link</target>
+                <target>Промени паролата</target>
             </trans-unit>
             <trans-unit id="link_register">
                 <source>link_register</source>
-                <target>link_register</target>
+                <target>Регистрирай се</target>
             </trans-unit>
             <trans-unit id="link_login">
                 <source>link_login</source>
-                <target>link_login</target>
+                <target>Вход</target>
             </trans-unit>
             <trans-unit id="link_logout">
                 <source>link_logout</source>
-                <target>link_logout</target>
+                <target>Изход</target>
             </trans-unit>
             <trans-unit id="registration.flash.user_created">
                 <source>registration.flash.user_created</source>
-                <target>registration.flash.user_created</target>
+                <target>Вие се регистрирахте успешно!</target>
             </trans-unit>
             <trans-unit id="forgotten_password">
                 <source>forgotten_password</source>
-                <target>forgotten_password</target>
+                <target>Забравена парола</target>
             </trans-unit>
             <trans-unit id="sonata_user_profile_breadcrumb_index">
                 <source>sonata_user_profile_breadcrumb_index</source>
@@ -280,31 +280,71 @@
             </trans-unit>
             <trans-unit id="sonata_user_already_authenticated">
                 <source>sonata_user_already_authenticated</source>
-                <target>You are already logged in</target>
+                <target>Вече сте в системата.</target>
             </trans-unit>
             <trans-unit id="security.login.username">
                 <source>security.login.username</source>
-                <target>security.login.username</target>
+                <target>Потребителско име</target>
             </trans-unit>
             <trans-unit id="security.login.password">
                 <source>security.login.password</source>
-                <target>security.login.password</target>
+                <target>Парола</target>
             </trans-unit>
             <trans-unit id="form.username">
                 <source>form.username</source>
-                <target>form.username</target>
+                <target>Потребителско име</target>
             </trans-unit>
             <trans-unit id="form.email">
                 <source>form.email</source>
-                <target>form.email</target>
+                <target>Email адрес</target>
             </trans-unit>
             <trans-unit id="form.password">
                 <source>form.password</source>
-                <target>form.password</target>
+                <target>Парола</target>
             </trans-unit>
             <trans-unit id="form.password_confirmation">
                 <source>form.password_confirmation</source>
-                <target>form.password_erification</target>
+                <target>Повтори паролата</target>
+            </trans-unit>
+            <trans-unit id="form.label_gender">
+                <source>form.label_gender</source>
+                <target>Пол:</target>
+            </trans-unit>
+            <trans-unit id="form.label_firstname">
+                <source>form.label_firstname</source>
+                <target>Име:</target>
+            </trans-unit>
+            <trans-unit id="form.label_lastname">
+                <source>form.label_lastname</source>
+                <target>Фамилия:</target>
+            </trans-unit>
+            <trans-unit id="form.label_date_of_birth">
+                <source>form.label_date_of_birth</source>
+                <target>Дата на раждане:</target>
+            </trans-unit>
+            <trans-unit id="form.label_website">
+                <source>form.label_website</source>
+                <target>Уебсайт:</target>
+            </trans-unit>
+            <trans-unit id="form.label_biography">
+                <source>form.label_biography</source>
+                <target>Биография:</target>
+            </trans-unit>
+            <trans-unit id="form.label_locale">
+                <source>form.label_locale</source>
+                <target>Език:</target>
+            </trans-unit>
+            <trans-unit id="form.label_timezone">
+                <source>form.label_timezone</source>
+                <target>Часови пояс:</target>
+            </trans-unit>
+            <trans-unit id="form.label_phone">
+                <source>form.label_phone</source>
+                <target>Телефонен номер:</target>
+            </trans-unit>
+            <trans-unit id="sonata_user">
+                <source>sonata_user</source>
+                <target>Потребители</target>
             </trans-unit>
         </body>
     </file>
