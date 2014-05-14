@@ -139,6 +139,8 @@ class UserAdmin extends Admin
             ->with('Social', array('class' => 'col-md-6'))
         ;
 
+        $now = new \DateTime();
+
         $formMapper
             ->with('General')
                 ->add('username')
@@ -148,7 +150,11 @@ class UserAdmin extends Admin
                 ))
             ->end()
             ->with('Profile')
-                ->add('dateOfBirth', 'birthday', array('required' => false))
+                ->add('dateOfBirth', 'sonata_type_date_picker', array(
+                    'years' => range(1900, $now->format('Y')),
+                    'dp_min_date' => '1-1-1900',
+                    'dp_max_date' => $now->format('c')
+                ))
                 ->add('firstname', null, array('required' => false))
                 ->add('lastname', null, array('required' => false))
                 ->add('website', 'url', array('required' => false))
