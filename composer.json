@@ -21,6 +21,7 @@
         "symfony/form": "~2.3",
         "symfony/security": "~2.3",
         "symfony/console": "~2.3",
+        "doctrine/orm": "~2.2,>=2.2.3",
         "sonata-project/core-bundle": "2.2.*@dev",
         "sonata-project/admin-bundle": "~2.3@dev",
         "friendsofsymfony/user-bundle": "~1.3",
