@@ -448,11 +448,11 @@
             </trans-unit>
             <trans-unit id="link_register">
                 <source>link_register</source>
-                <target>Resistro</target>
+                <target>Registro</target>
             </trans-unit>
             <trans-unit id="link_login">
                 <source>link_login</source>
-                <target>Validación</target>
+                <target>Login</target>
             </trans-unit>
             <trans-unit id="link_logout">
                 <source>link_logout</source>
@@ -464,7 +464,7 @@
             </trans-unit>
             <trans-unit id="forgotten_password">
                 <source>forgotten_password</source>
-                <target>Recordar contraseña</target>
+                <target>¿Has olvidado tu contraseña?</target>
             </trans-unit>
             <trans-unit id="sonata_user_profile_breadcrumb_index">
                 <source>sonata_user_profile_breadcrumb_index</source>
@@ -492,7 +492,7 @@
             </trans-unit>
             <trans-unit id="form.email">
                 <source>form.email</source>
-                <target>Correo electŕonico</target>
+                <target>Correo electrónico</target>
             </trans-unit>
             <trans-unit id="form.password">
                 <source>form.password</source>
