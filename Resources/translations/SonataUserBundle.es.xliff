@@ -384,123 +384,123 @@
             </trans-unit>
             <trans-unit id="sonata_profile_title">
                 <source>sonata_profile_title</source>
-                <target>sonata_profile_title</target>
+                <target>Panel</target>
             </trans-unit>
             <trans-unit id="link_show_profile">
                 <source>link_show_profile</source>
-                <target>link_show_profile</target>
+                <target>Panel</target>
             </trans-unit>
             <trans-unit id="link_edit_profile">
                 <source>link_edit_profile</source>
-                <target>link_edit_profile</target>
+                <target>Perfil</target>
             </trans-unit>
             <trans-unit id="title_user_edit_authentication">
                 <source>title_user_edit_authentication</source>
-                <target>title_user_edit_authentication</target>
+                <target>Inicio de sesión</target>
             </trans-unit>
             <trans-unit id="link_edit_authentication">
                 <source>link_edit_authentication</source>
-                <target>link_edit_authentication</target>
+                <target>Inicio se sesión</target>
             </trans-unit>
             <trans-unit id="label_profile_gender">
                 <source>label_profile_gender</source>
-                <target>label_profile_gender</target>
+                <target>Género</target>
             </trans-unit>
             <trans-unit id="label_profile_firstname">
                 <source>label_profile_firstname</source>
-                <target>label_profile_firstname</target>
+                <target>Nombre</target>
             </trans-unit>
             <trans-unit id="label_profile_lastname">
                 <source>label_profile_lastname</source>
-                <target>label_profile_lastname</target>
+                <target>Apellido</target>
             </trans-unit>
             <trans-unit id="label_profile_website">
                 <source>label_profile_website</source>
-                <target>label_profile_website</target>
+                <target>Sitio web</target>
             </trans-unit>
             <trans-unit id="label_profile_dob">
                 <source>label_profile_dob</source>
-                <target>label_profile_dob</target>
+                <target>Fecha de nacimiento</target>
             </trans-unit>
             <trans-unit id="label_profile_biography">
                 <source>label_profile_biography</source>
-                <target>label_profile_biography</target>
+                <target>Biografía</target>
             </trans-unit>
             <trans-unit id="label_profile_locale">
                 <source>label_profile_locale</source>
-                <target>label_profile_locale</target>
+                <target>Localización</target>
             </trans-unit>
             <trans-unit id="label_profile_timezone">
                 <source>label_profile_timezone</source>
-                <target>label_profile_timezone</target>
+                <target>Zona horaria</target>
             </trans-unit>
             <trans-unit id="label_profile_phone">
                 <source>label_profile_phone</source>
-                <target>label_profile_phone</target>
+                <target>Teléfono</target>
             </trans-unit>
             <trans-unit id="profile.flash.updated">
                 <source>profile.flash.updated</source>
-                <target>profile.flash.updated</target>
+                <target>Tu perfil se ha actualizado</target>
             </trans-unit>
             <trans-unit id="sonata_change_password_link">
                 <source>sonata_change_password_link</source>
-                <target>sonata_change_password_link</target>
+                <target>Cambiar contraseña</target>
             </trans-unit>
             <trans-unit id="link_register">
                 <source>link_register</source>
-                <target>link_register</target>
+                <target>Registro</target>
             </trans-unit>
             <trans-unit id="link_login">
                 <source>link_login</source>
-                <target>link_login</target>
+                <target>Login</target>
             </trans-unit>
             <trans-unit id="link_logout">
                 <source>link_logout</source>
-                <target>link_logout</target>
+                <target>Salir</target>
             </trans-unit>
             <trans-unit id="registration.flash.user_created">
                 <source>registration.flash.user_created</source>
-                <target>registration.flash.user_created</target>
+                <target>La cuenta se ha creado correctamente</target>
             </trans-unit>
             <trans-unit id="forgotten_password">
                 <source>forgotten_password</source>
-                <target>forgotten_password</target>
+                <target>¿Contraseña olvidada?</target>
             </trans-unit>
             <trans-unit id="sonata_user_profile_breadcrumb_index">
                 <source>sonata_user_profile_breadcrumb_index</source>
-                <target>sonata_user_profile_breadcrumb_index</target>
+                <target>Panel</target>
             </trans-unit>
             <trans-unit id="sonata_user_profile_breadcrumb_edit">
                 <source>sonata_user_profile_breadcrumb_edit</source>
-                <target>sonata_user_profile_breadcrumb_edit</target>
+                <target>Editar perfil</target>
             </trans-unit>
             <trans-unit id="sonata_user_already_authenticated">
                 <source>sonata_user_already_authenticated</source>
-                <target>You are already logged in</target>
+                <target>Ya estás validado</target>
             </trans-unit>
             <trans-unit id="security.login.username">
                 <source>security.login.username</source>
-                <target>security.login.username</target>
+                <target>Nombre de usuario</target>
             </trans-unit>
             <trans-unit id="security.login.password">
                 <source>security.login.password</source>
-                <target>security.login.password</target>
+                <target>Contraseña</target>
             </trans-unit>
             <trans-unit id="form.username">
                 <source>form.username</source>
-                <target>form.username</target>
+                <target>Nombre de usuario</target>
             </trans-unit>
             <trans-unit id="form.email">
                 <source>form.email</source>
-                <target>form.email</target>
+                <target>Correo electrónico</target>
             </trans-unit>
             <trans-unit id="form.password">
                 <source>form.password</source>
-                <target>form.password</target>
+                <target>Contraseña</target>
             </trans-unit>
             <trans-unit id="form.password_confirmation">
                 <source>form.password_confirmation</source>
-                <target>form.password_erification</target>
+                <target>Conf. contraseña</target>
             </trans-unit>
         </body>
     </file>
