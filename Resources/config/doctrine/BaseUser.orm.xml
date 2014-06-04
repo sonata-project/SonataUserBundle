@@ -13,7 +13,7 @@
         <field name="firstname"    type="string"     column="firstname" length="64"    nullable="true" />
         <field name="lastname"     type="string"     column="lastname"  length="64"    nullable="true" />
         <field name="website"      type="string"     column="website"   length="64"    nullable="true" />
-        <field name="biography"    type="string"     column="biography" length="255"   nullable="true" />
+        <field name="biography"    type="string"     column="biography" length="1000"  nullable="true" />
         <field name="gender"       type="string"     column="gender"    length="1"     nullable="true" />
         <field name="locale"       type="string"     column="locale"    length="8"     nullable="true" />
         <field name="timezone"     type="string"     column="timezone"  length="64"    nullable="true" />
