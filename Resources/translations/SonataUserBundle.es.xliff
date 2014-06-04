@@ -396,11 +396,11 @@
             </trans-unit>
             <trans-unit id="title_user_edit_authentication">
                 <source>title_user_edit_authentication</source>
-                <target>Autentificación</target>
+                <target>Inicio de sesión</target>
             </trans-unit>
             <trans-unit id="link_edit_authentication">
                 <source>link_edit_authentication</source>
-                <target>Autentificación</target>
+                <target>Inicio se sesión</target>
             </trans-unit>
             <trans-unit id="label_profile_gender">
                 <source>label_profile_gender</source>
@@ -464,7 +464,7 @@
             </trans-unit>
             <trans-unit id="forgotten_password">
                 <source>forgotten_password</source>
-                <target>¿Has olvidado tu contraseña?</target>
+                <target>¿Contraseña olvidada?</target>
             </trans-unit>
             <trans-unit id="sonata_user_profile_breadcrumb_index">
                 <source>sonata_user_profile_breadcrumb_index</source>
