@@ -25,6 +25,7 @@ Enable the Bundle
 .. code-block:: bash
 
     php composer.phar require sonata-project/user-bundle --no-update
+    php composer.phar require sonata-project/datagrid-bundle --no-update
     php composer.phar require sonata-project/doctrine-orm-admin-bundle  --no-update # optional
     php composer.phar update
 
