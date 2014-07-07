@@ -34,6 +34,10 @@
                 <source>breadcrumb.link_user_edit</source>
                 <target>Bearbeiten</target>
             </trans-unit>
+            <trans-unit id="breadcrumb.link_user_delete">
+                <source>breadcrumb.link_user_delete</source>
+                <target>Benutzer löschen</target>
+            </trans-unit>
             <trans-unit id="breadcrumb.link_group_list">
                 <source>breadcrumb.link_group_list</source>
                 <target>Gruppen</target>
@@ -45,6 +49,10 @@
             <trans-unit id="breadcrumb.link_group_edit">
                 <source>breadcrumb.link_group_edit</source>
                 <target>Bearbeiten</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_group_delete">
+                <source>breadcrumb.link_group_delete</source>
+                <target>Gruppe löschen</target>
             </trans-unit>
             <trans-unit id="breadcrumb.link_user_show">
                 <source>breadcrumb.link_user_show</source>
