@@ -11,7 +11,7 @@
 
 namespace Sonata\UserBundle\Tests\Entity;
 
-use Sonata\UserBundle\Entity\UserManagerProxy;
+use Sonata\UserBundle\Model\UserManagerProxy;
 
 class UserManagerProxyTest extends \PHPUnit_Framework_TestCase
 {

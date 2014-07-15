@@ -17,7 +17,6 @@ use Sonata\CoreBundle\Model\PageableManagerInterface;
 /**
  * Class UserManagerInterface.
  *
- *
  * @author Hugo Briand <briand@ekino.com>
  */
 interface UserManagerInterface extends BaseInterface, PageableManagerInterface
@@ -33,4 +32,49 @@ interface UserManagerInterface extends BaseInterface, PageableManagerInterface
      * @return UserInterface[]
      */
     public function findUsersBy(array $criteria = null, array $orderBy = null, $limit = null, $offset = null);
+
+    /**
+     * {@inheritdoc}
+     */
+    public function find($id);
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findAll();
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null);
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findOneBy(array $criteria, array $orderBy = null);
+
+    /**
+     * {@inheritdoc}
+     */
+    public function create();
+
+    /**
+     * {@inheritdoc}
+     */
+    public function save($entity, $andFlush = true);
+
+    /**
+     * {@inheritdoc}
+     */
+    public function delete($entity, $andFlush = true);
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getTableName();
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getConnection();
 }

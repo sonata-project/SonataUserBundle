@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Sonata\UserBundle\Entity;
+namespace Sonata\UserBundle\Model;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Sonata\CoreBundle\Model\BaseEntityManager;
@@ -23,18 +23,18 @@ use Sonata\CoreBundle\Model\BaseEntityManager;
 class UserManagerProxy extends BaseEntityManager
 {
     /**
-     * @var UserManager
+     * @var UserManagerInterface
      */
     protected $userManager;
 
     /**
      * UserManagerProxy constructor.
      *
-     * @param string          $class
-     * @param ManagerRegistry $registry
-     * @param UserManager     $userManager
+     * @param string               $class
+     * @param ManagerRegistry      $registry
+     * @param UserManagerInterface $userManager
      */
-    public function __construct($class, ManagerRegistry $registry, UserManager $userManager)
+    public function __construct($class, ManagerRegistry $registry, UserManagerInterface $userManager)
     {
         parent::__construct($class, $registry);
 
