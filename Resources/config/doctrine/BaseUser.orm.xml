@@ -9,7 +9,7 @@
         <field name="updatedAt"    type="datetime"   column="updated_at" />
 
         <!-- Profile fields -->
-        <field name="dateOfBirth"  type="datetime"   column="date_of_birth"            nullable="true" />
+        <field name="dateOfBirth"  type="date"   column="date_of_birth"            nullable="true" />
         <field name="firstname"    type="string"     column="firstname" length="64"    nullable="true" />
         <field name="lastname"     type="string"     column="lastname"  length="64"    nullable="true" />
         <field name="website"      type="string"     column="website"   length="64"    nullable="true" />
