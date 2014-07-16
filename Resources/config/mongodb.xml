@@ -14,7 +14,7 @@
         </service>
 
         <service id="sonata.user.manager.user" class="Sonata\UserBundle\Model\UserManagerProxy">
-            <argument>Sonata\UserBundle\Entity\User</argument>
+            <argument>Sonata\UserBundle\Document\User</argument>
             <argument type="service" id="doctrine_mongodb" />
             <argument type="service" id="sonata.user.mongodb.user_manager" />
         </service>
