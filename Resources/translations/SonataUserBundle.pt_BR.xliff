@@ -530,6 +530,10 @@
                 <source>form.password_confirmation</source>
                 <target>form.password_erification</target>
             </trans-unit>
+            <trans-unit id="profile_title">
+                <source>Profile</source>
+                <target>Perfil</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
