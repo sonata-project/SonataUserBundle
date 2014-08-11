@@ -492,7 +492,7 @@
             </trans-unit>
             <trans-unit id="forgotten_password">
                 <source>forgotten_password</source>
-                <target>Esquecer a senha?</target>
+                <target>Esqueceu sua senha?</target>
             </trans-unit>
             <trans-unit id="sonata_user_profile_breadcrumb_index">
                 <source>sonata_user_profile_breadcrumb_index</source>
@@ -508,11 +508,11 @@
             </trans-unit>
             <trans-unit id="security.login.username">
                 <source>security.login.username</source>
-                <target>security.login.username</target>
+                <target>usuário</target>
             </trans-unit>
             <trans-unit id="security.login.password">
                 <source>security.login.password</source>
-                <target>security.login.password</target>
+                <target>senha</target>
             </trans-unit>
             <trans-unit id="form.username">
                 <source>form.username</source>
