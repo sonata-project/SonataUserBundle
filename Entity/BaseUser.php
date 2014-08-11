@@ -17,7 +17,7 @@ use Sonata\UserBundle\Model\UserInterface;
 /**
  * Represents a Base User Entity
  */
-class BaseUser extends AbstractedUser
+class BaseUser extends AbstractedUser implements UserInterface
 {
     /**
      * @var \DateTime
