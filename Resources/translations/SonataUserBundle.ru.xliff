@@ -60,11 +60,11 @@
             </trans-unit>
             <trans-unit id="switch_user_exit">
                 <source>switch_user_exit</source>
-                <target>Exit impersonating mode</target>
+                <target>Выйти из режима воплощения</target>
             </trans-unit>
             <trans-unit id="switch_user">
                 <source>switch_user</source>
-                <target>Impersonate User</target>
+                <target>Воплотиться в пользователя</target>
             </trans-unit>
             <trans-unit id="user_block_logout">
                 <source>user_block_logout</source>
@@ -176,7 +176,7 @@
             </trans-unit>
             <trans-unit id="list.label_impersonating">
                 <source>list.label_impersonating</source>
-                <target>Impersonate User</target>
+                <target>Воплотиться в пользователя</target>
             </trans-unit>
             <trans-unit id="list.label_roles">
                 <source>list.label_roles</source>
@@ -192,15 +192,15 @@
             </trans-unit>
             <trans-unit id="label_two_step_code">
                 <source>label_two_step_code</source>
-                <target>Ключ двухэтапной аутентификации</target>
+                <target>Код двухэтапной аутентификации</target>
             </trans-unit>
             <trans-unit id="message_two_step_code_help">
                 <source>message_two_step_code_help</source>
-                <target>message_two_step_code_help</target>
+                <target>Введите проверочний код, сгенерированный вашим мобильным приложением</target>
             </trans-unit>
             <trans-unit id="label_two_step_code_error">
                 <source>label_two_step_code_error</source>
-                <target>label_two_step_code_error</target>
+                <target>Неправильный код</target>
             </trans-unit>
             <trans-unit id="sonata_user">
                 <source>sonata_user</source>
@@ -284,7 +284,7 @@
             </trans-unit>
             <trans-unit id="form.label_two_step_verification_code">
                 <source>form.label_two_step_verification_code</source>
-                <target>Ключ двухэтапной аутентификации</target>
+                <target>Код двухэтапной аутентификации</target>
             </trans-unit>
             <trans-unit id="show.label_username">
                 <source>show.label_username</source>
@@ -364,7 +364,7 @@
             </trans-unit>
             <trans-unit id="show.label_two_step_verification_code">
                 <source>show.label_two_step_verification_code</source>
-                <target>Ключ двухэтапной аутентификации</target>
+                <target>Код двухэтапной аутентификации</target>
             </trans-unit>
             <trans-unit id="form.label_date_of_birth">
                 <source>form.label_date_of_birth</source>
@@ -400,11 +400,11 @@
             </trans-unit>
             <trans-unit id="title_user_edit_authentication">
                 <source>title_user_edit_authentication</source>
-                <target>title_user_edit_authentication</target>
+                <target>Аутентификация</target>
             </trans-unit>
             <trans-unit id="link_edit_authentication">
                 <source>link_edit_authentication</source>
-                <target>link_edit_authentication</target>
+                <target>Аутентификация</target>
             </trans-unit>
             <trans-unit id="label_profile_gender">
                 <source>label_profile_gender</source>
