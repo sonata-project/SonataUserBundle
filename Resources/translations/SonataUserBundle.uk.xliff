@@ -192,7 +192,7 @@
             </trans-unit>
             <trans-unit id="label_two_step_code">
                 <source>label_two_step_code</source>
-                <target>Двоетапноа аутентифікації</target>
+                <target>Двоетапна аутентифікація</target>
             </trans-unit>
             <trans-unit id="message_two_step_code_help">
                 <source>message_two_step_code_help</source>
