@@ -92,7 +92,7 @@
             </trans-unit>
             <trans-unit id="form.label_locked">
                 <source>form.label_locked</source>
-                <target>Заблокирован</target>
+                <target>Заблокований</target>
             </trans-unit>
             <trans-unit id="form.label_expired">
                 <source>form.label_expired</source>
@@ -100,7 +100,7 @@
             </trans-unit>
             <trans-unit id="form.label_enabled">
                 <source>form.label_enabled</source>
-                <target>Включений</target>
+                <target>Увімкнений</target>
             </trans-unit>
             <trans-unit id="form.label_credentials_expired">
                 <source>form.label_credentials_expired</source>
@@ -176,7 +176,7 @@
             </trans-unit>
             <trans-unit id="list.label_impersonating">
                 <source>list.label_impersonating</source>
-                <target>Impersonate User</target>
+                <target>Втілитись у користувача</target>
             </trans-unit>
             <trans-unit id="list.label_roles">
                 <source>list.label_roles</source>
@@ -192,15 +192,15 @@
             </trans-unit>
             <trans-unit id="label_two_step_code">
                 <source>label_two_step_code</source>
-                <target>Ключ двоетапної аутентифікації</target>
+                <target>Двоетапна аутентифікація</target>
             </trans-unit>
             <trans-unit id="message_two_step_code_help">
                 <source>message_two_step_code_help</source>
-                <target>message_two_step_code_help</target>
+                <target>Введіть код підтвердження, який був згенерований вашим мобільним додатком</target>
             </trans-unit>
             <trans-unit id="label_two_step_code_error">
                 <source>label_two_step_code_error</source>
-                <target>label_two_step_code_error</target>
+                <target>Невірний код підтвердження</target>
             </trans-unit>
             <trans-unit id="sonata_user">
                 <source>sonata_user</source>
@@ -284,7 +284,7 @@
             </trans-unit>
             <trans-unit id="form.label_two_step_verification_code">
                 <source>form.label_two_step_verification_code</source>
-                <target>Ключ двоетапної аутентифікації</target>
+                <target>Код двоетапної аутентифікації</target>
             </trans-unit>
             <trans-unit id="show.label_username">
                 <source>show.label_username</source>
@@ -364,7 +364,7 @@
             </trans-unit>
             <trans-unit id="show.label_two_step_verification_code">
                 <source>show.label_two_step_verification_code</source>
-                <target>Ключ двоетапної аутентифікації</target>
+                <target>Код двоетапної аутентифікації</target>
             </trans-unit>
             <trans-unit id="form.label_date_of_birth">
                 <source>form.label_date_of_birth</source>
@@ -400,11 +400,11 @@
             </trans-unit>
             <trans-unit id="title_user_edit_authentication">
                 <source>title_user_edit_authentication</source>
-                <target>title_user_edit_authentication</target>
+                <target>Аутентифікація</target>
             </trans-unit>
             <trans-unit id="link_edit_authentication">
                 <source>link_edit_authentication</source>
-                <target>link_edit_authentication</target>
+                <target>Аутентифікація</target>
             </trans-unit>
             <trans-unit id="label_profile_gender">
                 <source>label_profile_gender</source>
@@ -444,7 +444,7 @@
             </trans-unit>
             <trans-unit id="profile.flash.updated">
                 <source>profile.flash.updated</source>
-                <target>Профіль успішно обновлено</target>
+                <target>Профіль успішно оновлено</target>
             </trans-unit>
             <trans-unit id="sonata_change_password_link">
                 <source>sonata_change_password_link</source>
@@ -456,7 +456,7 @@
             </trans-unit>
             <trans-unit id="link_login">
                 <source>link_login</source>
-                <target>Вход</target>
+                <target>Вхід</target>
             </trans-unit>
             <trans-unit id="link_logout">
                 <source>link_logout</source>
@@ -464,7 +464,7 @@
             </trans-unit>
             <trans-unit id="registration.flash.user_created">
                 <source>registration.flash.user_created</source>
-                <target>Користувач успішно створено</target>
+                <target>Користувача успішно створено</target>
             </trans-unit>
             <trans-unit id="forgotten_password">
                 <source>forgotten_password</source>
@@ -476,11 +476,11 @@
             </trans-unit>
             <trans-unit id="sonata_user_profile_breadcrumb_edit">
                 <source>sonata_user_profile_breadcrumb_edit</source>
-                <target>sonata_user_profile_breadcrumb_edit</target>
+                <target>Редагувати профіль</target>
             </trans-unit>
             <trans-unit id="sonata_user_already_authenticated">
                 <source>sonata_user_already_authenticated</source>
-                <target>Ви вже ввійшли</target>
+                <target>Ви вже увійшли</target>
             </trans-unit>
             <trans-unit id="security.login.username">
                 <source>security.login.username</source>
