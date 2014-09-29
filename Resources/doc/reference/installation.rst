@@ -250,7 +250,7 @@ The last part is to define 3 new access control rules:
 
 .. code-block:: yaml
 
-    # app/config/config.yml
+    # app/config/security.yml
 
     security:
         access_control:
