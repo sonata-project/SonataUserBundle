@@ -23,7 +23,7 @@ Installation
 
 Add the following line to the ``composer.json`` file::
 
-    "sonata-project/google-authenticator": "dev-master"
+    "sonata-project/google-authenticator": "~1.0"
 
 Edit the configuration file:
 
