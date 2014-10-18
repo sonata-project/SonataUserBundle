@@ -30,4 +30,11 @@ class UserManager extends BaseUserManager implements UserManagerInterface
     {
         return $this->repository->findBy($criteria, $orderBy, $limit, $offset);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPager(array $criteria, $page, $limit = 10, array $sort = array()){
+        throw new \RuntimeException("Not Implemented yet");
+    }
 }
