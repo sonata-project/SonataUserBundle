@@ -428,31 +428,31 @@
             </trans-unit>
             <trans-unit id="sonata_user_already_authenticated">
                 <source>sonata_user_already_authenticated</source>
-                <target>You are already logged in</target>
+                <target>Už ste prihlásený</target>
             </trans-unit>
             <trans-unit id="security.login.username">
                 <source>security.login.username</source>
-                <target>security.login.username</target>
+                <target>Používateľské meno</target>
             </trans-unit>
             <trans-unit id="security.login.password">
                 <source>security.login.password</source>
-                <target>security.login.password</target>
+                <target>Heslo</target>
             </trans-unit>
             <trans-unit id="form.username">
                 <source>form.username</source>
-                <target>form.username</target>
+                <target>Používateľské meno</target>
             </trans-unit>
             <trans-unit id="form.email">
                 <source>form.email</source>
-                <target>form.email</target>
+                <target>E-mail</target>
             </trans-unit>
             <trans-unit id="form.password">
                 <source>form.password</source>
-                <target>form.password</target>
+                <target>Heslo</target>
             </trans-unit>
             <trans-unit id="form.password_confirmation">
                 <source>form.password_confirmation</source>
-                <target>form.password_erification</target>
+                <target>Heslo znovu</target>
             </trans-unit>
         </body>
     </file>
