@@ -11,7 +11,7 @@ Integrates the ``FOS/UserBundle`` in the Sonata Admin Project and adds some feat
  - ``EasyExtends``: allows to generate Application level model
  - ``Features``: User profile dashboard, user profile menu, Google Authenticator support, ...
 
-The roles to be assigned to users are splitted in 2 parts:
+The roles to be assigned to users are split into 2 parts:
 
  - **editable:** the roles the current user is allowed to assign to other users
     (permission or role ``MASTER``)
