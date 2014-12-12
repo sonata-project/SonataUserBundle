@@ -307,3 +307,44 @@ Now, add the new ``Application`` Bundle into the kernel:
             )
         }
     }
+
+Preparing the user login form
+-----------------------------
+
+Make sure that in security.yml you specify the right encoder for storing passwords.
+
+.. code-block:: yaml
+
+    # app/config/security.yml
+
+    encoders:
+            FOS\UserBundle\Model\UserInterface: sha512
+           
+
+If you want to make use of the FOS login form, you should enable the ORM mapping
+
+.. code-block:: yaml
+
+    # app/config/config.yml
+
+    doctrine:
+        orm:
+            entity_managers:
+                default:
+                    mappings:
+                        ..
+                        FOSUserBundle: ~
+                        
+
+Finalize
+--------
+With the following commands, finalize the installation
+
+.. code-block:: shell
+
+    php app/console doctrine:schema:update --force;
+    php app/console assets:install web;
+    php app/console cache:clear;
+    php app/console fos:user:create admin admin@example.com password --super-admin;
+
+You should now be able to go to /admin and login with the credentials "admin" / "password".
