@@ -53,9 +53,12 @@ class SonataUserExtension extends Extension
         $loader->load('block.xml');
         $loader->load('menu.xml');
         $loader->load('form.xml');
-        $loader->load('google_authenticator.xml');
         $loader->load('twig.xml');
         $loader->load('serializer.xml');
+
+        if ($config['google_authenticator']['enabled']) {
+            $loader->load('google_authenticator.xml');
+        }
 
         if ('orm' === $config['manager_type'] && isset($bundles['FOSRestBundle']) && isset($bundles['NelmioApiDocBundle'])) {
             $loader->load('api_form.xml');
@@ -114,7 +117,7 @@ class SonataUserExtension extends Extension
      * @return array
      * @throws \RuntimeException
      */
-    public function fixImpersonating(array $config)
+   public function fixImpersonating(array $config)
     {
         if (isset($config['impersonating']) && isset($config['impersonating_route'])) {
             throw new \RuntimeException('you can\'t have `impersonating` and `impersonating_route` keys defined at the same time');
@@ -150,11 +153,6 @@ class SonataUserExtension extends Extension
         $container->setParameter('sonata.user.google.authenticator.enabled', $config['google_authenticator']['enabled']);
 
         if (!$config['google_authenticator']['enabled']) {
-            $container->removeDefinition('sonata.user.google.authenticator');
-            $container->removeDefinition('sonata.user.google.authenticator.provider');
-            $container->removeDefinition('sonata.user.google.authenticator.interactive_login_listener');
-            $container->removeDefinition('sonata.user.google.authenticator.request_listener');
-
             return;
         }
 
