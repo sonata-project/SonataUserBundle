@@ -28,7 +28,7 @@ class GroupControllerTest extends \PHPUnit_Framework_TestCase
     {
         $group        = $this->getMock('FOS\UserBundle\Model\GroupInterface');
         $groupManager = $this->getMock('Sonata\UserBundle\Model\GroupManagerInterface');
-        $groupManager->expects($this->once())->method('findGroupsBy')->will($this->returnValue(array($group)));
+        $groupManager->expects($this->once())->method('getPager')->will($this->returnValue(array($group)));
 
         $paramFetcher = $this->getMock('FOS\RestBundle\Request\ParamFetcherInterface');
         $paramFetcher->expects($this->exactly(3))->method('get');

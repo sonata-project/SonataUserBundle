@@ -74,7 +74,7 @@ class GroupController
      *
      * @param ParamFetcherInterface $paramFetcher
      *
-     * @return GroupInterface[]
+     * @return \Sonata\DatagridBundle\Pager\PagerInterface[]
      */
     public function getGroupsAction(ParamFetcherInterface $paramFetcher)
     {
@@ -82,18 +82,24 @@ class GroupController
             'enabled' => "",
         );
 
-        $page    = $paramFetcher->get('page') - 1;
-        $count   = $paramFetcher->get('count');
-        $orderBy = $paramFetcher->get('orderBy');
-        $filters = array_intersect_key($paramFetcher->all(), $supportedFilters);
+        $page     = $paramFetcher->get('page') - 1;
+        $limit    = $paramFetcher->get('count');
+        $sort     = $paramFetcher->get('orderBy');
+        $criteria = array_intersect_key($paramFetcher->all(), $supportedFilters);
 
-        foreach ($filters as $key => $value) {
+        foreach ($criteria as $key => $value) {
             if (null === $value) {
-                unset($filters[$key]);
+                unset($criteria[$key]);
             }
         }
 
-        return $this->groupManager->findGroupsBy($filters, $orderBy, $count, $page);
+        if (!$sort) {
+            $sort = array();
+        } elseif (!is_array($sort)) {
+            $sort = array($sort, 'asc');
+        }
+
+        return $this->groupManager->getPager($criteria, $page, $limit, $sort);
     }
 
     /**
