@@ -46,7 +46,7 @@ class GroupManager extends BaseGroupManager implements GroupManagerInterface
         $fields = $this->objectManager->getClassMetadata($this->class)->getFieldNames();
         foreach ($sort as $field => $direction) {
             if (!in_array($field, $fields)) {
-                unset($sort[$field]);
+                throw new \RuntimeException(sprintf("Invalid sort field '%s' in '%s' class", $field, $this->class));
             }
         }
 

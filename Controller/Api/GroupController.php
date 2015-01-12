@@ -62,7 +62,7 @@ class GroupController
      *
      * @ApiDoc(
      *  resource=true,
-     *  output={"class"="FOS\UserBundle\Model\GroupInterface", "groups"="sonata_api_read"}
+     *  output={"class"="Sonata\DatagridBundle\Pager\PagerInterface", "groups"="sonata_api_read"}
      * )
      *
      * @QueryParam(name="page", requirements="\d+", default="1", description="Page for groups list pagination (1-indexed)")
@@ -74,7 +74,7 @@ class GroupController
      *
      * @param ParamFetcherInterface $paramFetcher
      *
-     * @return \Sonata\DatagridBundle\Pager\PagerInterface[]
+     * @return PagerInterface[]
      */
     public function getGroupsAction(ParamFetcherInterface $paramFetcher)
     {

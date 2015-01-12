@@ -39,6 +39,7 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
             'username',
             'email',
         )));
+        $metadata->expects($this->any())->method('getName')->will($this->returnValue('className'));
 
         $em = $this->getMockBuilder('Doctrine\ORM\EntityManager')->disableOriginalConstructor()->getMock();
         $em->expects($this->any())->method('getRepository')->will($this->returnValue($repository));
@@ -65,17 +66,18 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
             ->getPager(array(), 1);
     }
 
+    /**
+     * @expectedException        RuntimeException
+     * @expectedExceptionMessage Invalid sort field 'invalid' in 'className' class
+     */
     public function testGetPagerWithInvalidSort()
     {
         $self = $this;
         $this
             ->getUserManager(function ($qb) use ($self) {
                 $qb->expects($self->never())->method('andWhere');
-                $qb->expects($self->once())->method('orderBy')->with(
-                    $self->equalTo('u.username'),
-                    $self->equalTo('ASC')
-                );
-                $qb->expects($self->once())->method('setParameters')->with($self->equalTo(array()));
+                $qb->expects($self->never())->method('orderBy');
+                $qb->expects($self->never())->method('setParameters');
             })
             ->getPager(array(), 1, 10, array('invalid' => 'ASC'));
     }

@@ -68,7 +68,7 @@ class UserController
      *
      * @ApiDoc(
      *  resource=true,
-     *  output={"class"="Sonata\UserBundle\Model\UserInterface", "groups"="sonata_api_read"}
+     *  output={"class"="Sonata\DatagridBundle\Pager\PagerInterface", "groups"="sonata_api_read"}
      * )
      *
      * @QueryParam(name="page", requirements="\d+", default="1", description="Page for users list pagination (1-indexed)")
@@ -81,7 +81,7 @@ class UserController
      *
      * @param ParamFetcherInterface $paramFetcher
      *
-     * @return UserInterface[]
+     * @return PagerInterface[]
      */
     public function getUsersAction(ParamFetcherInterface $paramFetcher)
     {
