@@ -34,6 +34,7 @@
         "nelmio/api-doc-bundle": "~2.4"
     },
     "require-dev": {
+        "doctrine/orm": "*",
         "sonata-project/seo-bundle": "~1.1"
     },
     "suggest": {

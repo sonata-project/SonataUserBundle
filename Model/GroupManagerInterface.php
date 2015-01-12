@@ -14,6 +14,8 @@ namespace Sonata\UserBundle\Model;
 use FOS\UserBundle\Model\GroupManagerInterface as BaseInterface;
 use FOS\UserBundle\Model\GroupInterface;
 
+use Sonata\CoreBundle\Model\PageableManagerInterface;
+
 /**
  * Class GroupManagerInterface
  *
@@ -21,7 +23,7 @@ use FOS\UserBundle\Model\GroupInterface;
  *
  * @author Hugo Briand <briand@ekino.com>
  */
-interface GroupManagerInterface extends BaseInterface
+interface GroupManagerInterface extends BaseInterface, PageableManagerInterface
 {
     /**
      * Alias for the repository method
