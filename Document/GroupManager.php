@@ -41,6 +41,6 @@ class GroupManager extends BaseGroupManager implements GroupManagerInterface
      */
     public function getPager(array $criteria, $page, $limit = 10, array $sort = array())
     {
-        // TODO: Implement getPager() method.
+        new \RuntimeException('method not implemented');
     }
 }
