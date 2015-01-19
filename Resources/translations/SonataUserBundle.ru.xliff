@@ -130,6 +130,10 @@
                 <source>filter.label_email</source>
                 <target>E-Mail</target>
             </trans-unit>
+            <trans-unit id="filter.label_groups">
+                <source>filter.label_groups</source>
+                <target>Группы</target>
+            </trans-unit>
             <trans-unit id="filter.label_locked">
                 <source>filter.label_locked</source>
                 <target>Заблокирован</target>
@@ -196,7 +200,7 @@
             </trans-unit>
             <trans-unit id="message_two_step_code_help">
                 <source>message_two_step_code_help</source>
-                <target>Введите проверочний код, сгенерированный вашим мобильным приложением</target>
+                <target>Введите проверочный код, сгенерированный вашим мобильным приложением</target>
             </trans-unit>
             <trans-unit id="label_two_step_code_error">
                 <source>label_two_step_code_error</source>
