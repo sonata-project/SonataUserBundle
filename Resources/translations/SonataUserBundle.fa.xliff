@@ -4,23 +4,23 @@
         <body>
             <trans-unit id="title_user_registration">
                 <source>title_user_registration</source>
-                <target>title_user_registration</target>
+                <target>ثبت نام کاربر</target>
             </trans-unit>
             <trans-unit id="title_user_account">
                 <source>title_user_account</source>
-                <target>User Profile</target>
+                <target>پروفابل کاربر</target>
             </trans-unit>
             <trans-unit id="title_user_edit_profile">
                 <source>title_user_edit_profile</source>
-                <target>Edit</target>
+                <target>ویرایش</target>
             </trans-unit>
             <trans-unit id="title_user_authentication">
                 <source>title_user_authentication</source>
-                <target>Authentication</target>
+                <target>احراز هویت</target>
             </trans-unit>
             <trans-unit id="sonata_user_submit">
                 <source>sonata_user_submit</source>
-                <target>Submit</target>
+                <target>ثبت</target>
             </trans-unit>
             <trans-unit id="breadcrumb.link_user_list">
                 <source>breadcrumb.link_user_list</source>
@@ -208,7 +208,7 @@
             </trans-unit>
             <trans-unit id="form_groups">
                 <source>Groups</source>
-                <target>Groups</target>
+                <target>گروه ها</target>
             </trans-unit>
             <trans-unit id="form_management">
                 <source>Management</source>
@@ -372,51 +372,51 @@
             </trans-unit>
             <trans-unit id="gender_unknown">
                 <source>gender_unknown</source>
-                <target>gender_unknown</target>
+                <target>جنسیت نا معلوم</target>
             </trans-unit>
             <trans-unit id="gender_female">
                 <source>gender_female</source>
-                <target>gender_female</target>
+                <target>زن</target>
             </trans-unit>
             <trans-unit id="gender_male">
                 <source>gender_male</source>
-                <target>gender_male</target>
+                <target>مرد</target>
             </trans-unit>
             <trans-unit id="sonata_profile_title">
                 <source>sonata_profile_title</source>
-                <target>sonata_profile_title</target>
+                <target>عنوان پروفایل</target>
             </trans-unit>
             <trans-unit id="link_show_profile">
                 <source>link_show_profile</source>
-                <target>link_show_profile</target>
+                <target>نمایش پروفایل</target>
             </trans-unit>
             <trans-unit id="link_edit_profile">
                 <source>link_edit_profile</source>
-                <target>link_edit_profile</target>
+                <target>ویرایش پروفایل</target>
             </trans-unit>
             <trans-unit id="title_user_edit_authentication">
                 <source>title_user_edit_authentication</source>
-                <target>title_user_edit_authentication</target>
+                <target>ویرایش احراز هویت کاربر</target>
             </trans-unit>
             <trans-unit id="link_edit_authentication">
                 <source>link_edit_authentication</source>
-                <target>link_edit_authentication</target>
+                <target>ویرایش احراز هویت</target>
             </trans-unit>
             <trans-unit id="label_profile_gender">
                 <source>label_profile_gender</source>
-                <target>label_profile_gender</target>
+                <target>جنسیت</target>
             </trans-unit>
             <trans-unit id="label_profile_firstname">
                 <source>label_profile_firstname</source>
-                <target>label_profile_firstname</target>
+                <target>نام</target>
             </trans-unit>
             <trans-unit id="label_profile_lastname">
                 <source>label_profile_lastname</source>
-                <target>label_profile_lastname</target>
+                <target>نام خانوادگی</target>
             </trans-unit>
             <trans-unit id="label_profile_website">
                 <source>label_profile_website</source>
-                <target>label_profile_website</target>
+                <target>سایت</target>
             </trans-unit>
             <trans-unit id="label_profile_dob">
                 <source>label_profile_dob</source>
@@ -424,83 +424,83 @@
             </trans-unit>
             <trans-unit id="label_profile_biography">
                 <source>label_profile_biography</source>
-                <target>label_profile_biography</target>
+                <target>بایوگرافی</target>
             </trans-unit>
             <trans-unit id="label_profile_locale">
                 <source>label_profile_locale</source>
-                <target>label_profile_locale</target>
+                <target>محلی</target>
             </trans-unit>
             <trans-unit id="label_profile_timezone">
                 <source>label_profile_timezone</source>
-                <target>label_profile_timezone</target>
+                <target>منطقه زمانی</target>
             </trans-unit>
             <trans-unit id="label_profile_phone">
                 <source>label_profile_phone</source>
-                <target>label_profile_phone</target>
+                <target>تلفن</target>
             </trans-unit>
             <trans-unit id="profile.flash.updated">
                 <source>profile.flash.updated</source>
-                <target>profile.flash.updated</target>
+                <target>بروز رسانی</target>
             </trans-unit>
             <trans-unit id="sonata_change_password_link">
                 <source>sonata_change_password_link</source>
-                <target>sonata_change_password_link</target>
+                <target>تغییر کلمهعبور</target>
             </trans-unit>
             <trans-unit id="link_register">
                 <source>link_register</source>
-                <target>link_register</target>
+                <target>ثبت نام</target>
             </trans-unit>
             <trans-unit id="link_login">
                 <source>link_login</source>
-                <target>link_login</target>
+                <target>ورود</target>
             </trans-unit>
             <trans-unit id="link_logout">
                 <source>link_logout</source>
-                <target>link_logout</target>
+                <target>خروج</target>
             </trans-unit>
             <trans-unit id="registration.flash.user_created">
                 <source>registration.flash.user_created</source>
-                <target>registration.flash.user_created</target>
+                <target>کاربرایجاد شد</target>
             </trans-unit>
             <trans-unit id="forgotten_password">
                 <source>forgotten_password</source>
-                <target>forgotten_password</target>
+                <target>فراموشی کلمه عبور</target>
             </trans-unit>
             <trans-unit id="sonata_user_profile_breadcrumb_index">
                 <source>sonata_user_profile_breadcrumb_index</source>
-                <target>sonata_user_profile_breadcrumb_index</target>
+                <target>ایندکس</target>
             </trans-unit>
             <trans-unit id="sonata_user_profile_breadcrumb_edit">
                 <source>sonata_user_profile_breadcrumb_edit</source>
-                <target>sonata_user_profile_breadcrumb_edit</target>
+                <target>ویرایش</target>
             </trans-unit>
             <trans-unit id="sonata_user_already_authenticated">
                 <source>sonata_user_already_authenticated</source>
-                <target>You are already logged in</target>
+                <target>شما در سایت وارد شده اید</target>
             </trans-unit>
             <trans-unit id="security.login.username">
                 <source>security.login.username</source>
-                <target>security.login.username</target>
+                <target>نام کاربری</target>
             </trans-unit>
             <trans-unit id="security.login.password">
                 <source>security.login.password</source>
-                <target>security.login.password</target>
+                <target>کلمه عبور</target>
             </trans-unit>
             <trans-unit id="form.username">
                 <source>form.username</source>
-                <target>form.username</target>
+                <target>نام کاربری</target>
             </trans-unit>
             <trans-unit id="form.email">
                 <source>form.email</source>
-                <target>form.email</target>
+                <target>ایمیل</target>
             </trans-unit>
             <trans-unit id="form.password">
                 <source>form.password</source>
-                <target>form.password</target>
+                <target>کلمه عبور</target>
             </trans-unit>
             <trans-unit id="form.password_confirmation">
                 <source>form.password_confirmation</source>
-                <target>form.password_erification</target>
+                <target>تایید کلمه عبور</target>
             </trans-unit>
         </body>
     </file>
