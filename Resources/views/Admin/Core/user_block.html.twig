@@ -2,7 +2,7 @@
     {% if app.user %}
 
         {% set _bg_class    = "bg-light-blue" %}
-        {% set _logout_uri  = url('sonata_user_admin_security_logout') %}
+        {% set _logout_uri  = path('sonata_user_admin_security_logout') %}
         {% set _logout_text = 'user_block_logout'|trans({}, 'SonataUserBundle') %}
         {% set _user_image  = asset(sonata_user.defaultAvatar) %}
         {# Customize this with your profile picture implementation, see below for example #}
