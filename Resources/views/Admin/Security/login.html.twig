@@ -34,9 +34,11 @@
                         <input type="password" class="form-control" id="password" name="_password" required="required" placeholder="{{ 'security.login.password'|trans({}, 'SonataUserBundle') }}"/>
                     </div>
 
-                    <div class="form-group">
-                        <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
-                        {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
+                            {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
+                        </label>
                     </div>
 
                 </div>
