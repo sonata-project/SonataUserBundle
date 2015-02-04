@@ -70,6 +70,10 @@
                 <source>user_block_logout</source>
                 <target>Atsijungti</target>
             </trans-unit>
+            <trans-unit id="user_block_profile">
+                <source>user_block_profile</source>
+                <target>user_block_profile</target>
+            </trans-unit>
             <trans-unit id="user_form.label_username">
                 <source>form.label_username</source>
                 <target>Naudotojo vardas</target>
