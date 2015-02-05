@@ -4,7 +4,7 @@
         {% set _bg_class          = "bg-light-blue" %}
         {% set _logout_uri        = url('sonata_user_admin_security_logout') %}
         {% set _logout_text       = 'user_block_logout'|trans({}, 'SonataUserBundle') %}
-        {% set _edit_profile_uri  = admin.generateUrl('edit', {id: admin.id(app.user)}) %}
+        {% set _edit_profile_uri  = url('admin_sonata_user_user_edit', {'id':app.user.id}) %}
         {% set _edit_profile_text = 'user_block_profile'|trans({}, 'SonataUserBundle') %}
         {% set _user_image        = asset(sonata_user.defaultAvatar) %}
         {# Customize this with your profile picture implementation, see below for example #}
