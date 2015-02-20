@@ -12,13 +12,13 @@ namespace Sonata\UserBundle\Tests\Entity;
 
 use FOS\UserBundle\Util\CanonicalizerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Sonata\UserBundle\Entity\UserManager;
+use Sonata\UserBundle\Entity\GroupManager;
 
 /**
- * Class UserManagerTest
+ * Class GroupManagerTest
  *
  */
-class UserManagerTest extends \PHPUnit_Framework_TestCase
+class GroupManagerTest extends \PHPUnit_Framework_TestCase
 {
     protected function getUserManager($qbCallback)
     {
@@ -36,8 +36,8 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
 
         $metadata = $this->getMock('Doctrine\Common\Persistence\Mapping\ClassMetadata');
         $metadata->expects($this->any())->method('getFieldNames')->will($this->returnValue(array(
-            'username',
-            'email',
+            'name',
+            'roles',
         )));
         $metadata->expects($this->any())->method('getName')->will($this->returnValue('className'));
 
@@ -45,10 +45,7 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
         $em->expects($this->any())->method('getRepository')->will($this->returnValue($repository));
         $em->expects($this->any())->method('getClassMetadata')->will($this->returnValue($metadata));
 
-        $encoder       = $this->getMock('Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface');
-        $canonicalizer = $this->getMock('FOS\UserBundle\Util\CanonicalizerInterface');
-
-        return new UserManager($encoder, $canonicalizer, $canonicalizer, $em, 'Sonata\UserBundle\Entity\BaseUser');
+        return new GroupManager($em, 'Sonata\UserBundle\Entity\BaseGroup');
     }
 
     public function testGetPager()
@@ -58,7 +55,7 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
             ->getUserManager(function ($qb) use ($self) {
                 $qb->expects($self->never())->method('andWhere');
                 $qb->expects($self->once())->method('orderBy')->with(
-                    $self->equalTo('u.username'),
+                    $self->equalTo('g.name'),
                     $self->equalTo('ASC')
                 );
                 $qb->expects($self->once())->method('setParameters')->with($self->equalTo(array()));
@@ -87,9 +84,9 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
         $self = $this;
         $this
             ->getUserManager(function ($qb) use ($self) {
-                $qb->expects($self->once())->method('andWhere')->with($self->equalTo('u.enabled = :enabled'));
+                $qb->expects($self->once())->method('andWhere')->with($self->equalTo('g.enabled = :enabled'));
                 $qb->expects($self->once())->method('orderBy')->with(
-                    $self->equalTo('u.username'),
+                    $self->equalTo('g.name'),
                     $self->equalTo('ASC')
                 );
                 $qb->expects($self->once())->method('setParameters')->with($self->equalTo(array('enabled' => true)));
@@ -102,43 +99,13 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
         $self = $this;
         $this
             ->getUserManager(function ($qb) use ($self) {
-                $qb->expects($self->once())->method('andWhere')->with($self->equalTo('u.enabled = :enabled'));
+                $qb->expects($self->once())->method('andWhere')->with($self->equalTo('g.enabled = :enabled'));
                 $qb->expects($self->once())->method('orderBy')->with(
-                    $self->equalTo('u.username'),
+                    $self->equalTo('g.name'),
                     $self->equalTo('ASC')
                 );
                 $qb->expects($self->once())->method('setParameters')->with($self->equalTo(array('enabled' => false)));
             })
             ->getPager(array('enabled' => false), 1);
-    }
-
-    public function testGetPagerWithLockedUsers()
-    {
-        $self = $this;
-        $this
-            ->getUserManager(function ($qb) use ($self) {
-                $qb->expects($self->once())->method('andWhere')->with($self->equalTo('u.locked = :locked'));
-                $qb->expects($self->once())->method('orderBy')->with(
-                    $self->equalTo('u.username'),
-                    $self->equalTo('ASC')
-                );
-                $qb->expects($self->once())->method('setParameters')->with($self->equalTo(array('locked' => true)));
-            })
-            ->getPager(array('locked' => true), 1);
-    }
-
-    public function testGetPagerWithNonLockedUsers()
-    {
-        $self = $this;
-        $this
-            ->getUserManager(function ($qb) use ($self) {
-                $qb->expects($self->once())->method('andWhere')->with($self->equalTo('u.locked = :locked'));
-                $qb->expects($self->once())->method('orderBy')->with(
-                    $self->equalTo('u.username'),
-                    $self->equalTo('ASC')
-                );
-                $qb->expects($self->once())->method('setParameters')->with($self->equalTo(array('locked' => false)));
-            })
-            ->getPager(array('locked' => false), 1);
     }
 }

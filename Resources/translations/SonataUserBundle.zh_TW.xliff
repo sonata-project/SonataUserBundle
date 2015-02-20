@@ -62,6 +62,10 @@
                 <source>user_block_logout</source>
                 <target>登出</target>
             </trans-unit>
+            <trans-unit id="user_block_profile">
+                <source>user_block_profile</source>
+                <target>user_block_profile</target>
+            </trans-unit>
             <trans-unit id="sonata_user">
                 <source>sonata_user</source>
                 <target>Users</target>

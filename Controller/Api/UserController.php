@@ -68,7 +68,7 @@ class UserController
      *
      * @ApiDoc(
      *  resource=true,
-     *  output={"class"="Sonata\UserBundle\Model\UserInterface", "groups"="sonata_api_read"}
+     *  output={"class"="Sonata\DatagridBundle\Pager\PagerInterface", "groups"="sonata_api_read"}
      * )
      *
      * @QueryParam(name="page", requirements="\d+", default="1", description="Page for users list pagination (1-indexed)")
@@ -81,7 +81,7 @@ class UserController
      *
      * @param ParamFetcherInterface $paramFetcher
      *
-     * @return UserInterface[]
+     * @return PagerInterface[]
      */
     public function getUsersAction(ParamFetcherInterface $paramFetcher)
     {
@@ -254,6 +254,47 @@ class UserController
         $this->userManager->updateUser($user);
 
         return array('added' => true);
+    }
+
+    /**
+     * Detach a group to a user
+     *
+     * @ApiDoc(
+     *  requirements={
+     *      {"name"="userId", "dataType"="integer", "requirement"="\d+", "description"="user identifier"},
+     *      {"name"="groupId", "dataType"="integer", "requirement"="\d+", "description"="group identifier"}
+     *  },
+     *  output={"class"="Sonata\UserBundle\Model\User", "groups"={"sonata_api_read"}},
+     *  statusCodes={
+     *      200="Returned when successful",
+     *      400="Returned when an error has occurred while user/group detachment",
+     *      404="Returned when unable to find user or group"
+     *  }
+     * )
+     *
+     * @param integer $userId  A User identifier
+     * @param integer $groupId A Group identifier
+     *
+     * @return UserInterface
+     *
+     * @throws NotFoundHttpException
+     * @throws \RuntimeException
+     */
+    public function deleteUserGroupAction($userId, $groupId)
+    {
+        $user = $this->getUser($userId);
+        $group = $this->getGroup($groupId);
+
+        if (!$user->hasGroup($group)) {
+            return FOSRestView::create(array(
+                'error' => sprintf('User "%s" has not group "%s"', $userId, $groupId)
+            ), 400);
+        }
+
+        $user->removeGroup($group);
+        $this->userManager->updateUser($user);
+
+        return array('removed' => true);
     }
 
     /**

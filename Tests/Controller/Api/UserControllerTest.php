@@ -156,7 +156,6 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
 
         $userManager = $this->getMock('Sonata\UserBundle\Model\UserManagerInterface');
         $userManager->expects($this->once())->method('findUserBy')->will($this->returnValue($user));
-        $userManager->expects($this->never())->method('updateUser')->will($this->returnValue($user));
 
         $groupManager = $this->getMock('Sonata\UserBundle\Model\GroupManagerInterface');
         $groupManager->expects($this->once())->method('findGroupBy')->will($this->returnValue($group));
@@ -169,6 +168,48 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         $data = $view->getData();
 
         $this->assertEquals(array('error' => 'User "1" already has group "1"'), $data);
+    }
+
+    public function testDeleteUserGroupAction()
+    {
+        $user = $this->getMock('Sonata\UserBundle\Entity\BaseUser');
+        $user->expects($this->once())->method('hasGroup')->will($this->returnValue(true));
+
+        $group = $this->getMock('FOS\UserBundle\Model\GroupInterface');
+
+        $userManager = $this->getMock('Sonata\UserBundle\Model\UserManagerInterface');
+        $userManager->expects($this->once())->method('findUserBy')->will($this->returnValue($user));
+        $userManager->expects($this->once())->method('updateUser')->will($this->returnValue($user));
+
+        $groupManager = $this->getMock('Sonata\UserBundle\Model\GroupManagerInterface');
+        $groupManager->expects($this->once())->method('findGroupBy')->will($this->returnValue($group));
+
+        $view = $this->createUserController($user, $userManager, $groupManager)->deleteUserGroupAction(1, 1);
+
+        $this->assertEquals(array('removed' => true), $view);
+    }
+
+    public function testDeleteUserGroupInvalidAction()
+    {
+        $user = $this->getMock('Sonata\UserBundle\Entity\BaseUser');
+        $user->expects($this->once())->method('hasGroup')->will($this->returnValue(false));
+
+        $group = $this->getMock('FOS\UserBundle\Model\GroupInterface');
+
+        $userManager = $this->getMock('Sonata\UserBundle\Model\UserManagerInterface');
+        $userManager->expects($this->once())->method('findUserBy')->will($this->returnValue($user));
+
+        $groupManager = $this->getMock('Sonata\UserBundle\Model\GroupManagerInterface');
+        $groupManager->expects($this->once())->method('findGroupBy')->will($this->returnValue($group));
+
+        $view = $this->createUserController($user, $userManager, $groupManager)->deleteUserGroupAction(1, 1);
+
+        $this->assertInstanceOf('FOS\RestBundle\View\View', $view);
+        $this->assertEquals(400, $view->getStatusCode(), 'Should return 400');
+
+        $data = $view->getData();
+
+        $this->assertEquals(array('error' => 'User "1" has not group "1"'), $data);
     }
 
     public function testDeleteUserAction()

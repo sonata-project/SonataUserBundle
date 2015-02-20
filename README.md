@@ -1,6 +1,8 @@
 SonataUserBundle
 ================
 
+[![Build Status](https://secure.travis-ci.org/sonata-project/SonataUserBundle.png?branch=master)](http://travis-ci.org/sonata-project/SonataUserBundle)
+
 Integrate the FOS/UserBundle in the Sonata Project
 --------------------------------------------------
 

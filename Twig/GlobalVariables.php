@@ -11,6 +11,7 @@
 
 namespace Sonata\UserBundle\Twig;
 
+use Sonata\AdminBundle\Admin\AdminInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -44,5 +45,13 @@ class GlobalVariables
     public function getDefaultAvatar()
     {
         return $this->container->getParameter('sonata.user.default_avatar');
+    }
+
+    /**
+     * @return AdminInterface
+     */
+    public function getUserAdmin()
+    {
+        return $this->container->get('sonata.user.admin.user');
     }
 }

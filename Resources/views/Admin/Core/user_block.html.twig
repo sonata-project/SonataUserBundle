@@ -1,10 +1,11 @@
 {% block user_block %}
     {% if app.user %}
-
-        {% set _bg_class    = "bg-light-blue" %}
-        {% set _logout_uri  = url('sonata_user_admin_security_logout') %}
-        {% set _logout_text = 'user_block_logout'|trans({}, 'SonataUserBundle') %}
-        {% set _user_image  = asset(sonata_user.defaultAvatar) %}
+        {% set _bg_class          = "bg-light-blue" %}
+        {% set _logout_uri        = url('sonata_user_admin_security_logout') %}
+        {% set _logout_text       = 'user_block_logout'|trans({}, 'SonataUserBundle') %}
+        {% set _edit_profile_uri  = sonata_user.userAdmin.generateUrl('edit', {id: sonata_user.userAdmin.id(app.user)}) %}
+        {% set _edit_profile_text = 'user_block_profile'|trans({}, 'SonataUserBundle') %}
+        {% set _user_image        = asset(sonata_user.defaultAvatar) %}
         {# Customize this with your profile picture implementation, see below for example #}
         {#{% set _user_image  = app.user.profilePicture|default(asset(sonata_user.defaultAvatar)) %}#}
 
@@ -29,12 +30,9 @@
 #}
 
         <li class="user-footer">
-{#
-    Uncomment to add a button on the left side of the block
             <div class="pull-left">
-
+                <a href="{{ _edit_profile_uri }}" class="btn btn-default btn-flat"><i class="fa fa-user"></i> {{ _edit_profile_text }}</a>
             </div>
-#}
 
             <div class="pull-right">
                 <a href="{{ _logout_uri }}" class="btn btn-default btn-flat"><i class="fa fa-sign-out fa-fw"></i> {{ _logout_text }}</a>

@@ -30,4 +30,17 @@ class UserManager extends BaseUserManager implements UserManagerInterface
     {
         return $this->repository->findBy($criteria, $orderBy, $limit, $offset);
     }
+
+    /**
+     * @param array $criteria
+     * @param integer $page
+     * @param integer $limit
+     * @param array $sort
+     *
+     * @return \Sonata\DatagridBundle\Pager\PagerInterface
+     */
+    public function getPager(array $critesria, $page, $limit = 10, array $sort = array())
+    {
+        new \RuntimeException('method not implemented');
+    }
 }
