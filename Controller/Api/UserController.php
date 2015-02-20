@@ -90,7 +90,7 @@ class UserController
             'locked'  => '',
         );
 
-        $page     = $paramFetcher->get('page') - 1;
+        $page     = $paramFetcher->get('page');
         $limit    = $paramFetcher->get('count');
         $sort     = $paramFetcher->get('orderBy');
         $criteria = array_intersect_key($paramFetcher->all(), $supporedCriteria);
