@@ -16,7 +16,7 @@
         </service>
 
         <service id="sonata.user.profile.form.type" class="Sonata\UserBundle\Form\Type\ProfileType">
-            <argument>%fos_user.model.user.class%</argument>
+            <argument>%sonata_user.model.user.class%</argument>
             <tag name="form.type" alias="sonata_user_profile" />
         </service>
 
@@ -27,7 +27,7 @@
         </service>
 
         <service id="sonata.user.form.gender_list" class="Sonata\CoreBundle\Form\Type\StatusType">
-            <argument>%fos_user.model.user.class%</argument>
+            <argument>%sonata_user.model.user.class%</argument>
             <argument>getGenderList</argument>
             <argument>sonata_user_gender</argument>
 
@@ -45,7 +45,7 @@
 
         <service id="sonata.user.registration.form.type" class="Sonata\UserBundle\Form\Type\RegistrationFormType">
             <tag name="form.type" alias="sonata_user_registration" />
-            <argument>%fos_user.model.user.class%</argument>
+            <argument>%sonata_user.model.user.class%</argument>
             <argument>%sonata.user.registration.form.options%</argument>
         </service>
 

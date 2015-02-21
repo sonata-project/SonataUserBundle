@@ -203,6 +203,9 @@ class SonataUserExtension extends Extension
             $modelType = 'document';
         }
 
+        $container->setParameter('sonata_user.model.user.class', $config['class']['user']);
+        $container->setParameter('sonata_user.model.group.class', $config['class']['group']);
+
         $container->setParameter(sprintf('sonata.user.admin.user.%s', $modelType), $config['class']['user']);
         $container->setParameter(sprintf('sonata.user.admin.group.%s', $modelType), $config['class']['group']);
     }
