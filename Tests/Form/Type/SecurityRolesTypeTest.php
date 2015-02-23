@@ -99,4 +99,22 @@ class SecurityRolesTypeTest extends TypeTestCase
         $this->assertFalse($form->isSynchronized());
         $this->assertNull($form->getData());
     }
+
+    public function testSubmitWithHiddenRoleData()
+    {
+        $originalRoles = array('ROLE_SUPER_ADMIN', 'ROLE_USER');
+
+        $form = $this->factory->create('sonata_security_roles', $originalRoles, array(
+            'multiple' => true,
+            'expanded' => true,
+            'required' => false
+        ));
+
+        // we keep hidden ROLE_SUPER_ADMIN and delete available ROLE_USER
+        $form->submit(array(0 => 'ROLE_ADMIN'));
+
+        $this->assertTrue($form->isSynchronized());
+        $this->assertCount(2, $form->getData());
+        $this->assertContains('ROLE_SUPER_ADMIN', $form->getData());
+    }
 }
