@@ -30,7 +30,7 @@ file that was distributed with this source code.
                     {% endblock %}
 
                     {% block sonata_user_login_form %}
-                        <form action="{{ path("fos_user_security_check") }}" method="post" role="form"
+                        <form action="{{ path("sonata_user_security_check") }}" method="post" role="form"
                               class="form-horizontal">
                             <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
 
@@ -65,7 +65,7 @@ file that was distributed with this source code.
 
                             <div class="form-group control-group">
                                 <div class="controls col-sm-offset-4 col-sm-8">
-                                    <a href="{{ path('fos_user_resetting_request') }}">{{ 'forgotten_password'|trans({}, 'SonataUserBundle') }}</a>
+                                    <a href="{{ path('sonata_user_resetting_request') }}">{{ 'forgotten_password'|trans({}, 'SonataUserBundle') }}</a>
                                 </div>
                             </div>
 

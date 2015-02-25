@@ -53,7 +53,7 @@ class RegistrationFOSUser1Controller extends ContainerAware
             $authUser = false;
             if ($confirmationEnabled) {
                 $this->container->get('session')->set('fos_user_send_confirmation_email/email', $user->getEmail());
-                $url = $this->container->get('router')->generate('fos_user_registration_check_email');
+                $url = $this->container->get('router')->generate('sonata_user_registration_check_email');
             } else {
                 $authUser = true;
                 $route = $this->container->get('session')->get('sonata_basket_delivery_redirect');
@@ -121,7 +121,7 @@ class RegistrationFOSUser1Controller extends ContainerAware
         if ($redirectRoute = $this->container->getParameter('sonata.user.register.confirm.redirect_route')) {
             $response = new RedirectResponse($this->container->get('router')->generate($redirectRoute, $this->container->getParameter('sonata.user.register.confirm.redirect_route_params')));
         } else {
-            $response = new RedirectResponse($this->container->get('router')->generate('fos_user_registration_confirmed'));
+            $response = new RedirectResponse($this->container->get('router')->generate('sonata_user_registration_confirmed'));
         }
 
         $this->authenticateUser($user, $response);
