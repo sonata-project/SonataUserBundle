@@ -3,13 +3,13 @@
     "type": "symfony-bundle",
     "description": "Symfony SonataUserBundle",
     "keywords": ["user", "sonata", "google authenticator"],
-    "homepage": "http://sonata-project.org/bundles/user",
+    "homepage": "https://sonata-project.org/bundles/user",
     "license": "MIT",
     "authors": [
         {
             "name": "Thomas Rabaix",
             "email": "thomas.rabaix@sonata-project.org",
-            "homepage": "http://sonata-project.org"
+            "homepage": "https://sonata-project.org"
         },
         {
             "name": "Sonata Community",

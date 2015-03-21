@@ -45,7 +45,7 @@ If you want to display the menu in your action's template, you should inherit th
 Dashboard
 ---------
 
-The ``Profile:show`` page is a dashboard as in SonataAdminBundle (you may see the documentation `here <http://sonata-project.org/bundles/admin/master/doc/reference/dashboard.html>`_). You may specify the blocks you want there, their settings and their positions. By default a simple text is displayed, but it's up to you to put there whatever you want.
+The ``Profile:show`` page is a dashboard as in SonataAdminBundle (you may see the documentation `here <https://sonata-project.org/bundles/admin/master/doc/reference/dashboard.html>`_). You may specify the blocks you want there, their settings and their positions. By default a simple text is displayed, but it's up to you to put there whatever you want.
 
 In the sample configuration you may see above, we chose to put this text, plus the latest orders from the customer attached to the customer, the latest user's actions, latest posts & comments on the website.
 

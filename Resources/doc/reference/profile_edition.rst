@@ -76,7 +76,7 @@ Actions
 
 The ``SonataUserBundle`` comes with 3 profiles actions:
 
- - `show`: show the current user; this is actually a user dashboard to give the user a portal. The dashboard works as `SonataAdminBundle's dashboard <http://sonata-project.org/bundles/admin/master/doc/reference/dashboard.html>`_.
+ - `show`: show the current user; this is actually a user dashboard to give the user a portal. The dashboard works as `SonataAdminBundle's dashboard <https://sonata-project.org/bundles/admin/master/doc/reference/dashboard.html>`_.
  - `edit profile`: edit the profile information (lastname, firstname, etc ...)
  - `edit authentication`: edit the profile authentication information (login, password)
 
