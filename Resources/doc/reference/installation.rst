@@ -333,10 +333,10 @@ classes:
 
         group:
             group_class:   Application\Sonata\UserBundle\Entity\Group
-            group_manager: sonata.user.orm.group_manager                    # If you're using doctrine orm (use sonata.user.mongodb.user_manager for mongodb)
+            group_manager: sonata.user.orm.group_manager                    # If you're using doctrine orm (use sonata.user.mongodb.group_manager for mongodb)
 
         service:
-            user_manager: sonata.user.orm.user_manager                      # If you're using doctrine orm (use sonata.user.mongodb.group_manager for mongodb)
+            user_manager: sonata.user.orm.user_manager                      # If you're using doctrine orm (use sonata.user.mongodb.user_manager for mongodb)
 
     doctrine:
 
