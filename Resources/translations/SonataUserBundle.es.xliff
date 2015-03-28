@@ -72,7 +72,7 @@
             </trans-unit>
             <trans-unit id="user_block_profile">
                 <source>user_block_profile</source>
-                <target>user_block_profile</target>
+                <target>Perfil</target>
             </trans-unit>
             <trans-unit id="user_form.label_username">
                 <source>form.label_username</source>
@@ -456,7 +456,7 @@
             </trans-unit>
             <trans-unit id="link_login">
                 <source>link_login</source>
-                <target>Login</target>
+                <target>Iniciar sesión</target>
             </trans-unit>
             <trans-unit id="link_logout">
                 <source>link_logout</source>
@@ -468,7 +468,7 @@
             </trans-unit>
             <trans-unit id="forgotten_password">
                 <source>forgotten_password</source>
-                <target>¿Contraseña olvidada?</target>
+                <target>¿Olvidaste tu contraseña?</target>
             </trans-unit>
             <trans-unit id="sonata_user_profile_breadcrumb_index">
                 <source>sonata_user_profile_breadcrumb_index</source>
@@ -504,7 +504,7 @@
             </trans-unit>
             <trans-unit id="form.password_confirmation">
                 <source>form.password_confirmation</source>
-                <target>Conf. contraseña</target>
+                <target>Confirmar contraseña</target>
             </trans-unit>
         </body>
     </file>
