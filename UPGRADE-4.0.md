@@ -24,3 +24,7 @@ SonataUser no longer has FOSUser as its parent bundle. It requires FOSUser as a 
 ## Removals
 
 Removed code used to define custom User login for the frontend application. Use FOSUser directly instead.
+
+## UserInterface
+
+If you have implemented a custom user, you must adapt the signature of new methods to match the one in `UserInterface` again
