@@ -25,7 +25,10 @@ class GroupManagerTest extends \PHPUnit_Framework_TestCase
         $query = $this->getMockForAbstractClass('Doctrine\ORM\AbstractQuery', array(), '', false, true, true, array('execute'));
         $query->expects($this->any())->method('execute')->will($this->returnValue(true));
 
-        $qb = $this->getMockBuilder('Doctrine\ORM\QueryBuilder')->disableOriginalConstructor()->getMock();
+        $entityManager = $this->getMock('Doctrine\ORM\EntityManagerInterface');
+
+        $qb = $this->getMockBuilder('Doctrine\ORM\QueryBuilder')->setConstructorArgs(array($entityManager))->getMock();
+
         $qb->expects($this->any())->method('select')->will($this->returnValue($qb));
         $qb->expects($this->any())->method('getQuery')->will($this->returnValue($query));
 
