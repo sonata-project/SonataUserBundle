@@ -11,6 +11,7 @@
 namespace Sonata\UserBundle\Tests\Entity;
 
 use FOS\UserBundle\Util\CanonicalizerInterface;
+use Sonata\CoreBundle\Test\EntityManagerMockFactory;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Sonata\UserBundle\Entity\GroupManager;
 
@@ -20,33 +21,17 @@ use Sonata\UserBundle\Entity\GroupManager;
  */
 class GroupManagerTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @param $qbCallback
+     *
+     * @return GroupManager
+     */
     protected function getUserManager($qbCallback)
     {
-        $query = $this->getMockForAbstractClass('Doctrine\ORM\AbstractQuery', array(), '', false, true, true, array('execute'));
-        $query->expects($this->any())->method('execute')->will($this->returnValue(true));
-
-        $entityManager = $this->getMock('Doctrine\ORM\EntityManagerInterface');
-
-        $qb = $this->getMockBuilder('Doctrine\ORM\QueryBuilder')->setConstructorArgs(array($entityManager))->getMock();
-
-        $qb->expects($this->any())->method('select')->will($this->returnValue($qb));
-        $qb->expects($this->any())->method('getQuery')->will($this->returnValue($query));
-
-        $qbCallback($qb);
-
-        $repository = $this->getMockBuilder('Doctrine\ORM\EntityRepository')->disableOriginalConstructor()->getMock();
-        $repository->expects($this->any())->method('createQueryBuilder')->will($this->returnValue($qb));
-
-        $metadata = $this->getMock('Doctrine\Common\Persistence\Mapping\ClassMetadata');
-        $metadata->expects($this->any())->method('getFieldNames')->will($this->returnValue(array(
+        $em = EntityManagerMockFactory::create($this, $qbCallback, array(
             'name',
             'roles',
-        )));
-        $metadata->expects($this->any())->method('getName')->will($this->returnValue('className'));
-
-        $em = $this->getMockBuilder('Doctrine\ORM\EntityManager')->disableOriginalConstructor()->getMock();
-        $em->expects($this->any())->method('getRepository')->will($this->returnValue($repository));
-        $em->expects($this->any())->method('getClassMetadata')->will($this->returnValue($metadata));
+        ));
 
         return new GroupManager($em, 'Sonata\UserBundle\Entity\BaseGroup');
     }
