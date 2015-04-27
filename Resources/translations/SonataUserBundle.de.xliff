@@ -198,6 +198,14 @@
                 <source>field.label_roles_editable</source>
                 <target>Rollen</target>
             </trans-unit>
+            <trans-unit id="filter.label_username">
+                <source>filter.label_username</source>
+                <target>Benutzername</target>
+            </trans-unit>
+            <trans-unit id="filter.label_name">
+                <source>filter.label_name</source>
+                <target>Name</target>
+            </trans-unit>            
             <trans-unit id="filter.label_email">
                 <source>filter.label_email</source>
                 <target>E-Mail-Adresse</target>
@@ -218,6 +226,10 @@
                 <source>filter.label_locked</source>
                 <target>Gesperrt</target>
             </trans-unit>
+            <trans-unit id="filter.label_id">
+                <source>filter.label_id</source>
+                <target>ID</target>
+            </trans-unit>            
             <trans-unit id="filter.label_expired">
                 <source>filter.label_expired</source>
                 <target>Abgelaufen</target>
