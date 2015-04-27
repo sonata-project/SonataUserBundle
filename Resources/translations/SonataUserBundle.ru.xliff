@@ -207,11 +207,11 @@
                 <target>Пользователи</target>
             </trans-unit>
             <trans-unit id="form_general">
-                <source>General</source>
+                <source>form_general</source>
                 <target>Основные сведения</target>
             </trans-unit>
             <trans-unit id="form_groups">
-                <source>Groups</source>
+                <source>form_groups</source>
                 <target>Группы</target>
             </trans-unit>
             <trans-unit id="form_management">
