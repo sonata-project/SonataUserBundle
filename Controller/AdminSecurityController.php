@@ -12,6 +12,7 @@
 namespace Sonata\UserBundle\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\UserBundle\Model\UserInterface;
@@ -25,17 +26,16 @@ class AdminSecurityController extends ContainerAware
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
 
-        if ($user instanceof UserInterface) {
-            $this->container->get('session')->getFlashBag()->set('sonata_user_error', 'sonata_user_already_authenticated');
-            $url = $this->container->get('router')->generate('sonata_user_profile_show');
-
-            return new RedirectResponse($url);
-        }
-
         $request = $this->container->get('request');
         /* @var $request \Symfony\Component\HttpFoundation\Request */
         $session = $request->getSession();
-        /* @var $session \Symfony\Component\HttpFoundation\Session */
+        /* @var $session \Symfony\Component\HttpFoundation\Session\Session */
+
+        if ($user instanceof UserInterface) {
+            $session->getFlashBag()->set('sonata_user_error', 'sonata_user_already_authenticated');
+
+            return new RedirectResponse($this->getAdminRedirectUrl($request));
+        }
 
         // get the error if any (works with forward and redirect -- see below)
         if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
@@ -57,12 +57,6 @@ class AdminSecurityController extends ContainerAware
         $csrfToken = $this->container->has('form.csrf_provider')
             ? $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate')
             : null;
-
-        if ($this->container->get('security.context')->isGranted('ROLE_ADMIN')) {
-            $refererUri = $request->server->get('HTTP_REFERER');
-
-            return new RedirectResponse($refererUri && $refererUri != $request->getUri() ? $refererUri : $this->container->get('router')->generate('sonata_admin_dashboard'));
-        }
 
         return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/login.html.'.$this->container->getParameter('fos_user.template.engine'), array(
                 'last_username' => $lastUsername,
@@ -86,6 +80,26 @@ class AdminSecurityController extends ContainerAware
         $template = sprintf('FOSUserBundle:Security:login.html.%s', $this->container->getParameter('fos_user.template.engine'));
 
         return $this->container->get('templating')->renderResponse($template, $data);
+    }
+
+    /**
+     * Get the URL to redirect to if user is already logged in
+     *
+     * @param Request $request
+     * @return string
+     */
+    protected function getAdminRedirectUrl(Request $request)
+    {
+        if ($this->container->get('security.context')->isGranted('ROLE_ADMIN')) {
+            $refererUri = $request->server->get('HTTP_REFERER');
+
+            return $refererUri && $refererUri != $request->getUri()
+                ? $refererUri
+                : $this->container->get('router')->generate('sonata_admin_dashboard')
+            ;
+        }
+
+        return $this->container->get('router')->generate('sonata_user_profile_show');
     }
 
     public function checkAction()
