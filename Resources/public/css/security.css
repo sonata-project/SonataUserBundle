@@ -4,9 +4,6 @@
 .sonata-bc .tab-content{
     padding-top: 3px;
 }
-.role_table .span11 {
-    border-bottom: 1px solid #f5f5f5;
-}
 
 .sonata-bc .row-fluid .role_table * {
     margin-left: 0;
@@ -62,10 +59,10 @@
     text-shadow: none;
 }
 
-.sonata-bc .form-horizontal input.iToggle {
+/*.sonata-bc .form-horizontal input.iToggle {
     vertical-align: text-bottom;
 }
-
+*/
 .sonata-bc .tab-content>.show, .sonata-bc .pill-content>.show {
     display: block;
 }

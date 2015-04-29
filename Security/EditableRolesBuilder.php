@@ -17,25 +17,51 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class EditableRolesBuilder
 {
+    /**
+     * @var SecurityContextInterface
+     */
     protected $securityContext;
+    /**
+     * @var Pool
+     */
     protected $pool;
+    /**
+     * @var array
+     */
     protected $rolesHierarchy;
+    /**
+     * @var array
+     */
     protected $labelPermission;
+    /**
+     * @var array
+     */
     protected $labelAdmin;
+    /**
+     * @var array
+     */
     protected $exclude;
 
-    private function recursive_array_search($needle, array $haystack) {
-        foreach($haystack as $key => $value) {
-            if($needle === $key || (is_array($value) && $this->recursive_array_search($needle,$value) === true)) {
+    /**
+     * @param $needle
+     * @param array $haystack
+     * @return bool
+     */
+    private function recursiveArraySearch($needle, array $haystack)
+    {
+        foreach ($haystack as $key => $value)
+        {
+            if($needle === $key || (is_array($value) && $this->recursiveArraySearch($needle,$value) === true))
+            {
                 return true;
             }
         }
         return false;
     }
+
     /**
      * @param SecurityContextInterface $securityContext
      * @param Pool                     $pool
-     * @param array                    $dontShowInDashboard
      * @param array                    $rolesHierarchy
      */
     public function __construct(SecurityContextInterface $securityContext, Pool $pool, array $rolesHierarchy = array())
@@ -65,12 +91,22 @@ class EditableRolesBuilder
     }
 
 
-    public function getLabelPermission() {
+    /**
+     * @return array
+     */
+    public function getLabelPermission()
+    {
         return $this->labelPermission;
     }
-    public function getLabelAdmin() {
+
+    /**
+     * @return array
+     */
+    public function getLabelAdmin()
+    {
         return $this->labelAdmin;
     }
+
     /**
      * @return array
      * @throws \Exception if sonata.admin.security.handler.role's option is not use

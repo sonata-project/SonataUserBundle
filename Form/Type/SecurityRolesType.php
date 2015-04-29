@@ -57,14 +57,13 @@ class SecurityRolesType extends AbstractType
     {
         list($roles, $rolesReadOnly) = $this->rolesBuilder->getRoles();
         $resolver->setDefaults(array(
-            'choices' => function (Options $options, $parentChoices) use ($roles)
-            {
+            'choices' => function (Options $options, $parentChoices) use ($roles) {
                 return empty($parentChoices) ? $roles : array();
             },
             'read_only_choices' => $rolesReadOnly,
             'data_class' => null,
             'attr' => array(
-                'class' => ''
+                'class' => '',
             ),
         ));
     }

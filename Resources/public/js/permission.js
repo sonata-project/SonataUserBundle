@@ -1,31 +1,31 @@
-$().ready(function () {
+jQuery().ready(function () {
     var label = new Array();
     var tmp = '';
-    $('.role_table table th').each(function () {
-        tmp = $(this).html().trim();
+    jQuery('.role_table table th').each(function () {
+        tmp = jQuery(this).html().trim();
         if (tmp != 'MASTER') {
             label.push(tmp);
         }
     });
-    $('.role_table input').on('ifChecked', function(event){
-        var input = $(this);
+    jQuery('.role_table input').on('ifChecked', function(event){
+        var input = jQuery(this);
         var item = null;
         var box = null;
         var slider = null;
-        $.each(label, function (index, value) {
-            item = $('input[value=' + input.val().replace('MASTER', value).replace('OPERATOR', value) + ']');
+        jQuery.each(label, function (index, value) {
+            item = jQuery('input[value=' + input.val().replace('MASTER', value).replace('OPERATOR', value) + ']');
             item.prop('checked', input.is(':checked'));
             item.parent().addClass('checked');
         });
     });
-    $('input[value$="MASTER"], input[value$="OPERATOR"]').change(function() {
-        var input = $(this);
+    jQuery('input[value$="MASTER"], input[value$="OPERATOR"]').change(function() {
+        var input = jQuery(this);
         var item = null;
         var box = null;
         var slider = null;
-        $.each(label, function (index, value) {
+        jQuery.each(label, function (index, value) {
             if (input.is(':checked') == true) {
-                item = $('input[value=' + input.val().replace('MASTER', value).replace('OPERATOR', value) + ']');
+                item = jQuery('input[value=' + input.val().replace('MASTER', value).replace('OPERATOR', value) + ']');
                 box = item.parent().children('.iToggle');
                 slider = box.children('.slider');
                 item.prop('checked', input.is(':checked'));
@@ -38,7 +38,7 @@ $().ready(function () {
             }
         });
     });
-    $(".readonly").click(function() {
+    jQuery(".readonly").click(function() {
         return false;
     });
 });
