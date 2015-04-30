@@ -10,12 +10,12 @@
             <argument type="service" id="fos_user.util.username_canonicalizer" />
             <argument type="service" id="fos_user.util.email_canonicalizer" />
             <argument type="service" id="fos_user.document_manager" />
-            <argument>%fos_user.model.user.class%</argument>
+            <argument>%sonata_user.model.user.class%</argument>
         </service>
 
         <service id="sonata.user.mongodb.group_manager" class="Sonata\UserBundle\Document\GroupManager" public="false">
             <argument type="service" id="fos_user.document_manager" />
-            <argument>%fos_user.model.group.class%</argument>
+            <argument>%sonata_user.model.group.class%</argument>
         </service>
     </services>
 </container>
