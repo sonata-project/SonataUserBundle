@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file source-language="en" datatype="plaintext" original="" >
+    <file source-language="it" datatype="plaintext" original="">
         <body>
             <trans-unit id="title_user_registration">
                 <source>title_user_registration</source>
@@ -72,7 +72,7 @@
             </trans-unit>
             <trans-unit id="user_block_profile">
                 <source>user_block_profile</source>
-                <target>user_block_profile</target>
+                <target>Profilo</target>
             </trans-unit>
             <trans-unit id="user_form.label_username">
                 <source>form.label_username</source>
@@ -192,11 +192,11 @@
             </trans-unit>
             <trans-unit id="form.label_gender">
                 <source>form.label_gender</source>
-                <target>Genere</target>
+                <target>Sesso</target>
             </trans-unit>
             <trans-unit id="form.label_locale">
                 <source>form.label_locale</source>
-                <target>form.label_locale</target>
+                <target>Lingua</target>
             </trans-unit>
             <trans-unit id="form.label_timezone">
                 <source>form.label_timezone</source>
@@ -208,7 +208,7 @@
             </trans-unit>
             <trans-unit id="form.label_facebook_uid">
                 <source>form.label_facebook_uid</source>
-                <target>Facebook id</target>
+                <target>Facebook ID</target>
             </trans-unit>
             <trans-unit id="form.label_facebook_name">
                 <source>form.label_facebook_name</source>
@@ -216,7 +216,7 @@
             </trans-unit>
             <trans-unit id="form.label_twitter_uid">
                 <source>form.label_twitter_uid</source>
-                <target>Twitter id</target>
+                <target>Twitter ID</target>
             </trans-unit>
             <trans-unit id="form.label_twitter_name">
                 <source>form.label_twitter_name</source>
@@ -224,7 +224,7 @@
             </trans-unit>
             <trans-unit id="form.label_gplus_uid">
                 <source>form.label_gplus_uid</source>
-                <target>Gooogle Plus id</target>
+                <target>Gooogle Plus ID</target>
             </trans-unit>
             <trans-unit id="form.label_gplus_name">
                 <source>form.label_gplus_name</source>
