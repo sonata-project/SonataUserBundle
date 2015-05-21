@@ -64,7 +64,16 @@ class AdminSecurityController extends ContainerAware
             return new RedirectResponse($refererUri && $refererUri != $request->getUri() ? $refererUri : $this->container->get('router')->generate('sonata_admin_dashboard'));
         }
 
-        return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/login.html.'.$this->container->getParameter('fos_user.template.engine'), array(
+        // fox 2.x
+        if ($this->container->hasParameter('fos_user.template.engine')) {
+            $template = 'SonataUserBundle:Admin:Security/login.html.'.$this->container->getParameter('fos_user.template.engine');
+        // fos 1.x
+        } else {
+            $template = 'SonataUserBundle:Admin:Security/login.html.twig';
+        }
+
+
+        return $this->container->get('templating')->renderResponse($template, array(
                 'last_username' => $lastUsername,
                 'error'         => $error,
                 'csrf_token'    => $csrfToken,
@@ -83,7 +92,13 @@ class AdminSecurityController extends ContainerAware
      */
     protected function renderLogin(array $data)
     {
-        $template = sprintf('FOSUserBundle:Security:login.html.%s', $this->container->getParameter('fos_user.template.engine'));
+        // fos 2.x
+        if ($this->container->hasParameter('fos_user.template.engine')) {
+            $template = sprintf('FOSUserBundle:Security:login.html.%s', $this->container->getParameter('fos_user.template.engine'));
+        // fos 1.x
+        } else {
+            $template = 'FOSUserBundle:Security:login.html.twig';
+        }
 
         return $this->container->get('templating')->renderResponse($template, $data);
     }
