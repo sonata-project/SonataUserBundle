@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+### 2015-05-21
+
+* Added support for FOSUserBundle 2.x@dev
+
 ### [BC BREAK] 2014-02-25
 
 * Refactored ``SonataUserBundle:Security:login.html.twig`` template to add twig blocks and change layout.
