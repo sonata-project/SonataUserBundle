@@ -100,4 +100,34 @@ class RestoreRolesTransformerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(array('ROLE_FOO'), $transformer->reverseTransform($data));
     }
+
+    public function testReverseTransformRevokedHierarchicalRole()
+    {
+        $roleBuilder = $this->getMockBuilder('Sonata\UserBundle\Security\EditableRolesBuilder')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $availableRoles = array(
+            'ROLE_SONATA_ADMIN'  => 'ROLE_SONATA_ADMIN',
+            'ROLE_COMPANY_ADMIN' => 'ROLE_COMPANY_ADMIN: ROLE_COMPANY_PERSONAL_MODERATOR, ROLE_COMPANY_NEWS_MODERATOR, ROLE_COMPANY_BOOKKEEPER',
+            'ROLE_COMPANY_PERSONAL_MODERATOR' => 'ROLE_COMPANY_PERSONAL_MODERATOR: ROLE_COMPANY_USER',
+            'ROLE_COMPANY_NEWS_MODERATOR' => 'ROLE_COMPANY_NEWS_MODERATOR: ROLE_COMPANY_USER',
+            'ROLE_COMPANY_BOOKKEEPER' => 'ROLE_COMPANY_BOOKKEEPER: ROLE_COMPANY_USER',
+            'ROLE_COMPANY_USER' => 'ROLE_USER',
+            'ROLE_USER' => 'ROLE_USER',
+            // ... and so on
+        );
+        $roleBuilder->expects($this->once())->method('getRoles')->will($this->returnValue(array($availableRoles, array())));
+
+        // user has thease roles
+        $userRoles = array('ROLE_COMPANY_PERSONAL_MODERATOR', 'ROLE_COMPANY_NEWS_MODERATOR', 'ROLE_COMPANY_BOOKKEEPER');
+        $transformer = new RestoreRolesTransformer($roleBuilder);
+        $transformer->setOriginalRoles($userRoles);
+
+        // now we want to revoke role ROLE_COMPANY_PERSONAL_MODERATOR
+        $revokedRole = array_shift($userRoles);
+        $processedRoles = $transformer->reverseTransform($userRoles);
+
+        $this->assertNotContains($revokedRole, $processedRoles);
+    }
 }
