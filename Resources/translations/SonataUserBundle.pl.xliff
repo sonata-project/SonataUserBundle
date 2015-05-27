@@ -134,6 +134,10 @@
                 <source>filter.label_id</source>
                 <target equiv-trans="yes" state="final">ID</target>
             </trans-unit>
+            <trans-unit id="filter.label_enabled">
+                <source>filter.label_enabled</source>
+                <target>Aktywny</target>
+            </trans-unit>
             <trans-unit id="filter.label_groups">
                 <source>filter.label_groups</source>
                 <target equiv-trans="yes" state="final">Grupy</target>

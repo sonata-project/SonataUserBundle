@@ -142,6 +142,10 @@
                 <source>filter.label_id</source>
                 <target>ID</target>
             </trans-unit>
+            <trans-unit id="filter.label_enabled">
+                <source>filter.label_enabled</source>
+                <target>Active</target>
+            </trans-unit>
             <trans-unit id="filter.label_groups">
                 <source>filter.label_groups</source>
                 <target>Groups</target>
