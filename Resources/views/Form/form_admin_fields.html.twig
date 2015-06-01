@@ -1,18 +1,61 @@
 {% block sonata_security_roles_widget %}
-{% spaceless %}
-    <div class="editable">
-        <h4>{{ 'field.label_roles_editable'|trans({}, "SonataUserBundle") }}</h4>
-        {{ block('choice_widget') }}
-    </div>
-    {% if read_only_choices|length > 0 %}
-    <div class="readonly">
-        <h4>{{ 'field.label_roles_readonly'|trans({}, "SonataUserBundle") }}</h4>
-        <ul>
-        {% for choice in read_only_choices %}
-            <li>{{ choice }}</li>
-        {% endfor %}
-        </ul>
-    </div>
-    {% endif %}
-{% endspaceless %}
+    {% spaceless %}
+        {% set l = labelPermission | length %}
+        {% set i = 0 %}
+        <div class="role_table">
+            <table class="table">
+                <tr>
+                    <th></th>
+                    {% for j, label in labelPermission %}
+                        <th {{ 'data-x=' ~ i ~ ' data-y=' ~((j % l) + 1) }}> {{ label }} </th>
+                    {% endfor %}
+                </tr>
+                {% set arr = {} %}
+                <tr>
+                    {% set other = {} %}
+                    {% if attribute(choices, 'other') is defined %}
+                        {% set other = attribute(choices, 'other') %}
+                    {% endif %}
+                    {% for j, child in form %}
+                    {% if (child.vars.name % l == 0) %}
+                    {% if child.vars.name != 0 %}
+                </tr><tr>
+                    {% endif %}
+                    {% if attribute(labelAdmin, i) is defined  %}
+                        <td>{{ attribute(labelAdmin, i) }}</td>
+                        {% set i = i + 1 %}
+                    {% endif %}
+                    {% endif %}
+                    {% if roleInTable(child.vars.value, other) %}
+                        {% set arr = arr | merge([child]) %}
+                    {% else %}
+                        {% set tmp = attr %}
+                        {% if isReadOnly(child.vars.value, read_only_choices) %}
+                            {% set tmp = attr|merge({'readonly': true, 'class': 'readonly'}) %}
+                        {% endif %}
+                        <td {{ 'data-x=' ~ i ~ ' data-y=' ~((j % l) + 1) }}>{{ form_widget(child, { 'attr': tmp}) }}</td>
+                    {% endif %}
+                    {% endfor %}
+                </tr>
+            </table>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 span3 editable">
+            <ul class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                {% for a in arr %}
+                    <li>
+                        <div class="control-group">
+                            {{ form_label(a, null, {'label_attr': {'class': 'col-xs-8 col-sm-8 col-md-8 col-lg-8 span8'} }) }}
+                            <div class="controls col-xs-4 col-sm-4 col-md-4 col-lg-4 span4">
+                                {% set tmp = attr %}
+                                {% if isReadOnly(a.vars.value, read_only_choices) %}
+                                    {% set tmp = attr|merge({'readonly': true, 'disabled': true}) %}
+                                {% endif %}
+                                {{ form_widget(a,  { 'attr': tmp}) }}
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endspaceless %}
 {% endblock sonata_security_roles_widget %}

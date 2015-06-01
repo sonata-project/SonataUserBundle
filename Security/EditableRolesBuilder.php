@@ -17,11 +17,47 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class EditableRolesBuilder
 {
+    /**
+     * @var SecurityContextInterface
+     */
     protected $securityContext;
-
+    /**
+     * @var Pool
+     */
     protected $pool;
-
+    /**
+     * @var array
+     */
     protected $rolesHierarchy;
+    /**
+     * @var array
+     */
+    protected $labelPermission;
+    /**
+     * @var array
+     */
+    protected $labelAdmin;
+    /**
+     * @var array
+     */
+    protected $exclude;
+
+    /**
+     * @param $needle
+     * @param array $haystack
+     * @return bool
+     */
+    private function recursiveArraySearch($needle, array $haystack)
+    {
+        foreach ($haystack as $key => $value)
+        {
+            if($needle === $key || (is_array($value) && $this->recursiveArraySearch($needle,$value) === true))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * @param SecurityContextInterface $securityContext
@@ -33,61 +69,107 @@ class EditableRolesBuilder
         $this->securityContext = $securityContext;
         $this->pool = $pool;
         $this->rolesHierarchy = $rolesHierarchy;
+        $this->labelPermission = array();
+        $this->labelAdmin = array();
+        $this->exclude = array();
     }
 
     /**
      * @return array
      */
+    public function getExclude()
+    {
+        return $this->exclude;
+    }
+
+    /**
+     * @param string $exclude
+     */
+    public function addExclude($exclude)
+    {
+        $this->exclude[] = $exclude;
+    }
+
+
+    /**
+     * @return array
+     */
+    public function getLabelPermission()
+    {
+        return $this->labelPermission;
+    }
+
+    /**
+     * @return array
+     */
+    public function getLabelAdmin()
+    {
+        return $this->labelAdmin;
+    }
+
+    /**
+     * @return array
+     * @throws \Exception if sonata.admin.security.handler.role's option is not use
+     */
     public function getRoles()
     {
         $roles = array();
         $rolesReadOnly = array();
-
-        if (!$this->securityContext->getToken()) {
+        if (!$this->securityContext->getToken())
+        {
             return array($roles, $rolesReadOnly);
         }
-
         // get roles from the Admin classes
-        foreach ($this->pool->getAdminServiceIds() as $id) {
-            try {
+        foreach ($this->pool->getAdminServiceIds() as $id)
+        {
+            try
+            {
                 $admin = $this->pool->getInstance($id);
-            } catch (\Exception $e) {
+            }
+            catch (\Exception $e)
+            {
                 continue;
             }
-
-            $isMaster = $admin->isGranted('MASTER');
+            if (in_array($id, $this->exclude) === true) {
+                continue;
+            }
+            $isMaster = ($admin->isGranted('MASTER') || $admin->isGranted('OPERATOR') || $this->securityContext->isGranted('ROLE_SUPER_ADMIN') || $this->securityContext->isGranted('ROLE_SONATA_ADMIN'));
             $securityHandler = $admin->getSecurityHandler();
-            // TODO get the base role from the admin or security handler
             $baseRole = $securityHandler->getBaseRole($admin);
-
-            foreach ($admin->getSecurityInformation() as $role => $permissions) {
-                $role = sprintf($baseRole, $role);
-
-                if ($isMaster) {
-                    // if the user has the MASTER permission, allow to grant access the admin roles to other users
-                    $roles[$role] = $role;
-                } elseif ($this->securityContext->isGranted($role)) {
-                    // although the user has no MASTER permission, allow the currently logged in user to view the role
-                    $rolesReadOnly[$role] = $role;
+            $groupPermission = $admin->getSecurityInformation();
+            $this->labelPermission = array_keys($groupPermission);
+            $this->labelAdmin[] = ucfirst($admin->getLabel());
+            foreach ($groupPermission as $role => $permissions)
+            {
+                $roles[str_replace('.', '_', $id)][sprintf($baseRole, $role)] = $role;
+                if (!$isMaster)
+                {
+                    $rolesReadOnly[] = sprintf($baseRole, $role);
                 }
             }
         }
-
-        $isMaster = $this->securityContext->isGranted('ROLE_SUPER_ADMIN');
-
-        // get roles from the service container
-        foreach ($this->rolesHierarchy as $name => $rolesHierarchy) {
-            if ($this->securityContext->isGranted($name) || $isMaster) {
-                $roles[$name] = $name . ': ' . implode(', ', $rolesHierarchy);
-
-                foreach ($rolesHierarchy as $role) {
-                    if (!isset($roles[$role])) {
-                        $roles[$role] = $role;
+        $roles['other'] = array(
+            'ROLE_ADMIN' => 'Role Admin',
+            'ROLE_SUPER_ADMIN' => 'Role Super Admin',
+            'ROLE_SONATA_ADMIN' => 'Role Sonata Admin'
+        );
+        foreach ($this->rolesHierarchy as $name => $rolesHierarchy)
+        {
+            if ($this->securityContext->isGranted($name) || $isMaster)
+            {
+                foreach ($rolesHierarchy as $role)
+                {
+                    if (array_key_exists($role, $this->rolesHierarchy) === false && !isset($roles['other'][$role]) && $this->recursive_array_search($role, $roles) === false)
+                    {
+                        $roles['other'][$role] = ucfirst(strtolower(str_replace('_', ' ', $role)));
                     }
                 }
             }
         }
-
+        if (empty($this->labelPermission)) {
+            $err = "You must add this line in the configuration of Sonata Admin: [security:\n\thandler: sonata.admin.security.handler.role]";
+            throw new \Exception($err);
+        }
         return array($roles, $rolesReadOnly);
     }
 }

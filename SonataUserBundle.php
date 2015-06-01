@@ -10,6 +10,7 @@
 
 namespace Sonata\UserBundle;
 
+use Sonata\UserBundle\DependencyInjection\Compiler\RolePermissionTableCompilerPass;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Sonata\UserBundle\DependencyInjection\Compiler\GlobalVariablesCompilerPass;
@@ -40,5 +41,6 @@ class SonataUserBundle extends Bundle
     public function build(ContainerBuilder $container)
     {
         $container->addCompilerPass(new GlobalVariablesCompilerPass());
+        $container->addCompilerPass(new RolePermissionTableCompilerPass());
     }
 }
