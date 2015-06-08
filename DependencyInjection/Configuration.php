@@ -32,7 +32,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->booleanNode('security_acl')->defaultValue(false)->end()
+                ->booleanNode('security_acl')->defaultFalse()->end()
                 ->arrayNode('table')
                     ->addDefaultsIfNotSet()
                     ->children()
@@ -42,7 +42,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('impersonating_route')->end()
                 ->arrayNode('impersonating')
                     ->children()
-                        ->scalarNode('route')->defaultValue(false)->end()
+                        ->scalarNode('route')->defaultFalse()->end()
                         ->arrayNode('parameters')
                             ->useAttributeAsKey('id')
                             ->prototype('scalar')->end()
@@ -53,7 +53,7 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('server')->cannotBeEmpty()->end()
-                        ->scalarNode('enabled')->defaultValue(false)->end()
+                        ->scalarNode('enabled')->defaultFalse()->end()
                     ->end()
                 ->end()
                 ->scalarNode('manager_type')
