@@ -15,6 +15,7 @@ namespace Sonata\UserBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Sonata\UserBundle\Model\UserInterface;
 
@@ -83,8 +84,18 @@ class ProfileType extends AbstractType
 
     /**
      * {@inheritdoc}
+     *
+     * @deprecated Remove it when bumping requirements to Symfony 2.7+
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $this->configureOptions($resolver);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => $this->class
