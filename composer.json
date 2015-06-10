@@ -36,7 +36,7 @@
     "require-dev": {
         "doctrine/orm": "^2.2.3",
         "sonata-project/seo-bundle": "~1.1",
-        "symfony/phpunit-bridge": "~2.7"
+        "symfony/phpunit-bridge": "~2.7|~3.0"
     },
     "suggest": {
         "sonata-project/doctrine-orm-admin-bundle": "~2.3",

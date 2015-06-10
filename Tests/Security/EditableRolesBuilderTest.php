@@ -15,6 +15,9 @@ use Sonata\UserBundle\Security\EditableRolesBuilder;
 
 class EditableRolesBuilderTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @group legacy
+     */
     public function testRolesFromHierarchy()
     {
         $token = $this->getMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
