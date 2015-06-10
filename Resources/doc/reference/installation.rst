@@ -78,6 +78,10 @@ When using ACL, the ``UserBundle`` can prevent `normal` user to change settings 
     # app/config/security.yml
     security:
         # [...]
+        
+        encoders:
+            FOS\UserBundle\Model\UserInterface: sha512
+        
         acl:
             connection: default
 
