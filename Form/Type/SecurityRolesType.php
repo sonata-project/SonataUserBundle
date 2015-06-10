@@ -22,6 +22,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\OptionsResolver\Options;
 
@@ -81,8 +82,18 @@ class SecurityRolesType extends AbstractType
 
     /**
      * {@inheritdoc}
+     *
+     * @deprecated Remove it when bumping requirements to Symfony 2.7+
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $this->configureOptions($resolver);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function configureOptions(OptionsResolver $resolver)
     {
         list($roles, $rolesReadOnly) = $this->rolesBuilder->getRoles();
 
