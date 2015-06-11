@@ -1,5 +1,10 @@
 language: php
 
+cache:
+  directories:
+    - vendor
+    - $HOME/.composer/cache
+
 php:
   - 5.3
   - 5.4
@@ -9,8 +14,8 @@ php:
   - hhvm
 
 env:
-    global:
-        - SYMFONY_DEPRECATIONS_HELPER=weak
+  global:
+    - SYMFONY_DEPRECATIONS_HELPER=weak
 
 matrix:
   fast_finish: true
