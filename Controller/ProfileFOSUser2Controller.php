@@ -89,6 +89,7 @@ class ProfileFOSUser2Controller extends Controller
     }
 
     /**
+     * @param Request $request
      * @return Response
      *
      * @throws AccessDeniedException
