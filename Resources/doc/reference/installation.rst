@@ -28,6 +28,17 @@ Enable the Bundle
     php composer.phar require sonata-project/doctrine-orm-admin-bundle  --no-update # optional
     php composer.phar update
 
+.. note::
+    This bundle supports both the ``1.x`` and the ``2.x`` version of the ``FOS/UserBundle``.
+    You need to add the version to your composer.json manually
+
+
+.. code-block:: bash
+
+    php composer.phar require friendsofsymfony/user-bundle:~2.0  # for the 2.0 version of the FOSUserBundle
+    # OR
+    php composer.phar require friendsofsymfony/user-bundle:~1.3       # for the 1.3 version of the FOSUserBundle
+
 Next, be sure to enable the bundles in your and ``AppKernel.php`` file:
 
 .. code-block:: php
@@ -157,6 +168,8 @@ Replace:
 
 With:
 
+FOSUserBundle Version 1.x:
+
 .. code-block:: yaml
 
     sonata_user_security:
@@ -178,6 +191,29 @@ With:
         resource: "@SonataUserBundle/Resources/config/routing/sonata_change_password_1.xml"
         prefix: /profile
 
+
+OR FOSUserBundle Version 2.x:
+
+.. code-block:: yaml
+
+    sonata_user_security:
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_security_2.xml"
+
+    sonata_user_resetting:
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_resetting_2.xml"
+        prefix: /resetting
+
+    sonata_user_profile:
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_profile_2.xml"
+        prefix: /profile
+
+    sonata_user_register:
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_registration_2.xml"
+        prefix: /register
+
+    sonata_user_change_password:
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_change_password_2.xml"
+        prefix: /profile
 
 Integrating the bundle into the Sonata Admin Bundle
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
