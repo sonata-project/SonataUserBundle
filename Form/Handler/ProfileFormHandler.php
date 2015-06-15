@@ -12,15 +12,13 @@
 
 namespace Sonata\UserBundle\Form\Handler;
 
+use FOS\UserBundle\Model\UserInterface;
+use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
-use FOS\UserBundle\Model\UserInterface;
-use FOS\UserBundle\Model\UserManagerInterface;
-
 /**
- *
- * This file is an adapted version of FOS User Bundle ProfileFormHandler class
+ * This file is an adapted version of FOS User Bundle ProfileFormHandler class.
  *
  *    (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
  */

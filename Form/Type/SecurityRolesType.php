@@ -15,16 +15,14 @@ namespace Sonata\UserBundle\Form\Type;
 use Sonata\UserBundle\Form\Transformer\RestoreRolesTransformer;
 use Sonata\UserBundle\Security\EditableRolesBuilder;
 use Symfony\Component\Form\AbstractType;
-
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\OptionsResolver\Options;
 
 class SecurityRolesType extends AbstractType
 {
@@ -43,7 +41,7 @@ class SecurityRolesType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $formBuilder, array $options)
     {
-        /**
+        /*
          * The form shows only roles that the current user can edit for the targeted user. Now we still need to persist
          * all other roles. It is not possible to alter those values inside an event listener as the selected
          * key will be validated. So we use a Transformer to alter the value and an listener to catch the original values
@@ -53,12 +51,12 @@ class SecurityRolesType extends AbstractType
         $transformer = new RestoreRolesTransformer($this->rolesBuilder);
 
         // GET METHOD
-        $formBuilder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($transformer) {
+        $formBuilder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($transformer) {
             $transformer->setOriginalRoles($event->getData());
         });
 
         // POST METHOD
-        $formBuilder->addEventListener(FormEvents::PRE_SUBMIT, function(FormEvent $event) use ($transformer) {
+        $formBuilder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) use ($transformer) {
             $transformer->setOriginalRoles($event->getForm()->getData());
         });
 
@@ -106,7 +104,7 @@ class SecurityRolesType extends AbstractType
                 return empty($options['choices']) ? $rolesReadOnly : array();
             },
 
-            'data_class' => null
+            'data_class' => null,
         ));
     }
 

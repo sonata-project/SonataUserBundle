@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Sonata package.
  *
@@ -8,23 +9,21 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Sonata\UserBundle\Model;
 
 use FOS\UserBundle\Model\UserManagerInterface as BaseInterface;
 use Sonata\CoreBundle\Model\PageableManagerInterface;
 
 /**
- * Class UserManagerInterface
+ * Class UserManagerInterface.
  *
- * @package Sonata\UserBundle\Model
  *
  * @author Hugo Briand <briand@ekino.com>
  */
 interface UserManagerInterface extends BaseInterface, PageableManagerInterface
 {
     /**
-     * Alias for the repository method
+     * Alias for the repository method.
      *
      * @param array|null $criteria
      * @param array|null $orderBy

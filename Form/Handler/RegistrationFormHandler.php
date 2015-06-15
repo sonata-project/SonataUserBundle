@@ -12,16 +12,10 @@
 
 namespace Sonata\UserBundle\Form\Handler;
 
-use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\Request;
-
-use FOS\UserBundle\Model\UserInterface;
-use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Form\Handler\RegistrationFormHandler as BaseHandler;
 
 /**
- *
- * This file is an adapted version of FOS User Bundle RegistrationFormHandler class
+ * This file is an adapted version of FOS User Bundle RegistrationFormHandler class.
  *
  *    (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
  */

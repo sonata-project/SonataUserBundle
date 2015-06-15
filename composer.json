@@ -36,8 +36,8 @@
     "require-dev": {
         "doctrine/orm": "^2.2.3",
         "sonata-project/seo-bundle": "~1.1",
-        "phpunit/phpunit": "~4.7",
-        "symfony/phpunit-bridge": "~2.7|~3.0"
+        "symfony/phpunit-bridge": "~2.7|~3.0",
+        "fabpot/php-cs-fixer": "~0.1|~1.0"
     },
     "conflict": {
         "jms/serializer": "<0.13"

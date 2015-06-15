@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Sonata package.
  *
@@ -8,24 +9,22 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Sonata\UserBundle\Controller;
 
+use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\AccountStatusException;
-use FOS\UserBundle\Model\UserInterface;
 
 /**
- * Class SonataRegistrationController
+ * Class SonataRegistrationController.
  *
  * This class is inspired from the FOS RegistrationController
  *
- * @package Sonata\UserBundle\Controller
  *
  * @author Hugo Briand <briand@ekino.com>
  */
@@ -85,7 +84,7 @@ class RegistrationFOSUser1Controller extends ContainerAware
     }
 
     /**
-     * Tell the user to check his email provider
+     * Tell the user to check his email provider.
      */
     public function checkEmailAction()
     {
@@ -103,7 +102,7 @@ class RegistrationFOSUser1Controller extends ContainerAware
     }
 
     /**
-     * Receive the confirmation token from user email provider, login the user
+     * Receive the confirmation token from user email provider, login the user.
      */
     public function confirmAction($token)
     {
@@ -130,7 +129,7 @@ class RegistrationFOSUser1Controller extends ContainerAware
     }
 
     /**
-     * Tell the user his account is now confirmed
+     * Tell the user his account is now confirmed.
      */
     public function confirmedAction()
     {
@@ -145,7 +144,7 @@ class RegistrationFOSUser1Controller extends ContainerAware
     }
 
     /**
-     * Authenticate a user with Symfony Security
+     * Authenticate a user with Symfony Security.
      *
      * @param \FOS\UserBundle\Model\UserInterface        $user
      * @param \Symfony\Component\HttpFoundation\Response $response

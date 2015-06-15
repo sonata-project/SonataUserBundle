@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Sonata project.
  *
@@ -14,14 +15,12 @@ use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class ChangePasswordFOSUser1Controller
+ * Class ChangePasswordFOSUser1Controller.
  *
  * This class is inspired from the FOS Change Password Controller
  *
- * @package Sonata\UserBundle\Controller
  *
  * @author  Hugo Briand <briand@ekino.com>
  */

@@ -15,7 +15,7 @@ use Sonata\AdminBundle\Admin\AdminInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * GlobalVariables
+ * GlobalVariables.
  *
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */

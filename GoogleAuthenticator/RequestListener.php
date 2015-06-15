@@ -11,11 +11,11 @@
 
 namespace Sonata\UserBundle\GoogleAuthenticator;
 
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\HttpKernel\HttpKernel;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\HttpKernel;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class RequestListener
 {
@@ -39,6 +39,7 @@ class RequestListener
 
     /**
      * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
+     *
      * @return
      */
     public function onCoreRequest(GetResponseEvent $event)
@@ -46,7 +47,7 @@ class RequestListener
         if (HttpKernel::MASTER_REQUEST != $event->getRequestType()) {
             return;
         }
-    
+
         $token = $this->securityContext->getToken();
 
         if (!$token) {
@@ -82,7 +83,7 @@ class RequestListener
         }
 
         $event->setResponse($this->templating->renderResponse('SonataUserBundle:Admin:Security/two_step_form.html.twig', array(
-            'state' => $state
+            'state' => $state,
          )));
     }
 }

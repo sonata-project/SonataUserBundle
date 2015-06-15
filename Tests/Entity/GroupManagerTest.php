@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Sonata package.
  *
@@ -10,14 +11,11 @@
 
 namespace Sonata\UserBundle\Tests\Entity;
 
-use FOS\UserBundle\Util\CanonicalizerInterface;
 use Sonata\CoreBundle\Test\EntityManagerMockFactory;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Sonata\UserBundle\Entity\GroupManager;
 
 /**
- * Class GroupManagerTest
- *
+ * Class GroupManagerTest.
  */
 class GroupManagerTest extends \PHPUnit_Framework_TestCase
 {

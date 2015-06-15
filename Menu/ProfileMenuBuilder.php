@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Sonata package.
  *
@@ -8,19 +9,16 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Sonata\UserBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
- * Class ProfileMenuBuilder
+ * Class ProfileMenuBuilder.
  *
- * @package Sonata\UserBundle\Menu
  *
  * @author Hugo Briand <briand@ekino.com>
  */
@@ -49,7 +47,7 @@ class ProfileMenuBuilder
     /**
      * @param FactoryInterface         $factory
      * @param TranslatorInterface      $translator
-     * @param array                    $routes     Routes to add to the menu (format: array(array('label' => ..., 'route' => ...)))
+     * @param array                    $routes          Routes to add to the menu (format: array(array('label' => ..., 'route' => ...)))
      * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(FactoryInterface $factory, TranslatorInterface $translator, array $routes, EventDispatcherInterface $eventDispatcher)

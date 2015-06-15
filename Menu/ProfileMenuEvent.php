@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Sonata package.
  *
@@ -8,17 +9,14 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Sonata\UserBundle\Menu;
 
 use Knp\Menu\ItemInterface;
 use Symfony\Component\EventDispatcher\Event;
 
-
 /**
- * Class ProfileMenuEvent
+ * Class ProfileMenuEvent.
  *
- * @package Sonata\UserBundle\Menu
  *
  * @author Hugo Briand <briand@ekino.com>
  */

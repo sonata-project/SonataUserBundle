@@ -13,15 +13,14 @@
 namespace Sonata\UserBundle\Security\Authorization\Voter;
 
 use FOS\UserBundle\Model\UserInterface;
-
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Acl\Voter\AclVoter;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class UserAclVoter extends AclVoter
 {
-   /**
-    * {@InheritDoc}
-    */
+    /**
+     * {@InheritDoc}
+     */
     public function supportsClass($class)
     {
         // support the Object-Scope ACL

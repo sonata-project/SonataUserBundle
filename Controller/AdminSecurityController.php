@@ -11,10 +11,10 @@
 
 namespace Sonata\UserBundle\Controller;
 
-use Symfony\Component\DependencyInjection\ContainerAware;
-use Symfony\Component\Security\Core\SecurityContext;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\UserBundle\Model\UserInterface;
+use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Security\Core\SecurityContext;
 
 class AdminSecurityController extends ContainerAware
 {
@@ -69,7 +69,7 @@ class AdminSecurityController extends ContainerAware
                 'error'         => $error,
                 'csrf_token'    => $csrfToken,
                 'base_template' => $this->container->get('sonata.admin.pool')->getTemplate('layout'),
-                'admin_pool'    => $this->container->get('sonata.admin.pool')
+                'admin_pool'    => $this->container->get('sonata.admin.pool'),
             ));
     }
 
