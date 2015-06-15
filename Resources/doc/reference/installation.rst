@@ -35,7 +35,7 @@ Enable the Bundle
 
 .. code-block:: bash
 
-    php composer.phar require friendsofsymfony/user-bundle:2.0.*@dev  # for the 2.0 version of the FOSUserBundle
+    php composer.phar require friendsofsymfony/user-bundle:~2.0  # for the 2.0 version of the FOSUserBundle
     # OR
     php composer.phar require friendsofsymfony/user-bundle:~1.3       # for the 1.3 version of the FOSUserBundle
 
