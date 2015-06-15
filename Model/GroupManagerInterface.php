@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Sonata package.
  *
@@ -8,25 +9,22 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Sonata\UserBundle\Model;
 
-use FOS\UserBundle\Model\GroupManagerInterface as BaseInterface;
 use FOS\UserBundle\Model\GroupInterface;
-
+use FOS\UserBundle\Model\GroupManagerInterface as BaseInterface;
 use Sonata\CoreBundle\Model\PageableManagerInterface;
 
 /**
- * Class GroupManagerInterface
+ * Class GroupManagerInterface.
  *
- * @package Sonata\UserBundle\Model
  *
  * @author Hugo Briand <briand@ekino.com>
  */
 interface GroupManagerInterface extends BaseInterface, PageableManagerInterface
 {
     /**
-     * Alias for the repository method
+     * Alias for the repository method.
      *
      * @param array|null $criteria
      * @param array|null $orderBy

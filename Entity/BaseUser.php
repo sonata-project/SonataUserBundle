@@ -15,29 +15,29 @@ use Sonata\UserBundle\Model\User as AbstractedUser;
 use Sonata\UserBundle\Model\UserInterface;
 
 /**
- * Represents a Base User Entity
+ * Represents a Base User Entity.
  */
 class BaseUser extends AbstractedUser
 {
     /**
-     * Hook on pre-persist operations
+     * Hook on pre-persist operations.
      */
     public function prePersist()
     {
-        $this->createdAt = new \DateTime;
-        $this->updatedAt = new \DateTime;
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
     }
 
     /**
-     * Hook on pre-update operations
+     * Hook on pre-update operations.
      */
     public function preUpdate()
     {
-        $this->updatedAt = new \DateTime;
+        $this->updatedAt = new \DateTime();
     }
 
     /**
-     * Returns the gender list
+     * Returns the gender list.
      *
      * @return array
      */

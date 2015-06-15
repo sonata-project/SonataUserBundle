@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Sonata package.
  *
@@ -8,19 +9,16 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Sonata\UserBundle\Entity;
 
 use FOS\UserBundle\Entity\GroupManager as BaseGroupManager;
-
 use Sonata\DatagridBundle\Pager\Doctrine\Pager;
 use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;
 use Sonata\UserBundle\Model\GroupManagerInterface;
 
 /**
- * Class GroupManager
+ * Class GroupManager.
  *
- * @package Sonata\UserBundle\Entity
  *
  * @author Hugo Briand <briand@ekino.com>
  */

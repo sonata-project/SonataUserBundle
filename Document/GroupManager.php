@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Sonata package.
  *
@@ -8,16 +9,14 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Sonata\UserBundle\Document;
 
 use FOS\UserBundle\Document\GroupManager as BaseGroupManager;
 use Sonata\UserBundle\Model\GroupManagerInterface;
 
 /**
- * Class GroupManager
+ * Class GroupManager.
  *
- * @package Sonata\UserBundle\Document
  *
  * @author Hugo Briand <briand@ekino.com>
  */
@@ -33,8 +32,8 @@ class GroupManager extends BaseGroupManager implements GroupManagerInterface
 
     /**
      * @param array $criteria
-     * @param integer $page
-     * @param integer $limit
+     * @param int   $page
+     * @param int   $limit
      * @param array $sort
      *
      * @return \Sonata\DatagridBundle\Pager\PagerInterface

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Sonata package.
  *
@@ -8,17 +9,14 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Sonata\Test\UserBundle\Controller\Api;
 
 use Sonata\UserBundle\Controller\Api\GroupController;
-
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class GroupControllerTest
+ * Class GroupControllerTest.
  *
- * @package Sonata\Test\UserBundle\Controller\Api
  *
  * @author Hugo Briand <briand@ekino.com>
  */

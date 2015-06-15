@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Sonata package.
  *
@@ -11,14 +12,13 @@
 namespace Sonata\UserBundle\Entity;
 
 use FOS\UserBundle\Doctrine\UserManager as BaseUserManager;
-use Sonata\UserBundle\Model\UserManagerInterface;
 use Sonata\DatagridBundle\Pager\Doctrine\Pager;
 use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;
+use Sonata\UserBundle\Model\UserManagerInterface;
 
 /**
- * Class UserManager
+ * Class UserManager.
  *
- * @package Sonata\UserBundle\Entity
  *
  * @author Hugo Briand <briand@ekino.com>
  */

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Sonata package.
  *
@@ -8,28 +9,22 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Sonata\UserBundle\Controller\Api;
 
-use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
+use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\View\View as FOSRestView;
-
 use JMS\Serializer\SerializationContext;
-
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-
 use Sonata\UserBundle\Model\GroupManagerInterface;
-
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Class GroupController
+ * Class GroupController.
  *
- * @package Sonata\UserBundle\Controller\Api
  *
  * @author Hugo Briand <briand@ekino.com>
  */
@@ -46,7 +41,7 @@ class GroupController
     protected $formFactory;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param GroupManagerInterface $groupManager Sonata group manager
      * @param FormFactoryInterface  $formFactory  Symfony form factory
@@ -79,7 +74,7 @@ class GroupController
     public function getGroupsAction(ParamFetcherInterface $paramFetcher)
     {
         $supportedFilters = array(
-            'enabled' => "",
+            'enabled' => '',
         );
 
         $page     = $paramFetcher->get('page');
@@ -103,7 +98,7 @@ class GroupController
     }
 
     /**
-     * Retrieves a specific group
+     * Retrieves a specific group.
      *
      * @ApiDoc(
      *  requirements={
@@ -128,7 +123,7 @@ class GroupController
     }
 
     /**
-     * Adds a group
+     * Adds a group.
      *
      * @ApiDoc(
      *  input={"class"="sonata_user_api_form_group", "name"="", "groups"={"sonata_api_write"}},
@@ -151,7 +146,7 @@ class GroupController
     }
 
     /**
-     * Updates a group
+     * Updates a group.
      *
      * @ApiDoc(
      *  requirements={
@@ -179,10 +174,10 @@ class GroupController
     }
 
     /**
-     * Write a Group, this method is used by both POST and PUT action methods
+     * Write a Group, this method is used by both POST and PUT action methods.
      *
-     * @param Request      $request Symfony request
-     * @param integer|null $id      A Group identifier
+     * @param Request  $request Symfony request
+     * @param int|null $id      A Group identifier
      *
      * @return \FOS\RestBundle\View\View|FormInterface
      */
@@ -192,7 +187,7 @@ class GroupController
         $group = $id ? $this->getGroup($id) : new $groupClassName('');
 
         $form = $this->formFactory->createNamed(null, 'sonata_user_api_form_group', $group, array(
-            'csrf_protection' => false
+            'csrf_protection' => false,
         ));
 
         $form->bind($request);
@@ -214,7 +209,7 @@ class GroupController
     }
 
     /**
-     * Deletes a group
+     * Deletes a group.
      *
      * @ApiDoc(
      *  requirements={
@@ -227,7 +222,7 @@ class GroupController
      *  }
      * )
      *
-     * @param integer $id A Group identifier
+     * @param int $id A Group identifier
      *
      * @return \FOS\RestBundle\View\View
      *
@@ -243,11 +238,12 @@ class GroupController
     }
 
     /**
-     * Retrieves group with id $id or throws an exception if it doesn't exist
+     * Retrieves group with id $id or throws an exception if it doesn't exist.
      *
      * @param $id
      *
      * @return GroupInterface
+     *
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     protected function getGroup($id)
@@ -260,5 +256,4 @@ class GroupController
 
         return $group;
     }
-
 }

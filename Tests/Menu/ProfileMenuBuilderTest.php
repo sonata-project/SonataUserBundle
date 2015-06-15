@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Sonata package.
  *
@@ -8,16 +9,13 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Sonata\UserBundle\Tests\Menu;
 
 use Sonata\UserBundle\Menu\ProfileMenuBuilder;
 
-
 /**
- * Class ProfileMenuBuilderTest
+ * Class ProfileMenuBuilderTest.
  *
- * @package Sonata\UserBundle\Tests\Menu
  *
  * @author Hugo Briand <briand@ekino.com>
  */

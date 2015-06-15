@@ -11,19 +11,16 @@
 
 namespace Sonata\UserBundle\Controller;
 
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\HttpFoundation\Response;
 use FOS\UserBundle\Model\UserInterface;
-use FOS\UserBundle\Event\FormEvent;
-use FOS\UserBundle\Event\FilterUserResponseEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use FOS\UserBundle\FOSUserEvents;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * This class is inspired from the FOS Profile Controller, except :
  *   - only twig is supported
- *   - separation of the user authentication form with the profile form
+ *   - separation of the user authentication form with the profile form.
  */
 class ProfileFOSUser1Controller extends Controller
 {
@@ -41,7 +38,7 @@ class ProfileFOSUser1Controller extends Controller
 
         return $this->render('SonataUserBundle:Profile:show.html.twig', array(
             'user'   => $user,
-            'blocks' => $this->container->getParameter('sonata.user.configuration.profile_blocks')
+            'blocks' => $this->container->getParameter('sonata.user.configuration.profile_blocks'),
         ));
     }
 

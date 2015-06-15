@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Sonata package.
  *
@@ -14,7 +15,7 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
- * This is the class that validates and merges configuration from your app/config files
+ * This is the class that validates and merges configuration from your app/config files.
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html#cookbook-bundles-extension-config-class}
  */
@@ -123,7 +124,7 @@ class Configuration implements ConfigurationInterface
                                 ->end()
                             ->end()
                             ->arrayNode('blocks')
-                                ->defaultValue(array(array('position' => 'left', 'settings' => array('content' => "<h2>Welcome!</h2> This is a sample user profile dashboard, feel free to override it in the configuration!"), 'type' => 'sonata.block.service.text')))
+                                ->defaultValue(array(array('position' => 'left', 'settings' => array('content' => '<h2>Welcome!</h2> This is a sample user profile dashboard, feel free to override it in the configuration!'), 'type' => 'sonata.block.service.text')))
                                 ->prototype('array')
                                     ->fixXmlConfig('setting')
                                         ->children()
@@ -207,7 +208,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Returns default values for profile menu (to avoid BC Break)
+     * Returns default values for profile menu (to avoid BC Break).
      *
      * @return array
      */
@@ -215,16 +216,16 @@ class Configuration implements ConfigurationInterface
     {
         return array(
             array(
-                'route'  => 'sonata_user_profile_edit',
-                'label'  => 'link_edit_profile',
-                'domain' => 'SonataUserBundle',
-                'route_parameters' => array()
+                'route'            => 'sonata_user_profile_edit',
+                'label'            => 'link_edit_profile',
+                'domain'           => 'SonataUserBundle',
+                'route_parameters' => array(),
             ),
             array(
-                'route'  => 'sonata_user_profile_edit_authentication',
-                'label'  => 'link_edit_authentication',
-                'domain' => 'SonataUserBundle',
-                'route_parameters' => array()
+                'route'            => 'sonata_user_profile_edit_authentication',
+                'label'            => 'link_edit_authentication',
+                'domain'           => 'SonataUserBundle',
+                'route_parameters' => array(),
             ),
         );
     }

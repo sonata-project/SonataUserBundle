@@ -12,14 +12,13 @@
 namespace Sonata\UserBundle\Tests\Form\Type;
 
 use Sonata\UserBundle\Form\Type\SecurityRolesType;
+use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\PreloadedExtension;
 
 /**
- * Class SecurityRolesTypeTest
+ * Class SecurityRolesTypeTest.
  *
- * @package Sonata\UserBundle\Tests\Form\Type
  *
  * @author Quentin Fahrner <quentfahrner@gmail.com>
  */
@@ -37,12 +36,13 @@ class SecurityRolesTypeTest extends TypeTestCase
           0 => array(
             'ROLE_FOO'   => 'ROLE_FOO',
             'ROLE_USER'  => 'ROLE_USER',
-            'ROLE_ADMIN' => 'ROLE_ADMIN: ROLE_USER'
+            'ROLE_ADMIN' => 'ROLE_ADMIN: ROLE_USER',
           ),
-          1 => array()
+          1 => array(),
         )));
 
         $childType = new SecurityRolesType($this->roleBuilder);
+
         return array(new PreloadedExtension(array(
           $childType->getName() => $childType,
         ), array()));
@@ -76,7 +76,7 @@ class SecurityRolesTypeTest extends TypeTestCase
         $form = $this->factory->create('sonata_security_roles', null, array(
             'multiple' => true,
             'expanded' => true,
-            'required' => false
+            'required' => false,
         ));
 
         $form->submit(array(0 => 'ROLE_FOO'));
@@ -91,7 +91,7 @@ class SecurityRolesTypeTest extends TypeTestCase
         $form = $this->factory->create('sonata_security_roles', null, array(
             'multiple' => true,
             'expanded' => true,
-            'required' => false
+            'required' => false,
         ));
 
         $form->submit(array(0 => 'ROLE_NOT_EXISTS'));
@@ -107,7 +107,7 @@ class SecurityRolesTypeTest extends TypeTestCase
         $form = $this->factory->create('sonata_security_roles', $originalRoles, array(
             'multiple' => true,
             'expanded' => true,
-            'required' => false
+            'required' => false,
         ));
 
         // we keep hidden ROLE_SUPER_ADMIN and delete available ROLE_USER

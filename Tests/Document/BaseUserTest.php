@@ -28,13 +28,13 @@ class BaseUserTest extends \PHPUnit_Framework_TestCase
 
         // Then
         $this->assertTrue($user->getCreatedAt() instanceof \DateTime, 'Should return a DateTime object');
-        $this->assertEquals($today->format('U'), $user->getCreatedAt()->format('U') , 'Should contain today\'s date');
+        $this->assertEquals($today->format('U'), $user->getCreatedAt()->format('U'), 'Should contain today\'s date');
 
         $this->assertTrue($user->getUpdatedAt() instanceof \DateTime, 'Should return a DateTime object');
-        $this->assertEquals($today->format('U'), $user->getUpdatedAt()->format('U') , 'Should contain today\'s date');
+        $this->assertEquals($today->format('U'), $user->getUpdatedAt()->format('U'), 'Should contain today\'s date');
 
         $this->assertTrue($user->getCredentialsExpireAt() instanceof \DateTime, 'Should return a DateTime object');
-        $this->assertEquals($today->format('U'), $user->getCredentialsExpireAt()->format('U') , 'Should contain today\'s date');
+        $this->assertEquals($today->format('U'), $user->getCredentialsExpireAt()->format('U'), 'Should contain today\'s date');
     }
 
     public function testDateWithPrePersist()
@@ -58,7 +58,7 @@ class BaseUserTest extends \PHPUnit_Framework_TestCase
     {
         // Given
         $user = new BaseUser();
-        $user->setCreatedAt( \DateTime::createFromFormat('Y-m-d', '2012-01-01'));
+        $user->setCreatedAt(\DateTime::createFromFormat('Y-m-d', '2012-01-01'));
         $today = new \DateTime();
 
         // When
@@ -126,5 +126,4 @@ class BaseUserTest extends \PHPUnit_Framework_TestCase
         // Then
         $this->assertEquals('-', $string, 'Should return a string representation');
     }
-
 }

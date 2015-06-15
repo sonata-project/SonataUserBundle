@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Sonata package.
  *
@@ -8,24 +9,18 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Sonata\UserBundle\Block;
 
-use Knp\Menu\ItemInterface;
 use Knp\Menu\Provider\MenuProviderInterface;
-use Sonata\CoreBundle\Validator\ErrorElement;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\BlockBundle\Block\Service\MenuBlockService;
-use Sonata\BlockBundle\Model\BlockInterface;
 use Sonata\UserBundle\Menu\ProfileMenuBuilder;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Class ProfileMenuBlockService
+ * Class ProfileMenuBlockService.
  *
- * @package Sonata\UserBundle\Block
  *
  * @author Hugo Briand <briand@ekino.com>
  */
@@ -37,7 +32,7 @@ class ProfileMenuBlockService extends MenuBlockService
     private $menuBuilder;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param string                $name
      * @param EngineInterface       $templating
@@ -67,8 +62,8 @@ class ProfileMenuBlockService extends MenuBlockService
         parent::setDefaultSettings($resolver);
 
         $resolver->setDefaults(array(
-            'cache_policy' => 'private',
-            'menu_template' => "SonataBlockBundle:Block:block_side_menu_template.html.twig",
+            'cache_policy'  => 'private',
+            'menu_template' => 'SonataBlockBundle:Block:block_side_menu_template.html.twig',
         ));
     }
 
@@ -81,7 +76,7 @@ class ProfileMenuBlockService extends MenuBlockService
 
         $menu = parent::getMenu($blockContext);
 
-        if (null === $menu || "" === $menu) {
+        if (null === $menu || '' === $menu) {
             $menu = $this->menuBuilder->createProfileMenu(
                 array(
                     'childrenAttributes' => array('class' => $settings['menu_class']),
