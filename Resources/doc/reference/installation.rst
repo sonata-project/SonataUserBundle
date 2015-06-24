@@ -238,6 +238,7 @@ Then, add a new custom firewall handlers for the admin:
                     failure_path:   null
                 logout:
                     path:           /admin/logout
+                    target:         /admin/login
                 anonymous:          true
 
             # -> end custom configuration
