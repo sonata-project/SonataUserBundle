@@ -4,7 +4,7 @@
         <body>
             <trans-unit id="title_user_registration">
                 <source>title_user_registration</source>
-                <target>Benutzerregistrierung</target>
+                <target>Registrierung</target>
             </trans-unit>
             <trans-unit id="title_user_account">
                 <source>title_user_account</source>
@@ -466,7 +466,6 @@
                 <source>gender_male</source>
                 <target>Männlich</target>
             </trans-unit>
-
             <trans-unit id="form.label_users">
                 <source>form.label_users</source>
                 <target>Benutzer</target>
