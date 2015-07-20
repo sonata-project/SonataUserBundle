@@ -240,7 +240,7 @@
             </trans-unit>
             <trans-unit id="form_management">
                 <source>Management</source>
-                <target>Management</target>
+                <target>Hallinta</target>
             </trans-unit>
             <trans-unit id="field.label_roles_editable">
                 <source>field.label_roles_editable</source>
