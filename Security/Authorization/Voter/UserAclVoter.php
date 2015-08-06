@@ -19,7 +19,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 class UserAclVoter extends AclVoter
 {
     /**
-     * {@InheritDoc}
+     * {@inheritdoc}
      */
     public function supportsClass($class)
     {
