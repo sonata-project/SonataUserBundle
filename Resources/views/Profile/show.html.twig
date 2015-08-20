@@ -77,7 +77,7 @@ file that was distributed with this source code.
         {% if has_center %}
             <div class="col-lg-{{ width_center }}">
                 {% for block in blocks.center %}
-                	{{ sonata_block_render({ 'type': block.type, 'settings': block.settings}) }}
+                    {{ sonata_block_render({ 'type': block.type, 'settings': block.settings}) }}
                 {% endfor %}
             </div>
         {% endif %}
@@ -96,7 +96,7 @@ file that was distributed with this source code.
         <div class="row">
             {% for block in blocks.bottom %}
             	<div class="col-lg-12">
-                	{{ sonata_block_render({ 'type': block.type, 'settings': block.settings}) }}
+                    {{ sonata_block_render({ 'type': block.type, 'settings': block.settings}) }}
             	</div>
             {% endfor %}
         </div>
