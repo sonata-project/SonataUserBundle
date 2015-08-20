@@ -35,10 +35,22 @@ class ProfileFOSUser1Controller extends Controller
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
+        
+        $blocks = array(
+        		'top'    => array(),
+        		'left'   => array(),
+        		'center' => array(),
+        		'right'  => array(),
+        		'bottom' => array(),
+        );
+        
+        foreach ($this->container->getParameter('sonata.user.configuration.profile_blocks') as $block) {
+        	$blocks[$block['position']][] = $block;
+        }
 
         return $this->render('SonataUserBundle:Profile:show.html.twig', array(
             'user'   => $user,
-            'blocks' => $this->container->getParameter('sonata.user.configuration.profile_blocks'),
+            'blocks' => $blocks,
         ));
     }
 
