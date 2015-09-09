@@ -25,9 +25,9 @@ class SecurityFOSUser1Controller extends SecurityController
 {
     public function loginAction()
     {
-        $user = $this->container->get('security.context')->getToken()->getUser();
+        $token = $this->container->get('security.context')->getToken();
 
-        if ($user instanceof UserInterface) {
+        if ($token && $token->getUser() instanceof UserInterface) {
             $this->container->get('session')->getFlashBag()->set('sonata_user_error', 'sonata_user_already_authenticated');
             $url = $this->container->get('router')->generate('sonata_user_profile_show');
 
