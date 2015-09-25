@@ -188,7 +188,7 @@ Add the related security routing information:
 
     # app/config/routing.yml
 
-    sonata_user:
+    sonata_user_admin_security:
         resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
         prefix: /admin
 
