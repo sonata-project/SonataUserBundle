@@ -261,14 +261,14 @@ The last part is to define 3 new access control rules:
         access_control:
             # URL of FOSUserBundle which need to be available to anonymous users
             - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/register$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/resetting$, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
             # Admin login page needs to be accessed without credential
             - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
             - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
             - { path: ^/admin/login_check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/admin/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/admin/resetting$, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
             # Secured part of the site
             # This config requires being logged for the whole site and having the admin role for the admin part.
