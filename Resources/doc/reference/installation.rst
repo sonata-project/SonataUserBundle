@@ -192,6 +192,10 @@ Add the related security routing information:
         resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
         prefix: /admin
 
+    sonata_user_admin_resetting:
+        resource: '@SonataUserBundle/Resources/config/routing/admin_resetting.xml'
+        prefix: /admin/resetting
+
 Then, add a new custom firewall handlers for the admin:
 
 .. code-block:: yaml
@@ -264,6 +268,7 @@ The last part is to define 3 new access control rules:
             - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
             - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
             - { path: ^/admin/login_check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/admin/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
             # Secured part of the site
             # This config requires being logged for the whole site and having the admin role for the admin part.
