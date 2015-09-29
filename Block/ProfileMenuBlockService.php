@@ -59,7 +59,7 @@ class ProfileMenuBlockService extends MenuBlockService
      */
     public function configureSettings(OptionsResolver $resolver)
     {
-        parent::setDefaultSettings($resolver);
+        parent::configureSettings($resolver);
 
         $resolver->setDefaults(array(
             'cache_policy'  => 'private',
