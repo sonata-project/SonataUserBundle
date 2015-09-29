@@ -64,12 +64,22 @@ class AdminSecurityController extends ContainerAware
             return new RedirectResponse($refererUri && $refererUri != $request->getUri() ? $refererUri : $this->container->get('router')->generate('sonata_admin_dashboard'));
         }
 
+        // TODO: Deprecated in 2.3, to be removed in 3.0
+        $resetRoute = 'sonata_user_admin_resetting_request';
+
+        // TODO: Deprecated in 2.3, to be removed in 3.0
+        if (null === $this->container->get('router')->getRouteCollection()->get('sonata_user_admin_resetting_request')) {
+            @trigger_error('Using the route fos_user_resetting_request for admin password resetting is deprecated since version 2.3 and will be removed in 3.0. Use sonata_user_admin_resetting_request instead.', E_USER_DEPRECATED);
+            $resetRoute = 'fos_user_resetting_request';
+        }
+
         return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/login.html.'.$this->container->getParameter('fos_user.template.engine'), array(
                 'last_username' => $lastUsername,
                 'error'         => $error,
                 'csrf_token'    => $csrfToken,
                 'base_template' => $this->container->get('sonata.admin.pool')->getTemplate('layout'),
                 'admin_pool'    => $this->container->get('sonata.admin.pool'),
+                'reset_route'   => $resetRoute, // TODO: Deprecated in 2.3, to be removed in 3.0
             ));
     }
 
