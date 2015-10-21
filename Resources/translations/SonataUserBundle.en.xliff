@@ -166,6 +166,10 @@
                 <source>filter.label_lastname</source>
                 <target>Lastname</target>
             </trans-unit>
+            <trans-unit id="filter.label_roles">
+                <source>filter.label_roles</source>
+                <target>Roles</target>
+            </trans-unit>
             <trans-unit id="list.label_username">
                 <source>list.label_username</source>
                 <target>Username</target>
