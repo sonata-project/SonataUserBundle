@@ -138,6 +138,10 @@
                 <source>filter.label_groups</source>
                 <target>Grups</target>
             </trans-unit>
+            <trans-unit id="filter.label_roles">
+                <source>filter.label_roles</source>
+                <target>Perfils</target>
+            </trans-unit>
             <trans-unit id="filter.label_firstname">
                 <source>filter.label_firstname</source>
                 <target>Nom</target>
