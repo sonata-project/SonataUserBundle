@@ -30,9 +30,9 @@ use Symfony\Component\Security\Core\Exception\AccountStatusException;
  */
 class RegistrationFOSUser1Controller extends ContainerAware
 {
-    public function registerAction()
+    public function registerAction($template = "register")
     {
-        $user = $this->container->get('security.context')->getToken()->getUser();
+        $user = $this->container->get('security.context')->getToken() ? $this->container->get('security.context')->getToken()->getUser() : null;
 
         if ($user instanceof UserInterface) {
             $this->container->get('session')->getFlashBag()->set('sonata_user_error', 'sonata_user_already_authenticated');
@@ -78,7 +78,7 @@ class RegistrationFOSUser1Controller extends ContainerAware
 
         $this->container->get('session')->set('sonata_user_redirect_url', $this->container->get('request')->headers->get('referer'));
 
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:register.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:' . $template . '.html.'.$this->getEngine(), array(
             'form' => $form->createView(),
         ));
     }
