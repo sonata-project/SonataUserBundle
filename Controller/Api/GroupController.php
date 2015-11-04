@@ -15,10 +15,13 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\View\View as FOSRestView;
+use FOS\UserBundle\Model\GroupInterface;
 use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\UserBundle\Model\GroupManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -69,7 +72,7 @@ class GroupController
      *
      * @param ParamFetcherInterface $paramFetcher
      *
-     * @return PagerInterface[]
+     * @return PagerInterface
      */
     public function getGroupsAction(ParamFetcherInterface $paramFetcher)
     {
@@ -179,7 +182,7 @@ class GroupController
      * @param Request  $request Symfony request
      * @param int|null $id      A Group identifier
      *
-     * @return \FOS\RestBundle\View\View|FormInterface
+     * @return FormInterface
      */
     protected function handleWriteGroup($request, $id = null)
     {
@@ -244,7 +247,7 @@ class GroupController
      *
      * @return GroupInterface
      *
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     protected function getGroup($id)
     {

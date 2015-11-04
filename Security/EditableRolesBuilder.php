@@ -17,10 +17,19 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class EditableRolesBuilder
 {
+    /**
+     * @var SecurityContextInterface
+     */
     protected $securityContext;
 
+    /**
+     * @var Pool
+     */
     protected $pool;
 
+    /**
+     * @var array
+     */
     protected $rolesHierarchy;
 
     /**

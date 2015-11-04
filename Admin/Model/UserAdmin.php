@@ -20,6 +20,9 @@ use Sonata\AdminBundle\Show\ShowMapper;
 
 class UserAdmin extends Admin
 {
+    /**
+     * @var UserManagerInterface
+     */
     protected $userManager;
 
     /**

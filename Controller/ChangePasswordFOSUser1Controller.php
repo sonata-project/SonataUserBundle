@@ -14,6 +14,7 @@ namespace Sonata\UserBundle\Controller;
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -26,6 +27,11 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 class ChangePasswordFOSUser1Controller extends ContainerAware
 {
+    /**
+     * @return Response|RedirectResponse
+     *
+     * @throws AccessDeniedException
+     */
     public function changePasswordAction()
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
@@ -50,7 +56,9 @@ class ChangePasswordFOSUser1Controller extends ContainerAware
     }
 
     /**
-     * {@inheritdoc}
+     * @param UserInterface $user
+     *
+     * @return string
      */
     protected function getRedirectionUrl(UserInterface $user)
     {

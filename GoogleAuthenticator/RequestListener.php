@@ -19,16 +19,25 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class RequestListener
 {
+    /**
+     * @var Helper
+     */
     protected $helper;
 
+    /**
+     * @var SecurityContextInterface
+     */
     protected $securityContext;
 
+    /**
+     * @var EngineInterface
+     */
     protected $templating;
 
     /**
-     * @param Helper                                                     $helper
-     * @param \Symfony\Component\Security\Core\SecurityContextInterface  $securityContext
-     * @param \Symfony\Bundle\FrameworkBundle\Templating\EngineInterface $templating
+     * @param Helper                   $helper
+     * @param SecurityContextInterface $securityContext
+     * @param EngineInterface          $templating
      */
     public function __construct(Helper $helper, SecurityContextInterface $securityContext, EngineInterface $templating)
     {
@@ -38,9 +47,7 @@ class RequestListener
     }
 
     /**
-     * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
-     *
-     * @return
+     * @param GetResponseEvent $event
      */
     public function onCoreRequest(GetResponseEvent $event)
     {

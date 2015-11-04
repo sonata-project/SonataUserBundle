@@ -23,6 +23,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  */
 class SecurityFOSUser1Controller extends SecurityController
 {
+    /**
+     * {@inheritdoc}
+     */
     public function loginAction()
     {
         $user = $this->container->get('security.context')->getToken()->getUser();

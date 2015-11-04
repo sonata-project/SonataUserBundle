@@ -18,6 +18,9 @@ use Sonata\AdminBundle\Form\FormMapper;
 
 class GroupAdmin extends Admin
 {
+    /**
+     * {@inheritdoc}
+     */
     protected $formOptions = array(
         'validation_groups' => 'Registration',
     );

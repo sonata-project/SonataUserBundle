@@ -17,6 +17,9 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class InteractiveLoginListener
 {
+    /**
+     * @var Helper
+     */
     protected $helper;
 
     /**
@@ -28,9 +31,7 @@ class InteractiveLoginListener
     }
 
     /**
-     * @param \Symfony\Component\Security\Http\Event\InteractiveLoginEvent $event
-     *
-     * @return
+     * @param InteractiveLoginEvent $event
      */
     public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
     {

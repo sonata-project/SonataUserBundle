@@ -23,7 +23,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class AdminResettingController extends ResettingController
 {
     /**
-     * Request reset user password: show form.
+     * {@inheritdoc}
      */
     public function requestAction()
     {
@@ -38,7 +38,7 @@ class AdminResettingController extends ResettingController
     }
 
     /**
-     * Request reset user password: submit form and send email.
+     * {@inheritdoc}
      */
     public function sendEmailAction()
     {
@@ -77,7 +77,7 @@ class AdminResettingController extends ResettingController
     }
 
     /**
-     * Tell the user to check his email provider.
+     * {@inheritdoc}
      */
     public function checkEmailAction()
     {
@@ -98,7 +98,7 @@ class AdminResettingController extends ResettingController
     }
 
     /**
-     * Reset user password.
+     * {@inheritdoc}
      */
     public function resetAction($token)
     {

@@ -18,6 +18,9 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class RegistrationFormType extends AbstractType
 {
+    /**
+     * @var string
+     */
     private $class;
 
     /**
@@ -35,6 +38,9 @@ class RegistrationFormType extends AbstractType
         $this->mergeOptions = $mergeOptions;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -81,6 +87,9 @@ class RegistrationFormType extends AbstractType
         ));
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'sonata_user_registration';

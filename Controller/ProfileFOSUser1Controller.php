@@ -43,7 +43,7 @@ class ProfileFOSUser1Controller extends Controller
     }
 
     /**
-     * @return Response
+     * @return Response|RedirectResponse
      *
      * @throws AccessDeniedException
      */
@@ -70,7 +70,7 @@ class ProfileFOSUser1Controller extends Controller
     }
 
     /**
-     * @return Response
+     * @return Response|RedirectResponse
      *
      * @throws AccessDeniedException
      */

@@ -27,6 +27,13 @@ class UserManagerProxy extends BaseEntityManager
      */
     protected $userManager;
 
+    /**
+     * UserManagerProxy constructor.
+     *
+     * @param string          $class
+     * @param ManagerRegistry $registry
+     * @param UserManager     $userManager
+     */
     public function __construct($class, ManagerRegistry $registry, UserManager $userManager)
     {
         parent::__construct($class, $registry);

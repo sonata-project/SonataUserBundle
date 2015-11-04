@@ -61,7 +61,7 @@ class ProfileMenuBuilder
     /**
      * @param array $itemOptions The options given to the created menuItem
      *
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      */
     public function createProfileMenu(array $itemOptions = array())
     {
@@ -73,7 +73,8 @@ class ProfileMenuBuilder
     }
 
     /**
-     * @param \Knp\Menu\ItemInterface $menu The item to fill with $routes
+     * @param ItemInterface $menu        The item to fill with $routes
+     * @param array         $itemOptions
      */
     public function buildProfileMenu(ItemInterface $menu, array $itemOptions = array())
     {
