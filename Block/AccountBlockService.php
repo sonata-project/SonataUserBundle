@@ -11,11 +11,8 @@
 
 namespace Sonata\UserBundle\Block;
 
-use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Block\BaseBlockService;
 use Sonata\BlockBundle\Block\BlockContextInterface;
-use Sonata\BlockBundle\Model\BlockInterface;
-use Sonata\CoreBundle\Validator\ErrorElement;
 use Sonata\UserBundle\Menu\ProfileMenuBuilder;
 use Sonata\UserBundle\Model\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
@@ -71,21 +68,6 @@ class AccountBlockService extends BaseBlockService
             'block'   => $blockContext->getBlock(),
             'context' => $blockContext,
         ));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function buildEditForm(FormMapper $form, BlockInterface $block)
-    {
-        // no options available
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function validateBlock(ErrorElement $errorElement, BlockInterface $block)
-    {
     }
 
     /**
