@@ -17,8 +17,14 @@ use Symfony\Component\Form\DataTransformerInterface;
 
 class RestoreRolesTransformer implements DataTransformerInterface
 {
+    /**
+     * @var array|null
+     */
     protected $originalRoles = null;
 
+    /**
+     * @var EditableRolesBuilder|null
+     */
     protected $rolesBuilder  = null;
 
     /**

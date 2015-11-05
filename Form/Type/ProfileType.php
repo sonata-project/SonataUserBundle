@@ -20,6 +20,9 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ProfileType extends AbstractType
 {
+    /**
+     * @var string
+     */
     private $class;
 
     /**

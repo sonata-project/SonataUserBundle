@@ -12,6 +12,7 @@
 namespace Sonata\UserBundle\Document;
 
 use FOS\UserBundle\Document\GroupManager as BaseGroupManager;
+use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\UserBundle\Model\GroupManagerInterface;
 
 /**
@@ -36,7 +37,7 @@ class GroupManager extends BaseGroupManager implements GroupManagerInterface
      * @param int   $limit
      * @param array $sort
      *
-     * @return \Sonata\DatagridBundle\Pager\PagerInterface
+     * @return PagerInterface
      */
     public function getPager(array $criteria, $page, $limit = 10, array $sort = array())
     {

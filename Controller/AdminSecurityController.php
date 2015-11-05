@@ -14,13 +14,14 @@ namespace Sonata\UserBundle\Controller;
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Security\Core\SecurityContext;
 
 class AdminSecurityController extends ContainerAware
 {
     /**
-     * {@inheritdoc}
+     * @return Response|RedirectResponse
      */
     public function loginAction()
     {
@@ -34,9 +35,7 @@ class AdminSecurityController extends ContainerAware
         }
 
         $request = $this->container->get('request');
-        /* @var $request \Symfony\Component\HttpFoundation\Request */
         $session = $request->getSession();
-        /* @var $session \Symfony\Component\HttpFoundation\Session */
 
         // get the error if any (works with forward and redirect -- see below)
         if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
@@ -89,7 +88,7 @@ class AdminSecurityController extends ContainerAware
      *
      * @param array $data
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     protected function renderLogin(array $data)
     {

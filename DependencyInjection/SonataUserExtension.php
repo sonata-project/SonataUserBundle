@@ -24,8 +24,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 class SonataUserExtension extends Extension
 {
     /**
-     * @param array            $configs   An array of configuration settings
-     * @param ContainerBuilder $container A ContainerBuilder instance
+     * {@inheritdoc}
      */
     public function load(array $configs, ContainerBuilder $container)
     {
@@ -188,8 +187,8 @@ class SonataUserExtension extends Extension
     }
 
     /**
-     * @param array                                                   $config
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param array            $config
+     * @param ContainerBuilder $container
      */
     public function configureClass($config, ContainerBuilder $container)
     {
@@ -204,8 +203,8 @@ class SonataUserExtension extends Extension
     }
 
     /**
-     * @param array                                                   $config
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param array            $config
+     * @param ContainerBuilder $container
      */
     public function configureAdminClass($config, ContainerBuilder $container)
     {
@@ -214,8 +213,8 @@ class SonataUserExtension extends Extension
     }
 
     /**
-     * @param array                                                   $config
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param array            $config
+     * @param ContainerBuilder $container
      */
     public function configureTranslationDomain($config, ContainerBuilder $container)
     {
@@ -224,8 +223,8 @@ class SonataUserExtension extends Extension
     }
 
     /**
-     * @param array                                                   $config
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param array            $config
+     * @param ContainerBuilder $container
      */
     public function configureController($config, ContainerBuilder $container)
     {

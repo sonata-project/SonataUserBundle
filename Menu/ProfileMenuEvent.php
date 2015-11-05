@@ -36,7 +36,7 @@ class ProfileMenuEvent extends Event
     }
 
     /**
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      */
     public function getMenu()
     {

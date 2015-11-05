@@ -17,13 +17,19 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class Helper
 {
+    /**
+     * @var string
+     */
     protected $server;
 
+    /**
+     * @var BaseGoogleAuthenticator
+     */
     protected $authenticator;
 
     /**
-     * @param $server
-     * @param \Google\Authenticator\GoogleAuthenticator $authenticator
+     * @param string                  $server
+     * @param BaseGoogleAuthenticator $authenticator
      */
     public function __construct($server, BaseGoogleAuthenticator $authenticator)
     {
@@ -32,7 +38,7 @@ class Helper
     }
 
     /**
-     * @param \Sonata\UserBundle\Model\UserInterface $user
+     * @param UserInterface $user
      * @param $code
      *
      * @return bool
@@ -43,7 +49,7 @@ class Helper
     }
 
     /**
-     * @param \Sonata\UserBundle\Model\UserInterface $user
+     * @param UserInterface $user
      *
      * @return string
      */
@@ -61,7 +67,7 @@ class Helper
     }
 
     /**
-     * @param \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken $token
+     * @param UsernamePasswordToken $token
      *
      * @return string
      */

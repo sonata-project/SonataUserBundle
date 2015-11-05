@@ -25,22 +25,24 @@ use Symfony\Component\HttpFoundation\Request;
 class ProfileFormHandler
 {
     /**
-     * @var \Symfony\Component\HttpFoundation\Request
+     * @var Request
      */
     protected $request;
+
     /**
-     * @var \FOS\UserBundle\Model\UserManagerInterface
+     * @var UserManagerInterface
      */
     protected $userManager;
+
     /**
-     * @var \Symfony\Component\Form\Form
+     * @var Form
      */
     protected $form;
 
     /**
-     * @param Form                                      $form
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param UserManagerInterface                      $userManager
+     * @param Form                 $form
+     * @param Request              $request
+     * @param UserManagerInterface $userManager
      */
     public function __construct(Form $form, Request $request, UserManagerInterface $userManager)
     {

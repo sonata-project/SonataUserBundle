@@ -30,6 +30,9 @@ use Symfony\Component\Security\Core\Exception\AccountStatusException;
  */
 class RegistrationFOSUser1Controller extends ContainerAware
 {
+    /**
+     * @return RedirectResponse
+     */
     public function registerAction()
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
@@ -85,6 +88,10 @@ class RegistrationFOSUser1Controller extends ContainerAware
 
     /**
      * Tell the user to check his email provider.
+     *
+     * @return Response
+     *
+     * @throws NotFoundHttpException
      */
     public function checkEmailAction()
     {
@@ -103,6 +110,12 @@ class RegistrationFOSUser1Controller extends ContainerAware
 
     /**
      * Receive the confirmation token from user email provider, login the user.
+     *
+     * @param string $token
+     *
+     * @return RedirectResponse
+     *
+     * @throws NotFoundHttpException
      */
     public function confirmAction($token)
     {
@@ -130,6 +143,10 @@ class RegistrationFOSUser1Controller extends ContainerAware
 
     /**
      * Tell the user his account is now confirmed.
+     *
+     * @return Response
+     *
+     * @throws AccessDeniedException
      */
     public function confirmedAction()
     {
@@ -146,8 +163,8 @@ class RegistrationFOSUser1Controller extends ContainerAware
     /**
      * Authenticate a user with Symfony Security.
      *
-     * @param \FOS\UserBundle\Model\UserInterface        $user
-     * @param \Symfony\Component\HttpFoundation\Response $response
+     * @param UserInterface $user
+     * @param Response      $response
      */
     protected function authenticateUser(UserInterface $user, Response $response)
     {
@@ -171,6 +188,9 @@ class RegistrationFOSUser1Controller extends ContainerAware
         $this->container->get('session')->getFlashBag()->set($action, $value);
     }
 
+    /**
+     * @return string
+     */
     protected function getEngine()
     {
         return $this->container->getParameter('fos_user.template.engine');
