@@ -12,29 +12,32 @@
 namespace Sonata\UserBundle\Controller;
 
 use FOS\UserBundle\Model\UserInterface;
-use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Security\Core\SecurityContext;
 
-class AdminSecurityController extends ContainerAware
+class AdminSecurityController extends Controller
 {
     /**
+     * @param Request $request
+     *
      * @return Response|RedirectResponse
      */
-    public function loginAction()
+    public function loginAction(Request $request = null)
     {
-        $user = $this->container->get('security.context')->getToken()->getUser();
+        $request = $request === null ? $request = $this->get('request') : $request;
+
+        $user = $this->get('security.context')->getToken()->getUser();
 
         if ($user instanceof UserInterface) {
-            $this->container->get('session')->getFlashBag()->set('sonata_user_error', 'sonata_user_already_authenticated');
-            $url = $this->container->get('router')->generate('sonata_admin_dashboard');
+            $this->get('session')->getFlashBag()->set('sonata_user_error', 'sonata_user_already_authenticated');
+            $url = $this->generateUrl('sonata_admin_dashboard');
 
-            return new RedirectResponse($url);
+            return $this->redirect($url);
         }
 
-        $request = $this->container->get('request');
         $session = $request->getSession();
 
         // get the error if any (works with forward and redirect -- see below)
@@ -54,30 +57,30 @@ class AdminSecurityController extends ContainerAware
         // last username entered by the user
         $lastUsername = (null === $session) ? '' : $session->get(SecurityContext::LAST_USERNAME);
 
-        $csrfToken = $this->container->has('form.csrf_provider')
-            ? $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate')
+        $csrfToken = $this->has('form.csrf_provider')
+            ? $this->get('form.csrf_provider')->generateCsrfToken('authenticate')
             : null;
 
-        if ($this->container->get('security.context')->isGranted('ROLE_ADMIN')) {
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
             $refererUri = $request->server->get('HTTP_REFERER');
 
-            return new RedirectResponse($refererUri && $refererUri != $request->getUri() ? $refererUri : $this->container->get('router')->generate('sonata_admin_dashboard'));
+            return $this->redirect($refererUri && $refererUri != $request->getUri() ? $refererUri : $this->generateUrl('sonata_admin_dashboard'));
         }
 
         // TODO: Deprecated in 2.3, to be removed in 3.0
         try {
-            $resetRoute = $this->container->get('router')->generate('sonata_user_admin_resetting_request');
+            $resetRoute = $this->generateUrl('sonata_user_admin_resetting_request');
         } catch (RouteNotFoundException $e) {
             @trigger_error('Using the route fos_user_resetting_request for admin password resetting is deprecated since version 2.3 and will be removed in 3.0. Use sonata_user_admin_resetting_request instead.', E_USER_DEPRECATED);
-            $resetRoute = $this->container->get('router')->generate('fos_user_resetting_request');
+            $resetRoute = $this->generateUrl('fos_user_resetting_request');
         }
 
-        return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/login.html.'.$this->container->getParameter('fos_user.template.engine'), array(
+        return $this->render('SonataUserBundle:Admin:Security/login.html.'.$this->getParameter('fos_user.template.engine'), array(
                 'last_username' => $lastUsername,
                 'error'         => $error,
                 'csrf_token'    => $csrfToken,
-                'base_template' => $this->container->get('sonata.admin.pool')->getTemplate('layout'),
-                'admin_pool'    => $this->container->get('sonata.admin.pool'),
+                'base_template' => $this->get('sonata.admin.pool')->getTemplate('layout'),
+                'admin_pool'    => $this->get('sonata.admin.pool'),
                 'reset_route'   => $resetRoute, // TODO: Deprecated in 2.3, to be removed in 3.0
             ));
     }
@@ -92,9 +95,9 @@ class AdminSecurityController extends ContainerAware
      */
     protected function renderLogin(array $data)
     {
-        $template = sprintf('FOSUserBundle:Security:login.html.%s', $this->container->getParameter('fos_user.template.engine'));
+        $template = sprintf('FOSUserBundle:Security:login.html.%s', $this->getParameter('fos_user.template.engine'));
 
-        return $this->container->get('templating')->renderResponse($template, $data);
+        return $this->render($template, $data);
     }
 
     public function checkAction()
