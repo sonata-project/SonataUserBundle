@@ -44,7 +44,8 @@ class RegistrationFOSUser1Controller extends ContainerAware
             return new RedirectResponse($url);
         }
 
-        $form = $this->container->get('sonata.user.registration.form');
+        $formType = $this->container->getParameter('sonata.user.registration.form.type');
+        $form = $this->container->get('form.factory')->createBuilder($formType)->getForm();
         $formHandler = $this->container->get('sonata.user.registration.form.handler');
         $confirmationEnabled = $this->container->getParameter('fos_user.registration.confirmation.enabled');
 
@@ -70,6 +71,10 @@ class RegistrationFOSUser1Controller extends ContainerAware
 
             $this->setFlash('fos_user_success', 'registration.flash.user_created');
 
+            if($url === null){
+                $url = $this->container->get('router')->generate('sonata_user_profile_show');
+            }
+            
             $response = new RedirectResponse($url);
 
             if ($authUser) {
