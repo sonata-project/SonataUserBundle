@@ -12,10 +12,10 @@
 namespace Sonata\UserBundle\Controller;
 
 use FOS\UserBundle\Model\UserInterface;
-use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Class ChangePasswordFOSUser1Controller.
@@ -25,7 +25,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  *
  * @author  Hugo Briand <briand@ekino.com>
  */
-class ChangePasswordFOSUser1Controller extends ContainerAware
+class ChangePasswordFOSUser1Controller extends Controller
 {
     /**
      * @return Response|RedirectResponse
@@ -34,23 +34,23 @@ class ChangePasswordFOSUser1Controller extends ContainerAware
      */
     public function changePasswordAction()
     {
-        $user = $this->container->get('security.context')->getToken()->getUser();
+        $user = $this->get('security.context')->getToken()->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
-            throw new AccessDeniedException('This user does not have access to this section.');
+            $this->createAccessDeniedException('This user does not have access to this section.');
         }
 
-        $form = $this->container->get('fos_user.change_password.form');
-        $formHandler = $this->container->get('fos_user.change_password.form.handler');
+        $form = $this->get('fos_user.change_password.form');
+        $formHandler = $this->get('fos_user.change_password.form.handler');
 
         $process = $formHandler->process($user);
         if ($process) {
             $this->setFlash('fos_user_success', 'change_password.flash.success');
 
-            return new RedirectResponse($this->getRedirectionUrl($user));
+            return $this->redirect($this->getRedirectionUrl($user));
         }
 
-        return $this->container->get('templating')->renderResponse(
-            'SonataUserBundle:ChangePassword:changePassword.html.'.$this->container->getParameter('fos_user.template.engine'),
+        return $this->render(
+            'SonataUserBundle:ChangePassword:changePassword.html.'.$this->getParameter('fos_user.template.engine'),
             array('form' => $form->createView())
         );
     }
@@ -62,7 +62,7 @@ class ChangePasswordFOSUser1Controller extends ContainerAware
      */
     protected function getRedirectionUrl(UserInterface $user)
     {
-        return $this->container->get('router')->generate('sonata_user_profile_show');
+        return $this->generateUrl('sonata_user_profile_show');
     }
 
     /**
@@ -71,6 +71,6 @@ class ChangePasswordFOSUser1Controller extends ContainerAware
      */
     protected function setFlash($action, $value)
     {
-        $this->container->get('session')->getFlashBag()->set($action, $value);
+        $this->get('session')->getFlashBag()->set($action, $value);
     }
 }
