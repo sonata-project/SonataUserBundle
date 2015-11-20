@@ -58,9 +58,13 @@ class AdminSecurityController extends Controller
         // last username entered by the user
         $lastUsername = (null === $session) ? '' : $session->get(SecurityContext::LAST_USERNAME);
 
-        $csrfToken = $this->has('form.csrf_provider')
-            ? $this->get('form.csrf_provider')->generateCsrfToken('authenticate')
-            : null;
+        if ($this->has('security.csrf.token_manager')) { // sf >= 2.4
+            $csrfToken = $this->get('security.csrf.token_manager')->getToken('authenticate');
+        } else {
+            $csrfToken = $this->has('form.csrf_provider')
+                ? $this->get('form.csrf_provider')->generateCsrfToken('authenticate')
+                : null;
+        }
 
         if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
             $refererUri = $request->server->get('HTTP_REFERER');
