@@ -76,7 +76,7 @@ class AdminSecurityController extends Controller
             $resetRoute = $this->generateUrl('fos_user_resetting_request');
         }
 
-        return $this->render('SonataUserBundle:Admin:Security/login.html.'.$this->getParameter('fos_user.template.engine'), array(
+        return $this->render('SonataUserBundle:Admin:Security/login.html.'.$this->container->getParameter('fos_user.template.engine'), array(
                 'last_username' => $lastUsername,
                 'error'         => $error,
                 'csrf_token'    => $csrfToken,
@@ -96,7 +96,7 @@ class AdminSecurityController extends Controller
      */
     protected function renderLogin(array $data)
     {
-        $template = sprintf('FOSUserBundle:Security:login.html.%s', $this->getParameter('fos_user.template.engine'));
+        $template = sprintf('FOSUserBundle:Security:login.html.%s', $this->container->getParameter('fos_user.template.engine'));
 
         return $this->render($template, $data);
     }
