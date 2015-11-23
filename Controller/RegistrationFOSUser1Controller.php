@@ -44,7 +44,7 @@ class RegistrationFOSUser1Controller extends Controller
 
         $form = $this->get('sonata.user.registration.form');
         $formHandler = $this->get('sonata.user.registration.form.handler');
-        $confirmationEnabled = $this->getParameter('fos_user.registration.confirmation.enabled');
+        $confirmationEnabled = $this->container->getParameter('fos_user.registration.confirmation.enabled');
 
         $process = $formHandler->process($confirmationEnabled);
         if ($process) {
@@ -128,8 +128,8 @@ class RegistrationFOSUser1Controller extends Controller
         $user->setLastLogin(new \DateTime());
 
         $this->get('fos_user.user_manager')->updateUser($user);
-        if ($redirectRoute = $this->getParameter('sonata.user.register.confirm.redirect_route')) {
-            $response = $this->redirectToRoute($redirectRoute, $this->getParameter('sonata.user.register.confirm.redirect_route_params'));
+        if ($redirectRoute = $this->container->getParameter('sonata.user.register.confirm.redirect_route')) {
+            $response = $this->redirectToRoute($redirectRoute, $this->container->getParameter('sonata.user.register.confirm.redirect_route_params'));
         } else {
             $response = $this->redirectToRoute('fos_user_registration_confirmed');
         }
@@ -168,7 +168,7 @@ class RegistrationFOSUser1Controller extends Controller
     {
         try {
             $this->get('fos_user.security.login_manager')->loginUser(
-                $this->getParameter('fos_user.firewall_name'),
+                $this->container->getParameter('fos_user.firewall_name'),
                 $user,
                 $response);
         } catch (AccountStatusException $ex) {
@@ -191,6 +191,6 @@ class RegistrationFOSUser1Controller extends Controller
      */
     protected function getEngine()
     {
-        return $this->getParameter('fos_user.template.engine');
+        return $this->container->getParameter('fos_user.template.engine');
     }
 }

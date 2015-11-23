@@ -38,7 +38,7 @@ class ProfileFOSUser1Controller extends Controller
 
         return $this->render('SonataUserBundle:Profile:show.html.twig', array(
             'user'   => $user,
-            'blocks' => $this->getParameter('sonata.user.configuration.profile_blocks'),
+            'blocks' => $this->container->getParameter('sonata.user.configuration.profile_blocks'),
         ));
     }
 
