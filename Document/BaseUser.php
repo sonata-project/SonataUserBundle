@@ -19,7 +19,6 @@ use Sonata\UserBundle\Model\UserInterface;
  */
 class BaseUser extends AbstractedUser implements UserInterface
 {
-
     /**
      * @var \DateTime
      */
@@ -686,7 +685,6 @@ class BaseUser extends AbstractedUser implements UserInterface
     {
         $this->updatedAt = new \DateTime();
     }
-
 
     /**
      * Returns the gender list.

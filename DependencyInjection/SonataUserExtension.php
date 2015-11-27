@@ -51,7 +51,7 @@ class SonataUserExtension extends Extension
         $loader->load('form.xml');
         $loader->load('google_authenticator.xml');
         $loader->load('twig.xml');
-        if($config["manager_type"] === "orm") {
+        if ($config['manager_type'] === 'orm') {
             $loader->load('serializer.xml');
         }
 

@@ -19,7 +19,6 @@ use Sonata\UserBundle\Model\UserInterface;
  */
 class BaseUser extends AbstractedUser
 {
-
     /**
      * @var \DateTime
      */
