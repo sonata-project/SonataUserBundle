@@ -28,6 +28,7 @@ Enable the Bundle
     php composer.phar require sonata-project/doctrine-orm-admin-bundle  --no-update # optional
     php composer.phar require friendsofsymfony/rest-bundle  --no-update # optional when using api
     php composer.phar require nelmio/api-doc-bundle  --no-update # optional when using api
+    php composer.phar require sonata-project/google-authenticator --no-update  # optional
     php composer.phar update
 
 Next, be sure to enable the bundles in your and ``AppKernel.php`` file:
