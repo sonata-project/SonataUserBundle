@@ -26,7 +26,7 @@
             <argument type="service" id="fos_user.user_manager" />
         </service>
 
-        <service id="sonata.user.form.gender_list" class="Sonata\CoreBundle\Form\Type\StatusType">
+        <service id="sonata.user.form.gender_list" class="Sonata\UserBundle\Form\Type\UserGenderListType">
             <argument>%fos_user.model.user.class%</argument>
             <argument>getGenderList</argument>
             <argument>sonata_user_gender</argument>
