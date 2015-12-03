@@ -70,8 +70,8 @@ class SonataUserBundle extends Bundle
             'sonata_user_profile'        => 'Sonata\UserBundle\Form\Type\ProfileType',
             'sonata_user_gender'         => 'Sonata\UserBundle\Form\Type\UserGenderListType',
             'sonata_user_registration'   => 'Sonata\UserBundle\Form\Type\RegistrationFormType',
-            'sonata_user_api_form_group' => 'Sonata\CoreBundle\Form\Type\DoctrineORMSerializationType',
-            'sonata_user_api_form_user'  => 'Sonata\CoreBundle\Form\Type\DoctrineORMSerializationType',
+            'sonata_user_api_form_group' => 'Sonata\UserBundle\Form\Type\ApiGroupType',
+            'sonata_user_api_form_user'  => 'Sonata\UserBundle\Form\Type\ApiUserType',
         ));
     }
 }

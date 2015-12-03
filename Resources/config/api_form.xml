@@ -5,7 +5,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="sonata.user.api.form.type.group" class="Sonata\CoreBundle\Form\Type\DoctrineORMSerializationType">
+        <service id="sonata.user.api.form.type.group" class="Sonata\UserBundle\Form\Type\ApiGroupType">
             <tag name="form.type" alias="sonata_user_api_form_group" />
 
             <argument type="service" id="jms_serializer.metadata_factory" />
@@ -15,7 +15,7 @@
             <argument>sonata_api_write</argument>
         </service>
 
-        <service id="sonata.user.api.form.type.user" class="Sonata\CoreBundle\Form\Type\DoctrineORMSerializationType">
+        <service id="sonata.user.api.form.type.user" class="Sonata\UserBundle\Form\Type\ApiUserType">
             <tag name="form.type" alias="sonata_user_api_form_user" />
 
             <argument type="service" id="jms_serializer.metadata_factory" />
