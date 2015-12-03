@@ -17,6 +17,6 @@ use Sonata\CoreBundle\Form\Type\BaseDoctrineORMSerializationType;
 /**
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class UserType extends BaseDoctrineORMSerializationType
+class GroupType extends BaseDoctrineORMSerializationType
 {
 }
