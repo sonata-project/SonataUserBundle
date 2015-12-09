@@ -27,7 +27,14 @@ class AdminResettingController extends ResettingController
      */
     public function requestAction()
     {
-        if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+        if ($this->container->has('security.authorization_checker')) {
+            $securityService = $this->container->get('security.authorization_checker');
+        } else {
+            // BC for SF < 2.7
+            $securityService = $this->container->get('security.context');
+        }
+
+        if ($securityService->isGranted('IS_AUTHENTICATED_FULLY')) {
             return new RedirectResponse($this->container->get('router')->generate('sonata_admin_dashboard'));
         }
 
@@ -102,7 +109,14 @@ class AdminResettingController extends ResettingController
      */
     public function resetAction($token)
     {
-        if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+        if ($this->container->has('security.authorization_checker')) {
+            $securityService = $this->container->get('security.authorization_checker');
+        } else {
+            // BC for SF < 2.7
+            $securityService = $this->container->get('security.context');
+        }
+
+        if ($securityService->isGranted('IS_AUTHENTICATED_FULLY')) {
             return new RedirectResponse($this->container->get('router')->generate('sonata_admin_dashboard'));
         }
 

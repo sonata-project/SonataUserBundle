@@ -30,7 +30,12 @@ class AdminSecurityController extends Controller
     {
         $request = $request === null ? $request = $this->get('request') : $request;
 
-        $user = $this->get('security.context')->getToken()->getUser();
+        if ($this->container->has('security.token_storage')) {
+            $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        } else {
+            // BC for SF < 2.7
+            $user = $this->container->get('security.context')->getToken()->getUser();
+        }
 
         if ($user instanceof UserInterface) {
             $this->get('session')->getFlashBag()->set('sonata_user_error', 'sonata_user_already_authenticated');

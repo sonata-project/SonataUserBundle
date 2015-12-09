@@ -31,7 +31,8 @@ class ProfileFOSUser1Controller extends Controller
      */
     public function showAction()
     {
-        $user = $this->get('security.context')->getToken()->getUser();
+        $user = $this->getUser();
+
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw $this->createAccessDeniedException('This user does not have access to this section.');
         }
@@ -49,7 +50,7 @@ class ProfileFOSUser1Controller extends Controller
      */
     public function editAuthenticationAction()
     {
-        $user = $this->get('security.context')->getToken()->getUser();
+        $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw $this->createAccessDeniedException('This user does not have access to this section.');
         }
@@ -76,7 +77,7 @@ class ProfileFOSUser1Controller extends Controller
      */
     public function editProfileAction()
     {
-        $user = $this->get('security.context')->getToken()->getUser();
+        $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw $this->createAccessDeniedException('This user does not have access to this section.');
         }
@@ -104,5 +105,22 @@ class ProfileFOSUser1Controller extends Controller
     protected function setFlash($action, $value)
     {
         $this->get('session')->getFlashBag()->set($action, $value);
+    }
+
+    /**
+     * Get the authenitficated user.
+     *
+     * @return UserInterface|null
+     */
+    protected function getUser()
+    {
+        if ($this->container->has('security.token_storage')) {
+            $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        } else {
+            // BC for SF < 2.7
+            $user = $this->container->get('security.context')->getToken()->getUser();
+        }
+
+        return $user;
     }
 }
