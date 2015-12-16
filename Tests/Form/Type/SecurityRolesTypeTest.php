@@ -29,22 +29,22 @@ class SecurityRolesTypeTest extends TypeTestCase
     protected function getExtensions()
     {
         $this->roleBuilder = $roleBuilder = $this->getMockBuilder('Sonata\UserBundle\Security\EditableRolesBuilder')
-          ->disableOriginalConstructor()
-          ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
 
-        $this->roleBuilder->expects($this->any())->method('getRoles')->will($this->returnValue(array(
-          0 => array(
-            'ROLE_FOO'   => 'ROLE_FOO',
-            'ROLE_USER'  => 'ROLE_USER',
-            'ROLE_ADMIN' => 'ROLE_ADMIN: ROLE_USER',
-          ),
-          1 => array(),
-        )));
+        $this->roleBuilder
+            ->expects($this->any())
+            ->method('getRoles')
+            ->will($this->returnValue(array(array(
+                'ROLE_FOO'   => 'ROLE_FOO',
+                'ROLE_USER'  => 'ROLE_USER',
+                'ROLE_ADMIN' => 'ROLE_ADMIN: ROLE_USER',
+            ),array()));
 
         $childType = new SecurityRolesType($this->roleBuilder);
 
         return array(new PreloadedExtension(array(
-          $childType->getName() => $childType,
+            $childType->getName() => $childType,
         ), array()));
     }
 
@@ -53,7 +53,7 @@ class SecurityRolesTypeTest extends TypeTestCase
         $type = new SecurityRolesType($this->roleBuilder);
 
         $optionResolver = new OptionsResolver();
-        $type->setDefaultOptions($optionResolver);
+        $type->configureOptions($optionResolver);
 
         $options = $optionResolver->resolve();
         $this->assertCount(3, $options['choices']);
@@ -62,18 +62,18 @@ class SecurityRolesTypeTest extends TypeTestCase
     public function testGetName()
     {
         $type = new SecurityRolesType($this->roleBuilder);
-        $this->assertEquals('sonata_security_roles', $type->getName());
+        $this->assertEquals(SecurityRolesType::class, $type->getName());
     }
 
     public function testGetParent()
     {
         $type = new SecurityRolesType($this->roleBuilder);
-        $this->assertEquals('choice', $type->getParent());
+        $this->assertEquals('Symfony\Component\Form\Extension\Core\Type\ChoiceType', $type->getParent());
     }
 
     public function testSubmitValidData()
     {
-        $form = $this->factory->create('sonata_security_roles', null, array(
+        $form = $this->factory->create(SecurityRolesType::class, null, array(
             'multiple' => true,
             'expanded' => true,
             'required' => false,
@@ -88,7 +88,7 @@ class SecurityRolesTypeTest extends TypeTestCase
 
     public function testSubmitInvalidData()
     {
-        $form = $this->factory->create('sonata_security_roles', null, array(
+        $form = $this->factory->create(SecurityRolesType::class, null, array(
             'multiple' => true,
             'expanded' => true,
             'required' => false,
@@ -104,7 +104,7 @@ class SecurityRolesTypeTest extends TypeTestCase
     {
         $originalRoles = array('ROLE_SUPER_ADMIN', 'ROLE_USER');
 
-        $form = $this->factory->create('sonata_security_roles', $originalRoles, array(
+        $form = $this->factory->create(SecurityRolesType::class, $originalRoles, array(
             'multiple' => true,
             'expanded' => true,
             'required' => false,

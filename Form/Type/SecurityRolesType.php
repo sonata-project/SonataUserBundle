@@ -15,6 +15,7 @@ namespace Sonata\UserBundle\Form\Type;
 use Sonata\UserBundle\Form\Transformer\RestoreRolesTransformer;
 use Sonata\UserBundle\Security\EditableRolesBuilder;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -116,15 +117,7 @@ class SecurityRolesType extends AbstractType
      */
     public function getParent()
     {
-        return 'choice';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
-    {
-        return 'sonata_security_roles';
+        return ChoiceType::class;
     }
 
     /**
@@ -132,6 +125,6 @@ class SecurityRolesType extends AbstractType
      */
     public function getName()
     {
-        return $this->getBlockPrefix();
+        return self::class;
     }
 }
