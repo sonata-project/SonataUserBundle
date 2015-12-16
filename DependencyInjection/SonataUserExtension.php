@@ -86,7 +86,6 @@ class SonataUserExtension extends Extension
         $container->setParameter('sonata.user.impersonating', $config['impersonating']);
 
         $this->configureGoogleAuthenticator($config, $container);
-        $this->configureShortcut($container);
         $this->configureProfile($config, $container);
         $this->configureRegistration($config, $container);
         $this->configureMenu($config, $container);
@@ -268,15 +267,6 @@ class SonataUserExtension extends Extension
     }
 
     /**
-     * @param ContainerBuilder $container
-     */
-    public function configureShortcut(ContainerBuilder $container)
-    {
-        $container->setAlias('sonata.user.authentication.form', 'fos_user.profile.form');
-        $container->setAlias('sonata.user.authentication.form_handler', 'fos_user.profile.form.handler');
-    }
-
-    /**
      * @param array            $config
      * @param ContainerBuilder $container
      */
@@ -316,8 +306,6 @@ class SonataUserExtension extends Extension
         $container->setParameter('sonata.user.registration.form.type', $config['profile']['register']['form']['type']);
         $container->setParameter('sonata.user.registration.form.name', $config['profile']['register']['form']['name']);
         $container->setParameter('sonata.user.registration.form.validation_groups', $config['profile']['register']['form']['validation_groups']);
-
-        $container->setAlias('sonata.user.registration.form.handler', $config['profile']['register']['form']['handler']);
     }
 
     /**

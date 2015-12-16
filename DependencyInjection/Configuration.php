@@ -174,7 +174,6 @@ class Configuration implements ConfigurationInterface
                                     ->addDefaultsIfNotSet()
                                     ->children()
                                         ->scalarNode('type')->defaultValue('sonata_user_registration')->end()
-                                        ->scalarNode('handler')->defaultValue('sonata.user.registration.form.handler.default')->end()
                                         ->scalarNode('name')->defaultValue('sonata_user_registration_form')->cannotBeEmpty()->end()
                                         ->arrayNode('validation_groups')
                                             ->prototype('scalar')->end()

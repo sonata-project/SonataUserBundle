@@ -1,34 +1,29 @@
 <?php
 
-/*
- * This file is part of the Sonata package.
- *
- * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Sonata\UserBundle\Controller;
 
 use FOS\UserBundle\Controller\SecurityController;
+use Symfony\Component\HttpFoundation\Request;
+
 use Sonata\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
+
 /**
- * Class SecurityFOSUser1Controller.
+ * Class SecurityFOSUser2Controller
  *
+ * @package Sonata\UserBundle\Controller
  *
- * @author Hugo Briand <briand@ekino.com>
  */
-class SecurityFOSUser1Controller extends SecurityController
+class SecurityFOSUser2Controller extends SecurityController
 {
     /**
-     * {@inheritdoc}
+     * @param Request $request
+     * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function loginAction()
+    public function loginAction(Request $request)
     {
-        $user = $this->container->get('security.context')->getToken()->getUser();
+        $user = $this->getUser();
 
         if ($user instanceof UserInterface) {
             $this->container->get('session')->getFlashBag()->set('sonata_user_error', 'sonata_user_already_authenticated');
@@ -37,6 +32,6 @@ class SecurityFOSUser1Controller extends SecurityController
             return new RedirectResponse($url);
         }
 
-        return parent::loginAction();
+        return parent::loginAction($request);
     }
 }

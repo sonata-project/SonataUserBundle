@@ -11,7 +11,7 @@
 
 namespace Sonata\UserBundle\Entity;
 
-use FOS\UserBundle\Entity\Group as AbstractedGroup;
+use FOS\UserBundle\Model\Group as AbstractedGroup;
 
 /**
  * Represents a Base Group Entity.

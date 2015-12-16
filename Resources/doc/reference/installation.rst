@@ -7,7 +7,7 @@ Installation
 Prerequisites
 -------------
 
-PHP 5.3 and Symfony 2 are needed to make this bundle work; there are also some Sonata dependencies that need to be installed and configured beforehand:
+PHP 5.5.9 and Symfony 2 are needed to make this bundle work; there are also some Sonata dependencies that need to be installed and configured beforehand:
 
     - `SonataAdminBundle <https://sonata-project.org/bundles/admin>`_
     - `SonataEasyExtendsBundle <https://sonata-project.org/bundles/easy-extends>`_
@@ -27,6 +27,9 @@ Enable the Bundle
     php composer.phar require sonata-project/user-bundle --no-update
     php composer.phar require sonata-project/doctrine-orm-admin-bundle  --no-update # optional
     php composer.phar update
+
+.. note::
+    This bundle supports only version ``2.x`` version of the ``FOS/UserBundle``.
 
 Next, be sure to enable the bundles in your and ``AppKernel.php`` file:
 
@@ -160,24 +163,23 @@ With:
 .. code-block:: yaml
 
     sonata_user_security:
-        resource: "@SonataUserBundle/Resources/config/routing/sonata_security_1.xml"
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_security_2.xml"
 
     sonata_user_resetting:
-        resource: "@SonataUserBundle/Resources/config/routing/sonata_resetting_1.xml"
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_resetting_2.xml"
         prefix: /resetting
 
     sonata_user_profile:
-        resource: "@SonataUserBundle/Resources/config/routing/sonata_profile_1.xml"
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_profile_2.xml"
         prefix: /profile
 
     sonata_user_register:
-        resource: "@SonataUserBundle/Resources/config/routing/sonata_registration_1.xml"
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_registration_2.xml"
         prefix: /register
 
     sonata_user_change_password:
-        resource: "@SonataUserBundle/Resources/config/routing/sonata_change_password_1.xml"
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_change_password_2.xml"
         prefix: /profile
-
 
 Integrating the bundle into the Sonata Admin Bundle
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
