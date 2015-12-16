@@ -10,20 +10,13 @@
 
 namespace Sonata\UserBundle\Controller;
 
-use Symfony\Component\DependencyInjection\ContainerAware;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\HttpFoundation\Request;
 use FOS\UserBundle\Controller\ChangePasswordController;
 
 /**
- * Class ChangePasswordFOSUser1Controller
+ * Class ChangePasswordFOSUser1Controller.
  *
  * This class is inspired from the FOS Change Password Controller
- *
- * @package Sonata\UserBundle\Controller
  */
 class ChangePasswordFOSUser2Controller extends ChangePasswordController
 {
-
 }

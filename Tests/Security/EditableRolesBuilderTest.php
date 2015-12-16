@@ -22,9 +22,11 @@ class EditableRolesBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $token = $this->getMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
 
-        $security = $this->getMock('Symfony\Component\Security\Core\SecurityContextInterface');
-        $security->expects($this->any())->method('isGranted')->will($this->returnValue(true));
-        $security->expects($this->any())->method('getToken')->will($this->returnValue($token));
+        $storage = $this->getMock('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface');
+        $storage->expects($this->any())->method('getToken')->will($this->returnValue($token));
+
+        $checker = $this->getMock('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
+        $checker->expects($this->any())->method('isGranted')->will($this->returnValue(true));
 
         $pool = $this->getMockBuilder('Sonata\AdminBundle\Admin\Pool')
                 ->disableOriginalConstructor()
@@ -58,7 +60,7 @@ class EditableRolesBuilderTest extends \PHPUnit_Framework_TestCase
             'SONATA'                            => 'SONATA: ',
         );
 
-        $builder = new EditableRolesBuilder($security, $pool, $rolesHierarchy);
+        $builder = new EditableRolesBuilder($storage, $checker, $pool, $rolesHierarchy);
         list($roles, $rolesReadOnly) = $builder->getRoles();
 
         $this->assertEmpty($rolesReadOnly);

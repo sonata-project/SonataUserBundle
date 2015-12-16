@@ -3,22 +3,18 @@
 namespace Sonata\UserBundle\Controller;
 
 use FOS\UserBundle\Controller\SecurityController;
-use Symfony\Component\HttpFoundation\Request;
-
 use Sonata\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-
+use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class SecurityFOSUser2Controller
- *
- * @package Sonata\UserBundle\Controller
- *
+ * Class SecurityFOSUser2Controller.
  */
 class SecurityFOSUser2Controller extends SecurityController
 {
     /**
      * @param Request $request
+     *
      * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function loginAction(Request $request)

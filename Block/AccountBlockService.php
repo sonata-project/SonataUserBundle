@@ -13,12 +13,11 @@ namespace Sonata\UserBundle\Block;
 
 use Sonata\BlockBundle\Block\BaseBlockService;
 use Sonata\BlockBundle\Block\BlockContextInterface;
-use Sonata\UserBundle\Menu\ProfileMenuBuilder;
 use Sonata\UserBundle\Model\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * Class AccountBlockService.
@@ -31,22 +30,22 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 class AccountBlockService extends BaseBlockService
 {
     /**
-     * @var ProfileMenuBuilder
+     * @var TokenStorageInterface
      */
-    private $securityContext;
+    private $tokenStorage;
 
     /**
      * Constructor.
      *
-     * @param string                   $name
-     * @param EngineInterface          $templating
-     * @param SecurityContextInterface $securityContext
+     * @param string                $name
+     * @param EngineInterface       $templating
+     * @param TokenStorageInterface $tokenStorage
      */
-    public function __construct($name, EngineInterface $templating, SecurityContextInterface $securityContext)
+    public function __construct($name, EngineInterface $templating, TokenStorageInterface $tokenStorage)
     {
         parent::__construct($name, $templating);
 
-        $this->securityContext = $securityContext;
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -55,8 +54,8 @@ class AccountBlockService extends BaseBlockService
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
         $user = false;
-        if ($this->securityContext->getToken()) {
-            $user = $this->securityContext->getToken()->getUser();
+        if ($this->tokenStorage->getToken()) {
+            $user = $this->tokenStorage->getToken()->getUser();
         }
 
         if (!$user instanceof UserInterface) {

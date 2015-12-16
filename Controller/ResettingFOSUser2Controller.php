@@ -8,20 +8,16 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Sonata\UserBundle\Controller;
 
 use FOS\UserBundle\Controller\ResettingController;
 
-
 /**
- * Class ResettingFOSUser1Controller
+ * Class ResettingFOSUser1Controller.
  *
- * @package Sonata\UserBundle\Controller
  *
  * @author Hugo Briand <briand@ekino.com>
  */
 class ResettingFOSUser2Controller extends ResettingController
 {
-
 }

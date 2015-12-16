@@ -5,7 +5,8 @@
 
     <services>
         <service id="sonata.user.editable_role_builder" class="Sonata\UserBundle\Security\EditableRolesBuilder">
-            <argument type="service" id="security.context" />
+            <argument type="service" id="security.token_storage" />
+            <argument type="service" id="security.authorization_checker" />
             <argument type="service" id="sonata.admin.pool" />
             <argument>%security.role_hierarchy.roles%</argument>
         </service>

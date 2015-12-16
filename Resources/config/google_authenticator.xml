@@ -24,7 +24,7 @@
             <tag name="kernel.event_listener" event="kernel.request" method="onCoreRequest" priority="-1"/>
 
             <argument type="service" id="sonata.user.google.authenticator.provider" />
-            <argument type="service" id="security.context" />
+            <argument type="service" id="security.token_storage" />
             <argument type="service" id="templating" />
         </service>
 
