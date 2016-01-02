@@ -64,6 +64,10 @@ class RegistrationFOSUser1Controller extends Controller
                 } else {
                     $url = $this->get('session')->get('sonata_user_redirect_url');
                 }
+
+                if (null === $route) {
+                    $url = $this->generateUrl('sonata_user_profile_show');
+                }
             }
 
             $this->setFlash('fos_user_success', 'registration.flash.user_created');
