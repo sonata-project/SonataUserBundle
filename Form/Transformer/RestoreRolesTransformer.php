@@ -64,7 +64,7 @@ class RestoreRolesTransformer implements DataTransformerInterface
 
         list($availableRoles, ) = $this->rolesBuilder->getRoles();
 
-        $hiddenRoles = array_diff($this->originalRoles, $availableRoles);
+        $hiddenRoles = array_diff($this->originalRoles, array_keys($availableRoles));
 
         return array_merge($selectedRoles, $hiddenRoles);
     }
