@@ -30,7 +30,7 @@ class AdminSecurityController extends Controller
     {
         $request = $request === null ? $request = $this->get('request') : $request;
 
-        $user = $this->get('security.context')->getToken()->getUser();
+        $user = $this->getUser();
 
         if ($user instanceof UserInterface) {
             $this->get('session')->getFlashBag()->set('sonata_user_error', 'sonata_user_already_authenticated');
