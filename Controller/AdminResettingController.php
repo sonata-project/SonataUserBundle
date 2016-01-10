@@ -12,9 +12,13 @@
 namespace Sonata\UserBundle\Controller;
 
 use FOS\UserBundle\Controller\ResettingController;
+use FOS\UserBundle\Form\Factory\FactoryInterface;
 use FOS\UserBundle\Model\UserInterface;
+use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Util\TokenGeneratorInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -27,108 +31,127 @@ class AdminResettingController extends ResettingController
      */
     public function requestAction()
     {
-        if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            return new RedirectResponse($this->container->get('router')->generate('sonata_admin_dashboard'));
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return new RedirectResponse($this->generateUrl('sonata_admin_dashboard'));
         }
 
-        return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/Resetting/request.html.'.$this->getEngine(), array(
-            'base_template' => $this->container->get('sonata.admin.pool')->getTemplate('layout'),
-            'admin_pool'    => $this->container->get('sonata.admin.pool'),
+        return $this->render('SonataUserBundle:Admin:Security/Resetting/request.html.twig', array(
+            'base_template' => $this->get('sonata.admin.pool')->getTemplate('layout'),
+            'admin_pool'    => $this->get('sonata.admin.pool'),
         ));
     }
 
     /**
      * {@inheritdoc}
      */
-    public function sendEmailAction()
+    public function sendEmailAction(Request $request)
     {
-        $username = $this->container->get('request')->request->get('username');
+        $username = $request->request->get('username');
 
         /** @var $user UserInterface */
-        $user = $this->container->get('fos_user.user_manager')->findUserByUsernameOrEmail($username);
+        $user = $this->get('fos_user.user_manager')->findUserByUsernameOrEmail($username);
 
         if (null === $user) {
-            return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/Resetting/request.html.'.$this->getEngine(), array(
+            return $this->render('SonataUserBundle:Admin:Security/Resetting/request.html.twig', array(
                 'invalid_username' => $username,
-                'base_template'    => $this->container->get('sonata.admin.pool')->getTemplate('layout'),
-                'admin_pool'       => $this->container->get('sonata.admin.pool'),
+                'base_template'    => $this->get('sonata.admin.pool')->getTemplate('layout'),
+                'admin_pool'       => $this->get('sonata.admin.pool'),
             ));
         }
 
         if ($user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
-            return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/Resetting/passwordAlreadyRequested.html.'.$this->getEngine(), array(
-                'base_template'    => $this->container->get('sonata.admin.pool')->getTemplate('layout'),
-                'admin_pool'       => $this->container->get('sonata.admin.pool'),
+            return $this->render('SonataUserBundle:Admin:Security/Resetting/passwordAlreadyRequested.html.twig', array(
+                'base_template'    => $this->get('sonata.admin.pool')->getTemplate('layout'),
+                'admin_pool'       => $this->get('sonata.admin.pool'),
             ));
         }
 
         if (null === $user->getConfirmationToken()) {
             /** @var $tokenGenerator TokenGeneratorInterface */
-            $tokenGenerator = $this->container->get('fos_user.util.token_generator');
+            $tokenGenerator = $this->get('fos_user.util.token_generator');
             $user->setConfirmationToken($tokenGenerator->generateToken());
         }
 
-        $this->container->get('session')->set(static::SESSION_EMAIL, $this->getObfuscatedEmail($user));
-        $this->container->get('fos_user.mailer')->sendResettingEmailMessage($user);
+        $this->get('fos_user.mailer')->sendResettingEmailMessage($user);
         $user->setPasswordRequestedAt(new \DateTime());
-        $this->container->get('fos_user.user_manager')->updateUser($user);
+        $this->get('fos_user.user_manager')->updateUser($user);
 
-        return new RedirectResponse($this->container->get('router')->generate('sonata_user_admin_resetting_check_email'));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function checkEmailAction()
-    {
-        $session = $this->container->get('session');
-        $email = $session->get(static::SESSION_EMAIL);
-        $session->remove(static::SESSION_EMAIL);
-
-        if (empty($email)) {
-            // the user does not come from the sendEmail action
-            return new RedirectResponse($this->container->get('router')->generate('sonata_user_admin_resetting_check_email'));
-        }
-
-        return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/Resetting/checkEmail.html.'.$this->getEngine(), array(
-            'email'         => $email,
-            'base_template' => $this->container->get('sonata.admin.pool')->getTemplate('layout'),
-            'admin_pool'    => $this->container->get('sonata.admin.pool'),
+        return new RedirectResponse($this->generateUrl('sonata_user_admin_resetting_check_email',
+            array('email' => $this->getObfuscatedEmail($user))
         ));
     }
 
     /**
      * {@inheritdoc}
      */
-    public function resetAction($token)
+    public function checkEmailAction(Request $request)
     {
-        if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            return new RedirectResponse($this->container->get('router')->generate('sonata_admin_dashboard'));
+        $email = $request->query->get('email');
+
+        if (empty($email)) {
+            // the user does not come from the sendEmail action
+            return new RedirectResponse($this->generateUrl('sonata_user_admin_resetting_request'));
         }
 
-        $user = $this->container->get('fos_user.user_manager')->findUserByConfirmationToken($token);
+        return $this->render('SonataUserBundle:Admin:Security/Resetting/checkEmail.html.twig', array(
+            'email'         => $email,
+            'base_template' => $this->get('sonata.admin.pool')->getTemplate('layout'),
+            'admin_pool'    => $this->get('sonata.admin.pool'),
+        ));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function resetAction(Request $request, $token)
+    {
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return new RedirectResponse($this->generateUrl('sonata_admin_dashboard'));
+        }
+
+        /** @var $formFactory FactoryInterface */
+        $formFactory = $this->get('fos_user.resetting.form.factory');
+        /** @var $userManager UserManagerInterface */
+        $userManager = $this->get('fos_user.user_manager');
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
+
+        $user = $userManager->findUserByConfirmationToken($token);
 
         if (null === $user) {
             throw new NotFoundHttpException(sprintf('The user with "confirmation token" does not exist for value "%s"', $token));
         }
 
-        if (!$user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
-            return new RedirectResponse($this->container->get('router')->generate('sonata_user_admin_resetting_request'));
+        $event = new GetResponseUserEvent($user, $request);
+        $dispatcher->dispatch(FOSUserEvents::RESETTING_RESET_INITIALIZE, $event);
+
+        if (null !== $event->getResponse()) {
+            return new RedirectResponse($this->generateUrl('sonata_user_admin_resetting_request'));
         }
 
-        $form = $this->container->get('fos_user.resetting.form');
-        $formHandler = $this->container->get('fos_user.resetting.form.handler');
-        $process = $formHandler->process($user);
+        $form = $formFactory->createForm();
+        $form->setData($user);
 
-        if ($process) {
-            $this->setFlash('fos_user_success', 'resetting.flash.success');
-            $response = new RedirectResponse($this->container->get('router')->generate('sonata_admin_dashboard'));
-            $this->authenticateUser($user, $response);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $event = new FormEvent($form, $request);
+            $dispatcher->dispatch(FOSUserEvents::RESETTING_RESET_SUCCESS, $event);
+
+            $userManager->updateUser($user);
+
+            if (null === $response = $event->getResponse()) {
+                $this->setFlash('sonata_user_success', 'resetting.flash.success');
+                $url = $this->generateUrl('sonata_admin_dashboard');
+                $response = new RedirectResponse($url);
+            }
+
+            $dispatcher->dispatch(FOSUserEvents::RESETTING_RESET_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
 
             return $response;
         }
 
-        return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/Resetting/reset.html.'.$this->getEngine(), array(
+        return $this->render('SonataUserBundle:Admin:Security/Resetting/reset.html.twig', array(
             'token'         => $token,
             'form'          => $form->createView(),
             'base_template' => $this->container->get('sonata.admin.pool')->getTemplate('layout'),

@@ -11,21 +11,19 @@
 
 namespace Sonata\UserBundle\Controller;
 
-use FOS\UserBundle\Model\UserInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use FOS\UserBundle\Controller\SecurityController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Security;
 
-class AdminSecurityController extends Controller
+class AdminSecurityController extends SecurityController
 {
     /**
      * @param Request $request
      *
      * @return Response|RedirectResponse
      */
-    public function loginAction(Request $request = null)
+    public function loginAction(Request $request)
     {
         if ($this->getUser() instanceof UserInterface) {
             $this->get('session')->getFlashBag()->set('sonata_user_error', 'sonata_user_already_authenticated');
@@ -34,26 +32,7 @@ class AdminSecurityController extends Controller
             return $this->redirect($url);
         }
 
-        $session = $request->getSession();
-
-        // get the error if any (works with forward and redirect -- see below)
-        if ($request->attributes->has(Security::AUTHENTICATION_ERROR)) {
-            $error = $request->attributes->get(Security::AUTHENTICATION_ERROR);
-        } elseif (null !== $session && $session->has(Security::AUTHENTICATION_ERROR)) {
-            $error = $session->get(Security::AUTHENTICATION_ERROR);
-            $session->remove(Security::AUTHENTICATION_ERROR);
-        } else {
-            $error = '';
-        }
-
-        if ($error) {
-            // TODO: this is a potential security risk (see http://trac.symfony-project.org/ticket/9523)
-            $error = $error->getMessage();
-        }
-        // last username entered by the user
-        $lastUsername = (null === $session) ? '' : $session->get(Security::LAST_USERNAME);
-
-        $csrfToken = $this->get('security.csrf.token_manager')->getToken('authenticate');
+        $response = parent::loginAction($request);
 
         if ($this->isGranted('ROLE_ADMIN')) {
             $refererUri = $request->server->get('HTTP_REFERER');
@@ -61,36 +40,20 @@ class AdminSecurityController extends Controller
             return $this->redirect($refererUri && $refererUri != $request->getUri() ? $refererUri : $this->generateUrl('sonata_admin_dashboard'));
         }
 
-        return $this->render('SonataUserBundle:Admin:Security/login.html.twig', array(
-            'last_username' => $lastUsername,
-            'error'         => $error,
-            'csrf_token'    => $csrfToken,
-            'base_template' => $this->get('sonata.admin.pool')->getTemplate('layout'),
-            'admin_pool'    => $this->get('sonata.admin.pool'),
-            'reset_route'   => $this->generateUrl('sonata_user_admin_resetting_request'),
-        ));
+        return $response;
     }
 
     /**
-     * Renders the login template with the given parameters. Overwrite this function in
-     * an extended controller to provide additional data for the login template.
-     *
      * @param array $data
      *
      * @return Response
      */
     protected function renderLogin(array $data)
     {
-        return $this->render(sprintf('FOSUserBundle:Security:login.html.%s', $this->container->getParameter('fos_user.template.engine')), $data);
-    }
-
-    public function checkAction()
-    {
-        throw new \RuntimeException('You must configure the check path to be handled by the firewall using form_login in your security firewall configuration.');
-    }
-
-    public function logoutAction()
-    {
-        throw new \RuntimeException('You must activate the logout in your security firewall configuration.');
+        return $this->render('SonataUserBundle:Admin:Security/login.html.twig', array_merge($data, array(
+            'base_template' => $this->get('sonata.admin.pool')->getTemplate('layout'),
+            'admin_pool'    => $this->get('sonata.admin.pool'),
+            'reset_route'   => $this->generateUrl('sonata_user_admin_resetting_request'),
+        )));
     }
 }
