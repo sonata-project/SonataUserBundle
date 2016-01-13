@@ -39,7 +39,7 @@ class SecurityRolesTypeTest extends TypeTestCase
                 'ROLE_FOO'   => 'ROLE_FOO',
                 'ROLE_USER'  => 'ROLE_USER',
                 'ROLE_ADMIN' => 'ROLE_ADMIN: ROLE_USER',
-            ),array()));
+            ), array())));
 
         $childType = new SecurityRolesType($this->roleBuilder);
 
@@ -113,7 +113,9 @@ class SecurityRolesTypeTest extends TypeTestCase
         // we keep hidden ROLE_SUPER_ADMIN and delete available ROLE_USER
         $form->submit(array(0 => 'ROLE_ADMIN'));
 
+        $this->assertNull($form->getTransformationFailure());
         $this->assertTrue($form->isSynchronized());
+
         $this->assertCount(2, $form->getData());
         $this->assertContains('ROLE_SUPER_ADMIN', $form->getData());
     }

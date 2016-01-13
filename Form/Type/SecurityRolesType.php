@@ -23,7 +23,6 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class SecurityRolesType extends AbstractType
 {
@@ -84,16 +83,6 @@ class SecurityRolesType extends AbstractType
 
     /**
      * {@inheritdoc}
-     *
-     * @deprecated Remove it when bumping requirements to Symfony 2.7+
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $this->configureOptions($resolver);
-    }
-
-    /**
-     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -101,7 +90,7 @@ class SecurityRolesType extends AbstractType
 
         $resolver->setDefaults(array(
             'choices' => function (Options $options, $parentChoices) use ($roles) {
-                return empty($parentChoices) ? $roles : array();
+                return empty($parentChoices) ? array_flip($roles) : array();
             },
 
             'read_only_choices' => function (Options $options) use ($rolesReadOnly) {

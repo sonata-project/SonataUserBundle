@@ -11,7 +11,6 @@
 
 namespace Sonata\UserBundle;
 
-use Sonata\CoreBundle\Form\FormHelper;
 use Sonata\UserBundle\DependencyInjection\Compiler\GlobalVariablesCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
