@@ -3,7 +3,11 @@
         <h2 class="panel-title">{{ 'title_user_registration'|trans({}, 'SonataUserBundle') }}</h2>
     </div>
     <div class="panel-body">
-        <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register form-horizontal">
+        <form
+                action="{{ path('fos_user_registration_register') }}"
+                {% if form.vars.multipart %} enctype="multipart/form-data"{% endif %}
+                method="POST"
+                class="fos_user_registration_register form-horizontal">
 
             {{ form_widget(form) }}
 
