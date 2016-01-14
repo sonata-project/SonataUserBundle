@@ -16,7 +16,6 @@ use Sonata\UserBundle\Model\UserInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ProfileType extends AbstractType
 {
@@ -39,14 +38,14 @@ class ProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('gender', 'sonata_user_gender', array(
+            ->add('gender', UserGenderListType::class, array(
                 'label'              => 'form.label_gender',
                 'required'           => true,
                 'translation_domain' => 'SonataUserBundle',
-                'choices'            => array(
+                'choices'            => array_flip(array(
                     UserInterface::GENDER_FEMALE => 'gender_female',
                     UserInterface::GENDER_MALE   => 'gender_male',
-                ),
+                )),
             ))
             ->add('firstname', null, array(
                 'label'    => 'form.label_firstname',
@@ -86,16 +85,6 @@ class ProfileType extends AbstractType
 
     /**
      * {@inheritdoc}
-     *
-     * @deprecated Remove it when bumping requirements to Symfony 2.7+
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $this->configureOptions($resolver);
-    }
-
-    /**
-     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -110,13 +99,5 @@ class ProfileType extends AbstractType
     public function getBlockPrefix()
     {
         return 'sonata_user_profile';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return $this->getBlockPrefix();
     }
 }

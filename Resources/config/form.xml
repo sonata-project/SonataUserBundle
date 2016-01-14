@@ -30,9 +30,10 @@
         <service id="sonata.user.form.gender_list" class="Sonata\UserBundle\Form\Type\UserGenderListType">
             <argument>%fos_user.model.user.class%</argument>
             <argument>getGenderList</argument>
-            <argument>sonata_user_gender</argument>
+            <argument>Sonata\UserBundle\Form\Type\UserGenderListType</argument>
+            <argument>true</argument> <!-- flip the key to match Symfony2.8+ signature -->
 
-            <tag name="form.type" alias="sonata_user_gender" />
+            <tag name="form.type" alias="sonata_user_gender"/>
         </service>
 
         <service id="sonata.user.registration.form" class="Symfony\Component\Form\Form">

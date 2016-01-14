@@ -44,7 +44,7 @@ class SecurityRolesTypeTest extends TypeTestCase
         $childType = new SecurityRolesType($this->roleBuilder);
 
         return array(new PreloadedExtension(array(
-            $childType->getName() => $childType,
+            SecurityRolesType::class => $childType,
         ), array()));
     }
 
@@ -57,12 +57,6 @@ class SecurityRolesTypeTest extends TypeTestCase
 
         $options = $optionResolver->resolve();
         $this->assertCount(3, $options['choices']);
-    }
-
-    public function testGetName()
-    {
-        $type = new SecurityRolesType($this->roleBuilder);
-        $this->assertEquals(SecurityRolesType::class, $type->getName());
     }
 
     public function testGetParent()

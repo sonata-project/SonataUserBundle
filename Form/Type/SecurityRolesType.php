@@ -112,8 +112,8 @@ class SecurityRolesType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
-        return self::class;
+        return 'sonata_security_roles';
     }
 }
