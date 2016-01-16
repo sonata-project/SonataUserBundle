@@ -542,6 +542,18 @@
                 <source>form.password_confirmation</source>
                 <target>Verification</target>
             </trans-unit>
+            <trans-unit id="title_user_edit_password">
+                <source>title_user_edit_password</source>
+                <target>Change password</target>
+            </trans-unit>
+            <trans-unit id="title_user_resetting">
+                <source>title_user_resetting</source>
+                <target>Request password</target>
+            </trans-unit>
+            <trans-unit id="title_user_resetting_reset">
+                <source>title_user_resetting_reset</source>
+                <target>Reset password</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
