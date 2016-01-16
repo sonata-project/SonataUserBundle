@@ -618,6 +618,18 @@
                 <source>form.password_confirmation</source>
                 <target>Passwort bestätigen</target>
             </trans-unit>
+            <trans-unit id="title_user_edit_password">
+                <source>title_user_edit_password</source>
+                <target>Passwort ändern</target>
+            </trans-unit>
+            <trans-unit id="title_user_resetting">
+                <source>title_user_resetting</source>
+                <target>Password vergessen</target>
+            </trans-unit>
+            <trans-unit id="title_user_resetting_reset">
+                <source>title_user_resetting_reset</source>
+                <target>Password zurücksetzen</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
