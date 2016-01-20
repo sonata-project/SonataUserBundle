@@ -516,15 +516,15 @@
             </trans-unit>
             <trans-unit id="title_user_edit_password">
                 <source>title_user_edit_password</source>
-                <target>title_user_edit_password</target>
+                <target>Изменение пароля</target>
             </trans-unit>
             <trans-unit id="title_user_resetting">
                 <source>title_user_resetting</source>
-                <target>title_user_resetting</target>
+                <target>Запрос пароля</target>
             </trans-unit>
             <trans-unit id="title_user_resetting_reset">
                 <source>title_user_resetting_reset</source>
-                <target>title_user_resetting_reset</target>
+                <target>Сброс пароля</target>
             </trans-unit>
         </body>
     </file>
