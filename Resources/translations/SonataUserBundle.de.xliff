@@ -400,7 +400,7 @@
             </trans-unit>
             <trans-unit id="show.label_website">
                 <source>show.label_website</source>
-                <target>Wenseite</target>
+                <target>Webseite</target>
             </trans-unit>
             <trans-unit id="show.label_biography">
                 <source>show.label_biography</source>
@@ -424,27 +424,27 @@
             </trans-unit>
             <trans-unit id="show.label_facebook_uid">
                 <source>show.label_facebook_uid</source>
-                <target>Facebook Kennung</target>
+                <target>Facebook-Kennung</target>
             </trans-unit>
             <trans-unit id="show.label_facebook_name">
                 <source>show.label_facebook_name</source>
-                <target>Facebook Name</target>
+                <target>Facebook-Name</target>
             </trans-unit>
             <trans-unit id="show.label_twitter_uid">
                 <source>show.label_twitter_uid</source>
-                <target>Twitter Kennung</target>
+                <target>Twitter-Kennung</target>
             </trans-unit>
             <trans-unit id="show.label_twitter_name">
                 <source>show.label_twitter_name</source>
-                <target>Twitter Name</target>
+                <target>Twitter-Name</target>
             </trans-unit>
             <trans-unit id="show.label_gplus_uid">
                 <source>show.label_gplus_uid</source>
-                <target>Google+ Benutzerkennnung</target>
+                <target>Kennung bei Google+</target>
             </trans-unit>
             <trans-unit id="show.label_gplus_name">
                 <source>show.label_gplus_name</source>
-                <target>Google+ Name</target>
+                <target>Name bei Google+</target>
             </trans-unit>
             <trans-unit id="show.label_token">
                 <source>show.label_token</source>
@@ -452,7 +452,7 @@
             </trans-unit>
             <trans-unit id="show.label_two_step_verification_code">
                 <source>show.label_two_step_verification_code</source>
-                <target>Zwei-Schritte Bestätigung</target>
+                <target>Zwei-Schritte-Bestätigung</target>
             </trans-unit>
             <trans-unit id="gender_unknown">
                 <source>gender_unknown</source>
