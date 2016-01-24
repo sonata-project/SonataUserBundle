@@ -34,7 +34,13 @@ class ChangePasswordFOSUser1Controller extends Controller
      */
     public function changePasswordAction()
     {
-        $user = $this->get('security.context')->getToken()->getUser();
+        if ($this->container->has('security.token_storage')) {
+            $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        } else {
+            // BC for SF < 2.7
+            $user = $this->container->get('security.context')->getToken()->getUser();
+        }
+
         if (!is_object($user) || !$user instanceof UserInterface) {
             $this->createAccessDeniedException('This user does not have access to this section.');
         }
