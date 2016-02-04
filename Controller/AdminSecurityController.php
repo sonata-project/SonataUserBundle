@@ -12,6 +12,7 @@
 namespace Sonata\UserBundle\Controller;
 
 use FOS\UserBundle\Controller\SecurityController;
+use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
