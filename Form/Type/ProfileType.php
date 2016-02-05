@@ -38,7 +38,7 @@ class ProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('gender', UserGenderListType::class, array(
+            ->add('gender', 'Sonata\UserBundle\Form\Type\UserGenderListType', array(
                 'label'              => 'form.label_gender',
                 'required'           => true,
                 'translation_domain' => 'SonataUserBundle',
