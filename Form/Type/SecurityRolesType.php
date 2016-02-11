@@ -116,7 +116,10 @@ class SecurityRolesType extends AbstractType
      */
     public function getParent()
     {
-        return 'choice';
+        return
+            method_exists('Symfony\Component\Form\FormTypeInterface', 'setDefaultOptions') ?
+                'choice' : // support for symfony < 2.8.0
+                'Symfony\Component\Form\Extension\Core\Type\ChoiceType';
     }
 
     /**

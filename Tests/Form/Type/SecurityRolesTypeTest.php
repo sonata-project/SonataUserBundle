@@ -68,12 +68,25 @@ class SecurityRolesTypeTest extends TypeTestCase
     public function testGetParent()
     {
         $type = new SecurityRolesType($this->roleBuilder);
-        $this->assertEquals('choice', $type->getParent());
+        $this->assertEquals(
+            method_exists('Symfony\Component\Form\FormTypeInterface', 'setDefaultOptions') ?
+                'choice' :
+                'Symfony\Component\Form\Extension\Core\Type\ChoiceType',
+            $type->getParent()
+        );
+    }
+
+    private function getSecurityRolesTypeName()
+    {
+        return
+            method_exists('Symfony\Component\Form\FormTypeInterface', 'setDefaultOptions') ?
+                'sonata_security_roles' :
+                'Sonata\UserBundle\Form\Type\SecurityRolesType';
     }
 
     public function testSubmitValidData()
     {
-        $form = $this->factory->create('sonata_security_roles', null, array(
+        $form = $this->factory->create($this->getSecurityRolesTypeName(), null, array(
             'multiple' => true,
             'expanded' => true,
             'required' => false,
@@ -88,7 +101,7 @@ class SecurityRolesTypeTest extends TypeTestCase
 
     public function testSubmitInvalidData()
     {
-        $form = $this->factory->create('sonata_security_roles', null, array(
+        $form = $this->factory->create($this->getSecurityRolesTypeName(), null, array(
             'multiple' => true,
             'expanded' => true,
             'required' => false,
@@ -104,7 +117,7 @@ class SecurityRolesTypeTest extends TypeTestCase
     {
         $originalRoles = array('ROLE_SUPER_ADMIN', 'ROLE_USER');
 
-        $form = $this->factory->create('sonata_security_roles', $originalRoles, array(
+        $form = $this->factory->create($this->getSecurityRolesTypeName(), $originalRoles, array(
             'multiple' => true,
             'expanded' => true,
             'required' => false,
