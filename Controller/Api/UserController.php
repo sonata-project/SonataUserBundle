@@ -354,7 +354,7 @@ class UserController
             'csrf_protection' => false,
         ));
 
-        $form->bind($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
             $user = $form->getData();

@@ -193,7 +193,7 @@ class GroupController
             'csrf_protection' => false,
         ));
 
-        $form->bind($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
             $group = $form->getData();

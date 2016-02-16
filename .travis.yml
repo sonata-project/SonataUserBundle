@@ -33,17 +33,14 @@ matrix:
       env: SYMFONY_VERSION=2.7.*
     - php: 5.6
       env: SYMFONY_VERSION=2.8.*
-    - php: 5.5
-      env: SYMFONY_VERSION="3.0.*" ACL_VERSION="dev-master"
-    - php: 5.6
-      env: SYMFONY_VERSION="3.0.*" ACL_VERSION="dev-master"
-    - php: 7.0
-      env: SYMFONY_VERSION="3.0.*" ACL_VERSION="dev-master"
+    - php: nightly
 
   allow_failures:
     - php: hhvm
     - php: 5.3
     - php: 5.4
+    - php: nightly
+    - env: SYMFONY_VERSION="3.0.*"
 
 before_script:
   - (phpenv config-rm xdebug.ini || exit 0)
@@ -52,8 +49,14 @@ before_script:
   - composer config -q -g github-oauth.github.com $GITHUB_OAUTH_TOKEN
   - composer global require phpunit/phpunit:@stable fabpot/php-cs-fixer --no-update
   - composer global update --prefer-dist --no-interaction
+  - |
+      if [ "$SYMFONY_VERSION" == "3.0.*" ]; then
+      composer require "symfony/http-foundation" "^3.0" --no-update
+      composer require "symfony/form" "^3.0" --no-update
+      composer require "symfony/security" "^3.0" --no-update
+      composer require "symfony/console" "^3.0" --no-update
+      fi
   - if [ "$SYMFONY_VERSION" != "" ]; then composer require "symfony/symfony:${SYMFONY_VERSION}" --no-update; fi;
-  - if [ "$ACL_VERSION" != "" ]; then composer require "symfony/security-acl:${ACL_VERSION}" --no-update; fi;
   - travis_wait composer update --prefer-dist --no-interaction $COMPOSER_FLAGS
   - export PATH=$HOME/.local/bin:$PATH
   - pip install -r Resources/doc/requirements.txt --user `whoami`
