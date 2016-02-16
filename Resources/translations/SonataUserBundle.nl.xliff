@@ -72,7 +72,7 @@
             </trans-unit>
             <trans-unit id="user_block_profile">
                 <source>user_block_profile</source>
-                <target>user_block_profile</target>
+                <target>Profiel</target>
             </trans-unit>
             <trans-unit id="user_block_logout">
                 <source>user_block_logout</source>
@@ -560,15 +560,15 @@
             </trans-unit>
             <trans-unit id="title_user_edit_password">
                 <source>title_user_edit_password</source>
-                <target>title_user_edit_password</target>
+                <target>Wijzig wachtwoord</target>
             </trans-unit>
             <trans-unit id="title_user_resetting">
                 <source>title_user_resetting</source>
-                <target>title_user_resetting</target>
+                <target>Wachtwoord vergeten</target>
             </trans-unit>
             <trans-unit id="title_user_resetting_reset">
                 <source>title_user_resetting_reset</source>
-                <target>title_user_resetting_reset</target>
+                <target>Wachtwoord herstellen</target>
             </trans-unit>
         </body>
     </file>
