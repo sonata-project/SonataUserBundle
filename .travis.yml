@@ -39,11 +39,13 @@ matrix:
       env: SYMFONY_VERSION=3.0.*
     - php: 7.0
       env: SYMFONY_VERSION=3.0.*
+    - php: nightly
 
   allow_failures:
     - php: hhvm
     - php: 5.3
     - php: 5.4
+    - php: nightly
 
 before_script:
   - (phpenv config-rm xdebug.ini || exit 0)
