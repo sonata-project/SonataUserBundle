@@ -17,10 +17,10 @@
         }
     ],
     "require": {
-        "symfony/http-foundation": "~2.3|~3.0",
-        "symfony/form": "^2.3.5|~3.0",
-        "symfony/security": "~2.3|~3.0",
-        "symfony/console": "~2.3|~3.0",
+        "symfony/http-foundation": "~2.3",
+        "symfony/form": "^2.3.5",
+        "symfony/security": "~2.3",
+        "symfony/console": "~2.3",
         "sonata-project/core-bundle": "~2.3,>=2.3.10",
         "sonata-project/admin-bundle": "~2.3|~2.4@dev",
         "friendsofsymfony/user-bundle": "~1.3",
