@@ -34,7 +34,7 @@ class RegistrationFOSUser1Controller extends Controller
      */
     public function registerAction()
     {
-        $user = $this->get('security.context')->getToken()->getUser();
+        $user = $this->getUser();
 
         if ($user instanceof UserInterface) {
             $this->get('session')->getFlashBag()->set('sonata_user_error', 'sonata_user_already_authenticated');
@@ -152,7 +152,7 @@ class RegistrationFOSUser1Controller extends Controller
      */
     public function confirmedAction()
     {
-        $user = $this->get('security.context')->getToken()->getUser();
+        $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw $this->createAccessDeniedException('This user does not have access to this section.');
         }

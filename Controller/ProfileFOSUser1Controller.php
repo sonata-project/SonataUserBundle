@@ -31,7 +31,7 @@ class ProfileFOSUser1Controller extends Controller
      */
     public function showAction()
     {
-        $user = $this->get('security.context')->getToken()->getUser();
+        $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw $this->createAccessDeniedException('This user does not have access to this section.');
         }
@@ -49,7 +49,7 @@ class ProfileFOSUser1Controller extends Controller
      */
     public function editAuthenticationAction()
     {
-        $user = $this->get('security.context')->getToken()->getUser();
+        $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw $this->createAccessDeniedException('This user does not have access to this section.');
         }
@@ -76,7 +76,7 @@ class ProfileFOSUser1Controller extends Controller
      */
     public function editProfileAction()
     {
-        $user = $this->get('security.context')->getToken()->getUser();
+        $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw $this->createAccessDeniedException('This user does not have access to this section.');
         }
