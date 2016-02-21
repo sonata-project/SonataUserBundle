@@ -516,11 +516,11 @@
             </trans-unit>
             <trans-unit id="title_user_resetting">
                 <source>title_user_resetting</source>
-                <target>title_user_resetting</target>
+                <target>Resetowanie hasła</target>
             </trans-unit>
             <trans-unit id="title_user_resetting_reset">
                 <source>title_user_resetting_reset</source>
-                <target>title_user_resetting_reset</target>
+                <target>Nowe hasło</target>
             </trans-unit>
         </body>
     </file>
