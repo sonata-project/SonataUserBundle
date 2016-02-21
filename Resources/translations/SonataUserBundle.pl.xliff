@@ -16,7 +16,7 @@
             </trans-unit>
             <trans-unit id="title_user_authentication">
                 <source>title_user_authentication</source>
-                <target>Authentication</target>
+                <target>Logowanie</target>
             </trans-unit>
             <trans-unit id="sonata_user_submit">
                 <source>sonata_user_submit</source>
@@ -72,7 +72,7 @@
             </trans-unit>
             <trans-unit id="user_block_profile">
                 <source>user_block_profile</source>
-                <target>user_block_profile</target>
+                <target>Edytuj Profil</target>
             </trans-unit>
             <trans-unit id="user_form.label_username">
                 <source>form.label_username</source>
@@ -512,7 +512,7 @@
             </trans-unit>
             <trans-unit id="title_user_edit_password">
                 <source>title_user_edit_password</source>
-                <target>title_user_edit_password</target>
+                <target>Edycja hasła</target>
             </trans-unit>
             <trans-unit id="title_user_resetting">
                 <source>title_user_resetting</source>
