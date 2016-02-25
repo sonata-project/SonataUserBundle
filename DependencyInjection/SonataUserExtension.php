@@ -49,6 +49,22 @@ class SonataUserExtension extends Extension
         $loader->load('block.xml');
         $loader->load('menu.xml');
         $loader->load('form.xml');
+
+        $defProfileForm = $container->getDefinition('sonata.user.profile.form');
+        $defRegistrationForm = $container->getDefinition('sonata.user.registration.form');
+
+        if (method_exists($defProfileForm, 'setFactory')) {
+            // to be inlined in form.xml when dependency on Symfony DependencyInjection is bumped to 2.6
+            $defProfileForm->setFactory(array(new Reference('form.factory'), 'createNamed'));
+            $defRegistrationForm->setFactory(array(new Reference('form.factory'), 'createNamed'));
+        } else {
+            // to be removed when dependency on Symfony DependencyInjection is bumped to 2.6
+            $defProfileForm->setFactoryService('form.factory');
+            $defProfileForm->setFactoryMethod('createNamed');
+            $defRegistrationForm->setFactoryService('form.factory');
+            $defRegistrationForm->setFactoryMethod('createNamed');
+        }
+
         $loader->load('google_authenticator.xml');
         $loader->load('twig.xml');
 
