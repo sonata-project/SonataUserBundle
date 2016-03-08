@@ -54,6 +54,7 @@ class AdminSecurityController extends SecurityController
             'base_template' => $this->get('sonata.admin.pool')->getTemplate('layout'),
             'admin_pool'    => $this->get('sonata.admin.pool'),
             'reset_route'   => $this->generateUrl('sonata_user_admin_resetting_request'),
+            'error'         => $data['error'] instanceof \Exception ? $data['error']->getMessage() : $data['error'],
         )));
     }
 }
