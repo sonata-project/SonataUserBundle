@@ -16,8 +16,13 @@
     <div class="login-box">
         <div class="login-logo">
             <a href="{{ path('sonata_admin_dashboard') }}">
-                {% if 'single_text' == admin_pool.getOption('title_mode') or 'both' == admin_pool.getOption('title_mode') %}
-                    <span>{{ admin_pool.title }}</span>
+                {% if 'single_image' == sonata_admin.adminPool.getOption('title_mode') or 'both' == sonata_admin.adminPool.getOption('title_mode') %}
+                    <div>
+                        <img style="width:64px;" src="{{ asset(sonata_admin.adminPool.titlelogo) }}" alt="{{ sonata_admin.adminPool.title }}">
+                    </div>
+                {% endif %}
+                {% if 'single_text' == sonata_admin.adminPool.getOption('title_mode') or 'both' == sonata_admin.adminPool.getOption('title_mode') %}
+                    <span>{{ sonata_admin.adminPool.title }}</span>
                 {% endif %}
             </a>
         </div>
