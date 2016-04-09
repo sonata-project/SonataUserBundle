@@ -216,7 +216,8 @@ class UserAdmin extends AbstractAdmin
                     ->add('token', null, ['required' => false])
                     ->add('twoStepVerificationCode', null, ['required' => false])
                 ->end()
-            ->end();
+            ->end()
+        ;
     }
 
     /**
