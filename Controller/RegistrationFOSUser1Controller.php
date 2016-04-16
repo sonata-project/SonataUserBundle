@@ -39,7 +39,7 @@ class RegistrationFOSUser1Controller extends Controller
         if ($user instanceof UserInterface) {
             $this->get('session')->getFlashBag()->set('sonata_user_error', 'sonata_user_already_authenticated');
 
-            return $this->redirectToRoute('sonata_user_profile_show');
+            return $this->redirect($this->generateUrl('sonata_user_profile_show'));
         }
 
         $form = $this->get('sonata.user.registration.form');
@@ -133,9 +133,9 @@ class RegistrationFOSUser1Controller extends Controller
 
         $this->get('fos_user.user_manager')->updateUser($user);
         if ($redirectRoute = $this->container->getParameter('sonata.user.register.confirm.redirect_route')) {
-            $response = $this->redirectToRoute($redirectRoute, $this->container->getParameter('sonata.user.register.confirm.redirect_route_params'));
+            $response = $this->redirect($this->generateUrl($redirectRoute, $this->container->getParameter('sonata.user.register.confirm.redirect_route_params')));
         } else {
-            $response = $this->redirectToRoute('fos_user_registration_confirmed');
+            $response = $this->redirect($this->generateUrl('fos_user_registration_confirmed'));
         }
 
         $this->authenticateUser($user, $response);

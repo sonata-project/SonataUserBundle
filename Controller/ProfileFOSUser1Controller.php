@@ -61,7 +61,7 @@ class ProfileFOSUser1Controller extends Controller
         if ($process) {
             $this->setFlash('sonata_user_success', 'profile.flash.updated');
 
-            return $this->redirectToRoute('sonata_user_profile_show');
+            return $this->redirect($this->generateUrl('sonata_user_profile_show'));
         }
 
         return $this->render('SonataUserBundle:Profile:edit_authentication.html.twig', array(
@@ -88,7 +88,7 @@ class ProfileFOSUser1Controller extends Controller
         if ($process) {
             $this->setFlash('sonata_user_success', 'profile.flash.updated');
 
-            return $this->redirectToRoute('sonata_user_profile_show');
+            return $this->redirect($this->generateUrl('sonata_user_profile_show'));
         }
 
         return $this->render('SonataUserBundle:Profile:edit_profile.html.twig', array(
