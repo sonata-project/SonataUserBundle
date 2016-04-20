@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata Project package.
+ * This file is part of the Sonata package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -108,7 +108,7 @@ class UserManager extends BaseUserManager implements UserManagerInterface, Manag
     /**
      * {@inheritdoc}
      */
-    public function getPager(array $criteria, $page, $limit = 10, array $sort = [])
+    public function getPager(array $criteria, $page, $limit = 10, array $sort = array())
     {
         $query = $this->repository
             ->createQueryBuilder('u')
@@ -121,25 +121,21 @@ class UserManager extends BaseUserManager implements UserManagerInterface, Manag
             }
         }
         if (count($sort) == 0) {
-            $sort = ['username' => 'ASC'];
+            $sort = array('username' => 'ASC');
         }
         foreach ($sort as $field => $direction) {
             $query->orderBy(sprintf('u.%s', $field), strtoupper($direction));
         }
 
-        $parameters = [];
-
         if (isset($criteria['enabled'])) {
             $query->andWhere('u.enabled = :enabled');
-            $parameters['enabled'] = $criteria['enabled'];
+            $query->setParameter('enabled', $criteria['enabled']);
         }
 
         if (isset($criteria['locked'])) {
             $query->andWhere('u.locked = :locked');
-            $parameters['locked'] = $criteria['locked'];
+            $query->setParameter('locked', $criteria['locked']);
         }
-
-        $query->setParameters($parameters);
 
         $pager = new Pager();
         $pager->setMaxPerPage($limit);
