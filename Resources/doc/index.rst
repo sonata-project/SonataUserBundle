@@ -15,3 +15,4 @@ Reference Guide
    reference/user_dashboard
    reference/profile_edition
    reference/api
+   reference/user_impersonation
