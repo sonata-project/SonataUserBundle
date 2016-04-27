@@ -37,6 +37,36 @@ class SecurityFOSUser1Controller extends SecurityController
             return new RedirectResponse($url);
         }
 
-        return parent::loginAction();
+        /*
+            Implementation of parent::loginAction
+            Needed for fixing the "Bad Credentials" translation problem
+            The code is a mix of the 2.0.0 version
+            and the 1.3.6 version of FOSUserBundle
+        */
+
+        $request = $this->container->get('request');
+        /* @var $request \Symfony\Component\HttpFoundation\Request */
+        $session = $request->getSession();
+        /* @var $session \Symfony\Component\HttpFoundation\Session\Session */
+
+        // get the error if any (works with forward and redirect -- see below)
+        if ($request->attributes->has(SecurityContextInterface::AUTHENTICATION_ERROR)) {
+            $error = $request->attributes->get(SecurityContextInterface::AUTHENTICATION_ERROR);
+        } elseif (null !== $session && $session->has(SecurityContextInterface::AUTHENTICATION_ERROR)) {
+            $error = $session->get(SecurityContextInterface::AUTHENTICATION_ERROR);
+            $session->remove(SecurityContextInterface::AUTHENTICATION_ERROR);
+        } else {
+            $error = null;
+        }
+
+        if (!$error instanceof AuthenticationException) {
+            $error = null; // The value does not come from the security component.
+        }
+
+        return $this->renderLogin(array(
+            'last_username' => (null === $session) ? '' : $session->get(SecurityContextInterface::LAST_USERNAME),
+            'error'         => $error,
+            'csrf_token'    => $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate'),
+        ));
     }
 }
