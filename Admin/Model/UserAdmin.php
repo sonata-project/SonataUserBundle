@@ -157,17 +157,17 @@ class UserAdmin extends AbstractAdmin
                 ->end()
                 ->with('Profile')
                     ->add('dateOfBirth', 'sonata_type_date_picker', array(
-                        'years' => range(1900, $now->format('Y')),
+                        'years'       => range(1900, $now->format('Y')),
                         'dp_min_date' => '1-1-1900',
                         'dp_max_date' => $now->format('c'),
-                        'required' => false,
+                        'required'    => false,
                     ))
                     ->add('firstname', null, array('required' => false))
                     ->add('lastname', null, array('required' => false))
                     ->add('website', 'url', array('required' => false))
                     ->add('biography', 'text', array('required' => false))
                     ->add('gender', UserGenderListType::class, array(
-                        'required' => true,
+                        'required'           => true,
                         'translation_domain' => $this->getTranslationDomain(),
                     ])
                     ->add('locale', 'locale', ['required' => false])
