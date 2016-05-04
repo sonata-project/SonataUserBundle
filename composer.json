@@ -1,5 +1,5 @@
 {
-    "name": "sonata-project/user-bundle",
+    "name": "moux2003/user-bundle",
     "type": "symfony-bundle",
     "description": "Symfony SonataUserBundle",
     "keywords": ["user", "sonata", "google authenticator"],
@@ -22,8 +22,8 @@
         "symfony/security": "~2.8|~3.0",
         "symfony/security-acl": "~2.8|~3.0",
         "symfony/console": "~2.8|~3.0",
-        "sonata-project/core-bundle": "~2.3,>=2.3.10",
-        "sonata-project/admin-bundle": "~2.3|~2.4@dev",
+        "sonata-project/core-bundle": "~2.3,>=2.3.10|~3.0@dev",
+        "sonata-project/admin-bundle": "~2.3|~2.4@dev|~3.0@dev",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "sonata-project/doctrine-extensions": "~1.0",
         "sonata-project/easy-extends-bundle": "~2.1",
