@@ -29,7 +29,7 @@
         "sonata-project/easy-extends-bundle": "~2.1",
         "sonata-project/google-authenticator": "~1.0",
         "sonata-project/datagrid-bundle": "~2.2",
-        "friendsofsymfony/rest-bundle": "~1.1",
+        "friendsofsymfony/rest-bundle": "~2.0@dev",
         "jms/serializer-bundle": "~0.11|~1.0",
         "nelmio/api-doc-bundle": "~2.11"
     },
