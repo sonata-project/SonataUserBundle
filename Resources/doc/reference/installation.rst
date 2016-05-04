@@ -158,6 +158,10 @@ Replace:
         resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
         prefix: /profile
 
+    # Or if you use all
+    fos_user:
+        resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
 With:
 
 .. code-block:: yaml
@@ -180,6 +184,10 @@ With:
     sonata_user_change_password:
         resource: "@SonataUserBundle/Resources/config/routing/sonata_change_password_2.xml"
         prefix: /profile
+
+    # Or if you use all
+    sonata_user:
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_fosuser.xml"
 
 Integrating the bundle into the Sonata Admin Bundle
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
