@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <import
+        resource="@SonataUserBundle/Resources/config/routing/sonata_security_2.xml" />
+    <import
+        resource="@SonataUserBundle/Resources/config/routing/sonata_profile_2.xml"
+        prefix="/profile" />
+    <import
+        resource="@SonataUserBundle/Resources/config/routing/sonata_registration_2.xml"
+        prefix="/register" />
+    <import
+        resource="@SonataUserBundle/Resources/config/routing/sonata_resetting_2.xml"
+        prefix="/resetting" />
+    <import
+        resource="@SonataUserBundle/Resources/config/routing/sonata_change_password_2.xml"
+        prefix="/profile" />
+</routes>
