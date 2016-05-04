@@ -1,7 +1,6 @@
 <?php
-
 /*
- * This file is part of the Sonata Project package.
+ * This file is part of the Sonata project.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -80,8 +79,8 @@ class ChangePasswordFOSUser2Controller extends Controller
             return $response;
         }
 
-        return $this->render('SonataUserBundle:ChangePassword:changePassword.html.twig', [
+        return $this->render('SonataUserBundle:ChangePassword:changePassword.html.twig', array(
             'form' => $form->createView(),
-        ]);
+        ));
     }
 }
