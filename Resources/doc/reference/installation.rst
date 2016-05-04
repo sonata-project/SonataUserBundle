@@ -198,6 +198,11 @@ Add the related security routing information:
         resource: '@SonataUserBundle/Resources/config/routing/admin_resetting.xml'
         prefix: /admin/resetting
 
+    _sonata_admin:
+        resource: .
+        type: sonata_admin
+        prefix: /admin
+
 Then, add a new custom firewall handlers for the admin:
 
 .. code-block:: yaml
