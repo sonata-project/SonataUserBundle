@@ -1,5 +1,5 @@
 {
-    "name": "sonata-project/user-bundle",
+    "name": "moux2003/user-bundle",
     "type": "symfony-bundle",
     "description": "Symfony SonataUserBundle",
     "keywords": ["user", "sonata", "google authenticator"],
