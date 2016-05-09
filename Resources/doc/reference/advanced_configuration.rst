@@ -113,7 +113,7 @@ Full configuration options:
         metadata:
             directories:
                 -
-                    path: "%kernel.root_dir%/../vendor/sonata-project/user-bundle/Sonata/UserBundle/Resources/config/serializer/FOSUserBundle"
+                    path: "%kernel.root_dir%/../vendor/sonata-project/user-bundle/Resources/config/serializer/FOSUserBundle"
                     namespace_prefix: 'FOS\UserBundle'
 
     # Enable Doctrine to map the provided entities
