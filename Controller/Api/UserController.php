@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata Project package.
+ * This file is part of the Sonata package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -74,11 +74,11 @@ class UserController
      *
      * @QueryParam(name="page", requirements="\d+", default="1", description="Page for users list pagination (1-indexed)")
      * @QueryParam(name="count", requirements="\d+", default="10", description="Number of users by page")
-     * @QueryParam(name="orderBy", array=true, requirements="ASC|DESC", nullable=true, strict=true, description="Query users order by clause (key is field, value is direction")
+     * @QueryParam(name="orderBy", map=true, requirements="ASC|DESC", nullable=true, strict=true, description="Query users order by clause (key is field, value is direction")
      * @QueryParam(name="enabled", requirements="0|1", nullable=true, strict=true, description="Enabled/disabled users only?")
      * @QueryParam(name="locked", requirements="0|1", nullable=true, strict=true, description="Locked/Non-locked users only?")
      *
-     * @View(serializerGroups="sonata_api_read", serializerEnableMaxDepthChecks=true)
+     * @View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
      *
      * @param ParamFetcherInterface $paramFetcher
      *
@@ -86,10 +86,10 @@ class UserController
      */
     public function getUsersAction(ParamFetcherInterface $paramFetcher)
     {
-        $supporedCriteria = [
+        $supporedCriteria = array(
             'enabled' => '',
-            'locked'  => '',
-        ];
+            'locked' => '',
+        );
 
         $page = $paramFetcher->get('page');
         $limit = $paramFetcher->get('count');
@@ -103,12 +103,12 @@ class UserController
         }
 
         if (!$sort) {
-            $sort = [];
+            $sort = array();
         } elseif (!is_array($sort)) {
-            $sort = [$sort, 'asc'];
+            $sort = array($sort, 'asc');
         }
 
-        return $this->userManager->getPager($criteria, $page, $limit, $sort);
+        return $this->userManager->getPager($criteria, $page, $limit, $sort)->getResults();
     }
 
     /**
@@ -125,7 +125,7 @@ class UserController
      *  }
      * )
      *
-     * @View(serializerGroups="sonata_api_read", serializerEnableMaxDepthChecks=true)
+     * @View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
      *
      * @param $id
      *
@@ -150,9 +150,9 @@ class UserController
      *
      * @param Request $request A Symfony request
      *
-     * @throws NotFoundHttpException
-     *
      * @return UserInterface
+     *
+     * @throws NotFoundHttpException
      */
     public function postUserAction(Request $request)
     {
@@ -178,9 +178,9 @@ class UserController
      * @param int     $id      User id
      * @param Request $request A Symfony request
      *
-     * @throws NotFoundHttpException
-     *
      * @return UserInterface
+     *
+     * @throws NotFoundHttpException
      */
     public function putUserAction($id, Request $request)
     {
@@ -203,9 +203,9 @@ class UserController
      *
      * @param int $id An User identifier
      *
-     * @throws NotFoundHttpException
-     *
      * @return \FOS\RestBundle\View\View
+     *
+     * @throws NotFoundHttpException
      */
     public function deleteUserAction($id)
     {
@@ -213,7 +213,7 @@ class UserController
 
         $this->userManager->deleteUser($user);
 
-        return ['deleted' => true];
+        return array('deleted' => true);
     }
 
     /**
@@ -235,10 +235,10 @@ class UserController
      * @param int $userId  A User identifier
      * @param int $groupId A Group identifier
      *
+     * @return UserInterface
+     *
      * @throws NotFoundHttpException
      * @throws \RuntimeException
-     *
-     * @return UserInterface
      */
     public function postUserGroupAction($userId, $groupId)
     {
@@ -246,15 +246,15 @@ class UserController
         $group = $this->getGroup($groupId);
 
         if ($user->hasGroup($group)) {
-            return FOSRestView::create([
+            return FOSRestView::create(array(
                 'error' => sprintf('User "%s" already has group "%s"', $userId, $groupId),
-            ], 400);
+            ), 400);
         }
 
         $user->addGroup($group);
         $this->userManager->updateUser($user);
 
-        return ['added' => true];
+        return array('added' => true);
     }
 
     /**
@@ -276,10 +276,10 @@ class UserController
      * @param int $userId  A User identifier
      * @param int $groupId A Group identifier
      *
+     * @return UserInterface
+     *
      * @throws NotFoundHttpException
      * @throws \RuntimeException
-     *
-     * @return UserInterface
      */
     public function deleteUserGroupAction($userId, $groupId)
     {
@@ -287,15 +287,15 @@ class UserController
         $group = $this->getGroup($groupId);
 
         if (!$user->hasGroup($group)) {
-            return FOSRestView::create([
+            return FOSRestView::create(array(
                 'error' => sprintf('User "%s" has not group "%s"', $userId, $groupId),
-            ], 400);
+            ), 400);
         }
 
         $user->removeGroup($group);
         $this->userManager->updateUser($user);
 
-        return ['removed' => true];
+        return array('removed' => true);
     }
 
     /**
@@ -303,13 +303,13 @@ class UserController
      *
      * @param $id
      *
-     * @throws NotFoundHttpException
-     *
      * @return UserInterface
+     *
+     * @throws NotFoundHttpException
      */
     protected function getUser($id)
     {
-        $user = $this->userManager->findUserBy(['id' => $id]);
+        $user = $this->userManager->findUserBy(array('id' => $id));
 
         if (null === $user) {
             throw new NotFoundHttpException(sprintf('User (%d) not found', $id));
@@ -323,13 +323,13 @@ class UserController
      *
      * @param $id
      *
-     * @throws NotFoundHttpException
-     *
      * @return GroupInterface
+     *
+     * @throws NotFoundHttpException
      */
     protected function getGroup($id)
     {
-        $group = $this->groupManager->findGroupBy(['id' => $id]);
+        $group = $this->groupManager->findGroupBy(array('id' => $id));
 
         if (null === $group) {
             throw new NotFoundHttpException(sprintf('Group (%d) not found', $id));
@@ -350,9 +350,9 @@ class UserController
     {
         $user = $id ? $this->getUser($id) : null;
 
-        $form = $this->formFactory->createNamed(null, 'sonata_user_api_form_user', $user, [
+        $form = $this->formFactory->createNamed(null, 'sonata_user_api_form_user', $user, array(
             'csrf_protection' => false,
-        ]);
+        ));
 
         $form->handleRequest($request);
 
@@ -362,7 +362,7 @@ class UserController
 
             $view = FOSRestView::create($user);
             $serializationContext = SerializationContext::create();
-            $serializationContext->setGroups(['sonata_api_read']);
+            $serializationContext->setGroups(array('sonata_api_read'));
             $serializationContext->enableMaxDepthChecks();
             $view->setSerializationContext($serializationContext);
 

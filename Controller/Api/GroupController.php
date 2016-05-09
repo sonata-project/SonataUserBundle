@@ -65,10 +65,10 @@ class GroupController
      *
      * @QueryParam(name="page", requirements="\d+", default="1", description="Page for groups list pagination (1-indexed)")
      * @QueryParam(name="count", requirements="\d+", default="10", description="Number of groups by page")
-     * @QueryParam(name="orderBy", array=true, requirements="ASC|DESC", nullable=true, strict=true, description="Query groups order by clause (key is field, value is direction")
+     * @QueryParam(name="orderBy", map=true, requirements="ASC|DESC", nullable=true, strict=true, description="Query groups order by clause (key is field, value is direction")
      * @QueryParam(name="enabled", requirements="0|1", nullable=true, strict=true, description="Enabled/disabled groups only?")
      *
-     * @View(serializerGroups="sonata_api_read", serializerEnableMaxDepthChecks=true)
+     * @View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
      *
      * @param ParamFetcherInterface $paramFetcher
      *
@@ -97,7 +97,7 @@ class GroupController
             $sort = [$sort, 'asc'];
         }
 
-        return $this->groupManager->getPager($criteria, $page, $limit, $sort);
+        return $this->groupManager->getPager($criteria, $page, $limit, $sort)->getResults();
     }
 
     /**
@@ -114,7 +114,7 @@ class GroupController
      *  }
      * )
      *
-     * @View(serializerGroups="sonata_api_read", serializerEnableMaxDepthChecks=true)
+     * @View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
      *
      * @param $id
      *
