@@ -135,4 +135,112 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
             })
             ->getPager(array('locked' => false), 1);
     }
+
+    public function testGetPagerWithDisabledAndNonLockedUsers()
+    {
+        $self = $this;
+        $this
+            ->getUserManager(function ($qb) use ($self) {
+                $qb->expects($self->exactly(2))->method('andWhere')->withConsecutive(
+                    array($self->equalTo('u.enabled = :enabled')),
+                    array($self->equalTo('u.locked = :locked'))
+                );
+                $qb->expects($self->exactly(2))->method('setParameter')->withConsecutive(
+                    array(
+                        $self->equalTo('enabled'),
+                        $self->equalTo(false),
+                    ),
+                    array(
+                        $self->equalTo('locked'),
+                        $self->equalTo(false),
+                    )
+                );
+                $qb->expects($self->once())->method('orderBy')->with(
+                    $self->equalTo('u.username'),
+                    $self->equalTo('ASC')
+                );
+            })
+            ->getPager(array('enabled' => false, 'locked' => false), 1);
+    }
+
+    public function testGetPagerWithEnabledAndNonLockedUsers()
+    {
+        $self = $this;
+        $this
+            ->getUserManager(function ($qb) use ($self) {
+                $qb->expects($self->exactly(2))->method('andWhere')->withConsecutive(
+                    array($self->equalTo('u.enabled = :enabled')),
+                    array($self->equalTo('u.locked = :locked'))
+                );
+                $qb->expects($self->exactly(2))->method('setParameter')->withConsecutive(
+                    array(
+                        $self->equalTo('enabled'),
+                        $self->equalTo(true),
+                    ),
+                    array(
+                        $self->equalTo('locked'),
+                        $self->equalTo(false),
+                    )
+                );
+                $qb->expects($self->once())->method('orderBy')->with(
+                    $self->equalTo('u.username'),
+                    $self->equalTo('ASC')
+                );
+            })
+            ->getPager(array('enabled' => true, 'locked' => false), 1);
+    }
+
+    public function testGetPagerWithEnabledAndLockedUsers()
+    {
+        $self = $this;
+        $this
+            ->getUserManager(function ($qb) use ($self) {
+                $qb->expects($self->exactly(2))->method('andWhere')->withConsecutive(
+                    array($self->equalTo('u.enabled = :enabled')),
+                    array($self->equalTo('u.locked = :locked'))
+                );
+                $qb->expects($self->exactly(2))->method('setParameter')->withConsecutive(
+                    array(
+                        $self->equalTo('enabled'),
+                        $self->equalTo(true),
+                    ),
+                    array(
+                        $self->equalTo('locked'),
+                        $self->equalTo(true),
+                    )
+                );
+                $qb->expects($self->once())->method('orderBy')->with(
+                    $self->equalTo('u.username'),
+                    $self->equalTo('ASC')
+                );
+            })
+            ->getPager(array('enabled' => true, 'locked' => true), 1);
+    }
+
+    public function testGetPagerWithDisabledAndLockedUsers()
+    {
+        $self = $this;
+        $this
+            ->getUserManager(function ($qb) use ($self) {
+                $qb->expects($self->exactly(2))->method('andWhere')->withConsecutive(
+                    array($self->equalTo('u.enabled = :enabled')),
+                    array($self->equalTo('u.locked = :locked'))
+                );
+                $qb->expects($self->exactly(2))->method('setParameter')->withConsecutive(
+                    array(
+                        $self->equalTo('enabled'),
+                        $self->equalTo(false),
+                    ),
+                    array(
+                        $self->equalTo('locked'),
+                        $self->equalTo(true),
+                    )
+                );
+                $qb->expects($self->once())->method('orderBy')->with(
+                    $self->equalTo('u.username'),
+                    $self->equalTo('ASC')
+                );
+            })
+            ->getPager(array('enabled' => false, 'locked' => true), 1);
+    }
 }
