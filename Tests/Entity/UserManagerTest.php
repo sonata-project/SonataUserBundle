@@ -64,6 +64,24 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
             ->getPager(array(), 1, 10, array('invalid' => 'ASC'));
     }
 
+    public function testGetPagerWithValidSortDesc()
+    {
+        $self = $this;
+        $this
+            ->getUserManager(function ($qb) use ($self) {
+                $qb->expects($self->once())->method('andWhere')->with($self->equalTo('u.enabled = :enabled'));
+                $qb->expects($self->once())->method('setParameter')->with(
+                    $self->equalTo('enabled'),
+                    $self->equalTo(true)
+                );
+                $qb->expects($self->once())->method('orderBy')->with(
+                    $self->equalTo('u.email'),
+                    $self->equalTo('DESC')
+                );
+            })
+            ->getPager(array('enabled' => true), 1, 10, array('email' => 'DESC'));
+    }
+
     public function testGetPagerWithEnabledUsers()
     {
         $self = $this;
