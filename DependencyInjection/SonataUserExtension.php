@@ -176,6 +176,8 @@ class SonataUserExtension extends Extension
             $modelType = 'Entity';
         } elseif ('mongodb' === $config['manager_type']) {
             $modelType = 'Document';
+        } else {
+            throw new \InvalidArgumentException(sprintf('Invalid manager type "%s".', $config['manager_type']));
         }
 
         $defaultConfig['class']['user']  = sprintf('Application\\Sonata\\UserBundle\\%s\\User', $modelType);
@@ -197,6 +199,8 @@ class SonataUserExtension extends Extension
             $modelType = 'entity';
         } elseif ('mongodb' === $config['manager_type']) {
             $modelType = 'document';
+        } else {
+            throw new \InvalidArgumentException(sprintf('Invalid manager type "%s".', $config['manager_type']));
         }
 
         $container->setParameter(sprintf('sonata.user.admin.user.%s', $modelType), $config['class']['user']);

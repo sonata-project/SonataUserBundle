@@ -205,7 +205,7 @@
             <trans-unit id="filter.label_name">
                 <source>filter.label_name</source>
                 <target>Name</target>
-            </trans-unit>            
+            </trans-unit>
             <trans-unit id="filter.label_email">
                 <source>filter.label_email</source>
                 <target>E-Mail-Adresse</target>
@@ -229,7 +229,7 @@
             <trans-unit id="filter.label_id">
                 <source>filter.label_id</source>
                 <target>ID</target>
-            </trans-unit>            
+            </trans-unit>
             <trans-unit id="filter.label_expired">
                 <source>filter.label_expired</source>
                 <target>Abgelaufen</target>
@@ -580,7 +580,7 @@
             </trans-unit>
             <trans-unit id="forgotten_password">
                 <source>forgotten_password</source>
-                <target>Passwort vergessen</target>
+                <target>Passwort vergessen?</target>
             </trans-unit>
             <trans-unit id="sonata_user_profile_breadcrumb_index">
                 <source>sonata_user_profile_breadcrumb_index</source>
@@ -592,7 +592,7 @@
             </trans-unit>
             <trans-unit id="sonata_user_already_authenticated">
                 <source>sonata_user_already_authenticated</source>
-                <target>Sie sind schon eingeloggt</target>
+                <target>Sie sind schon angemeldet.</target>
             </trans-unit>
             <trans-unit id="security.login.username">
                 <source>security.login.username</source>
