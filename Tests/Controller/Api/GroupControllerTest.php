@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -24,7 +24,7 @@ class GroupControllerTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetGroupsAction()
     {
-        $group        = $this->getMock('FOS\UserBundle\Model\GroupInterface');
+        $group = $this->getMock('FOS\UserBundle\Model\GroupInterface');
         $groupManager = $this->getMock('Sonata\UserBundle\Model\GroupManagerInterface');
         $groupManager->expects($this->once())->method('getPager')->will($this->returnValue(array($group)));
 

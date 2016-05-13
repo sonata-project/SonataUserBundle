@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -33,7 +33,7 @@ class AdminResettingController extends ResettingController
 
         return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/Resetting/request.html.'.$this->getEngine(), array(
             'base_template' => $this->container->get('sonata.admin.pool')->getTemplate('layout'),
-            'admin_pool'    => $this->container->get('sonata.admin.pool'),
+            'admin_pool' => $this->container->get('sonata.admin.pool'),
         ));
     }
 
@@ -50,15 +50,15 @@ class AdminResettingController extends ResettingController
         if (null === $user) {
             return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/Resetting/request.html.'.$this->getEngine(), array(
                 'invalid_username' => $username,
-                'base_template'    => $this->container->get('sonata.admin.pool')->getTemplate('layout'),
-                'admin_pool'       => $this->container->get('sonata.admin.pool'),
+                'base_template' => $this->container->get('sonata.admin.pool')->getTemplate('layout'),
+                'admin_pool' => $this->container->get('sonata.admin.pool'),
             ));
         }
 
         if ($user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
             return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/Resetting/passwordAlreadyRequested.html.'.$this->getEngine(), array(
-                'base_template'    => $this->container->get('sonata.admin.pool')->getTemplate('layout'),
-                'admin_pool'       => $this->container->get('sonata.admin.pool'),
+                'base_template' => $this->container->get('sonata.admin.pool')->getTemplate('layout'),
+                'admin_pool' => $this->container->get('sonata.admin.pool'),
             ));
         }
 
@@ -91,9 +91,9 @@ class AdminResettingController extends ResettingController
         }
 
         return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/Resetting/checkEmail.html.'.$this->getEngine(), array(
-            'email'         => $email,
+            'email' => $email,
             'base_template' => $this->container->get('sonata.admin.pool')->getTemplate('layout'),
-            'admin_pool'    => $this->container->get('sonata.admin.pool'),
+            'admin_pool' => $this->container->get('sonata.admin.pool'),
         ));
     }
 
@@ -129,10 +129,10 @@ class AdminResettingController extends ResettingController
         }
 
         return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/Resetting/reset.html.'.$this->getEngine(), array(
-            'token'         => $token,
-            'form'          => $form->createView(),
+            'token' => $token,
+            'form' => $form->createView(),
             'base_template' => $this->container->get('sonata.admin.pool')->getTemplate('layout'),
-            'admin_pool'    => $this->container->get('sonata.admin.pool'),
+            'admin_pool' => $this->container->get('sonata.admin.pool'),
         ));
     }
 }

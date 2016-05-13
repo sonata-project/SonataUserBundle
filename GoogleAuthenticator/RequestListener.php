@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata project.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -65,10 +65,10 @@ class RequestListener
             return;
         }
 
-        $key     = $this->helper->getSessionKey($this->securityContext->getToken());
+        $key = $this->helper->getSessionKey($this->securityContext->getToken());
         $request = $event->getRequest();
         $session = $event->getRequest()->getSession();
-        $user    = $this->securityContext->getToken()->getUser();
+        $user = $this->securityContext->getToken()->getUser();
 
         if (!$session->has($key)) {
             return;
