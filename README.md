@@ -1,30 +1,28 @@
-SonataUserBundle
-================
+# Sonata User Bundle
 
-[![Build Status](https://secure.travis-ci.org/sonata-project/SonataUserBundle.png?branch=master)](http://travis-ci.org/sonata-project/SonataUserBundle)
+Symfony SonataUserBundle
 
-Integrate the FOS/UserBundle in the Sonata Project
---------------------------------------------------
+[![Latest Stable Version](https://poser.pugx.org/sonata-project/user-bundle/v/stable)](https://packagist.org/packages/sonata-project/user-bundle)
+[![Latest Unstable Version](https://poser.pugx.org/sonata-project/user-bundle/v/unstable)](https://packagist.org/packages/sonata-project/user-bundle)
+[![License](https://poser.pugx.org/sonata-project/user-bundle/license)](https://packagist.org/packages/sonata-project/user-bundle)
 
-    - AdminBundle: add user and group management
-    - EasyExtends: allows to generate Application level model
+[![Total Downloads](https://poser.pugx.org/sonata-project/user-bundle/downloads)](https://packagist.org/packages/sonata-project/user-bundle)
+[![Monthly Downloads](https://poser.pugx.org/sonata-project/user-bundle/d/monthly)](https://packagist.org/packages/sonata-project/user-bundle)
+[![Daily Downloads](https://poser.pugx.org/sonata-project/user-bundle/d/daily)](https://packagist.org/packages/sonata-project/user-bundle)
 
+[![Build Status](https://travis-ci.org/sonata-project/SonataUserBundle.svg?branch=master)](https://travis-ci.org/sonata-project/SonataUserBundle)
 
-Installation
-------------
+## Documentation
 
-You have 2 options to initialize the SonataUserBundle, you can select which bundle SonataUserBundle extends
+Check out the documentation on the [official website](https://sonata-project.org/bundles/user).
 
-    - new Sonata\UserBundle\SonataUserBundle('FOSUserBundle') : the bundle will extend ``FOSUserBundle``
-    - new Sonata\UserBundle\SonataUserBundle() : the bundle will NOT extend ``FOSUserBundle``
+## Support
 
+For general support and questions, please use [StackOverflow](http://stackoverflow.com/questions/tagged/sonata).
 
-**Google Groups**: For questions and proposals you can post on this google groups
+If you think you find a bug or you have a feature idea to propose, feel free to open a issue
+**after looking** at the [contributing guide](CONTRIBUTING.md).
 
-* [Sonata Users](https://groups.google.com/group/sonata-users): Only for user questions
-* [Sonata Devs](https://groups.google.com/group/sonata-devs): Only for devs
+## License
 
-License
--------
-
-This bundle is available under the [MIT license](Resources/meta/LICENSE).
+This package is available under the [MIT license](LICENSE).
