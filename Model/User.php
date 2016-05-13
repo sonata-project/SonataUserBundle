@@ -187,7 +187,7 @@ abstract class User extends AbstractedUser implements UserInterface
     }
 
     /**
-     * Set expiration date
+     * Set expiration date.
      *
      * @param \DateTime|null $date
      *
