@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -19,21 +19,6 @@ use Sonata\UserBundle\Entity\GroupManager;
  */
 class GroupManagerTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @param $qbCallback
-     *
-     * @return GroupManager
-     */
-    protected function getUserManager($qbCallback)
-    {
-        $em = EntityManagerMockFactory::create($this, $qbCallback, array(
-            'name',
-            'roles',
-        ));
-
-        return new GroupManager($em, 'Sonata\UserBundle\Entity\BaseGroup');
-    }
-
     public function testGetPager()
     {
         $self = $this;
@@ -93,5 +78,20 @@ class GroupManagerTest extends \PHPUnit_Framework_TestCase
                 $qb->expects($self->once())->method('setParameters')->with($self->equalTo(array('enabled' => false)));
             })
             ->getPager(array('enabled' => false), 1);
+    }
+
+    /**
+     * @param $qbCallback
+     *
+     * @return GroupManager
+     */
+    protected function getUserManager($qbCallback)
+    {
+        $em = EntityManagerMockFactory::create($this, $qbCallback, array(
+            'name',
+            'roles',
+        ));
+
+        return new GroupManager($em, 'Sonata\UserBundle\Entity\BaseGroup');
     }
 }

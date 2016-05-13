@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -51,6 +51,31 @@ class UserAdmin extends Admin
         return array_filter(parent::getExportFields(), function ($v) {
             return !in_array($v, array('password', 'salt'));
         });
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function preUpdate($user)
+    {
+        $this->getUserManager()->updateCanonicalFields($user);
+        $this->getUserManager()->updatePassword($user);
+    }
+
+    /**
+     * @param UserManagerInterface $userManager
+     */
+    public function setUserManager(UserManagerInterface $userManager)
+    {
+        $this->userManager = $userManager;
+    }
+
+    /**
+     * @return UserManagerInterface
+     */
+    public function getUserManager()
+    {
+        return $this->userManager;
     }
 
     /**
@@ -160,17 +185,17 @@ class UserAdmin extends Admin
                 ->end()
                 ->with('Profile')
                     ->add('dateOfBirth', 'sonata_type_date_picker', array(
-                        'years'       => range(1900, $now->format('Y')),
+                        'years' => range(1900, $now->format('Y')),
                         'dp_min_date' => '1-1-1900',
                         'dp_max_date' => $now->format('c'),
-                        'required'    => false,
+                        'required' => false,
                     ))
                     ->add('firstname', null, array('required' => false))
                     ->add('lastname', null, array('required' => false))
                     ->add('website', 'url', array('required' => false))
                     ->add('biography', 'text', array('required' => false))
                     ->add('gender', 'sonata_user_gender', array(
-                        'required'           => true,
+                        'required' => true,
                         'translation_domain' => $this->getTranslationDomain(),
                     ))
                     ->add('locale', 'locale', array('required' => false))
@@ -202,7 +227,7 @@ class UserAdmin extends Admin
                 ->end()
                 ->with('Roles')
                     ->add('realRoles', 'sonata_security_roles', array(
-                        'label'    => 'form.label_roles',
+                        'label' => 'form.label_roles',
                         'expanded' => true,
                         'multiple' => true,
                         'required' => false,
@@ -214,30 +239,5 @@ class UserAdmin extends Admin
                 ->end()
             ->end()
         ;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function preUpdate($user)
-    {
-        $this->getUserManager()->updateCanonicalFields($user);
-        $this->getUserManager()->updatePassword($user);
-    }
-
-    /**
-     * @param UserManagerInterface $userManager
-     */
-    public function setUserManager(UserManagerInterface $userManager)
-    {
-        $this->userManager = $userManager;
-    }
-
-    /**
-     * @return UserManagerInterface
-     */
-    public function getUserManager()
-    {
-        return $this->userManager;
     }
 }

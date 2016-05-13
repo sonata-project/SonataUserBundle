@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -19,19 +19,6 @@ use Sonata\UserBundle\Entity\UserManager;
  */
 class UserManagerTest extends \PHPUnit_Framework_TestCase
 {
-    protected function getUserManager($qbCallback)
-    {
-        $em = EntityManagerMockFactory::create($this, $qbCallback, array(
-            'username',
-            'email',
-        ));
-
-        $encoder       = $this->getMock('Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface');
-        $canonicalizer = $this->getMock('FOS\UserBundle\Util\CanonicalizerInterface');
-
-        return new UserManager($encoder, $canonicalizer, $canonicalizer, $em, 'Sonata\UserBundle\Entity\BaseUser');
-    }
-
     public function testGetPager()
     {
         $self = $this;
@@ -260,5 +247,18 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
                 );
             })
             ->getPager(array('enabled' => false, 'locked' => true), 1);
+    }
+
+    protected function getUserManager($qbCallback)
+    {
+        $em = EntityManagerMockFactory::create($this, $qbCallback, array(
+            'username',
+            'email',
+        ));
+
+        $encoder = $this->getMock('Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface');
+        $canonicalizer = $this->getMock('FOS\UserBundle\Util\CanonicalizerInterface');
+
+        return new UserManager($encoder, $canonicalizer, $canonicalizer, $em, 'Sonata\UserBundle\Entity\BaseUser');
     }
 }

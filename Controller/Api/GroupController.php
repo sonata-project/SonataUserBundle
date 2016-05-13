@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -52,7 +52,7 @@ class GroupController
     public function __construct(GroupManagerInterface $groupManager, FormFactoryInterface $formFactory)
     {
         $this->groupManager = $groupManager;
-        $this->formFactory  = $formFactory;
+        $this->formFactory = $formFactory;
     }
 
     /**
@@ -80,9 +80,9 @@ class GroupController
             'enabled' => '',
         );
 
-        $page     = $paramFetcher->get('page');
-        $limit    = $paramFetcher->get('count');
-        $sort     = $paramFetcher->get('orderBy');
+        $page = $paramFetcher->get('page');
+        $limit = $paramFetcher->get('count');
+        $sort = $paramFetcher->get('orderBy');
         $criteria = array_intersect_key($paramFetcher->all(), $supportedFilters);
 
         foreach ($criteria as $key => $value) {
@@ -177,6 +177,35 @@ class GroupController
     }
 
     /**
+     * Deletes a group.
+     *
+     * @ApiDoc(
+     *  requirements={
+     *      {"name"="id", "dataType"="integer", "requirement"="\d+", "description"="group identifier"}
+     *  },
+     *  statusCodes={
+     *      200="Returned when group is successfully deleted",
+     *      400="Returned when an error has occurred while group deletion",
+     *      404="Returned when unable to find group"
+     *  }
+     * )
+     *
+     * @param int $id A Group identifier
+     *
+     * @return \FOS\RestBundle\View\View
+     *
+     * @throws NotFoundHttpException
+     */
+    public function deleteGroupAction($id)
+    {
+        $group = $this->getGroup($id);
+
+        $this->groupManager->deleteGroup($group);
+
+        return array('deleted' => true);
+    }
+
+    /**
      * Write a Group, this method is used by both POST and PUT action methods.
      *
      * @param Request  $request Symfony request
@@ -209,35 +238,6 @@ class GroupController
         }
 
         return $form;
-    }
-
-    /**
-     * Deletes a group.
-     *
-     * @ApiDoc(
-     *  requirements={
-     *      {"name"="id", "dataType"="integer", "requirement"="\d+", "description"="group identifier"}
-     *  },
-     *  statusCodes={
-     *      200="Returned when group is successfully deleted",
-     *      400="Returned when an error has occurred while group deletion",
-     *      404="Returned when unable to find group"
-     *  }
-     * )
-     *
-     * @param int $id A Group identifier
-     *
-     * @return \FOS\RestBundle\View\View
-     *
-     * @throws NotFoundHttpException
-     */
-    public function deleteGroupAction($id)
-    {
-        $group = $this->getGroup($id);
-
-        $this->groupManager->deleteGroup($group);
-
-        return array('deleted' => true);
     }
 
     /**

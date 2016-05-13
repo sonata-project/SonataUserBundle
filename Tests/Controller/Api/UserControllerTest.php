@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -24,7 +24,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetUsersAction()
     {
-        $user        = $this->getMock('Sonata\UserBundle\Model\UserInterface');
+        $user = $this->getMock('Sonata\UserBundle\Model\UserInterface');
         $userManager = $this->getMock('Sonata\UserBundle\Model\UserManagerInterface');
         $userManager->expects($this->once())->method('getPager')->will($this->returnValue(array()));
 

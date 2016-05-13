@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of the FOSUserBundle package.
+ * This file is part of the Sonata Project package.
  *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -82,12 +82,22 @@ class AdminSecurityController extends Controller
 
         return $this->render('SonataUserBundle:Admin:Security/login.html.'.$this->container->getParameter('fos_user.template.engine'), array(
                 'last_username' => $lastUsername,
-                'error'         => $error,
-                'csrf_token'    => $csrfToken,
+                'error' => $error,
+                'csrf_token' => $csrfToken,
                 'base_template' => $this->get('sonata.admin.pool')->getTemplate('layout'),
-                'admin_pool'    => $this->get('sonata.admin.pool'),
-                'reset_route'   => $resetRoute, // TODO: Deprecated in 2.3, to be removed in 3.0
+                'admin_pool' => $this->get('sonata.admin.pool'),
+                'reset_route' => $resetRoute, // TODO: Deprecated in 2.3, to be removed in 3.0
             ));
+    }
+
+    public function checkAction()
+    {
+        throw new \RuntimeException('You must configure the check path to be handled by the firewall using form_login in your security firewall configuration.');
+    }
+
+    public function logoutAction()
+    {
+        throw new \RuntimeException('You must activate the logout in your security firewall configuration.');
     }
 
     /**
@@ -103,15 +113,5 @@ class AdminSecurityController extends Controller
         $template = sprintf('FOSUserBundle:Security:login.html.%s', $this->container->getParameter('fos_user.template.engine'));
 
         return $this->render($template, $data);
-    }
-
-    public function checkAction()
-    {
-        throw new \RuntimeException('You must configure the check path to be handled by the firewall using form_login in your security firewall configuration.');
-    }
-
-    public function logoutAction()
-    {
-        throw new \RuntimeException('You must activate the logout in your security firewall configuration.');
     }
 }
