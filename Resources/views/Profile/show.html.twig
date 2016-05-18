@@ -14,38 +14,92 @@ file that was distributed with this source code.
 {% block sonata_profile_content %}
     {% sonata_template_box 'This is the user profile template. Feel free to override it.' %}
 
-    <div class="row row-fluid">
-        {% set has_center = false %}
-        {% for block in blocks %}
-            {% if block.position == 'center' %}
-                {% set has_center = true %}
-            {% endif %}
-        {% endfor %}
+    {% set has_left = false %}
+    {% for block in blocks.left %}
+    	{% set has_left = true %}
+    {% endfor %}
 
-        <div class="{% if has_center %}span4 col-lg-4{% else %}span6 col-lg-6{% endif %}">
-            {% for block in blocks %}
-                {% if block.position == 'left' %}
+    {% set has_center = false %}
+    {% for block in blocks.center %}
+    	{% set has_center = true %}
+    {% endfor %}
+
+    {% set has_right = false %}
+    {% for block in blocks.right %}
+    	{% set has_right = true %}
+    {% endfor %}
+
+    {% set has_top = false %}
+    {% for block in blocks.top %}
+    	{% set has_top = true %}
+    {% endfor %}
+
+    {% set has_bottom = false %}
+    {% for block in blocks.bottom %}
+    	{% set has_bottom = true %}
+    {% endfor %}
+
+    {% if has_top %}
+        <div class="row">
+            {% for block in blocks.top %}
+            	<div class="col-lg-12">
                     {{ sonata_block_render({ 'type': block.type, 'settings': block.settings}) }}
-                {% endif %}
+            	</div>
             {% endfor %}
         </div>
+    {% endif %}
+
+    <div class="row">
+        {% set width_left = 4 %}
+        {% set width_right = 4 %}
+        {% set width_center = 4 %}
+
+        {# if center block is not present we make left and right ones wider #}
+        {% if not has_center %}
+            {% set width_left = 6 %}
+            {% set width_right = 6 %}
+        {% endif %}
+
+        {# if there is no right and left block present we make center one full width #}
+        {% if not has_left and not has_right %}
+            {% set width_center = 12 %}
+        {% endif %}
+
+        {# don't show left column if only center one is present #}
+        {% if has_left or has_right %}
+	        <div class="col-lg-{{ width_left }}">
+	            {% for block in blocks.left %}
+	            	{{ sonata_block_render({ 'type': block.type, 'settings': block.settings}) }}
+	            {% endfor %}
+	        </div>
+        {% endif %}
 
         {% if has_center %}
-            <div class="span4 col-lg-4">
-                {% for block in blocks %}
-                    {% if block.position == 'center' %}
-                        {{ sonata_block_render({ 'type': block.type, 'settings': block.settings}) }}
-                    {% endif %}
+            <div class="col-lg-{{ width_center }}">
+                {% for block in blocks.center %}
+                    {{ sonata_block_render({ 'type': block.type, 'settings': block.settings}) }}
                 {% endfor %}
             </div>
         {% endif %}
 
-        <div class="{% if has_center %}span4 col-lg-4{% else %}span6 col-lg-6{% endif %}">
-            {% for block in blocks %}
-                {% if block.position == 'right' %}
+        {# don't show right column if only center one is present #}
+        {% if has_left or has_right %}
+	        <div class="col-lg-{{ width_right }}">
+	            {% for block in blocks.right %}
+	            	{{ sonata_block_render({ 'type': block.type, 'settings': block.settings}) }}
+	            {% endfor %}
+	        </div>
+        {% endif %}
+    </div>
+
+    {% if has_bottom %}
+        <div class="row">
+            {% for block in blocks.bottom %}
+            	<div class="col-lg-12">
                     {{ sonata_block_render({ 'type': block.type, 'settings': block.settings}) }}
-                {% endif %}
+            	</div>
             {% endfor %}
         </div>
-    </div>
+    {% endif %}
+
 {% endblock %}

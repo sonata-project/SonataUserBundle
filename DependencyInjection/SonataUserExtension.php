@@ -295,6 +295,7 @@ class SonataUserExtension extends Extension
         $container->setParameter('sonata.user.register.confirm.redirect_route_params', $config['profile']['register']['confirm']['redirect']['route_parameters']);
 
         $container->setParameter('sonata.user.configuration.profile_blocks', $config['profile']['dashboard']['blocks']);
+        $container->setParameter('sonata.user.configuration.profile_groups', $config['profile']['dashboard']['groups']);
 
         $container->setAlias('sonata.user.profile.form.handler', $config['profile']['form']['handler']);
     }
