@@ -28,6 +28,7 @@ Enable the Bundle
     php composer.phar require sonata-project/doctrine-orm-admin-bundle  --no-update # optional
     php composer.phar require friendsofsymfony/rest-bundle  --no-update # optional when using api
     php composer.phar require nelmio/api-doc-bundle  --no-update # optional when using api
+    php composer.phar require sonata-project/google-authenticator --no-update # optional
     php composer.phar update
 
 Next, be sure to enable the bundles in your and ``AppKernel.php`` file:
@@ -80,10 +81,10 @@ When using ACL, the ``UserBundle`` can prevent `normal` user to change settings 
     # app/config/security.yml
     security:
         # [...]
-        
+
         encoders:
             FOS\UserBundle\Model\UserInterface: sha512
-        
+
         acl:
             connection: default
 
