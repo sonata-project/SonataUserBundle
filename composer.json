@@ -45,7 +45,8 @@
     },
     "conflict": {
         "jms/serializer": "<0.13",
-        "sonata-project/seo-bundle": "<2.0|>=3.0"
+        "sonata-project/seo-bundle": "<2.0 || >=3.0",
+        "sonata-project/doctrine-orm-admin-bundle": "<3.0 || >=4.0"
     },
     "autoload": {
         "psr-4": { "Sonata\\UserBundle\\": "" }
