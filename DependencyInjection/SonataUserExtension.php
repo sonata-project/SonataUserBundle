@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata project.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -94,18 +94,6 @@ class SonataUserExtension extends Extension
     }
 
     /**
-     * Adds aliases for user & group managers depending on $managerType.
-     *
-     * @param ContainerBuilder $container
-     * @param                  $managerType
-     */
-    protected function aliasManagers(ContainerBuilder $container, $managerType)
-    {
-        $container->setAlias('sonata.user.user_manager', sprintf('sonata.user.%s.user_manager', $managerType));
-        $container->setAlias('sonata.user.group_manager', sprintf('sonata.user.%s.group_manager', $managerType));
-    }
-
-    /**
      * @param array $config
      *
      * @return array
@@ -120,7 +108,7 @@ class SonataUserExtension extends Extension
 
         if (isset($config['impersonating_route'])) {
             $config['impersonating'] = array(
-                'route'      => $config['impersonating_route'],
+                'route' => $config['impersonating_route'],
                 'parameters' => array(),
             );
         }
@@ -180,10 +168,10 @@ class SonataUserExtension extends Extension
             throw new \InvalidArgumentException(sprintf('Invalid manager type "%s".', $config['manager_type']));
         }
 
-        $defaultConfig['class']['user']  = sprintf('Application\\Sonata\\UserBundle\\%s\\User', $modelType);
+        $defaultConfig['class']['user'] = sprintf('Application\\Sonata\\UserBundle\\%s\\User', $modelType);
         $defaultConfig['class']['group'] = sprintf('Application\\Sonata\\UserBundle\\%s\\Group', $modelType);
 
-        $defaultConfig['admin']['user']['class']  = sprintf('Sonata\\UserBundle\\Admin\\%s\\UserAdmin', $modelType);
+        $defaultConfig['admin']['user']['class'] = sprintf('Sonata\\UserBundle\\Admin\\%s\\UserAdmin', $modelType);
         $defaultConfig['admin']['group']['class'] = sprintf('Sonata\\UserBundle\\Admin\\%s\\GroupAdmin', $modelType);
 
         return array_replace_recursive($defaultConfig, $config);
@@ -251,22 +239,22 @@ class SonataUserExtension extends Extension
         $collector = DoctrineCollector::getInstance();
 
         $collector->addAssociation($config['class']['user'], 'mapManyToMany', array(
-            'fieldName'       => 'groups',
-            'targetEntity'    => $config['class']['group'],
-            'cascade'         => array(),
-            'joinTable'       => array(
-                'name'        => $config['table']['user_group'],
+            'fieldName' => 'groups',
+            'targetEntity' => $config['class']['group'],
+            'cascade' => array(),
+            'joinTable' => array(
+                'name' => $config['table']['user_group'],
                 'joinColumns' => array(
                     array(
-                        'name'                 => 'user_id',
+                        'name' => 'user_id',
                         'referencedColumnName' => 'id',
-                        'onDelete'             => 'CASCADE',
+                        'onDelete' => 'CASCADE',
                     ),
                 ),
                 'inverseJoinColumns' => array(array(
-                    'name'                 => 'group_id',
+                    'name' => 'group_id',
                     'referencedColumnName' => 'id',
-                    'onDelete'             => 'CASCADE',
+                    'onDelete' => 'CASCADE',
                 )),
             ),
         ));
@@ -310,7 +298,7 @@ class SonataUserExtension extends Extension
         if (isset($bundles['MopaBootstrapBundle'])) {
             $options = array(
                 'horizontal_input_wrapper_class' => 'col-lg-8',
-                'horizontal_label_class'         => 'col-lg-4 control-label',
+                'horizontal_label_class' => 'col-lg-4 control-label',
             );
         } else {
             $options = array();
@@ -332,5 +320,17 @@ class SonataUserExtension extends Extension
     public function configureMenu(array $config, ContainerBuilder $container)
     {
         $container->getDefinition('sonata.user.profile.menu_builder')->replaceArgument(2, $config['profile']['menu']);
+    }
+
+    /**
+     * Adds aliases for user & group managers depending on $managerType.
+     *
+     * @param ContainerBuilder $container
+     * @param                  $managerType
+     */
+    protected function aliasManagers(ContainerBuilder $container, $managerType)
+    {
+        $container->setAlias('sonata.user.user_manager', sprintf('sonata.user.%s.user_manager', $managerType));
+        $container->setAlias('sonata.user.group_manager', sprintf('sonata.user.%s.group_manager', $managerType));
     }
 }

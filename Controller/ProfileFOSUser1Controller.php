@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of the FOSUserBundle package.
+ * This file is part of the Sonata Project package.
  *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -37,7 +37,7 @@ class ProfileFOSUser1Controller extends Controller
         }
 
         return $this->render('SonataUserBundle:Profile:show.html.twig', array(
-            'user'   => $user,
+            'user' => $user,
             'blocks' => $this->container->getParameter('sonata.user.configuration.profile_blocks'),
         ));
     }
@@ -92,7 +92,7 @@ class ProfileFOSUser1Controller extends Controller
         }
 
         return $this->render('SonataUserBundle:Profile:edit_profile.html.twig', array(
-            'form'               => $form->createView(),
+            'form' => $form->createView(),
             'breadcrumb_context' => 'user_profile',
         ));
     }

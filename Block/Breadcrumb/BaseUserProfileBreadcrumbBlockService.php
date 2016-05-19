@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -29,7 +29,7 @@ abstract class BaseUserProfileBreadcrumbBlockService extends BaseBreadcrumbMenuB
         $menu = parent::getRootMenu($blockContext);
 
         $menu->addChild('sonata_user_profile_breadcrumb_index', array(
-            'route'  => 'sonata_user_profile_show',
+            'route' => 'sonata_user_profile_show',
             'extras' => array('translation_domain' => 'SonataUserBundle'),
         ));
 

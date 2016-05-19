@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -52,9 +52,9 @@ class ProfileMenuBuilder
      */
     public function __construct(FactoryInterface $factory, TranslatorInterface $translator, array $routes, EventDispatcherInterface $eventDispatcher)
     {
-        $this->factory         = $factory;
-        $this->translator      = $translator;
-        $this->routes          = $routes;
+        $this->factory = $factory;
+        $this->translator = $translator;
+        $this->routes = $routes;
         $this->eventDispatcher = $eventDispatcher;
     }
 

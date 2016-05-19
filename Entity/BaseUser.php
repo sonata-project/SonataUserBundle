@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata project.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -45,8 +45,8 @@ class BaseUser extends AbstractedUser
     {
         return array(
             UserInterface::GENDER_UNKNOWN => 'gender_unknown',
-            UserInterface::GENDER_FEMALE  => 'gender_female',
-            UserInterface::GENDER_MALE    => 'gender_male',
+            UserInterface::GENDER_FEMALE => 'gender_female',
+            UserInterface::GENDER_MALE => 'gender_male',
         );
     }
 }

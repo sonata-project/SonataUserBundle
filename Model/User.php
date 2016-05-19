@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata project.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -129,6 +129,16 @@ abstract class User extends AbstractedUser implements UserInterface
     protected $token;
 
     /**
+     * Returns a string representation.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getUsername() ?: '-';
+    }
+
+    /**
      * Sets the creation date.
      *
      * @param \DateTime|null $createdAt
@@ -222,16 +232,6 @@ abstract class User extends AbstractedUser implements UserInterface
         $this->credentialsExpireAt = $date;
 
         return $this;
-    }
-
-    /**
-     * Returns a string representation.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->getUsername() ?: '-';
     }
 
     /**
