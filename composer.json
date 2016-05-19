@@ -34,17 +34,18 @@
         "nelmio/api-doc-bundle": "^2.4"
     },
     "require-dev": {
-        "sonata-project/seo-bundle": "^1.1",
+        "sonata-project/seo-bundle": "^2.0",
         "doctrine/orm": "^2.0",
         "symfony/phpunit-bridge": "^2.8 || ^3.0",
         "sllh/php-cs-fixer-styleci-bridge": "^2.0"
     },
     "suggest": {
         "sonata-project/doctrine-orm-admin-bundle": "^3.0",
-        "sonata-project/seo-bundle": "^1.1"
+        "sonata-project/seo-bundle": "For SEO breadcrumb block service usage"
     },
     "conflict": {
-        "jms/serializer": "<0.13"
+        "jms/serializer": "<0.13",
+        "sonata-project/seo-bundle": "<2.0|>=3.0"
     },
     "autoload": {
         "psr-4": { "Sonata\\UserBundle\\": "" }
