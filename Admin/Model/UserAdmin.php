@@ -12,13 +12,13 @@
 namespace Sonata\UserBundle\Admin\Model;
 
 use FOS\UserBundle\Model\UserManagerInterface;
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class UserAdmin extends Admin
+class UserAdmin extends AbstractAdmin
 {
     /**
      * @var UserManagerInterface
