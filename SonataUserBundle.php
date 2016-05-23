@@ -11,6 +11,9 @@
 
 namespace Sonata\UserBundle;
 
+use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
+use Doctrine\Bundle\MongoDBBundle\DependencyInjection\Compiler\DoctrineMongoDBMappingsPass;
+use Doctrine\Bundle\CouchDBBundle\DependencyInjection\Compiler\DoctrineCouchDBMappingsPass;
 use Sonata\CoreBundle\Form\FormHelper;
 use Sonata\UserBundle\DependencyInjection\Compiler\GlobalVariablesCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -44,6 +47,7 @@ class SonataUserBundle extends Bundle
         $container->addCompilerPass(new GlobalVariablesCompilerPass());
 
         $this->registerFormMapping();
+        $this->addFOS1RegisterMappingsPass($container);
     }
 
     /**
@@ -73,5 +77,30 @@ class SonataUserBundle extends Bundle
             'sonata_user_api_form_group' => 'Sonata\UserBundle\Form\Type\ApiGroupType',
             'sonata_user_api_form_user' => 'Sonata\UserBundle\Form\Type\ApiUserType',
         ));
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     */
+    private function addFOS1RegisterMappingsPass(ContainerBuilder $container)
+    {
+        $fosMappingPath = realpath($container->getParameter('kernel.root_dir').'/../vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/config/doctrine');
+
+        if (!is_dir($fosMappingPath)) {
+            return;
+        }
+
+        $mappings = array(
+            $fosMappingPath => 'FOS\UserBundle\Model',
+        );
+        if (class_exists('Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass')) {
+            $container->addCompilerPass(DoctrineOrmMappingsPass::createXmlMappingDriver($mappings, array('fos_user.model_manager_name'), 'fos_user.backend_type_orm'));
+        }
+        if (class_exists('Doctrine\Bundle\MongoDBBundle\DependencyInjection\Compiler\DoctrineMongoDBMappingsPass')) {
+            $container->addCompilerPass(DoctrineMongoDBMappingsPass::createXmlMappingDriver($mappings, array('fos_user.model_manager_name'), 'fos_user.backend_type_mongodb'));
+        }
+        if (class_exists('Doctrine\Bundle\CouchDBBundle\DependencyInjection\Compiler\DoctrineCouchDBMappingsPass')) {
+            $container->addCompilerPass(DoctrineCouchDBMappingsPass::createXmlMappingDriver($mappings, array('fos_user.model_manager_name'), 'fos_user.backend_type_couchdb'));
+        }
     }
 }
