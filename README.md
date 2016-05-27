@@ -10,7 +10,9 @@ Symfony SonataUserBundle
 [![Monthly Downloads](https://poser.pugx.org/sonata-project/user-bundle/d/monthly)](https://packagist.org/packages/sonata-project/user-bundle)
 [![Daily Downloads](https://poser.pugx.org/sonata-project/user-bundle/d/daily)](https://packagist.org/packages/sonata-project/user-bundle)
 
-[![Build Status](https://travis-ci.org/sonata-project/SonataUserBundle.svg?branch=master)](https://travis-ci.org/sonata-project/SonataUserBundle)
+3.x status: [![Build Status](https://travis-ci.org/sonata-project/SonataUserBundle.svg?branch=3.x)](https://travis-ci.org/sonata-project/SonataUserBundle)
+
+master status: [![Build Status](https://travis-ci.org/sonata-project/SonataUserBundle.svg?branch=master)](https://travis-ci.org/sonata-project/SonataUserBundle)
 
 ## Documentation
 
