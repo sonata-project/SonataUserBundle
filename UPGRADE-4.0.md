@@ -12,3 +12,8 @@ See also the [diff code](https://github.com/sonata-project/SonataUserBundle/comp
 ## Google Authenticator
 
 The google auth dependency is optional now, please add it to you composer file if you need this.
+
+## The permission matrix
+
+The type of form ``sonata_security_roles`` was improved to show quite the roles in matrix. 
+Please have look at the [docs](Resources/doc/reference/permission_matrix.rst).

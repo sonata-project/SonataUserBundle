@@ -12,6 +12,7 @@
 namespace Sonata\UserBundle\Security;
 
 use Sonata\AdminBundle\Admin\Pool;
+use Symfony\Component\Form\Exception\InvalidArgumentException;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class EditableRolesBuilder
@@ -32,6 +33,21 @@ class EditableRolesBuilder
     protected $rolesHierarchy;
 
     /**
+     * @var array
+     */
+    protected $labelPermission;
+
+    /**
+     * @var array
+     */
+    protected $labelAdmin;
+
+    /**
+     * @var array
+     */
+    protected $exclude;
+
+    /**
      * @param SecurityContextInterface $securityContext
      * @param Pool                     $pool
      * @param array                    $rolesHierarchy
@@ -41,10 +57,47 @@ class EditableRolesBuilder
         $this->securityContext = $securityContext;
         $this->pool = $pool;
         $this->rolesHierarchy = $rolesHierarchy;
+        $this->labelPermission = array();
+        $this->labelAdmin = array();
+        $this->exclude = array();
     }
 
     /**
      * @return array
+     */
+    final public function getExclude()
+    {
+        return $this->exclude;
+    }
+
+    /**
+     * @param string $exclude
+     */
+    final public function addExclude($exclude)
+    {
+        $this->exclude[] = $exclude;
+    }
+
+    /**
+     * @return array
+     */
+    final public function getLabelPermission()
+    {
+        return $this->labelPermission;
+    }
+
+    /**
+     * @return array
+     */
+    final public function getLabelAdmin()
+    {
+        return $this->labelAdmin;
+    }
+
+    /**
+     * @return array
+     *
+     * @throws InvalidArgumentException
      */
     public function getRoles()
     {
@@ -63,43 +116,64 @@ class EditableRolesBuilder
                 continue;
             }
 
-            $isMaster = $admin->isGranted('MASTER');
-            $securityHandler = $admin->getSecurityHandler();
-            // TODO get the base role from the admin or security handler
-            $baseRole = $securityHandler->getBaseRole($admin);
-
-            if (strlen($baseRole) == 0) { // the security handler related to the admin does not provide a valid string
+            if (in_array($id, $this->exclude)) {
                 continue;
             }
 
-            foreach ($admin->getSecurityInformation() as $role => $permissions) {
-                $role = sprintf($baseRole, $role);
-
-                if ($isMaster) {
-                    // if the user has the MASTER permission, allow to grant access the admin roles to other users
-                    $roles[$role] = $role;
-                } elseif ($this->securityContext->isGranted($role)) {
-                    // although the user has no MASTER permission, allow the currently logged in user to view the role
-                    $rolesReadOnly[$role] = $role;
+            $isMaster = ($admin->isGranted('MASTER') || $admin->isGranted('OPERATOR') ||
+                $this->securityContext->isGranted('ROLE_SUPER_ADMIN') ||
+                $this->securityContext->isGranted('ROLE_SONATA_ADMIN'));
+            $securityHandler = $admin->getSecurityHandler();
+            $baseRole = $securityHandler->getBaseRole($admin);
+            $groupPermission = $admin->getSecurityInformation();
+            $this->labelPermission = array_keys($groupPermission);
+            $this->labelAdmin[] = $admin->trans($admin->getLabel());
+            foreach ($groupPermission as $role => $permissions) {
+                $roles[str_replace('.', '_', $id)][sprintf($baseRole, $role)] = $role;
+                if (!$isMaster) {
+                    $rolesReadOnly[] = sprintf($baseRole, $role);
                 }
             }
         }
 
-        $isMaster = $this->securityContext->isGranted('ROLE_SUPER_ADMIN');
+        $roles['other'] = array(
+            'ROLE_ADMIN' => 'Role Admin',
+            'ROLE_SUPER_ADMIN' => 'Role Super Admin',
+            'ROLE_SONATA_ADMIN' => 'Role Sonata Admin',
+        );
 
-        // get roles from the service container
         foreach ($this->rolesHierarchy as $name => $rolesHierarchy) {
             if ($this->securityContext->isGranted($name) || $isMaster) {
-                $roles[$name] = $name.': '.implode(', ', $rolesHierarchy);
-
                 foreach ($rolesHierarchy as $role) {
-                    if (!isset($roles[$role])) {
-                        $roles[$role] = $role;
+                    if (array_key_exists($role, $this->rolesHierarchy) === false && !isset($roles['other'][$role]) && $this->recursiveArraySearch($role, $roles) === false) {
+                        $roles['other'][$role] = ucfirst(strtolower(str_replace('_', ' ', $role)));
                     }
                 }
             }
         }
 
+        if (empty($this->labelPermission)) {
+            throw new \InvalidArgumentException('You must add this line in the configuration of Sonata Admin: '.
+                "[security:\n\thandler: sonata.admin.security.handler.role]");
+        }
+
         return array($roles, $rolesReadOnly);
+    }
+
+    /**
+     * @param $needle
+     * @param array $haystack
+     *
+     * @return bool
+     */
+    private function recursiveArraySearch($needle, array $haystack)
+    {
+        foreach ($haystack as $key => $value) {
+            if ($needle === $key || (is_array($value) && $this->recursiveArraySearch($needle, $value) === true)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
