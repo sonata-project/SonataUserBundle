@@ -30,7 +30,7 @@
         "sonata-project/easy-extends-bundle": "^2.1",
         "sonata-project/google-authenticator": "^1.0",
         "friendsofsymfony/rest-bundle": "^1.1",
-        "jms/serializer-bundle": "~0.13 || ^1.0",
+        "jms/serializer-bundle": "^0.13 || ^1.0",
         "nelmio/api-doc-bundle": "^2.4"
     },
     "require-dev": {
