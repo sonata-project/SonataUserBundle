@@ -58,7 +58,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         $userManager->expects($this->once())->method('updateUser')->will($this->returnValue($user));
 
         $form = $this->getMockBuilder('Symfony\Component\Form\Form')->disableOriginalConstructor()->getMock();
-        $form->expects($this->once())->method('submit');
+        $form->expects($this->once())->method('handleRequest');
         $form->expects($this->once())->method('isValid')->will($this->returnValue(true));
         $form->expects($this->once())->method('getData')->will($this->returnValue($user));
 
@@ -75,7 +75,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         $userManager = $this->getMock('Sonata\UserBundle\Model\UserManagerInterface');
 
         $form = $this->getMockBuilder('Symfony\Component\Form\Form')->disableOriginalConstructor()->getMock();
-        $form->expects($this->once())->method('submit');
+        $form->expects($this->once())->method('handleRequest');
         $form->expects($this->once())->method('isValid')->will($this->returnValue(false));
 
         $formFactory = $this->getMock('Symfony\Component\Form\FormFactoryInterface');
@@ -95,7 +95,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         $userManager->expects($this->once())->method('updateUser')->will($this->returnValue($user));
 
         $form = $this->getMockBuilder('Symfony\Component\Form\Form')->disableOriginalConstructor()->getMock();
-        $form->expects($this->once())->method('submit');
+        $form->expects($this->once())->method('handleRequest');
         $form->expects($this->once())->method('isValid')->will($this->returnValue(true));
         $form->expects($this->once())->method('getData')->will($this->returnValue($user));
 
@@ -115,7 +115,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         $userManager->expects($this->once())->method('findUserBy')->will($this->returnValue($user));
 
         $form = $this->getMockBuilder('Symfony\Component\Form\Form')->disableOriginalConstructor()->getMock();
-        $form->expects($this->once())->method('submit');
+        $form->expects($this->once())->method('handleRequest');
         $form->expects($this->once())->method('isValid')->will($this->returnValue(false));
 
         $formFactory = $this->getMock('Symfony\Component\Form\FormFactoryInterface');

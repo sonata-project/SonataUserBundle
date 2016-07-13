@@ -127,15 +127,19 @@ class UserManager extends BaseUserManager implements UserManagerInterface, Manag
             $query->orderBy(sprintf('u.%s', $field), strtoupper($direction));
         }
 
+        $parameters = array();
+
         if (isset($criteria['enabled'])) {
             $query->andWhere('u.enabled = :enabled');
-            $query->setParameter('enabled', $criteria['enabled']);
+            $parameters['enabled'] = $criteria['enabled'];
         }
 
         if (isset($criteria['locked'])) {
             $query->andWhere('u.locked = :locked');
-            $query->setParameter('locked', $criteria['locked']);
+            $parameters['locked'] = $criteria['locked'];
         }
+
+        $query->setParameters($parameters);
 
         $pager = new Pager();
         $pager->setMaxPerPage($limit);
