@@ -29,7 +29,7 @@
         "symfony/form": "~2.8|~3.0",
         "symfony/security": "~2.8|~3.0",
         "symfony/security-acl": "~2.8|~3.0",
-        "symfony/console": "~2.8|~3.0",
+        "symfony/console": "~2.8|~3.0"
     },
     "require-dev": {
         "doctrine/orm": "^2.2.3",
