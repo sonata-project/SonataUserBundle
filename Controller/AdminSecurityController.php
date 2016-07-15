@@ -12,6 +12,7 @@
 namespace Sonata\UserBundle\Controller;
 
 use FOS\UserBundle\Controller\SecurityController;
+use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,7 +51,7 @@ class AdminSecurityController extends SecurityController
      */
     protected function renderLogin(array $data)
     {
-        return $this->render('SonataUserBundle:Admin:Security/login.html.'.$this->getEngin(), array_merge($data, array(
+        return $this->render('SonataUserBundle:Admin:Security/login.html.twig', array_merge($data, array(
             'base_template' => $this->get('sonata.admin.pool')->getTemplate('layout'),
             'admin_pool'    => $this->get('sonata.admin.pool'),
             'reset_route'   => $this->generateUrl('sonata_user_admin_resetting_request'),

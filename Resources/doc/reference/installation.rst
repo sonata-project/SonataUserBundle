@@ -80,10 +80,10 @@ When using ACL, the ``UserBundle`` can prevent `normal` user to change settings 
     # app/config/security.yml
     security:
         # [...]
-        
+
         encoders:
             FOS\UserBundle\Model\UserInterface: sha512
-        
+
         acl:
             connection: default
 
@@ -166,22 +166,22 @@ With:
 .. code-block:: yaml
 
     sonata_user_security:
-        resource: "@SonataUserBundle/Resources/config/routing/sonata_security_1.xml"
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_security_2.xml"
 
     sonata_user_resetting:
-        resource: "@SonataUserBundle/Resources/config/routing/sonata_resetting_1.xml"
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_resetting_2.xml"
         prefix: /resetting
 
     sonata_user_profile:
-        resource: "@SonataUserBundle/Resources/config/routing/sonata_profile_1.xml"
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_profile_2.xml"
         prefix: /profile
 
     sonata_user_register:
-        resource: "@SonataUserBundle/Resources/config/routing/sonata_registration_1.xml"
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_registration_2.xml"
         prefix: /register
 
     sonata_user_change_password:
-        resource: "@SonataUserBundle/Resources/config/routing/sonata_change_password_1.xml"
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_change_password_2.xml"
         prefix: /profile
 
 

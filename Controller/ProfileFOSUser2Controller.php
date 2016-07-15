@@ -41,7 +41,7 @@ class ProfileFOSUser2Controller extends Controller
             throw $this->createAccessDeniedException('This user does not have access to this section.');
         }
 
-        return $this->render('SonataUserBundle:Profile:show.html.'.$this->getEngine(), array(
+        return $this->render('SonataUserBundle:Profile:show.html.twig', array(
             'user' => $user,
             'blocks' => $this->getParameter('sonata.user.configuration.profile_blocks'),
         ));
@@ -84,7 +84,7 @@ class ProfileFOSUser2Controller extends Controller
             return $response;
         }
 
-        return $this->render('SonataUserBundle:Profile:edit_authentication.html.'.$this->getEngine(), array(
+        return $this->render('SonataUserBundle:Profile:edit_authentication.html.twig', array(
                 'form' => $form->createView(),
                 'breadcrumb_context' => 'user_profile',
         ));
@@ -142,7 +142,7 @@ class ProfileFOSUser2Controller extends Controller
             return $response;
         }
 
-        return $this->render('SonataUserBundle:Profile:edit_profile.html.'.$this->getEngine(), array(
+        return $this->render('SonataUserBundle:Profile:edit_profile.html.twig', array(
                 'form' => $form->createView(),
                 'breadcrumb_context' => 'user_profile',
         ));
@@ -155,13 +155,5 @@ class ProfileFOSUser2Controller extends Controller
     protected function setFlash($action, $value)
     {
         $this->get('session')->getFlashBag()->set($action, $value);
-    }
-
-    /**
-     * @return mixed
-     */
-    protected function getEngine()
-    {
-        return $this->getParameter('fos_user.template.engine');
     }
 }

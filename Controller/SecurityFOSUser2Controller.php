@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Class SecurityFOSUser2Controller.
  */
-class SecurityFOSUser1Controller extends SecurityController
+class SecurityFOSUser2Controller extends SecurityController
 {
     /**
      * {@inheritdoc}

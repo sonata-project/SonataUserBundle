@@ -85,7 +85,7 @@ class ChangePasswordFOSUser2Controller extends Controller
             return $response;
         }
 
-        return $this->render('SonataUserBundle:ChangePassword:changePassword.html.'.$this->getParameter('fos_user.template.engine'), array(
+        return $this->render('SonataUserBundle:ChangePassword:changePassword.html.twig', array(
             'form' => $form->createView()
         ));
     }
