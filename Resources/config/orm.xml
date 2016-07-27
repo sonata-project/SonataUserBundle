@@ -9,7 +9,7 @@
             <argument type="service" id="security.encoder_factory" />
             <argument type="service" id="fos_user.util.username_canonicalizer" />
             <argument type="service" id="fos_user.util.email_canonicalizer" />
-            <argument type="service" id="fos_user.entity_manager" />
+            <argument type="service" id="fos_user.object_manager" />
             <argument>%fos_user.model.user.class%</argument>
         </service>
 
