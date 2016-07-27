@@ -11,7 +11,7 @@
 
 namespace Sonata\UserBundle\Document;
 
-use FOS\UserBundle\Document\UserManager as BaseUserManager;
+use FOS\UserBundle\Model\UserManager as BaseUserManager;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
 
@@ -41,6 +41,6 @@ class UserManager extends BaseUserManager implements UserManagerInterface
      */
     public function getPager(array $criteria, $page, $limit = 10, array $sort = array())
     {
-        new \RuntimeException('method not implemented');
+        new \RuntimeException('Method is not implemented');
     }
 }

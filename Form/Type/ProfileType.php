@@ -38,7 +38,7 @@ class ProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('gender', 'sonata_user_gender', array(
+            ->add('gender', UserGenderListType::class, array(
                 'label' => 'form.label_gender',
                 'required' => true,
                 'translation_domain' => 'SonataUserBundle',
@@ -81,16 +81,6 @@ class ProfileType extends AbstractType
                 'required' => false,
             ))
         ;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @deprecated Remove it when bumping requirements to Symfony 2.7+
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $this->configureOptions($resolver);
     }
 
     /**

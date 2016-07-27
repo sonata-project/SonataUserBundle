@@ -11,13 +11,13 @@
 
 namespace Sonata\UserBundle\Entity;
 
-use Sonata\UserBundle\Model\User as AbstractedUser;
+use Sonata\UserBundle\Model\User as AbstractUser;
 use Sonata\UserBundle\Model\UserInterface;
 
 /**
  * Represents a Base User Entity.
  */
-class BaseUser extends AbstractedUser
+class BaseUser extends AbstractUser
 {
     /**
      * Hook on pre-persist operations.
