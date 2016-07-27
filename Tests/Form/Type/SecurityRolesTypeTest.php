@@ -31,7 +31,7 @@ class SecurityRolesTypeTest extends TypeTestCase
         $type = new SecurityRolesType($this->roleBuilder);
 
         $optionResolver = new OptionsResolver();
-        $type->setDefaultOptions($optionResolver);
+        $type->configureOptions($optionResolver);
 
         $options = $optionResolver->resolve();
         $this->assertCount(3, $options['choices']);

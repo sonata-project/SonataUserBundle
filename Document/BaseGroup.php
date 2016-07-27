@@ -11,7 +11,7 @@
 
 namespace Sonata\UserBundle\Document;
 
-use FOS\UserBundle\Document\Group as AbstractedGroup;
+use FOS\UserBundle\Model\Group as AbstractedGroup;
 
 /**
  * Represents a Base Group Document.

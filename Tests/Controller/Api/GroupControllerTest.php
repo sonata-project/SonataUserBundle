@@ -55,11 +55,11 @@ class GroupControllerTest extends \PHPUnit_Framework_TestCase
         $group = $this->getMock('FOS\UserBundle\Model\GroupInterface');
 
         $groupManager = $this->getMock('Sonata\UserBundle\Model\GroupManagerInterface');
-        $groupManager->expects($this->once())->method('getClass')->will($this->returnValue('FOS\UserBundle\Entity\Group'));
+        $groupManager->expects($this->once())->method('getClass')->will($this->returnValue('FOS\UserBundle\Tests\TestGroup'));
         $groupManager->expects($this->once())->method('updateGroup')->will($this->returnValue($group));
 
         $form = $this->getMockBuilder('Symfony\Component\Form\Form')->disableOriginalConstructor()->getMock();
-        $form->expects($this->once())->method('submit');
+        $form->expects($this->once())->method('handleRequest');
         $form->expects($this->once())->method('isValid')->will($this->returnValue(true));
         $form->expects($this->once())->method('getData')->will($this->returnValue($group));
 
@@ -74,10 +74,10 @@ class GroupControllerTest extends \PHPUnit_Framework_TestCase
     public function testPostGroupInvalidAction()
     {
         $groupManager = $this->getMock('Sonata\UserBundle\Model\GroupManagerInterface');
-        $groupManager->expects($this->once())->method('getClass')->will($this->returnValue('FOS\UserBundle\Entity\Group'));
+        $groupManager->expects($this->once())->method('getClass')->will($this->returnValue('FOS\UserBundle\Tests\TestGroup'));
 
         $form = $this->getMockBuilder('Symfony\Component\Form\Form')->disableOriginalConstructor()->getMock();
-        $form->expects($this->once())->method('submit');
+        $form->expects($this->once())->method('handleRequest');
         $form->expects($this->once())->method('isValid')->will($this->returnValue(false));
 
         $formFactory = $this->getMock('Symfony\Component\Form\FormFactoryInterface');
@@ -93,12 +93,12 @@ class GroupControllerTest extends \PHPUnit_Framework_TestCase
         $group = $this->getMock('FOS\UserBundle\Model\GroupInterface');
 
         $groupManager = $this->getMock('Sonata\UserBundle\Model\GroupManagerInterface');
-        $groupManager->expects($this->once())->method('getClass')->will($this->returnValue('FOS\UserBundle\Entity\Group'));
+        $groupManager->expects($this->once())->method('getClass')->will($this->returnValue('FOS\UserBundle\Tests\TestGroup'));
         $groupManager->expects($this->once())->method('findGroupBy')->will($this->returnValue($group));
         $groupManager->expects($this->once())->method('updateGroup')->will($this->returnValue($group));
 
         $form = $this->getMockBuilder('Symfony\Component\Form\Form')->disableOriginalConstructor()->getMock();
-        $form->expects($this->once())->method('submit');
+        $form->expects($this->once())->method('handleRequest');
         $form->expects($this->once())->method('isValid')->will($this->returnValue(true));
         $form->expects($this->once())->method('getData')->will($this->returnValue($group));
 
@@ -115,11 +115,11 @@ class GroupControllerTest extends \PHPUnit_Framework_TestCase
         $group = $this->getMock('FOS\UserBundle\Model\GroupInterface');
 
         $groupManager = $this->getMock('Sonata\UserBundle\Model\GroupManagerInterface');
-        $groupManager->expects($this->once())->method('getClass')->will($this->returnValue('FOS\UserBundle\Entity\Group'));
+        $groupManager->expects($this->once())->method('getClass')->will($this->returnValue('FOS\UserBundle\Tests\TestGroup'));
         $groupManager->expects($this->once())->method('findGroupBy')->will($this->returnValue($group));
 
         $form = $this->getMockBuilder('Symfony\Component\Form\Form')->disableOriginalConstructor()->getMock();
-        $form->expects($this->once())->method('submit');
+        $form->expects($this->once())->method('handleRequest');
         $form->expects($this->once())->method('isValid')->will($this->returnValue(false));
 
         $formFactory = $this->getMock('Symfony\Component\Form\FormFactoryInterface');

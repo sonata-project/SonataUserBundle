@@ -76,7 +76,6 @@ Full configuration options:
                 # You may customize the registration forms over here
                 form:
                     type:                 sonata_user_registration
-                    handler:              sonata.user.registration.form.handler.default
                     name:                 sonata_user_registration_form
                     validation_groups:
 

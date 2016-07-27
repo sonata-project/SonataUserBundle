@@ -16,7 +16,10 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\UserBundle\Form\Type\SecurityRolesType;
+use Sonata\UserBundle\Form\Type\UserGenderListType;
 
 class UserAdmin extends AbstractAdmin
 {
@@ -194,7 +197,7 @@ class UserAdmin extends AbstractAdmin
                     ->add('lastname', null, array('required' => false))
                     ->add('website', 'url', array('required' => false))
                     ->add('biography', 'text', array('required' => false))
-                    ->add('gender', 'sonata_user_gender', array(
+                    ->add('gender', UserGenderListType::class, array(
                         'required' => true,
                         'translation_domain' => $this->getTranslationDomain(),
                     ))
@@ -219,14 +222,14 @@ class UserAdmin extends AbstractAdmin
                     ->add('credentialsExpired', null, array('required' => false))
                 ->end()
                 ->with('Groups')
-                    ->add('groups', 'sonata_type_model', array(
+                    ->add('groups', ModelType::class, array(
                         'required' => false,
                         'expanded' => true,
                         'multiple' => true,
                     ))
                 ->end()
                 ->with('Roles')
-                    ->add('realRoles', 'sonata_security_roles', array(
+                    ->add('realRoles', SecurityRolesType::class, array(
                         'label' => 'form.label_roles',
                         'expanded' => true,
                         'multiple' => true,

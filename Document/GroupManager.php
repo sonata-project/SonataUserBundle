@@ -11,7 +11,7 @@
 
 namespace Sonata\UserBundle\Document;
 
-use FOS\UserBundle\Document\GroupManager as BaseGroupManager;
+use FOS\UserBundle\Model\GroupManager as BaseGroupManager;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\UserBundle\Model\GroupManagerInterface;
 
@@ -41,6 +41,6 @@ class GroupManager extends BaseGroupManager implements GroupManagerInterface
      */
     public function getPager(array $criteria, $page, $limit = 10, array $sort = array())
     {
-        new \RuntimeException('method not implemented');
+        new \RuntimeException('Method is not implemented');
     }
 }
