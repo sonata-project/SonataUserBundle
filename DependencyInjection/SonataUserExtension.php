@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata project.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -78,7 +78,7 @@ class SonataUserExtension extends Extension
         // add custom form widgets
         $container->setParameter('twig.form.resources', array_merge(
             $container->getParameter('twig.form.resources'),
-            array('SonataUserBundle:Form:form_admin_fields.html.twig')
+            ['SonataUserBundle:Form:form_admin_fields.html.twig']
         ));
 
         $container->setParameter('sonata.user.default_avatar', $config['profile']['default_avatar']);
@@ -106,9 +106,9 @@ class SonataUserExtension extends Extension
     /**
      * @param array $config
      *
-     * @return array
-     *
      * @throws \RuntimeException
+     *
+     * @return array
      */
     public function fixImpersonating(array $config)
     {
@@ -117,14 +117,14 @@ class SonataUserExtension extends Extension
         }
 
         if (isset($config['impersonating_route'])) {
-            $config['impersonating'] = array(
+            $config['impersonating'] = [
                 'route'      => $config['impersonating_route'],
-                'parameters' => array(),
-            );
+                'parameters' => [],
+            ];
         }
 
         if (!isset($config['impersonating']['parameters'])) {
-            $config['impersonating']['parameters'] = array();
+            $config['impersonating']['parameters'] = [];
         }
 
         if (!isset($config['impersonating']['route'])) {
@@ -138,9 +138,9 @@ class SonataUserExtension extends Extension
      * @param array            $config
      * @param ContainerBuilder $container
      *
-     * @return mixed
-     *
      * @throws \RuntimeException
+     *
+     * @return mixed
      */
     public function configureGoogleAuthenticator($config, ContainerBuilder $container)
     {
@@ -176,10 +176,10 @@ class SonataUserExtension extends Extension
             $modelType = 'Document';
         }
 
-        $defaultConfig['class']['user']  = sprintf('Application\\Sonata\\UserBundle\\%s\\User', $modelType);
+        $defaultConfig['class']['user'] = sprintf('Application\\Sonata\\UserBundle\\%s\\User', $modelType);
         $defaultConfig['class']['group'] = sprintf('Application\\Sonata\\UserBundle\\%s\\Group', $modelType);
 
-        $defaultConfig['admin']['user']['class']  = sprintf('Sonata\\UserBundle\\Admin\\%s\\UserAdmin', $modelType);
+        $defaultConfig['admin']['user']['class'] = sprintf('Sonata\\UserBundle\\Admin\\%s\\UserAdmin', $modelType);
         $defaultConfig['admin']['group']['class'] = sprintf('Sonata\\UserBundle\\Admin\\%s\\GroupAdmin', $modelType);
 
         return array_replace_recursive($defaultConfig, $config);
@@ -244,26 +244,26 @@ class SonataUserExtension extends Extension
 
         $collector = DoctrineCollector::getInstance();
 
-        $collector->addAssociation($config['class']['user'], 'mapManyToMany', array(
+        $collector->addAssociation($config['class']['user'], 'mapManyToMany', [
             'fieldName'       => 'groups',
             'targetEntity'    => $config['class']['group'],
-            'cascade'         => array(),
-            'joinTable'       => array(
+            'cascade'         => [],
+            'joinTable'       => [
                 'name'        => $config['table']['user_group'],
-                'joinColumns' => array(
-                    array(
+                'joinColumns' => [
+                    [
                         'name'                 => 'user_id',
                         'referencedColumnName' => 'id',
                         'onDelete'             => 'CASCADE',
-                    ),
-                ),
-                'inverseJoinColumns' => array(array(
+                    ],
+                ],
+                'inverseJoinColumns' => [[
                     'name'                 => 'group_id',
                     'referencedColumnName' => 'id',
                     'onDelete'             => 'CASCADE',
-                )),
-            ),
-        ));
+                ]],
+            ],
+        ]);
     }
 
     /**
@@ -293,12 +293,12 @@ class SonataUserExtension extends Extension
         $bundles = $container->getParameter('kernel.bundles');
 
         if (isset($bundles['MopaBootstrapBundle'])) {
-            $options = array(
+            $options = [
                 'horizontal_input_wrapper_class' => 'col-lg-8',
                 'horizontal_label_class'         => 'col-lg-4 control-label',
-            );
+            ];
         } else {
-            $options = array();
+            $options = [];
         }
 
         $container->setParameter('sonata.user.registration.form.options', $options);

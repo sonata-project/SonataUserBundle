@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of the FOSUserBundle package.
+ * This file is part of the Sonata Project package.
  *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -30,9 +30,9 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class ProfileFOSUser2Controller extends Controller
 {
     /**
-     * @return Response
-     *
      * @throws AccessDeniedException
+     *
+     * @return Response
      */
     public function showAction()
     {
@@ -41,10 +41,10 @@ class ProfileFOSUser2Controller extends Controller
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        return $this->render('SonataUserBundle:Profile:show.html.twig', array(
+        return $this->render('SonataUserBundle:Profile:show.html.twig', [
                 'user'   => $user,
                 'blocks' => $this->container->getParameter('sonata.user.configuration.profile_blocks'),
-        ));
+        ]);
     }
 
     /**
@@ -83,18 +83,18 @@ class ProfileFOSUser2Controller extends Controller
             return $response;
         }
 
-        return $this->render('SonataUserBundle:Profile:edit_authentication.html.twig', array(
+        return $this->render('SonataUserBundle:Profile:edit_authentication.html.twig', [
                 'form'               => $form->createView(),
                 'breadcrumb_context' => 'user_profile',
-        ));
+        ]);
     }
 
     /**
      * @param Request $request
      *
-     * @return Response
-     *
      * @throws AccessDeniedException
+     *
+     * @return Response
      */
     public function editProfileAction(Request $request)
     {
@@ -141,10 +141,10 @@ class ProfileFOSUser2Controller extends Controller
             return $response;
         }
 
-        return $this->render('SonataUserBundle:Profile:edit_profile.html.twig', array(
+        return $this->render('SonataUserBundle:Profile:edit_profile.html.twig', [
                 'form'               => $form->createView(),
                 'breadcrumb_context' => 'user_profile',
-        ));
+        ]);
     }
 
     /**

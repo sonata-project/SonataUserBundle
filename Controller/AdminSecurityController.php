@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of the FOSUserBundle package.
+ * This file is part of the Sonata Project package.
  *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -51,10 +51,10 @@ class AdminSecurityController extends SecurityController
      */
     protected function renderLogin(array $data)
     {
-        return $this->render('SonataUserBundle:Admin:Security/login.html.twig', array_merge($data, array(
+        return $this->render('SonataUserBundle:Admin:Security/login.html.twig', array_merge($data, [
             'base_template' => $this->get('sonata.admin.pool')->getTemplate('layout'),
             'admin_pool'    => $this->get('sonata.admin.pool'),
             'reset_route'   => $this->generateUrl('sonata_user_admin_resetting_request'),
-        )));
+        ]));
     }
 }

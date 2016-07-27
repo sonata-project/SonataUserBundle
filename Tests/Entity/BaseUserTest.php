@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -82,7 +82,7 @@ class BaseUserTest extends \PHPUnit_Framework_TestCase
         $group2->expects($this->any())->method('getName')->will($this->returnValue('Group 2'));
 
         // When
-        $user->setGroups(array($group1, $group2));
+        $user->setGroups([$group1, $group2]);
 
         // Then
         $this->assertCount(2, $user->getGroups(), 'Should have 2 groups');
