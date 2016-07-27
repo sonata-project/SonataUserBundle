@@ -12,7 +12,11 @@
 namespace Sonata\UserBundle\Controller;
 
 use FOS\UserBundle\Controller\ResettingController;
+use FOS\UserBundle\Event\FilterUserResponseEvent;
+use FOS\UserBundle\Event\FormEvent;
+use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\Form\Factory\FactoryInterface;
+use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Util\TokenGeneratorInterface;
@@ -157,5 +161,14 @@ class AdminResettingController extends ResettingController
             'base_template' => $this->container->get('sonata.admin.pool')->getTemplate('layout'),
             'admin_pool'    => $this->container->get('sonata.admin.pool'),
         ));
+    }
+
+    /**
+     * @param string $action
+     * @param string $value
+     */
+    protected function setFlash($action, $value)
+    {
+        $this->container->get('session')->getFlashBag()->set($action, $value);
     }
 }
