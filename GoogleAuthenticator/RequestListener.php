@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata project.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -41,9 +41,9 @@ class RequestListener
      */
     public function __construct(Helper $helper, TokenStorageInterface $tokenStorage, EngineInterface $templating)
     {
-        $this->helper       = $helper;
+        $this->helper = $helper;
         $this->tokenStorage = $tokenStorage;
-        $this->templating   = $templating;
+        $this->templating = $templating;
     }
 
     /**
@@ -65,10 +65,10 @@ class RequestListener
             return;
         }
 
-        $key     = $this->helper->getSessionKey($this->tokenStorage->getToken());
+        $key = $this->helper->getSessionKey($this->tokenStorage->getToken());
         $request = $event->getRequest();
         $session = $event->getRequest()->getSession();
-        $user    = $this->tokenStorage->getToken()->getUser();
+        $user = $this->tokenStorage->getToken()->getUser();
 
         if (!$session->has($key)) {
             return;
@@ -89,8 +89,8 @@ class RequestListener
             $state = 'error';
         }
 
-        $event->setResponse($this->templating->renderResponse('SonataUserBundle:Admin:Security/two_step_form.html.twig', array(
+        $event->setResponse($this->templating->renderResponse('SonataUserBundle:Admin:Security/two_step_form.html.twig', [
             'state' => $state,
-        )));
+        ]));
     }
 }

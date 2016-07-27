@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -36,7 +36,7 @@ class UserAclVoterTest extends \PHPUnit_Framework_TestCase
         $voter = new UserAclVoter($aclProvider, $oidRetrievalStrategy, $sidRetrievalStrategy, $permissionMap);
 
         // When
-        $decision = $voter->vote($token, $user, array('EDIT'));
+        $decision = $voter->vote($token, $user, ['EDIT']);
 
         // Then
         $this->assertEquals(VoterInterface::ACCESS_ABSTAIN, $decision, 'Should abstain from voting');
@@ -62,7 +62,7 @@ class UserAclVoterTest extends \PHPUnit_Framework_TestCase
         $voter = new UserAclVoter($aclProvider, $oidRetrievalStrategy, $sidRetrievalStrategy, $permissionMap);
 
         // When
-        $decision = $voter->vote($token, $user, array('EDIT'));
+        $decision = $voter->vote($token, $user, ['EDIT']);
 
         // Then
         $this->assertEquals(VoterInterface::ACCESS_DENIED, $decision, 'Should deny access');
@@ -87,7 +87,7 @@ class UserAclVoterTest extends \PHPUnit_Framework_TestCase
         $voter = new UserAclVoter($aclProvider, $oidRetrievalStrategy, $sidRetrievalStrategy, $permissionMap);
 
         // When
-        $decision = $voter->vote($token, $user, array('EDIT'));
+        $decision = $voter->vote($token, $user, ['EDIT']);
 
         // Then
         $this->assertEquals(VoterInterface::ACCESS_ABSTAIN, $decision, 'Should abstain from voting');
@@ -112,7 +112,7 @@ class UserAclVoterTest extends \PHPUnit_Framework_TestCase
         $voter = new UserAclVoter($aclProvider, $oidRetrievalStrategy, $sidRetrievalStrategy, $permissionMap);
 
         // When
-        $decision = $voter->vote($token, $user, array('EDIT'));
+        $decision = $voter->vote($token, $user, ['EDIT']);
 
         // Then
         $this->assertEquals(VoterInterface::ACCESS_ABSTAIN, $decision, 'Should abstain from voting');

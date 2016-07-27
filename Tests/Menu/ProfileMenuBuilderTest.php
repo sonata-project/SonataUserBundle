@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -33,7 +33,7 @@ class ProfileMenuBuilderTest extends \PHPUnit_Framework_TestCase
         $translator = $this->getMock('Symfony\Component\Translation\TranslatorInterface');
         $eventDispatcher = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
 
-        $builder = new ProfileMenuBuilder($factory, $translator, array(), $eventDispatcher);
+        $builder = new ProfileMenuBuilder($factory, $translator, [], $eventDispatcher);
 
         $genMenu = $builder->createProfileMenu();
 
