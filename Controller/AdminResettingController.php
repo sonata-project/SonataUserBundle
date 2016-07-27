@@ -171,13 +171,4 @@ class AdminResettingController extends ResettingController
     {
         $this->container->get('session')->getFlashBag()->set($action, $value);
     }
-
-    /**
-     * @param string $action
-     * @param string $value
-     */
-    protected function setFlash($action, $value)
-    {
-        $this->container->get('session')->getFlashBag()->set($action, $value);
-    }
 }

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -15,16 +15,15 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\UserBundle\Form\Type\SecurityRolesType;
 
 class GroupAdmin extends AbstractAdmin
 {
     /**
      * {@inheritdoc}
      */
-    protected $formOptions = array(
+    protected $formOptions = [
         'validation_groups' => 'Registration',
-    );
+    ];
 
     /**
      * {@inheritdoc}
@@ -33,7 +32,7 @@ class GroupAdmin extends AbstractAdmin
     {
         $class = $this->getClass();
 
-        return new $class('', array());
+        return new $class('', []);
     }
 
     /**
@@ -43,8 +42,7 @@ class GroupAdmin extends AbstractAdmin
     {
         $listMapper
             ->addIdentifier('name')
-            ->add('roles')
-        ;
+            ->add('roles');
     }
 
     /**
@@ -53,8 +51,7 @@ class GroupAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('name')
-        ;
+            ->add('name');
     }
 
     /**
@@ -64,19 +61,18 @@ class GroupAdmin extends AbstractAdmin
     {
         $formMapper
             ->tab('Group')
-                ->with('General', array('class' => 'col-md-6'))
+                ->with('General', ['class' => 'col-md-6'])
                     ->add('name')
                 ->end()
             ->end()
             ->tab('Security')
-                ->with('Roles', array('class' => 'col-md-12'))
-                    ->add('roles', 'Sonata\UserBundle\Form\Type\SecurityRolesType', array(
+                ->with('Roles', ['class' => 'col-md-12'])
+                    ->add('roles', 'Sonata\UserBundle\Form\Type\SecurityRolesType', [
                         'expanded' => true,
                         'multiple' => true,
                         'required' => false,
-                    ))
+                    ])
                 ->end()
-            ->end()
-        ;
+            ->end();
     }
 }

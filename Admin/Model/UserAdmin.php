@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -51,7 +51,7 @@ class UserAdmin extends AbstractAdmin
     {
         // avoid security field to be exported
         return array_filter(parent::getExportFields(), function ($v) {
-            return !in_array($v, array('password', 'salt'));
+            return !in_array($v, ['password', 'salt']);
         });
     }
 
@@ -64,15 +64,13 @@ class UserAdmin extends AbstractAdmin
             ->addIdentifier('username')
             ->add('email')
             ->add('groups')
-            ->add('enabled', null, array('editable' => true))
-            ->add('locked', null, array('editable' => true))
-            ->add('createdAt')
-        ;
+            ->add('enabled', null, ['editable' => true])
+            ->add('locked', null, ['editable' => true])
+            ->add('createdAt');
 
         if ($this->isGranted('ROLE_ALLOWED_TO_SWITCH')) {
             $listMapper
-                ->add('impersonating', 'string', array('template' => 'SonataUserBundle:Admin:Field/impersonating.html.twig'))
-            ;
+                ->add('impersonating', 'string', ['template' => 'SonataUserBundle:Admin:Field/impersonating.html.twig']);
         }
     }
 
@@ -86,8 +84,7 @@ class UserAdmin extends AbstractAdmin
             ->add('username')
             ->add('locked')
             ->add('email')
-            ->add('groups')
-        ;
+            ->add('groups');
     }
 
     /**
@@ -125,8 +122,7 @@ class UserAdmin extends AbstractAdmin
             ->with('Security')
                 ->add('token')
                 ->add('twoStepVerificationCode')
-            ->end()
-        ;
+            ->end();
     }
 
     /**
@@ -137,17 +133,16 @@ class UserAdmin extends AbstractAdmin
         // define group zoning
         $formMapper
             ->tab('User')
-                ->with('Profile', array('class' => 'col-md-6'))->end()
-                ->with('General', array('class' => 'col-md-6'))->end()
-                ->with('Social', array('class' => 'col-md-6'))->end()
+                ->with('Profile', ['class' => 'col-md-6'])->end()
+                ->with('General', ['class' => 'col-md-6'])->end()
+                ->with('Social', ['class' => 'col-md-6'])->end()
             ->end()
             ->tab('Security')
-                ->with('Status', array('class' => 'col-md-4'))->end()
-                ->with('Groups', array('class' => 'col-md-4'))->end()
-                ->with('Keys', array('class' => 'col-md-4'))->end()
-                ->with('Roles', array('class' => 'col-md-12'))->end()
-            ->end()
-        ;
+                ->with('Status', ['class' => 'col-md-4'])->end()
+                ->with('Groups', ['class' => 'col-md-4'])->end()
+                ->with('Keys', ['class' => 'col-md-4'])->end()
+                ->with('Roles', ['class' => 'col-md-12'])->end()
+            ->end();
 
         $now = new \DateTime();
 
@@ -156,9 +151,9 @@ class UserAdmin extends AbstractAdmin
                 ->with('General')
                     ->add('username')
                     ->add('email')
-                    ->add('plainPassword', 'text', array(
+                    ->add('plainPassword', 'text', [
                         'required' => (!$this->getSubject() || is_null($this->getSubject()->getId())),
-                    ))
+                    ])
                 ->end()
                 ->with('Profile')
                     ->add('dateOfBirth', 'sonata_type_date_picker', array(
@@ -174,12 +169,19 @@ class UserAdmin extends AbstractAdmin
                     ->add('gender', UserGenderListType::class, array(
                         'required' => true,
                         'translation_domain' => $this->getTranslationDomain(),
-                    ))
-                    ->add('locale', 'locale', array('required' => false))
-                    ->add('timezone', 'timezone', array('required' => false))
-                    ->add('phone', null, array('required' => false))
+                    ])
+                    ->add('locale', 'locale', ['required' => false])
+                    ->add('timezone', 'timezone', ['required' => false])
+                    ->add('phone', null, ['required' => false])
                 ->end()
                 ->with('Social')
+                    ->add('facebookUid', null, ['required' => false])
+                    ->add('facebookName', null, ['required' => false])
+                    ->add('twitterUid', null, ['required' => false])
+                    ->add('twitterName', null, ['required' => false])
+                    ->add('gplusUid', null, ['required' => false])
+                    ->add('gplusName', null, ['required' => false])
+                ->end()
                     ->add('facebookUid', null, array('required' => false))
                     ->add('facebookName', null, array('required' => false))
                     ->add('twitterUid', null, array('required' => false))
@@ -211,11 +213,10 @@ class UserAdmin extends AbstractAdmin
                     ))
                 ->end()
                 ->with('Keys')
-                    ->add('token', null, array('required' => false))
-                    ->add('twoStepVerificationCode', null, array('required' => false))
+                    ->add('token', null, ['required' => false])
+                    ->add('twoStepVerificationCode', null, ['required' => false])
                 ->end()
-            ->end()
-        ;
+            ->end();
     }
 
     /**
