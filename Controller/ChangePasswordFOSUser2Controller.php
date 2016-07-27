@@ -1,6 +1,7 @@
 <?php
+
 /*
- * This file is part of the Sonata project.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -10,28 +11,28 @@
 
 namespace Sonata\UserBundle\Controller;
 
+use FOS\UserBundle\Event\FilterUserResponseEvent;
+use FOS\UserBundle\Event\FormEvent;
+use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\Form\Factory\FactoryInterface;
 use FOS\UserBundle\FOSUserEvents;
-use FOS\UserBundle\Event\FormEvent;
-use FOS\UserBundle\Event\FilterUserResponseEvent;
-use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
- * Controller managing the password change
+ * Controller managing the password change.
  *
  * This class is inspired from the FOS Change Password Controller
  */
 class ChangePasswordFOSUser2Controller extends Controller
 {
     /**
-     * Change user password
+     * Change user password.
      *
      * @param Request $request
      */
@@ -79,8 +80,8 @@ class ChangePasswordFOSUser2Controller extends Controller
             return $response;
         }
 
-        return $this->render('SonataUserBundle:ChangePassword:changePassword.html.twig', array(
-            'form' => $form->createView()
-        ));
+        return $this->render('SonataUserBundle:ChangePassword:changePassword.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }

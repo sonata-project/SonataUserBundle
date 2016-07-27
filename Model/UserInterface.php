@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata project.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -13,9 +13,9 @@ namespace Sonata\UserBundle\Model;
 
 interface UserInterface extends \FOS\UserBundle\Model\UserInterface
 {
-    const GENDER_FEMALE  = 'f';
-    const GENDER_MALE    = 'm';
-    const GENDER_MAN     = 'm'; // @deprecated
+    const GENDER_FEMALE = 'f';
+    const GENDER_MALE = 'm';
+    const GENDER_MAN = 'm'; // @deprecated
     const GENDER_UNKNOWN = 'u';
 
     /**

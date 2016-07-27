@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -21,12 +21,12 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
 {
     protected function getUserManager($qbCallback)
     {
-        $em = EntityManagerMockFactory::create($this, $qbCallback, array(
+        $em = EntityManagerMockFactory::create($this, $qbCallback, [
             'username',
             'email',
-        ));
+        ]);
 
-        $encoder       = $this->getMock('Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface');
+        $encoder = $this->getMock('Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface');
         $canonicalizer = $this->getMock('FOS\UserBundle\Util\CanonicalizerInterface');
 
         return new UserManager($encoder, $canonicalizer, $canonicalizer, $em, 'Sonata\UserBundle\Entity\BaseUser');
@@ -42,9 +42,9 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
                     $self->equalTo('u.username'),
                     $self->equalTo('ASC')
                 );
-                $qb->expects($self->once())->method('setParameters')->with($self->equalTo(array()));
+                $qb->expects($self->once())->method('setParameters')->with($self->equalTo([]));
             })
-            ->getPager(array(), 1);
+            ->getPager([], 1);
     }
 
     /**
@@ -60,7 +60,7 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
                 $qb->expects($self->never())->method('orderBy');
                 $qb->expects($self->never())->method('setParameters');
             })
-            ->getPager(array(), 1, 10, array('invalid' => 'ASC'));
+            ->getPager([], 1, 10, ['invalid' => 'ASC']);
     }
 
     public function testGetPagerWithEnabledUsers()
@@ -73,9 +73,9 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
                     $self->equalTo('u.username'),
                     $self->equalTo('ASC')
                 );
-                $qb->expects($self->once())->method('setParameters')->with($self->equalTo(array('enabled' => true)));
+                $qb->expects($self->once())->method('setParameters')->with($self->equalTo(['enabled' => true]));
             })
-            ->getPager(array('enabled' => true), 1);
+            ->getPager(['enabled' => true], 1);
     }
 
     public function testGetPagerWithDisabledUsers()
@@ -88,9 +88,9 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
                     $self->equalTo('u.username'),
                     $self->equalTo('ASC')
                 );
-                $qb->expects($self->once())->method('setParameters')->with($self->equalTo(array('enabled' => false)));
+                $qb->expects($self->once())->method('setParameters')->with($self->equalTo(['enabled' => false]));
             })
-            ->getPager(array('enabled' => false), 1);
+            ->getPager(['enabled' => false], 1);
     }
 
     public function testGetPagerWithLockedUsers()
@@ -103,9 +103,9 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
                     $self->equalTo('u.username'),
                     $self->equalTo('ASC')
                 );
-                $qb->expects($self->once())->method('setParameters')->with($self->equalTo(array('locked' => true)));
+                $qb->expects($self->once())->method('setParameters')->with($self->equalTo(['locked' => true]));
             })
-            ->getPager(array('locked' => true), 1);
+            ->getPager(['locked' => true], 1);
     }
 
     public function testGetPagerWithNonLockedUsers()
@@ -118,8 +118,8 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
                     $self->equalTo('u.username'),
                     $self->equalTo('ASC')
                 );
-                $qb->expects($self->once())->method('setParameters')->with($self->equalTo(array('locked' => false)));
+                $qb->expects($self->once())->method('setParameters')->with($self->equalTo(['locked' => false]));
             })
-            ->getPager(array('locked' => false), 1);
+            ->getPager(['locked' => false], 1);
     }
 }

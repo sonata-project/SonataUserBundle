@@ -1,13 +1,12 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
  */
 
 namespace Sonata\UserBundle\Form\Type;
@@ -15,7 +14,6 @@ namespace Sonata\UserBundle\Form\Type;
 use Sonata\UserBundle\Form\Transformer\RestoreRolesTransformer;
 use Sonata\UserBundle\Security\EditableRolesBuilder;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -88,17 +86,17 @@ class SecurityRolesType extends AbstractType
     {
         list($roles, $rolesReadOnly) = $this->rolesBuilder->getRoles();
 
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'choices' => function (Options $options, $parentChoices) use ($roles) {
-                return empty($parentChoices) ? array_flip($roles) : array();
+                return empty($parentChoices) ? array_flip($roles) : [];
             },
 
             'read_only_choices' => function (Options $options) use ($rolesReadOnly) {
-                return empty($options['choices']) ? $rolesReadOnly : array();
+                return empty($options['choices']) ? $rolesReadOnly : [];
             },
 
             'data_class' => null,
-        ));
+        ]);
     }
 
     /**

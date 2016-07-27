@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata project.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -20,6 +20,6 @@ class XliffTest extends XliffValidatorTestCase
      */
     public function getXliffPaths()
     {
-        return array(array(__DIR__.'/../../Resources/translations'));
+        return [[__DIR__.'/../../Resources/translations']];
     }
 }

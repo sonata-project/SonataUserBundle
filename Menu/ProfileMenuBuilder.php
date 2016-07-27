@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -52,9 +52,9 @@ class ProfileMenuBuilder
      */
     public function __construct(FactoryInterface $factory, TranslatorInterface $translator, array $routes, EventDispatcherInterface $eventDispatcher)
     {
-        $this->factory         = $factory;
-        $this->translator      = $translator;
-        $this->routes          = $routes;
+        $this->factory = $factory;
+        $this->translator = $translator;
+        $this->routes = $routes;
         $this->eventDispatcher = $eventDispatcher;
     }
 
@@ -63,7 +63,7 @@ class ProfileMenuBuilder
      *
      * @return ItemInterface
      */
-    public function createProfileMenu(array $itemOptions = array())
+    public function createProfileMenu(array $itemOptions = [])
     {
         $menu = $this->factory->createItem('profile', $itemOptions);
 
@@ -76,12 +76,12 @@ class ProfileMenuBuilder
      * @param ItemInterface $menu        The item to fill with $routes
      * @param array         $itemOptions
      */
-    public function buildProfileMenu(ItemInterface $menu, array $itemOptions = array())
+    public function buildProfileMenu(ItemInterface $menu, array $itemOptions = [])
     {
         foreach ($this->routes as $route) {
             $menu->addChild(
-                $this->translator->trans($route['label'], array(), $route['domain']),
-                array_merge($itemOptions, array('route' => $route['route'], 'routeParameters' => $route['route_parameters']))
+                $this->translator->trans($route['label'], [], $route['domain']),
+                array_merge($itemOptions, ['route' => $route['route'], 'routeParameters' => $route['route_parameters']])
             );
         }
 

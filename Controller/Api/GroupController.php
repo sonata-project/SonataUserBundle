@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -52,7 +52,7 @@ class GroupController
     public function __construct(GroupManagerInterface $groupManager, FormFactoryInterface $formFactory)
     {
         $this->groupManager = $groupManager;
-        $this->formFactory  = $formFactory;
+        $this->formFactory = $formFactory;
     }
 
     /**
@@ -76,13 +76,13 @@ class GroupController
      */
     public function getGroupsAction(ParamFetcherInterface $paramFetcher)
     {
-        $supportedFilters = array(
+        $supportedFilters = [
             'enabled' => '',
-        );
+        ];
 
-        $page     = $paramFetcher->get('page');
-        $limit    = $paramFetcher->get('count');
-        $sort     = $paramFetcher->get('orderBy');
+        $page = $paramFetcher->get('page');
+        $limit = $paramFetcher->get('count');
+        $sort = $paramFetcher->get('orderBy');
         $criteria = array_intersect_key($paramFetcher->all(), $supportedFilters);
 
         foreach ($criteria as $key => $value) {
@@ -92,9 +92,9 @@ class GroupController
         }
 
         if (!$sort) {
-            $sort = array();
+            $sort = [];
         } elseif (!is_array($sort)) {
-            $sort = array($sort, 'asc');
+            $sort = [$sort, 'asc'];
         }
 
         return $this->groupManager->getPager($criteria, $page, $limit, $sort);
@@ -139,9 +139,9 @@ class GroupController
      *
      * @param Request $request A Symfony request
      *
-     * @return GroupInterface
-     *
      * @throws NotFoundHttpException
+     *
+     * @return GroupInterface
      */
     public function postGroupAction(Request $request)
     {
@@ -167,9 +167,9 @@ class GroupController
      * @param int     $id      Group identifier
      * @param Request $request A Symfony request
      *
-     * @return GroupInterface
-     *
      * @throws NotFoundHttpException
+     *
+     * @return GroupInterface
      */
     public function putGroupAction($id, Request $request)
     {
@@ -189,9 +189,9 @@ class GroupController
         $groupClassName = $this->groupManager->getClass();
         $group = $id ? $this->getGroup($id) : new $groupClassName('');
 
-        $form = $this->formFactory->createNamed(null, 'sonata_user_api_form_group', $group, array(
+        $form = $this->formFactory->createNamed(null, 'sonata_user_api_form_group', $group, [
             'csrf_protection' => false,
-        ));
+        ]);
 
         $form->handleRequest($request);
 
@@ -201,7 +201,7 @@ class GroupController
 
             $view = FOSRestView::create($group);
             $serializationContext = SerializationContext::create();
-            $serializationContext->setGroups(array('sonata_api_read'));
+            $serializationContext->setGroups(['sonata_api_read']);
             $serializationContext->enableMaxDepthChecks();
             $view->setSerializationContext($serializationContext);
 
@@ -227,9 +227,9 @@ class GroupController
      *
      * @param int $id A Group identifier
      *
-     * @return \FOS\RestBundle\View\View
-     *
      * @throws NotFoundHttpException
+     *
+     * @return \FOS\RestBundle\View\View
      */
     public function deleteGroupAction($id)
     {
@@ -237,7 +237,7 @@ class GroupController
 
         $this->groupManager->deleteGroup($group);
 
-        return array('deleted' => true);
+        return ['deleted' => true];
     }
 
     /**
@@ -245,13 +245,13 @@ class GroupController
      *
      * @param $id
      *
-     * @return GroupInterface
-     *
      * @throws NotFoundHttpException
+     *
+     * @return GroupInterface
      */
     protected function getGroup($id)
     {
-        $group = $this->groupManager->findGroupBy(array('id' => $id));
+        $group = $this->groupManager->findGroupBy(['id' => $id]);
 
         if (null === $group) {
             throw new NotFoundHttpException(sprintf('Group (%d) not found', $id));

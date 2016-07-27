@@ -1,13 +1,12 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
  */
 
 namespace Sonata\UserBundle\Security;
@@ -44,7 +43,7 @@ class EditableRolesBuilder
      * @param Pool                          $pool
      * @param array                         $rolesHierarchy
      */
-    public function __construct(TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authorizationChecker, Pool $pool, array $rolesHierarchy = array())
+    public function __construct(TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authorizationChecker, Pool $pool, array $rolesHierarchy = [])
     {
         $this->tokenStorage = $tokenStorage;
         $this->authorizationChecker = $authorizationChecker;
@@ -57,11 +56,11 @@ class EditableRolesBuilder
      */
     public function getRoles()
     {
-        $roles = array();
-        $rolesReadOnly = array();
+        $roles = [];
+        $rolesReadOnly = [];
 
         if (!$this->tokenStorage->getToken()) {
-            return array($roles, $rolesReadOnly);
+            return [$roles, $rolesReadOnly];
         }
 
         // get roles from the Admin classes
@@ -109,6 +108,6 @@ class EditableRolesBuilder
             }
         }
 
-        return array($roles, $rolesReadOnly);
+        return [$roles, $rolesReadOnly];
     }
 }

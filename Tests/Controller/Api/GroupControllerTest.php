@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -24,15 +24,15 @@ class GroupControllerTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetGroupsAction()
     {
-        $group        = $this->getMock('FOS\UserBundle\Model\GroupInterface');
+        $group = $this->getMock('FOS\UserBundle\Model\GroupInterface');
         $groupManager = $this->getMock('Sonata\UserBundle\Model\GroupManagerInterface');
-        $groupManager->expects($this->once())->method('getPager')->will($this->returnValue(array($group)));
+        $groupManager->expects($this->once())->method('getPager')->will($this->returnValue([$group]));
 
         $paramFetcher = $this->getMock('FOS\RestBundle\Request\ParamFetcherInterface');
         $paramFetcher->expects($this->exactly(3))->method('get');
-        $paramFetcher->expects($this->once())->method('all')->will($this->returnValue(array()));
+        $paramFetcher->expects($this->once())->method('all')->will($this->returnValue([]));
 
-        $this->assertEquals(array($group), $this->createGroupController(null, $groupManager)->getGroupsAction($paramFetcher));
+        $this->assertEquals([$group], $this->createGroupController(null, $groupManager)->getGroupsAction($paramFetcher));
     }
 
     public function testGetGroupAction()
@@ -140,7 +140,7 @@ class GroupControllerTest extends \PHPUnit_Framework_TestCase
 
         $view = $this->createGroupController($group, $groupManager)->deleteGroupAction(1);
 
-        $this->assertEquals(array('deleted' => true), $view);
+        $this->assertEquals(['deleted' => true], $view);
     }
 
     public function testDeleteGroupInvalidAction()

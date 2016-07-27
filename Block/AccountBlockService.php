@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -62,11 +62,11 @@ class AccountBlockService extends BaseBlockService
             $user = false;
         }
 
-        return $this->renderPrivateResponse($blockContext->getTemplate(), array(
+        return $this->renderPrivateResponse($blockContext->getTemplate(), [
             'user'    => $user,
             'block'   => $blockContext->getBlock(),
             'context' => $blockContext,
-        ));
+        ]);
     }
 
     /**
@@ -74,10 +74,10 @@ class AccountBlockService extends BaseBlockService
      */
     public function configureSettings(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'template' => 'SonataUserBundle:Block:account.html.twig',
             'ttl'      => 0,
-        ));
+        ]);
     }
 
     /**
