@@ -74,7 +74,7 @@ class AdminSecurityController extends Controller
 
         // TODO: Deprecated in 2.3, to be removed in 3.0
         try {
-            $resetRoute = $this->generateUrl('sonata_user_admin_resetting_request');
+            $resetRoute = $this->generateUrl('sonata_user_resetting_request');
         } catch (RouteNotFoundException $e) {
             @trigger_error('Using the route fos_user_resetting_request for admin password resetting is deprecated since version 2.3 and will be removed in 3.0. Use sonata_user_admin_resetting_request instead.', E_USER_DEPRECATED);
             $resetRoute = $this->generateUrl('fos_user_resetting_request');
