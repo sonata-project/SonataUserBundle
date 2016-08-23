@@ -37,7 +37,8 @@
         "doctrine/orm": "^2.2.3",
         "sonata-project/seo-bundle": "~1.1",
         "symfony/phpunit-bridge": "~2.7|~3.0",
-        "fabpot/php-cs-fixer": "~0.1|~1.0"
+        "fabpot/php-cs-fixer": "~0.1|~1.0",
+        "sllh/php-cs-fixer-styleci-bridge": "^2.1"
     },
     "conflict": {
         "jms/serializer": "<0.13"

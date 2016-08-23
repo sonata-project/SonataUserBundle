@@ -92,18 +92,6 @@ class SonataUserExtension extends Extension
     }
 
     /**
-     * Adds aliases for user & group managers depending on $managerType.
-     *
-     * @param ContainerBuilder $container
-     * @param                  $managerType
-     */
-    protected function aliasManagers(ContainerBuilder $container, $managerType)
-    {
-        $container->setAlias('sonata.user.user_manager', sprintf('sonata.user.%s.user_manager', $managerType));
-        $container->setAlias('sonata.user.group_manager', sprintf('sonata.user.%s.group_manager', $managerType));
-    }
-
-    /**
      * @param array $config
      *
      * @throws \RuntimeException
@@ -118,7 +106,7 @@ class SonataUserExtension extends Extension
 
         if (isset($config['impersonating_route'])) {
             $config['impersonating'] = array(
-                'route'      => $config['impersonating_route'],
+                'route' => $config['impersonating_route'],
                 'parameters' => array(),
             );
         }
@@ -245,22 +233,22 @@ class SonataUserExtension extends Extension
         $collector = DoctrineCollector::getInstance();
 
         $collector->addAssociation($config['class']['user'], 'mapManyToMany', array(
-            'fieldName'       => 'groups',
-            'targetEntity'    => $config['class']['group'],
-            'cascade'         => array(),
-            'joinTable'       => array(
-                'name'        => $config['table']['user_group'],
+            'fieldName' => 'groups',
+            'targetEntity' => $config['class']['group'],
+            'cascade' => array(),
+            'joinTable' => array(
+                'name' => $config['table']['user_group'],
                 'joinColumns' => array(
                     array(
-                        'name'                 => 'user_id',
+                        'name' => 'user_id',
                         'referencedColumnName' => 'id',
-                        'onDelete'             => 'CASCADE',
+                        'onDelete' => 'CASCADE',
                     ),
                 ),
                 'inverseJoinColumns' => array(array(
-                    'name'                 => 'group_id',
+                    'name' => 'group_id',
                     'referencedColumnName' => 'id',
-                    'onDelete'             => 'CASCADE',
+                    'onDelete' => 'CASCADE',
                 )),
             ),
         ));
@@ -295,7 +283,7 @@ class SonataUserExtension extends Extension
         if (isset($bundles['MopaBootstrapBundle'])) {
             $options = array(
                 'horizontal_input_wrapper_class' => 'col-lg-8',
-                'horizontal_label_class'         => 'col-lg-4 control-label',
+                'horizontal_label_class' => 'col-lg-4 control-label',
             );
         } else {
             $options = array();
@@ -315,5 +303,17 @@ class SonataUserExtension extends Extension
     public function configureMenu(array $config, ContainerBuilder $container)
     {
         $container->getDefinition('sonata.user.profile.menu_builder')->replaceArgument(2, $config['profile']['menu']);
+    }
+
+    /**
+     * Adds aliases for user & group managers depending on $managerType.
+     *
+     * @param ContainerBuilder $container
+     * @param                  $managerType
+     */
+    protected function aliasManagers(ContainerBuilder $container, $managerType)
+    {
+        $container->setAlias('sonata.user.user_manager', sprintf('sonata.user.%s.user_manager', $managerType));
+        $container->setAlias('sonata.user.group_manager', sprintf('sonata.user.%s.group_manager', $managerType));
     }
 }

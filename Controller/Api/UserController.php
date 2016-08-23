@@ -88,7 +88,7 @@ class UserController
     {
         $supporedCriteria = array(
             'enabled' => '',
-            'locked'  => '',
+            'locked' => '',
         );
 
         $page = $paramFetcher->get('page');

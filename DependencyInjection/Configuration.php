@@ -214,15 +214,15 @@ class Configuration implements ConfigurationInterface
     {
         return array(
             array(
-                'route'            => 'sonata_user_profile_edit',
-                'label'            => 'link_edit_profile',
-                'domain'           => 'SonataUserBundle',
+                'route' => 'sonata_user_profile_edit',
+                'label' => 'link_edit_profile',
+                'domain' => 'SonataUserBundle',
                 'route_parameters' => array(),
             ),
             array(
-                'route'            => 'sonata_user_profile_edit_authentication',
-                'label'            => 'link_edit_authentication',
-                'domain'           => 'SonataUserBundle',
+                'route' => 'sonata_user_profile_edit_authentication',
+                'label' => 'link_edit_authentication',
+                'domain' => 'SonataUserBundle',
                 'route_parameters' => array(),
             ),
         );

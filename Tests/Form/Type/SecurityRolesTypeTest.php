@@ -26,28 +26,6 @@ class SecurityRolesTypeTest extends TypeTestCase
 {
     protected $roleBuilder;
 
-    protected function getExtensions()
-    {
-        $this->roleBuilder = $roleBuilder = $this->getMockBuilder('Sonata\UserBundle\Security\EditableRolesBuilder')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->roleBuilder
-            ->expects($this->any())
-            ->method('getRoles')
-            ->will($this->returnValue(array(array(
-                'ROLE_FOO'   => 'ROLE_FOO',
-                'ROLE_USER'  => 'ROLE_USER',
-                'ROLE_ADMIN' => 'ROLE_ADMIN: ROLE_USER',
-            ), array())));
-
-        $childType = new SecurityRolesType($this->roleBuilder);
-
-        return array(new PreloadedExtension(array(
-            SecurityRolesType::class => $childType,
-        ), array()));
-    }
-
     public function testGetDefaultOptions()
     {
         $type = new SecurityRolesType($this->roleBuilder);
@@ -112,5 +90,27 @@ class SecurityRolesTypeTest extends TypeTestCase
 
         $this->assertCount(2, $form->getData());
         $this->assertContains('ROLE_SUPER_ADMIN', $form->getData());
+    }
+
+    protected function getExtensions()
+    {
+        $this->roleBuilder = $roleBuilder = $this->getMockBuilder('Sonata\UserBundle\Security\EditableRolesBuilder')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->roleBuilder
+            ->expects($this->any())
+            ->method('getRoles')
+            ->will($this->returnValue(array(array(
+                'ROLE_FOO' => 'ROLE_FOO',
+                'ROLE_USER' => 'ROLE_USER',
+                'ROLE_ADMIN' => 'ROLE_ADMIN: ROLE_USER',
+            ), array())));
+
+        $childType = new SecurityRolesType($this->roleBuilder);
+
+        return array(new PreloadedExtension(array(
+            SecurityRolesType::class => $childType,
+        ), array()));
     }
 }

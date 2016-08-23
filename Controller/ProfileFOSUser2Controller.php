@@ -42,7 +42,7 @@ class ProfileFOSUser2Controller extends Controller
         }
 
         return $this->render('SonataUserBundle:Profile:show.html.twig', array(
-                'user'   => $user,
+                'user' => $user,
                 'blocks' => $this->container->getParameter('sonata.user.configuration.profile_blocks'),
         ));
     }
@@ -84,7 +84,7 @@ class ProfileFOSUser2Controller extends Controller
         }
 
         return $this->render('SonataUserBundle:Profile:edit_authentication.html.twig', array(
-                'form'               => $form->createView(),
+                'form' => $form->createView(),
                 'breadcrumb_context' => 'user_profile',
         ));
     }
@@ -142,7 +142,7 @@ class ProfileFOSUser2Controller extends Controller
         }
 
         return $this->render('SonataUserBundle:Profile:edit_profile.html.twig', array(
-                'form'               => $form->createView(),
+                'form' => $form->createView(),
                 'breadcrumb_context' => 'user_profile',
         ));
     }

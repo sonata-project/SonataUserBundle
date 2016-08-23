@@ -177,6 +177,35 @@ class GroupController
     }
 
     /**
+     * Deletes a group.
+     *
+     * @ApiDoc(
+     *  requirements={
+     *      {"name"="id", "dataType"="integer", "requirement"="\d+", "description"="group identifier"}
+     *  },
+     *  statusCodes={
+     *      200="Returned when group is successfully deleted",
+     *      400="Returned when an error has occurred while group deletion",
+     *      404="Returned when unable to find group"
+     *  }
+     * )
+     *
+     * @param int $id A Group identifier
+     *
+     * @throws NotFoundHttpException
+     *
+     * @return \FOS\RestBundle\View\View
+     */
+    public function deleteGroupAction($id)
+    {
+        $group = $this->getGroup($id);
+
+        $this->groupManager->deleteGroup($group);
+
+        return array('deleted' => true);
+    }
+
+    /**
      * Write a Group, this method is used by both POST and PUT action methods.
      *
      * @param Request  $request Symfony request
@@ -209,35 +238,6 @@ class GroupController
         }
 
         return $form;
-    }
-
-    /**
-     * Deletes a group.
-     *
-     * @ApiDoc(
-     *  requirements={
-     *      {"name"="id", "dataType"="integer", "requirement"="\d+", "description"="group identifier"}
-     *  },
-     *  statusCodes={
-     *      200="Returned when group is successfully deleted",
-     *      400="Returned when an error has occurred while group deletion",
-     *      404="Returned when unable to find group"
-     *  }
-     * )
-     *
-     * @param int $id A Group identifier
-     *
-     * @throws NotFoundHttpException
-     *
-     * @return \FOS\RestBundle\View\View
-     */
-    public function deleteGroupAction($id)
-    {
-        $group = $this->getGroup($id);
-
-        $this->groupManager->deleteGroup($group);
-
-        return array('deleted' => true);
     }
 
     /**

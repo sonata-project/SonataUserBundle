@@ -62,7 +62,7 @@ class ProfileMenuBlockService extends MenuBlockService
         parent::configureSettings($resolver);
 
         $resolver->setDefaults(array(
-            'cache_policy'  => 'private',
+            'cache_policy' => 'private',
             'menu_template' => 'SonataBlockBundle:Block:block_side_menu_template.html.twig',
         ));
     }
@@ -80,7 +80,7 @@ class ProfileMenuBlockService extends MenuBlockService
             $menu = $this->menuBuilder->createProfileMenu(
                 array(
                     'childrenAttributes' => array('class' => $settings['menu_class']),
-                    'attributes'         => array('class' => $settings['children_class']),
+                    'attributes' => array('class' => $settings['children_class']),
                 )
             );
 

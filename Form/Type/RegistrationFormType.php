@@ -18,14 +18,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class RegistrationFormType extends AbstractType
 {
     /**
-     * @var string
-     */
-    private $class;
-
-    /**
      * @var array
      */
     protected $mergeOptions;
+
+    /**
+     * @var string
+     */
+    private $class;
 
     /**
      * @param string $class        The User class name
@@ -44,20 +44,20 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('username', null, array_merge(array(
-                'label'              => 'form.username',
+                'label' => 'form.username',
                 'translation_domain' => 'SonataUserBundle',
             ), $this->mergeOptions))
             ->add('email', 'email', array_merge(array(
-                'label'              => 'form.email',
+                'label' => 'form.email',
                 'translation_domain' => 'SonataUserBundle',
             ), $this->mergeOptions))
             ->add('plainPassword', 'repeated', array_merge(array(
-                'type'            => 'password',
-                'options'         => array('translation_domain' => 'SonataUserBundle'),
-                'first_options'   => array_merge(array(
+                'type' => 'password',
+                'options' => array('translation_domain' => 'SonataUserBundle'),
+                'first_options' => array_merge(array(
                     'label' => 'form.password',
                 ), $this->mergeOptions),
-                'second_options'  => array_merge(array(
+                'second_options' => array_merge(array(
                     'label' => 'form.password_confirmation',
                 ), $this->mergeOptions),
                 'invalid_message' => 'fos_user.password.mismatch',
@@ -71,7 +71,7 @@ class RegistrationFormType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => $this->class,
-            'intention'  => 'registration',
+            'intention' => 'registration',
         ));
     }
 
