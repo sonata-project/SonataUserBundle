@@ -15,6 +15,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\UserBundle\Form\Type\SecurityRolesType;
 
 class GroupAdmin extends AbstractAdmin
 {
@@ -67,7 +68,7 @@ class GroupAdmin extends AbstractAdmin
             ->end()
             ->tab('Security')
                 ->with('Roles', ['class' => 'col-md-12'])
-                    ->add('roles', 'Sonata\UserBundle\Form\Type\SecurityRolesType', [
+                    ->add('roles', SecurityRolesType::class, [
                         'expanded' => true,
                         'multiple' => true,
                         'required' => false,

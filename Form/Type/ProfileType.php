@@ -37,46 +37,46 @@ class ProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('gender', 'Sonata\UserBundle\Form\Type\UserGenderListType', [
-                'label'              => 'form.label_gender',
-                'required'           => true,
+            ->add('gender', UserGenderListType::class, [
+                'label' => 'form.label_gender',
+                'required' => true,
                 'translation_domain' => 'SonataUserBundle',
-                'choices'            => array_flip([
+                'choices' => array_flip([
                     UserInterface::GENDER_FEMALE => 'gender_female',
-                    UserInterface::GENDER_MALE   => 'gender_male',
+                    UserInterface::GENDER_MALE => 'gender_male',
                 ]),
             ])
             ->add('firstname', null, [
-                'label'    => 'form.label_firstname',
+                'label' => 'form.label_firstname',
                 'required' => false,
             ])
             ->add('lastname', null, [
-                'label'    => 'form.label_lastname',
+                'label' => 'form.label_lastname',
                 'required' => false,
             ])
             ->add('dateOfBirth', 'birthday', [
-                'label'    => 'form.label_date_of_birth',
+                'label' => 'form.label_date_of_birth',
                 'required' => false,
-                'widget'   => 'single_text',
+                'widget' => 'single_text',
             ])
             ->add('website', 'url', [
-                'label'    => 'form.label_website',
+                'label' => 'form.label_website',
                 'required' => false,
             ])
             ->add('biography', 'textarea', [
-                'label'    => 'form.label_biography',
+                'label' => 'form.label_biography',
                 'required' => false,
             ])
             ->add('locale', 'locale', [
-                'label'    => 'form.label_locale',
+                'label' => 'form.label_locale',
                 'required' => false,
             ])
             ->add('timezone', 'timezone', [
-                'label'    => 'form.label_timezone',
+                'label' => 'form.label_timezone',
                 'required' => false,
             ])
             ->add('phone', null, [
-                'label'    => 'form.label_phone',
+                'label' => 'form.label_phone',
                 'required' => false,
             ]);
     }
