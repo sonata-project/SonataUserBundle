@@ -37,48 +37,48 @@ class ProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('gender', UserGenderListType::class, [
-                'label' => 'form.label_gender',
-                'required' => true,
+            ->add('gender', UserGenderListType::class, array(
+                'label'              => 'form.label_gender',
+                'required'           => true,
                 'translation_domain' => 'SonataUserBundle',
-                'choices' => array_flip([
+                'choices'            => array_flip(array(
                     UserInterface::GENDER_FEMALE => 'gender_female',
-                    UserInterface::GENDER_MALE => 'gender_male',
-                ]),
-            ])
-            ->add('firstname', null, [
-                'label' => 'form.label_firstname',
+                    UserInterface::GENDER_MALE   => 'gender_male',
+                )),
+            ))
+            ->add('firstname', null, array(
+                'label'    => 'form.label_firstname',
                 'required' => false,
-            ])
-            ->add('lastname', null, [
-                'label' => 'form.label_lastname',
+            ))
+            ->add('lastname', null, array(
+                'label'    => 'form.label_lastname',
                 'required' => false,
-            ])
-            ->add('dateOfBirth', 'birthday', [
-                'label' => 'form.label_date_of_birth',
+            ))
+            ->add('dateOfBirth', 'birthday', array(
+                'label'    => 'form.label_date_of_birth',
                 'required' => false,
-                'widget' => 'single_text',
-            ])
-            ->add('website', 'url', [
-                'label' => 'form.label_website',
+                'widget'   => 'single_text',
+            ))
+            ->add('website', 'url', array(
+                'label'    => 'form.label_website',
                 'required' => false,
-            ])
-            ->add('biography', 'textarea', [
-                'label' => 'form.label_biography',
+            ))
+            ->add('biography', 'textarea', array(
+                'label'    => 'form.label_biography',
                 'required' => false,
-            ])
-            ->add('locale', 'locale', [
-                'label' => 'form.label_locale',
+            ))
+            ->add('locale', 'locale', array(
+                'label'    => 'form.label_locale',
                 'required' => false,
-            ])
-            ->add('timezone', 'timezone', [
-                'label' => 'form.label_timezone',
+            ))
+            ->add('timezone', 'timezone', array(
+                'label'    => 'form.label_timezone',
                 'required' => false,
-            ])
-            ->add('phone', null, [
-                'label' => 'form.label_phone',
+            ))
+            ->add('phone', null, array(
+                'label'    => 'form.label_phone',
                 'required' => false,
-            ]);
+            ));
     }
 
     /**
@@ -86,9 +86,9 @@ class ProfileType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
+        $resolver->setDefaults(array(
             'data_class' => $this->class,
-        ]);
+        ));
     }
 
     /**

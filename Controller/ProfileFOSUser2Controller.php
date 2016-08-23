@@ -41,10 +41,10 @@ class ProfileFOSUser2Controller extends Controller
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        return $this->render('SonataUserBundle:Profile:show.html.twig', [
+        return $this->render('SonataUserBundle:Profile:show.html.twig', array(
                 'user'   => $user,
                 'blocks' => $this->container->getParameter('sonata.user.configuration.profile_blocks'),
-        ]);
+        ));
     }
 
     /**
@@ -83,10 +83,10 @@ class ProfileFOSUser2Controller extends Controller
             return $response;
         }
 
-        return $this->render('SonataUserBundle:Profile:edit_authentication.html.twig', [
+        return $this->render('SonataUserBundle:Profile:edit_authentication.html.twig', array(
                 'form'               => $form->createView(),
                 'breadcrumb_context' => 'user_profile',
-        ]);
+        ));
     }
 
     /**
@@ -141,10 +141,10 @@ class ProfileFOSUser2Controller extends Controller
             return $response;
         }
 
-        return $this->render('SonataUserBundle:Profile:edit_profile.html.twig', [
+        return $this->render('SonataUserBundle:Profile:edit_profile.html.twig', array(
                 'form'               => $form->createView(),
                 'breadcrumb_context' => 'user_profile',
-        ]);
+        ));
     }
 
     /**

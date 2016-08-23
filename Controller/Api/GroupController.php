@@ -76,9 +76,9 @@ class GroupController
      */
     public function getGroupsAction(ParamFetcherInterface $paramFetcher)
     {
-        $supportedFilters = [
+        $supportedFilters = array(
             'enabled' => '',
-        ];
+        );
 
         $page = $paramFetcher->get('page');
         $limit = $paramFetcher->get('count');
@@ -92,9 +92,9 @@ class GroupController
         }
 
         if (!$sort) {
-            $sort = [];
+            $sort = array();
         } elseif (!is_array($sort)) {
-            $sort = [$sort, 'asc'];
+            $sort = array($sort, 'asc');
         }
 
         return $this->groupManager->getPager($criteria, $page, $limit, $sort)->getResults();
@@ -189,9 +189,9 @@ class GroupController
         $groupClassName = $this->groupManager->getClass();
         $group = $id ? $this->getGroup($id) : new $groupClassName('');
 
-        $form = $this->formFactory->createNamed(null, 'sonata_user_api_form_group', $group, [
+        $form = $this->formFactory->createNamed(null, 'sonata_user_api_form_group', $group, array(
             'csrf_protection' => false,
-        ]);
+        ));
 
         $form->handleRequest($request);
 
@@ -201,7 +201,7 @@ class GroupController
 
             $view = FOSRestView::create($group);
             $serializationContext = SerializationContext::create();
-            $serializationContext->setGroups(['sonata_api_read']);
+            $serializationContext->setGroups(array('sonata_api_read'));
             $serializationContext->enableMaxDepthChecks();
             $view->setSerializationContext($serializationContext);
 
@@ -237,7 +237,7 @@ class GroupController
 
         $this->groupManager->deleteGroup($group);
 
-        return ['deleted' => true];
+        return array('deleted' => true);
     }
 
     /**
@@ -251,7 +251,7 @@ class GroupController
      */
     protected function getGroup($id)
     {
-        $group = $this->groupManager->findGroupBy(['id' => $id]);
+        $group = $this->groupManager->findGroupBy(array('id' => $id));
 
         if (null === $group) {
             throw new NotFoundHttpException(sprintf('Group (%d) not found', $id));

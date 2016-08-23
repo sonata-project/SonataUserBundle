@@ -31,7 +31,7 @@ class RegistrationFormType extends AbstractType
      * @param string $class        The User class name
      * @param array  $mergeOptions Add options to elements
      */
-    public function __construct($class, array $mergeOptions = [])
+    public function __construct($class, array $mergeOptions = array())
     {
         $this->class = $class;
         $this->mergeOptions = $mergeOptions;
@@ -43,25 +43,25 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', null, array_merge([
+            ->add('username', null, array_merge(array(
                 'label'              => 'form.username',
                 'translation_domain' => 'SonataUserBundle',
-            ], $this->mergeOptions))
-            ->add('email', 'email', array_merge([
+            ), $this->mergeOptions))
+            ->add('email', 'email', array_merge(array(
                 'label'              => 'form.email',
                 'translation_domain' => 'SonataUserBundle',
-            ], $this->mergeOptions))
-            ->add('plainPassword', 'repeated', array_merge([
+            ), $this->mergeOptions))
+            ->add('plainPassword', 'repeated', array_merge(array(
                 'type'            => 'password',
-                'options'         => ['translation_domain' => 'SonataUserBundle'],
-                'first_options'   => array_merge([
+                'options'         => array('translation_domain' => 'SonataUserBundle'),
+                'first_options'   => array_merge(array(
                     'label' => 'form.password',
-                ], $this->mergeOptions),
-                'second_options'  => array_merge([
+                ), $this->mergeOptions),
+                'second_options'  => array_merge(array(
                     'label' => 'form.password_confirmation',
-                ], $this->mergeOptions),
+                ), $this->mergeOptions),
                 'invalid_message' => 'fos_user.password.mismatch',
-            ], $this->mergeOptions));
+            ), $this->mergeOptions));
     }
 
     /**
@@ -69,10 +69,10 @@ class RegistrationFormType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
+        $resolver->setDefaults(array(
             'data_class' => $this->class,
             'intention'  => 'registration',
-        ]);
+        ));
     }
 
     /**

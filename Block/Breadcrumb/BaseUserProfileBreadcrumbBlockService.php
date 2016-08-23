@@ -28,10 +28,10 @@ abstract class BaseUserProfileBreadcrumbBlockService extends BaseBreadcrumbMenuB
     {
         $menu = parent::getRootMenu($blockContext);
 
-        $menu->addChild('sonata_user_profile_breadcrumb_index', [
+        $menu->addChild('sonata_user_profile_breadcrumb_index', array(
             'route'  => 'sonata_user_profile_show',
-            'extras' => ['translation_domain' => 'SonataUserBundle'],
-        ]);
+            'extras' => array('translation_domain' => 'SonataUserBundle'),
+        ));
 
         return $menu;
     }

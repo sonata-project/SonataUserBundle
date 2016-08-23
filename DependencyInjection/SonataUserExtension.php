@@ -78,7 +78,7 @@ class SonataUserExtension extends Extension
         // add custom form widgets
         $container->setParameter('twig.form.resources', array_merge(
             $container->getParameter('twig.form.resources'),
-            ['SonataUserBundle:Form:form_admin_fields.html.twig']
+            array('SonataUserBundle:Form:form_admin_fields.html.twig')
         ));
 
         $container->setParameter('sonata.user.default_avatar', $config['profile']['default_avatar']);
@@ -117,14 +117,14 @@ class SonataUserExtension extends Extension
         }
 
         if (isset($config['impersonating_route'])) {
-            $config['impersonating'] = [
+            $config['impersonating'] = array(
                 'route'      => $config['impersonating_route'],
-                'parameters' => [],
-            ];
+                'parameters' => array(),
+            );
         }
 
         if (!isset($config['impersonating']['parameters'])) {
-            $config['impersonating']['parameters'] = [];
+            $config['impersonating']['parameters'] = array();
         }
 
         if (!isset($config['impersonating']['route'])) {
@@ -244,26 +244,26 @@ class SonataUserExtension extends Extension
 
         $collector = DoctrineCollector::getInstance();
 
-        $collector->addAssociation($config['class']['user'], 'mapManyToMany', [
+        $collector->addAssociation($config['class']['user'], 'mapManyToMany', array(
             'fieldName'       => 'groups',
             'targetEntity'    => $config['class']['group'],
-            'cascade'         => [],
-            'joinTable'       => [
+            'cascade'         => array(),
+            'joinTable'       => array(
                 'name'        => $config['table']['user_group'],
-                'joinColumns' => [
-                    [
+                'joinColumns' => array(
+                    array(
                         'name'                 => 'user_id',
                         'referencedColumnName' => 'id',
                         'onDelete'             => 'CASCADE',
-                    ],
-                ],
-                'inverseJoinColumns' => [[
+                    ),
+                ),
+                'inverseJoinColumns' => array(array(
                     'name'                 => 'group_id',
                     'referencedColumnName' => 'id',
                     'onDelete'             => 'CASCADE',
-                ]],
-            ],
-        ]);
+                )),
+            ),
+        ));
     }
 
     /**
@@ -293,12 +293,12 @@ class SonataUserExtension extends Extension
         $bundles = $container->getParameter('kernel.bundles');
 
         if (isset($bundles['MopaBootstrapBundle'])) {
-            $options = [
+            $options = array(
                 'horizontal_input_wrapper_class' => 'col-lg-8',
                 'horizontal_label_class'         => 'col-lg-4 control-label',
-            ];
+            );
         } else {
-            $options = [];
+            $options = array();
         }
 
         $container->setParameter('sonata.user.registration.form.options', $options);
