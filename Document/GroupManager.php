@@ -11,7 +11,7 @@
 
 namespace Sonata\UserBundle\Document;
 
-use FOS\UserBundle\Document\GroupManager as BaseGroupManager;
+use FOS\UserBundle\Doctrine\GroupManager as BaseGroupManager;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\UserBundle\Model\GroupManagerInterface;
 
