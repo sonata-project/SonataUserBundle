@@ -514,10 +514,6 @@
                 <source>Gender</source>
                 <target>Geschlecht</target>
             </trans-unit>
-            <trans-unit id="Bad credentials">
-                <source>Bad credentials</source>
-                <target>Benutzername oder Passwort ungültig</target>
-            </trans-unit>
             <trans-unit id="sonata_profile_title">
                 <source>sonata_profile_title</source>
                 <target>Profil</target>
