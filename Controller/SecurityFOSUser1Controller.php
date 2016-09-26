@@ -14,6 +14,8 @@ namespace Sonata\UserBundle\Controller;
 use FOS\UserBundle\Controller\SecurityController;
 use Sonata\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Class SecurityFOSUser1Controller.
@@ -37,6 +39,36 @@ class SecurityFOSUser1Controller extends SecurityController
             return new RedirectResponse($url);
         }
 
-        return parent::loginAction();
+        /*
+            Implementation of parent::loginAction
+            Needed for fixing the "Bad Credentials" translation problem
+            The code is a mix of the 2.0.0 version
+            and the 1.3.6 version of FOSUserBundle
+        */
+
+        /** @var $request \Symfony\Component\HttpFoundation\Request */
+        $request = $this->container->get('request');
+        /** @var $session \Symfony\Component\HttpFoundation\Session\Session */
+        $session = $request->getSession();
+
+        // get the error if any (works with forward and redirect -- see below)
+        if ($request->attributes->has(SecurityContextInterface::AUTHENTICATION_ERROR)) {
+            $error = $request->attributes->get(SecurityContextInterface::AUTHENTICATION_ERROR);
+        } elseif (null !== $session && $session->has(SecurityContextInterface::AUTHENTICATION_ERROR)) {
+            $error = $session->get(SecurityContextInterface::AUTHENTICATION_ERROR);
+            $session->remove(SecurityContextInterface::AUTHENTICATION_ERROR);
+        } else {
+            $error = null;
+        }
+
+        if (!$error instanceof AuthenticationException) {
+            $error = null; // The value does not come from the security component.
+        }
+
+        return $this->renderLogin(array(
+            'last_username' => (null === $session) ? '' : $session->get(SecurityContextInterface::LAST_USERNAME),
+            'error' => $error,
+            'csrf_token' => $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate'),
+        ));
     }
 }
