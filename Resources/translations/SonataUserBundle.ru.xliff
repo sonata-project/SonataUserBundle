@@ -58,6 +58,22 @@
                 <source>groups</source>
                 <target>Группы</target>
             </trans-unit>
+            <trans-unit id="group_user">
+                <source>User</source>
+                <target>Пользователь</target>
+            </trans-unit>
+            <trans-unit id="group_status">
+                <source>Status</source>
+                <target>Статус</target>
+            </trans-unit>
+            <trans-unit id="group_roles">
+                <source>Roles</source>
+                <target>Роли</target>
+            </trans-unit>
+            <trans-unit id="group_keys">
+                <source>Keys</source>
+                <target>Ключи</target>
+            </trans-unit>
             <trans-unit id="switch_user_exit">
                 <source>switch_user_exit</source>
                 <target>Выйти из режима воплощения</target>
