@@ -56,10 +56,10 @@ class RegistrationFOSUser1Controller extends Controller
                 $url = $this->generateUrl('fos_user_registration_check_email');
             } else {
                 $authUser = true;
-                $route = $this->get('session')->get('sonata_basket_delivery_redirect');
+                $route = $this->get('session')->get('sonata_user_redirect_url');
 
                 if (null !== $route) {
-                    $this->get('session')->remove('sonata_basket_delivery_redirect');
+                    $this->get('session')->remove('sonata_user_redirect_url');
                     $url = $this->generateUrl($route);
                 } else {
                     $url = $this->get('session')->get('sonata_user_redirect_url', $this->generateUrl('sonata_user_profile_show'));
