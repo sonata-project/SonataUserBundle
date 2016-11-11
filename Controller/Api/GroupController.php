@@ -11,6 +11,7 @@
 
 namespace Sonata\UserBundle\Controller\Api;
 
+use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcherInterface;
@@ -229,10 +230,17 @@ class GroupController
             $this->groupManager->updateGroup($group);
 
             $view = FOSRestView::create($group);
-            $serializationContext = SerializationContext::create();
-            $serializationContext->setGroups(array('sonata_api_read'));
-            $serializationContext->enableMaxDepthChecks();
-            $view->setSerializationContext($serializationContext);
+
+            if (class_exists('FOS\RestBundle\Context\Context')) {
+                $context = new Context();
+                $context->setGroups(array('sonata_api_read'));
+                $view->setContext($context);
+            } else {
+                $serializationContext = SerializationContext::create();
+                $serializationContext->setGroups(array('sonata_api_read'));
+                $serializationContext->enableMaxDepthChecks();
+                $view->setSerializationContext($serializationContext);
+            }
 
             return $view;
         }
