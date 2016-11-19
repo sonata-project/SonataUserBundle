@@ -181,7 +181,8 @@ EOT
             $this->get('fos_user.security.login_manager')->loginUser(
                 $this->container->getParameter('fos_user.firewall_name'),
                 $user,
-                $response);
+                $response
+            );
         } catch (AccountStatusException $ex) {
             // We simply do not authenticate users which do not pass the user
             // checker (not enabled, expired, etc.).
