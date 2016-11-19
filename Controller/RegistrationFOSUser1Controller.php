@@ -13,7 +13,6 @@ namespace Sonata\UserBundle\Controller;
 
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -68,7 +67,7 @@ class RegistrationFOSUser1Controller extends Controller
 
             $this->setFlash('fos_user_success', 'registration.flash.user_created');
 
-            $response = new RedirectResponse($url);
+            $response = $this->redirect($url);
 
             if ($authUser) {
                 $this->authenticateUser($user, $response);
