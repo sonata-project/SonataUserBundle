@@ -1,6 +1,11 @@
 UPGRADE 3.x
 ===========
 
+### Deprecated sonata_basket_delivery_redirect session variable
+
+Relying on this variable to get a redirection after registration is deprecated
+and will be removed in 4.0.
+
 UPGRADE FROM 3.0 to 3.1
 =======================
 
