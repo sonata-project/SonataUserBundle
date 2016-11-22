@@ -13,7 +13,6 @@ namespace Sonata\UserBundle\Controller;
 
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -59,16 +58,25 @@ class RegistrationFOSUser1Controller extends Controller
                 $route = $this->get('session')->get('sonata_basket_delivery_redirect');
 
                 if (null !== $route) {
+                    // NEXT_MAJOR: remove the if block
+                    @trigger_error(<<<'EOT'
+Setting a redirect url in the sonata_basket_delivery_redirect session variable
+is deprecated since 3.x and will no longer result in a redirection to this url in 4.0.
+EOT
+                    , E_USER_DEPRECATED);
                     $this->get('session')->remove('sonata_basket_delivery_redirect');
                     $url = $this->generateUrl($route);
                 } else {
-                    $url = $this->get('session')->get('sonata_user_redirect_url', $this->generateUrl('sonata_user_profile_show'));
+                    $url = $this->get('session')->get(
+                        'sonata_user_redirect_url',
+                        $this->generateUrl('sonata_user_profile_show')
+                    );
                 }
             }
 
             $this->setFlash('fos_user_success', 'registration.flash.user_created');
 
-            $response = new RedirectResponse($url);
+            $response = $this->redirect($url);
 
             if ($authUser) {
                 $this->authenticateUser($user, $response);
@@ -129,7 +137,10 @@ class RegistrationFOSUser1Controller extends Controller
 
         $this->get('fos_user.user_manager')->updateUser($user);
         if ($redirectRoute = $this->container->getParameter('sonata.user.register.confirm.redirect_route')) {
-            $response = $this->redirect($this->generateUrl($redirectRoute, $this->container->getParameter('sonata.user.register.confirm.redirect_route_params')));
+            $response = $this->redirect($this->generateUrl(
+                $redirectRoute,
+                $this->container->getParameter('sonata.user.register.confirm.redirect_route_params')
+            ));
         } else {
             $response = $this->redirect($this->generateUrl('fos_user_registration_confirmed'));
         }
@@ -170,7 +181,8 @@ class RegistrationFOSUser1Controller extends Controller
             $this->get('fos_user.security.login_manager')->loginUser(
                 $this->container->getParameter('fos_user.firewall_name'),
                 $user,
-                $response);
+                $response
+            );
         } catch (AccountStatusException $ex) {
             // We simply do not authenticate users which do not pass the user
             // checker (not enabled, expired, etc.).
