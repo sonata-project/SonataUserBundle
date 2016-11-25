@@ -2,6 +2,19 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.2.0](https://github.com/sonata-project/SonataUserBundle/compare/3.1.0...3.2.0) - 2016-11-25
+### Added
+- Added russian and ukrainian translations
+
+### Deprecated
+- Relying on the `sonata_basket_delivery_redirect` is deprecated and won't be supported anymore
+
+### Fixed
+- The reset password url now points to the action dedicated to administrators again
+
+### Removed
+- The conflict rule for FOSRestBundle `>=2.0`
+
 ## [3.1.0](https://github.com/sonata-project/SonataUserBundle/compare/3.0.1...3.1.0) - 2016-10-14
 ### Changed
 - The `friendsofsymfony/rest-bundle` dependency is optional again

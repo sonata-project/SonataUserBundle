@@ -61,7 +61,7 @@ class RegistrationFOSUser1Controller extends Controller
                     // NEXT_MAJOR: remove the if block
                     @trigger_error(<<<'EOT'
 Setting a redirect url in the sonata_basket_delivery_redirect session variable
-is deprecated since 3.x and will no longer result in a redirection to this url in 4.0.
+is deprecated since 3.2 and will no longer result in a redirection to this url in 4.0.
 EOT
                     , E_USER_DEPRECATED);
                     $this->get('session')->remove('sonata_basket_delivery_redirect');
