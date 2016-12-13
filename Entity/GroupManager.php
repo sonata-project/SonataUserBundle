@@ -35,7 +35,7 @@ class GroupManager extends BaseGroupManager implements GroupManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getPager(array $criteria, $page, $limit = 10, array $sort = [])
+    public function getPager(array $criteria, $page, $limit = 10, array $sort = array())
     {
         $query = $this->repository
             ->createQueryBuilder('g')
@@ -49,14 +49,14 @@ class GroupManager extends BaseGroupManager implements GroupManagerInterface
         }
 
         if (count($sort) == 0) {
-            $sort = ['name' => 'ASC'];
+            $sort = array('name' => 'ASC');
         }
 
         foreach ($sort as $field => $direction) {
             $query->orderBy(sprintf('g.%s', $field), strtoupper($direction));
         }
 
-        $parameters = [];
+        $parameters = array();
 
         if (isset($criteria['enabled'])) {
             $query->andWhere('g.enabled = :enabled');

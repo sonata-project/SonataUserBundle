@@ -158,6 +158,10 @@ Replace:
         resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
         prefix: /profile
 
+    # Or if you use all
+    fos_user:
+        resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
 With:
 
 .. code-block:: yaml
@@ -181,6 +185,10 @@ With:
         resource: "@SonataUserBundle/Resources/config/routing/sonata_change_password_2.xml"
         prefix: /profile
 
+    # Or if you use all
+    sonata_user:
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_fosuser.xml"
+
 Integrating the bundle into the Sonata Admin Bundle
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -197,6 +205,11 @@ Add the related security routing information:
     sonata_user_admin_resetting:
         resource: '@SonataUserBundle/Resources/config/routing/admin_resetting.xml'
         prefix: /admin/resetting
+
+    _sonata_admin:
+        resource: .
+        type: sonata_admin
+        prefix: /admin
 
 Then, add a new custom firewall handlers for the admin:
 
@@ -233,6 +246,7 @@ Then, add a new custom firewall handlers for the admin:
                     failure_path:   null
                 logout:
                     path:           /admin/logout
+                    target:         /admin/login
                 anonymous:          true
 
             # -> end custom configuration

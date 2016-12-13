@@ -8,7 +8,7 @@
         <default key="_controller">SonataUserBundle:AdminSecurity:login</default>
     </route>
 
-    <route id="sonata_user_admin_security_check" path="/login_check">
+    <route id="sonata_user_admin_security_check" path="/login_check" methods="POST">
         <default key="_controller">SonataUserBundle:AdminSecurity:check</default>
     </route>
 

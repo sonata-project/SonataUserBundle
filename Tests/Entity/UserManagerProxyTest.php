@@ -30,10 +30,10 @@ class UserManagerProxyTest extends \PHPUnit_Framework_TestCase
         $userManagerProxy->findAll();
 
         $userManager->expects($this->once())->method('findBy');
-        $userManagerProxy->findBy([]);
+        $userManagerProxy->findBy(array());
 
         $userManager->expects($this->once())->method('findOneBy');
-        $userManagerProxy->findOneBy([]);
+        $userManagerProxy->findOneBy(array());
 
         $userManager->expects($this->once())->method('find');
         $userManagerProxy->find(10);

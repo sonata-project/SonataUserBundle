@@ -538,6 +538,18 @@
                 <source>form.password_confirmation</source>
                 <target>Vahvistus</target>
             </trans-unit>
+            <trans-unit id="title_user_edit_password">
+                <source>title_user_edit_password</source>
+                <target>Vaihda salasana</target>
+            </trans-unit>
+            <trans-unit id="title_user_resetting">
+                <source>title_user_resetting</source>
+                <target>Pyydä salasana</target>
+            </trans-unit>
+            <trans-unit id="title_user_resetting_reset">
+                <source>title_user_resetting_reset</source>
+                <target>Resetoi salasana</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

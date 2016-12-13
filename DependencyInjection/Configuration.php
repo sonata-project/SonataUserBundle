@@ -29,7 +29,7 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('sonata_user');
 
-        $supportedManagerTypes = ['orm', 'mongodb'];
+        $supportedManagerTypes = array('orm', 'mongodb');
 
         $rootNode
             ->children()
@@ -118,20 +118,20 @@ class Configuration implements ConfigurationInterface
                                             ->prototype('scalar')->end()
                                         ->end()
                                         ->arrayNode('roles')
-                                            ->prototype('scalar')->defaultValue([])->end()
+                                            ->prototype('scalar')->defaultValue(array())->end()
                                         ->end()
                                     ->end()
                                 ->end()
                             ->end()
                             ->arrayNode('blocks')
-                                ->defaultValue([['position' => 'left', 'settings' => ['content' => '<h2>Welcome!</h2> This is a sample user profile dashboard, feel free to override it in the configuration!'], 'type' => 'sonata.block.service.text']])
+                                ->defaultValue(array(array('position' => 'left', 'settings' => array('content' => '<h2>Welcome!</h2> This is a sample user profile dashboard, feel free to override it in the configuration!'), 'type' => 'sonata.block.service.text')))
                                 ->prototype('array')
                                     ->fixXmlConfig('setting')
                                         ->children()
                                             ->scalarNode('type')->cannotBeEmpty()->end()
                                             ->arrayNode('settings')
                                                 ->useAttributeAsKey('id')
-                                                ->prototype('variable')->defaultValue([])->end()
+                                                ->prototype('variable')->defaultValue(array())->end()
                                             ->end()
                                             ->scalarNode('position')->defaultValue('right')->end()
                                         ->end()
@@ -147,7 +147,7 @@ class Configuration implements ConfigurationInterface
                                 ->scalarNode('name')->defaultValue('sonata_user_profile_form')->cannotBeEmpty()->end()
                                 ->arrayNode('validation_groups')
                                     ->prototype('scalar')->end()
-                                    ->defaultValue(['Profile', 'Default'])
+                                    ->defaultValue(array('Profile', 'Default'))
                                 ->end()
                             ->end()
                         ->end()
@@ -158,7 +158,7 @@ class Configuration implements ConfigurationInterface
                                 ->children()
                                     ->scalarNode('route')->cannotBeEmpty()->end()
                                     ->arrayNode('route_parameters')
-                                        ->defaultValue([])
+                                        ->defaultValue(array())
                                         ->prototype('array')->end()
                                     ->end()
                                     ->scalarNode('label')->cannotBeEmpty()->end()
@@ -177,7 +177,7 @@ class Configuration implements ConfigurationInterface
                                         ->scalarNode('name')->defaultValue('sonata_user_registration_form')->cannotBeEmpty()->end()
                                         ->arrayNode('validation_groups')
                                             ->prototype('scalar')->end()
-                                            ->defaultValue(['Registration', 'Default'])
+                                            ->defaultValue(array('Registration', 'Default'))
                                         ->end()
                                     ->end()
                                 ->end()
@@ -189,7 +189,7 @@ class Configuration implements ConfigurationInterface
                                             ->children()
                                                 ->scalarNode('route')->defaultValue('sonata_user_profile_show')->end()
                                                 ->arrayNode('route_parameters')
-                                                    ->defaultValue([])
+                                                    ->defaultValue(array())
                                                     ->prototype('array')->end()
                                                 ->end()
                                             ->end()
@@ -212,19 +212,19 @@ class Configuration implements ConfigurationInterface
      */
     protected function getProfileMenuDefaultValues()
     {
-        return [
-            [
-                'route'            => 'sonata_user_profile_edit',
-                'label'            => 'link_edit_profile',
-                'domain'           => 'SonataUserBundle',
-                'route_parameters' => [],
-            ],
-            [
-                'route'            => 'sonata_user_profile_edit_authentication',
-                'label'            => 'link_edit_authentication',
-                'domain'           => 'SonataUserBundle',
-                'route_parameters' => [],
-            ],
-        ];
+        return array(
+            array(
+                'route' => 'sonata_user_profile_edit',
+                'label' => 'link_edit_profile',
+                'domain' => 'SonataUserBundle',
+                'route_parameters' => array(),
+            ),
+            array(
+                'route' => 'sonata_user_profile_edit_authentication',
+                'label' => 'link_edit_authentication',
+                'domain' => 'SonataUserBundle',
+                'route_parameters' => array(),
+            ),
+        );
     }
 }

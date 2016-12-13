@@ -534,6 +534,18 @@
                 <source>form.password_confirmation</source>
                 <target>Parola repetat</target>
             </trans-unit>
+            <trans-unit id="title_user_edit_password">
+                <source>title_user_edit_password</source>
+                <target>title_user_edit_password</target>
+            </trans-unit>
+            <trans-unit id="title_user_resetting">
+                <source>title_user_resetting</source>
+                <target>title_user_resetting</target>
+            </trans-unit>
+            <trans-unit id="title_user_resetting_reset">
+                <source>title_user_resetting_reset</source>
+                <target>title_user_resetting_reset</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

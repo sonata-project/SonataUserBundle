@@ -82,7 +82,7 @@ class BaseUserTest extends \PHPUnit_Framework_TestCase
         $group2->expects($this->any())->method('getName')->will($this->returnValue('Group 2'));
 
         // When
-        $user->setGroups([$group1, $group2]);
+        $user->setGroups(array($group1, $group2));
 
         // Then
         $this->assertCount(2, $user->getGroups(), 'Should have 2 groups');

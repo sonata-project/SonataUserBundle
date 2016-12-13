@@ -24,7 +24,7 @@
             </trans-unit>
             <trans-unit id="breadcrumb.link_user_list">
                 <source>breadcrumb.link_user_list</source>
-                <target>Користувачи</target>
+                <target>Користувачі</target>
             </trans-unit>
             <trans-unit id="breadcrumb.link_user_create">
                 <source>breadcrumb.link_user_create</source>
@@ -52,7 +52,7 @@
             </trans-unit>
             <trans-unit id="users">
                 <source>users</source>
-                <target>Користувачи</target>
+                <target>Користувачі</target>
             </trans-unit>
             <trans-unit id="groups">
                 <source>groups</source>
@@ -116,7 +116,7 @@
             </trans-unit>
             <trans-unit id="form.label_lastname">
                 <source>form.label_lastname</source>
-                <target>Фамілія</target>
+                <target>Прізвище</target>
             </trans-unit>
             <trans-unit id="user_form.label_name">
                 <source>form.label_name</source>
@@ -152,7 +152,7 @@
             </trans-unit>
             <trans-unit id="filter.label_lastname">
                 <source>filter.label_lastname</source>
-                <target>Фамілія</target>
+                <target>Прізвище</target>
             </trans-unit>
             <trans-unit id="list.label_username">
                 <source>list.label_username</source>
@@ -196,11 +196,11 @@
             </trans-unit>
             <trans-unit id="list.label_lastname">
                 <source>list.label_lastname</source>
-                <target>Фамілія</target>
+                <target>Прізвище</target>
             </trans-unit>
             <trans-unit id="label_two_step_code">
                 <source>label_two_step_code</source>
-                <target>Код двухетапної аутентифікації</target>
+                <target>Код двоетапної автентифікації</target>
             </trans-unit>
             <trans-unit id="message_two_step_code_help">
                 <source>message_two_step_code_help</source>
@@ -292,7 +292,7 @@
             </trans-unit>
             <trans-unit id="form.label_two_step_verification_code">
                 <source>form.label_two_step_verification_code</source>
-                <target>Код двухетапної аутентифікації</target>
+                <target>Код двоетапної автентифікації</target>
             </trans-unit>
             <trans-unit id="show.label_username">
                 <source>show.label_username</source>
@@ -316,7 +316,7 @@
             </trans-unit>
             <trans-unit id="show.label_lastname">
                 <source>show.label_lastname</source>
-                <target>Фамілія</target>
+                <target>Прізвище</target>
             </trans-unit>
             <trans-unit id="show.label_website">
                 <source>show.label_website</source>
@@ -372,7 +372,7 @@
             </trans-unit>
             <trans-unit id="show.label_two_step_verification_code">
                 <source>show.label_two_step_verification_code</source>
-                <target>Код двухетапної аутентифікації</target>
+                <target>Код двоетапної автентифікації</target>
             </trans-unit>
             <trans-unit id="form.label_date_of_birth">
                 <source>form.label_date_of_birth</source>
@@ -384,15 +384,15 @@
             </trans-unit>
             <trans-unit id="gender_unknown">
                 <source>gender_unknown</source>
-                <target>не вказаний</target>
+                <target>не вказана</target>
             </trans-unit>
             <trans-unit id="gender_female">
                 <source>gender_female</source>
-                <target>жіночий</target>
+                <target>жіноча</target>
             </trans-unit>
             <trans-unit id="gender_male">
                 <source>gender_male</source>
-                <target>чоловічий</target>
+                <target>чоловіча</target>
             </trans-unit>
             <trans-unit id="sonata_profile_title">
                 <source>sonata_profile_title</source>
@@ -408,11 +408,11 @@
             </trans-unit>
             <trans-unit id="title_user_edit_authentication">
                 <source>title_user_edit_authentication</source>
-                <target>Аутентифікація</target>
+                <target>Автентифікація</target>
             </trans-unit>
             <trans-unit id="link_edit_authentication">
                 <source>link_edit_authentication</source>
-                <target>Аутентифікація</target>
+                <target>Автентифікація</target>
             </trans-unit>
             <trans-unit id="label_profile_gender">
                 <source>label_profile_gender</source>
@@ -424,7 +424,7 @@
             </trans-unit>
             <trans-unit id="label_profile_lastname">
                 <source>label_profile_lastname</source>
-                <target>Фамілія</target>
+                <target>Прізвище</target>
             </trans-unit>
             <trans-unit id="label_profile_website">
                 <source>label_profile_website</source>
@@ -488,7 +488,7 @@
             </trans-unit>
             <trans-unit id="sonata_user_already_authenticated">
                 <source>sonata_user_already_authenticated</source>
-                <target>Вы вже увійшли</target>
+                <target>Ви вже увійшли</target>
             </trans-unit>
             <trans-unit id="security.login.username">
                 <source>security.login.username</source>
@@ -513,6 +513,18 @@
             <trans-unit id="form.password_confirmation">
                 <source>form.password_confirmation</source>
                 <target>Підтвердження пароля</target>
+            </trans-unit>
+            <trans-unit id="title_user_edit_password">
+                <source>title_user_edit_password</source>
+                <target>Змінити пароль</target>
+            </trans-unit>
+            <trans-unit id="title_user_resetting">
+                <source>title_user_resetting</source>
+                <target>Відновити пароль</target>
+            </trans-unit>
+            <trans-unit id="title_user_resetting_reset">
+                <source>title_user_resetting_reset</source>
+                <target>Скинути пароль</target>
             </trans-unit>
         </body>
     </file>

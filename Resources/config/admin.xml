@@ -12,8 +12,7 @@
         </service>
 
         <service id="sonata.user.form.type.security_roles" class="Sonata\UserBundle\Form\Type\SecurityRolesType">
-            <tag name="form.type" alias="sonata_security_roles" />
-
+            <tag name="form.type" />
             <argument type="service" id="sonata.user.editable_role_builder" />
         </service>
 

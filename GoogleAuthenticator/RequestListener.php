@@ -89,8 +89,8 @@ class RequestListener
             $state = 'error';
         }
 
-        $event->setResponse($this->templating->renderResponse('SonataUserBundle:Admin:Security/two_step_form.html.twig', [
+        $event->setResponse($this->templating->renderResponse('SonataUserBundle:Admin:Security/two_step_form.html.twig', array(
             'state' => $state,
-        ]));
+        )));
     }
 }

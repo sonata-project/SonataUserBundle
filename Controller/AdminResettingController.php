@@ -39,10 +39,10 @@ class AdminResettingController extends ResettingController
             return new RedirectResponse($this->generateUrl('sonata_admin_dashboard'));
         }
 
-        return $this->render('SonataUserBundle:Admin:Security/Resetting/request.html.twig', [
+        return $this->render('SonataUserBundle:Admin:Security/Resetting/request.html.twig', array(
             'base_template' => $this->get('sonata.admin.pool')->getTemplate('layout'),
-            'admin_pool'    => $this->get('sonata.admin.pool'),
-        ]);
+            'admin_pool' => $this->get('sonata.admin.pool'),
+        ));
     }
 
     /**
@@ -56,18 +56,18 @@ class AdminResettingController extends ResettingController
         $user = $this->get('fos_user.user_manager')->findUserByUsernameOrEmail($username);
 
         if (null === $user) {
-            return $this->render('SonataUserBundle:Admin:Security/Resetting/request.html.twig', [
+            return $this->render('SonataUserBundle:Admin:Security/Resetting/request.html.twig', array(
                 'invalid_username' => $username,
-                'base_template'    => $this->get('sonata.admin.pool')->getTemplate('layout'),
-                'admin_pool'       => $this->get('sonata.admin.pool'),
-            ]);
+                'base_template' => $this->get('sonata.admin.pool')->getTemplate('layout'),
+                'admin_pool' => $this->get('sonata.admin.pool'),
+            ));
         }
 
         if ($user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
-            return $this->render('SonataUserBundle:Admin:Security/Resetting/passwordAlreadyRequested.html.twig', [
-                'base_template'    => $this->get('sonata.admin.pool')->getTemplate('layout'),
-                'admin_pool'       => $this->get('sonata.admin.pool'),
-            ]);
+            return $this->render('SonataUserBundle:Admin:Security/Resetting/passwordAlreadyRequested.html.twig', array(
+                'base_template' => $this->get('sonata.admin.pool')->getTemplate('layout'),
+                'admin_pool' => $this->get('sonata.admin.pool'),
+            ));
         }
 
         if (null === $user->getConfirmationToken()) {
@@ -81,7 +81,7 @@ class AdminResettingController extends ResettingController
         $this->get('fos_user.user_manager')->updateUser($user);
 
         return new RedirectResponse($this->generateUrl('sonata_user_admin_resetting_check_email',
-            ['email' => $this->getObfuscatedEmail($user)]
+            array('email' => $this->getObfuscatedEmail($user))
         ));
     }
 
@@ -97,11 +97,11 @@ class AdminResettingController extends ResettingController
             return new RedirectResponse($this->generateUrl('sonata_user_admin_resetting_request'));
         }
 
-        return $this->render('SonataUserBundle:Admin:Security/Resetting/checkEmail.html.twig', [
-            'email'         => $email,
+        return $this->render('SonataUserBundle:Admin:Security/Resetting/checkEmail.html.twig', array(
+            'email' => $email,
             'base_template' => $this->get('sonata.admin.pool')->getTemplate('layout'),
-            'admin_pool'    => $this->get('sonata.admin.pool'),
-        ]);
+            'admin_pool' => $this->get('sonata.admin.pool'),
+        ));
     }
 
     /**
@@ -155,12 +155,12 @@ class AdminResettingController extends ResettingController
             return $response;
         }
 
-        return $this->render('SonataUserBundle:Admin:Security/Resetting/reset.html.twig', [
-            'token'         => $token,
-            'form'          => $form->createView(),
+        return $this->render('SonataUserBundle:Admin:Security/Resetting/reset.html.twig', array(
+            'token' => $token,
+            'form' => $form->createView(),
             'base_template' => $this->container->get('sonata.admin.pool')->getTemplate('layout'),
-            'admin_pool'    => $this->container->get('sonata.admin.pool'),
-        ]);
+            'admin_pool' => $this->container->get('sonata.admin.pool'),
+        ));
     }
 
     /**

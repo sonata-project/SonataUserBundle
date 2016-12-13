@@ -39,7 +39,7 @@ class UserManager extends BaseUserManager implements UserManagerInterface
      *
      * @return PagerInterface
      */
-    public function getPager(array $criteria, $page, $limit = 10, array $sort = [])
+    public function getPager(array $criteria, $page, $limit = 10, array $sort = array())
     {
         new \RuntimeException('method not implemented');
     }
