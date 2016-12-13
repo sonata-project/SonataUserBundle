@@ -90,7 +90,6 @@ class UserAdmin extends AbstractAdmin
             ->add('email')
             ->add('groups')
             ->add('enabled', null, array('editable' => true))
-            ->add('locked', null, array('editable' => true))
             ->add('createdAt');
 
         if ($this->isGranted('ROLE_ALLOWED_TO_SWITCH')) {
@@ -107,7 +106,6 @@ class UserAdmin extends AbstractAdmin
         $filterMapper
             ->add('id')
             ->add('username')
-            ->add('locked')
             ->add('email')
             ->add('groups');
     }
@@ -217,10 +215,7 @@ class UserAdmin extends AbstractAdmin
             ->end()
             ->tab('Security')
                 ->with('Status')
-                    ->add('locked', null, array('required' => false))
-                    ->add('expired', null, array('required' => false))
                     ->add('enabled', null, array('required' => false))
-                    ->add('credentialsExpired', null, array('required' => false))
                 ->end()
                 ->with('Groups')
                     ->add('groups', 'sonata_type_model', array(
