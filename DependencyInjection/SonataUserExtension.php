@@ -54,7 +54,7 @@ class SonataUserExtension extends Extension
 
         if ('orm' === $config['manager_type'] && isset(
             $bundles['FOSRestBundle'],
-            $bundles['NelmioApiDocBundle'], 
+            $bundles['NelmioApiDocBundle'],
             $bundles['JMSSerializerBundle']
         )) {
             $loader->load('serializer.xml');
