@@ -52,7 +52,7 @@ class SonataUserExtension extends Extension
         $loader->load('google_authenticator.xml');
         $loader->load('twig.xml');
 
-        if ('orm' === $config['manager_type'] && isset($bundles['FOSRestBundle']) && isset($bundles['NelmioApiDocBundle'])) {
+        if ('orm' === $config['manager_type'] && isset($bundles['FOSRestBundle']) && isset($bundles['NelmioApiDocBundle']) && isset($bundles['JMSSerializerBundle'])) {
             $loader->load('serializer.xml');
 
             $loader->load('api_form.xml');
