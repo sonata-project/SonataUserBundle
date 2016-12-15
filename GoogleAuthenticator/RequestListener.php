@@ -15,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class RequestListener
 {
@@ -25,9 +25,9 @@ class RequestListener
     protected $helper;
 
     /**
-     * @var SecurityContextInterface
+     * @var TokenStorageInterface
      */
-    protected $securityContext;
+    protected $tokenStorage;
 
     /**
      * @var EngineInterface
@@ -35,14 +35,14 @@ class RequestListener
     protected $templating;
 
     /**
-     * @param Helper                   $helper
-     * @param SecurityContextInterface $securityContext
-     * @param EngineInterface          $templating
+     * @param Helper                $helper
+     * @param TokenStorageInterface $tokenStorage
+     * @param EngineInterface       $templating
      */
-    public function __construct(Helper $helper, SecurityContextInterface $securityContext, EngineInterface $templating)
+    public function __construct(Helper $helper, TokenStorageInterface $tokenStorage, EngineInterface $templating)
     {
         $this->helper = $helper;
-        $this->securityContext = $securityContext;
+        $this->tokenStorage = $tokenStorage;
         $this->templating = $templating;
     }
 
@@ -55,7 +55,7 @@ class RequestListener
             return;
         }
 
-        $token = $this->securityContext->getToken();
+        $token = $this->tokenStorage->getToken();
 
         if (!$token) {
             return;
@@ -65,10 +65,10 @@ class RequestListener
             return;
         }
 
-        $key = $this->helper->getSessionKey($this->securityContext->getToken());
+        $key = $this->helper->getSessionKey($token);
         $request = $event->getRequest();
         $session = $event->getRequest()->getSession();
-        $user = $this->securityContext->getToken()->getUser();
+        $user = $token->getUser();
 
         if (!$session->has($key)) {
             return;
