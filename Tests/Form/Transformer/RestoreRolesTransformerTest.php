@@ -16,7 +16,7 @@ use Sonata\UserBundle\Form\Transformer\RestoreRolesTransformer;
 class RestoreRolesTransformerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @expectedException RuntimeException
+     * @expectedException \RuntimeException
      */
     public function testInvalidStateTransform()
     {
@@ -29,7 +29,7 @@ class RestoreRolesTransformerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException RuntimeException
+     * @expectedException \RuntimeException
      */
     public function testInvalidStateReverseTransform()
     {
