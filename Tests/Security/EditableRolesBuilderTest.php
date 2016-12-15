@@ -15,15 +15,14 @@ use Sonata\UserBundle\Security\EditableRolesBuilder;
 
 class EditableRolesBuilderTest extends \PHPUnit_Framework_TestCase
 {
-
     public function getTokenStorageMock()
     {
         // Set the SecurityContext for Symfony <2.6
         // TODO: Remove conditional return when bumping requirements to SF 2.6+
         if (interface_exists('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface')) {
             return $this->getMock('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface');
-
         }
+
         return $this->getMock('Symfony\Component\Security\Core\SecurityContextInterface');
     }
 
@@ -34,6 +33,7 @@ class EditableRolesBuilderTest extends \PHPUnit_Framework_TestCase
         if (interface_exists('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')) {
             return $this->getMock('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
         }
+
         return $this->getMock('Symfony\Component\Security\Core\SecurityContextInterface');
     }
 

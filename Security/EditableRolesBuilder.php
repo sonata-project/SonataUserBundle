@@ -40,7 +40,7 @@ class EditableRolesBuilder
 
     /**
      * NEXT_MAJOR: Go back to signature class check when bumping requirements to SF 2.6+.
-     * 
+     *
      * @param TokenStorageInterface|SecurityContextInterface         $tokenStorage
      * @param AuthorizationCheckerInterface|SecurityContextInterface $authorizationChecker
      * @param Pool                                                   $pool

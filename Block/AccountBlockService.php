@@ -39,7 +39,7 @@ class AccountBlockService extends BaseBlockService
      * Constructor.
      *
      * NEXT_MAJOR: Go back to signature class check when bumping requirements to SF 2.6+.
-     * 
+     *
      * @param string                                         $name
      * @param EngineInterface                                $templating
      * @param TokenStorageInterface|SecurityContextInterface $tokenStorage
