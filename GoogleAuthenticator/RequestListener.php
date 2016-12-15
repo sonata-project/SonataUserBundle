@@ -16,6 +16,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class RequestListener
 {
@@ -25,7 +26,7 @@ class RequestListener
     protected $helper;
 
     /**
-     * @var TokenStorageInterface
+     * @var TokenStorageInterface|SecurityContextInterface
      */
     protected $tokenStorage;
 
@@ -35,12 +36,18 @@ class RequestListener
     protected $templating;
 
     /**
-     * @param Helper                $helper
-     * @param TokenStorageInterface $tokenStorage
-     * @param EngineInterface       $templating
+     * NEXT_MAJOR: Go back to signature class check when bumping requirements to SF 2.6+.
+     * 
+     * @param Helper                                         $helper
+     * @param TokenStorageInterface|SecurityContextInterface $tokenStorage
+     * @param EngineInterface                                $templating
      */
-    public function __construct(Helper $helper, TokenStorageInterface $tokenStorage, EngineInterface $templating)
+    public function __construct(Helper $helper, $tokenStorage, EngineInterface $templating)
     {
+        if (!$tokenStorage instanceof TokenStorageInterface && !$tokenStorage instanceof SecurityContextInterface) {
+            throw new \InvalidArgumentException('Argument 1 should be an instance of Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface or Symfony\Component\Security\Core\SecurityContextInterface');
+        }
+
         $this->helper = $helper;
         $this->tokenStorage = $tokenStorage;
         $this->templating = $templating;

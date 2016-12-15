@@ -18,6 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Class AccountBlockService.
@@ -30,20 +31,26 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class AccountBlockService extends BaseBlockService
 {
     /**
-     * @var TokenStorageInterface
+     * @var TokenStorageInterface|SecurityContextInterface
      */
     private $tokenStorage;
 
     /**
      * Constructor.
      *
-     * @param string                $name
-     * @param EngineInterface       $templating
-     * @param TokenStorageInterface $tokenStorage
+     * NEXT_MAJOR: Go back to signature class check when bumping requirements to SF 2.6+.
+     * 
+     * @param string                                         $name
+     * @param EngineInterface                                $templating
+     * @param TokenStorageInterface|SecurityContextInterface $tokenStorage
      */
-    public function __construct($name, EngineInterface $templating, TokenStorageInterface $tokenStorage)
+    public function __construct($name, EngineInterface $templating, $tokenStorage)
     {
         parent::__construct($name, $templating);
+
+        if (!$tokenStorage instanceof TokenStorageInterface && !$tokenStorage instanceof SecurityContextInterface) {
+            throw new \InvalidArgumentException('Argument 1 should be an instance of Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface or Symfony\Component\Security\Core\SecurityContextInterface');
+        }
 
         $this->tokenStorage = $tokenStorage;
     }
