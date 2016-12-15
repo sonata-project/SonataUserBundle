@@ -39,7 +39,7 @@ class EditableRolesBuilder
     protected $rolesHierarchy;
 
     /**
-     * NEXT_MAJOR: Go back to signature class check when bumping requirements to SF 2.6+.
+     * NEXT_MAJOR: Go back to type hinting check when bumping requirements to SF 2.6+.
      *
      * @param TokenStorageInterface|SecurityContextInterface         $tokenStorage
      * @param AuthorizationCheckerInterface|SecurityContextInterface $authorizationChecker
@@ -49,10 +49,14 @@ class EditableRolesBuilder
     public function __construct($tokenStorage, $authorizationChecker, Pool $pool, array $rolesHierarchy = array())
     {
         if (!$tokenStorage instanceof TokenStorageInterface && !$tokenStorage instanceof SecurityContextInterface) {
-            throw new \InvalidArgumentException('Argument 1 should be an instance of Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface or Symfony\Component\Security\Core\SecurityContextInterface');
+            throw new \InvalidArgumentException(
+                'Argument 1 should be an instance of Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface or Symfony\Component\Security\Core\SecurityContextInterface'
+            );
         }
         if (!$authorizationChecker instanceof AuthorizationCheckerInterface && !$authorizationChecker instanceof SecurityContextInterface) {
-            throw new \InvalidArgumentException('Argument 2 should be an instance of Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface or Symfony\Component\Security\Core\SecurityContextInterface');
+            throw new \InvalidArgumentException(
+                'Argument 2 should be an instance of Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface or Symfony\Component\Security\Core\SecurityContextInterface'
+            );
         }
 
         $this->tokenStorage = $tokenStorage;

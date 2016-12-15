@@ -38,7 +38,7 @@ class AccountBlockService extends BaseBlockService
     /**
      * Constructor.
      *
-     * NEXT_MAJOR: Go back to signature class check when bumping requirements to SF 2.6+.
+     * NEXT_MAJOR: Go back to type hinting check when bumping requirements to SF 2.6+.
      *
      * @param string                                         $name
      * @param EngineInterface                                $templating
@@ -49,7 +49,9 @@ class AccountBlockService extends BaseBlockService
         parent::__construct($name, $templating);
 
         if (!$tokenStorage instanceof TokenStorageInterface && !$tokenStorage instanceof SecurityContextInterface) {
-            throw new \InvalidArgumentException('Argument 1 should be an instance of Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface or Symfony\Component\Security\Core\SecurityContextInterface');
+            throw new \InvalidArgumentException(
+                'Argument 3 should be an instance of Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface or Symfony\Component\Security\Core\SecurityContextInterface'
+            );
         }
 
         $this->tokenStorage = $tokenStorage;
