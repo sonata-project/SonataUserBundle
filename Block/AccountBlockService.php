@@ -13,7 +13,6 @@ namespace Sonata\UserBundle\Block;
 
 use Sonata\BlockBundle\Block\BaseBlockService;
 use Sonata\BlockBundle\Block\BlockContextInterface;
-use Sonata\UserBundle\Menu\ProfileMenuBuilder;
 use Sonata\UserBundle\Model\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,7 +32,7 @@ class AccountBlockService extends BaseBlockService
     /**
      * @var TokenStorageInterface
      */
-    protected $tokenStorage;
+    private $tokenStorage;
 
     /**
      * Constructor.
