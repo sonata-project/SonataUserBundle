@@ -43,7 +43,7 @@ class AdminSecurityController extends Controller
 
         $session = $request->getSession();
 
-        // Symfony <2.6 BC. To be removed.
+        // NEXT_MAJOR: Symfony <2.6 BC. To be removed.
         $authenticationErrorKey = class_exists('Symfony\Component\Security\Core\Security')
             ? Security::AUTHENTICATION_ERROR : SecurityContextInterface::AUTHENTICATION_ERROR;
 
@@ -61,6 +61,7 @@ class AdminSecurityController extends Controller
             $error = null; // The value does not come from the security component.
         }
 
+        // NEXT_MAJOR: Symfony <2.6 BC. To be removed.
         $lastUsernameKey = class_exists('Symfony\Component\Security\Core\Security')
             ? Security::LAST_USERNAME : SecurityContextInterface::LAST_USERNAME;
 
