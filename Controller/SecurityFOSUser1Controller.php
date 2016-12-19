@@ -57,11 +57,11 @@ class SecurityFOSUser1Controller extends SecurityController
             ? Security::AUTHENTICATION_ERROR : SecurityContextInterface::AUTHENTICATION_ERROR;
 
         // get the error if any (works with forward and redirect -- see below)
-        if ($request->attributes->has(authenticationErrorKey)) {
-            $error = $request->attributes->get(authenticationErrorKey);
-        } elseif (null !== $session && $session->has(authenticationErrorKey)) {
-            $error = $session->get(authenticationErrorKey);
-            $session->remove(authenticationErrorKey);
+        if ($request->attributes->has($authenticationErrorKey)) {
+            $error = $request->attributes->get($authenticationErrorKey);
+        } elseif (null !== $session && $session->has($authenticationErrorKey)) {
+            $error = $session->get($authenticationErrorKey);
+            $session->remove($authenticationErrorKey);
         } else {
             $error = null;
         }
