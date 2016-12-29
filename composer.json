@@ -34,17 +34,17 @@
         "friendsofsymfony/rest-bundle": "^1.5 || ^2.0",
         "jms/serializer-bundle": "^0.13 || ^1.0",
         "nelmio/api-doc-bundle": "^2.4",
-        "symfony/phpunit-bridge": "^2.8 || ^3.0",
         "sllh/php-cs-fixer-styleci-bridge": "^2.0",
-        "sonata-project/google-authenticator": "^1.0"
+        "sonata-project/google-authenticator": "^1.0",
+        "symfony/phpunit-bridge": "^2.8 || ^3.0"
     },
     "suggest": {
         "friendsofsymfony/rest-bundle": "For using the public API methods.",
         "jms/serializer": "For using the public API methods.",
         "nelmio/api-doc-bundle": "For using the public API methods.",
         "sonata-project/doctrine-orm-admin-bundle": "^3.0",
-        "sonata-project/seo-bundle": "For SEO breadcrumb block service usage",
-        "sonata-project/google-authenticator": "For google auth user login"
+        "sonata-project/google-authenticator": "For google auth user login",
+        "sonata-project/seo-bundle": "For SEO breadcrumb block service usage"
     },
     "conflict": {
         "friendsofsymfony/rest-bundle": "<1.1",
