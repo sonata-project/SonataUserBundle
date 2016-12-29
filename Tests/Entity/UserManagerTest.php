@@ -36,7 +36,7 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException        RuntimeException
+     * @expectedException        \RuntimeException
      * @expectedExceptionMessage Invalid sort field 'invalid' in 'className' class
      */
     public function testGetPagerWithInvalidSort()

@@ -14,6 +14,7 @@ namespace Sonata\UserBundle\GoogleAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernel;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
@@ -25,9 +26,9 @@ class RequestListener
     protected $helper;
 
     /**
-     * @var SecurityContextInterface
+     * @var TokenStorageInterface|SecurityContextInterface
      */
-    protected $securityContext;
+    protected $tokenStorage;
 
     /**
      * @var EngineInterface
@@ -35,14 +36,22 @@ class RequestListener
     protected $templating;
 
     /**
-     * @param Helper                   $helper
-     * @param SecurityContextInterface $securityContext
-     * @param EngineInterface          $templating
+     * NEXT_MAJOR: Go back to type hinting check when bumping requirements to SF 2.6+.
+     *
+     * @param Helper                                         $helper
+     * @param TokenStorageInterface|SecurityContextInterface $tokenStorage
+     * @param EngineInterface                                $templating
      */
-    public function __construct(Helper $helper, SecurityContextInterface $securityContext, EngineInterface $templating)
+    public function __construct(Helper $helper, $tokenStorage, EngineInterface $templating)
     {
+        if (!$tokenStorage instanceof TokenStorageInterface && !$tokenStorage instanceof SecurityContextInterface) {
+            throw new \InvalidArgumentException(
+                'Argument 2 should be an instance of Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface or Symfony\Component\Security\Core\SecurityContextInterface'
+            );
+        }
+
         $this->helper = $helper;
-        $this->securityContext = $securityContext;
+        $this->tokenStorage = $tokenStorage;
         $this->templating = $templating;
     }
 
@@ -55,7 +64,7 @@ class RequestListener
             return;
         }
 
-        $token = $this->securityContext->getToken();
+        $token = $this->tokenStorage->getToken();
 
         if (!$token) {
             return;
@@ -65,10 +74,10 @@ class RequestListener
             return;
         }
 
-        $key = $this->helper->getSessionKey($this->securityContext->getToken());
+        $key = $this->helper->getSessionKey($token);
         $request = $event->getRequest();
         $session = $event->getRequest()->getSession();
-        $user = $this->securityContext->getToken()->getUser();
+        $user = $token->getUser();
 
         if (!$session->has($key)) {
             return;

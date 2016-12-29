@@ -13,11 +13,11 @@ namespace Sonata\UserBundle\Block;
 
 use Sonata\BlockBundle\Block\BaseBlockService;
 use Sonata\BlockBundle\Block\BlockContextInterface;
-use Sonata\UserBundle\Menu\ProfileMenuBuilder;
 use Sonata\UserBundle\Model\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -31,22 +31,30 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 class AccountBlockService extends BaseBlockService
 {
     /**
-     * @var ProfileMenuBuilder
+     * @var TokenStorageInterface|SecurityContextInterface
      */
-    private $securityContext;
+    private $tokenStorage;
 
     /**
      * Constructor.
      *
-     * @param string                   $name
-     * @param EngineInterface          $templating
-     * @param SecurityContextInterface $securityContext
+     * NEXT_MAJOR: Go back to type hinting check when bumping requirements to SF 2.6+.
+     *
+     * @param string                                         $name
+     * @param EngineInterface                                $templating
+     * @param TokenStorageInterface|SecurityContextInterface $tokenStorage
      */
-    public function __construct($name, EngineInterface $templating, SecurityContextInterface $securityContext)
+    public function __construct($name, EngineInterface $templating, $tokenStorage)
     {
         parent::__construct($name, $templating);
 
-        $this->securityContext = $securityContext;
+        if (!$tokenStorage instanceof TokenStorageInterface && !$tokenStorage instanceof SecurityContextInterface) {
+            throw new \InvalidArgumentException(
+                'Argument 3 should be an instance of Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface or Symfony\Component\Security\Core\SecurityContextInterface'
+            );
+        }
+
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -55,8 +63,8 @@ class AccountBlockService extends BaseBlockService
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
         $user = false;
-        if ($this->securityContext->getToken()) {
-            $user = $this->securityContext->getToken()->getUser();
+        if ($this->tokenStorage->getToken()) {
+            $user = $this->tokenStorage->getToken()->getUser();
         }
 
         if (!$user instanceof UserInterface) {

@@ -11,6 +11,7 @@
 
 namespace Sonata\UserBundle\Controller\Api;
 
+use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcherInterface;
@@ -69,16 +70,15 @@ class UserController
      *
      * @ApiDoc(
      *  resource=true,
-     *  output={"class"="Sonata\DatagridBundle\Pager\PagerInterface", "groups"="sonata_api_read"}
+     *  output={"class"="Sonata\DatagridBundle\Pager\PagerInterface", "groups"={"sonata_api_read"}}
      * )
      *
      * @QueryParam(name="page", requirements="\d+", default="1", description="Page for users list pagination (1-indexed)")
      * @QueryParam(name="count", requirements="\d+", default="10", description="Number of users by page")
-     * @QueryParam(name="orderBy", array=true, requirements="ASC|DESC", nullable=true, strict=true, description="Query users order by clause (key is field, value is direction")
      * @QueryParam(name="enabled", requirements="0|1", nullable=true, strict=true, description="Enabled/disabled users only?")
      * @QueryParam(name="locked", requirements="0|1", nullable=true, strict=true, description="Locked/Non-locked users only?")
      *
-     * @View(serializerGroups="sonata_api_read", serializerEnableMaxDepthChecks=true)
+     * @View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
      *
      * @param ParamFetcherInterface $paramFetcher
      *
@@ -86,6 +86,20 @@ class UserController
      */
     public function getUsersAction(ParamFetcherInterface $paramFetcher)
     {
+        $orderByQueryParam = new QueryParam();
+        $orderByQueryParam->name = 'orderBy';
+        $orderByQueryParam->requirements = 'ASC|DESC';
+        $orderByQueryParam->nullable = true;
+        $orderByQueryParam->strict = true;
+        $orderByQueryParam->description = 'Query users order by clause (key is field, value is direction)';
+        if (property_exists($orderByQueryParam, 'map')) {
+            $orderByQueryParam->map = true;
+        } else {
+            $orderByQueryParam->array = true;
+        }
+
+        $paramFetcher->addParam($orderByQueryParam);
+
         $supporedCriteria = array(
             'enabled' => '',
             'locked' => '',
@@ -118,14 +132,14 @@ class UserController
      *  requirements={
      *      {"name"="id", "dataType"="integer", "requirement"="\d+", "description"="user id"}
      *  },
-     *  output={"class"="Sonata\UserBundle\Model\UserInterface", "groups"="sonata_api_read"},
+     *  output={"class"="Sonata\UserBundle\Model\UserInterface", "groups"={"sonata_api_read"}},
      *  statusCodes={
      *      200="Returned when successful",
      *      404="Returned when user is not found"
      *  }
      * )
      *
-     * @View(serializerGroups="sonata_api_read", serializerEnableMaxDepthChecks=true)
+     * @View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
      *
      * @param $id
      *
@@ -361,10 +375,17 @@ class UserController
             $this->userManager->updateUser($user);
 
             $view = FOSRestView::create($user);
-            $serializationContext = SerializationContext::create();
-            $serializationContext->setGroups(array('sonata_api_read'));
-            $serializationContext->enableMaxDepthChecks();
-            $view->setSerializationContext($serializationContext);
+
+            if (class_exists('FOS\RestBundle\Context\Context')) {
+                $context = new Context();
+                $context->setGroups(array('sonata_api_read'));
+                $view->setContext($context);
+            } else {
+                $serializationContext = SerializationContext::create();
+                $serializationContext->setGroups(array('sonata_api_read'));
+                $serializationContext->enableMaxDepthChecks();
+                $view->setSerializationContext($serializationContext);
+            }
 
             return $view;
         }
