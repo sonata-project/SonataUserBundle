@@ -16,6 +16,7 @@ use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
@@ -56,7 +57,11 @@ class SonataUserExtension extends Extension
 
         $loader->load('twig.xml');
 
-        if ('orm' === $config['manager_type'] && isset($bundles['FOSRestBundle']) && isset($bundles['NelmioApiDocBundle'])) {
+        if ('orm' === $config['manager_type'] && isset(
+            $bundles['FOSRestBundle'],
+            $bundles['NelmioApiDocBundle'],
+            $bundles['JMSSerializerBundle']
+        )) {
             $loader->load('serializer.xml');
 
             $loader->load('api_form.xml');
@@ -72,6 +77,32 @@ class SonataUserExtension extends Extension
         }
 
         $config = $this->addDefaults($config);
+
+        // Set the SecurityContext for Symfony <2.6
+        // NEXT_MAJOR: Go back to simple xml configuration when bumping requirements to SF 2.6+
+        if (interface_exists('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface')) {
+            $tokenStorageReference = new Reference('security.token_storage');
+            $authorizationCheckerReference = new Reference('security.authorization_checker');
+        } else {
+            $tokenStorageReference = new Reference('security.context');
+            $authorizationCheckerReference = new Reference('security.context');
+        }
+
+        $container
+            ->getDefinition('sonata.user.editable_role_builder')
+            ->replaceArgument(0, $tokenStorageReference)
+            ->replaceArgument(1, $authorizationCheckerReference)
+        ;
+
+        $container
+            ->getDefinition('sonata.user.block.account')
+            ->replaceArgument(2, $tokenStorageReference)
+        ;
+
+        $container
+            ->getDefinition('sonata.user.google.authenticator.request_listener')
+            ->replaceArgument(2, $tokenStorageReference)
+        ;
 
         $this->registerDoctrineMapping($config);
         $this->configureAdminClass($config, $container);

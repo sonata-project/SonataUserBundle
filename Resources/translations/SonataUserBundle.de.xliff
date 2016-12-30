@@ -486,6 +486,26 @@
                 <source>Profile</source>
                 <target>Profil</target>
             </trans-unit>
+            <trans-unit id="group_user">
+                <source>User</source>
+                <target>Benutzer</target>
+            </trans-unit>
+            <trans-unit id="group_status">
+                <source>Status</source>
+                <target>Status</target>
+            </trans-unit>
+            <trans-unit id="group_social">
+                <source>Social</source>
+                <target>Soziale Kanäle</target>
+            </trans-unit>
+            <trans-unit id="group_roles">
+                <source>Roles</source>
+                <target>Rollen</target>
+            </trans-unit>
+            <trans-unit id="group_keys">
+                <source>Keys</source>
+                <target>Schlüssel</target>
+            </trans-unit>
             <trans-unit id="group_security">
                 <source>Security</source>
                 <target>Sicherheit</target>
@@ -493,10 +513,6 @@
             <trans-unit id="Gender">
                 <source>Gender</source>
                 <target>Geschlecht</target>
-            </trans-unit>
-            <trans-unit id="Bad credentials">
-                <source>Bad credentials</source>
-                <target>Benutzername oder Passwort ungültig</target>
             </trans-unit>
             <trans-unit id="sonata_profile_title">
                 <source>sonata_profile_title</source>

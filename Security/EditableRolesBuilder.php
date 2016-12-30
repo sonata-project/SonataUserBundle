@@ -12,14 +12,21 @@
 namespace Sonata\UserBundle\Security;
 
 use Sonata\AdminBundle\Admin\Pool;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class EditableRolesBuilder
 {
     /**
-     * @var SecurityContextInterface
+     * @var TokenStorageInterface|SecurityContextInterface
      */
-    protected $securityContext;
+    protected $tokenStorage;
+
+    /**
+     * @var AuthorizationCheckerInterface|SecurityContextInterface
+     */
+    protected $authorizationChecker;
 
     /**
      * @var Pool
@@ -32,13 +39,28 @@ class EditableRolesBuilder
     protected $rolesHierarchy;
 
     /**
-     * @param SecurityContextInterface $securityContext
-     * @param Pool                     $pool
-     * @param array                    $rolesHierarchy
+     * NEXT_MAJOR: Go back to type hinting check when bumping requirements to SF 2.6+.
+     *
+     * @param TokenStorageInterface|SecurityContextInterface         $tokenStorage
+     * @param AuthorizationCheckerInterface|SecurityContextInterface $authorizationChecker
+     * @param Pool                                                   $pool
+     * @param array                                                  $rolesHierarchy
      */
-    public function __construct(SecurityContextInterface $securityContext, Pool $pool, array $rolesHierarchy = array())
+    public function __construct($tokenStorage, $authorizationChecker, Pool $pool, array $rolesHierarchy = array())
     {
-        $this->securityContext = $securityContext;
+        if (!$tokenStorage instanceof TokenStorageInterface && !$tokenStorage instanceof SecurityContextInterface) {
+            throw new \InvalidArgumentException(
+                'Argument 1 should be an instance of Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface or Symfony\Component\Security\Core\SecurityContextInterface'
+            );
+        }
+        if (!$authorizationChecker instanceof AuthorizationCheckerInterface && !$authorizationChecker instanceof SecurityContextInterface) {
+            throw new \InvalidArgumentException(
+                'Argument 2 should be an instance of Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface or Symfony\Component\Security\Core\SecurityContextInterface'
+            );
+        }
+
+        $this->tokenStorage = $tokenStorage;
+        $this->authorizationChecker = $authorizationChecker;
         $this->pool = $pool;
         $this->rolesHierarchy = $rolesHierarchy;
     }
@@ -51,7 +73,7 @@ class EditableRolesBuilder
         $roles = array();
         $rolesReadOnly = array();
 
-        if (!$this->securityContext->getToken()) {
+        if (!$this->tokenStorage->getToken()) {
             return array($roles, $rolesReadOnly);
         }
 
@@ -78,18 +100,18 @@ class EditableRolesBuilder
                 if ($isMaster) {
                     // if the user has the MASTER permission, allow to grant access the admin roles to other users
                     $roles[$role] = $role;
-                } elseif ($this->securityContext->isGranted($role)) {
+                } elseif ($this->authorizationChecker->isGranted($role)) {
                     // although the user has no MASTER permission, allow the currently logged in user to view the role
                     $rolesReadOnly[$role] = $role;
                 }
             }
         }
 
-        $isMaster = $this->securityContext->isGranted('ROLE_SUPER_ADMIN');
+        $isMaster = $this->authorizationChecker->isGranted('ROLE_SUPER_ADMIN');
 
         // get roles from the service container
         foreach ($this->rolesHierarchy as $name => $rolesHierarchy) {
-            if ($this->securityContext->isGranted($name) || $isMaster) {
+            if ($this->authorizationChecker->isGranted($name) || $isMaster) {
                 $roles[$name] = $name.': '.implode(', ', $rolesHierarchy);
 
                 foreach ($rolesHierarchy as $role) {
