@@ -84,11 +84,13 @@ class SonataUserExtension extends Extension
             $authorizationCheckerReference = new Reference('security.context');
         }
 
-        $container
-            ->getDefinition('sonata.user.editable_role_builder')
-            ->replaceArgument(0, $tokenStorageReference)
-            ->replaceArgument(1, $authorizationCheckerReference)
-        ;
+        if ($container->hasDefinition('sonata.user.editable_role_builder')) {
+            $container
+                ->getDefinition('sonata.user.editable_role_builder')
+                ->replaceArgument(0, $tokenStorageReference)
+                ->replaceArgument(1, $authorizationCheckerReference)
+            ;
+        }
 
         $container
             ->getDefinition('sonata.user.block.account')
