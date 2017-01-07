@@ -99,7 +99,7 @@ class SonataUserExtension extends Extension
 
         $container
             ->getDefinition('sonata.user.google.authenticator.request_listener')
-            ->replaceArgument(2, $tokenStorageReference)
+            ->replaceArgument(1, $tokenStorageReference)
         ;
 
         $this->registerDoctrineMapping($config);
