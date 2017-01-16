@@ -14,9 +14,6 @@ namespace Sonata\UserBundle\Tests\Menu;
 use Sonata\UserBundle\Menu\ProfileMenuBuilder;
 
 /**
- * Class ProfileMenuBuilderTest.
- *
- *
  * @author Hugo Briand <briand@ekino.com>
  */
 class ProfileMenuBuilderTest extends \PHPUnit_Framework_TestCase

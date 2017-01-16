@@ -16,9 +16,6 @@ use FOS\UserBundle\Model\GroupManagerInterface as BaseInterface;
 use Sonata\CoreBundle\Model\PageableManagerInterface;
 
 /**
- * Class GroupManagerInterface.
- *
- *
  * @author Hugo Briand <briand@ekino.com>
  */
 interface GroupManagerInterface extends BaseInterface, PageableManagerInterface
