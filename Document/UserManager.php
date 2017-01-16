@@ -16,9 +16,6 @@ use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
 
 /**
- * Class UserManager.
- *
- *
  * @author Hugo Briand <briand@ekino.com>
  */
 class UserManager extends BaseUserManager implements UserManagerInterface

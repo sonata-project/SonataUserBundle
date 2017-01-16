@@ -17,9 +17,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
- * Class ProfileMenuBuilder.
- *
- *
  * @author Hugo Briand <briand@ekino.com>
  */
 class ProfileMenuBuilder

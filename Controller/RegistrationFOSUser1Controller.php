@@ -19,10 +19,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\AccountStatusException;
 
 /**
- * Class SonataRegistrationController.
- *
- * This class is inspired from the FOS RegistrationController
- *
+ * This class is inspired from the FOS RegistrationController.
  *
  * @author Hugo Briand <briand@ekino.com>
  */
