@@ -18,9 +18,6 @@ use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;
 use Sonata\UserBundle\Model\UserManagerInterface;
 
 /**
- * Class UserManager.
- *
- *
  * @author Hugo Briand <briand@ekino.com>
  */
 class UserManager extends BaseUserManager implements UserManagerInterface, ManagerInterface

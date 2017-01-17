@@ -29,9 +29,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Class UserController.
- *
- *
  * @author Hugo Briand <briand@ekino.com>
  */
 class UserController
@@ -52,8 +49,6 @@ class UserController
     protected $formFactory;
 
     /**
-     * Constructor.
-     *
      * @param UserManagerInterface  $userManager
      * @param GroupManagerInterface $groupManager
      * @param FormFactoryInterface  $formFactory

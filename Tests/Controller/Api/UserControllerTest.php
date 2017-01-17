@@ -15,9 +15,6 @@ use Sonata\UserBundle\Controller\Api\UserController;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class UserControllerTest.
- *
- *
  * @author Hugo Briand <briand@ekino.com>
  */
 class UserControllerTest extends \PHPUnit_Framework_TestCase

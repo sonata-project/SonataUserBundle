@@ -15,9 +15,6 @@ use Sonata\UserBundle\Controller\Api\GroupController;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class GroupControllerTest.
- *
- *
  * @author Hugo Briand <briand@ekino.com>
  */
 class GroupControllerTest extends \PHPUnit_Framework_TestCase

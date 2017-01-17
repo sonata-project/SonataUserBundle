@@ -15,9 +15,6 @@ use Knp\Menu\ItemInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
- * Class ProfileMenuEvent.
- *
- *
  * @author Hugo Briand <briand@ekino.com>
  */
 class ProfileMenuEvent extends Event
