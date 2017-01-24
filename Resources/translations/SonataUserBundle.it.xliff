@@ -398,7 +398,7 @@
                 <source>show.label_two_step_verification_code</source>
                 <target>Verifica in due passaggi</target>
             </trans-unit>
-           <trans-unit id="show.label_created_at">
+            <trans-unit id="show.label_created_at">
                 <source>show.label_created_at</source>
                 <target>Creato il</target>
             </trans-unit>
