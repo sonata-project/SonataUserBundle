@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-    <file source-language="it" datatype="plaintext" original="">
+    <file source-language="en" datatype="plaintext" original="">
         <body>
             <trans-unit id="title_user_registration">
                 <source>title_user_registration</source>
@@ -58,45 +58,9 @@
                 <source>groups</source>
                 <target>Gruppi</target>
             </trans-unit>
-            <trans-unit id="general">
-                <source>General</source>
-                <target>Generale</target>
-            </trans-unit>
-            <trans-unit id="group">
-                <source>Group</source>
-                <target>Gruppo</target>
-            </trans-unit>
-            <trans-unit id="keys">
-                <source>Keys</source>
-                <target>Chiavi</target>
-            </trans-unit>
-            <trans-unit id="profile">
-                <source>Profile</source>
-                <target>Profilo</target>
-            </trans-unit>
-            <trans-unit id="security">
-                <source>Security</source>
-                <target>Sicurezza</target>
-            </trans-unit>
-            <trans-unit id="social">
-                <source>Social</source>
-                <target>Social</target>
-            </trans-unit>
-            <trans-unit id="status">
-                <source>Status</source>
-                <target>Stato</target>
-            </trans-unit>
-            <trans-unit id="roles">
-                <source>Roles</source>
-                <target>Ruoli</target>
-            </trans-unit>
-            <trans-unit id="user">
-                <source>User</source>
-                <target>Utente</target>
-            </trans-unit>
             <trans-unit id="switch_user_exit">
                 <source>switch_user_exit</source>
-                <target>Torna in modalità amministratore</target>
+                <target>Torna amministratore</target>
             </trans-unit>
             <trans-unit id="switch_user">
                 <source>switch_user</source>
@@ -116,7 +80,7 @@
             </trans-unit>
             <trans-unit id="form.label_email">
                 <source>form.label_email</source>
-                <target>Indirizzo Email</target>
+                <target>Indirizzo email</target>
             </trans-unit>
             <trans-unit id="form.label_plain_password">
                 <source>form.label_plain_password</source>
@@ -168,7 +132,7 @@
             </trans-unit>
             <trans-unit id="filter.label_email">
                 <source>filter.label_email</source>
-                <target>Indirizzo Email</target>
+                <target>Indirizzo email</target>
             </trans-unit>
             <trans-unit id="filter.label_locked">
                 <source>filter.label_locked</source>
@@ -216,7 +180,7 @@
             </trans-unit>
             <trans-unit id="list.label_email">
                 <source>list.label_email</source>
-                <target>Indirizzo Email</target>
+                <target>Indirizzo email</target>
             </trans-unit>
             <trans-unit id="list.label_groups">
                 <source>list.label_groups</source>
@@ -240,7 +204,7 @@
             </trans-unit>
             <trans-unit id="list.label_impersonating">
                 <source>list.label_impersonating</source>
-                <target>Impersonifica Utente</target>
+                <target>Impersonifica utente</target>
             </trans-unit>
             <trans-unit id="list.label_roles">
                 <source>list.label_roles</source>
@@ -268,7 +232,7 @@
             </trans-unit>
             <trans-unit id="sonata_user">
                 <source>sonata_user</source>
-                <target>Utente</target>
+                <target>Utenti</target>
             </trans-unit>
             <trans-unit id="form_general">
                 <source>General</source>
@@ -589,6 +553,42 @@
             <trans-unit id="title_user_resetting_reset">
                 <source>title_user_resetting_reset</source>
                 <target>Reset password</target>
+            </trans-unit>
+            <trans-unit id="general">
+                <source>General</source>
+                <target>Generale</target>
+            </trans-unit>
+            <trans-unit id="group">
+                <source>Group</source>
+                <target>Gruppo</target>
+            </trans-unit>
+            <trans-unit id="keys">
+                <source>Keys</source>
+                <target>Chiavi</target>
+            </trans-unit>
+            <trans-unit id="profile">
+                <source>Profile</source>
+                <target>Profilo</target>
+            </trans-unit>
+            <trans-unit id="roles">
+                <source>Roles</source>
+                <target>Ruoli</target>
+            </trans-unit>
+            <trans-unit id="security">
+                <source>Security</source>
+                <target>Sicurezza</target>
+            </trans-unit>
+            <trans-unit id="social">
+                <source>Social</source>
+                <target>Social</target>
+            </trans-unit>
+            <trans-unit id="status">
+                <source>Status</source>
+                <target>Stato</target>
+            </trans-unit>
+            <trans-unit id="user">
+                <source>User</source>
+                <target>Utente</target>
             </trans-unit>
         </body>
     </file>
