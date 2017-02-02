@@ -21,10 +21,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
- * Class AccountBlockService.
- *
- * Render a block with the connection option or the login name
- *
+ * Render a block with the connection option or the login name.
  *
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */
@@ -36,8 +33,6 @@ class AccountBlockService extends BaseBlockService
     private $tokenStorage;
 
     /**
-     * Constructor.
-     *
      * NEXT_MAJOR: Go back to type hinting check when bumping requirements to SF 2.6+.
      *
      * @param string                                         $name

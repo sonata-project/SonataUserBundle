@@ -14,9 +14,6 @@ namespace Sonata\UserBundle\Tests\Entity;
 use Sonata\CoreBundle\Test\EntityManagerMockFactory;
 use Sonata\UserBundle\Entity\UserManager;
 
-/**
- * Class UserManagerTest.
- */
 class UserManagerTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetPager()

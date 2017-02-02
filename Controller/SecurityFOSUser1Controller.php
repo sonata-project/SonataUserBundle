@@ -19,9 +19,6 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
- * Class SecurityFOSUser1Controller.
- *
- *
  * @author Hugo Briand <briand@ekino.com>
  */
 class SecurityFOSUser1Controller extends SecurityController

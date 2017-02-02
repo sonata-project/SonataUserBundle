@@ -27,9 +27,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Class GroupController.
- *
- *
  * @author Hugo Briand <briand@ekino.com>
  */
 class GroupController
@@ -45,8 +42,6 @@ class GroupController
     protected $formFactory;
 
     /**
-     * Constructor.
-     *
      * @param GroupManagerInterface $groupManager Sonata group manager
      * @param FormFactoryInterface  $formFactory  Symfony form factory
      */

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-    <file source-language="it" datatype="plaintext" original="">
+    <file source-language="en" datatype="plaintext" original="">
         <body>
             <trans-unit id="title_user_registration">
                 <source>title_user_registration</source>
@@ -60,7 +60,7 @@
             </trans-unit>
             <trans-unit id="switch_user_exit">
                 <source>switch_user_exit</source>
-                <target>Torna in modalità amministratore</target>
+                <target>Torna amministratore</target>
             </trans-unit>
             <trans-unit id="switch_user">
                 <source>switch_user</source>
@@ -80,7 +80,7 @@
             </trans-unit>
             <trans-unit id="form.label_email">
                 <source>form.label_email</source>
-                <target>Indirizzo Email</target>
+                <target>Indirizzo email</target>
             </trans-unit>
             <trans-unit id="form.label_plain_password">
                 <source>form.label_plain_password</source>
@@ -110,6 +110,14 @@
                 <source>form.label_credentials_expired</source>
                 <target>Credenziali scadute</target>
             </trans-unit>
+            <trans-unit id="form.label_created_at">
+                <source>form.label_created_at</source>
+                <target>Creato il</target>
+            </trans-unit>
+            <trans-unit id="form.label_last_login">
+                <source>form.label_last_login</source>
+                <target>Ultimo accesso il</target>
+            </trans-unit>
             <trans-unit id="user_form.label_name">
                 <source>form.label_name</source>
                 <target>Nome</target>
@@ -124,7 +132,7 @@
             </trans-unit>
             <trans-unit id="filter.label_email">
                 <source>filter.label_email</source>
-                <target>Indirizzo Email</target>
+                <target>Indirizzo email</target>
             </trans-unit>
             <trans-unit id="filter.label_locked">
                 <source>filter.label_locked</source>
@@ -133,6 +141,34 @@
             <trans-unit id="filter.label_id">
                 <source>filter.label_id</source>
                 <target>ID</target>
+            </trans-unit>
+            <trans-unit id="filter.label_enabled">
+                <source>filter.label_enabled</source>
+                <target>Attivo</target>
+            </trans-unit>
+            <trans-unit id="filter.label_groups">
+                <source>filter.label_groups</source>
+                <target>Gruppi</target>
+            </trans-unit>
+            <trans-unit id="filter.label_created_at">
+                <source>filter.label_created_at</source>
+                <target>Creato il</target>
+            </trans-unit>
+            <trans-unit id="filter.label_last_login">
+                <source>filter.label_last_login</source>
+                <target>Ultimo accesso</target>
+            </trans-unit>
+            <trans-unit id="filter.label_firstname">
+                <source>filter.label_firstname</source>
+                <target>Nome</target>
+            </trans-unit>
+            <trans-unit id="filter.label_lastname">
+                <source>filter.label_lastname</source>
+                <target>Cognome</target>
+            </trans-unit>
+            <trans-unit id="filter.label_roles">
+                <source>filter.label_roles</source>
+                <target>Ruoli</target>
             </trans-unit>
             <trans-unit id="list.label_username">
                 <source>list.label_username</source>
@@ -144,7 +180,11 @@
             </trans-unit>
             <trans-unit id="list.label_email">
                 <source>list.label_email</source>
-                <target>Indirizzo Email</target>
+                <target>Indirizzo email</target>
+            </trans-unit>
+            <trans-unit id="list.label_groups">
+                <source>list.label_groups</source>
+                <target>Gruppi</target>
             </trans-unit>
             <trans-unit id="list.label_locked">
                 <source>list.label_locked</source>
@@ -158,13 +198,25 @@
                 <source>list.label_created_at</source>
                 <target>Creato il</target>
             </trans-unit>
+            <trans-unit id="list.label_last_login">
+                <source>list.label_last_login</source>
+                <target>Ultimo accesso il</target>
+            </trans-unit>
             <trans-unit id="list.label_impersonating">
                 <source>list.label_impersonating</source>
-                <target>Impersonifica Utente</target>
+                <target>Impersonifica utente</target>
             </trans-unit>
             <trans-unit id="list.label_roles">
                 <source>list.label_roles</source>
                 <target>Ruoli</target>
+            </trans-unit>
+            <trans-unit id="list.label_firstname">
+                <source>list.label_firstname</source>
+                <target>Nome</target>
+            </trans-unit>
+            <trans-unit id="list.label_lastname">
+                <source>list.label_lastname</source>
+                <target>Cognome</target>
             </trans-unit>
             <trans-unit id="label_two_step_code">
                 <source>label_two_step_code</source>
@@ -180,7 +232,35 @@
             </trans-unit>
             <trans-unit id="sonata_user">
                 <source>sonata_user</source>
-                <target>Utente</target>
+                <target>Utenti</target>
+            </trans-unit>
+            <trans-unit id="form_general">
+                <source>General</source>
+                <target>Generale</target>
+            </trans-unit>
+            <trans-unit id="form_groups">
+                <source>Groups</source>
+                <target>Gruppi</target>
+            </trans-unit>
+            <trans-unit id="form_management">
+                <source>Management</source>
+                <target>Gestione</target>
+            </trans-unit>
+            <trans-unit id="field.label_roles_editable">
+                <source>field.label_roles_editable</source>
+                <target>Ruoli</target>
+            </trans-unit>
+            <trans-unit id="form.label_date_of_birth">
+                <source>form.label_date_of_birth</source>
+                <target>Compleanno</target>
+            </trans-unit>
+            <trans-unit id="form.label_firstname">
+                <source>form.label_firstname</source>
+                <target>Nome</target>
+            </trans-unit>
+            <trans-unit id="form.label_lastname">
+                <source>form.label_lastname</source>
+                <target>Cognome</target>
             </trans-unit>
             <trans-unit id="form.label_website">
                 <source>form.label_website</source>
@@ -232,7 +312,7 @@
             </trans-unit>
             <trans-unit id="form.label_token">
                 <source>form.label_token</source>
-                <target>Etichetta mancante</target>
+                <target>Token</target>
             </trans-unit>
             <trans-unit id="form.label_two_step_verification_code">
                 <source>form.label_two_step_verification_code</source>
@@ -248,7 +328,7 @@
             </trans-unit>
             <trans-unit id="show.label_groups">
                 <source>show.label_groups</source>
-                <target>Groups</target>
+                <target>Gruppi</target>
             </trans-unit>
             <trans-unit id="show.label_date_of_birth">
                 <source>show.label_date_of_birth</source>
@@ -276,7 +356,7 @@
             </trans-unit>
             <trans-unit id="show.label_locale">
                 <source>show.label_locale</source>
-                <target>show.label_locale</target>
+                <target>Lingua</target>
             </trans-unit>
             <trans-unit id="show.label_timezone">
                 <source>show.label_timezone</source>
@@ -318,13 +398,17 @@
                 <source>show.label_two_step_verification_code</source>
                 <target>Verifica in due passaggi</target>
             </trans-unit>
+            <trans-unit id="show.label_created_at">
+                <source>show.label_created_at</source>
+                <target>Creato il</target>
+            </trans-unit>
+            <trans-unit id="show.label_last_login">
+                <source>show.label_last_login</source>
+                <target>Ultimo accesso il</target>
+            </trans-unit>
             <trans-unit id="breadcrumb.link_user_show">
                 <source>breadcrumb.link_user_show</source>
-                <target>breadcrumb.link_user_show</target>
-            </trans-unit>
-            <trans-unit id="form.label_date_of_birth">
-                <source>form.label_date_of_birth</source>
-                <target>Compleanno</target>
+                <target>Mostra</target>
             </trans-unit>
             <trans-unit id="gender_unknown">
                 <source>gender_unknown</source>
@@ -340,7 +424,7 @@
             </trans-unit>
             <trans-unit id="sonata_profile_title">
                 <source>sonata_profile_title</source>
-                <target>sonata_profile_title</target>
+                <target>Profilo</target>
             </trans-unit>
             <trans-unit id="link_show_profile">
                 <source>link_show_profile</source>
@@ -376,7 +460,7 @@
             </trans-unit>
             <trans-unit id="label_profile_dob">
                 <source>label_profile_dob</source>
-                <target>label_profile_dob</target>
+                <target>Compleanno</target>
             </trans-unit>
             <trans-unit id="label_profile_biography">
                 <source>label_profile_biography</source>
@@ -384,7 +468,7 @@
             </trans-unit>
             <trans-unit id="label_profile_locale">
                 <source>label_profile_locale</source>
-                <target>label_profile_locale</target>
+                <target>Lingua</target>
             </trans-unit>
             <trans-unit id="label_profile_timezone">
                 <source>label_profile_timezone</source>
@@ -396,7 +480,7 @@
             </trans-unit>
             <trans-unit id="profile.flash.updated">
                 <source>profile.flash.updated</source>
-                <target>profile.flash.updated</target>
+                <target>Il profilo è stato aggiornato.</target>
             </trans-unit>
             <trans-unit id="sonata_change_password_link">
                 <source>sonata_change_password_link</source>
@@ -416,7 +500,7 @@
             </trans-unit>
             <trans-unit id="registration.flash.user_created">
                 <source>registration.flash.user_created</source>
-                <target>registration.flash.user_created</target>
+                <target>Il tuo account è stato creato con successo!</target>
             </trans-unit>
             <trans-unit id="forgotten_password">
                 <source>forgotten_password</source>
@@ -424,11 +508,11 @@
             </trans-unit>
             <trans-unit id="sonata_user_profile_breadcrumb_index">
                 <source>sonata_user_profile_breadcrumb_index</source>
-                <target>sonata_user_profile_breadcrumb_index</target>
+                <target>Dashboard</target>
             </trans-unit>
             <trans-unit id="sonata_user_profile_breadcrumb_edit">
                 <source>sonata_user_profile_breadcrumb_edit</source>
-                <target>sonata_user_profile_breadcrumb_edit</target>
+                <target>Modifica profilo</target>
             </trans-unit>
             <trans-unit id="sonata_user_already_authenticated">
                 <source>sonata_user_already_authenticated</source>
@@ -460,15 +544,51 @@
             </trans-unit>
             <trans-unit id="title_user_edit_password">
                 <source>title_user_edit_password</source>
-                <target>title_user_edit_password</target>
+                <target>Modifica password</target>
             </trans-unit>
             <trans-unit id="title_user_resetting">
                 <source>title_user_resetting</source>
-                <target>title_user_resetting</target>
+                <target>Richiesta password</target>
             </trans-unit>
             <trans-unit id="title_user_resetting_reset">
                 <source>title_user_resetting_reset</source>
-                <target>title_user_resetting_reset</target>
+                <target>Reset password</target>
+            </trans-unit>
+            <trans-unit id="general">
+                <source>General</source>
+                <target>Generale</target>
+            </trans-unit>
+            <trans-unit id="group">
+                <source>Group</source>
+                <target>Gruppo</target>
+            </trans-unit>
+            <trans-unit id="keys">
+                <source>Keys</source>
+                <target>Chiavi</target>
+            </trans-unit>
+            <trans-unit id="profile">
+                <source>Profile</source>
+                <target>Profilo</target>
+            </trans-unit>
+            <trans-unit id="roles">
+                <source>Roles</source>
+                <target>Ruoli</target>
+            </trans-unit>
+            <trans-unit id="security">
+                <source>Security</source>
+                <target>Sicurezza</target>
+            </trans-unit>
+            <trans-unit id="social">
+                <source>Social</source>
+                <target>Social</target>
+            </trans-unit>
+            <trans-unit id="status">
+                <source>Status</source>
+                <target>Stato</target>
+            </trans-unit>
+            <trans-unit id="user">
+                <source>User</source>
+                <target>Utente</target>
             </trans-unit>
         </body>
     </file>

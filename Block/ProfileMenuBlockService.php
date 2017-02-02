@@ -19,9 +19,6 @@ use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class ProfileMenuBlockService.
- *
- *
  * @author Hugo Briand <briand@ekino.com>
  */
 class ProfileMenuBlockService extends MenuBlockService
@@ -32,8 +29,6 @@ class ProfileMenuBlockService extends MenuBlockService
     private $menuBuilder;
 
     /**
-     * Constructor.
-     *
      * @param string                $name
      * @param EngineInterface       $templating
      * @param MenuProviderInterface $menuProvider

@@ -17,9 +17,6 @@ use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;
 use Sonata\UserBundle\Model\GroupManagerInterface;
 
 /**
- * Class GroupManager.
- *
- *
  * @author Hugo Briand <briand@ekino.com>
  */
 class GroupManager extends BaseGroupManager implements GroupManagerInterface

@@ -18,10 +18,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class ChangePasswordFOSUser1Controller.
- *
- * This class is inspired from the FOS Change Password Controller
- *
+ * This class is inspired from the FOS Change Password Controller.
  *
  * @author  Hugo Briand <briand@ekino.com>
  */
