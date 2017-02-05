@@ -77,7 +77,7 @@ class AdminSecurityController extends Controller
         }
 
         // NEXT_MAJOR: remove when dropping Symfony <2.8 support
-        $authorizationCheckerService = class_exists('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')
+        $authorizationCheckerService = $this->has('security.authorization_checker')
             ? $this->get('security.authorization_checker') : $this->get('security.context');
 
         if ($authorizationCheckerService->isGranted('ROLE_ADMIN')) {

@@ -28,7 +28,11 @@ class SecurityFOSUser1Controller extends SecurityController
      */
     public function loginAction()
     {
-        $token = $this->container->get('security.context')->getToken();
+        // NEXT_MAJOR: remove when dropping Symfony <2.8 support
+        $tokenStorageService = $this->container->has('security.token_storage')
+            ? $this->container->get('security.token_storage') : $this->container->get('security.context');
+
+        $token = $tokenStorageService->getToken();
 
         if ($token && $token->getUser() instanceof UserInterface) {
             $this->container->get('session')->getFlashBag()->set('sonata_user_error', 'sonata_user_already_authenticated');
