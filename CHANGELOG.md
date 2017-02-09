@@ -2,6 +2,22 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.2.1](https://github.com/sonata-project/SonataUserBundle/compare/3.2.0...3.2.1) - 2017-02-09
+### Added
+- Add missing (optional) dependency for JMSSerializerBundle, needed for the services defined in serializer.xml and api_form.xml
+
+### Fixed
+- FOSRestBundle 2.x was improved
+- fixed a cross dependency when using UserBundle with FOSRestBundle and NelmioApiDocBundle depending JMSSerializerBundle.
+- add missing use for DependencyInjection\Reference
+- Added $ sign that was missing from a previous refactoring
+- `asset` return `/` if default avatar is empty
+- Declaration of `UserManagerProxy` uses `Sonata\UserBundle\Entity\User` instead of `%fos_user.model.user.class%`
+- the bundle can be used without a `sonata.user.editable_role_builder` service
+- Issue where service was injected to constructor at wrong position
+- Missing italian translations
+- Deprecation of `security.context` on `AdminSecurityController`
+
 ## [3.2.0](https://github.com/sonata-project/SonataUserBundle/compare/3.1.0...3.2.0) - 2016-11-25
 ### Added
 - Added russian and ukrainian translations
