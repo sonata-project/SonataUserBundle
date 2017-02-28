@@ -174,17 +174,38 @@ class UserAdmin extends AbstractAdmin
 
         $now = new \DateTime();
 
+        // NEXT_MAJOR: Keep FQCN when bumping Symfony requirement to 2.8+.
+        if (method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix')) {
+            $textType = 'Symfony\Component\Form\Extension\Core\Type\TextType';
+            $datePickerType = 'Sonata\CoreBundle\Form\Type\DatePickerType';
+            $urlType = 'Symfony\Component\Form\Extension\Core\Type\UrlType';
+            $userGenderType = 'Sonata\UserBundle\Form\Type\UserGenderListType';
+            $localeType = 'Symfony\Component\Form\Extension\Core\Type\LocaleType';
+            $timezoneType = 'Symfony\Component\Form\Extension\Core\Type\TimezoneType';
+            $modelType = 'Sonata\AdminBundle\Form\Type\ModelType';
+            $securityRolesType = 'Sonata\UserBundle\Form\Type\SecurityRolesType';
+        } else {
+            $textType = 'text';
+            $datePickerType = 'sonata_type_date_picker';
+            $urlType = 'url';
+            $userGenderType = 'sonata_user_gender';
+            $localeType = 'locale';
+            $timezoneType = 'timezone';
+            $modelType = 'sonata_type_model';
+            $securityRolesType = 'sonata_security_roles';
+        }
+
         $formMapper
             ->tab('User')
                 ->with('General')
                     ->add('username')
                     ->add('email')
-                    ->add('plainPassword', 'text', array(
+                    ->add('plainPassword', $textType, array(
                         'required' => (!$this->getSubject() || is_null($this->getSubject()->getId())),
                     ))
                 ->end()
                 ->with('Profile')
-                    ->add('dateOfBirth', 'sonata_type_date_picker', array(
+                    ->add('dateOfBirth', $datePickerType, array(
                         'years' => range(1900, $now->format('Y')),
                         'dp_min_date' => '1-1-1900',
                         'dp_max_date' => $now->format('c'),
@@ -192,14 +213,14 @@ class UserAdmin extends AbstractAdmin
                     ))
                     ->add('firstname', null, array('required' => false))
                     ->add('lastname', null, array('required' => false))
-                    ->add('website', 'url', array('required' => false))
-                    ->add('biography', 'text', array('required' => false))
-                    ->add('gender', 'sonata_user_gender', array(
+                    ->add('website', $urlType, array('required' => false))
+                    ->add('biography', $textType, array('required' => false))
+                    ->add('gender', $userGenderType, array(
                         'required' => true,
                         'translation_domain' => $this->getTranslationDomain(),
                     ))
-                    ->add('locale', 'locale', array('required' => false))
-                    ->add('timezone', 'timezone', array('required' => false))
+                    ->add('locale', $localeType, array('required' => false))
+                    ->add('timezone', $timezoneType, array('required' => false))
                     ->add('phone', null, array('required' => false))
                 ->end()
                 ->with('Social')
@@ -219,14 +240,14 @@ class UserAdmin extends AbstractAdmin
                     ->add('credentialsExpired', null, array('required' => false))
                 ->end()
                 ->with('Groups')
-                    ->add('groups', 'sonata_type_model', array(
+                    ->add('groups', $modelType, array(
                         'required' => false,
                         'expanded' => true,
                         'multiple' => true,
                     ))
                 ->end()
                 ->with('Roles')
-                    ->add('realRoles', 'sonata_security_roles', array(
+                    ->add('realRoles', $securityRolesType, array(
                         'label' => 'form.label_roles',
                         'expanded' => true,
                         'multiple' => true,
