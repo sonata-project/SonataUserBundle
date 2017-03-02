@@ -37,8 +37,25 @@ class ProfileType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        // NEXT_MAJOR: Keep FQCN when bumping Symfony requirement to 2.8+.
+        if (method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix')) {
+            $userGenderType = 'Sonata\UserBundle\Form\Type\UserGenderListType';
+            $birthdayType = 'Symfony\Component\Form\Extension\Core\Type\BirthdayType';
+            $urlType = 'Symfony\Component\Form\Extension\Core\Type\UrlType';
+            $textareaType = 'Symfony\Component\Form\Extension\Core\Type\TextareaType';
+            $localeType = 'Symfony\Component\Form\Extension\Core\Type\LocaleType';
+            $timezoneType = 'Symfony\Component\Form\Extension\Core\Type\TimezoneType';
+        } else {
+            $userGenderType = 'sonata_user_gender';
+            $birthdayType = 'birthday';
+            $urlType = 'url';
+            $textareaType = 'text';
+            $localeType = 'locale';
+            $timezoneType = 'timezone';
+        }
+
         $builder
-            ->add('gender', 'sonata_user_gender', array(
+            ->add('gender', $userGenderType, array(
                 'label' => 'form.label_gender',
                 'required' => true,
                 'translation_domain' => 'SonataUserBundle',
@@ -55,24 +72,24 @@ class ProfileType extends AbstractType
                 'label' => 'form.label_lastname',
                 'required' => false,
             ))
-            ->add('dateOfBirth', 'birthday', array(
+            ->add('dateOfBirth', $birthdayType, array(
                 'label' => 'form.label_date_of_birth',
                 'required' => false,
                 'widget' => 'single_text',
             ))
-            ->add('website', 'url', array(
+            ->add('website', $urlType, array(
                 'label' => 'form.label_website',
                 'required' => false,
             ))
-            ->add('biography', 'textarea', array(
+            ->add('biography', $textareaType, array(
                 'label' => 'form.label_biography',
                 'required' => false,
             ))
-            ->add('locale', 'locale', array(
+            ->add('locale', $localeType, array(
                 'label' => 'form.label_locale',
                 'required' => false,
             ))
-            ->add('timezone', 'timezone', array(
+            ->add('timezone', $timezoneType, array(
                 'label' => 'form.label_timezone',
                 'required' => false,
             ))

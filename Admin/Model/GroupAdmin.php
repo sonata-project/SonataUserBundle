@@ -61,6 +61,11 @@ class GroupAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        // NEXT_MAJOR: Keep FQCN when bumping Symfony requirement to 2.8+.
+        $securityRolesType = method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix')
+            ? 'Sonata\UserBundle\Form\Type\SecurityRolesType'
+            : 'sonata_security_roles';
+
         $formMapper
             ->tab('Group')
                 ->with('General', array('class' => 'col-md-6'))
@@ -69,7 +74,7 @@ class GroupAdmin extends AbstractAdmin
             ->end()
             ->tab('Security')
                 ->with('Roles', array('class' => 'col-md-12'))
-                    ->add('roles', 'sonata_security_roles', array(
+                    ->add('roles', $securityRolesType, array(
                         'expanded' => true,
                         'multiple' => true,
                         'required' => false,
