@@ -13,14 +13,16 @@ namespace Sonata\UserBundle\Tests\Entity;
 
 use Sonata\CoreBundle\Test\EntityManagerMockFactory;
 use Sonata\UserBundle\Entity\UserManager;
+use Sonata\UserBundle\Tests\Helpers\PHPUnit_Framework_TestCase;
 
-class UserManagerTest extends \PHPUnit_Framework_TestCase
+class UserManagerTest extends PHPUnit_Framework_TestCase
 {
     public function testGetPager()
     {
         $self = $this;
         $this
             ->getUserManager(function ($qb) use ($self) {
+                $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(array('u')));
                 $qb->expects($self->never())->method('andWhere');
                 $qb->expects($self->once())->method('orderBy')->with(
                     $self->equalTo('u.username'),
@@ -53,6 +55,7 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
         $self = $this;
         $this
             ->getUserManager(function ($qb) use ($self) {
+                $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(array('u')));
                 $qb->expects($self->once())->method('andWhere')->with($self->equalTo('u.enabled = :enabled'));
                 $qb->expects($self->once())->method('setParameter')->with(
                     $self->equalTo('enabled'),
@@ -71,6 +74,7 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
         $self = $this;
         $this
             ->getUserManager(function ($qb) use ($self) {
+                $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(array('u')));
                 $qb->expects($self->once())->method('andWhere')->with($self->equalTo('u.enabled = :enabled'));
                 $qb->expects($self->once())->method('setParameter')->with(
                     $self->equalTo('enabled'),
@@ -89,6 +93,7 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
         $self = $this;
         $this
             ->getUserManager(function ($qb) use ($self) {
+                $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(array('u')));
                 $qb->expects($self->once())->method('andWhere')->with($self->equalTo('u.enabled = :enabled'));
                 $qb->expects($self->once())->method('setParameter')->with(
                     $self->equalTo('enabled'),
@@ -107,6 +112,7 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
         $self = $this;
         $this
             ->getUserManager(function ($qb) use ($self) {
+                $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(array('u')));
                 $qb->expects($self->once())->method('andWhere')->with($self->equalTo('u.locked = :locked'));
                 $qb->expects($self->once())->method('setParameter')->with(
                     $self->equalTo('locked'),
@@ -125,6 +131,7 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
         $self = $this;
         $this
             ->getUserManager(function ($qb) use ($self) {
+                $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(array('u')));
                 $qb->expects($self->once())->method('andWhere')->with($self->equalTo('u.locked = :locked'));
                 $qb->expects($self->once())->method('orderBy')->with(
                     $self->equalTo('u.username'),
@@ -143,6 +150,7 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
         $self = $this;
         $this
             ->getUserManager(function ($qb) use ($self) {
+                $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(array('u')));
                 $qb->expects($self->exactly(2))->method('andWhere')->withConsecutive(
                     array($self->equalTo('u.enabled = :enabled')),
                     array($self->equalTo('u.locked = :locked'))
@@ -170,6 +178,7 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
         $self = $this;
         $this
             ->getUserManager(function ($qb) use ($self) {
+                $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(array('u')));
                 $qb->expects($self->exactly(2))->method('andWhere')->withConsecutive(
                     array($self->equalTo('u.enabled = :enabled')),
                     array($self->equalTo('u.locked = :locked'))
@@ -197,6 +206,7 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
         $self = $this;
         $this
             ->getUserManager(function ($qb) use ($self) {
+                $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(array('u')));
                 $qb->expects($self->exactly(2))->method('andWhere')->withConsecutive(
                     array($self->equalTo('u.enabled = :enabled')),
                     array($self->equalTo('u.locked = :locked'))
@@ -224,6 +234,7 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
         $self = $this;
         $this
             ->getUserManager(function ($qb) use ($self) {
+                $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(array('u')));
                 $qb->expects($self->exactly(2))->method('andWhere')->withConsecutive(
                     array($self->equalTo('u.enabled = :enabled')),
                     array($self->equalTo('u.locked = :locked'))
@@ -253,8 +264,8 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
             'email',
         ));
 
-        $encoder = $this->getMock('Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface');
-        $canonicalizer = $this->getMock('FOS\UserBundle\Util\CanonicalizerInterface');
+        $encoder = $this->createMock('Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface');
+        $canonicalizer = $this->createMock('FOS\UserBundle\Util\CanonicalizerInterface');
 
         return new UserManager($encoder, $canonicalizer, $canonicalizer, $em, 'Sonata\UserBundle\Entity\BaseUser');
     }

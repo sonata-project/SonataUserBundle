@@ -21,6 +21,7 @@ class GroupManagerTest extends \PHPUnit_Framework_TestCase
         $self = $this;
         $this
             ->getUserManager(function ($qb) use ($self) {
+                $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(array('g')));
                 $qb->expects($self->never())->method('andWhere');
                 $qb->expects($self->once())->method('orderBy')->with(
                     $self->equalTo('g.name'),
@@ -52,6 +53,7 @@ class GroupManagerTest extends \PHPUnit_Framework_TestCase
         $self = $this;
         $this
             ->getUserManager(function ($qb) use ($self) {
+                $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(array('g')));
                 $qb->expects($self->once())->method('andWhere')->with($self->equalTo('g.enabled = :enabled'));
                 $qb->expects($self->once())->method('orderBy')->with(
                     $self->equalTo('g.name'),
@@ -67,6 +69,7 @@ class GroupManagerTest extends \PHPUnit_Framework_TestCase
         $self = $this;
         $this
             ->getUserManager(function ($qb) use ($self) {
+                $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(array('g')));
                 $qb->expects($self->once())->method('andWhere')->with($self->equalTo('g.enabled = :enabled'));
                 $qb->expects($self->once())->method('orderBy')->with(
                     $self->equalTo('g.name'),
