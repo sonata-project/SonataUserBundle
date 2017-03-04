@@ -13,6 +13,7 @@ namespace Sonata\UserBundle\Controller;
 
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -26,7 +27,7 @@ use Symfony\Component\Security\Core\Exception\AccountStatusException;
 class RegistrationFOSUser1Controller extends Controller
 {
     /**
-     * @return RedirectResponse
+     * @return RedirectResponse|Response
      */
     public function registerAction()
     {
@@ -64,11 +65,12 @@ EOT
                     $this->get('session')->remove('sonata_basket_delivery_redirect');
                     $url = $this->generateUrl($route);
                 } else {
-                    $url = $this->get('session')->get(
-                        'sonata_user_redirect_url',
-                        $this->generateUrl('sonata_user_profile_show')
-                    );
+                    $url = $this->get('session')->get('sonata_user_redirect_url');
                 }
+            }
+
+            if (!$url) {
+                $url = $this->generateUrl('sonata_user_profile_show');
             }
 
             $this->setFlash('fos_user_success', 'registration.flash.user_created');
