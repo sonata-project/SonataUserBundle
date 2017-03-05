@@ -33,7 +33,7 @@ class ChangePasswordFOSUser1Controller extends Controller
     {
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
-            $this->createAccessDeniedException('This user does not have access to this section.');
+            throw new AccessDeniedException('This user does not have access to this section.');
         }
 
         $form = $this->get('fos_user.change_password.form');
