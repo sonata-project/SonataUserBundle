@@ -68,8 +68,9 @@ class AdminSecurityController extends Controller
         // last username entered by the user
         $lastUsername = (null === $session) ? '' : $session->get($lastUsernameKey);
 
-        if ($this->has('security.csrf.token_manager')) { // sf >= 2.4
-            $csrfToken = $this->get('security.csrf.token_manager')->getToken('authenticate');
+        // NEXT_MAJOR: Symfony <2.4 BC. To be removed.
+        if ($this->has('security.csrf.token_manager')) {
+            $csrfToken = $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue();
         } else {
             $csrfToken = $this->has('form.csrf_provider')
                 ? $this->get('form.csrf_provider')->generateCsrfToken('authenticate')
@@ -86,7 +87,7 @@ class AdminSecurityController extends Controller
             return $this->redirect($refererUri && $refererUri != $request->getUri() ? $refererUri : $this->generateUrl('sonata_admin_dashboard'));
         }
 
-        // TODO: Deprecated in 2.3, to be removed in 3.0
+        // NEXT_MAJOR: Deprecated in 2.3, to be removed in 4.0
         try {
             $resetRoute = $this->generateUrl('sonata_user_admin_resetting_request');
         } catch (RouteNotFoundException $e) {
@@ -100,7 +101,7 @@ class AdminSecurityController extends Controller
                 'csrf_token' => $csrfToken,
                 'base_template' => $this->get('sonata.admin.pool')->getTemplate('layout'),
                 'admin_pool' => $this->get('sonata.admin.pool'),
-                'reset_route' => $resetRoute, // TODO: Deprecated in 2.3, to be removed in 3.0
+                'reset_route' => $resetRoute, // NEXT_MAJOR: Deprecated in 2.3, to be removed in 4.0
             ));
     }
 

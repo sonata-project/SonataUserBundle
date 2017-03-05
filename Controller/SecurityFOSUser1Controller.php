@@ -75,10 +75,19 @@ class SecurityFOSUser1Controller extends SecurityController
         $lastUserNameKey = class_exists('Symfony\Component\Security\Core\Security')
             ? Security::LAST_USERNAME : SecurityContextInterface::LAST_USERNAME;
 
+        // NEXT_MAJOR: Symfony <2.4 BC. To be removed.
+        if ($this->has('security.csrf.token_manager')) {
+            $csrfToken = $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue();
+        } else {
+            $csrfToken = $this->has('form.csrf_provider')
+                ? $this->get('form.csrf_provider')->generateCsrfToken('authenticate')
+                : null;
+        }
+
         return $this->renderLogin(array(
             'last_username' => (null === $session) ? '' : $session->get($lastUserNameKey),
             'error' => $error,
-            'csrf_token' => $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate'),
+            'csrf_token' => $csrfToken,
         ));
     }
 }
