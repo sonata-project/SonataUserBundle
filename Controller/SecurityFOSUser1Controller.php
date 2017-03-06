@@ -48,8 +48,12 @@ class SecurityFOSUser1Controller extends SecurityController
             and the 1.3.6 version of FOSUserBundle
         */
 
-        /** @var $request \Symfony\Component\HttpFoundation\Request */
-        $request = $this->container->get('request');
+        // NEXT_MAJOR: Inject $request in the method signature instead.
+        if ($this->container->has('request_stack')) {
+            $request = $this->container->get('request_stack')->getCurrentRequest();
+        } else {
+            $request = $this->container->get('request');
+        }
         /** @var $session \Symfony\Component\HttpFoundation\Session\Session */
         $session = $request->getSession();
 

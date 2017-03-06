@@ -84,7 +84,14 @@ EOT
             return $response;
         }
 
-        $this->get('session')->set('sonata_user_redirect_url', $this->get('request')->headers->get('referer'));
+        // NEXT_MAJOR: Inject $request in the method signature instead.
+        if ($this->has('request_stack')) {
+            $request = $this->get('request_stack')->getCurrentRequest();
+        } else {
+            $request = $this->get('request');
+        }
+
+        $this->get('session')->set('sonata_user_redirect_url', $request->headers->get('referer'));
 
         return $this->render('FOSUserBundle:Registration:register.html.'.$this->getEngine(), array(
             'form' => $form->createView(),
