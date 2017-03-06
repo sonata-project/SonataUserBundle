@@ -27,7 +27,7 @@ class AdminSecurityController extends SecurityController
     public function loginAction(Request $request)
     {
         if ($this->getUser() instanceof UserInterface) {
-            $this->get('session')->getFlashBag()->set('sonata_user_error', 'sonata_user_already_authenticated');
+            $this->addFlash('sonata_user_error', 'sonata_user_already_authenticated');
             $url = $this->generateUrl('sonata_admin_dashboard');
 
             return $this->redirect($url);
@@ -51,10 +51,10 @@ class AdminSecurityController extends SecurityController
      */
     protected function renderLogin(array $data)
     {
-        return $this->render('SonataUserBundle:Admin:Security/login.html.twig', array_merge($data, [
+        return $this->render('SonataUserBundle:Admin:Security/login.html.twig', array_merge($data, array(
             'base_template' => $this->get('sonata.admin.pool')->getTemplate('layout'),
-            'admin_pool'    => $this->get('sonata.admin.pool'),
-            'reset_route'   => $this->generateUrl('sonata_user_admin_resetting_request'),
-        ]));
+            'admin_pool' => $this->get('sonata.admin.pool'),
+            'reset_route' => $this->generateUrl('sonata_user_admin_resetting_request'),
+        )));
     }
 }

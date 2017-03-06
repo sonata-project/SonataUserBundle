@@ -15,6 +15,7 @@ use Sonata\UserBundle\Model\UserInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ProfileType extends AbstractType
 {
@@ -36,49 +37,79 @@ class ProfileType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        // NEXT_MAJOR: Keep FQCN when bumping Symfony requirement to 2.8+.
+        if (method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix')) {
+            $userGenderType = 'Sonata\UserBundle\Form\Type\UserGenderListType';
+            $birthdayType = 'Symfony\Component\Form\Extension\Core\Type\BirthdayType';
+            $urlType = 'Symfony\Component\Form\Extension\Core\Type\UrlType';
+            $textareaType = 'Symfony\Component\Form\Extension\Core\Type\TextareaType';
+            $localeType = 'Symfony\Component\Form\Extension\Core\Type\LocaleType';
+            $timezoneType = 'Symfony\Component\Form\Extension\Core\Type\TimezoneType';
+        } else {
+            $userGenderType = 'sonata_user_gender';
+            $birthdayType = 'birthday';
+            $urlType = 'url';
+            $textareaType = 'text';
+            $localeType = 'locale';
+            $timezoneType = 'timezone';
+        }
+
         $builder
-            ->add('gender', 'Sonata\UserBundle\Form\Type\UserGenderListType', [
-                'label'              => 'form.label_gender',
-                'required'           => true,
+            ->add('gender', $userGenderType, array(
+                'label' => 'form.label_gender',
+                'required' => true,
                 'translation_domain' => 'SonataUserBundle',
-                'choices'            => array_flip([
+                'choices' => array(
                     UserInterface::GENDER_FEMALE => 'gender_female',
-                    UserInterface::GENDER_MALE   => 'gender_male',
-                ]),
-            ])
-            ->add('firstname', null, [
-                'label'    => 'form.label_firstname',
+                    UserInterface::GENDER_MALE => 'gender_male',
+                ),
+            ))
+            ->add('firstname', null, array(
+                'label' => 'form.label_firstname',
                 'required' => false,
-            ])
-            ->add('lastname', null, [
-                'label'    => 'form.label_lastname',
+            ))
+            ->add('lastname', null, array(
+                'label' => 'form.label_lastname',
                 'required' => false,
-            ])
-            ->add('dateOfBirth', 'birthday', [
-                'label'    => 'form.label_date_of_birth',
+            ))
+            ->add('dateOfBirth', $birthdayType, array(
+                'label' => 'form.label_date_of_birth',
                 'required' => false,
-                'widget'   => 'single_text',
-            ])
-            ->add('website', 'url', [
-                'label'    => 'form.label_website',
+                'widget' => 'single_text',
+            ))
+            ->add('website', $urlType, array(
+                'label' => 'form.label_website',
                 'required' => false,
-            ])
-            ->add('biography', 'textarea', [
-                'label'    => 'form.label_biography',
+            ))
+            ->add('biography', $textareaType, array(
+                'label' => 'form.label_biography',
                 'required' => false,
-            ])
-            ->add('locale', 'locale', [
-                'label'    => 'form.label_locale',
+            ))
+            ->add('locale', $localeType, array(
+                'label' => 'form.label_locale',
                 'required' => false,
-            ])
-            ->add('timezone', 'timezone', [
-                'label'    => 'form.label_timezone',
+            ))
+            ->add('timezone', $timezoneType, array(
+                'label' => 'form.label_timezone',
                 'required' => false,
-            ])
-            ->add('phone', null, [
-                'label'    => 'form.label_phone',
+            ))
+            ->add('phone', null, array(
+                'label' => 'form.label_phone',
                 'required' => false,
-            ]);
+            ))
+        ;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * NEXT_MAJOR: remove this method.
+     *
+     * @deprecated Remove it when bumping requirements to Symfony 2.7+
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $this->configureOptions($resolver);
     }
 
     /**
@@ -86,9 +117,9 @@ class ProfileType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
+        $resolver->setDefaults(array(
             'data_class' => $this->class,
-        ]);
+        ));
     }
 
     /**
@@ -97,5 +128,13 @@ class ProfileType extends AbstractType
     public function getBlockPrefix()
     {
         return 'sonata_user_profile';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getName()
+    {
+        return $this->getBlockPrefix();
     }
 }

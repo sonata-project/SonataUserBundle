@@ -61,7 +61,7 @@ class ChangePasswordFOSUser2Controller extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             /** @var $userManager UserManagerInterface */
             $userManager = $this->get('fos_user.user_manager');
 
@@ -80,8 +80,8 @@ class ChangePasswordFOSUser2Controller extends Controller
             return $response;
         }
 
-        return $this->render('SonataUserBundle:ChangePassword:changePassword.html.twig', [
+        return $this->render('SonataUserBundle:ChangePassword:changePassword.html.twig', array(
             'form' => $form->createView(),
-        ]);
+        ));
     }
 }

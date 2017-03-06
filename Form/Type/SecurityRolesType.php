@@ -21,6 +21,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class SecurityRolesType extends AbstractType
 {
@@ -81,22 +82,34 @@ class SecurityRolesType extends AbstractType
 
     /**
      * {@inheritdoc}
+     *
+     * NEXT_MAJOR: remove this method.
+     *
+     * @deprecated Remove it when bumping requirements to Symfony 2.7+
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $this->configureOptions($resolver);
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         list($roles, $rolesReadOnly) = $this->rolesBuilder->getRoles();
 
-        $resolver->setDefaults([
+        $resolver->setDefaults(array(
             'choices' => function (Options $options, $parentChoices) use ($roles) {
-                return empty($parentChoices) ? array_flip($roles) : [];
+                return empty($parentChoices) ? array_flip($roles) : array();
             },
 
             'read_only_choices' => function (Options $options) use ($rolesReadOnly) {
-                return empty($options['choices']) ? $rolesReadOnly : [];
+                return empty($options['choices']) ? $rolesReadOnly : array();
             },
 
             'data_class' => null,
-        ]);
+        ));
     }
 
     /**
@@ -113,5 +126,13 @@ class SecurityRolesType extends AbstractType
     public function getBlockPrefix()
     {
         return 'sonata_security_roles';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getName()
+    {
+        return $this->getBlockPrefix();
     }
 }

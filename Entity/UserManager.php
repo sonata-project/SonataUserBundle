@@ -12,17 +12,15 @@
 namespace Sonata\UserBundle\Entity;
 
 use FOS\UserBundle\Doctrine\UserManager as BaseUserManager;
+use Sonata\CoreBundle\Model\ManagerInterface;
 use Sonata\DatagridBundle\Pager\Doctrine\Pager;
 use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;
 use Sonata\UserBundle\Model\UserManagerInterface;
 
 /**
- * Class UserManager.
- *
- *
  * @author Hugo Briand <briand@ekino.com>
  */
-class UserManager extends BaseUserManager implements UserManagerInterface
+class UserManager extends BaseUserManager implements UserManagerInterface, ManagerInterface
 {
     /**
      * {@inheritdoc}
@@ -107,7 +105,7 @@ class UserManager extends BaseUserManager implements UserManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getPager(array $criteria, $page, $limit = 10, array $sort = [])
+    public function getPager(array $criteria, $page, $limit = 10, array $sort = array())
     {
         $query = $this->repository
             ->createQueryBuilder('u')
@@ -120,25 +118,16 @@ class UserManager extends BaseUserManager implements UserManagerInterface
             }
         }
         if (count($sort) == 0) {
-            $sort = ['username' => 'ASC'];
+            $sort = array('username' => 'ASC');
         }
         foreach ($sort as $field => $direction) {
             $query->orderBy(sprintf('u.%s', $field), strtoupper($direction));
         }
 
-        $parameters = [];
-
         if (isset($criteria['enabled'])) {
             $query->andWhere('u.enabled = :enabled');
-            $parameters['enabled'] = $criteria['enabled'];
+            $query->setParameter('enabled', $criteria['enabled']);
         }
-
-        if (isset($criteria['locked'])) {
-            $query->andWhere('u.locked = :locked');
-            $parameters['locked'] = $criteria['locked'];
-        }
-
-        $query->setParameters($parameters);
 
         $pager = new Pager();
         $pager->setMaxPerPage($limit);

@@ -12,28 +12,26 @@
 namespace Sonata\UserBundle\Tests\Menu;
 
 use Sonata\UserBundle\Menu\ProfileMenuBuilder;
+use Sonata\UserBundle\Tests\Helpers\PHPUnit_Framework_TestCase;
 
 /**
- * Class ProfileMenuBuilderTest.
- *
- *
  * @author Hugo Briand <briand@ekino.com>
  */
-class ProfileMenuBuilderTest extends \PHPUnit_Framework_TestCase
+class ProfileMenuBuilderTest extends PHPUnit_Framework_TestCase
 {
     public function testCreateProfileMenu()
     {
-        $menu = $this->getMock('Knp\Menu\ItemInterface');
-        $factory = $this->getMock('Knp\Menu\FactoryInterface');
+        $menu = $this->createMock('Knp\Menu\ItemInterface');
+        $factory = $this->createMock('Knp\Menu\FactoryInterface');
 
         $factory->expects($this->once())
             ->method('createItem')
             ->will($this->returnValue($menu));
 
-        $translator = $this->getMock('Symfony\Component\Translation\TranslatorInterface');
-        $eventDispatcher = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
+        $translator = $this->createMock('Symfony\Component\Translation\TranslatorInterface');
+        $eventDispatcher = $this->createMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
 
-        $builder = new ProfileMenuBuilder($factory, $translator, [], $eventDispatcher);
+        $builder = new ProfileMenuBuilder($factory, $translator, array(), $eventDispatcher);
 
         $genMenu = $builder->createProfileMenu();
 

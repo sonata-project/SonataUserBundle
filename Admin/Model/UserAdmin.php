@@ -12,13 +12,13 @@
 namespace Sonata\UserBundle\Admin\Model;
 
 use FOS\UserBundle\Model\UserManagerInterface;
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class UserAdmin extends Admin
+class UserAdmin extends AbstractAdmin
 {
     /**
      * @var UserManagerInterface
@@ -49,8 +49,33 @@ class UserAdmin extends Admin
     {
         // avoid security field to be exported
         return array_filter(parent::getExportFields(), function ($v) {
-            return !in_array($v, ['password', 'salt']);
+            return !in_array($v, array('password', 'salt'));
         });
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function preUpdate($user)
+    {
+        $this->getUserManager()->updateCanonicalFields($user);
+        $this->getUserManager()->updatePassword($user);
+    }
+
+    /**
+     * @param UserManagerInterface $userManager
+     */
+    public function setUserManager(UserManagerInterface $userManager)
+    {
+        $this->userManager = $userManager;
+    }
+
+    /**
+     * @return UserManagerInterface
+     */
+    public function getUserManager()
+    {
+        return $this->userManager;
     }
 
     /**
@@ -62,13 +87,12 @@ class UserAdmin extends Admin
             ->addIdentifier('username')
             ->add('email')
             ->add('groups')
-            ->add('enabled', null, ['editable' => true])
-            ->add('locked', null, ['editable' => true])
+            ->add('enabled', null, array('editable' => true))
             ->add('createdAt');
 
         if ($this->isGranted('ROLE_ALLOWED_TO_SWITCH')) {
             $listMapper
-                ->add('impersonating', 'string', ['template' => 'SonataUserBundle:Admin:Field/impersonating.html.twig']);
+                ->add('impersonating', 'string', array('template' => 'SonataUserBundle:Admin:Field/impersonating.html.twig'));
         }
     }
 
@@ -80,7 +104,6 @@ class UserAdmin extends Admin
         $filterMapper
             ->add('id')
             ->add('username')
-            ->add('locked')
             ->add('email')
             ->add('groups');
     }
@@ -131,115 +154,100 @@ class UserAdmin extends Admin
         // define group zoning
         $formMapper
             ->tab('User')
-                ->with('Profile', ['class' => 'col-md-6'])->end()
-                ->with('General', ['class' => 'col-md-6'])->end()
-                ->with('Social', ['class' => 'col-md-6'])->end()
+                ->with('Profile', array('class' => 'col-md-6'))->end()
+                ->with('General', array('class' => 'col-md-6'))->end()
+                ->with('Social', array('class' => 'col-md-6'))->end()
             ->end()
             ->tab('Security')
-                ->with('Status', ['class' => 'col-md-4'])->end()
-                ->with('Groups', ['class' => 'col-md-4'])->end()
-                ->with('Keys', ['class' => 'col-md-4'])->end()
-                ->with('Roles', ['class' => 'col-md-12'])->end()
+                ->with('Status', array('class' => 'col-md-4'))->end()
+                ->with('Groups', array('class' => 'col-md-4'))->end()
+                ->with('Keys', array('class' => 'col-md-4'))->end()
+                ->with('Roles', array('class' => 'col-md-12'))->end()
             ->end();
 
         $now = new \DateTime();
+
+        // NEXT_MAJOR: Keep FQCN when bumping Symfony requirement to 2.8+.
+        if (method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix')) {
+            $textType = 'Symfony\Component\Form\Extension\Core\Type\TextType';
+            $datePickerType = 'Sonata\CoreBundle\Form\Type\DatePickerType';
+            $urlType = 'Symfony\Component\Form\Extension\Core\Type\UrlType';
+            $userGenderType = 'Sonata\UserBundle\Form\Type\UserGenderListType';
+            $localeType = 'Symfony\Component\Form\Extension\Core\Type\LocaleType';
+            $timezoneType = 'Symfony\Component\Form\Extension\Core\Type\TimezoneType';
+            $modelType = 'Sonata\AdminBundle\Form\Type\ModelType';
+            $securityRolesType = 'Sonata\UserBundle\Form\Type\SecurityRolesType';
+        } else {
+            $textType = 'text';
+            $datePickerType = 'sonata_type_date_picker';
+            $urlType = 'url';
+            $userGenderType = 'sonata_user_gender';
+            $localeType = 'locale';
+            $timezoneType = 'timezone';
+            $modelType = 'sonata_type_model';
+            $securityRolesType = 'sonata_security_roles';
+        }
 
         $formMapper
             ->tab('User')
                 ->with('General')
                     ->add('username')
                     ->add('email')
-                    ->add('plainPassword', 'text', [
+                    ->add('plainPassword', $textType, array(
                         'required' => (!$this->getSubject() || is_null($this->getSubject()->getId())),
-                    ])
+                    ))
                 ->end()
                 ->with('Profile')
-                    ->add('dateOfBirth', 'sonata_type_date_picker', [
-                        'years'       => range(1900, $now->format('Y')),
+                    ->add('dateOfBirth', $datePickerType, array(
+                        'years' => range(1900, $now->format('Y')),
                         'dp_min_date' => '1-1-1900',
                         'dp_max_date' => $now->format('c'),
-                        'required'    => false,
-                    ])
-                    ->add('firstname', null, ['required' => false])
-                    ->add('lastname', null, ['required' => false])
-                    ->add('website', 'url', ['required' => false])
-                    ->add('biography', 'text', ['required' => false])
-                    ->add('gender', 'Sonata\UserBundle\Form\Type\UserGenderListType', [
-                        'required'           => true,
+                        'required' => false,
+                    ))
+                    ->add('firstname', null, array('required' => false))
+                    ->add('lastname', null, array('required' => false))
+                    ->add('website', $urlType, array('required' => false))
+                    ->add('biography', $textType, array('required' => false))
+                    ->add('gender', $userGenderType, array(
+                        'required' => true,
                         'translation_domain' => $this->getTranslationDomain(),
-                    ])
-                    ->add('locale', 'locale', ['required' => false])
-                    ->add('timezone', 'timezone', ['required' => false])
-                    ->add('phone', null, ['required' => false])
+                    ))
+                    ->add('locale', $localeType, array('required' => false))
+                    ->add('timezone', $timezoneType, array('required' => false))
+                    ->add('phone', null, array('required' => false))
                 ->end()
                 ->with('Social')
-                    ->add('facebookUid', null, ['required' => false])
-                    ->add('facebookName', null, ['required' => false])
-                    ->add('twitterUid', null, ['required' => false])
-                    ->add('twitterName', null, ['required' => false])
-                    ->add('gplusUid', null, ['required' => false])
-                    ->add('gplusName', null, ['required' => false])
+                    ->add('facebookUid', null, array('required' => false))
+                    ->add('facebookName', null, array('required' => false))
+                    ->add('twitterUid', null, array('required' => false))
+                    ->add('twitterName', null, array('required' => false))
+                    ->add('gplusUid', null, array('required' => false))
+                    ->add('gplusName', null, array('required' => false))
                 ->end()
-            ->end();
-
-        if ($this->getSubject() && !$this->getSubject()->hasRole('ROLE_SUPER_ADMIN')) {
-            $formMapper
-                ->tab('Security')
-                    ->with('Status')
-                        ->add('locked', null, ['required' => false])
-                        ->add('expired', null, ['required' => false])
-                        ->add('enabled', null, ['required' => false])
-                        ->add('credentialsExpired', null, ['required' => false])
-                    ->end()
-                    ->with('Groups')
-                        ->add('groups', 'sonata_type_model', [
-                            'required' => false,
-                            'expanded' => true,
-                            'multiple' => true,
-                        ])
-                    ->end()
-                    ->with('Roles')
-                        ->add('realRoles', 'Sonata\UserBundle\Form\Type\SecurityRolesType', [
-                            'label'    => 'form.label_roles',
-                            'expanded' => true,
-                            'multiple' => true,
-                            'required' => false,
-                        ])
-                    ->end()
-                ->end();
-        }
-
-        $formMapper
+            ->end()
             ->tab('Security')
+                ->with('Status')
+                    ->add('enabled', null, array('required' => false))
+                ->end()
+                ->with('Groups')
+                    ->add('groups', $modelType, array(
+                        'required' => false,
+                        'expanded' => true,
+                        'multiple' => true,
+                    ))
+                ->end()
+                ->with('Roles')
+                    ->add('realRoles', $securityRolesType, array(
+                        'label' => 'form.label_roles',
+                        'expanded' => true,
+                        'multiple' => true,
+                        'required' => false,
+                    ))
+                ->end()
                 ->with('Keys')
-                    ->add('token', null, ['required' => false])
-                    ->add('twoStepVerificationCode', null, ['required' => false])
+                    ->add('token', null, array('required' => false))
+                    ->add('twoStepVerificationCode', null, array('required' => false))
                 ->end()
             ->end();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function preUpdate($user)
-    {
-        $this->getUserManager()->updateCanonicalFields($user);
-        $this->getUserManager()->updatePassword($user);
-    }
-
-    /**
-     * @param UserManagerInterface $userManager
-     */
-    public function setUserManager(UserManagerInterface $userManager)
-    {
-        $this->userManager = $userManager;
-    }
-
-    /**
-     * @return UserManagerInterface
-     */
-    public function getUserManager()
-    {
-        return $this->userManager;
     }
 }

@@ -14,43 +14,26 @@ namespace Sonata\UserBundle\Tests\Entity;
 use Sonata\CoreBundle\Test\EntityManagerMockFactory;
 use Sonata\UserBundle\Entity\GroupManager;
 
-/**
- * Class GroupManagerTest.
- */
 class GroupManagerTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @param $qbCallback
-     *
-     * @return GroupManager
-     */
-    protected function getUserManager($qbCallback)
-    {
-        $em = EntityManagerMockFactory::create($this, $qbCallback, [
-            'name',
-            'roles',
-        ]);
-
-        return new GroupManager($em, 'Sonata\UserBundle\Entity\BaseGroup');
-    }
-
     public function testGetPager()
     {
         $self = $this;
         $this
             ->getUserManager(function ($qb) use ($self) {
+                $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(array('g')));
                 $qb->expects($self->never())->method('andWhere');
                 $qb->expects($self->once())->method('orderBy')->with(
                     $self->equalTo('g.name'),
                     $self->equalTo('ASC')
                 );
-                $qb->expects($self->once())->method('setParameters')->with($self->equalTo([]));
+                $qb->expects($self->once())->method('setParameters')->with($self->equalTo(array()));
             })
-            ->getPager([], 1);
+            ->getPager(array(), 1);
     }
 
     /**
-     * @expectedException        RuntimeException
+     * @expectedException        \RuntimeException
      * @expectedExceptionMessage Invalid sort field 'invalid' in 'className' class
      */
     public function testGetPagerWithInvalidSort()
@@ -62,7 +45,7 @@ class GroupManagerTest extends \PHPUnit_Framework_TestCase
                 $qb->expects($self->never())->method('orderBy');
                 $qb->expects($self->never())->method('setParameters');
             })
-            ->getPager([], 1, 10, ['invalid' => 'ASC']);
+            ->getPager(array(), 1, 10, array('invalid' => 'ASC'));
     }
 
     public function testGetPagerWithEnabledUsers()
@@ -70,14 +53,15 @@ class GroupManagerTest extends \PHPUnit_Framework_TestCase
         $self = $this;
         $this
             ->getUserManager(function ($qb) use ($self) {
+                $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(array('g')));
                 $qb->expects($self->once())->method('andWhere')->with($self->equalTo('g.enabled = :enabled'));
                 $qb->expects($self->once())->method('orderBy')->with(
                     $self->equalTo('g.name'),
                     $self->equalTo('ASC')
                 );
-                $qb->expects($self->once())->method('setParameters')->with($self->equalTo(['enabled' => true]));
+                $qb->expects($self->once())->method('setParameters')->with($self->equalTo(array('enabled' => true)));
             })
-            ->getPager(['enabled' => true], 1);
+            ->getPager(array('enabled' => true), 1);
     }
 
     public function testGetPagerWithDisabledUsers()
@@ -85,13 +69,29 @@ class GroupManagerTest extends \PHPUnit_Framework_TestCase
         $self = $this;
         $this
             ->getUserManager(function ($qb) use ($self) {
+                $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(array('g')));
                 $qb->expects($self->once())->method('andWhere')->with($self->equalTo('g.enabled = :enabled'));
                 $qb->expects($self->once())->method('orderBy')->with(
                     $self->equalTo('g.name'),
                     $self->equalTo('ASC')
                 );
-                $qb->expects($self->once())->method('setParameters')->with($self->equalTo(['enabled' => false]));
+                $qb->expects($self->once())->method('setParameters')->with($self->equalTo(array('enabled' => false)));
             })
-            ->getPager(['enabled' => false], 1);
+            ->getPager(array('enabled' => false), 1);
+    }
+
+    /**
+     * @param $qbCallback
+     *
+     * @return GroupManager
+     */
+    protected function getUserManager($qbCallback)
+    {
+        $em = EntityManagerMockFactory::create($this, $qbCallback, array(
+            'name',
+            'roles',
+        ));
+
+        return new GroupManager($em, 'Sonata\UserBundle\Entity\BaseGroup');
     }
 }

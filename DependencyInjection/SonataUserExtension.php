@@ -16,6 +16,7 @@ use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
@@ -51,9 +52,14 @@ class SonataUserExtension extends Extension
         $loader->load('form.xml');
         $loader->load('google_authenticator.xml');
         $loader->load('twig.xml');
-        $loader->load('serializer.xml');
 
-        if ('orm' === $config['manager_type'] && isset($bundles['FOSRestBundle']) && isset($bundles['NelmioApiDocBundle'])) {
+        if ('orm' === $config['manager_type'] && isset(
+            $bundles['FOSRestBundle'],
+            $bundles['NelmioApiDocBundle'],
+            $bundles['JMSSerializerBundle']
+        )) {
+            $loader->load('serializer.xml');
+
             $loader->load('api_form.xml');
             $loader->load('api_controllers.xml');
         }
@@ -68,6 +74,34 @@ class SonataUserExtension extends Extension
 
         $config = $this->addDefaults($config);
 
+        // Set the SecurityContext for Symfony <2.6
+        // NEXT_MAJOR: Go back to simple xml configuration when bumping requirements to SF 2.6+
+        if (interface_exists('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface')) {
+            $tokenStorageReference = new Reference('security.token_storage');
+            $authorizationCheckerReference = new Reference('security.authorization_checker');
+        } else {
+            $tokenStorageReference = new Reference('security.context');
+            $authorizationCheckerReference = new Reference('security.context');
+        }
+
+        if ($container->hasDefinition('sonata.user.editable_role_builder')) {
+            $container
+                ->getDefinition('sonata.user.editable_role_builder')
+                ->replaceArgument(0, $tokenStorageReference)
+                ->replaceArgument(1, $authorizationCheckerReference)
+            ;
+        }
+
+        $container
+            ->getDefinition('sonata.user.block.account')
+            ->replaceArgument(2, $tokenStorageReference)
+        ;
+
+        $container
+            ->getDefinition('sonata.user.google.authenticator.request_listener')
+            ->replaceArgument(1, $tokenStorageReference)
+        ;
+
         $this->registerDoctrineMapping($config);
         $this->configureAdminClass($config, $container);
         $this->configureClass($config, $container);
@@ -78,7 +112,7 @@ class SonataUserExtension extends Extension
         // add custom form widgets
         $container->setParameter('twig.form.resources', array_merge(
             $container->getParameter('twig.form.resources'),
-            ['SonataUserBundle:Form:form_admin_fields.html.twig']
+            array('SonataUserBundle:Form:form_admin_fields.html.twig')
         ));
 
         $container->setParameter('sonata.user.default_avatar', $config['profile']['default_avatar']);
@@ -89,18 +123,6 @@ class SonataUserExtension extends Extension
         $this->configureProfile($config, $container);
         $this->configureRegistration($config, $container);
         $this->configureMenu($config, $container);
-    }
-
-    /**
-     * Adds aliases for user & group managers depending on $managerType.
-     *
-     * @param ContainerBuilder $container
-     * @param                  $managerType
-     */
-    protected function aliasManagers(ContainerBuilder $container, $managerType)
-    {
-        $container->setAlias('sonata.user.user_manager', sprintf('sonata.user.%s.user_manager', $managerType));
-        $container->setAlias('sonata.user.group_manager', sprintf('sonata.user.%s.group_manager', $managerType));
     }
 
     /**
@@ -117,14 +139,14 @@ class SonataUserExtension extends Extension
         }
 
         if (isset($config['impersonating_route'])) {
-            $config['impersonating'] = [
-                'route'      => $config['impersonating_route'],
-                'parameters' => [],
-            ];
+            $config['impersonating'] = array(
+                'route' => $config['impersonating_route'],
+                'parameters' => array(),
+            );
         }
 
         if (!isset($config['impersonating']['parameters'])) {
-            $config['impersonating']['parameters'] = [];
+            $config['impersonating']['parameters'] = array();
         }
 
         if (!isset($config['impersonating']['route'])) {
@@ -174,6 +196,8 @@ class SonataUserExtension extends Extension
             $modelType = 'Entity';
         } elseif ('mongodb' === $config['manager_type']) {
             $modelType = 'Document';
+        } else {
+            throw new \InvalidArgumentException(sprintf('Invalid manager type "%s".', $config['manager_type']));
         }
 
         $defaultConfig['class']['user'] = sprintf('Application\\Sonata\\UserBundle\\%s\\User', $modelType);
@@ -195,6 +219,8 @@ class SonataUserExtension extends Extension
             $modelType = 'entity';
         } elseif ('mongodb' === $config['manager_type']) {
             $modelType = 'document';
+        } else {
+            throw new \InvalidArgumentException(sprintf('Invalid manager type "%s".', $config['manager_type']));
         }
 
         $container->setParameter(sprintf('sonata.user.admin.user.%s', $modelType), $config['class']['user']);
@@ -244,26 +270,26 @@ class SonataUserExtension extends Extension
 
         $collector = DoctrineCollector::getInstance();
 
-        $collector->addAssociation($config['class']['user'], 'mapManyToMany', [
-            'fieldName'       => 'groups',
-            'targetEntity'    => $config['class']['group'],
-            'cascade'         => [],
-            'joinTable'       => [
-                'name'        => $config['table']['user_group'],
-                'joinColumns' => [
-                    [
-                        'name'                 => 'user_id',
+        $collector->addAssociation($config['class']['user'], 'mapManyToMany', array(
+            'fieldName' => 'groups',
+            'targetEntity' => $config['class']['group'],
+            'cascade' => array(),
+            'joinTable' => array(
+                'name' => $config['table']['user_group'],
+                'joinColumns' => array(
+                    array(
+                        'name' => 'user_id',
                         'referencedColumnName' => 'id',
-                        'onDelete'             => 'CASCADE',
-                    ],
-                ],
-                'inverseJoinColumns' => [[
-                    'name'                 => 'group_id',
+                        'onDelete' => 'CASCADE',
+                    ),
+                ),
+                'inverseJoinColumns' => array(array(
+                    'name' => 'group_id',
                     'referencedColumnName' => 'id',
-                    'onDelete'             => 'CASCADE',
-                ]],
-            ],
-        ]);
+                    'onDelete' => 'CASCADE',
+                )),
+            ),
+        ));
     }
 
     /**
@@ -293,12 +319,12 @@ class SonataUserExtension extends Extension
         $bundles = $container->getParameter('kernel.bundles');
 
         if (isset($bundles['MopaBootstrapBundle'])) {
-            $options = [
+            $options = array(
                 'horizontal_input_wrapper_class' => 'col-lg-8',
-                'horizontal_label_class'         => 'col-lg-4 control-label',
-            ];
+                'horizontal_label_class' => 'col-lg-4 control-label',
+            );
         } else {
-            $options = [];
+            $options = array();
         }
 
         $container->setParameter('sonata.user.registration.form.options', $options);
@@ -315,5 +341,17 @@ class SonataUserExtension extends Extension
     public function configureMenu(array $config, ContainerBuilder $container)
     {
         $container->getDefinition('sonata.user.profile.menu_builder')->replaceArgument(2, $config['profile']['menu']);
+    }
+
+    /**
+     * Adds aliases for user & group managers depending on $managerType.
+     *
+     * @param ContainerBuilder $container
+     * @param                  $managerType
+     */
+    protected function aliasManagers(ContainerBuilder $container, $managerType)
+    {
+        $container->setAlias('sonata.user.user_manager', sprintf('sonata.user.%s.user_manager', $managerType));
+        $container->setAlias('sonata.user.group_manager', sprintf('sonata.user.%s.group_manager', $managerType));
     }
 }

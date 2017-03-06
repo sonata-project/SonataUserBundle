@@ -26,6 +26,8 @@ Enable the Bundle
 
     php composer.phar require sonata-project/user-bundle --no-update
     php composer.phar require sonata-project/doctrine-orm-admin-bundle  --no-update # optional
+    php composer.phar require friendsofsymfony/rest-bundle  --no-update # optional when using api
+    php composer.phar require nelmio/api-doc-bundle  --no-update # optional when using api
     php composer.phar update
 
 .. note::
@@ -81,6 +83,10 @@ When using ACL, the ``UserBundle`` can prevent `normal` user to change settings 
     # app/config/security.yml
     security:
         # [...]
+        
+        encoders:
+            FOS\UserBundle\Model\UserInterface: sha512
+        
         acl:
             connection: default
 
@@ -233,6 +239,7 @@ Then, add a new custom firewall handlers for the admin:
                     failure_path:   null
                 logout:
                     path:           /admin/logout
+                    target:         /admin/login
                 anonymous:          true
 
             # -> end custom configuration

@@ -14,16 +14,17 @@ namespace Sonata\UserBundle\Security;
 use Sonata\AdminBundle\Admin\Pool;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class EditableRolesBuilder
 {
     /**
-     * @var TokenStorageInterface
+     * @var TokenStorageInterface|SecurityContextInterface
      */
     protected $tokenStorage;
 
     /**
-     * @var AuthorizationCheckerInterface
+     * @var AuthorizationCheckerInterface|SecurityContextInterface
      */
     protected $authorizationChecker;
 
@@ -38,13 +39,26 @@ class EditableRolesBuilder
     protected $rolesHierarchy;
 
     /**
-     * @param TokenStorageInterface         $tokenStorage
-     * @param AuthorizationCheckerInterface $authorizationChecker
-     * @param Pool                          $pool
-     * @param array                         $rolesHierarchy
+     * NEXT_MAJOR: Go back to type hinting check when bumping requirements to SF 2.6+.
+     *
+     * @param TokenStorageInterface|SecurityContextInterface         $tokenStorage
+     * @param AuthorizationCheckerInterface|SecurityContextInterface $authorizationChecker
+     * @param Pool                                                   $pool
+     * @param array                                                  $rolesHierarchy
      */
-    public function __construct(TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authorizationChecker, Pool $pool, array $rolesHierarchy = [])
+    public function __construct($tokenStorage, $authorizationChecker, Pool $pool, array $rolesHierarchy = array())
     {
+        if (!$tokenStorage instanceof TokenStorageInterface && !$tokenStorage instanceof SecurityContextInterface) {
+            throw new \InvalidArgumentException(
+                'Argument 1 should be an instance of Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface or Symfony\Component\Security\Core\SecurityContextInterface'
+            );
+        }
+        if (!$authorizationChecker instanceof AuthorizationCheckerInterface && !$authorizationChecker instanceof SecurityContextInterface) {
+            throw new \InvalidArgumentException(
+                'Argument 2 should be an instance of Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface or Symfony\Component\Security\Core\SecurityContextInterface'
+            );
+        }
+
         $this->tokenStorage = $tokenStorage;
         $this->authorizationChecker = $authorizationChecker;
         $this->pool = $pool;
@@ -56,11 +70,11 @@ class EditableRolesBuilder
      */
     public function getRoles()
     {
-        $roles = [];
-        $rolesReadOnly = [];
+        $roles = array();
+        $rolesReadOnly = array();
 
         if (!$this->tokenStorage->getToken()) {
-            return [$roles, $rolesReadOnly];
+            return array($roles, $rolesReadOnly);
         }
 
         // get roles from the Admin classes
@@ -108,6 +122,6 @@ class EditableRolesBuilder
             }
         }
 
-        return [$roles, $rolesReadOnly];
+        return array($roles, $rolesReadOnly);
     }
 }
