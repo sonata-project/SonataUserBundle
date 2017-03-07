@@ -46,7 +46,14 @@ class AdminResettingController extends ResettingController
      */
     public function sendEmailAction()
     {
-        $username = $this->container->get('request')->request->get('username');
+        // NEXT_MAJOR: Inject $request in the method signature instead.
+        if ($this->container->has('request_stack')) {
+            $request = $this->container->get('request_stack')->getCurrentRequest();
+        } else {
+            $request = $this->container->get('request');
+        }
+
+        $username = $request->request->get('username');
 
         /** @var $user UserInterface */
         $user = $this->container->get('fos_user.user_manager')->findUserByUsernameOrEmail($username);
