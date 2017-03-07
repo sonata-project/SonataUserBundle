@@ -4,7 +4,7 @@
         <!-- profile form -->
         <service id="sonata.user.profile.form" class="Symfony\Component\Form\Form">
             <!-- NEXT_MAJOR: Uncomment Following line
-            <factory class="form.factory" method="createNamed"/>
+            <factory class="Symfony\Component\Form\FormFactory" method="createNamed"/>
             -->
             <argument>%sonata.user.profile.form.name%</argument>
             <argument>%sonata.user.profile.form.type%</argument>
@@ -31,7 +31,7 @@
         </service>
         <service id="sonata.user.registration.form" class="Symfony\Component\Form\Form">
             <!-- NEXT_MAJOR: Uncomment Following line
-            <factory class="form.factory" method="createNamed"/>
+            <factory class="Symfony\Component\Form\FormFactory" method="createNamed"/>
             -->
             <argument>%sonata.user.registration.form.name%</argument>
             <argument>%sonata.user.registration.form.type%</argument>

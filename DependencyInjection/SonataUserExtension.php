@@ -88,12 +88,12 @@ class SonataUserExtension extends Extension
         $profileFormDefinition = $container->getDefinition('sonata.user.profile.form');
         $registrationFormDefinition = $container->getDefinition('sonata.user.registration.form');
         if (method_exists($profileFormDefinition, 'setFactory')) {
-            $profileFormDefinition->setFactory(array('form.factory', 'createNamed'));
-            $registrationFormDefinition->setFactory(array('form.factory', 'createNamed'));
+            $profileFormDefinition->setFactory(array(new Reference('form.factory'), 'createNamed'));
+            $registrationFormDefinition->setFactory(array(new Reference('form.factory'), 'createNamed'));
         } else {
-            $profileFormDefinition->setFactoryClass('form.factory');
+            $profileFormDefinition->setFactoryClass(new Reference('form.factory'));
             $profileFormDefinition->setFactoryMethod('createNamed');
-            $registrationFormDefinition->setFactoryClass('form.factory');
+            $registrationFormDefinition->setFactoryClass(new Reference('form.factory'));
             $registrationFormDefinition->setFactoryMethod('createNamed');
         }
 
