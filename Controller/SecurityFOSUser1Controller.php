@@ -80,12 +80,10 @@ class SecurityFOSUser1Controller extends SecurityController
             ? Security::LAST_USERNAME : SecurityContextInterface::LAST_USERNAME;
 
         // NEXT_MAJOR: Symfony <2.4 BC. To be removed.
-        if ($this->has('security.csrf.token_manager')) {
-            $csrfToken = $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue();
+        if ($this->container->has('security.csrf.token_manager')) {
+            $csrfToken = $this->container->get('security.csrf.token_manager')->getToken('authenticate')->getValue();
         } else {
-            $csrfToken = $this->has('form.csrf_provider')
-                ? $this->get('form.csrf_provider')->generateCsrfToken('authenticate')
-                : null;
+            $csrfToken = $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate');
         }
 
         return $this->renderLogin(array(
