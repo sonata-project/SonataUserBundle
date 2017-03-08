@@ -30,8 +30,6 @@ class AdminSecurityController extends Controller
      */
     public function loginAction(Request $request = null)
     {
-        $request = $request === null ? $request = $this->get('request') : $request;
-
         $user = $this->getUser();
 
         if ($user instanceof UserInterface) {
@@ -96,13 +94,13 @@ class AdminSecurityController extends Controller
         }
 
         return $this->render('SonataUserBundle:Admin:Security/login.html.'.$this->container->getParameter('fos_user.template.engine'), array(
-                'last_username' => $lastUsername,
-                'error' => $error,
-                'csrf_token' => $csrfToken,
-                'base_template' => $this->get('sonata.admin.pool')->getTemplate('layout'),
-                'admin_pool' => $this->get('sonata.admin.pool'),
-                'reset_route' => $resetRoute, // NEXT_MAJOR: Deprecated in 2.3, to be removed in 4.0
-            ));
+            'last_username' => $lastUsername,
+            'error' => $error,
+            'csrf_token' => $csrfToken,
+            'base_template' => $this->get('sonata.admin.pool')->getTemplate('layout'),
+            'admin_pool' => $this->get('sonata.admin.pool'),
+            'reset_route' => $resetRoute, // NEXT_MAJOR: Deprecated in 2.3, to be removed in 4.0
+        ));
     }
 
     public function checkAction()

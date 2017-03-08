@@ -2,6 +2,18 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.2.2](https://github.com/sonata-project/SonataUserBundle/compare/3.2.1...3.2.2) - 2017-03-08
+### Fixed
+- Fixed empty route after registration
+- Added missing throw in change password process
+- Avoid deprecation message by using request_stack when it is present
+- Avoid deprecation message by changing CSRF token generation when possible
+- Wrong factory definition
+
+### Removed
+- Removed form types non FQCN on SF2.8+
+- Removed deprecations about form factory on SF2.8
+
 ## [3.2.1](https://github.com/sonata-project/SonataUserBundle/compare/3.2.0...3.2.1) - 2017-02-09
 ### Added
 - Add missing (optional) dependency for JMSSerializerBundle, needed for the services defined in serializer.xml and api_form.xml
