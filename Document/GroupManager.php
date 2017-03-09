@@ -16,9 +16,6 @@ use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\UserBundle\Model\GroupManagerInterface;
 
 /**
- * Class GroupManager.
- *
- *
  * @author Hugo Briand <briand@ekino.com>
  */
 class GroupManager extends BaseGroupManager implements GroupManagerInterface
@@ -39,7 +36,7 @@ class GroupManager extends BaseGroupManager implements GroupManagerInterface
      *
      * @return PagerInterface
      */
-    public function getPager(array $criteria, $page, $limit = 10, array $sort = [])
+    public function getPager(array $criteria, $page, $limit = 10, array $sort = array())
     {
         new \RuntimeException('method not implemented');
     }

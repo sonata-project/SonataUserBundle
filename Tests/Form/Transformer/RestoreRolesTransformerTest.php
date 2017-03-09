@@ -16,7 +16,7 @@ use Sonata\UserBundle\Form\Transformer\RestoreRolesTransformer;
 class RestoreRolesTransformerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @expectedException RuntimeException
+     * @expectedException \RuntimeException
      */
     public function testInvalidStateTransform()
     {
@@ -25,11 +25,11 @@ class RestoreRolesTransformerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $transformer = new RestoreRolesTransformer($roleBuilder);
-        $transformer->transform([]);
+        $transformer->transform(array());
     }
 
     /**
-     * @expectedException RuntimeException
+     * @expectedException \RuntimeException
      */
     public function testInvalidStateReverseTransform()
     {
@@ -38,7 +38,7 @@ class RestoreRolesTransformerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $transformer = new RestoreRolesTransformer($roleBuilder);
-        $transformer->reverseTransform([]);
+        $transformer->reverseTransform(array());
     }
 
     public function testValidTransform()
@@ -48,9 +48,9 @@ class RestoreRolesTransformerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $transformer = new RestoreRolesTransformer($roleBuilder);
-        $transformer->setOriginalRoles([]);
+        $transformer->setOriginalRoles(array());
 
-        $data = ['ROLE_FOO'];
+        $data = array('ROLE_FOO');
 
         $this->assertEquals($data, $transformer->transform($data));
     }
@@ -61,14 +61,14 @@ class RestoreRolesTransformerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $roleBuilder->expects($this->once())->method('getRoles')->will($this->returnValue([[], []]));
+        $roleBuilder->expects($this->once())->method('getRoles')->will($this->returnValue(array(array(), array())));
 
         $transformer = new RestoreRolesTransformer($roleBuilder);
-        $transformer->setOriginalRoles(['ROLE_HIDDEN']);
+        $transformer->setOriginalRoles(array('ROLE_HIDDEN'));
 
-        $data = ['ROLE_FOO'];
+        $data = array('ROLE_FOO');
 
-        $this->assertEquals(['ROLE_FOO', 'ROLE_HIDDEN'], $transformer->reverseTransform($data));
+        $this->assertEquals(array('ROLE_FOO', 'ROLE_HIDDEN'), $transformer->reverseTransform($data));
     }
 
     public function testTransformAllowEmptyOriginalRoles()
@@ -80,7 +80,7 @@ class RestoreRolesTransformerTest extends \PHPUnit_Framework_TestCase
         $transformer = new RestoreRolesTransformer($roleBuilder);
         $transformer->setOriginalRoles(null);
 
-        $data = ['ROLE_FOO'];
+        $data = array('ROLE_FOO');
 
         $this->assertEquals($data, $transformer->transform($data));
     }
@@ -91,14 +91,14 @@ class RestoreRolesTransformerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $roleBuilder->expects($this->once())->method('getRoles')->will($this->returnValue([[], []]));
+        $roleBuilder->expects($this->once())->method('getRoles')->will($this->returnValue(array(array(), array())));
 
         $transformer = new RestoreRolesTransformer($roleBuilder);
         $transformer->setOriginalRoles(null);
 
-        $data = ['ROLE_FOO'];
+        $data = array('ROLE_FOO');
 
-        $this->assertEquals(['ROLE_FOO'], $transformer->reverseTransform($data));
+        $this->assertEquals(array('ROLE_FOO'), $transformer->reverseTransform($data));
     }
 
     public function testReverseTransformRevokedHierarchicalRole()
@@ -107,17 +107,17 @@ class RestoreRolesTransformerTest extends \PHPUnit_Framework_TestCase
                             ->disableOriginalConstructor()
                             ->getMock();
 
-        $availableRoles = [
-            'ROLE_SONATA_ADMIN'               => 'ROLE_SONATA_ADMIN',
+        $availableRoles = array(
+            'ROLE_SONATA_ADMIN' => 'ROLE_SONATA_ADMIN',
             'ROLE_COMPANY_PERSONAL_MODERATOR' => 'ROLE_COMPANY_PERSONAL_MODERATOR: ROLE_COMPANY_USER',
-            'ROLE_COMPANY_NEWS_MODERATOR'     => 'ROLE_COMPANY_NEWS_MODERATOR: ROLE_COMPANY_USER',
-            'ROLE_COMPANY_BOOKKEEPER'         => 'ROLE_COMPANY_BOOKKEEPER: ROLE_COMPANY_USER',
-            'ROLE_USER'                       => 'ROLE_USER',
-        ];
-        $roleBuilder->expects($this->once())->method('getRoles')->will($this->returnValue([$availableRoles, []]));
+            'ROLE_COMPANY_NEWS_MODERATOR' => 'ROLE_COMPANY_NEWS_MODERATOR: ROLE_COMPANY_USER',
+            'ROLE_COMPANY_BOOKKEEPER' => 'ROLE_COMPANY_BOOKKEEPER: ROLE_COMPANY_USER',
+            'ROLE_USER' => 'ROLE_USER',
+        );
+        $roleBuilder->expects($this->once())->method('getRoles')->will($this->returnValue(array($availableRoles, array())));
 
         // user roles
-        $userRoles = ['ROLE_COMPANY_PERSONAL_MODERATOR', 'ROLE_COMPANY_NEWS_MODERATOR', 'ROLE_COMPANY_BOOKKEEPER'];
+        $userRoles = array('ROLE_COMPANY_PERSONAL_MODERATOR', 'ROLE_COMPANY_NEWS_MODERATOR', 'ROLE_COMPANY_BOOKKEEPER');
         $transformer = new RestoreRolesTransformer($roleBuilder);
         $transformer->setOriginalRoles($userRoles);
 
@@ -134,14 +134,14 @@ class RestoreRolesTransformerTest extends \PHPUnit_Framework_TestCase
                             ->disableOriginalConstructor()
                             ->getMock();
 
-        $availableRoles = [
-            'ROLE_SONATA_ADMIN'  => 'ROLE_SONATA_ADMIN',
-            'ROLE_ADMIN'         => 'ROLE_ADMIN: ROLE_USER ROLE_COMPANY_ADMIN',
-        ];
-        $roleBuilder->expects($this->once())->method('getRoles')->will($this->returnValue([$availableRoles, []]));
+        $availableRoles = array(
+            'ROLE_SONATA_ADMIN' => 'ROLE_SONATA_ADMIN',
+            'ROLE_ADMIN' => 'ROLE_ADMIN: ROLE_USER ROLE_COMPANY_ADMIN',
+        );
+        $roleBuilder->expects($this->once())->method('getRoles')->will($this->returnValue(array($availableRoles, array())));
 
         // user roles
-        $userRoles = ['ROLE_USER', 'ROLE_SUPER_ADMIN'];
+        $userRoles = array('ROLE_USER', 'ROLE_SUPER_ADMIN');
         $transformer = new RestoreRolesTransformer($roleBuilder);
         $transformer->setOriginalRoles($userRoles);
 

@@ -129,6 +129,16 @@ abstract class User extends AbstractedUser implements UserInterface
     protected $token;
 
     /**
+     * Returns a string representation.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getUsername() ?: '-';
+    }
+
+    /**
      * Sets the creation date.
      *
      * @param \DateTime|null $createdAt
@@ -187,6 +197,20 @@ abstract class User extends AbstractedUser implements UserInterface
     }
 
     /**
+     * Set expiration date.
+     *
+     * @param \DateTime|null $date
+     *
+     * @return User
+     */
+    public function setExpiresAt(\DateTime $date = null)
+    {
+        $this->expiresAt = $date;
+
+        return $this;
+    }
+
+    /**
      * Returns the credentials expiration date.
      *
      * @return \DateTime
@@ -208,16 +232,6 @@ abstract class User extends AbstractedUser implements UserInterface
         $this->credentialsExpireAt = $date;
 
         return $this;
-    }
-
-    /**
-     * Returns a string representation.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->getUsername() ?: '-';
     }
 
     /**

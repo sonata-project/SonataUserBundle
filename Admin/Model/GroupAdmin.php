@@ -11,19 +11,19 @@
 
 namespace Sonata\UserBundle\Admin\Model;
 
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
-class GroupAdmin extends Admin
+class GroupAdmin extends AbstractAdmin
 {
     /**
      * {@inheritdoc}
      */
-    protected $formOptions = [
+    protected $formOptions = array(
         'validation_groups' => 'Registration',
-    ];
+    );
 
     /**
      * {@inheritdoc}
@@ -32,7 +32,7 @@ class GroupAdmin extends Admin
     {
         $class = $this->getClass();
 
-        return new $class('', []);
+        return new $class('', array());
     }
 
     /**
@@ -59,19 +59,24 @@ class GroupAdmin extends Admin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        // NEXT_MAJOR: Keep FQCN when bumping Symfony requirement to 2.8+.
+        $securityRolesType = method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix')
+            ? 'Sonata\UserBundle\Form\Type\SecurityRolesType'
+            : 'sonata_security_roles';
+
         $formMapper
             ->tab('Group')
-                ->with('General', ['class' => 'col-md-6'])
+                ->with('General', array('class' => 'col-md-6'))
                     ->add('name')
                 ->end()
             ->end()
             ->tab('Security')
-                ->with('Roles', ['class' => 'col-md-12'])
-                    ->add('roles', 'Sonata\UserBundle\Form\Type\SecurityRolesType', [
+                ->with('Roles', array('class' => 'col-md-12'))
+                    ->add('roles', $securityRolesType, array(
                         'expanded' => true,
                         'multiple' => true,
                         'required' => false,
-                    ])
+                    ))
                 ->end()
             ->end();
     }

@@ -7,7 +7,7 @@
     <entity name="Application\Sonata\UserBundle\Entity\Group" table="fos_user_group">
 
         <id name="id" column="id" type="integer">
-            <generator strategy="AUTO" />
+            <generator strategy="AUTO"/>
         </id>
 
     </entity>

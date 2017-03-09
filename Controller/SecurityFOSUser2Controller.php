@@ -16,9 +16,6 @@ use Sonata\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * Class SecurityFOSUser2Controller.
- */
 class SecurityFOSUser2Controller extends SecurityController
 {
     /**
@@ -30,9 +27,11 @@ class SecurityFOSUser2Controller extends SecurityController
     {
         $user = $this->getUser();
 
-        if ($user instanceof UserInterface) {
-            $this->container->get('session')->getFlashBag()->set('sonata_user_error', 'sonata_user_already_authenticated');
-            $url = $this->container->get('router')->generate('sonata_user_profile_show');
+        $token = $this->get('security.token_storage')->getToken();
+
+        if ($token && $token->getUser() instanceof UserInterface) {
+            $this->addFlash('sonata_user_error', 'sonata_user_already_authenticated');
+            $url = $this->get('router')->generate('sonata_user_profile_show');
 
             return new RedirectResponse($url);
         }

@@ -19,9 +19,6 @@ use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class ProfileMenuBlockService.
- *
- *
  * @author Hugo Briand <briand@ekino.com>
  */
 class ProfileMenuBlockService extends MenuBlockService
@@ -32,8 +29,6 @@ class ProfileMenuBlockService extends MenuBlockService
     private $menuBuilder;
 
     /**
-     * Constructor.
-     *
      * @param string                $name
      * @param EngineInterface       $templating
      * @param MenuProviderInterface $menuProvider
@@ -41,7 +36,7 @@ class ProfileMenuBlockService extends MenuBlockService
      */
     public function __construct($name, EngineInterface $templating, MenuProviderInterface $menuProvider, ProfileMenuBuilder $menuBuilder)
     {
-        parent::__construct($name, $templating, $menuProvider, []);
+        parent::__construct($name, $templating, $menuProvider, array());
 
         $this->menuBuilder = $menuBuilder;
     }
@@ -61,10 +56,10 @@ class ProfileMenuBlockService extends MenuBlockService
     {
         parent::configureSettings($resolver);
 
-        $resolver->setDefaults([
-            'cache_policy'  => 'private',
+        $resolver->setDefaults(array(
+            'cache_policy' => 'private',
             'menu_template' => 'SonataBlockBundle:Block:block_side_menu_template.html.twig',
-        ]);
+        ));
     }
 
     /**
@@ -78,10 +73,10 @@ class ProfileMenuBlockService extends MenuBlockService
 
         if (null === $menu || '' === $menu) {
             $menu = $this->menuBuilder->createProfileMenu(
-                [
-                    'childrenAttributes' => ['class' => $settings['menu_class']],
-                    'attributes'         => ['class' => $settings['children_class']],
-                ]
+                array(
+                    'childrenAttributes' => array('class' => $settings['menu_class']),
+                    'attributes' => array('class' => $settings['children_class']),
+                )
             );
 
             if (method_exists($menu, 'setCurrentUri')) {

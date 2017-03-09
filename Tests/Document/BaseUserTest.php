@@ -12,8 +12,9 @@
 namespace Sonata\UserBundle\Tests\Document;
 
 use Sonata\UserBundle\Document\BaseUser;
+use Sonata\UserBundle\Tests\Helpers\PHPUnit_Framework_TestCase;
 
-class BaseUserTest extends \PHPUnit_Framework_TestCase
+class BaseUserTest extends PHPUnit_Framework_TestCase
 {
     public function testDateSetters()
     {
@@ -76,13 +77,13 @@ class BaseUserTest extends \PHPUnit_Framework_TestCase
     {
         // Given
         $user = new BaseUser();
-        $group1 = $this->getMock('FOS\UserBundle\Model\GroupInterface');
+        $group1 = $this->createMock('FOS\UserBundle\Model\GroupInterface');
         $group1->expects($this->any())->method('getName')->will($this->returnValue('Group 1'));
-        $group2 = $this->getMock('FOS\UserBundle\Model\GroupInterface');
+        $group2 = $this->createMock('FOS\UserBundle\Model\GroupInterface');
         $group2->expects($this->any())->method('getName')->will($this->returnValue('Group 2'));
 
         // When
-        $user->setGroups([$group1, $group2]);
+        $user->setGroups(array($group1, $group2));
 
         // Then
         $this->assertCount(2, $user->getGroups(), 'Should have 2 groups');

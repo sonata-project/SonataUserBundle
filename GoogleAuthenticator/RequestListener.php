@@ -25,7 +25,7 @@ class RequestListener
     protected $helper;
 
     /**
-     * @var TokenStorageInterface
+     * @var TokenStorageInterface|SecurityContextInterface
      */
     protected $tokenStorage;
 
@@ -35,12 +35,20 @@ class RequestListener
     protected $templating;
 
     /**
-     * @param Helper                $helper
-     * @param TokenStorageInterface $tokenStorage
-     * @param EngineInterface       $templating
+     * NEXT_MAJOR: Go back to type hinting check when bumping requirements to SF 2.6+.
+     *
+     * @param Helper                                         $helper
+     * @param TokenStorageInterface|SecurityContextInterface $tokenStorage
+     * @param EngineInterface                                $templating
      */
-    public function __construct(Helper $helper, TokenStorageInterface $tokenStorage, EngineInterface $templating)
+    public function __construct(Helper $helper, $tokenStorage, EngineInterface $templating)
     {
+        if (!$tokenStorage instanceof TokenStorageInterface && !$tokenStorage instanceof SecurityContextInterface) {
+            throw new \InvalidArgumentException(
+                'Argument 2 should be an instance of Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface or Symfony\Component\Security\Core\SecurityContextInterface'
+            );
+        }
+
         $this->helper = $helper;
         $this->tokenStorage = $tokenStorage;
         $this->templating = $templating;
@@ -65,10 +73,10 @@ class RequestListener
             return;
         }
 
-        $key = $this->helper->getSessionKey($this->tokenStorage->getToken());
+        $key = $this->helper->getSessionKey($token);
         $request = $event->getRequest();
         $session = $event->getRequest()->getSession();
-        $user = $this->tokenStorage->getToken()->getUser();
+        $user = $token->getUser();
 
         if (!$session->has($key)) {
             return;
@@ -89,8 +97,8 @@ class RequestListener
             $state = 'error';
         }
 
-        $event->setResponse($this->templating->renderResponse('SonataUserBundle:Admin:Security/two_step_form.html.twig', [
+        $event->setResponse($this->templating->renderResponse('SonataUserBundle:Admin:Security/two_step_form.html.twig', array(
             'state' => $state,
-        ]));
+        )));
     }
 }

@@ -18,32 +18,36 @@ use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
- * Class AccountBlockService.
- *
- * Render a block with the connection option or the login name
- *
+ * Render a block with the connection option or the login name.
  *
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */
 class AccountBlockService extends BaseBlockService
 {
     /**
-     * @var TokenStorageInterface
+     * @var TokenStorageInterface|SecurityContextInterface
      */
     private $tokenStorage;
 
     /**
-     * Constructor.
+     * NEXT_MAJOR: Go back to type hinting check when bumping requirements to SF 2.6+.
      *
-     * @param string                $name
-     * @param EngineInterface       $templating
-     * @param TokenStorageInterface $tokenStorage
+     * @param string                                         $name
+     * @param EngineInterface                                $templating
+     * @param TokenStorageInterface|SecurityContextInterface $tokenStorage
      */
-    public function __construct($name, EngineInterface $templating, TokenStorageInterface $tokenStorage)
+    public function __construct($name, EngineInterface $templating, $tokenStorage)
     {
         parent::__construct($name, $templating);
+
+        if (!$tokenStorage instanceof TokenStorageInterface && !$tokenStorage instanceof SecurityContextInterface) {
+            throw new \InvalidArgumentException(
+                'Argument 3 should be an instance of Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface or Symfony\Component\Security\Core\SecurityContextInterface'
+            );
+        }
 
         $this->tokenStorage = $tokenStorage;
     }
@@ -62,11 +66,11 @@ class AccountBlockService extends BaseBlockService
             $user = false;
         }
 
-        return $this->renderPrivateResponse($blockContext->getTemplate(), [
-            'user'    => $user,
-            'block'   => $blockContext->getBlock(),
+        return $this->renderPrivateResponse($blockContext->getTemplate(), array(
+            'user' => $user,
+            'block' => $blockContext->getBlock(),
             'context' => $blockContext,
-        ]);
+        ));
     }
 
     /**
@@ -74,10 +78,10 @@ class AccountBlockService extends BaseBlockService
      */
     public function configureSettings(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
+        $resolver->setDefaults(array(
             'template' => 'SonataUserBundle:Block:account.html.twig',
-            'ttl'      => 0,
-        ]);
+            'ttl' => 0,
+        ));
     }
 
     /**

@@ -6,7 +6,7 @@
 
     <document name="Application\Sonata\UserBundle\Document\User" collection="fos_user_user" customId="true">
 
-        <field fieldName="id" id="true" strategy="INCREMENT" />
+        <field fieldName="id" id="true" strategy="INCREMENT"/>
 
     </document>
 

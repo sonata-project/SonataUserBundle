@@ -16,8 +16,13 @@
     <div class="login-box">
         <div class="login-logo">
             <a href="{{ path('sonata_admin_dashboard') }}">
-                {% if 'single_text' == admin_pool.getOption('title_mode') or 'both' == admin_pool.getOption('title_mode') %}
-                    <span>{{ admin_pool.title }}</span>
+                {% if 'single_image' == sonata_admin.adminPool.getOption('title_mode') or 'both' == sonata_admin.adminPool.getOption('title_mode') %}
+                    <div>
+                        <img style="width:64px;" src="{{ asset(sonata_admin.adminPool.titlelogo) }}" alt="{{ sonata_admin.adminPool.title }}">
+                    </div>
+                {% endif %}
+                {% if 'single_text' == sonata_admin.adminPool.getOption('title_mode') or 'both' == sonata_admin.adminPool.getOption('title_mode') %}
+                    <span>{{ sonata_admin.adminPool.title }}</span>
                 {% endif %}
             </a>
         </div>
@@ -25,7 +30,9 @@
             {% block sonata_user_login_form %}
                 {% block sonata_user_login_error %}
                     {% if error %}
-                        <div class="alert alert-danger">{{ error|trans({}, 'FOSUserBundle') }}</div>
+                        <div class="alert alert-danger alert-error">
+                            {{ error.messageKey|trans(error.messageData, 'security') }}
+                        </div>
                     {% endif %}
                 {% endblock %}
                 <p class="login-box-msg">{{ 'title_user_authentication'|trans({}, 'SonataUserBundle') }}</p>
@@ -44,7 +51,7 @@
 
                     <div class="row">
                         <div class="col-xs-8">
-                            <div class="checkbox icheck">
+                            <div class="checkbox">
                                 <label>
                                     <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
                                     {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}

@@ -15,9 +15,6 @@ use FOS\UserBundle\Model\UserManagerInterface as BaseInterface;
 use Sonata\CoreBundle\Model\PageableManagerInterface;
 
 /**
- * Class UserManagerInterface.
- *
- *
  * @author Hugo Briand <briand@ekino.com>
  */
 interface UserManagerInterface extends BaseInterface, PageableManagerInterface

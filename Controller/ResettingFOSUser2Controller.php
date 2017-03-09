@@ -14,9 +14,6 @@ namespace Sonata\UserBundle\Controller;
 use FOS\UserBundle\Controller\ResettingController;
 
 /**
- * Class ResettingFOSUser1Controller.
- *
- *
  * @author Hugo Briand <briand@ekino.com>
  */
 class ResettingFOSUser2Controller extends ResettingController

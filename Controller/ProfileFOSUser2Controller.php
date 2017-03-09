@@ -41,10 +41,10 @@ class ProfileFOSUser2Controller extends Controller
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        return $this->render('SonataUserBundle:Profile:show.html.twig', [
-                'user'   => $user,
+        return $this->render('SonataUserBundle:Profile:show.html.twig', array(
+                'user' => $user,
                 'blocks' => $this->container->getParameter('sonata.user.configuration.profile_blocks'),
-        ]);
+        ));
     }
 
     /**
@@ -73,20 +73,20 @@ class ProfileFOSUser2Controller extends Controller
         $form->setData($user);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
             $userManager = $this->get('fos_user.user_manager');
             $userManager->updateUser($user);
-            $this->setFlash('sonata_user_success', 'profile.flash.updated');
+            $this->addFlash('sonata_user_success', 'profile.flash.updated');
             $response = new RedirectResponse($this->generateUrl('sonata_user_profile_show'));
 
             return $response;
         }
 
-        return $this->render('SonataUserBundle:Profile:edit_authentication.html.twig', [
-                'form'               => $form->createView(),
+        return $this->render('SonataUserBundle:Profile:edit_authentication.html.twig', array(
+                'form' => $form->createView(),
                 'breadcrumb_context' => 'user_profile',
-        ]);
+        ));
     }
 
     /**
@@ -121,7 +121,7 @@ class ProfileFOSUser2Controller extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
             $userManager = $this->get('fos_user.user_manager');
 
@@ -129,7 +129,7 @@ class ProfileFOSUser2Controller extends Controller
             $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_SUCCESS, $event);
 
             $userManager->updateUser($user);
-            $this->setFlash('sonata_user_success', 'profile.flash.updated');
+            $this->addFlash('sonata_user_success', 'profile.flash.updated');
 
             if (null === $response = $event->getResponse()) {
                 $url = $this->generateUrl('sonata_user_profile_show');
@@ -141,18 +141,9 @@ class ProfileFOSUser2Controller extends Controller
             return $response;
         }
 
-        return $this->render('SonataUserBundle:Profile:edit_profile.html.twig', [
-                'form'               => $form->createView(),
+        return $this->render('SonataUserBundle:Profile:edit_profile.html.twig', array(
+                'form' => $form->createView(),
                 'breadcrumb_context' => 'user_profile',
-        ]);
-    }
-
-    /**
-     * @param string $action
-     * @param string $value
-     */
-    protected function setFlash($action, $value)
-    {
-        $this->container->get('session')->getFlashBag()->set($action, $value);
+        ));
     }
 }

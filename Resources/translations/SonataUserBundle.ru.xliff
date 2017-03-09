@@ -1,6 +1,6 @@
-<?xml version="1.0"?>
-<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file source-language="en" datatype="plaintext" original="" >
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file source-language="en" datatype="plaintext" original="">
         <body>
             <trans-unit id="title_user_registration">
                 <source>title_user_registration</source>
@@ -57,6 +57,22 @@
             <trans-unit id="groups">
                 <source>groups</source>
                 <target>Группы</target>
+            </trans-unit>
+            <trans-unit id="group_user">
+                <source>User</source>
+                <target>Пользователь</target>
+            </trans-unit>
+            <trans-unit id="group_status">
+                <source>Status</source>
+                <target>Статус</target>
+            </trans-unit>
+            <trans-unit id="group_roles">
+                <source>Roles</source>
+                <target>Роли</target>
+            </trans-unit>
+            <trans-unit id="group_keys">
+                <source>Keys</source>
+                <target>Ключи</target>
             </trans-unit>
             <trans-unit id="switch_user_exit">
                 <source>switch_user_exit</source>
@@ -513,6 +529,18 @@
             <trans-unit id="form.password_confirmation">
                 <source>form.password_confirmation</source>
                 <target>Подтверждение пароля</target>
+            </trans-unit>
+            <trans-unit id="title_user_edit_password">
+                <source>title_user_edit_password</source>
+                <target>Изменение пароля</target>
+            </trans-unit>
+            <trans-unit id="title_user_resetting">
+                <source>title_user_resetting</source>
+                <target>Запрос пароля</target>
+            </trans-unit>
+            <trans-unit id="title_user_resetting_reset">
+                <source>title_user_resetting_reset</source>
+                <target>Сброс пароля</target>
             </trans-unit>
         </body>
     </file>
