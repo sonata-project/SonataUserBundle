@@ -50,7 +50,11 @@ class SonataUserExtension extends Extension
         $loader->load('block.xml');
         $loader->load('menu.xml');
         $loader->load('form.xml');
-        $loader->load('google_authenticator.xml');
+
+        if (class_exists('Google\Authenticator\GoogleAuthenticator')) {
+            $loader->load('google_authenticator.xml');
+        }
+
         $loader->load('twig.xml');
 
         if ('orm' === $config['manager_type'] && isset(
@@ -108,11 +112,6 @@ class SonataUserExtension extends Extension
         $container
             ->getDefinition('sonata.user.block.account')
             ->replaceArgument(2, $tokenStorageReference)
-        ;
-
-        $container
-            ->getDefinition('sonata.user.google.authenticator.request_listener')
-            ->replaceArgument(1, $tokenStorageReference)
         ;
 
         $this->registerDoctrineMapping($config);
@@ -180,6 +179,22 @@ class SonataUserExtension extends Extension
      */
     public function configureGoogleAuthenticator($config, ContainerBuilder $container)
     {
+        if (class_exists('Google\Authenticator\GoogleAuthenticator')) {
+            // Set the SecurityContext for Symfony <2.6
+            // NEXT_MAJOR: Go back to simple xml configuration when bumping requirements to SF 2.6+
+            if (interface_exists(
+                'Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface'
+            )) {
+                $tokenStorageReference = new Reference('security.token_storage');
+            } else {
+                $tokenStorageReference = new Reference('security.context');
+            }
+
+            $container
+                ->getDefinition('sonata.user.google.authenticator.request_listener')
+                ->replaceArgument(1, $tokenStorageReference);
+        }
+
         $container->setParameter('sonata.user.google.authenticator.enabled', $config['google_authenticator']['enabled']);
 
         if (!$config['google_authenticator']['enabled']) {
