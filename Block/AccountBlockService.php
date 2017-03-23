@@ -11,8 +11,8 @@
 
 namespace Sonata\UserBundle\Block;
 
-use Sonata\BlockBundle\Block\BaseBlockService;
 use Sonata\BlockBundle\Block\BlockContextInterface;
+use Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Sonata\UserBundle\Model\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +25,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  *
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */
-class AccountBlockService extends BaseBlockService
+class AccountBlockService extends AbstractBlockService
 {
     /**
      * @var TokenStorageInterface|SecurityContextInterface
