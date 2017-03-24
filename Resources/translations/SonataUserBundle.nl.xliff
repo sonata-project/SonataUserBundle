@@ -20,7 +20,7 @@
             </trans-unit>
             <trans-unit id="title_user_authentication">
                 <source>title_user_authentication</source>
-                <target>Authentication</target>
+                <target>Authenticatie</target>
             </trans-unit>
             <trans-unit id="sonata_user_submit">
                 <source>sonata_user_submit</source>
