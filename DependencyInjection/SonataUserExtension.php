@@ -84,7 +84,7 @@ class SonataUserExtension extends Extension
             $authorizationCheckerReference = new Reference('security.context');
         }
 
-        // NEXT_MAJOR: Remove following lines
+        // NEXT_MAJOR: Remove following lines.
         $profileFormDefinition = $container->getDefinition('sonata.user.profile.form');
         $registrationFormDefinition = $container->getDefinition('sonata.user.registration.form');
         if (method_exists($profileFormDefinition, 'setFactory')) {
