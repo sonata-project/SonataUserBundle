@@ -28,7 +28,7 @@ file that was distributed with this source code.
                 <h3 class="panel-title">{{ 'sonata_change_password_link'|trans({}, 'SonataUserBundle') }}</h3>
             </div>
             <div class="panel-body">
-                {% render url("sonata_user_change_password") %}
+                {{ render(url("sonata_user_change_password")) }}
             </div>
         </div>
     </div>
