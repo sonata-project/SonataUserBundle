@@ -64,7 +64,7 @@ class AdminResettingController extends ResettingController
             return $event->getResponse();
         }
 
-        $ttl = $this->container->getParameter('fos_user.resetting.token_ttl');
+        $ttl = $this->container->getParameter('fos_user.resetting.retry_ttl');
 
         if (null !== $user && !$user->isPasswordRequestNonExpired($ttl)) {
             $event = new GetResponseUserEvent($user, $request);
@@ -101,7 +101,9 @@ class AdminResettingController extends ResettingController
             }
         }
 
-        return new RedirectResponse($this->generateUrl('sonata_user_admin_resetting_check_email', array('username' => $username)));
+        return new RedirectResponse($this->generateUrl('sonata_user_admin_resetting_check_email', array(
+            'username' => $username,
+        )));
     }
 
     /**

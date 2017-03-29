@@ -34,7 +34,7 @@ class UserManagerTest extends PHPUnit_Framework_TestCase
 
     /**
      * @expectedException        \RuntimeException
-     * @expectedExceptionMessage Invalid sort field 'invalid' in 'className' class
+     * @expectedExceptionMessage Invalid sort field 'invalid' in 'Sonata\UserBundle\Entity\BaseUser' class
      */
     public function testGetPagerWithInvalidSort()
     {
