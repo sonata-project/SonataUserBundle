@@ -18,7 +18,7 @@
     ],
     "require": {
         "php": "^7.0",
-        "friendsofsymfony/user-bundle": "2.0-beta2",
+        "friendsofsymfony/user-bundle": "^2.0",
         "sonata-project/admin-bundle": "^3.1",
         "sonata-project/core-bundle": "^3.2",
         "sonata-project/datagrid-bundle": "^2.2.1",
