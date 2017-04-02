@@ -16,7 +16,6 @@ use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
@@ -47,8 +46,6 @@ class SonataUserExtension extends Extension
 
         $this->aliasManagers($container, $config['manager_type']);
 
-        $loader->load('block.xml');
-        $loader->load('menu.xml');
         $loader->load('form.xml');
 
         if (class_exists('Google\Authenticator\GoogleAuthenticator')) {
@@ -68,51 +65,11 @@ class SonataUserExtension extends Extension
             $loader->load('api_controllers.xml');
         }
 
-        if (isset($bundles['SonataSeoBundle'])) {
-            $loader->load('seo_block.xml');
-        }
-
         if ($config['security_acl']) {
             $loader->load('security_acl.xml');
         }
 
         $config = $this->addDefaults($config);
-
-        // Set the SecurityContext for Symfony <2.6
-        // NEXT_MAJOR: Go back to simple xml configuration when bumping requirements to SF 2.6+
-        if (interface_exists('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface')) {
-            $tokenStorageReference = new Reference('security.token_storage');
-            $authorizationCheckerReference = new Reference('security.authorization_checker');
-        } else {
-            $tokenStorageReference = new Reference('security.context');
-            $authorizationCheckerReference = new Reference('security.context');
-        }
-
-        // NEXT_MAJOR: Remove following lines.
-        $profileFormDefinition = $container->getDefinition('sonata.user.profile.form');
-        $registrationFormDefinition = $container->getDefinition('sonata.user.registration.form');
-        if (method_exists($profileFormDefinition, 'setFactory')) {
-            $profileFormDefinition->setFactory(array(new Reference('form.factory'), 'createNamed'));
-            $registrationFormDefinition->setFactory(array(new Reference('form.factory'), 'createNamed'));
-        } else {
-            $profileFormDefinition->setFactoryClass(new Reference('form.factory'));
-            $profileFormDefinition->setFactoryMethod('createNamed');
-            $registrationFormDefinition->setFactoryClass(new Reference('form.factory'));
-            $registrationFormDefinition->setFactoryMethod('createNamed');
-        }
-
-        if ($container->hasDefinition('sonata.user.editable_role_builder')) {
-            $container
-                ->getDefinition('sonata.user.editable_role_builder')
-                ->replaceArgument(0, $tokenStorageReference)
-                ->replaceArgument(1, $authorizationCheckerReference)
-            ;
-        }
-
-        $container
-            ->getDefinition('sonata.user.block.account')
-            ->replaceArgument(2, $tokenStorageReference)
-        ;
 
         $this->registerDoctrineMapping($config);
         $this->configureAdminClass($config, $container);
@@ -132,10 +89,6 @@ class SonataUserExtension extends Extension
         $container->setParameter('sonata.user.impersonating', $config['impersonating']);
 
         $this->configureGoogleAuthenticator($config, $container);
-        $this->configureShortcut($container);
-        $this->configureProfile($config, $container);
-        $this->configureRegistration($config, $container);
-        $this->configureMenu($config, $container);
     }
 
     /**
@@ -179,22 +132,6 @@ class SonataUserExtension extends Extension
      */
     public function configureGoogleAuthenticator($config, ContainerBuilder $container)
     {
-        if (class_exists('Google\Authenticator\GoogleAuthenticator')) {
-            // Set the SecurityContext for Symfony <2.6
-            // NEXT_MAJOR: Go back to simple xml configuration when bumping requirements to SF 2.6+
-            if (interface_exists(
-                'Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface'
-            )) {
-                $tokenStorageReference = new Reference('security.token_storage');
-            } else {
-                $tokenStorageReference = new Reference('security.context');
-            }
-
-            $container
-                ->getDefinition('sonata.user.google.authenticator.request_listener')
-                ->replaceArgument(1, $tokenStorageReference);
-        }
-
         $container->setParameter('sonata.user.google.authenticator.enabled', $config['google_authenticator']['enabled']);
 
         if (!$config['google_authenticator']['enabled']) {
@@ -319,68 +256,6 @@ class SonataUserExtension extends Extension
                 )),
             ),
         ));
-    }
-
-    /**
-     * @param ContainerBuilder $container
-     */
-    public function configureShortcut(ContainerBuilder $container)
-    {
-        $container->setAlias('sonata.user.authentication.form', 'fos_user.profile.form');
-        $container->setAlias('sonata.user.authentication.form_handler', 'fos_user.profile.form.handler');
-    }
-
-    /**
-     * @param array            $config
-     * @param ContainerBuilder $container
-     */
-    public function configureProfile(array $config, ContainerBuilder $container)
-    {
-        $container->setParameter('sonata.user.profile.form.type', $config['profile']['form']['type']);
-        $container->setParameter('sonata.user.profile.form.name', $config['profile']['form']['name']);
-        $container->setParameter('sonata.user.profile.form.validation_groups', $config['profile']['form']['validation_groups']);
-
-        $container->setParameter('sonata.user.register.confirm.redirect_route', $config['profile']['register']['confirm']['redirect']['route']);
-        $container->setParameter('sonata.user.register.confirm.redirect_route_params', $config['profile']['register']['confirm']['redirect']['route_parameters']);
-
-        $container->setParameter('sonata.user.configuration.profile_blocks', $config['profile']['dashboard']['blocks']);
-
-        $container->setAlias('sonata.user.profile.form.handler', $config['profile']['form']['handler']);
-    }
-
-    /**
-     * @param array            $config
-     * @param ContainerBuilder $container
-     */
-    public function configureRegistration(array $config, ContainerBuilder $container)
-    {
-        $bundles = $container->getParameter('kernel.bundles');
-
-        if (isset($bundles['MopaBootstrapBundle'])) {
-            $options = array(
-                'horizontal_input_wrapper_class' => 'col-lg-8',
-                'horizontal_label_class' => 'col-lg-4 control-label',
-            );
-        } else {
-            $options = array();
-        }
-
-        $container->setParameter('sonata.user.registration.form.options', $options);
-
-        $container->setParameter('sonata.user.registration.form.type', $config['profile']['register']['form']['type']);
-        $container->setParameter('sonata.user.registration.form.name', $config['profile']['register']['form']['name']);
-        $container->setParameter('sonata.user.registration.form.validation_groups', $config['profile']['register']['form']['validation_groups']);
-
-        $container->setAlias('sonata.user.registration.form.handler', $config['profile']['register']['form']['handler']);
-    }
-
-    /**
-     * @param array            $config
-     * @param ContainerBuilder $container
-     */
-    public function configureMenu(array $config, ContainerBuilder $container)
-    {
-        $container->getDefinition('sonata.user.profile.menu_builder')->replaceArgument(2, $config['profile']['menu']);
     }
 
     /**

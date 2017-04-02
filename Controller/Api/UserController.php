@@ -71,7 +71,6 @@ class UserController
      * @QueryParam(name="page", requirements="\d+", default="1", description="Page for users list pagination (1-indexed)")
      * @QueryParam(name="count", requirements="\d+", default="10", description="Number of users by page")
      * @QueryParam(name="enabled", requirements="0|1", nullable=true, strict=true, description="Enabled/disabled users only?")
-     * @QueryParam(name="locked", requirements="0|1", nullable=true, strict=true, description="Locked/Non-locked users only?")
      *
      * @View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
      *
@@ -97,7 +96,6 @@ class UserController
 
         $supporedCriteria = array(
             'enabled' => '',
-            'locked' => '',
         );
 
         $page = $paramFetcher->get('page');
