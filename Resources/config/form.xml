@@ -4,7 +4,7 @@
         <service id="sonata.user.form.gender_list" class="Sonata\UserBundle\Form\Type\UserGenderListType">
             <argument>%fos_user.model.user.class%</argument>
             <argument>getGenderList</argument>
-            <argument>sonata_user_gender</argument>
+            <argument>Sonata\UserBundle\Form\Type\UserGenderListType</argument>
             <tag name="form.type" alias="sonata_user_gender"/>
         </service>
     </services>

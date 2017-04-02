@@ -11,7 +11,7 @@
 
 namespace Sonata\UserBundle\Entity;
 
-use FOS\UserBundle\Entity\GroupManager as BaseGroupManager;
+use FOS\UserBundle\Doctrine\GroupManager as BaseGroupManager;
 use Sonata\DatagridBundle\Pager\Doctrine\Pager;
 use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;
 use Sonata\UserBundle\Model\GroupManagerInterface;

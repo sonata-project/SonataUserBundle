@@ -28,25 +28,17 @@ class SecurityRolesTypeTest extends TypeTestCase
         $type = new SecurityRolesType($this->roleBuilder);
 
         $optionResolver = new OptionsResolver();
-        $type->setDefaultOptions($optionResolver);
+        $type->configureOptions($optionResolver);
 
         $options = $optionResolver->resolve();
         $this->assertCount(3, $options['choices']);
-    }
-
-    public function testGetName()
-    {
-        $type = new SecurityRolesType($this->roleBuilder);
-        $this->assertEquals('sonata_security_roles', $type->getName());
     }
 
     public function testGetParent()
     {
         $type = new SecurityRolesType($this->roleBuilder);
         $this->assertEquals(
-            method_exists('Symfony\Component\Form\FormTypeInterface', 'setDefaultOptions') ?
-                'choice' :
-                'Symfony\Component\Form\Extension\Core\Type\ChoiceType',
+            'Symfony\Component\Form\Extension\Core\Type\ChoiceType',
             $type->getParent()
         );
     }
@@ -91,8 +83,9 @@ class SecurityRolesTypeTest extends TypeTestCase
         ));
 
         // we keep hidden ROLE_SUPER_ADMIN and delete available ROLE_USER
-        $form->submit(array(0 => 'ROLE_ADMIN'));
+        $form->submit(array(0 => 'ROLE_USER'));
 
+        $this->assertNull($form->getTransformationFailure());
         $this->assertTrue($form->isSynchronized());
         $this->assertCount(2, $form->getData());
         $this->assertContains('ROLE_SUPER_ADMIN', $form->getData());
@@ -122,9 +115,6 @@ class SecurityRolesTypeTest extends TypeTestCase
 
     private function getSecurityRolesTypeName()
     {
-        return
-            method_exists('Symfony\Component\Form\FormTypeInterface', 'setDefaultOptions') ?
-                'sonata_security_roles' :
-                'Sonata\UserBundle\Form\Type\SecurityRolesType';
+        return 'Sonata\UserBundle\Form\Type\SecurityRolesType';
     }
 }
