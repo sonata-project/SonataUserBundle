@@ -35,7 +35,9 @@
         "jms/serializer-bundle": "^0.13 || ^1.0",
         "nelmio/api-doc-bundle": "^2.4",
         "sllh/php-cs-fixer-styleci-bridge": "^2.0",
+        "sonata-project/block-bundle": "^3.2",
         "sonata-project/google-authenticator": "^1.0",
+        "sonata-project/seo-bundle": "^2.0",
         "symfony/phpunit-bridge": "^2.8 || ^3.0"
     },
     "suggest": {
@@ -50,6 +52,7 @@
         "friendsofsymfony/rest-bundle": "<1.1",
         "jms/serializer": "<0.13 || >=2.0",
         "nelmio/api-doc-bundle": "<2.4 || >= 3.0",
+        "sonata-project/block-bundle": "<3.2",
         "sonata-project/doctrine-orm-admin-bundle": "<3.0 || >=4.0",
         "sonata-project/google-authenticator": "<1.0 || >= 2.0",
         "sonata-project/seo-bundle": "<2.0 || >=3.0"
