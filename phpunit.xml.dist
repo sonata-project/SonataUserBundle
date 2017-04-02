@@ -12,11 +12,10 @@
          bootstrap="Tests/bootstrap.php"
 >
     <testsuites>
-        <testsuite name="User Bundle Test Suite">
-            <directory>./Tests/</directory>
+        <testsuite name="SonataUserBundle Test Suite">
+            <directory>./Tests</directory>
         </testsuite>
     </testsuites>
-
 
     <filter>
         <whitelist>
@@ -25,10 +24,14 @@
                 <directory>./Tests/</directory>
                 <directory>./DataFixtures/</directory>
                 <directory>./Resources/</directory>
-                <directory>./DependencyInjection/</directory>
                 <directory>./vendor/</directory>
+                <directory>./coverage/</directory>
             </exclude>
         </whitelist>
     </filter>
+
+    <php>
+        <ini name="precision" value="8"/>
+    </php>
 
 </phpunit>
