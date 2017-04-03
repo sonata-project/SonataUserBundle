@@ -7,13 +7,14 @@ Installation
 Prerequisites
 -------------
 
-PHP 5.3 and Symfony 2 are needed to make this bundle work; there are also some Sonata dependencies that need to be installed and configured beforehand:
+PHP 7 and Symfony 2.8 or 3 are needed to make this bundle work; there are also some Sonata dependencies that need to be installed and configured beforehand:
 
     - `SonataAdminBundle <https://sonata-project.org/bundles/admin>`_
     - `SonataEasyExtendsBundle <https://sonata-project.org/bundles/easy-extends>`_
 
-You will need to install those in their 2.0 branches (or master if they don't
-have a similar branch). Follow also their configuration step; you will find everything you need in their own installation chapter.
+You will need to install those in their 2.0 or 3.0 branches. Follow also
+their configuration step; you will find everything you need in their own
+installation chapter.
 
 .. note::
     If a dependency is already installed somewhere in your project or in
@@ -42,18 +43,12 @@ Next, be sure to enable the bundles in your and ``AppKernel.php`` file:
     public function registerbundles()
     {
         return array(
+            new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\CoreBundle\SonataCoreBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
             // ...
-            // You have 2 options to initialize the SonataUserBundle in your AppKernel,
-            // you can select which bundle SonataUserBundle extends
-            // Most of the cases, you'll want to extend FOSUserBundle though ;)
-            // extend the ``FOSUserBundle``
             new FOS\UserBundle\FOSUserBundle(),
-            new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
-            // OR
-            // the bundle will NOT extend ``FOSUserBundle``
             new Sonata\UserBundle\SonataUserBundle(),
             // ...
         );
@@ -81,10 +76,10 @@ When using ACL, the ``UserBundle`` can prevent `normal` user to change settings 
     # app/config/security.yml
     security:
         # [...]
-        
+
         encoders:
             FOS\UserBundle\Model\UserInterface: sha512
-        
+
         acl:
             connection: default
 
@@ -111,7 +106,6 @@ Add these config lines
             user_manager: sonata.user.orm.user_manager                      # If you're using doctrine orm (use sonata.user.mongodb.user_manager for mongodb)
 
     doctrine:
-
         dbal:
             types:
                 json: Sonata\Doctrine\Types\JsonType
@@ -131,60 +125,6 @@ And these in the config mapping definition (or enable `auto_mapping <http://symf
                         ApplicationSonataUserBundle: ~
                         SonataUserBundle: ~
                         FOSUserBundle: ~                                    # If SonataUserBundle extends it
-
-
-
-Use custom SonataUser controllers and templates instead of FOSUser ones
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-If you wish to use custom ``SonataUserBundle`` templates and controllers instead of ``FOSUser`` ones, you will have to update your ``routing.yml`` file as follows:
-
-Replace:
-
-.. code-block:: yaml
-
-    fos_user_security:
-        resource: "@FOSUserBundle/Resources/config/routing/security.xml"
-
-    fos_user_resetting:
-        resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
-        prefix: /resetting
-
-    fos_user_profile:
-        resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
-        prefix: /profile
-
-    fos_user_register:
-        resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
-        prefix: /register
-
-    fos_user_change_password:
-        resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
-        prefix: /profile
-
-With:
-
-.. code-block:: yaml
-
-    sonata_user_security:
-        resource: "@SonataUserBundle/Resources/config/routing/sonata_security_1.xml"
-
-    sonata_user_resetting:
-        resource: "@SonataUserBundle/Resources/config/routing/sonata_resetting_1.xml"
-        prefix: /resetting
-
-    sonata_user_profile:
-        resource: "@SonataUserBundle/Resources/config/routing/sonata_profile_1.xml"
-        prefix: /profile
-
-    sonata_user_register:
-        resource: "@SonataUserBundle/Resources/config/routing/sonata_registration_1.xml"
-        prefix: /register
-
-    sonata_user_change_password:
-        resource: "@SonataUserBundle/Resources/config/routing/sonata_change_password_1.xml"
-        prefix: /profile
-
 
 Integrating the bundle into the Sonata Admin Bundle
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -218,7 +158,7 @@ Then, add a new custom firewall handlers for the admin:
 
         providers:
             fos_userbundle:
-                id: fos_user.user_manager
+                id: fos_user.user_provider.username
 
         firewalls:
             # Disabling the security for the web debug toolbar, the profiler and Assetic.
@@ -267,11 +207,6 @@ The last part is to define 3 new access control rules:
 
     security:
         access_control:
-            # URL of FOSUserBundle which need to be available to anonymous users
-            - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-
             # Admin login page needs to be accessed without credential
             - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
             - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
@@ -343,7 +278,6 @@ classes:
         firewall_name:  main
         user_class:     Application\Sonata\UserBundle\Entity\User
 
-
         group:
             group_class:   Application\Sonata\UserBundle\Entity\Group
             group_manager: sonata.user.orm.group_manager                    # If you're using doctrine orm (use sonata.user.mongodb.group_manager for mongodb)
@@ -352,7 +286,6 @@ classes:
             user_manager: sonata.user.orm.user_manager                      # If you're using doctrine orm (use sonata.user.mongodb.user_manager for mongodb)
 
     doctrine:
-
         dbal:
             types:
                 json: Sonata\Doctrine\Types\JsonType
