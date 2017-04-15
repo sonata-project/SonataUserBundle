@@ -227,6 +227,9 @@ Then, add a new custom firewall handlers for the admin:
                 security: false
 
             # -> custom firewall for the admin area of the URL
+            admin_login:
+                pattern: ^/admin/login$
+                anonymous: ~
             admin:
                 pattern:            /admin(.*)
                 context:            user
