@@ -87,8 +87,14 @@ class UserAdmin extends AbstractAdmin
             ->addIdentifier('username')
             ->add('email')
             ->add('groups')
-            ->add('enabled', null, array('editable' => true))
-            ->add('locked', null, array('editable' => true))
+            ->add('enabled', null, array(
+                'editable'     => true,
+                'confirmation' => true,
+            ))
+            ->add('locked', null, array(
+                'editable'     => true,
+                'confirmation' => true,
+            ))
             ->add('createdAt')
         ;
 
