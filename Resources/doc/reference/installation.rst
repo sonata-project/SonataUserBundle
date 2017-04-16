@@ -25,6 +25,7 @@ Enable the Bundle
 .. code-block:: bash
 
     php composer.phar require sonata-project/user-bundle --no-update
+    php composer.phar require sonata-project/datagrid-bundle --no-update
     php composer.phar require sonata-project/doctrine-orm-admin-bundle  --no-update # optional
     php composer.phar require friendsofsymfony/rest-bundle  --no-update # optional when using api
     php composer.phar require nelmio/api-doc-bundle  --no-update # optional when using api
