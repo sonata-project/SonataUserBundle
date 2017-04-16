@@ -82,6 +82,10 @@ class ProfileMenuBlockService extends MenuBlockService
             if (method_exists($menu, 'setCurrentUri')) {
                 $menu->setCurrentUri($settings['current_uri']);
             }
+
+	    if (method_exists($menu, 'setUri')) {
+                $menu->setUri($settings['current_uri']);
+            }
         }
 
         return $menu;
