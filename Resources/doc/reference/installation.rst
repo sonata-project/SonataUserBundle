@@ -339,13 +339,13 @@ classes:
     # app/config/config.yml
 
     fos_user:
-        db_driver:      orm # can be orm or odm
+        db_driver:      orm # can be orm or odm or mongodb
         firewall_name:  main
-        user_class:     Application\Sonata\UserBundle\Entity\User
+        user_class:     Application\Sonata\UserBundle\Entity\User           # If you're using doctrine orm (use Application\Sonata\UserBundle\Document\User for mongodb)
 
 
         group:
-            group_class:   Application\Sonata\UserBundle\Entity\Group
+            group_class:   Application\Sonata\UserBundle\Entity\Group      # If you're using doctrine orm (use Application\Sonata\UserBundle\Document\Group for mongodb)
             group_manager: sonata.user.orm.group_manager                    # If you're using doctrine orm (use sonata.user.mongodb.group_manager for mongodb)
 
         service:
