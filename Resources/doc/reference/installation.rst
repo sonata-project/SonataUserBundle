@@ -187,6 +187,29 @@ With:
         resource: "@SonataUserBundle/Resources/config/routing/sonata_change_password_2.xml"
         prefix: /profile
 
+Note! If you use the 'dev-add_support_for_fos_user2' branch then you should add _2 (instead of _1) at the end of each route as follow:
+
+.. code-block:: yaml
+
+    sonata_user_security:
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_security_2.xml"
+
+    sonata_user_resetting:
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_resetting_2.xml"
+        prefix: /resetting
+
+    sonata_user_profile:
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_profile_2.xml"
+        prefix: /profile
+
+    sonata_user_register:
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_registration_2.xml"
+        prefix: /register
+
+    sonata_user_change_password:
+        resource: "@SonataUserBundle/Resources/config/routing/sonata_change_password_2.xml"
+        prefix: /profile
+
 Integrating the bundle into the Sonata Admin Bundle
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
