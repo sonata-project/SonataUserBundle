@@ -17,6 +17,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 
 class UserAdmin extends AbstractAdmin
 {
@@ -51,15 +52,6 @@ class UserAdmin extends AbstractAdmin
         return array_filter(parent::getExportFields(), function ($v) {
             return !in_array($v, array('password', 'salt'));
         });
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function preUpdate($user)
-    {
-        $this->getUserManager()->updateCanonicalFields($user);
-        $this->getUserManager()->updatePassword($user);
     }
 
     /**
@@ -261,4 +253,93 @@ class UserAdmin extends AbstractAdmin
             ->end()
         ;
     }
+    
+    /**
+     * @param UserInterface $object
+     * @return UserInterface
+     */
+    public function update($object)
+    {
+        $this->preUpdate($object);
+        foreach ($this->extensions as $extension) {
+            $extension->preUpdate($this, $object);
+        }
+        
+        $originalData = $this->getConfigurationPool()
+            ->getContainer()->get('doctrine')->getEntityManager()
+            ->getUnitOfWork()->getOriginalEntityData($object)
+        ;
+        
+        $this->getUserManager()->updateUser($object);
+        if ($originalData['username'] !== $object->getUserName()) {
+            /* Symfony\Component\Security\Acl\Dbal\MutableAclProvider */
+            $this->getConfigurationPool()->getContainer()
+                ->get('security.acl.provider')->updateUserSecurityIdentity(
+                        UserSecurityIdentity::fromAccount($object),
+                        $originalData['username']
+                )
+            ;
+        }
+        
+        $this->postUpdate($object);
+        foreach ($this->extensions as $extension) {
+            $extension->postUpdate($this, $object);
+        }
+        
+        return $object;
+    }
+    
+    /**
+     * @param UserInterface $object
+     */
+    public function delete($object)
+    {
+        $this->preRemove($object);
+        foreach ($this->extensions as $extension) {
+            $extension->preRemove($this, $object);
+        }
+        
+        $this->getSecurityHandler()->deleteObjectSecurity($this, $object);
+        $this->getUserManager()->delete($object);
+        
+        /* Symfony\Component\Security\Acl\Dbal\MutableAclProvider */
+        $this->getConfigurationPool()->getContainer()
+            ->get('security.acl.provider')->deleteSecurityIdentity(
+                UserSecurityIdentity::fromAccount($object)
+            )
+        ;
+        
+        $this->postRemove($object);
+        foreach ($this->extensions as $extension) {
+            $extension->postRemove($this, $object);
+        }
+    }
+    
+    /**
+     * remove access to batchDelete, because
+     *  Sonata\AdminBundle\Controller\CrudController::batchActionDelete()
+     *  uses $modelManager = $this->admin->getModelManager()
+     *  and ModelManager dont delete securityIdentity
+     * @return array
+     */
+    protected function getAccess()
+    {
+        $access = parent::getAccess();
+        unset($access['batchDelete']);
+        return $access;
+    }
+    
+    /**
+     * remove batchDelete action, because
+     *  Sonata\AdminBundle\Controller\CrudController::batchActionDelete()
+     *  uses $modelManager = $this->admin->getModelManager()
+     *  and ModelManager dont delete securityIdentity
+     * @return array
+     */
+    public function getBatchActions() {
+        $actions = parent::getBatchActions();
+        unset($actions['delete']);
+        return $actions;
+    }
+    
 }
