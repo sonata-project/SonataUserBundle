@@ -101,7 +101,7 @@ class SecurityRolesType extends AbstractType
 
         $resolver->setDefaults(array(
             'choices' => function (Options $options, $parentChoices) use ($roles) {
-                return empty($parentChoices) ? $roles : array();
+                return empty($parentChoices) ? array_flip($roles) : array();
             },
 
             'read_only_choices' => function (Options $options) use ($rolesReadOnly) {
@@ -117,10 +117,7 @@ class SecurityRolesType extends AbstractType
      */
     public function getParent()
     {
-        return
-            method_exists('Symfony\Component\Form\FormTypeInterface', 'setDefaultOptions') ?
-                'choice' : // support for symfony < 2.8.0
-                'Symfony\Component\Form\Extension\Core\Type\ChoiceType';
+        return 'Symfony\Component\Form\Extension\Core\Type\ChoiceType';
     }
 
     /**

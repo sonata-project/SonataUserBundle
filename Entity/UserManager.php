@@ -27,7 +27,7 @@ class UserManager extends BaseUserManager implements UserManagerInterface, Manag
      */
     public function findUsersBy(array $criteria = null, array $orderBy = null, $limit = null, $offset = null)
     {
-        return $this->repository->findBy($criteria, $orderBy, $limit, $offset);
+        return $this->getRepository()->findBy($criteria, $orderBy, $limit, $offset);
     }
 
     /**
@@ -35,7 +35,7 @@ class UserManager extends BaseUserManager implements UserManagerInterface, Manag
      */
     public function find($id)
     {
-        return $this->repository->find($id);
+        return $this->getRepository()->find($id);
     }
 
     /**
@@ -43,7 +43,7 @@ class UserManager extends BaseUserManager implements UserManagerInterface, Manag
      */
     public function findAll()
     {
-        return $this->repository->findAll();
+        return $this->getRepository()->findAll();
     }
 
     /**
@@ -91,7 +91,7 @@ class UserManager extends BaseUserManager implements UserManagerInterface, Manag
      */
     public function getTableName()
     {
-        return $this->objectManager->getClassMetadata($this->class)->table['name'];
+        return $this->objectManager->getClassMetadata($this->getClass())->table['name'];
     }
 
     /**
@@ -107,14 +107,14 @@ class UserManager extends BaseUserManager implements UserManagerInterface, Manag
      */
     public function getPager(array $criteria, $page, $limit = 10, array $sort = array())
     {
-        $query = $this->repository
+        $query = $this->getRepository()
             ->createQueryBuilder('u')
             ->select('u');
 
-        $fields = $this->objectManager->getClassMetadata($this->class)->getFieldNames();
+        $fields = $this->objectManager->getClassMetadata($this->getClass())->getFieldNames();
         foreach ($sort as $field => $direction) {
             if (!in_array($field, $fields)) {
-                throw new \RuntimeException(sprintf("Invalid sort field '%s' in '%s' class", $field, $this->class));
+                throw new \RuntimeException(sprintf("Invalid sort field '%s' in '%s' class", $field, $this->getClass()));
             }
         }
         if (count($sort) == 0) {
@@ -127,11 +127,6 @@ class UserManager extends BaseUserManager implements UserManagerInterface, Manag
         if (isset($criteria['enabled'])) {
             $query->andWhere('u.enabled = :enabled');
             $query->setParameter('enabled', $criteria['enabled']);
-        }
-
-        if (isset($criteria['locked'])) {
-            $query->andWhere('u.locked = :locked');
-            $query->setParameter('locked', $criteria['locked']);
         }
 
         $pager = new Pager();

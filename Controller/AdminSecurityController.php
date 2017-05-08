@@ -11,15 +11,13 @@
 
 namespace Sonata\UserBundle\Controller;
 
-use FOS\UserBundle\Model\UserInterface;
+use Sonata\UserBundle\Model\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class AdminSecurityController extends Controller
 {
@@ -28,12 +26,10 @@ class AdminSecurityController extends Controller
      *
      * @return Response|RedirectResponse
      */
-    public function loginAction(Request $request = null)
+    public function loginAction(Request $request)
     {
-        $user = $this->getUser();
-
-        if ($user instanceof UserInterface) {
-            $this->get('session')->getFlashBag()->set('sonata_user_error', 'sonata_user_already_authenticated');
+        if ($this->getUser() instanceof UserInterface) {
+            $this->addFlash('sonata_user_error', 'sonata_user_already_authenticated');
             $url = $this->generateUrl('sonata_admin_dashboard');
 
             return $this->redirect($url);
@@ -41,16 +37,14 @@ class AdminSecurityController extends Controller
 
         $session = $request->getSession();
 
-        // NEXT_MAJOR: Symfony <2.6 BC. To be removed.
-        $authenticationErrorKey = class_exists('Symfony\Component\Security\Core\Security')
-            ? Security::AUTHENTICATION_ERROR : SecurityContextInterface::AUTHENTICATION_ERROR;
+        $authErrorKey = Security::AUTHENTICATION_ERROR;
 
         // get the error if any (works with forward and redirect -- see below)
-        if ($request->attributes->has($authenticationErrorKey)) {
-            $error = $request->attributes->get($authenticationErrorKey);
-        } elseif (null !== $session && $session->has($authenticationErrorKey)) {
-            $error = $session->get($authenticationErrorKey);
-            $session->remove($authenticationErrorKey);
+        if ($request->attributes->has($authErrorKey)) {
+            $error = $request->attributes->get($authErrorKey);
+        } elseif (null !== $session && $session->has($authErrorKey)) {
+            $error = $session->get($authErrorKey);
+            $session->remove($authErrorKey);
         } else {
             $error = null;
         }
@@ -59,47 +53,23 @@ class AdminSecurityController extends Controller
             $error = null; // The value does not come from the security component.
         }
 
-        // NEXT_MAJOR: Symfony <2.6 BC. To be removed.
-        $lastUsernameKey = class_exists('Symfony\Component\Security\Core\Security')
-            ? Security::LAST_USERNAME : SecurityContextInterface::LAST_USERNAME;
-
-        // last username entered by the user
-        $lastUsername = (null === $session) ? '' : $session->get($lastUsernameKey);
-
-        // NEXT_MAJOR: Symfony <2.4 BC. To be removed.
-        if ($this->has('security.csrf.token_manager')) {
-            $csrfToken = $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue();
-        } else {
-            $csrfToken = $this->has('form.csrf_provider')
-                ? $this->get('form.csrf_provider')->generateCsrfToken('authenticate')
-                : null;
-        }
-
-        // NEXT_MAJOR: remove when dropping Symfony <2.8 support
-        $authorizationCheckerService = $this->has('security.authorization_checker')
-            ? $this->get('security.authorization_checker') : $this->get('security.context');
-
-        if ($authorizationCheckerService->isGranted('ROLE_ADMIN')) {
+        if ($this->isGranted('ROLE_ADMIN')) {
             $refererUri = $request->server->get('HTTP_REFERER');
 
             return $this->redirect($refererUri && $refererUri != $request->getUri() ? $refererUri : $this->generateUrl('sonata_admin_dashboard'));
         }
 
-        // NEXT_MAJOR: Deprecated in 2.3, to be removed in 4.0
-        try {
-            $resetRoute = $this->generateUrl('sonata_user_admin_resetting_request');
-        } catch (RouteNotFoundException $e) {
-            @trigger_error('Using the route fos_user_resetting_request for admin password resetting is deprecated since version 2.3 and will be removed in 3.0. Use sonata_user_admin_resetting_request instead.', E_USER_DEPRECATED);
-            $resetRoute = $this->generateUrl('fos_user_resetting_request');
-        }
+        $csrfToken = $this->has('security.csrf.token_manager')
+            ? $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue()
+            : null;
 
-        return $this->render('SonataUserBundle:Admin:Security/login.html.'.$this->container->getParameter('fos_user.template.engine'), array(
-            'last_username' => $lastUsername,
-            'error' => $error,
-            'csrf_token' => $csrfToken,
-            'base_template' => $this->get('sonata.admin.pool')->getTemplate('layout'),
+        return $this->render('SonataUserBundle:Admin:Security/login.html.twig', array(
             'admin_pool' => $this->get('sonata.admin.pool'),
-            'reset_route' => $resetRoute, // NEXT_MAJOR: Deprecated in 2.3, to be removed in 4.0
+            'base_template' => $this->get('sonata.admin.pool')->getTemplate('layout'),
+            'csrf_token' => $csrfToken,
+            'error' => $error,
+            'last_username' => (null === $session) ? '' : $session->get(Security::LAST_USERNAME),
+            'reset_route' => $this->generateUrl('sonata_user_admin_resetting_request'),
         ));
     }
 
@@ -111,20 +81,5 @@ class AdminSecurityController extends Controller
     public function logoutAction()
     {
         throw new \RuntimeException('You must activate the logout in your security firewall configuration.');
-    }
-
-    /**
-     * Renders the login template with the given parameters. Overwrite this function in
-     * an extended controller to provide additional data for the login template.
-     *
-     * @param array $data
-     *
-     * @return Response
-     */
-    protected function renderLogin(array $data)
-    {
-        $template = sprintf('FOSUserBundle:Security:login.html.%s', $this->container->getParameter('fos_user.template.engine'));
-
-        return $this->render($template, $data);
     }
 }

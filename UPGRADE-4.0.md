@@ -12,3 +12,15 @@ See also the [diff code](https://github.com/sonata-project/SonataUserBundle/comp
 ## Google Authenticator
 
 The google auth dependency is optional now, please add it to you composer file if you need this.
+
+## FOSUser 2.0
+
+FOSUser is now on its 2.0 version. You can check its UPGRADE notes [here](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/v2.0.0/Upgrade.md).
+
+## Bundle definition
+
+SonataUser no longer has FOSUser as its parent bundle. It requires FOSUser as a dependency always.
+
+## Removals
+
+Removed code used to define custom User login for the frontend application. Use FOSUser directly instead.

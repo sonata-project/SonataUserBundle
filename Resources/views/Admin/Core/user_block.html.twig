@@ -14,7 +14,7 @@ file that was distributed with this source code.
         {% set _bg_class          = "bg-light-blue" %}
         {% set _logout_uri        = url('sonata_user_admin_security_logout') %}
         {% set _logout_text       = 'user_block_logout'|trans({}, 'SonataUserBundle') %}
-        {% set _profile_uri       = sonata_user.userAdmin.isGranted('EDIT', app.user) ? sonata_user.userAdmin.generateUrl('edit', {id: sonata_user.userAdmin.id(app.user)}) : sonata_user.userAdmin.generateUrl('show', {id: sonata_user.userAdmin.id(app.user)}) %}
+        {% set _profile_uri       = sonata_user.userAdmin.isGranted('EDIT', app.user) ? sonata_user.userAdmin.generateUrl('edit', {id: app.user.id}) : sonata_user.userAdmin.generateUrl('show', {id: app.user.id}) %}
         {% set _profile_text      = 'user_block_profile'|trans({}, 'SonataUserBundle') %}
         {% set _user_image        = sonata_user.defaultAvatar ? asset(sonata_user.defaultAvatar) : null %}
         {# Customize this with your profile picture implementation, see below for example #}

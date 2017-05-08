@@ -5,7 +5,7 @@
 
         </service>
         <service id="sonata.user.google.authenticator.provider" class="Sonata\UserBundle\GoogleAuthenticator\Helper">
-            <argument/>
+            <argument type="service" id="security.token_storage"/>
             <argument type="service" id="sonata.user.google.authenticator"/>
         </service>
         <service id="sonata.user.google.authenticator.interactive_login_listener" class="Sonata\UserBundle\GoogleAuthenticator\InteractiveLoginListener">
