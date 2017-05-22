@@ -188,7 +188,7 @@ class AdminResettingController extends Controller
         $renderedLines = explode(PHP_EOL, trim($rendered));
         $subject = array_shift($renderedLines);
         $body = implode(PHP_EOL, $renderedLines);
-        $message = \Swift_Message::newInstance()
+        $message = (new \Swift_Message())
             ->setSubject($subject)
             ->setFrom($this->container->getParameter('fos_user.resetting.email.from_email'))
             ->setTo((string) $user->getEmail())
