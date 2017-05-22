@@ -22,7 +22,6 @@ class UserControllerTest extends PHPUnit_Framework_TestCase
 {
     public function testGetUsersAction()
     {
-        $user = $this->createMock('Sonata\UserBundle\Model\UserInterface');
         $userManager = $this->createMock('Sonata\UserBundle\Model\UserManagerInterface');
         $userManager->expects($this->once())->method('getPager')->will($this->returnValue(array()));
 
