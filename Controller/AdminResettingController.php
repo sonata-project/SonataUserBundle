@@ -56,7 +56,7 @@ class AdminResettingController extends Controller
 
         if (null !== $user && !$user->isPasswordRequestNonExpired($ttl)) {
             if (!$user->isAccountNonLocked()) {
-                return new RedirectResponse($this->router->generate('sonata_user_admin_resetting_request'));
+                return new RedirectResponse($this->get('router')->generate('sonata_user_admin_resetting_request'));
             }
 
             if (null === $user->getConfirmationToken()) {
