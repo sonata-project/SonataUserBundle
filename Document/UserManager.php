@@ -24,7 +24,7 @@ class UserManager extends BaseUserManager implements UserManagerInterface
      */
     public function findUsersBy(array $criteria = null, array $orderBy = null, $limit = null, $offset = null)
     {
-        return $this->repository->findBy($criteria, $orderBy, $limit, $offset);
+        return $this->getRepository()->findBy($criteria, $orderBy, $limit, $offset);
     }
 
     /**
