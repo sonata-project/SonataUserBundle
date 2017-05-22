@@ -55,29 +55,6 @@ interface UserInterface extends \FOS\UserBundle\Model\UserInterface
     public function getUpdatedAt();
 
     /**
-     * Returns the expiration date.
-     *
-     * @return \DateTime|null
-     */
-    public function getExpiresAt();
-
-    /**
-     * Returns the credentials expiration date.
-     *
-     * @return \DateTime
-     */
-    public function getCredentialsExpireAt();
-
-    /**
-     * Sets the credentials expiration date.
-     *
-     * @param \DateTime|null $date
-     *
-     * @return UserInterface
-     */
-    public function setCredentialsExpireAt(\DateTime $date = null);
-
-    /**
      * Sets the user groups.
      *
      * @param array $groups

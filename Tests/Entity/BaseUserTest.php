@@ -25,7 +25,6 @@ class BaseUserTest extends PHPUnit_Framework_TestCase
         // When
         $user->setCreatedAt($today);
         $user->setUpdatedAt($today);
-        $user->setCredentialsExpireAt($today);
 
         // Then
         $this->assertTrue($user->getCreatedAt() instanceof \DateTime, 'Should return a DateTime object');
@@ -33,9 +32,6 @@ class BaseUserTest extends PHPUnit_Framework_TestCase
 
         $this->assertTrue($user->getUpdatedAt() instanceof \DateTime, 'Should return a DateTime object');
         $this->assertEquals($today->format('U'), $user->getUpdatedAt()->format('U'), 'Should contain today\'s date');
-
-        $this->assertTrue($user->getCredentialsExpireAt() instanceof \DateTime, 'Should return a DateTime object');
-        $this->assertEquals($today->format('U'), $user->getCredentialsExpireAt()->format('U'), 'Should contain today\'s date');
     }
 
     public function testDateWithPrePersist()
