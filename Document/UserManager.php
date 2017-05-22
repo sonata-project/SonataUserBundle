@@ -12,7 +12,6 @@
 namespace Sonata\UserBundle\Document;
 
 use FOS\UserBundle\Doctrine\UserManager as BaseUserManager;
-use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
 
 /**
@@ -29,12 +28,7 @@ class UserManager extends BaseUserManager implements UserManagerInterface
     }
 
     /**
-     * @param array $criteria
-     * @param int   $page
-     * @param int   $limit
-     * @param array $sort
-     *
-     * @return PagerInterface
+     * {@inheritdoc}
      */
     public function getPager(array $criteria, $page, $limit = 10, array $sort = array())
     {
