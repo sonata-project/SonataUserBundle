@@ -15,6 +15,7 @@ use FOS\UserBundle\Doctrine\UserManager as BaseUserManager;
 use Sonata\CoreBundle\Model\ManagerInterface;
 use Sonata\DatagridBundle\Pager\Doctrine\Pager;
 use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;
+use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
 
 /**
@@ -51,7 +52,7 @@ class UserManager extends BaseUserManager implements UserManagerInterface, Manag
      */
     public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     {
-        return parent::findUsers($criteria, $orderBy, $limit, $offset);
+        return $this->getRepository()->findBy($criteria, $orderBy, $limit, $offset);
     }
 
     /**
@@ -75,6 +76,10 @@ class UserManager extends BaseUserManager implements UserManagerInterface, Manag
      */
     public function save($entity, $andFlush = true)
     {
+        if (!$entity instanceof UserInterface) {
+            throw new \InvalidArgumentException('Save method expected entity of type UserInterface');
+        }
+
         parent::updateUser($entity, $andFlush);
     }
 
@@ -83,6 +88,10 @@ class UserManager extends BaseUserManager implements UserManagerInterface, Manag
      */
     public function delete($entity, $andFlush = true)
     {
+        if (!$entity instanceof UserInterface) {
+            throw new \InvalidArgumentException('Save method expected entity of type UserInterface');
+        }
+
         parent::deleteUser($entity);
     }
 

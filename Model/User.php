@@ -177,46 +177,6 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getExpiresAt()
-    {
-        return $this->expiresAt;
-    }
-
-    /**
-     * Set expiration date.
-     *
-     * @param \DateTime|null $date
-     *
-     * @return User
-     */
-    public function setExpiresAt(\DateTime $date = null)
-    {
-        $this->expiresAt = $date;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getCredentialsExpireAt()
-    {
-        return $this->credentialsExpireAt;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setCredentialsExpireAt(\DateTime $date = null)
-    {
-        $this->credentialsExpireAt = $date;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function setGroups($groups)
     {
         foreach ($groups as $group) {

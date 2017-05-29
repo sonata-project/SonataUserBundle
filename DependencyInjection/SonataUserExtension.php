@@ -126,8 +126,6 @@ class SonataUserExtension extends Extension
      * @param array            $config
      * @param ContainerBuilder $container
      *
-     * @return mixed
-     *
      * @throws \RuntimeException
      */
     public function configureGoogleAuthenticator($config, ContainerBuilder $container)

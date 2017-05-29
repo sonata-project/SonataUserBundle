@@ -16,12 +16,16 @@ use FOS\UserBundle\Util\TokenGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\AccountStatusException;
 
 class AdminResettingController extends Controller
 {
+    /**
+     * @return Response
+     */
     public function requestAction()
     {
         if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
@@ -52,7 +56,7 @@ class AdminResettingController extends Controller
 
         if (null !== $user && !$user->isPasswordRequestNonExpired($ttl)) {
             if (!$user->isAccountNonLocked()) {
-                return new RedirectResponse($this->router->generate('sonata_user_admin_resetting_request'));
+                return new RedirectResponse($this->get('router')->generate('sonata_user_admin_resetting_request'));
             }
 
             if (null === $user->getConfirmationToken()) {
@@ -184,7 +188,7 @@ class AdminResettingController extends Controller
         $renderedLines = explode(PHP_EOL, trim($rendered));
         $subject = array_shift($renderedLines);
         $body = implode(PHP_EOL, $renderedLines);
-        $message = \Swift_Message::newInstance()
+        $message = (new \Swift_Message())
             ->setSubject($subject)
             ->setFrom($this->container->getParameter('fos_user.resetting.email.from_email'))
             ->setTo((string) $user->getEmail())
