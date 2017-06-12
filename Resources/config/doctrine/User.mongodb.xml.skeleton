@@ -4,7 +4,7 @@
       xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
                     http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
-    <document name="Application\Sonata\UserBundle\Document\User" collection="fos_user_user" customId="true">
+    <document name="{{ namespace }}\Document\User" collection="fos_user_user" customId="true">
 
         <field fieldName="id" id="true" strategy="INCREMENT" />
 
