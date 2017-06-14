@@ -2,6 +2,18 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.2.4](https://github.com/sonata-project/SonataUserBundle/compare/3.2.3...3.2.4) - 2017-06-14
+### Added
+- Added Dutch translation for `title_user_authentication`
+
+### Changed
+- Google Authenticator 2 is now allowed
+
+### Fixed
+- Deprecated block service usage
+- Compatibility with Twig 2.0 was improved
+- Fixed hardcoded paths to classes in `.xml.skeleton` files of config
+
 ## [3.2.3](https://github.com/sonata-project/SonataUserBundle/compare/3.2.2...3.2.3) - 2017-03-16
 ### Fixed
 - Fix non-use of container for has/get services.
