@@ -14,6 +14,7 @@ php:
   - nightly
 
 sudo: false
+dist: precise
 
 cache:
   pip: true
