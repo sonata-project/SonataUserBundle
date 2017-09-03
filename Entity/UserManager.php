@@ -17,11 +17,13 @@ use Sonata\DatagridBundle\Pager\Doctrine\Pager;
 use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;
 use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
+use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
  */
-class UserManager extends BaseUserManager implements UserManagerInterface, ManagerInterface
+class UserManager extends BaseUserManager implements UserManagerInterface, UserProviderInterface, ManagerInterface
 {
     /**
      * {@inheritdoc}
@@ -145,5 +147,33 @@ class UserManager extends BaseUserManager implements UserManagerInterface, Manag
         $pager->init();
 
         return $pager;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function loadUserByUsername($username)
+    {
+        return $this->findUserByUsername($username);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function refreshUser(SecurityUserInterface $user)
+    {
+        if ($user instanceof UserInterface) {
+            $this->reloadUser($user);
+        }
+
+        return $user;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function supportsClass($class)
+    {
+        return $class instanceof UserInterface;
     }
 }
