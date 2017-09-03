@@ -162,11 +162,7 @@ class UserManager extends BaseUserManager implements UserManagerInterface, UserP
      */
     public function refreshUser(SecurityUserInterface $user)
     {
-        if ($user instanceof UserInterface) {
-            $this->reloadUser($user);
-        }
-
-        return $user;
+        return $this->loadUserByUsername($user->getUsername());
     }
 
     /**
