@@ -152,7 +152,7 @@ class UserManager extends BaseUserManager implements UserManagerInterface, UserP
     /**
      * {@inheritdoc}
      */
-    public function loadUserByUsername($username)
+    public function loadUserByUsername($username): UserInterface
     {
         return $this->findUserByUsername($username);
     }
@@ -160,7 +160,7 @@ class UserManager extends BaseUserManager implements UserManagerInterface, UserP
     /**
      * {@inheritdoc}
      */
-    public function refreshUser(SecurityUserInterface $user)
+    public function refreshUser(SecurityUserInterface $user): UserInterface
     {
         return $this->loadUserByUsername($user->getUsername());
     }
@@ -168,7 +168,7 @@ class UserManager extends BaseUserManager implements UserManagerInterface, UserP
     /**
      * {@inheritdoc}
      */
-    public function supportsClass($class)
+    public function supportsClass($class): bool
     {
         return $class instanceof UserInterface;
     }
