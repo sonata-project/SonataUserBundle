@@ -188,7 +188,7 @@ class UserManager extends BaseUserManager implements UserManagerInterface, UserP
     /**
      * {@inheritdoc}
      */
-    public function supportsClass($class)
+    public function supportsClass($class): bool
     {
         $userClass = $this->getClass();
 
