@@ -17,6 +17,7 @@ use Sonata\DatagridBundle\Pager\Doctrine\Pager;
 use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;
 use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
@@ -154,7 +155,13 @@ class UserManager extends BaseUserManager implements UserManagerInterface, UserP
      */
     public function loadUserByUsername($username): UserInterface
     {
-        return $this->findUserByUsername($username);
+        $user = $this->findUserByUsername($username);
+
+        if (!$user) {
+            throw new UsernameNotFoundException(sprintf('Username "%s" does not exist.', $username));
+        }
+
+        return $user;
     }
 
     /**
