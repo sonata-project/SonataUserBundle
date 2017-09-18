@@ -17,6 +17,7 @@ use Sonata\DatagridBundle\Pager\Doctrine\Pager;
 use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;
 use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
+use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -153,7 +154,7 @@ class UserManager extends BaseUserManager implements UserManagerInterface, UserP
     /**
      * {@inheritdoc}
      */
-    public function loadUserByUsername($username): UserInterface
+    public function loadUserByUsername($username): SecurityUserInterface
     {
         $user = $this->findUserByUsername($username);
 
@@ -167,16 +168,30 @@ class UserManager extends BaseUserManager implements UserManagerInterface, UserP
     /**
      * {@inheritdoc}
      */
-    public function refreshUser(SecurityUserInterface $user): UserInterface
+    public function refreshUser(SecurityUserInterface $user): SecurityUserInterface
     {
-        return $this->loadUserByUsername($user->getUsername());
+        if (!$user instanceof UserInterface) {
+            throw new UnsupportedUserException(sprintf('Expected an instance of Sonata\UserBundle\Model\UserInterface, but got "%s".', get_class($user)));
+        }
+
+        if (!$this->supportsClass(get_class($user))) {
+            throw new UnsupportedUserException(sprintf('Expected an instance of %s, but got "%s".', $this->getClass(), get_class($user)));
+        }
+
+        if (null === $reloadedUser = $this->findUserBy(array('id' => $user->getId()))) {
+            throw new UsernameNotFoundException(sprintf('User with ID "%s" could not be reloaded.', $user->getId()));
+        }
+
+        return $reloadedUser;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function supportsClass($class): bool
+    public function supportsClass($class)
     {
-        return $class instanceof UserInterface;
+        $userClass = $this->getClass();
+
+        return $userClass === $class || is_subclass_of($class, $userClass);
     }
 }
