@@ -93,7 +93,9 @@ class EditableRolesBuilder
             }
         }
 
-        $isMaster = $this->authorizationChecker->isGranted('ROLE_SUPER_ADMIN');
+        $isMaster = $this->authorizationChecker->isGranted(
+            $this->pool->getOption('role_super_admin', 'ROLE_SUPER_ADMIN')
+        );
 
         // get roles from the service container
         foreach ($this->rolesHierarchy as $name => $rolesHierarchy) {
