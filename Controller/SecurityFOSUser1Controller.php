@@ -88,10 +88,10 @@ class SecurityFOSUser1Controller extends SecurityController
                 : null;
         }
 
-        return $this->renderLogin(array(
+        return $this->renderLogin([
             'last_username' => (null === $session) ? '' : $session->get($lastUserNameKey),
             'error' => $error,
             'csrf_token' => $csrfToken,
-        ));
+        ]);
     }
 }

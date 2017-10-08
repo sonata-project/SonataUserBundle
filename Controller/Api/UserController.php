@@ -95,10 +95,10 @@ class UserController
 
         $paramFetcher->addParam($orderByQueryParam);
 
-        $supporedCriteria = array(
+        $supporedCriteria = [
             'enabled' => '',
             'locked' => '',
-        );
+        ];
 
         $page = $paramFetcher->get('page');
         $limit = $paramFetcher->get('count');
@@ -112,9 +112,9 @@ class UserController
         }
 
         if (!$sort) {
-            $sort = array();
+            $sort = [];
         } elseif (!is_array($sort)) {
-            $sort = array($sort, 'asc');
+            $sort = [$sort, 'asc'];
         }
 
         return $this->userManager->getPager($criteria, $page, $limit, $sort);
@@ -222,7 +222,7 @@ class UserController
 
         $this->userManager->deleteUser($user);
 
-        return array('deleted' => true);
+        return ['deleted' => true];
     }
 
     /**
@@ -255,15 +255,15 @@ class UserController
         $group = $this->getGroup($groupId);
 
         if ($user->hasGroup($group)) {
-            return FOSRestView::create(array(
+            return FOSRestView::create([
                 'error' => sprintf('User "%s" already has group "%s"', $userId, $groupId),
-            ), 400);
+            ], 400);
         }
 
         $user->addGroup($group);
         $this->userManager->updateUser($user);
 
-        return array('added' => true);
+        return ['added' => true];
     }
 
     /**
@@ -296,15 +296,15 @@ class UserController
         $group = $this->getGroup($groupId);
 
         if (!$user->hasGroup($group)) {
-            return FOSRestView::create(array(
+            return FOSRestView::create([
                 'error' => sprintf('User "%s" has not group "%s"', $userId, $groupId),
-            ), 400);
+            ], 400);
         }
 
         $user->removeGroup($group);
         $this->userManager->updateUser($user);
 
-        return array('removed' => true);
+        return ['removed' => true];
     }
 
     /**
@@ -318,7 +318,7 @@ class UserController
      */
     protected function getUser($id)
     {
-        $user = $this->userManager->findUserBy(array('id' => $id));
+        $user = $this->userManager->findUserBy(['id' => $id]);
 
         if (null === $user) {
             throw new NotFoundHttpException(sprintf('User (%d) not found', $id));
@@ -338,7 +338,7 @@ class UserController
      */
     protected function getGroup($id)
     {
-        $group = $this->groupManager->findGroupBy(array('id' => $id));
+        $group = $this->groupManager->findGroupBy(['id' => $id]);
 
         if (null === $group) {
             throw new NotFoundHttpException(sprintf('Group (%d) not found', $id));
@@ -359,9 +359,9 @@ class UserController
     {
         $user = $id ? $this->getUser($id) : null;
 
-        $form = $this->formFactory->createNamed(null, 'sonata_user_api_form_user', $user, array(
+        $form = $this->formFactory->createNamed(null, 'sonata_user_api_form_user', $user, [
             'csrf_protection' => false,
-        ));
+        ]);
 
         $form->submit($request);
 
@@ -373,11 +373,11 @@ class UserController
 
             if (class_exists('FOS\RestBundle\Context\Context')) {
                 $context = new Context();
-                $context->setGroups(array('sonata_api_read'));
+                $context->setGroups(['sonata_api_read']);
                 $view->setContext($context);
             } else {
                 $serializationContext = SerializationContext::create();
-                $serializationContext->setGroups(array('sonata_api_read'));
+                $serializationContext->setGroups(['sonata_api_read']);
                 $serializationContext->enableMaxDepthChecks();
                 $view->setSerializationContext($serializationContext);
             }

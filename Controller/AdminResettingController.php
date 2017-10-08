@@ -35,10 +35,10 @@ class AdminResettingController extends ResettingController
             return new RedirectResponse($this->container->get('router')->generate('sonata_admin_dashboard'));
         }
 
-        return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/Resetting/request.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/Resetting/request.html.'.$this->getEngine(), [
             'base_template' => $this->container->get('sonata.admin.pool')->getTemplate('layout'),
             'admin_pool' => $this->container->get('sonata.admin.pool'),
-        ));
+        ]);
     }
 
     /**
@@ -59,18 +59,18 @@ class AdminResettingController extends ResettingController
         $user = $this->container->get('fos_user.user_manager')->findUserByUsernameOrEmail($username);
 
         if (null === $user) {
-            return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/Resetting/request.html.'.$this->getEngine(), array(
+            return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/Resetting/request.html.'.$this->getEngine(), [
                 'invalid_username' => $username,
                 'base_template' => $this->container->get('sonata.admin.pool')->getTemplate('layout'),
                 'admin_pool' => $this->container->get('sonata.admin.pool'),
-            ));
+            ]);
         }
 
         if ($user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
-            return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/Resetting/passwordAlreadyRequested.html.'.$this->getEngine(), array(
+            return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/Resetting/passwordAlreadyRequested.html.'.$this->getEngine(), [
                 'base_template' => $this->container->get('sonata.admin.pool')->getTemplate('layout'),
                 'admin_pool' => $this->container->get('sonata.admin.pool'),
-            ));
+            ]);
         }
 
         if (null === $user->getConfirmationToken()) {
@@ -101,11 +101,11 @@ class AdminResettingController extends ResettingController
             return new RedirectResponse($this->container->get('router')->generate('sonata_user_admin_resetting_check_email'));
         }
 
-        return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/Resetting/checkEmail.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/Resetting/checkEmail.html.'.$this->getEngine(), [
             'email' => $email,
             'base_template' => $this->container->get('sonata.admin.pool')->getTemplate('layout'),
             'admin_pool' => $this->container->get('sonata.admin.pool'),
-        ));
+        ]);
     }
 
     /**
@@ -143,11 +143,11 @@ class AdminResettingController extends ResettingController
             return $response;
         }
 
-        return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/Resetting/reset.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/Resetting/reset.html.'.$this->getEngine(), [
             'token' => $token,
             'form' => $form->createView(),
             'base_template' => $this->container->get('sonata.admin.pool')->getTemplate('layout'),
             'admin_pool' => $this->container->get('sonata.admin.pool'),
-        ));
+        ]);
     }
 }
