@@ -53,10 +53,10 @@ class TwoStepVerificationCommand extends ContainerAwareCommand
             $manager->updateUser($user);
         }
 
-        $output->writeln(array(
+        $output->writeln([
             sprintf('<info>Username</info> : %s', $input->getArgument('username')),
             sprintf('<info>Secret</info> : %s', $user->getTwoStepVerificationCode()),
             sprintf('<info>Url</info> : %s', $helper->getUrl($user)),
-        ));
+        ]);
     }
 }

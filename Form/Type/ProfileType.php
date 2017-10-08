@@ -55,48 +55,48 @@ class ProfileType extends AbstractType
         }
 
         $builder
-            ->add('gender', $userGenderType, array(
+            ->add('gender', $userGenderType, [
                 'label' => 'form.label_gender',
                 'required' => true,
                 'translation_domain' => 'SonataUserBundle',
-                'choices' => array(
+                'choices' => [
                     UserInterface::GENDER_FEMALE => 'gender_female',
                     UserInterface::GENDER_MALE => 'gender_male',
-                ),
-            ))
-            ->add('firstname', null, array(
+                ],
+            ])
+            ->add('firstname', null, [
                 'label' => 'form.label_firstname',
                 'required' => false,
-            ))
-            ->add('lastname', null, array(
+            ])
+            ->add('lastname', null, [
                 'label' => 'form.label_lastname',
                 'required' => false,
-            ))
-            ->add('dateOfBirth', $birthdayType, array(
+            ])
+            ->add('dateOfBirth', $birthdayType, [
                 'label' => 'form.label_date_of_birth',
                 'required' => false,
                 'widget' => 'single_text',
-            ))
-            ->add('website', $urlType, array(
+            ])
+            ->add('website', $urlType, [
                 'label' => 'form.label_website',
                 'required' => false,
-            ))
-            ->add('biography', $textareaType, array(
+            ])
+            ->add('biography', $textareaType, [
                 'label' => 'form.label_biography',
                 'required' => false,
-            ))
-            ->add('locale', $localeType, array(
+            ])
+            ->add('locale', $localeType, [
                 'label' => 'form.label_locale',
                 'required' => false,
-            ))
-            ->add('timezone', $timezoneType, array(
+            ])
+            ->add('timezone', $timezoneType, [
                 'label' => 'form.label_timezone',
                 'required' => false,
-            ))
-            ->add('phone', null, array(
+            ])
+            ->add('phone', null, [
                 'label' => 'form.label_phone',
                 'required' => false,
-            ))
+            ])
         ;
     }
 
@@ -117,9 +117,9 @@ class ProfileType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => $this->class,
-        ));
+        ]);
     }
 
     /**

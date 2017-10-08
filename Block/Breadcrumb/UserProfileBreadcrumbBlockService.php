@@ -35,10 +35,10 @@ class UserProfileBreadcrumbBlockService extends BaseUserProfileBreadcrumbBlockSe
     {
         $menu = $this->getRootMenu($blockContext);
 
-        $menu->addChild('sonata_user_profile_breadcrumb_edit', array(
+        $menu->addChild('sonata_user_profile_breadcrumb_edit', [
             'route' => 'sonata_user_profile_edit',
-            'extras' => array('translation_domain' => 'SonataUserBundle'),
-        ));
+            'extras' => ['translation_domain' => 'SonataUserBundle'],
+        ]);
 
         return $menu;
     }
