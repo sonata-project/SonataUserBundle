@@ -21,9 +21,9 @@ class GroupAdmin extends AbstractAdmin
     /**
      * {@inheritdoc}
      */
-    protected $formOptions = array(
+    protected $formOptions = [
         'validation_groups' => 'Registration',
-    );
+    ];
 
     /**
      * {@inheritdoc}
@@ -32,7 +32,7 @@ class GroupAdmin extends AbstractAdmin
     {
         $class = $this->getClass();
 
-        return new $class('', array());
+        return new $class('', []);
     }
 
     /**
@@ -68,17 +68,17 @@ class GroupAdmin extends AbstractAdmin
 
         $formMapper
             ->tab('Group')
-                ->with('General', array('class' => 'col-md-6'))
+                ->with('General', ['class' => 'col-md-6'])
                     ->add('name')
                 ->end()
             ->end()
             ->tab('Security')
-                ->with('Roles', array('class' => 'col-md-12'))
-                    ->add('roles', $securityRolesType, array(
+                ->with('Roles', ['class' => 'col-md-12'])
+                    ->add('roles', $securityRolesType, [
                         'expanded' => true,
                         'multiple' => true,
                         'required' => false,
-                    ))
+                    ])
                 ->end()
             ->end()
         ;

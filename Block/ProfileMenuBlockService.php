@@ -36,7 +36,7 @@ class ProfileMenuBlockService extends MenuBlockService
      */
     public function __construct($name, EngineInterface $templating, MenuProviderInterface $menuProvider, ProfileMenuBuilder $menuBuilder)
     {
-        parent::__construct($name, $templating, $menuProvider, array());
+        parent::__construct($name, $templating, $menuProvider, []);
 
         $this->menuBuilder = $menuBuilder;
     }
@@ -56,10 +56,10 @@ class ProfileMenuBlockService extends MenuBlockService
     {
         parent::configureSettings($resolver);
 
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'cache_policy' => 'private',
             'menu_template' => 'SonataBlockBundle:Block:block_side_menu_template.html.twig',
-        ));
+        ]);
     }
 
     /**
@@ -73,10 +73,10 @@ class ProfileMenuBlockService extends MenuBlockService
 
         if (null === $menu || '' === $menu) {
             $menu = $this->menuBuilder->createProfileMenu(
-                array(
-                    'childrenAttributes' => array('class' => $settings['menu_class']),
-                    'attributes' => array('class' => $settings['children_class']),
-                )
+                [
+                    'childrenAttributes' => ['class' => $settings['menu_class']],
+                    'attributes' => ['class' => $settings['children_class']],
+                ]
             );
 
             if (method_exists($menu, 'setCurrentUri')) {

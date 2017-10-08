@@ -53,13 +53,13 @@ class SecurityRolesTypeTest extends TypeTestCase
 
     public function testSubmitValidData()
     {
-        $form = $this->factory->create($this->getSecurityRolesTypeName(), null, array(
+        $form = $this->factory->create($this->getSecurityRolesTypeName(), null, [
             'multiple' => true,
             'expanded' => true,
             'required' => false,
-        ));
+        ]);
 
-        $form->submit(array(0 => 'ROLE_FOO'));
+        $form->submit([0 => 'ROLE_FOO']);
 
         $this->assertTrue($form->isSynchronized());
         $this->assertCount(1, $form->getData());
@@ -68,13 +68,13 @@ class SecurityRolesTypeTest extends TypeTestCase
 
     public function testSubmitInvalidData()
     {
-        $form = $this->factory->create($this->getSecurityRolesTypeName(), null, array(
+        $form = $this->factory->create($this->getSecurityRolesTypeName(), null, [
             'multiple' => true,
             'expanded' => true,
             'required' => false,
-        ));
+        ]);
 
-        $form->submit(array(0 => 'ROLE_NOT_EXISTS'));
+        $form->submit([0 => 'ROLE_NOT_EXISTS']);
 
         $this->assertFalse($form->isSynchronized());
         $this->assertNull($form->getData());
@@ -82,16 +82,16 @@ class SecurityRolesTypeTest extends TypeTestCase
 
     public function testSubmitWithHiddenRoleData()
     {
-        $originalRoles = array('ROLE_SUPER_ADMIN', 'ROLE_USER');
+        $originalRoles = ['ROLE_SUPER_ADMIN', 'ROLE_USER'];
 
-        $form = $this->factory->create($this->getSecurityRolesTypeName(), $originalRoles, array(
+        $form = $this->factory->create($this->getSecurityRolesTypeName(), $originalRoles, [
             'multiple' => true,
             'expanded' => true,
             'required' => false,
-        ));
+        ]);
 
         // we keep hidden ROLE_SUPER_ADMIN and delete available ROLE_USER
-        $form->submit(array(0 => 'ROLE_ADMIN'));
+        $form->submit([0 => 'ROLE_ADMIN']);
 
         $this->assertTrue($form->isSynchronized());
         $this->assertCount(2, $form->getData());
@@ -104,20 +104,20 @@ class SecurityRolesTypeTest extends TypeTestCase
           ->disableOriginalConstructor()
           ->getMock();
 
-        $this->roleBuilder->expects($this->any())->method('getRoles')->will($this->returnValue(array(
-          0 => array(
+        $this->roleBuilder->expects($this->any())->method('getRoles')->will($this->returnValue([
+          0 => [
             'ROLE_FOO' => 'ROLE_FOO',
             'ROLE_USER' => 'ROLE_USER',
             'ROLE_ADMIN' => 'ROLE_ADMIN: ROLE_USER',
-          ),
-          1 => array(),
-        )));
+          ],
+          1 => [],
+        ]));
 
         $childType = new SecurityRolesType($this->roleBuilder);
 
-        return array(new PreloadedExtension(array(
+        return [new PreloadedExtension([
           $childType->getName() => $childType,
-        ), array()));
+        ], [])];
     }
 
     private function getSecurityRolesTypeName()

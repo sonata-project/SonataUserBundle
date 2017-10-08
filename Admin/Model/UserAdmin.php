@@ -49,7 +49,7 @@ class UserAdmin extends AbstractAdmin
     {
         // avoid security field to be exported
         return array_filter(parent::getExportFields(), function ($v) {
-            return !in_array($v, array('password', 'salt'));
+            return !in_array($v, ['password', 'salt']);
         });
     }
 
@@ -87,14 +87,14 @@ class UserAdmin extends AbstractAdmin
             ->addIdentifier('username')
             ->add('email')
             ->add('groups')
-            ->add('enabled', null, array('editable' => true))
-            ->add('locked', null, array('editable' => true))
+            ->add('enabled', null, ['editable' => true])
+            ->add('locked', null, ['editable' => true])
             ->add('createdAt')
         ;
 
         if ($this->isGranted('ROLE_ALLOWED_TO_SWITCH')) {
             $listMapper
-                ->add('impersonating', 'string', array('template' => 'SonataUserBundle:Admin:Field/impersonating.html.twig'))
+                ->add('impersonating', 'string', ['template' => 'SonataUserBundle:Admin:Field/impersonating.html.twig'])
             ;
         }
     }
@@ -160,15 +160,15 @@ class UserAdmin extends AbstractAdmin
         // define group zoning
         $formMapper
             ->tab('User')
-                ->with('Profile', array('class' => 'col-md-6'))->end()
-                ->with('General', array('class' => 'col-md-6'))->end()
-                ->with('Social', array('class' => 'col-md-6'))->end()
+                ->with('Profile', ['class' => 'col-md-6'])->end()
+                ->with('General', ['class' => 'col-md-6'])->end()
+                ->with('Social', ['class' => 'col-md-6'])->end()
             ->end()
             ->tab('Security')
-                ->with('Status', array('class' => 'col-md-4'))->end()
-                ->with('Groups', array('class' => 'col-md-4'))->end()
-                ->with('Keys', array('class' => 'col-md-4'))->end()
-                ->with('Roles', array('class' => 'col-md-12'))->end()
+                ->with('Status', ['class' => 'col-md-4'])->end()
+                ->with('Groups', ['class' => 'col-md-4'])->end()
+                ->with('Keys', ['class' => 'col-md-4'])->end()
+                ->with('Roles', ['class' => 'col-md-12'])->end()
             ->end()
         ;
 
@@ -200,63 +200,63 @@ class UserAdmin extends AbstractAdmin
                 ->with('General')
                     ->add('username')
                     ->add('email')
-                    ->add('plainPassword', $textType, array(
+                    ->add('plainPassword', $textType, [
                         'required' => (!$this->getSubject() || is_null($this->getSubject()->getId())),
-                    ))
+                    ])
                 ->end()
                 ->with('Profile')
-                    ->add('dateOfBirth', $datePickerType, array(
+                    ->add('dateOfBirth', $datePickerType, [
                         'years' => range(1900, $now->format('Y')),
                         'dp_min_date' => '1-1-1900',
                         'dp_max_date' => $now->format('c'),
                         'required' => false,
-                    ))
-                    ->add('firstname', null, array('required' => false))
-                    ->add('lastname', null, array('required' => false))
-                    ->add('website', $urlType, array('required' => false))
-                    ->add('biography', $textType, array('required' => false))
-                    ->add('gender', $userGenderType, array(
+                    ])
+                    ->add('firstname', null, ['required' => false])
+                    ->add('lastname', null, ['required' => false])
+                    ->add('website', $urlType, ['required' => false])
+                    ->add('biography', $textType, ['required' => false])
+                    ->add('gender', $userGenderType, [
                         'required' => true,
                         'translation_domain' => $this->getTranslationDomain(),
-                    ))
-                    ->add('locale', $localeType, array('required' => false))
-                    ->add('timezone', $timezoneType, array('required' => false))
-                    ->add('phone', null, array('required' => false))
+                    ])
+                    ->add('locale', $localeType, ['required' => false])
+                    ->add('timezone', $timezoneType, ['required' => false])
+                    ->add('phone', null, ['required' => false])
                 ->end()
                 ->with('Social')
-                    ->add('facebookUid', null, array('required' => false))
-                    ->add('facebookName', null, array('required' => false))
-                    ->add('twitterUid', null, array('required' => false))
-                    ->add('twitterName', null, array('required' => false))
-                    ->add('gplusUid', null, array('required' => false))
-                    ->add('gplusName', null, array('required' => false))
+                    ->add('facebookUid', null, ['required' => false])
+                    ->add('facebookName', null, ['required' => false])
+                    ->add('twitterUid', null, ['required' => false])
+                    ->add('twitterName', null, ['required' => false])
+                    ->add('gplusUid', null, ['required' => false])
+                    ->add('gplusName', null, ['required' => false])
                 ->end()
             ->end()
             ->tab('Security')
                 ->with('Status')
-                    ->add('locked', null, array('required' => false))
-                    ->add('expired', null, array('required' => false))
-                    ->add('enabled', null, array('required' => false))
-                    ->add('credentialsExpired', null, array('required' => false))
+                    ->add('locked', null, ['required' => false])
+                    ->add('expired', null, ['required' => false])
+                    ->add('enabled', null, ['required' => false])
+                    ->add('credentialsExpired', null, ['required' => false])
                 ->end()
                 ->with('Groups')
-                    ->add('groups', $modelType, array(
+                    ->add('groups', $modelType, [
                         'required' => false,
                         'expanded' => true,
                         'multiple' => true,
-                    ))
+                    ])
                 ->end()
                 ->with('Roles')
-                    ->add('realRoles', $securityRolesType, array(
+                    ->add('realRoles', $securityRolesType, [
                         'label' => 'form.label_roles',
                         'expanded' => true,
                         'multiple' => true,
                         'required' => false,
-                    ))
+                    ])
                 ->end()
                 ->with('Keys')
-                    ->add('token', null, array('required' => false))
-                    ->add('twoStepVerificationCode', null, array('required' => false))
+                    ->add('token', null, ['required' => false])
+                    ->add('twoStepVerificationCode', null, ['required' => false])
                 ->end()
             ->end()
         ;

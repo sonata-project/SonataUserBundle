@@ -66,11 +66,11 @@ class AccountBlockService extends AbstractAdminBlockService
             $user = false;
         }
 
-        return $this->renderPrivateResponse($blockContext->getTemplate(), array(
+        return $this->renderPrivateResponse($blockContext->getTemplate(), [
             'user' => $user,
             'block' => $blockContext->getBlock(),
             'context' => $blockContext,
-        ));
+        ]);
     }
 
     /**
@@ -78,10 +78,10 @@ class AccountBlockService extends AbstractAdminBlockService
      */
     public function configureSettings(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'template' => 'SonataUserBundle:Block:account.html.twig',
             'ttl' => 0,
-        ));
+        ]);
     }
 
     /**
