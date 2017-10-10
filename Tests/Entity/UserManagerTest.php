@@ -22,14 +22,14 @@ class UserManagerTest extends PHPUnit_Framework_TestCase
         $self = $this;
         $this
             ->getUserManager(function ($qb) use ($self) {
-                $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(array('u')));
+                $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(['u']));
                 $qb->expects($self->never())->method('andWhere');
                 $qb->expects($self->once())->method('orderBy')->with(
                     $self->equalTo('u.username'),
                     $self->equalTo('ASC')
                 );
             })
-            ->getPager(array(), 1);
+            ->getPager([], 1);
     }
 
     /**
@@ -45,7 +45,7 @@ class UserManagerTest extends PHPUnit_Framework_TestCase
                 $qb->expects($self->never())->method('orderBy');
                 $qb->expects($self->never())->method('setParameters');
             })
-            ->getPager(array(), 1, 10, array('invalid' => 'ASC'));
+            ->getPager([], 1, 10, ['invalid' => 'ASC']);
     }
 
     public function testGetPagerWithValidSortDesc()
@@ -53,7 +53,7 @@ class UserManagerTest extends PHPUnit_Framework_TestCase
         $self = $this;
         $this
             ->getUserManager(function ($qb) use ($self) {
-                $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(array('u')));
+                $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(['u']));
                 $qb->expects($self->once())->method('andWhere')->with($self->equalTo('u.enabled = :enabled'));
                 $qb->expects($self->once())->method('setParameter')->with(
                     $self->equalTo('enabled'),
@@ -64,7 +64,7 @@ class UserManagerTest extends PHPUnit_Framework_TestCase
                     $self->equalTo('DESC')
                 );
             })
-            ->getPager(array('enabled' => true), 1, 10, array('email' => 'DESC'));
+            ->getPager(['enabled' => true], 1, 10, ['email' => 'DESC']);
     }
 
     public function testGetPagerWithEnabledUsers()
@@ -72,7 +72,7 @@ class UserManagerTest extends PHPUnit_Framework_TestCase
         $self = $this;
         $this
             ->getUserManager(function ($qb) use ($self) {
-                $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(array('u')));
+                $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(['u']));
                 $qb->expects($self->once())->method('andWhere')->with($self->equalTo('u.enabled = :enabled'));
                 $qb->expects($self->once())->method('setParameter')->with(
                     $self->equalTo('enabled'),
@@ -83,7 +83,7 @@ class UserManagerTest extends PHPUnit_Framework_TestCase
                     $self->equalTo('ASC')
                 );
             })
-            ->getPager(array('enabled' => true), 1);
+            ->getPager(['enabled' => true], 1);
     }
 
     public function testGetPagerWithDisabledUsers()
@@ -91,7 +91,7 @@ class UserManagerTest extends PHPUnit_Framework_TestCase
         $self = $this;
         $this
             ->getUserManager(function ($qb) use ($self) {
-                $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(array('u')));
+                $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(['u']));
                 $qb->expects($self->once())->method('andWhere')->with($self->equalTo('u.enabled = :enabled'));
                 $qb->expects($self->once())->method('setParameter')->with(
                     $self->equalTo('enabled'),
@@ -102,15 +102,15 @@ class UserManagerTest extends PHPUnit_Framework_TestCase
                     $self->equalTo('ASC')
                 );
             })
-            ->getPager(array('enabled' => false), 1);
+            ->getPager(['enabled' => false], 1);
     }
 
     protected function getUserManager($qbCallback)
     {
-        $om = EntityManagerMockFactory::create($this, $qbCallback, array(
+        $om = EntityManagerMockFactory::create($this, $qbCallback, [
             'username',
             'email',
-        ));
+        ]);
 
         $passwordUpdater = $this->createMock('FOS\UserBundle\Util\PasswordUpdaterInterface');
         $canonical = $this->createMock('FOS\UserBundle\Util\CanonicalFieldsUpdater');

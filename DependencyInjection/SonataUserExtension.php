@@ -81,7 +81,7 @@ class SonataUserExtension extends Extension
         // add custom form widgets
         $container->setParameter('twig.form.resources', array_merge(
             $container->getParameter('twig.form.resources'),
-            array('SonataUserBundle:Form:form_admin_fields.html.twig')
+            ['SonataUserBundle:Form:form_admin_fields.html.twig']
         ));
 
         $container->setParameter('sonata.user.default_avatar', $config['profile']['default_avatar']);
@@ -105,14 +105,14 @@ class SonataUserExtension extends Extension
         }
 
         if (isset($config['impersonating_route'])) {
-            $config['impersonating'] = array(
+            $config['impersonating'] = [
                 'route' => $config['impersonating_route'],
-                'parameters' => array(),
-            );
+                'parameters' => [],
+            ];
         }
 
         if (!isset($config['impersonating']['parameters'])) {
-            $config['impersonating']['parameters'] = array();
+            $config['impersonating']['parameters'] = [];
         }
 
         if (!isset($config['impersonating']['route'])) {
@@ -234,26 +234,26 @@ class SonataUserExtension extends Extension
 
         $collector = DoctrineCollector::getInstance();
 
-        $collector->addAssociation($config['class']['user'], 'mapManyToMany', array(
+        $collector->addAssociation($config['class']['user'], 'mapManyToMany', [
             'fieldName' => 'groups',
             'targetEntity' => $config['class']['group'],
-            'cascade' => array(),
-            'joinTable' => array(
+            'cascade' => [],
+            'joinTable' => [
                 'name' => $config['table']['user_group'],
-                'joinColumns' => array(
-                    array(
+                'joinColumns' => [
+                    [
                         'name' => 'user_id',
                         'referencedColumnName' => 'id',
                         'onDelete' => 'CASCADE',
-                    ),
-                ),
-                'inverseJoinColumns' => array(array(
+                    ],
+                ],
+                'inverseJoinColumns' => [[
                     'name' => 'group_id',
                     'referencedColumnName' => 'id',
                     'onDelete' => 'CASCADE',
-                )),
-            ),
-        ));
+                ]],
+            ],
+        ]);
     }
 
     /**

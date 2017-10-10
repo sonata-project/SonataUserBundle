@@ -41,7 +41,7 @@ class SonataUserBundle extends Bundle
      */
     public function registerFormMapping()
     {
-        FormHelper::registerFormTypeMapping(array(
+        FormHelper::registerFormTypeMapping([
             'fos_user_username' => 'FOS\UserBundle\Form\Type\UsernameFormType',
             'fos_user_profile' => 'FOS\UserBundle\Form\Type\ProfileFormType',
             'fos_user_registration' => 'FOS\UserBundle\Form\Type\RegistrationFormType',
@@ -54,6 +54,6 @@ class SonataUserBundle extends Bundle
             'sonata_user_registration' => 'Sonata\UserBundle\Form\Type\RegistrationFormType',
             'sonata_user_api_form_group' => 'Sonata\UserBundle\Form\Type\ApiGroupType',
             'sonata_user_api_form_user' => 'Sonata\UserBundle\Form\Type\ApiUserType',
-        ));
+        ]);
     }
 }

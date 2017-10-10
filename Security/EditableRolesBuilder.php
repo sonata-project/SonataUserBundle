@@ -43,7 +43,7 @@ class EditableRolesBuilder
      * @param Pool                          $pool
      * @param array                         $rolesHierarchy
      */
-    public function __construct(TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authorizationChecker, Pool $pool, array $rolesHierarchy = array())
+    public function __construct(TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authorizationChecker, Pool $pool, array $rolesHierarchy = [])
     {
         $this->tokenStorage = $tokenStorage;
         $this->authorizationChecker = $authorizationChecker;
@@ -56,11 +56,11 @@ class EditableRolesBuilder
      */
     public function getRoles()
     {
-        $roles = array();
-        $rolesReadOnly = array();
+        $roles = [];
+        $rolesReadOnly = [];
 
         if (!$this->tokenStorage->getToken()) {
-            return array($roles, $rolesReadOnly);
+            return [$roles, $rolesReadOnly];
         }
 
         // get roles from the Admin classes
@@ -110,6 +110,6 @@ class EditableRolesBuilder
             }
         }
 
-        return array($roles, $rolesReadOnly);
+        return [$roles, $rolesReadOnly];
     }
 }

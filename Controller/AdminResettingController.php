@@ -32,10 +32,10 @@ class AdminResettingController extends Controller
             return new RedirectResponse($this->get('router')->generate('sonata_admin_dashboard'));
         }
 
-        return $this->render('SonataUserBundle:Admin:Security/Resetting/request.html.twig', array(
+        return $this->render('SonataUserBundle:Admin:Security/Resetting/request.html.twig', [
             'base_template' => $this->get('sonata.admin.pool')->getTemplate('layout'),
             'admin_pool' => $this->get('sonata.admin.pool'),
-        ));
+        ]);
     }
 
     /**
@@ -70,9 +70,9 @@ class AdminResettingController extends Controller
             $userManager->updateUser($user);
         }
 
-        return new RedirectResponse($this->generateUrl('sonata_user_admin_resetting_check_email', array(
+        return new RedirectResponse($this->generateUrl('sonata_user_admin_resetting_check_email', [
             'username' => $username,
-        )));
+        ]));
     }
 
     /**
@@ -89,11 +89,11 @@ class AdminResettingController extends Controller
             return new RedirectResponse($this->generateUrl('sonata_user_admin_resetting_request'));
         }
 
-        return $this->render('SonataUserBundle:Admin:Security/Resetting/checkEmail.html.twig', array(
+        return $this->render('SonataUserBundle:Admin:Security/Resetting/checkEmail.html.twig', [
             'base_template' => $this->get('sonata.admin.pool')->getTemplate('layout'),
             'admin_pool' => $this->get('sonata.admin.pool'),
             'tokenLifetime' => ceil($this->container->getParameter('fos_user.resetting.retry_ttl') / 3600),
-        ));
+        ]);
     }
 
     /**
@@ -137,7 +137,7 @@ class AdminResettingController extends Controller
             $user->setPasswordRequestedAt(null);
             $user->setEnabled(true);
 
-            $message = $this->get('translator')->trans('resetting.flash.success', array(), 'FOSUserBundle');
+            $message = $this->get('translator')->trans('resetting.flash.success', [], 'FOSUserBundle');
             $this->addFlash('success', $message);
             $response = new RedirectResponse($this->generateUrl('sonata_admin_dashboard'));
 
@@ -160,12 +160,12 @@ class AdminResettingController extends Controller
             return $response;
         }
 
-        return $this->render('SonataUserBundle:Admin:Security/Resetting/reset.html.twig', array(
+        return $this->render('SonataUserBundle:Admin:Security/Resetting/reset.html.twig', [
             'token' => $token,
             'form' => $form->createView(),
             'base_template' => $this->get('sonata.admin.pool')->getTemplate('layout'),
             'admin_pool' => $this->get('sonata.admin.pool'),
-        ));
+        ]);
     }
 
     /**
@@ -175,14 +175,14 @@ class AdminResettingController extends Controller
      */
     private function sendResettingEmailMessage(UserInterface $user)
     {
-        $url = $this->generateUrl('sonata_user_admin_resetting_reset', array(
+        $url = $this->generateUrl('sonata_user_admin_resetting_reset', [
             'token' => $user->getConfirmationToken(),
-        ), UrlGeneratorInterface::ABSOLUTE_URL);
+        ], UrlGeneratorInterface::ABSOLUTE_URL);
 
-        $rendered = $this->renderView($this->container->getParameter('fos_user.resetting.email.template'), array(
+        $rendered = $this->renderView($this->container->getParameter('fos_user.resetting.email.template'), [
             'user' => $user,
             'confirmationUrl' => $url,
-        ));
+        ]);
 
         // Render the email, use the first line as the subject, and the rest as the body
         $renderedLines = explode(PHP_EOL, trim($rendered));

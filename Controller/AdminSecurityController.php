@@ -63,14 +63,14 @@ class AdminSecurityController extends Controller
             ? $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue()
             : null;
 
-        return $this->render('SonataUserBundle:Admin:Security/login.html.twig', array(
+        return $this->render('SonataUserBundle:Admin:Security/login.html.twig', [
             'admin_pool' => $this->get('sonata.admin.pool'),
             'base_template' => $this->get('sonata.admin.pool')->getTemplate('layout'),
             'csrf_token' => $csrfToken,
             'error' => $error,
             'last_username' => (null === $session) ? '' : $session->get(Security::LAST_USERNAME),
             'reset_route' => $this->generateUrl('sonata_user_admin_resetting_request'),
-        ));
+        ]);
     }
 
     public function checkAction()

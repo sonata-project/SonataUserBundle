@@ -85,9 +85,9 @@ class GroupController
 
         $paramFetcher->addParam($orderByQueryParam);
 
-        $supportedFilters = array(
+        $supportedFilters = [
             'enabled' => '',
-        );
+        ];
 
         $page = $paramFetcher->get('page');
         $limit = $paramFetcher->get('count');
@@ -101,9 +101,9 @@ class GroupController
         }
 
         if (!$sort) {
-            $sort = array();
+            $sort = [];
         } elseif (!is_array($sort)) {
-            $sort = array($sort, 'asc');
+            $sort = [$sort, 'asc'];
         }
 
         return $this->groupManager->getPager($criteria, $page, $limit, $sort);
@@ -211,7 +211,7 @@ class GroupController
 
         $this->groupManager->deleteGroup($group);
 
-        return array('deleted' => true);
+        return ['deleted' => true];
     }
 
     /**
@@ -227,9 +227,9 @@ class GroupController
         $groupClassName = $this->groupManager->getClass();
         $group = $id ? $this->getGroup($id) : new $groupClassName('');
 
-        $form = $this->formFactory->createNamed(null, 'sonata_user_api_form_group', $group, array(
+        $form = $this->formFactory->createNamed(null, 'sonata_user_api_form_group', $group, [
             'csrf_protection' => false,
-        ));
+        ]);
 
         $form->handleRequest($request);
 
@@ -241,11 +241,11 @@ class GroupController
 
             if (class_exists('FOS\RestBundle\Context\Context')) {
                 $context = new Context();
-                $context->setGroups(array('sonata_api_read'));
+                $context->setGroups(['sonata_api_read']);
                 $view->setContext($context);
             } else {
                 $serializationContext = SerializationContext::create();
-                $serializationContext->setGroups(array('sonata_api_read'));
+                $serializationContext->setGroups(['sonata_api_read']);
                 $serializationContext->enableMaxDepthChecks();
                 $view->setSerializationContext($serializationContext);
             }
@@ -267,7 +267,7 @@ class GroupController
      */
     protected function getGroup($id)
     {
-        $group = $this->groupManager->findGroupBy(array('id' => $id));
+        $group = $this->groupManager->findGroupBy(['id' => $id]);
 
         if (null === $group) {
             throw new NotFoundHttpException(sprintf('Group (%d) not found', $id));

@@ -23,15 +23,15 @@ class UserControllerTest extends PHPUnit_Framework_TestCase
     public function testGetUsersAction()
     {
         $userManager = $this->createMock('Sonata\UserBundle\Model\UserManagerInterface');
-        $userManager->expects($this->once())->method('getPager')->will($this->returnValue(array()));
+        $userManager->expects($this->once())->method('getPager')->will($this->returnValue([]));
 
         $paramFetcher = $this->getMockBuilder('FOS\RestBundle\Request\ParamFetcher')
             ->disableOriginalConstructor()
             ->getMock();
         $paramFetcher->expects($this->exactly(3))->method('get');
-        $paramFetcher->expects($this->once())->method('all')->will($this->returnValue(array()));
+        $paramFetcher->expects($this->once())->method('all')->will($this->returnValue([]));
 
-        $this->assertEquals(array(), $this->createUserController(null, $userManager)->getUsersAction($paramFetcher));
+        $this->assertEquals([], $this->createUserController(null, $userManager)->getUsersAction($paramFetcher));
     }
 
     public function testGetUserAction()
@@ -141,7 +141,7 @@ class UserControllerTest extends PHPUnit_Framework_TestCase
 
         $view = $this->createUserController($user, $userManager, $groupManager)->postUserGroupAction(1, 1);
 
-        $this->assertEquals(array('added' => true), $view);
+        $this->assertEquals(['added' => true], $view);
     }
 
     public function testPostUserGroupInvalidAction()
@@ -164,7 +164,7 @@ class UserControllerTest extends PHPUnit_Framework_TestCase
 
         $data = $view->getData();
 
-        $this->assertEquals(array('error' => 'User "1" already has group "1"'), $data);
+        $this->assertEquals(['error' => 'User "1" already has group "1"'], $data);
     }
 
     public function testDeleteUserGroupAction()
@@ -183,7 +183,7 @@ class UserControllerTest extends PHPUnit_Framework_TestCase
 
         $view = $this->createUserController($user, $userManager, $groupManager)->deleteUserGroupAction(1, 1);
 
-        $this->assertEquals(array('removed' => true), $view);
+        $this->assertEquals(['removed' => true], $view);
     }
 
     public function testDeleteUserGroupInvalidAction()
@@ -206,7 +206,7 @@ class UserControllerTest extends PHPUnit_Framework_TestCase
 
         $data = $view->getData();
 
-        $this->assertEquals(array('error' => 'User "1" has not group "1"'), $data);
+        $this->assertEquals(['error' => 'User "1" has not group "1"'], $data);
     }
 
     public function testDeleteUserAction()
@@ -219,7 +219,7 @@ class UserControllerTest extends PHPUnit_Framework_TestCase
 
         $view = $this->createUserController($user, $userManager)->deleteUserAction(1);
 
-        $this->assertEquals(array('deleted' => true), $view);
+        $this->assertEquals(['deleted' => true], $view);
     }
 
     public function testDeleteUserInvalidAction()

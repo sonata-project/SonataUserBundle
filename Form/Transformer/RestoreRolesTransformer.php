@@ -39,7 +39,7 @@ class RestoreRolesTransformer implements DataTransformerInterface
      */
     public function setOriginalRoles(array $originalRoles = null)
     {
-        $this->originalRoles = $originalRoles ?: array();
+        $this->originalRoles = $originalRoles ?: [];
     }
 
     /**

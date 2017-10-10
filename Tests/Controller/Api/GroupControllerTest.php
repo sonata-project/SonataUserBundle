@@ -24,15 +24,15 @@ class GroupControllerTest extends PHPUnit_Framework_TestCase
     {
         $group = $this->createMock('FOS\UserBundle\Model\GroupInterface');
         $groupManager = $this->createMock('Sonata\UserBundle\Model\GroupManagerInterface');
-        $groupManager->expects($this->once())->method('getPager')->will($this->returnValue(array($group)));
+        $groupManager->expects($this->once())->method('getPager')->will($this->returnValue([$group]));
 
         $paramFetcher = $this->getMockBuilder('FOS\RestBundle\Request\ParamFetcher')
             ->disableOriginalConstructor()
             ->getMock();
         $paramFetcher->expects($this->exactly(3))->method('get');
-        $paramFetcher->expects($this->once())->method('all')->will($this->returnValue(array()));
+        $paramFetcher->expects($this->once())->method('all')->will($this->returnValue([]));
 
-        $this->assertEquals(array($group), $this->createGroupController(null, $groupManager)->getGroupsAction($paramFetcher));
+        $this->assertEquals([$group], $this->createGroupController(null, $groupManager)->getGroupsAction($paramFetcher));
     }
 
     public function testGetGroupAction()
@@ -140,7 +140,7 @@ class GroupControllerTest extends PHPUnit_Framework_TestCase
 
         $view = $this->createGroupController($group, $groupManager)->deleteGroupAction(1);
 
-        $this->assertEquals(array('deleted' => true), $view);
+        $this->assertEquals(['deleted' => true], $view);
     }
 
     public function testDeleteGroupInvalidAction()

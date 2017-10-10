@@ -114,7 +114,7 @@ class UserManager extends BaseUserManager implements UserManagerInterface, Manag
     /**
      * {@inheritdoc}
      */
-    public function getPager(array $criteria, $page, $limit = 10, array $sort = array())
+    public function getPager(array $criteria, $page, $limit = 10, array $sort = [])
     {
         $query = $this->getRepository()
             ->createQueryBuilder('u')
@@ -127,7 +127,7 @@ class UserManager extends BaseUserManager implements UserManagerInterface, Manag
             }
         }
         if (count($sort) == 0) {
-            $sort = array('username' => 'ASC');
+            $sort = ['username' => 'ASC'];
         }
         foreach ($sort as $field => $direction) {
             $query->orderBy(sprintf('u.%s', $field), strtoupper($direction));

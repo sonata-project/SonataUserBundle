@@ -43,10 +43,10 @@ class BaseUser extends AbstractedUser
      */
     public static function getGenderList()
     {
-        return array(
+        return [
             'gender_unknown' => UserInterface::GENDER_UNKNOWN,
             'gender_female' => UserInterface::GENDER_FEMALE,
             'gender_male' => UserInterface::GENDER_MALE,
-        );
+        ];
     }
 }
