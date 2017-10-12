@@ -26,30 +26,30 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase
 
     public function testDefault()
     {
-        $this->assertProcessedConfigurationEquals(array(
-            array(),
-        ), array(
+        $this->assertProcessedConfigurationEquals([
+            [],
+        ], [
             'security_acl' => false,
-            'table' => array(
+            'table' => [
                 'user_group' => 'fos_user_user_group',
-            ),
-            'google_authenticator' => array(
+            ],
+            'google_authenticator' => [
                 'enabled' => false,
-            ),
+            ],
             'manager_type' => 'orm',
-            'admin' => array(
-                'user' => array(
+            'admin' => [
+                'user' => [
                     'controller' => 'SonataAdminBundle:CRUD',
                     'translation' => 'SonataUserBundle',
-                ),
-                'group' => array(
+                ],
+                'group' => [
                     'controller' => 'SonataAdminBundle:CRUD',
                     'translation' => 'SonataUserBundle',
-                ),
-            ),
-            'profile' => array(
+                ],
+            ],
+            'profile' => [
                 'default_avatar' => 'bundles/sonatauser/default_avatar.png',
-            ),
-        ));
+            ],
+        ]);
     }
 }
