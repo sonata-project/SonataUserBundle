@@ -18,8 +18,8 @@ class SonataUserExtensionTest extends AbstractExtensionTestCase
 {
     public function testLoadDefault()
     {
-        $this->setParameter('kernel.bundles', array());
-        $this->setParameter('twig.form.resources', array());
+        $this->setParameter('kernel.bundles', []);
+        $this->setParameter('twig.form.resources', []);
         $this->load();
 
         $this->assertContainerBuilderHasAlias(
@@ -35,8 +35,8 @@ class SonataUserExtensionTest extends AbstractExtensionTestCase
 
     protected function getContainerExtensions()
     {
-        return array(
+        return [
             new SonataUserExtension(),
-        );
+        ];
     }
 }
