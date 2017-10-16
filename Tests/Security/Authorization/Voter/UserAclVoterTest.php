@@ -11,11 +11,11 @@
 
 namespace Sonata\UserBundle\Tests\Security\Authorization\Voter;
 
+use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Security\Authorization\Voter\UserAclVoter;
-use Sonata\UserBundle\Tests\Helpers\PHPUnit_Framework_TestCase;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
-class UserAclVoterTest extends PHPUnit_Framework_TestCase
+class UserAclVoterTest extends TestCase
 {
     public function testVoteWillAbstainWhenAUserIsLoggedInAndASuperAdmin()
     {

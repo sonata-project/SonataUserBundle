@@ -11,10 +11,10 @@
 
 namespace Sonata\UserBundle\Tests\Controller;
 
+use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Controller\RegistrationFOSUser1Controller;
-use Sonata\UserBundle\Tests\Helpers\PHPUnit_Framework_TestCase;
 
-class RegistrationFOSUser1ControllerTest extends PHPUnit_Framework_TestCase
+class RegistrationFOSUser1ControllerTest extends TestCase
 {
     private $controller;
 

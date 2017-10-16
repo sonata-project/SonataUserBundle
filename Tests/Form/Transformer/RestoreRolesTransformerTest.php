@@ -11,9 +11,10 @@
 
 namespace Sonata\UserBundle\Tests\Form\Transformer;
 
+use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Form\Transformer\RestoreRolesTransformer;
 
-class RestoreRolesTransformerTest extends \PHPUnit_Framework_TestCase
+class RestoreRolesTransformerTest extends TestCase
 {
     /**
      * @expectedException \RuntimeException

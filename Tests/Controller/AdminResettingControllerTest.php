@@ -11,10 +11,10 @@
 
 namespace Sonata\UserBundle\Tests\Controller;
 
+use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Controller\AdminResettingController;
-use Sonata\UserBundle\Tests\Helpers\PHPUnit_Framework_TestCase;
 
-class AdminResettingControllerTest extends PHPUnit_Framework_TestCase
+class AdminResettingControllerTest extends TestCase
 {
     private $controller;
 

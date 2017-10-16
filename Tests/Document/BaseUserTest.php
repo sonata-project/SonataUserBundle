@@ -11,10 +11,10 @@
 
 namespace Sonata\UserBundle\Tests\Document;
 
+use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Document\BaseUser;
-use Sonata\UserBundle\Tests\Helpers\PHPUnit_Framework_TestCase;
 
-class BaseUserTest extends PHPUnit_Framework_TestCase
+class BaseUserTest extends TestCase
 {
     public function testDateSetters()
     {

@@ -11,12 +11,13 @@
 
 namespace Sonata\UserBundle\Tests\Admin\Model;
 
+use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Admin\Model\UserAdmin;
 
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
  */
-final class UserAdminTest extends \PHPUnit_Framework_TestCase
+final class UserAdminTest extends TestCase
 {
     public function testInstance()
     {

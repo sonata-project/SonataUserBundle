@@ -11,10 +11,10 @@
 
 namespace Sonata\UserBundle\Tests\Security\Authorization\Voter;
 
+use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Security\EditableRolesBuilder;
-use Sonata\UserBundle\Tests\Helpers\PHPUnit_Framework_TestCase;
 
-class EditableRolesBuilderTest extends PHPUnit_Framework_TestCase
+class EditableRolesBuilderTest extends TestCase
 {
     public function getTokenStorageMock()
     {
