@@ -11,13 +11,13 @@
 
 namespace Sonata\UserBundle\Tests\Menu;
 
+use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Menu\ProfileMenuBuilder;
-use Sonata\UserBundle\Tests\Helpers\PHPUnit_Framework_TestCase;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
  */
-class ProfileMenuBuilderTest extends PHPUnit_Framework_TestCase
+class ProfileMenuBuilderTest extends TestCase
 {
     public function testCreateProfileMenu()
     {

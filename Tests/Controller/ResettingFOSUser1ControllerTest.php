@@ -11,10 +11,10 @@
 
 namespace Sonata\UserBundle\Tests\Controller;
 
+use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Controller\ResettingFOSUser1Controller;
-use Sonata\UserBundle\Tests\Helpers\PHPUnit_Framework_TestCase;
 
-class ResettingFOSUser1ControllerTest extends PHPUnit_Framework_TestCase
+class ResettingFOSUser1ControllerTest extends TestCase
 {
     private $controller;
 
