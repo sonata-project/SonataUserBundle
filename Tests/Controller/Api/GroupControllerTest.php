@@ -11,14 +11,14 @@
 
 namespace Sonata\UserBundle\Tests\Controller\Api;
 
+use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Controller\Api\GroupController;
-use Sonata\UserBundle\Tests\Helpers\PHPUnit_Framework_TestCase;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
  */
-class GroupControllerTest extends PHPUnit_Framework_TestCase
+class GroupControllerTest extends TestCase
 {
     public function testGetGroupsAction()
     {

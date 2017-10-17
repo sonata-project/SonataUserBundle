@@ -15,14 +15,26 @@ use Sonata\EasyExtendsBundle\Mapper\DoctrineCollector;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
  * @author     Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */
-class SonataUserExtension extends Extension
+class SonataUserExtension extends Extension implements PrependExtensionInterface
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function prepend(ContainerBuilder $container)
+    {
+        if ($container->hasExtension('twig')) {
+            // add custom form widgets
+            $container->prependExtensionConfig('twig', ['form_themes' => ['SonataUserBundle:Form:form_admin_fields.html.twig']]);
+        }
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -77,12 +89,6 @@ class SonataUserExtension extends Extension
 
         $this->configureTranslationDomain($config, $container);
         $this->configureController($config, $container);
-
-        // add custom form widgets
-        $container->setParameter('twig.form.resources', array_merge(
-            $container->getParameter('twig.form.resources'),
-            ['SonataUserBundle:Form:form_admin_fields.html.twig']
-        ));
 
         $container->setParameter('sonata.user.default_avatar', $config['profile']['default_avatar']);
 

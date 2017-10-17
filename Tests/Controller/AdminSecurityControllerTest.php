@@ -11,10 +11,10 @@
 
 namespace Sonata\UserBundle\Tests\Controller;
 
+use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Controller\AdminSecurityController;
-use Sonata\UserBundle\Tests\Helpers\PHPUnit_Framework_TestCase;
 
-class AdminSecurityControllerTest extends PHPUnit_Framework_TestCase
+class AdminSecurityControllerTest extends TestCase
 {
     private $controller;
 

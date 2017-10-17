@@ -11,9 +11,10 @@
 
 namespace Sonata\UserBundle\Tests\Entity;
 
+use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Entity\BaseGroup;
 
-class BaseGroupTest extends \PHPUnit_Framework_TestCase
+class BaseGroupTest extends TestCase
 {
     public function testToString()
     {

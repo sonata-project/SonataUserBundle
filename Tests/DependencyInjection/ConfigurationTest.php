@@ -12,10 +12,10 @@
 namespace Sonata\UserBundle\Tests\DependencyInjection;
 
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
+use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\DependencyInjection\Configuration;
-use Sonata\UserBundle\Tests\Helpers\PHPUnit_Framework_TestCase;
 
-class ConfigurationTest extends PHPUnit_Framework_TestCase
+class ConfigurationTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 
