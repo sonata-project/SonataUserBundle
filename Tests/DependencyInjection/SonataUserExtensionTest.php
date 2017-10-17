@@ -107,4 +107,17 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
             new SonataUserExtension(),
         ];
     }
+
+    protected function load(array $configurationValues = [])
+    {
+        $configs = [$this->getMinimalConfiguration(), $configurationValues];
+
+        foreach ($this->container->getExtensions() as $extension) {
+            if ($extension instanceof PrependExtensionInterface) {
+                $extension->prepend($this->container);
+            }
+
+            $extension->load($configs, $this->container);
+        }
+    }
 }
