@@ -37,12 +37,18 @@ class ConfigurationTest extends TestCase
                 'enabled' => false,
             ],
             'manager_type' => 'orm',
+            'class' => [
+                'user' => 'Sonata\UserBundle\Entity\BaseUser',
+                'group' => 'Sonata\UserBundle\Entity\BaseGroup',
+            ],
             'admin' => [
                 'user' => [
+                    'class' => 'Sonata\UserBundle\Admin\Entity\UserAdmin',
                     'controller' => 'SonataAdminBundle:CRUD',
                     'translation' => 'SonataUserBundle',
                 ],
                 'group' => [
+                    'class' => 'Sonata\UserBundle\Admin\Entity\GroupAdmin',
                     'controller' => 'SonataAdminBundle:CRUD',
                     'translation' => 'SonataUserBundle',
                 ],
