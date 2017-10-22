@@ -2,6 +2,21 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.4.0](https://github.com/sonata-project/SonataUserBundle/compare/3.3.0...3.4.0) - 2017-10-22
+### Fixed
+- Fixed the twig configuration setting bug.
+
+### Removed
+- Support for old versions of php and Symfony.
+
+## [3.3.0](https://github.com/sonata-project/SonataUserBundle/compare/3.2.4...3.3.0) - 2017-10-22
+### Changed
+- Use sonata admin pool the get the master role name
+
+### Fixed
+- `AccountBlockService` extends `AbstractAdminBlockService` instead of wrong `AbstractBlockService`
+- missing spanish translations were added
+
 ## [3.2.4](https://github.com/sonata-project/SonataUserBundle/compare/3.2.3...3.2.4) - 2017-06-14
 ### Added
 - Added Dutch translation for `title_user_authentication`
