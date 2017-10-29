@@ -83,13 +83,13 @@ class RequestListener
             return;
         }
 
-        if ($session->get($key) === true) {
+        if (true === $session->get($key)) {
             return;
         }
 
         $state = 'init';
-        if ($request->getMethod() == 'POST') {
-            if ($this->helper->checkCode($user, $request->get('_code')) == true) {
+        if ('POST' == $request->getMethod()) {
+            if (true == $this->helper->checkCode($user, $request->get('_code'))) {
                 $session->set($key, true);
 
                 return;
