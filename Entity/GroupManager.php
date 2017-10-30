@@ -45,7 +45,7 @@ class GroupManager extends BaseGroupManager implements GroupManagerInterface
             }
         }
 
-        if (count($sort) == 0) {
+        if (0 == count($sort)) {
             $sort = ['name' => 'ASC'];
         }
 

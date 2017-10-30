@@ -31,7 +31,7 @@ class UserAclVoter extends AclVoter
      */
     public function supportsAttribute($attribute)
     {
-        return $attribute === 'EDIT' || $attribute === 'DELETE';
+        return 'EDIT' === $attribute || 'DELETE' === $attribute;
     }
 
     /**
