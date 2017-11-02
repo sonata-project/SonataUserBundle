@@ -55,7 +55,7 @@ class EditableRolesBuilderTest extends TestCase
                 ->disableOriginalConstructor()
                 ->getMock();
 
-        $pool->expects($this->once())->method('getAdminServiceIds')->will($this->returnValue([]));
+        $pool->expects($this->exactly(2))->method('getAdminServiceIds')->will($this->returnValue([]));
 
         $rolesHierarchy = [
             'ROLE_ADMIN' => [
@@ -84,7 +84,8 @@ class EditableRolesBuilderTest extends TestCase
         ];
 
         $builder = new EditableRolesBuilder($tokenStorage, $authorizationChecker, $pool, $rolesHierarchy);
-        list($roles, $rolesReadOnly) = $builder->getRoles();
+        $roles = $builder->getRoles();
+        $rolesReadOnly = $builder->getRolesReadOnly();
 
         $this->assertEmpty($rolesReadOnly);
         $this->assertEquals($expected, $roles);
@@ -93,12 +94,12 @@ class EditableRolesBuilderTest extends TestCase
     public function testRolesFromAdminWithMasterAdmin()
     {
         $securityHandler = $this->createMock('Sonata\AdminBundle\Security\Handler\SecurityHandlerInterface');
-        $securityHandler->expects($this->once())->method('getBaseRole')->will($this->returnValue('ROLE_FOO_%s'));
+        $securityHandler->expects($this->exactly(2))->method('getBaseRole')->will($this->returnValue('ROLE_FOO_%s'));
 
         $admin = $this->createMock('Sonata\AdminBundle\Admin\AdminInterface');
-        $admin->expects($this->once())->method('isGranted')->will($this->returnValue(true));
-        $admin->expects($this->once())->method('getSecurityInformation')->will($this->returnValue(['GUEST' => [0 => 'VIEW', 1 => 'LIST'], 'STAFF' => [0 => 'EDIT', 1 => 'LIST', 2 => 'CREATE'], 'EDITOR' => [0 => 'OPERATOR', 1 => 'EXPORT'], 'ADMIN' => [0 => 'MASTER']]));
-        $admin->expects($this->once())->method('getSecurityHandler')->will($this->returnValue($securityHandler));
+        $admin->expects($this->exactly(2))->method('isGranted')->will($this->returnValue(true));
+        $admin->expects($this->exactly(2))->method('getSecurityInformation')->will($this->returnValue(['GUEST' => [0 => 'VIEW', 1 => 'LIST'], 'STAFF' => [0 => 'EDIT', 1 => 'LIST', 2 => 'CREATE'], 'EDITOR' => [0 => 'OPERATOR', 1 => 'EXPORT'], 'ADMIN' => [0 => 'MASTER']]));
+        $admin->expects($this->exactly(2))->method('getSecurityHandler')->will($this->returnValue($securityHandler));
 
         $token = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
 
@@ -112,8 +113,8 @@ class EditableRolesBuilderTest extends TestCase
                 ->disableOriginalConstructor()
                 ->getMock();
 
-        $pool->expects($this->once())->method('getInstance')->will($this->returnValue($admin));
-        $pool->expects($this->once())->method('getAdminServiceIds')->will($this->returnValue(['myadmin']));
+        $pool->expects($this->exactly(2))->method('getInstance')->will($this->returnValue($admin));
+        $pool->expects($this->exactly(2))->method('getAdminServiceIds')->will($this->returnValue(['myadmin']));
 
         $builder = new EditableRolesBuilder($tokenStorage, $authorizationChecker, $pool, []);
 
@@ -124,7 +125,8 @@ class EditableRolesBuilderTest extends TestCase
           'ROLE_FOO_ADMIN' => 'ROLE_FOO_ADMIN',
         ];
 
-        list($roles, $rolesReadOnly) = $builder->getRoles();
+        $roles = $builder->getRoles();
+        $rolesReadOnly = $builder->getRolesReadOnly();
         $this->assertEmpty($rolesReadOnly);
         $this->assertEquals($expected, $roles);
     }
@@ -143,7 +145,8 @@ class EditableRolesBuilderTest extends TestCase
 
         $builder = new EditableRolesBuilder($tokenStorage, $authorizationChecker, $pool, []);
 
-        list($roles, $rolesReadOnly) = $builder->getRoles();
+        $roles = $builder->getRoles();
+        $rolesReadOnly = $builder->getRolesReadOnly();
 
         $this->assertEmpty($roles);
         $this->assertEmpty($rolesReadOnly);

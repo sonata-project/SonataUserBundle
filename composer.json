@@ -28,7 +28,8 @@
         "symfony/console": "^2.8",
         "symfony/form": "^2.8",
         "symfony/http-foundation": "^2.8",
-        "symfony/security": "^2.8"
+        "symfony/security": "^2.8",
+        "symfony/translation": "^2.8"
     },
     "require-dev": {
         "doctrine/orm": "^2.0",
