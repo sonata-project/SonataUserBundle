@@ -6,6 +6,9 @@
             <argument/>
             <argument type="service" id="sonata.admin.pool"/>
             <argument>%security.role_hierarchy.roles%</argument>
+            <call method="setTranslator">
+                <argument type="service" id="translator"/>
+            </call>
         </service>
         <service id="sonata.user.form.type.security_roles" class="Sonata\UserBundle\Form\Type\SecurityRolesType">
             <tag name="form.type" alias="sonata_security_roles"/>

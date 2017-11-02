@@ -12,6 +12,7 @@
 namespace Sonata\UserBundle\Tests\Form\Type;
 
 use Sonata\UserBundle\Form\Type\SecurityRolesType;
+use Sonata\UserBundle\Security\EditableRolesBuilder;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -100,18 +101,15 @@ class SecurityRolesTypeTest extends TypeTestCase
 
     protected function getExtensions()
     {
-        $this->roleBuilder = $roleBuilder = $this->getMockBuilder('Sonata\UserBundle\Security\EditableRolesBuilder')
-          ->disableOriginalConstructor()
-          ->getMock();
+        $this->roleBuilder = $roleBuilder = $this->createMock(EditableRolesBuilder::class);
 
         $this->roleBuilder->expects($this->any())->method('getRoles')->will($this->returnValue([
-          0 => [
-            'ROLE_FOO' => 'ROLE_FOO',
-            'ROLE_USER' => 'ROLE_USER',
-            'ROLE_ADMIN' => 'ROLE_ADMIN: ROLE_USER',
-          ],
-          1 => [],
+          'ROLE_FOO' => 'ROLE_FOO',
+          'ROLE_USER' => 'ROLE_USER',
+          'ROLE_ADMIN' => 'ROLE_ADMIN: ROLE_USER',
         ]));
+
+        $this->roleBuilder->expects($this->any())->method('getRolesReadOnly')->will($this->returnValue([]));
 
         $childType = new SecurityRolesType($this->roleBuilder);
 
