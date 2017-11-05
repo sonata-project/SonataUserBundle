@@ -37,15 +37,15 @@ class UserAclVoter extends AclVoter
     /**
      * {@inheritdoc}
      */
-    public function vote(TokenInterface $token, $object, array $attributes)
+    public function vote(TokenInterface $token, $subject, array $attributes)
     {
-        if (!$this->supportsClass(get_class($object))) {
+        if (!is_object($subject) || !$this->supportsClass(get_class($subject))) {
             return self::ACCESS_ABSTAIN;
         }
 
         foreach ($attributes as $attribute) {
-            if ($this->supportsAttribute($attribute) && $object instanceof UserInterface && $token->getUser() instanceof UserInterface) {
-                if ($object->isSuperAdmin() && !$token->getUser()->isSuperAdmin()) {
+            if ($this->supportsAttribute($attribute) && $subject instanceof UserInterface && $token->getUser() instanceof UserInterface) {
+                if ($subject->isSuperAdmin() && !$token->getUser()->isSuperAdmin()) {
                     // deny a non super admin user to edit or delete a super admin user
                     return self::ACCESS_DENIED;
                 }
