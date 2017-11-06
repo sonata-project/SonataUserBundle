@@ -12,6 +12,14 @@
 namespace Sonata\UserBundle\DependencyInjection;
 
 use Sonata\EasyExtendsBundle\Mapper\DoctrineCollector;
+use Sonata\UserBundle\Admin\Document\GroupAdmin as DocumentGroupAdmin;
+use Sonata\UserBundle\Admin\Document\UserAdmin as DocumentUserAdmin;
+use Sonata\UserBundle\Admin\Entity\GroupAdmin as EntityGroupAdmin;
+use Sonata\UserBundle\Admin\Entity\UserAdmin as EntityUserAdmin;
+use Sonata\UserBundle\Document\BaseGroup as DocumentGroup;
+use Sonata\UserBundle\Document\BaseUser as DocumentUser;
+use Sonata\UserBundle\Entity\BaseGroup as EntityGroup;
+use Sonata\UserBundle\Entity\BaseUser as EntityUser;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -81,7 +89,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
             $loader->load('security_acl.xml');
         }
 
-        $config = $this->addDefaults($config);
+        $this->checkManagerTypeToModelTypeMapping($config);
 
         $this->registerDoctrineMapping($config);
         $this->configureAdminClass($config, $container);
@@ -153,30 +161,6 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
 
         $container->getDefinition('sonata.user.google.authenticator.provider')
             ->replaceArgument(0, $config['google_authenticator']['server']);
-    }
-
-    /**
-     * @param array $config
-     *
-     * @return array
-     */
-    public function addDefaults(array $config)
-    {
-        if ('orm' === $config['manager_type']) {
-            $modelType = 'Entity';
-        } elseif ('mongodb' === $config['manager_type']) {
-            $modelType = 'Document';
-        } else {
-            throw new \InvalidArgumentException(sprintf('Invalid manager type "%s".', $config['manager_type']));
-        }
-
-        $defaultConfig['class']['user'] = sprintf('Application\\Sonata\\UserBundle\\%s\\User', $modelType);
-        $defaultConfig['class']['group'] = sprintf('Application\\Sonata\\UserBundle\\%s\\Group', $modelType);
-
-        $defaultConfig['admin']['user']['class'] = sprintf('Sonata\\UserBundle\\Admin\\%s\\UserAdmin', $modelType);
-        $defaultConfig['admin']['group']['class'] = sprintf('Sonata\\UserBundle\\Admin\\%s\\GroupAdmin', $modelType);
-
-        return array_replace_recursive($defaultConfig, $config);
     }
 
     /**
@@ -272,5 +256,56 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     {
         $container->setAlias('sonata.user.user_manager', sprintf('sonata.user.%s.user_manager', $managerType));
         $container->setAlias('sonata.user.group_manager', sprintf('sonata.user.%s.group_manager', $managerType));
+    }
+
+    /**
+     * @param array $config
+     */
+    private function checkManagerTypeToModelTypeMapping(array $config)
+    {
+        $managerType = $config['manager_type'];
+
+        $actualModelClasses = [
+            $config['class']['user'],
+            $config['class']['group'],
+            $config['admin']['user']['class'],
+            $config['admin']['group']['class'],
+        ];
+
+        if ('orm' === $managerType) {
+            $expectedModelClasses = [
+                EntityUser::class,
+                EntityGroup::class,
+                EntityUserAdmin::class,
+                EntityGroupAdmin::class,
+            ];
+        } elseif ('mongodb' === $managerType) {
+            $expectedModelClasses = [
+                DocumentUser::class,
+                DocumentGroup::class,
+                DocumentUserAdmin::class,
+                DocumentGroupAdmin::class,
+            ];
+        } else {
+            throw new \InvalidArgumentException(sprintf('Invalid manager type "%s".', $managerType));
+        }
+
+        foreach ($actualModelClasses as $index => $actualModelClass) {
+            if ('\\' === substr($actualModelClass, 0, 1)) {
+                $actualModelClass = substr($actualModelClass, 1);
+            }
+
+            $expectedModelClass = $expectedModelClasses[$index];
+
+            if ($actualModelClass !== $expectedModelClass && !is_subclass_of($actualModelClass, $expectedModelClass)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        'Model class "%s" does not correspond to manager type "%s".',
+                        $actualModelClass,
+                        $managerType
+                    )
+                );
+            }
+        }
     }
 }

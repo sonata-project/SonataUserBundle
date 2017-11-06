@@ -11,6 +11,10 @@
 
 namespace Sonata\UserBundle\DependencyInjection;
 
+use Sonata\UserBundle\Admin\Entity\GroupAdmin;
+use Sonata\UserBundle\Admin\Entity\UserAdmin;
+use Sonata\UserBundle\Entity\BaseGroup;
+use Sonata\UserBundle\Entity\BaseUser;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -65,9 +69,10 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
                 ->arrayNode('class')
+                    ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('group')->cannotBeEmpty()->end()
-                        ->scalarNode('user')->cannotBeEmpty()->end()
+                        ->scalarNode('group')->cannotBeEmpty()->defaultValue(BaseGroup::class)->end()
+                        ->scalarNode('user')->cannotBeEmpty()->defaultValue(BaseUser::class)->end()
                     ->end()
                 ->end()
                 ->arrayNode('admin')
@@ -76,7 +81,7 @@ class Configuration implements ConfigurationInterface
                         ->arrayNode('group')
                             ->addDefaultsIfNotSet()
                             ->children()
-                                ->scalarNode('class')->cannotBeEmpty()->end()
+                                ->scalarNode('class')->cannotBeEmpty()->defaultValue(GroupAdmin::class)->end()
                                 ->scalarNode('controller')->cannotBeEmpty()->defaultValue('SonataAdminBundle:CRUD')->end()
                                 ->scalarNode('translation')->cannotBeEmpty()->defaultValue('SonataUserBundle')->end()
                             ->end()
@@ -84,7 +89,7 @@ class Configuration implements ConfigurationInterface
                         ->arrayNode('user')
                             ->addDefaultsIfNotSet()
                             ->children()
-                                ->scalarNode('class')->cannotBeEmpty()->end()
+                                ->scalarNode('class')->cannotBeEmpty()->defaultValue(UserAdmin::class)->end()
                                 ->scalarNode('controller')->cannotBeEmpty()->defaultValue('SonataAdminBundle:CRUD')->end()
                                 ->scalarNode('translation')->cannotBeEmpty()->defaultValue('SonataUserBundle')->end()
                             ->end()
