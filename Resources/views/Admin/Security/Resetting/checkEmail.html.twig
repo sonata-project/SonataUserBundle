@@ -27,6 +27,11 @@ file that was distributed with this source code.
     <div class="login-box">
         <div class="login-logo">
             <a href="{{ path('sonata_admin_dashboard') }}">
+                {% if 'single_image' == adminPool.getOption('title_mode') or 'both' == adminPool.getOption('title_mode') %}
+                    <div>
+                        <img style="width:64px;" src="{{ asset(adminPool.titlelogo) }}" alt="{{ adminPool.title }}">
+                    </div>
+                {% endif %}
                 {% if 'single_text' == admin_pool.getOption('title_mode') or 'both' == admin_pool.getOption('title_mode') %}
                     <span>{{ admin_pool.title }}</span>
                 {% endif %}
