@@ -25,9 +25,8 @@ Full configuration options:
                 validation_groups:  [Authentication] # Please note : this is not the default value
 
     sonata_user:
-        security_acl:           false
-
-    manager_type: orm # Can be orm or mongodb
+        security_acl: false
+        manager_type: orm      # can be orm or mongodb
 
         table:
             user_group: "my_custom_user_group_association_table_name"
