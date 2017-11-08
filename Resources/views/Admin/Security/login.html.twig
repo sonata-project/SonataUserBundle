@@ -27,12 +27,12 @@ file that was distributed with this source code.
     <div class="login-box">
         <div class="login-logo">
             <a href="{{ path('sonata_admin_dashboard') }}">
-                {% if 'single_image' == sonata_admin.adminPool.getOption('title_mode') or 'both' == sonata_admin.adminPool.getOption('title_mode') %}
+                {% if sonata_admin.adminPool.getOption('title_mode') in ['single_image', 'both'] %}
                     <div>
                         <img style="width:64px;" src="{{ asset(sonata_admin.adminPool.titlelogo) }}" alt="{{ sonata_admin.adminPool.title }}">
                     </div>
                 {% endif %}
-                {% if 'single_text' == sonata_admin.adminPool.getOption('title_mode') or 'both' == sonata_admin.adminPool.getOption('title_mode') %}
+                {% if sonata_admin.adminPool.getOption('title_mode') in ['single_text', 'both'] %}
                     <span>{{ sonata_admin.adminPool.title }}</span>
                 {% endif %}
             </a>
