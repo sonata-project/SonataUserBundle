@@ -80,7 +80,7 @@ Just like php dependencies can be managed with Composer, python dependencies can
 To get sphinx, simply run the following command.
 
 ```bash
-pip install --requirement Resources/doc/requirements.txt --user
+pip install --requirement docs/requirements.txt --user
 ```
 
 Some python binaries should be downloaded to `~/.local/bin` for Linux or `~/Library/Python/2.7/bin` for Mac OS,
@@ -90,7 +90,7 @@ so that it contains this path and then, from the root of the project, run `make 
 If `make docs` is successful, you should be able to see your modifications:
 
 ```bash
-$YOUR_FAVORITE_BROWSER Resources/doc/_build/html/index.html
+$YOUR_FAVORITE_BROWSER docs/_build/html/index.html
 ```
 
 If your PR contains a new feature, you must add documentation for it.
