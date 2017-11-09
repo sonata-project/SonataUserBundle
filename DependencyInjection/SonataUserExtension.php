@@ -12,10 +12,6 @@
 namespace Sonata\UserBundle\DependencyInjection;
 
 use Sonata\EasyExtendsBundle\Mapper\DoctrineCollector;
-use Sonata\UserBundle\Admin\Document\GroupAdmin as DocumentGroupAdmin;
-use Sonata\UserBundle\Admin\Document\UserAdmin as DocumentUserAdmin;
-use Sonata\UserBundle\Admin\Entity\GroupAdmin as EntityGroupAdmin;
-use Sonata\UserBundle\Admin\Entity\UserAdmin as EntityUserAdmin;
 use Sonata\UserBundle\Document\BaseGroup as DocumentGroup;
 use Sonata\UserBundle\Document\BaseUser as DocumentUser;
 use Sonata\UserBundle\Entity\BaseGroup as EntityGroup;
@@ -268,23 +264,17 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         $actualModelClasses = [
             $config['class']['user'],
             $config['class']['group'],
-            $config['admin']['user']['class'],
-            $config['admin']['group']['class'],
         ];
 
         if ('orm' === $managerType) {
             $expectedModelClasses = [
                 EntityUser::class,
                 EntityGroup::class,
-                EntityUserAdmin::class,
-                EntityGroupAdmin::class,
             ];
         } elseif ('mongodb' === $managerType) {
             $expectedModelClasses = [
                 DocumentUser::class,
                 DocumentGroup::class,
-                DocumentUserAdmin::class,
-                DocumentGroupAdmin::class,
             ];
         } else {
             throw new \InvalidArgumentException(sprintf('Invalid manager type "%s".', $managerType));
