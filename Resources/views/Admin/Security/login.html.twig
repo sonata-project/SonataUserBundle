@@ -25,18 +25,20 @@ file that was distributed with this source code.
 {% block sonata_wrapper %}
 
     <div class="login-box">
-        <div class="login-logo">
-            <a href="{{ path('sonata_admin_dashboard') }}">
-                {% if sonata_admin.adminPool.getOption('title_mode') in ['single_image', 'both'] %}
-                    <div>
-                        <img style="width:64px;" src="{{ asset(sonata_admin.adminPool.titlelogo) }}" alt="{{ sonata_admin.adminPool.title }}">
-                    </div>
-                {% endif %}
-                {% if sonata_admin.adminPool.getOption('title_mode') in ['single_text', 'both'] %}
-                    <span>{{ sonata_admin.adminPool.title }}</span>
-                {% endif %}
-            </a>
-        </div>
+        {% block login_box_header %}
+            <div class="login-logo">
+                <a href="{{ path('sonata_admin_dashboard') }}">
+                    {% if sonata_admin.adminPool.getOption('title_mode') in ['single_image', 'both'] %}
+                        <div>
+                            <img style="width:64px;" src="{{ asset(sonata_admin.adminPool.titlelogo) }}" alt="{{ sonata_admin.adminPool.title }}">
+                        </div>
+                    {% endif %}
+                    {% if sonata_admin.adminPool.getOption('title_mode') in ['single_text', 'both'] %}
+                        <span>{{ sonata_admin.adminPool.title }}</span>
+                    {% endif %}
+                </a>
+            </div>
+        {% endblock %}
         <div class="login-box-body">
             {% block sonata_user_login_form %}
                 {% block sonata_user_login_error %}
