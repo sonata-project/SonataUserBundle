@@ -25,18 +25,20 @@ file that was distributed with this source code.
 {% block sonata_wrapper %}
 
     <div class="login-box">
-        <div class="login-logo">
-            <a href="{{ path('sonata_admin_dashboard') }}">
-                {% if adminPool.getOption('title_mode') in ['single_image', 'both'] %}
-                    <div>
-                        <img style="width:64px;" src="{{ asset(adminPool.titlelogo) }}" alt="{{ adminPool.title }}">
-                    </div>
-                {% endif %}
-                {% if adminPool.getOption('title_mode') in ['single_text', 'both'] %}
-                    <span>{{ admin_pool.title }}</span>
-                {% endif %}
-            </a>
-        </div>
+        {% block login_box_header %}
+            <div class="login-logo">
+                <a href="{{ path('sonata_admin_dashboard') }}">
+                    {% if adminPool.getOption('title_mode') in ['single_image', 'both'] %}
+                        <div>
+                            <img style="width:64px;" src="{{ asset(adminPool.titlelogo) }}" alt="{{ adminPool.title }}">
+                        </div>
+                    {% endif %}
+                    {% if adminPool.getOption('title_mode') in ['single_text', 'both'] %}
+                        <span>{{ admin_pool.title }}</span>
+                    {% endif %}
+                </a>
+            </div>
+        {% endblock %}
         <div class="login-box-body">
             {% block sonata_user_reset_request_form %}
                 {% block sonata_user_reset_request_error %}
