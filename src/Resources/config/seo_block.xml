@@ -13,6 +13,7 @@
             <argument type="service" id="templating"/>
             <argument type="service" id="knp_menu.menu_provider"/>
             <argument type="service" id="knp_menu.factory"/>
+            <argument type="service" id="sonata.block.menu.registry"/>
         </service>
         <service id="sonata.user.block.breadcrumb_profile" class="%sonata.user.block.breadcrumb_profile.class%">
             <tag name="sonata.block"/>
@@ -22,6 +23,7 @@
             <argument type="service" id="templating"/>
             <argument type="service" id="knp_menu.menu_provider"/>
             <argument type="service" id="knp_menu.factory"/>
+            <argument type="service" id="sonata.block.menu.registry"/>
         </service>
     </services>
 </container>
