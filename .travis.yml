@@ -69,6 +69,8 @@ matrix:
     - env: FOS_USER=dev-master@dev
     - env: SONATA_CORE=dev-master@dev
     - env: SONATA_ADMIN=dev-master@dev
+    - php: 7.1
+      env: SYMFONY=3.4.x-dev
 
 before_install:
   - git remote add upstream ${UPSTREAM_URL} && git fetch --all
