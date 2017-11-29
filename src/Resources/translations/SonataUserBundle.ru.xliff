@@ -34,6 +34,10 @@
                 <source>breadcrumb.link_user_edit</source>
                 <target>Редактировать</target>
             </trans-unit>
+            <trans-unit id="breadcrumb.link_user_delete">
+                <source>breadcrumb.link_user_delete</source>
+                <target>Удалить</target>
+            </trans-unit>
             <trans-unit id="breadcrumb.link_user_show">
                 <source>breadcrumb.link_user_show</source>
                 <target>Показать</target>
@@ -126,6 +130,14 @@
                 <source>form.label_credentials_expired</source>
                 <target>Пароль устарел</target>
             </trans-unit>
+            <trans-unit id="form.label_created_at">
+                <source>form.label_created_at</source>
+                <target>Время создания</target>
+            </trans-unit>
+            <trans-unit id="form.label_last_login">
+                <source>form.label_last_login</source>
+                <target>Последний вход</target>
+            </trans-unit>
             <trans-unit id="form.label_firstname">
                 <source>form.label_firstname</source>
                 <target>Имя</target>
@@ -154,6 +166,14 @@
                 <source>filter.label_groups</source>
                 <target>Группы</target>
             </trans-unit>
+            <trans-unit id="filter.label_created_at">
+                <source>filter.label_created_at</source>
+                <target>Время создания</target>
+            </trans-unit>
+            <trans-unit id="filter.label_last_login">
+                <source>filter.label_last_login</source>
+                <target>Последний вход</target>
+            </trans-unit>
             <trans-unit id="filter.label_locked">
                 <source>filter.label_locked</source>
                 <target>Заблокирован</target>
@@ -162,6 +182,10 @@
                 <source>filter.label_id</source>
                 <target>ID</target>
             </trans-unit>
+            <trans-unit id="filter.label_enabled">
+                <source>filter.label_enabled</source>
+                <target>Включен</target>
+            </trans-unit>
             <trans-unit id="filter.label_firstname">
                 <source>filter.label_firstname</source>
                 <target>Имя</target>
@@ -169,6 +193,10 @@
             <trans-unit id="filter.label_lastname">
                 <source>filter.label_lastname</source>
                 <target>Фамилия</target>
+            </trans-unit>
+            <trans-unit id="filter.label_roles">
+                <source>filter.label_roles</source>
+                <target>Роли</target>
             </trans-unit>
             <trans-unit id="list.label_username">
                 <source>list.label_username</source>
@@ -192,11 +220,15 @@
             </trans-unit>
             <trans-unit id="list.label_enabled">
                 <source>list.label_enabled</source>
-                <target>Активен</target>
+                <target>Включен</target>
             </trans-unit>
             <trans-unit id="list.label_created_at">
                 <source>list.label_created_at</source>
-                <target>Дата создания</target>
+                <target>Время создания</target>
+            </trans-unit>
+            <trans-unit id="list.label_last_login">
+                <source>list.label_last_login</source>
+                <target>Последний вход</target>
             </trans-unit>
             <trans-unit id="list.label_impersonating">
                 <source>list.label_impersonating</source>
@@ -389,6 +421,14 @@
             <trans-unit id="show.label_two_step_verification_code">
                 <source>show.label_two_step_verification_code</source>
                 <target>Код двухэтапной аутентификации</target>
+            </trans-unit>
+            <trans-unit id="show.label_created_at">
+                <source>show.label_created_at</source>
+                <target>Время создания</target>
+            </trans-unit>
+            <trans-unit id="show.label_last_login">
+                <source>show.label_last_login</source>
+                <target>Последний вход</target>
             </trans-unit>
             <trans-unit id="form.label_date_of_birth">
                 <source>form.label_date_of_birth</source>
