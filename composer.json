@@ -28,7 +28,8 @@
         "symfony/console": "^2.8 || ^3.2",
         "symfony/form": "^2.8 || ^3.2",
         "symfony/http-foundation": "^2.8 || ^3.2",
-        "symfony/security": "^2.8 || ^3.2"
+        "symfony/security": "^2.8 || ^3.2",
+        "symfony/translation": "^2.8 || ^3.2"
     },
     "require-dev": {
         "doctrine/orm": "^2.0",
@@ -39,7 +40,7 @@
         "nelmio/api-doc-bundle": "^2.4",
         "sllh/php-cs-fixer-styleci-bridge": "^2.0",
         "sonata-project/block-bundle": "^3.2",
-        "sonata-project/google-authenticator": "^1.0",
+        "sonata-project/google-authenticator": "^1.0 || ^2.0",
         "sonata-project/seo-bundle": "^2.0",
         "symfony/phpunit-bridge": "^3.3"
     },

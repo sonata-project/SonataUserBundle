@@ -24,7 +24,7 @@ cache:
 env:
   global:
     - PATH="$HOME/.local/bin:$PATH"
-    - SYMFONY_DEPRECATIONS_HELPER=weak_vendors
+    - SYMFONY_DEPRECATIONS_HELPER=weak
     - TARGET=test
     - UPSTREAM_URL=https://github.com/sonata-project/SonataUserBundle.git
     - XMLLINT_INDENT="    "
@@ -45,30 +45,28 @@ matrix:
     - php: '7.1'
       env: SYMFONY=3.3.*
     - php: '7.1'
-      env: SYMFONY='dev-master as 2.8'
+      env: SYMFONY='dev-master as 2.8.x-dev'
     - php: '7.1'
       env: FOS_USER=2.*
     - php: '7.1'
-      env: FOS_USER='dev-master as 1.3'
+      env: FOS_USER='dev-master as 1.3.x-dev'
     - php: '7.1'
       env: SONATA_CORE=3.*
     - php: '7.1'
-      env: SONATA_CORE='dev-master as 3'
+      env: SONATA_CORE='dev-master as 3.x-dev'
     - php: '7.1'
       env: SONATA_ADMIN=3.*
     - php: '7.1'
-      env: SONATA_ADMIN='dev-master as 3'
+      env: SONATA_ADMIN='dev-master as 3.x-dev'
     - php: '7.1'
       env: SYMFONY_DEPRECATIONS_HELPER=0
-    - php: hhvm
   allow_failures:
     - php: nightly
-    - php: hhvm
     - env: SYMFONY_DEPRECATIONS_HELPER=0
-    - env: SYMFONY='dev-master as 2.8'
-    - env: FOS_USER='dev-master as 1.3'
-    - env: SONATA_CORE='dev-master as 3'
-    - env: SONATA_ADMIN='dev-master as 3'
+    - env: SYMFONY='dev-master as 2.8.x-dev'
+    - env: FOS_USER='dev-master as 1.3.x-dev'
+    - env: SONATA_CORE='dev-master as 3.x-dev'
+    - env: SONATA_ADMIN='dev-master as 3.x-dev'
 
 before_install:
   - git remote add upstream ${UPSTREAM_URL} && git fetch --all

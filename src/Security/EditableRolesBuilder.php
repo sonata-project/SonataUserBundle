@@ -14,6 +14,7 @@ namespace Sonata\UserBundle\Security;
 use Sonata\AdminBundle\Admin\Pool;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class EditableRolesBuilder
 {
@@ -31,6 +32,11 @@ class EditableRolesBuilder
      * @var Pool
      */
     protected $pool;
+
+    /**
+     * @var TranslatorInterface
+     */
+    protected $translator;
 
     /**
      * @var array
@@ -51,18 +57,83 @@ class EditableRolesBuilder
         $this->rolesHierarchy = $rolesHierarchy;
     }
 
+    /*
+     * @param TranslatorInterface $translator
+     */
+    public function setTranslator(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     /**
+     * @param string|bool|null $domain
+     * @param bool             $expanded
+     *
      * @return array
      */
-    public function getRoles()
+    public function getRoles($domain = false, $expanded = true)
     {
         $roles = [];
+
+        if (!$this->tokenStorage->getToken()) {
+            return $roles;
+        }
+
+        $this->iterateAdminRoles(function ($role, $isMaster) use ($domain, &$roles) {
+            if ($isMaster) {
+                // if the user has the MASTER permission, allow to grant access the admin roles to other users
+                $roles[$role] = $this->translateRole($role, $domain);
+            }
+        });
+
+        $isMaster = $this->authorizationChecker->isGranted(
+            $this->pool->getOption('role_super_admin', 'ROLE_SUPER_ADMIN')
+        );
+
+        // get roles from the service container
+        foreach ($this->rolesHierarchy as $name => $rolesHierarchy) {
+            if ($this->authorizationChecker->isGranted($name) || $isMaster) {
+                $roles[$name] = $this->translateRole($name, $domain);
+                if ($expanded) {
+                    $result = array_map([$this, 'translateRole'], $rolesHierarchy, array_fill(0, count($rolesHierarchy), $domain));
+                    $roles[$name] .= ': '.implode(', ', $result);
+                }
+                foreach ($rolesHierarchy as $role) {
+                    if (!isset($roles[$role])) {
+                        $roles[$role] = $this->translateRole($role, $domain);
+                    }
+                }
+            }
+        }
+
+        return $roles;
+    }
+
+    /**
+     * @param string|bool|null $domain
+     *
+     * @return array
+     */
+    public function getRolesReadOnly($domain = false)
+    {
         $rolesReadOnly = [];
 
         if (!$this->tokenStorage->getToken()) {
-            return [$roles, $rolesReadOnly];
+            return $rolesReadOnly;
         }
 
+        $this->iterateAdminRoles(function ($role, $isMaster) use ($domain, &$rolesReadOnly) {
+            if (!$isMaster && $this->authorizationChecker->isGranted($role)) {
+                // although the user has no MASTER permission, allow the currently logged in user to view the role
+                $rolesReadOnly[$role] = $this->translateRole($role, $domain);
+            }
+        });
+
+        return $rolesReadOnly;
+    }
+
+    private function iterateAdminRoles(callable $func)
+    {
         // get roles from the Admin classes
         foreach ($this->pool->getAdminServiceIds() as $id) {
             try {
@@ -82,34 +153,25 @@ class EditableRolesBuilder
 
             foreach ($admin->getSecurityInformation() as $role => $permissions) {
                 $role = sprintf($baseRole, $role);
-
-                if ($isMaster) {
-                    // if the user has the MASTER permission, allow to grant access the admin roles to other users
-                    $roles[$role] = $role;
-                } elseif ($this->authorizationChecker->isGranted($role)) {
-                    // although the user has no MASTER permission, allow the currently logged in user to view the role
-                    $rolesReadOnly[$role] = $role;
-                }
+                call_user_func($func, $role, $isMaster, $permissions);
             }
         }
+    }
 
-        $isMaster = $this->authorizationChecker->isGranted(
-            $this->pool->getOption('role_super_admin', 'ROLE_SUPER_ADMIN')
-        );
-
-        // get roles from the service container
-        foreach ($this->rolesHierarchy as $name => $rolesHierarchy) {
-            if ($this->authorizationChecker->isGranted($name) || $isMaster) {
-                $roles[$name] = $name.': '.implode(', ', $rolesHierarchy);
-
-                foreach ($rolesHierarchy as $role) {
-                    if (!isset($roles[$role])) {
-                        $roles[$role] = $role;
-                    }
-                }
-            }
+    /*
+     * @param string $role
+     * @param string|bool|null $domain
+     *
+     * @return string
+     */
+    private function translateRole($role, $domain)
+    {
+        // translation domain is false, do not translate it,
+        // null is fallback to message domain
+        if (false === $domain || !isset($this->translator)) {
+            return $role;
         }
 
-        return [$roles, $rolesReadOnly];
+        return $this->translator->trans($role, [], $domain);
     }
 }
