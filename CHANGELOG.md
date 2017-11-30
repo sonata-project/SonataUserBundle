@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.5.0](https://github.com/sonata-project/SonataUserBundle/compare/3.4.0...3.5.0) - 2017-11-04
+### Changed
+- Rollback to PHP 5.6 as minimum support.
+
 ## [3.4.0](https://github.com/sonata-project/SonataUserBundle/compare/3.3.0...3.4.0) - 2017-10-22
 ### Fixed
 - Fixed the twig configuration setting bug.
