@@ -61,13 +61,10 @@
         "sonata-project/seo-bundle": "<2.0"
     },
     "autoload": {
-        "psr-4": { "Sonata\\UserBundle\\": "" },
-        "exclude-from-classmap": [
-            "Tests/"
-        ]
+        "psr-4": { "Sonata\\UserBundle\\": "src/" }
     },
     "autoload-dev": {
-        "psr-4": { "Sonata\\UserBundle\\Tests\\": "Tests/" }
+        "psr-4": { "Sonata\\UserBundle\\Tests\\": "tests/" }
      },
     "config": {
         "sort-packages": true
