@@ -14,6 +14,7 @@ namespace Sonata\UserBundle\Tests\Security\Authorization\Voter;
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Security\Authorization\Voter\UserAclVoter;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserAclVoterTest extends TestCase
 {
@@ -100,12 +101,7 @@ class UserAclVoterTest extends TestCase
         $user = $this->createMock('FOS\UserBundle\Model\UserInterface');
         $user->expects($this->any())->method('isSuperAdmin')->will($this->returnValue(true));
 
-        // NEXT_MAJOR: Remove this when bumping SF requirements to 2.8
-        if (interface_exists('Symfony\Component\Security\Core\User\UserInterface')) {
-            $loggedInUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
-        } else {
-            $loggedInUser = $this->createMock('Symfony\Component\Core\User\UserInterface');
-        }
+        $loggedInUser = $this->createMock(UserInterface::class);
 
         $token = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
         $token->expects($this->any())->method('getUser')->will($this->returnValue($loggedInUser));
