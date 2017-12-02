@@ -13,31 +13,11 @@ namespace Sonata\UserBundle\Tests\Security\Authorization\Voter;
 
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Security\EditableRolesBuilder;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class EditableRolesBuilderTest extends TestCase
 {
-    public function getTokenStorageMock()
-    {
-        // Set the SecurityContext for Symfony <2.6
-        // NEXT_MAJOR: Remove conditional return when bumping requirements to SF 2.6+
-        if (interface_exists('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface')) {
-            return $this->createMock('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface');
-        }
-
-        return $this->createMock('Symfony\Component\Security\Core\SecurityContextInterface');
-    }
-
-    public function getAuthorizationCheckerMock()
-    {
-        // Set the SecurityContext for Symfony <2.6
-        // NEXT_MAJOR: Remove conditional return when bumping requirements to SF 2.6+
-        if (interface_exists('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')) {
-            return $this->createMock('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
-        }
-
-        return $this->createMock('Symfony\Component\Security\Core\SecurityContextInterface');
-    }
-
     /**
      * @group legacy
      */
@@ -45,10 +25,10 @@ class EditableRolesBuilderTest extends TestCase
     {
         $token = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
 
-        $tokenStorage = $this->getTokenStorageMock();
+        $tokenStorage = $this->createMock(TokenStorageInterface::class);
         $tokenStorage->expects($this->any())->method('getToken')->will($this->returnValue($token));
 
-        $authorizationChecker = $this->getAuthorizationCheckerMock();
+        $authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
         $authorizationChecker->expects($this->any())->method('isGranted')->will($this->returnValue(true));
 
         $pool = $this->getMockBuilder('Sonata\AdminBundle\Admin\Pool')
@@ -103,10 +83,10 @@ class EditableRolesBuilderTest extends TestCase
 
         $token = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
 
-        $tokenStorage = $this->getTokenStorageMock();
+        $tokenStorage = $this->createMock(TokenStorageInterface::class);
         $tokenStorage->expects($this->any())->method('getToken')->will($this->returnValue($token));
 
-        $authorizationChecker = $this->getAuthorizationCheckerMock();
+        $authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
         $authorizationChecker->expects($this->any())->method('isGranted')->will($this->returnValue(true));
 
         $pool = $this->getMockBuilder('Sonata\AdminBundle\Admin\Pool')
@@ -133,10 +113,10 @@ class EditableRolesBuilderTest extends TestCase
 
     public function testWithNoSecurityToken()
     {
-        $tokenStorage = $this->getTokenStorageMock();
+        $tokenStorage = $this->createMock(TokenStorageInterface::class);
         $tokenStorage->expects($this->any())->method('getToken')->will($this->returnValue(null));
 
-        $authorizationChecker = $this->getAuthorizationCheckerMock();
+        $authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
         $authorizationChecker->expects($this->any())->method('isGranted')->will($this->returnValue(false));
 
         $pool = $this->getMockBuilder('Sonata\AdminBundle\Admin\Pool')

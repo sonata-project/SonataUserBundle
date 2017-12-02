@@ -16,7 +16,15 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\CoreBundle\Form\Type\DatePickerType;
+use Sonata\UserBundle\Form\Type\SecurityRolesType;
+use Sonata\UserBundle\Form\Type\UserGenderListType;
+use Symfony\Component\Form\Extension\Core\Type\LocaleType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TimezoneType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
 class UserAdmin extends AbstractAdmin
 {
@@ -172,38 +180,17 @@ class UserAdmin extends AbstractAdmin
 
         $now = new \DateTime();
 
-        // NEXT_MAJOR: Keep FQCN when bumping Symfony requirement to 2.8+.
-        if (method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix')) {
-            $textType = 'Symfony\Component\Form\Extension\Core\Type\TextType';
-            $datePickerType = 'Sonata\CoreBundle\Form\Type\DatePickerType';
-            $urlType = 'Symfony\Component\Form\Extension\Core\Type\UrlType';
-            $userGenderType = 'Sonata\UserBundle\Form\Type\UserGenderListType';
-            $localeType = 'Symfony\Component\Form\Extension\Core\Type\LocaleType';
-            $timezoneType = 'Symfony\Component\Form\Extension\Core\Type\TimezoneType';
-            $modelType = 'Sonata\AdminBundle\Form\Type\ModelType';
-            $securityRolesType = 'Sonata\UserBundle\Form\Type\SecurityRolesType';
-        } else {
-            $textType = 'text';
-            $datePickerType = 'sonata_type_date_picker';
-            $urlType = 'url';
-            $userGenderType = 'sonata_user_gender';
-            $localeType = 'locale';
-            $timezoneType = 'timezone';
-            $modelType = 'sonata_type_model';
-            $securityRolesType = 'sonata_security_roles';
-        }
-
         $formMapper
             ->tab('User')
                 ->with('General')
                     ->add('username')
                     ->add('email')
-                    ->add('plainPassword', $textType, [
+                    ->add('plainPassword', TextType::class, [
                         'required' => (!$this->getSubject() || is_null($this->getSubject()->getId())),
                     ])
                 ->end()
                 ->with('Profile')
-                    ->add('dateOfBirth', $datePickerType, [
+                    ->add('dateOfBirth', DatePickerType::class, [
                         'years' => range(1900, $now->format('Y')),
                         'dp_min_date' => '1-1-1900',
                         'dp_max_date' => $now->format('c'),
@@ -211,14 +198,14 @@ class UserAdmin extends AbstractAdmin
                     ])
                     ->add('firstname', null, ['required' => false])
                     ->add('lastname', null, ['required' => false])
-                    ->add('website', $urlType, ['required' => false])
-                    ->add('biography', $textType, ['required' => false])
-                    ->add('gender', $userGenderType, [
+                    ->add('website', UrlType::class, ['required' => false])
+                    ->add('biography', TextType::class, ['required' => false])
+                    ->add('gender', UserGenderListType::class, [
                         'required' => true,
                         'translation_domain' => $this->getTranslationDomain(),
                     ])
-                    ->add('locale', $localeType, ['required' => false])
-                    ->add('timezone', $timezoneType, ['required' => false])
+                    ->add('locale', LocaleType::class, ['required' => false])
+                    ->add('timezone', TimezoneType::class, ['required' => false])
                     ->add('phone', null, ['required' => false])
                 ->end()
                 ->with('Social')
@@ -235,14 +222,14 @@ class UserAdmin extends AbstractAdmin
                     ->add('enabled', null, ['required' => false])
                 ->end()
                 ->with('Groups')
-                    ->add('groups', $modelType, [
+                    ->add('groups', ModelType::class, [
                         'required' => false,
                         'expanded' => true,
                         'multiple' => true,
                     ])
                 ->end()
                 ->with('Roles')
-                    ->add('realRoles', $securityRolesType, [
+                    ->add('realRoles', SecurityRolesType::class, [
                         'label' => 'form.label_roles',
                         'expanded' => true,
                         'multiple' => true,

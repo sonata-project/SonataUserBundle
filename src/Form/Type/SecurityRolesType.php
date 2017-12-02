@@ -21,7 +21,6 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class SecurityRolesType extends AbstractType
 {
@@ -80,18 +79,6 @@ class SecurityRolesType extends AbstractType
 
         $view->vars['attr'] = $attr;
         $view->vars['read_only_choices'] = $options['read_only_choices'];
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * NEXT_MAJOR: remove this method.
-     *
-     * @deprecated Remove it when bumping requirements to Symfony 2.7+
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $this->configureOptions($resolver);
     }
 
     /**
