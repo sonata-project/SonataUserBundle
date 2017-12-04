@@ -34,12 +34,11 @@ class UserManagerTest extends TestCase
             ->getPager([], 1);
     }
 
-    /**
-     * @expectedException        \RuntimeException
-     * @expectedExceptionMessage Invalid sort field 'invalid' in 'className' class
-     */
     public function testGetPagerWithInvalidSort()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Invalid sort field \'invalid\' in \'className\' class');
+
         $self = $this;
         $this
             ->getUserManager(function ($qb) use ($self) {

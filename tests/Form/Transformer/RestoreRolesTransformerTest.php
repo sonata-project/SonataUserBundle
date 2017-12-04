@@ -17,22 +17,20 @@ use Sonata\UserBundle\Security\EditableRolesBuilder;
 
 class RestoreRolesTransformerTest extends TestCase
 {
-    /**
-     * @expectedException \RuntimeException
-     */
     public function testInvalidStateTransform()
     {
+        $this->expectException(\RuntimeException::class);
+
         $roleBuilder = $this->createMock(EditableRolesBuilder::class);
 
         $transformer = new RestoreRolesTransformer($roleBuilder);
         $transformer->transform([]);
     }
 
-    /**
-     * @expectedException \RuntimeException
-     */
     public function testInvalidStateReverseTransform()
     {
+        $this->expectException(\RuntimeException::class);
+
         $roleBuilder = $this->createMock(EditableRolesBuilder::class);
 
         $transformer = new RestoreRolesTransformer($roleBuilder);

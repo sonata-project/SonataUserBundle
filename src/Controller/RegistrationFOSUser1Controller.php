@@ -101,9 +101,9 @@ EOT
     /**
      * Tell the user to check his email provider.
      *
-     * @return Response
-     *
      * @throws NotFoundHttpException
+     *
+     * @return Response
      */
     public function checkEmailAction()
     {
@@ -125,9 +125,9 @@ EOT
      *
      * @param string $token
      *
-     * @return RedirectResponse
-     *
      * @throws NotFoundHttpException
+     *
+     * @return RedirectResponse
      */
     public function confirmAction($token)
     {
@@ -159,9 +159,9 @@ EOT
     /**
      * Tell the user his account is now confirmed.
      *
-     * @return Response
-     *
      * @throws AccessDeniedException
+     *
+     * @return Response
      */
     public function confirmedAction()
     {

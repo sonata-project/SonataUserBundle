@@ -25,9 +25,9 @@ use Symfony\Component\HttpFoundation\Response;
 class ChangePasswordFOSUser1Controller extends Controller
 {
     /**
-     * @return Response|RedirectResponse
-     *
      * @throws AccessDeniedException
+     *
+     * @return Response|RedirectResponse
      */
     public function changePasswordAction()
     {
