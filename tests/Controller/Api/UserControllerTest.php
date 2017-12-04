@@ -40,12 +40,11 @@ class UserControllerTest extends TestCase
         $this->assertEquals($user, $this->createUserController($user)->getUserAction(1));
     }
 
-    /**
-     * @expectedException        \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @expectedExceptionMessage User (42) not found
-     */
     public function testGetUserActionNotFoundException()
     {
+        $this->expectException(\Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class);
+        $this->expectExceptionMessage('User (42) not found');
+
         $this->createUserController()->getUserAction(42);
     }
 
@@ -224,7 +223,7 @@ class UserControllerTest extends TestCase
 
     public function testDeleteUserInvalidAction()
     {
-        $this->setExpectedException('Symfony\Component\HttpKernel\Exception\NotFoundHttpException');
+        $this->expectException('Symfony\Component\HttpKernel\Exception\NotFoundHttpException');
 
         $userManager = $this->createMock('Sonata\UserBundle\Model\UserManagerInterface');
         $userManager->expects($this->once())->method('findUserBy')->will($this->returnValue(null));

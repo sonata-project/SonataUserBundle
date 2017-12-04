@@ -41,7 +41,7 @@ class UserAdmin extends AbstractAdmin
         $this->formOptions['data_class'] = $this->getClass();
 
         $options = $this->formOptions;
-        $options['validation_groups'] = (!$this->getSubject() || is_null($this->getSubject()->getId())) ? 'Registration' : 'Profile';
+        $options['validation_groups'] = (!$this->getSubject() || null === $this->getSubject()->getId()) ? 'Registration' : 'Profile';
 
         $formBuilder = $this->getFormContractor()->getFormBuilder($this->getUniqid(), $options);
 
@@ -186,7 +186,7 @@ class UserAdmin extends AbstractAdmin
                     ->add('username')
                     ->add('email')
                     ->add('plainPassword', TextType::class, [
-                        'required' => (!$this->getSubject() || is_null($this->getSubject()->getId())),
+                        'required' => (!$this->getSubject() || null === $this->getSubject()->getId()),
                     ])
                 ->end()
                 ->with('Profile')

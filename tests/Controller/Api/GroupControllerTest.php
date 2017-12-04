@@ -41,12 +41,11 @@ class GroupControllerTest extends TestCase
         $this->assertEquals($group, $this->createGroupController($group)->getGroupAction(1));
     }
 
-    /**
-     * @expectedException        \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @expectedExceptionMessage Group (42) not found
-     */
     public function testGetGroupActionNotFoundException()
     {
+        $this->expectException(\Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class);
+        $this->expectExceptionMessage('Group (42) not found');
+
         $this->createGroupController()->getGroupAction(42);
     }
 

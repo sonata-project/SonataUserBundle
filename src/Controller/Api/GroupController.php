@@ -148,9 +148,9 @@ class GroupController
      *
      * @param Request $request A Symfony request
      *
-     * @return GroupInterface
-     *
      * @throws NotFoundHttpException
+     *
+     * @return GroupInterface
      */
     public function postGroupAction(Request $request)
     {
@@ -176,9 +176,9 @@ class GroupController
      * @param int     $id      Group identifier
      * @param Request $request A Symfony request
      *
-     * @return GroupInterface
-     *
      * @throws NotFoundHttpException
+     *
+     * @return GroupInterface
      */
     public function putGroupAction($id, Request $request)
     {
@@ -201,9 +201,9 @@ class GroupController
      *
      * @param int $id A Group identifier
      *
-     * @return \FOS\RestBundle\View\View
-     *
      * @throws NotFoundHttpException
+     *
+     * @return \FOS\RestBundle\View\View
      */
     public function deleteGroupAction($id)
     {
@@ -261,9 +261,9 @@ class GroupController
      *
      * @param $id
      *
-     * @return GroupInterface
-     *
      * @throws NotFoundHttpException
+     *
+     * @return GroupInterface
      */
     protected function getGroup($id)
     {
