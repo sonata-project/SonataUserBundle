@@ -2,6 +2,28 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.0.0](https://github.com/sonata-project/SonataUserBundle/compare/3.6.0...4.0.0) - 2017-12-04
+### Added
+- Add support for FOSUser 2.0
+- Added missing `swiftmailer` dependency
+
+### Changed
+- Made `sonata-project/google-authenticator` an optional dependency
+- Moved public methods of `User` to `UserInterface`
+- Lowered upper composer dependencies
+- default values moved to the Configuration class
+- `sonata.user.admin.user` and `sonata.user.admin.group` are public now
+
+### Fixed
+- Fixed PHPDoc
+- Fixed wrong parent calls in UserManager
+- Fixed wrong router call in Controller
+- missing logo in templates
+
+### Removed
+- Removed removed user model properties
+- Removed deprecated code
+
 ## [3.6.0](https://github.com/sonata-project/SonataUserBundle/compare/3.5.0...3.6.0) - 2017-12-04
 ### Added
 - make Roles in SecurityRolesType translateable
