@@ -37,7 +37,6 @@
         "jms/serializer-bundle": "^0.13 || ^1.0",
         "matthiasnoback/symfony-dependency-injection-test": "^1.1",
         "nelmio/api-doc-bundle": "^2.4",
-        "sllh/php-cs-fixer-styleci-bridge": "^2.0",
         "sonata-project/block-bundle": "^3.2",
         "sonata-project/seo-bundle": "^2.0",
         "symfony/phpunit-bridge": "^3.3"
