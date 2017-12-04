@@ -2,6 +2,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.6.0](https://github.com/sonata-project/SonataUserBundle/compare/3.5.0...3.6.0) - 2017-12-04
+### Added
+- make Roles in SecurityRolesType translateable
+- Added Russian translations
+
+### Changed
+- Changed internal folder structure to `src`, `tests` and `docs`
+
+### Fixed
+- Added a check to the UserAclVoter class to ensure the subject is an object
+
 ## [3.5.0](https://github.com/sonata-project/SonataUserBundle/compare/3.4.0...3.5.0) - 2017-11-04
 ### Changed
 - Rollback to PHP 5.6 as minimum support.
