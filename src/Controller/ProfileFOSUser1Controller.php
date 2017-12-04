@@ -25,9 +25,9 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class ProfileFOSUser1Controller extends Controller
 {
     /**
-     * @return Response
-     *
      * @throws AccessDeniedException
+     *
+     * @return Response
      */
     public function showAction()
     {
@@ -43,9 +43,9 @@ class ProfileFOSUser1Controller extends Controller
     }
 
     /**
-     * @return Response|RedirectResponse
-     *
      * @throws AccessDeniedException
+     *
+     * @return Response|RedirectResponse
      */
     public function editAuthenticationAction()
     {
@@ -70,9 +70,9 @@ class ProfileFOSUser1Controller extends Controller
     }
 
     /**
-     * @return Response|RedirectResponse
-     *
      * @throws AccessDeniedException
+     *
+     * @return Response|RedirectResponse
      */
     public function editProfileAction()
     {

@@ -148,13 +148,13 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     /**
      * @param array $config
      *
-     * @return array
-     *
      * @throws \RuntimeException
+     *
+     * @return array
      */
     public function fixImpersonating(array $config)
     {
-        if (isset($config['impersonating']) && isset($config['impersonating_route'])) {
+        if (isset($config['impersonating'], $config['impersonating_route'])) {
             throw new \RuntimeException('you can\'t have `impersonating` and `impersonating_route` keys defined at the same time');
         }
 
@@ -180,9 +180,9 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
      * @param array            $config
      * @param ContainerBuilder $container
      *
-     * @return mixed
-     *
      * @throws \RuntimeException
+     *
+     * @return mixed
      */
     public function configureGoogleAuthenticator($config, ContainerBuilder $container)
     {
