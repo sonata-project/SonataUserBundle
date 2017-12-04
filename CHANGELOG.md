@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Added missing `swiftmailer` dependency
 
 ### Changed
+- Risky code change for PHP 7
 - Made `sonata-project/google-authenticator` an optional dependency
 - Moved public methods of `User` to `UserInterface`
 - Lowered upper composer dependencies

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -20,7 +22,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class GroupControllerTest extends TestCase
 {
-    public function testGetGroupsAction()
+    public function testGetGroupsAction(): void
     {
         $group = $this->createMock('FOS\UserBundle\Model\GroupInterface');
         $groupManager = $this->createMock('Sonata\UserBundle\Model\GroupManagerInterface');
@@ -35,13 +37,13 @@ class GroupControllerTest extends TestCase
         $this->assertEquals([$group], $this->createGroupController(null, $groupManager)->getGroupsAction($paramFetcher));
     }
 
-    public function testGetGroupAction()
+    public function testGetGroupAction(): void
     {
         $group = $this->createMock('FOS\UserBundle\Model\GroupInterface');
         $this->assertEquals($group, $this->createGroupController($group)->getGroupAction(1));
     }
 
-    public function testGetGroupActionNotFoundException()
+    public function testGetGroupActionNotFoundException(): void
     {
         $this->expectException(\Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class);
         $this->expectExceptionMessage('Group (42) not found');
@@ -49,7 +51,7 @@ class GroupControllerTest extends TestCase
         $this->createGroupController()->getGroupAction(42);
     }
 
-    public function testPostGroupAction()
+    public function testPostGroupAction(): void
     {
         $group = $this->createMock('FOS\UserBundle\Model\GroupInterface');
 
@@ -70,7 +72,7 @@ class GroupControllerTest extends TestCase
         $this->assertInstanceOf('FOS\RestBundle\View\View', $view);
     }
 
-    public function testPostGroupInvalidAction()
+    public function testPostGroupInvalidAction(): void
     {
         $groupManager = $this->createMock('Sonata\UserBundle\Model\GroupManagerInterface');
         $groupManager->expects($this->once())->method('getClass')->will($this->returnValue('Sonata\UserBundle\Entity\BaseGroup'));
@@ -87,7 +89,7 @@ class GroupControllerTest extends TestCase
         $this->assertInstanceOf('Symfony\Component\Form\FormInterface', $view);
     }
 
-    public function testPutGroupAction()
+    public function testPutGroupAction(): void
     {
         $group = $this->createMock('FOS\UserBundle\Model\GroupInterface');
 
@@ -109,7 +111,7 @@ class GroupControllerTest extends TestCase
         $this->assertInstanceOf('FOS\RestBundle\View\View', $view);
     }
 
-    public function testPutGroupInvalidAction()
+    public function testPutGroupInvalidAction(): void
     {
         $group = $this->createMock('FOS\UserBundle\Model\GroupInterface');
 
@@ -129,7 +131,7 @@ class GroupControllerTest extends TestCase
         $this->assertInstanceOf('Symfony\Component\Form\FormInterface', $view);
     }
 
-    public function testDeleteGroupAction()
+    public function testDeleteGroupAction(): void
     {
         $group = $this->createMock('FOS\UserBundle\Model\GroupInterface');
 
@@ -142,7 +144,7 @@ class GroupControllerTest extends TestCase
         $this->assertEquals(['deleted' => true], $view);
     }
 
-    public function testDeleteGroupInvalidAction()
+    public function testDeleteGroupInvalidAction(): void
     {
         $this->expectException('Symfony\Component\HttpKernel\Exception\NotFoundHttpException');
 

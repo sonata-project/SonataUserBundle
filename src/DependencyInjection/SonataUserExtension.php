@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -31,7 +33,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     /**
      * {@inheritdoc}
      */
-    public function prepend(ContainerBuilder $container)
+    public function prepend(ContainerBuilder $container): void
     {
         if ($container->hasExtension('twig')) {
             // add custom form widgets
@@ -42,7 +44,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     /**
      * {@inheritdoc}
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $processor = new Processor();
         $configuration = new Configuration();
@@ -165,7 +167,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
      * @param array            $config
      * @param ContainerBuilder $container
      */
-    public function configureClass($config, ContainerBuilder $container)
+    public function configureClass($config, ContainerBuilder $container): void
     {
         if ('orm' === $config['manager_type']) {
             $modelType = 'entity';
@@ -183,7 +185,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
      * @param array            $config
      * @param ContainerBuilder $container
      */
-    public function configureAdminClass($config, ContainerBuilder $container)
+    public function configureAdminClass($config, ContainerBuilder $container): void
     {
         $container->setParameter('sonata.user.admin.user.class', $config['admin']['user']['class']);
         $container->setParameter('sonata.user.admin.group.class', $config['admin']['group']['class']);
@@ -193,7 +195,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
      * @param array            $config
      * @param ContainerBuilder $container
      */
-    public function configureTranslationDomain($config, ContainerBuilder $container)
+    public function configureTranslationDomain($config, ContainerBuilder $container): void
     {
         $container->setParameter('sonata.user.admin.user.translation_domain', $config['admin']['user']['translation']);
         $container->setParameter('sonata.user.admin.group.translation_domain', $config['admin']['group']['translation']);
@@ -203,7 +205,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
      * @param array            $config
      * @param ContainerBuilder $container
      */
-    public function configureController($config, ContainerBuilder $container)
+    public function configureController($config, ContainerBuilder $container): void
     {
         $container->setParameter('sonata.user.admin.user.controller', $config['admin']['user']['controller']);
         $container->setParameter('sonata.user.admin.group.controller', $config['admin']['group']['controller']);
@@ -212,7 +214,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     /**
      * @param array $config
      */
-    public function registerDoctrineMapping(array $config)
+    public function registerDoctrineMapping(array $config): void
     {
         foreach ($config['class'] as $type => $class) {
             if (!class_exists($class)) {
@@ -250,7 +252,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
      * @param ContainerBuilder $container
      * @param                  $managerType
      */
-    protected function aliasManagers(ContainerBuilder $container, $managerType)
+    protected function aliasManagers(ContainerBuilder $container, $managerType): void
     {
         $container->setAlias('sonata.user.user_manager', sprintf('sonata.user.%s.user_manager', $managerType));
         $container->setAlias('sonata.user.group_manager', sprintf('sonata.user.%s.group_manager', $managerType));
@@ -259,7 +261,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     /**
      * @param array $config
      */
-    private function checkManagerTypeToModelTypeMapping(array $config)
+    private function checkManagerTypeToModelTypeMapping(array $config): void
     {
         $managerType = $config['manager_type'];
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -74,7 +76,7 @@ class UserManager extends BaseUserManager implements UserManagerInterface, Manag
     /**
      * {@inheritdoc}
      */
-    public function save($entity, $andFlush = true)
+    public function save($entity, $andFlush = true): void
     {
         if (!$entity instanceof UserInterface) {
             throw new \InvalidArgumentException('Save method expected entity of type UserInterface');
@@ -86,7 +88,7 @@ class UserManager extends BaseUserManager implements UserManagerInterface, Manag
     /**
      * {@inheritdoc}
      */
-    public function delete($entity, $andFlush = true)
+    public function delete($entity, $andFlush = true): void
     {
         if (!$entity instanceof UserInterface) {
             throw new \InvalidArgumentException('Save method expected entity of type UserInterface');

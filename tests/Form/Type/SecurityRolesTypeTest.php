@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -24,7 +26,7 @@ class SecurityRolesTypeTest extends TypeTestCase
 {
     protected $roleBuilder;
 
-    public function testGetDefaultOptions()
+    public function testGetDefaultOptions(): void
     {
         $type = new SecurityRolesType($this->roleBuilder);
 
@@ -35,7 +37,7 @@ class SecurityRolesTypeTest extends TypeTestCase
         $this->assertCount(3, $options['choices']);
     }
 
-    public function testGetParent()
+    public function testGetParent(): void
     {
         $type = new SecurityRolesType($this->roleBuilder);
         $this->assertEquals(
@@ -44,7 +46,7 @@ class SecurityRolesTypeTest extends TypeTestCase
         );
     }
 
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $form = $this->factory->create($this->getSecurityRolesTypeName(), null, [
             'multiple' => true,
@@ -59,7 +61,7 @@ class SecurityRolesTypeTest extends TypeTestCase
         $this->assertTrue(in_array('ROLE_FOO', $form->getData()));
     }
 
-    public function testSubmitInvalidData()
+    public function testSubmitInvalidData(): void
     {
         $form = $this->factory->create($this->getSecurityRolesTypeName(), null, [
             'multiple' => true,
@@ -73,7 +75,7 @@ class SecurityRolesTypeTest extends TypeTestCase
         $this->assertNull($form->getData());
     }
 
-    public function testSubmitWithHiddenRoleData()
+    public function testSubmitWithHiddenRoleData(): void
     {
         $originalRoles = ['ROLE_SUPER_ADMIN', 'ROLE_USER'];
 
