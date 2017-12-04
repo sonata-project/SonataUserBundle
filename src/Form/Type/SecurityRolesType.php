@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -40,7 +42,7 @@ class SecurityRolesType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $formBuilder, array $options)
+    public function buildForm(FormBuilderInterface $formBuilder, array $options): void
     {
         /*
          * The form shows only roles that the current user can edit for the targeted user. Now we still need to persist
@@ -52,12 +54,12 @@ class SecurityRolesType extends AbstractType
         $transformer = new RestoreRolesTransformer($this->rolesBuilder);
 
         // GET METHOD
-        $formBuilder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($transformer) {
+        $formBuilder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($transformer): void {
             $transformer->setOriginalRoles($event->getData());
         });
 
         // POST METHOD
-        $formBuilder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) use ($transformer) {
+        $formBuilder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) use ($transformer): void {
             $transformer->setOriginalRoles($event->getForm()->getData());
         });
 
@@ -67,7 +69,7 @@ class SecurityRolesType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $attr = $view->vars['attr'];
 
@@ -84,7 +86,7 @@ class SecurityRolesType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             // make expanded default value

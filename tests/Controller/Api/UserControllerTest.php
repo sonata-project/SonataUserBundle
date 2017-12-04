@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -20,7 +22,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class UserControllerTest extends TestCase
 {
-    public function testGetUsersAction()
+    public function testGetUsersAction(): void
     {
         $userManager = $this->createMock('Sonata\UserBundle\Model\UserManagerInterface');
         $userManager->expects($this->once())->method('getPager')->will($this->returnValue([]));
@@ -34,13 +36,13 @@ class UserControllerTest extends TestCase
         $this->assertEquals([], $this->createUserController(null, $userManager)->getUsersAction($paramFetcher));
     }
 
-    public function testGetUserAction()
+    public function testGetUserAction(): void
     {
         $user = $this->createMock('Sonata\UserBundle\Model\UserInterface');
         $this->assertEquals($user, $this->createUserController($user)->getUserAction(1));
     }
 
-    public function testGetUserActionNotFoundException()
+    public function testGetUserActionNotFoundException(): void
     {
         $this->expectException(\Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class);
         $this->expectExceptionMessage('User (42) not found');
@@ -48,7 +50,7 @@ class UserControllerTest extends TestCase
         $this->createUserController()->getUserAction(42);
     }
 
-    public function testPostUserAction()
+    public function testPostUserAction(): void
     {
         $user = $this->createMock('FOS\UserBundle\Model\UserInterface');
 
@@ -68,7 +70,7 @@ class UserControllerTest extends TestCase
         $this->assertInstanceOf('FOS\RestBundle\View\View', $view);
     }
 
-    public function testPostUserInvalidAction()
+    public function testPostUserInvalidAction(): void
     {
         $userManager = $this->createMock('Sonata\UserBundle\Model\UserManagerInterface');
 
@@ -84,7 +86,7 @@ class UserControllerTest extends TestCase
         $this->assertInstanceOf('Symfony\Component\Form\FormInterface', $view);
     }
 
-    public function testPutUserAction()
+    public function testPutUserAction(): void
     {
         $user = $this->createMock('FOS\UserBundle\Model\UserInterface');
 
@@ -105,7 +107,7 @@ class UserControllerTest extends TestCase
         $this->assertInstanceOf('FOS\RestBundle\View\View', $view);
     }
 
-    public function testPutUserInvalidAction()
+    public function testPutUserInvalidAction(): void
     {
         $user = $this->createMock('FOS\UserBundle\Model\UserInterface');
 
@@ -124,7 +126,7 @@ class UserControllerTest extends TestCase
         $this->assertInstanceOf('Symfony\Component\Form\FormInterface', $view);
     }
 
-    public function testPostUserGroupAction()
+    public function testPostUserGroupAction(): void
     {
         $user = $this->createMock('Sonata\UserBundle\Entity\BaseUser');
         $user->expects($this->once())->method('hasGroup')->will($this->returnValue(false));
@@ -143,7 +145,7 @@ class UserControllerTest extends TestCase
         $this->assertEquals(['added' => true], $view);
     }
 
-    public function testPostUserGroupInvalidAction()
+    public function testPostUserGroupInvalidAction(): void
     {
         $user = $this->createMock('Sonata\UserBundle\Entity\BaseUser');
         $user->expects($this->once())->method('hasGroup')->will($this->returnValue(true));
@@ -166,7 +168,7 @@ class UserControllerTest extends TestCase
         $this->assertEquals(['error' => 'User "1" already has group "1"'], $data);
     }
 
-    public function testDeleteUserGroupAction()
+    public function testDeleteUserGroupAction(): void
     {
         $user = $this->createMock('Sonata\UserBundle\Entity\BaseUser');
         $user->expects($this->once())->method('hasGroup')->will($this->returnValue(true));
@@ -185,7 +187,7 @@ class UserControllerTest extends TestCase
         $this->assertEquals(['removed' => true], $view);
     }
 
-    public function testDeleteUserGroupInvalidAction()
+    public function testDeleteUserGroupInvalidAction(): void
     {
         $user = $this->createMock('Sonata\UserBundle\Entity\BaseUser');
         $user->expects($this->once())->method('hasGroup')->will($this->returnValue(false));
@@ -208,7 +210,7 @@ class UserControllerTest extends TestCase
         $this->assertEquals(['error' => 'User "1" has not group "1"'], $data);
     }
 
-    public function testDeleteUserAction()
+    public function testDeleteUserAction(): void
     {
         $user = $this->createMock('FOS\UserBundle\Model\UserInterface');
 
@@ -221,7 +223,7 @@ class UserControllerTest extends TestCase
         $this->assertEquals(['deleted' => true], $view);
     }
 
-    public function testDeleteUserInvalidAction()
+    public function testDeleteUserInvalidAction(): void
     {
         $this->expectException('Symfony\Component\HttpKernel\Exception\NotFoundHttpException');
 

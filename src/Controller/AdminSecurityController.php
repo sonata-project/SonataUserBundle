@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -73,12 +75,12 @@ class AdminSecurityController extends Controller
         ]);
     }
 
-    public function checkAction()
+    public function checkAction(): void
     {
         throw new \RuntimeException('You must configure the check path to be handled by the firewall using form_login in your security firewall configuration.');
     }
 
-    public function logoutAction()
+    public function logoutAction(): void
     {
         throw new \RuntimeException('You must activate the logout in your security firewall configuration.');
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -16,7 +18,7 @@ use Sonata\UserBundle\Entity\BaseUser;
 
 class BaseUserTest extends TestCase
 {
-    public function testDateSetters()
+    public function testDateSetters(): void
     {
         // Given
         $user = new BaseUser();
@@ -34,7 +36,7 @@ class BaseUserTest extends TestCase
         $this->assertEquals($today->format('U'), $user->getUpdatedAt()->format('U'), 'Should contain today\'s date');
     }
 
-    public function testDateWithPrePersist()
+    public function testDateWithPrePersist(): void
     {
         // Given
         $user = new BaseUser();
@@ -51,7 +53,7 @@ class BaseUserTest extends TestCase
         $this->assertEquals($today->format('Y-m-d'), $user->getUpdatedAt()->format('Y-m-d'), 'Should be updated today');
     }
 
-    public function testDateWithPreUpdate()
+    public function testDateWithPreUpdate(): void
     {
         // Given
         $user = new BaseUser();
@@ -69,7 +71,7 @@ class BaseUserTest extends TestCase
         $this->assertEquals($today->format('Y-m-d'), $user->getUpdatedAt()->format('Y-m-d'), 'Should be updated today');
     }
 
-    public function testSettingMultipleGroups()
+    public function testSettingMultipleGroups(): void
     {
         // Given
         $user = new BaseUser();
@@ -87,7 +89,7 @@ class BaseUserTest extends TestCase
         $this->assertTrue($user->hasGroup('Group 2'), 'Should have a group named "Group 2"');
     }
 
-    public function testTwoStepVerificationCode()
+    public function testTwoStepVerificationCode(): void
     {
         // Given
         $user = new BaseUser();
@@ -99,7 +101,7 @@ class BaseUserTest extends TestCase
         $this->assertEquals('123456', $user->getTwoStepVerificationCode(), 'Should return the two step verification code');
     }
 
-    public function testToStringWithName()
+    public function testToStringWithName(): void
     {
         // Given
         $user = new BaseUser();
@@ -112,7 +114,7 @@ class BaseUserTest extends TestCase
         $this->assertEquals('John', $string, 'Should return the username as string representation');
     }
 
-    public function testToStringWithoutName()
+    public function testToStringWithoutName(): void
     {
         // Given
         $user = new BaseUser();

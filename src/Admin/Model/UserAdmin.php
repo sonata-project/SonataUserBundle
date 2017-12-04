@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -64,7 +66,7 @@ class UserAdmin extends AbstractAdmin
     /**
      * {@inheritdoc}
      */
-    public function preUpdate($user)
+    public function preUpdate($user): void
     {
         $this->getUserManager()->updateCanonicalFields($user);
         $this->getUserManager()->updatePassword($user);
@@ -73,7 +75,7 @@ class UserAdmin extends AbstractAdmin
     /**
      * @param UserManagerInterface $userManager
      */
-    public function setUserManager(UserManagerInterface $userManager)
+    public function setUserManager(UserManagerInterface $userManager): void
     {
         $this->userManager = $userManager;
     }
@@ -89,7 +91,7 @@ class UserAdmin extends AbstractAdmin
     /**
      * {@inheritdoc}
      */
-    protected function configureListFields(ListMapper $listMapper)
+    protected function configureListFields(ListMapper $listMapper): void
     {
         $listMapper
             ->addIdentifier('username')
@@ -109,7 +111,7 @@ class UserAdmin extends AbstractAdmin
     /**
      * {@inheritdoc}
      */
-    protected function configureDatagridFilters(DatagridMapper $filterMapper)
+    protected function configureDatagridFilters(DatagridMapper $filterMapper): void
     {
         $filterMapper
             ->add('id')
@@ -122,7 +124,7 @@ class UserAdmin extends AbstractAdmin
     /**
      * {@inheritdoc}
      */
-    protected function configureShowFields(ShowMapper $showMapper)
+    protected function configureShowFields(ShowMapper $showMapper): void
     {
         $showMapper
             ->with('General')
@@ -161,7 +163,7 @@ class UserAdmin extends AbstractAdmin
     /**
      * {@inheritdoc}
      */
-    protected function configureFormFields(FormMapper $formMapper)
+    protected function configureFormFields(FormMapper $formMapper): void
     {
         // define group zoning
         $formMapper

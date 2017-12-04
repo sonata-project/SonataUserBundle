@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -60,7 +62,7 @@ class EditableRolesBuilder
     /*
      * @param TranslatorInterface $translator
      */
-    public function setTranslator(TranslatorInterface $translator)
+    public function setTranslator(TranslatorInterface $translator): void
     {
         $this->translator = $translator;
     }
@@ -79,7 +81,7 @@ class EditableRolesBuilder
             return $roles;
         }
 
-        $this->iterateAdminRoles(function ($role, $isMaster) use ($domain, &$roles) {
+        $this->iterateAdminRoles(function ($role, $isMaster) use ($domain, &$roles): void {
             if ($isMaster) {
                 // if the user has the MASTER permission, allow to grant access the admin roles to other users
                 $roles[$role] = $this->translateRole($role, $domain);
@@ -122,7 +124,7 @@ class EditableRolesBuilder
             return $rolesReadOnly;
         }
 
-        $this->iterateAdminRoles(function ($role, $isMaster) use ($domain, &$rolesReadOnly) {
+        $this->iterateAdminRoles(function ($role, $isMaster) use ($domain, &$rolesReadOnly): void {
             if (!$isMaster && $this->authorizationChecker->isGranted($role)) {
                 // although the user has no MASTER permission, allow the currently logged in user to view the role
                 $rolesReadOnly[$role] = $this->translateRole($role, $domain);
@@ -132,7 +134,7 @@ class EditableRolesBuilder
         return $rolesReadOnly;
     }
 
-    private function iterateAdminRoles(callable $func)
+    private function iterateAdminRoles(callable $func): void
     {
         // get roles from the Admin classes
         foreach ($this->pool->getAdminServiceIds() as $id) {

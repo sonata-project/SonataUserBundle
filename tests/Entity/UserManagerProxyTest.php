@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -16,7 +18,7 @@ use Sonata\UserBundle\Entity\UserManagerProxy;
 
 class UserManagerProxyTest extends TestCase
 {
-    public function testProxy()
+    public function testProxy(): void
     {
         $doctrine = $this->getMockBuilder('Doctrine\Common\Persistence\ManagerRegistry')->disableOriginalConstructor()->getMock();
 
