@@ -47,18 +47,18 @@ if (\PHP_VERSION_ID >= 50600) {
         '@PHPUnit57Migration:risky' => true,
     ]);
 }
-//if (\PHP_VERSION_ID >= 70000) {
-//    $rules = array_merge($rules, [
-//        '@PHP70Migration:risky' => true,
-//        '@PHPUnit60Migration:risky' => true,
-//    ]);
-//}
-//if (\PHP_VERSION_ID >= 70100) {
-//    $rules = array_merge($rules, [
-//        '@PHP71Migration:risky' => true,
-//        'compact_nullable_typehint' => true,
-//    ]);
-//}
+if (\PHP_VERSION_ID >= 70000) {
+    $rules = array_merge($rules, [
+        '@PHP70Migration:risky' => true,
+        '@PHPUnit60Migration:risky' => true,
+    ]);
+}
+if (\PHP_VERSION_ID >= 70100) {
+    $rules = array_merge($rules, [
+        '@PHP71Migration:risky' => true,
+        'compact_nullable_typehint' => true,
+    ]);
+}
 
 $finder = PhpCsFixer\Finder::create()
     ->in(preg_match('/dev-kit\/project$/', __DIR__, $matches) ? __DIR__.'/..' : __DIR__)
