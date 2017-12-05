@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -18,12 +20,12 @@ class AdminSecurityControllerTest extends TestCase
 {
     private $controller;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->controller = new AdminSecurityController();
     }
 
-    public function testItIsInstantiable()
+    public function testItIsInstantiable(): void
     {
         $this->assertNotNull($this->controller);
     }

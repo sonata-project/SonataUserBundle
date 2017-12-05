@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -17,11 +19,11 @@ use Sonata\UserBundle\Entity\GroupManager;
 
 class GroupManagerTest extends TestCase
 {
-    public function testGetPager()
+    public function testGetPager(): void
     {
         $self = $this;
         $this
-            ->getUserManager(function ($qb) use ($self) {
+            ->getUserManager(function ($qb) use ($self): void {
                 $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(['g']));
                 $qb->expects($self->never())->method('andWhere');
                 $qb->expects($self->once())->method('orderBy')->with(
@@ -33,14 +35,14 @@ class GroupManagerTest extends TestCase
             ->getPager([], 1);
     }
 
-    public function testGetPagerWithInvalidSort()
+    public function testGetPagerWithInvalidSort(): void
     {
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Invalid sort field \'invalid\' in \'className\' class');
 
         $self = $this;
         $this
-            ->getUserManager(function ($qb) use ($self) {
+            ->getUserManager(function ($qb) use ($self): void {
                 $qb->expects($self->never())->method('andWhere');
                 $qb->expects($self->never())->method('orderBy');
                 $qb->expects($self->never())->method('setParameters');
@@ -48,11 +50,11 @@ class GroupManagerTest extends TestCase
             ->getPager([], 1, 10, ['invalid' => 'ASC']);
     }
 
-    public function testGetPagerWithEnabledUsers()
+    public function testGetPagerWithEnabledUsers(): void
     {
         $self = $this;
         $this
-            ->getUserManager(function ($qb) use ($self) {
+            ->getUserManager(function ($qb) use ($self): void {
                 $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(['g']));
                 $qb->expects($self->once())->method('andWhere')->with($self->equalTo('g.enabled = :enabled'));
                 $qb->expects($self->once())->method('orderBy')->with(
@@ -64,11 +66,11 @@ class GroupManagerTest extends TestCase
             ->getPager(['enabled' => true], 1);
     }
 
-    public function testGetPagerWithDisabledUsers()
+    public function testGetPagerWithDisabledUsers(): void
     {
         $self = $this;
         $this
-            ->getUserManager(function ($qb) use ($self) {
+            ->getUserManager(function ($qb) use ($self): void {
                 $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(['g']));
                 $qb->expects($self->once())->method('andWhere')->with($self->equalTo('g.enabled = :enabled'));
                 $qb->expects($self->once())->method('orderBy')->with(

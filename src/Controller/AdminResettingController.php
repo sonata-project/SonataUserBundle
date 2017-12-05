@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -173,7 +175,7 @@ class AdminResettingController extends Controller
      *
      * @param UserInterface $user
      */
-    private function sendResettingEmailMessage(UserInterface $user)
+    private function sendResettingEmailMessage(UserInterface $user): void
     {
         $url = $this->generateUrl('sonata_user_admin_resetting_reset', [
             'token' => $user->getConfirmationToken(),

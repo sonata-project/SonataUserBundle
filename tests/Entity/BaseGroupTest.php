@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -16,7 +18,7 @@ use Sonata\UserBundle\Entity\BaseGroup;
 
 class BaseGroupTest extends TestCase
 {
-    public function testToString()
+    public function testToString(): void
     {
         // Given
         $group = new BaseGroup('Group');
