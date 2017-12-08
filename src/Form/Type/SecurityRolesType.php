@@ -133,6 +133,11 @@ class SecurityRolesType extends AbstractType
 
             'data_class' => null,
         ]);
+
+        // Symfony 2.8 BC
+        if ($resolver->isDefined('choices_as_values')) {
+            $resolver->setDefault('choices_as_values', true);
+        }
     }
 
     /**
