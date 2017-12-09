@@ -94,6 +94,25 @@ class SecurityRolesTypeTest extends TypeTestCase
         $this->assertContains('ROLE_SUPER_ADMIN', $form->getData());
     }
 
+    public function testChoicesAsValues(): void
+    {
+        $resolver = new OptionsResolver();
+        $type = new SecurityRolesType($this->roleBuilder);
+
+        // If 'choices_as_values' option is not defined (Symfony >= 3.0), default value should not be set.
+        $type->configureOptions($resolver);
+
+        $this->assertFalse($resolver->hasDefault('choices_as_values'));
+
+        // If 'choices_as_values' option is defined (Symfony 2.8), default value should be set to true.
+        $resolver->setDefined(['choices_as_values']);
+        $type->configureOptions($resolver);
+        $options = $resolver->resolve();
+
+        $this->assertTrue($resolver->hasDefault('choices_as_values'));
+        $this->assertTrue($options['choices_as_values']);
+    }
+
     protected function getExtensions()
     {
         $this->roleBuilder = $roleBuilder = $this->createMock(EditableRolesBuilder::class);
