@@ -116,11 +116,6 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
         $this->load(['class' => ['user' => '\Sonata\UserBundle\Tests\Entity\User']]);
     }
 
-    public function testCorrectAdminClass(): void
-    {
-        $this->load(['admin' => ['user' => ['class' => '\Sonata\UserBundle\Tests\Admin\Entity\UserAdmin']]]);
-    }
-
     public function testCorrectModelClassWithNotDefaultManagerType(): void
     {
         $this->load([
@@ -129,31 +124,45 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
                 'user' => 'Sonata\UserBundle\Tests\Document\User',
                 'group' => 'Sonata\UserBundle\Tests\Document\Group',
             ],
-            'admin' => [
-                'user' => ['class' => 'Sonata\UserBundle\Tests\Admin\Document\UserAdmin'],
-                'group' => ['class' => 'Sonata\UserBundle\Tests\Admin\Document\GroupAdmin'],
-            ],
         ]);
     }
 
-    public function testIncorrectModelClass(): void
+    public function testExternalModelClass(): void
     {
-        $this->expectException('InvalidArgumentException');
-
-        $this->expectExceptionMessage('Model class "Foo\User" does not correspond to manager type "orm".');
-
-        $this->load(['class' => ['user' => 'Foo\User']]);
+        $this->load(['class' => ['user' => 'Foo\User', 'group' => 'Foo\Group']]);
     }
 
-    public function testNotCorrespondingModelClass(): void
+    public function testNotCorrespondingUserClass(): void
     {
         $this->expectException('InvalidArgumentException');
 
         $this->expectExceptionMessage(
-            'Model class "Sonata\UserBundle\Admin\Entity\UserAdmin" does not correspond to manager type "mongodb".'
+            'Model class "Sonata\UserBundle\Tests\Entity\User" does not correspond to manager type "mongodb".'
         );
 
-        $this->load(['manager_type' => 'mongodb', 'class' => ['user' => 'Sonata\UserBundle\Admin\Entity\UserAdmin']]);
+        $this->load(['manager_type' => 'mongodb', 'class' => ['user' => 'Sonata\UserBundle\Tests\Entity\User']]);
+    }
+
+    public function testNotCorrespondingGroupClass(): void
+    {
+        $this->expectException('InvalidArgumentException');
+
+        $this->expectExceptionMessage(
+            'Model class "Sonata\UserBundle\Tests\Entity\Group" does not correspond to manager type "mongodb".'
+        );
+
+        $this->load(['manager_type' => 'mongodb', 'class' => [
+            'user' => 'Sonata\UserBundle\Tests\Document\User',
+            'group' => 'Sonata\UserBundle\Tests\Entity\Group',
+        ]]);
+    }
+
+    public function testFosUserBundleModelClasses(): void
+    {
+        $this->load(['manager_type' => 'orm', 'class' => [
+            'user' => 'Sonata\UserBundle\Tests\Entity\FosUserBundleBasedUser',
+            'group' => 'Sonata\UserBundle\Tests\Entity\FosUserBundleBasedGroup',
+        ]]);
     }
 
     /**
