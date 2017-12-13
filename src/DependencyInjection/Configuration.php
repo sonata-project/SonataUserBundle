@@ -15,8 +15,6 @@ namespace Sonata\UserBundle\DependencyInjection;
 
 use Sonata\UserBundle\Admin\Entity\GroupAdmin;
 use Sonata\UserBundle\Admin\Entity\UserAdmin;
-use Sonata\UserBundle\Entity\BaseGroup;
-use Sonata\UserBundle\Entity\BaseUser;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -71,10 +69,10 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
                 ->arrayNode('class')
-                    ->addDefaultsIfNotSet()
+                    ->isRequired()
                     ->children()
-                        ->scalarNode('group')->cannotBeEmpty()->defaultValue(BaseGroup::class)->end()
-                        ->scalarNode('user')->cannotBeEmpty()->defaultValue(BaseUser::class)->end()
+                        ->scalarNode('group')->isRequired()->cannotBeEmpty()->end()
+                        ->scalarNode('user')->isRequired()->cannotBeEmpty()->end()
                     ->end()
                 ->end()
                 ->arrayNode('admin')

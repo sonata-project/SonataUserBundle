@@ -106,11 +106,6 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
         $this->assertArrayNotHasKey(0, $twigConfigurations);
     }
 
-    public function testCorrectModelClass(): void
-    {
-        $this->load(['class' => ['user' => 'Sonata\UserBundle\Tests\Entity\User']]);
-    }
-
     public function testCorrectModelClassWithLeadingSlash(): void
     {
         $this->load(['class' => ['user' => '\Sonata\UserBundle\Tests\Entity\User']]);
@@ -161,7 +156,12 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
      */
     protected function getMinimalConfiguration()
     {
-        return (new Processor())->process((new Configuration())->getConfigTreeBuilder()->buildTree(), []);
+        return (new Processor())->process((new Configuration())->getConfigTreeBuilder()->buildTree(), [[
+            'class' => [
+                'user' => 'Sonata\UserBundle\Tests\Entity\User',
+                'group' => 'Sonata\UserBundle\Tests\Entity\Group',
+            ],
+        ]]);
     }
 
     /**

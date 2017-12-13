@@ -26,10 +26,30 @@ class ConfigurationTest extends TestCase
         return new Configuration();
     }
 
+    public function testWithoutClassNode(): void
+    {
+        $this->assertConfigurationIsInvalid([[]], 'The child node "class" at path "sonata_user" must be configured.');
+    }
+
+    public function testWithClassNode(): void
+    {
+        $this->assertConfigurationIsValid([[
+            'class' => [
+                'user' => 'FooBundle\User',
+                'group' => 'FooBundle\Group',
+            ],
+        ]]);
+    }
+
     public function testDefault(): void
     {
         $this->assertProcessedConfigurationEquals([
-            [],
+            [
+                'class' => [
+                    'user' => 'FooBundle\User',
+                    'group' => 'FooBundle\Group',
+                ],
+            ],
         ], [
             'security_acl' => false,
             'table' => [
@@ -40,8 +60,8 @@ class ConfigurationTest extends TestCase
             ],
             'manager_type' => 'orm',
             'class' => [
-                'user' => 'Sonata\UserBundle\Entity\BaseUser',
-                'group' => 'Sonata\UserBundle\Entity\BaseGroup',
+                'user' => 'FooBundle\User',
+                'group' => 'FooBundle\Group',
             ],
             'admin' => [
                 'user' => [
