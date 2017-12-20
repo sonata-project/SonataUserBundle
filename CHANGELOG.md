@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.0.1](https://github.com/sonata-project/SonataUserBundle/compare/4.0.0...4.0.1) - 2017-12-20
+### Fixed
+- Fixed flipped choices values/labels in SecurityRolesType when using symfony 2.8
+- Admin pool variable in admin resetting templates
+
 ## [4.0.0](https://github.com/sonata-project/SonataUserBundle/compare/3.6.0...4.0.0) - 2017-12-04
 ### Added
 - Add support for FOSUser 2.0
