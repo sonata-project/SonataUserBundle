@@ -91,8 +91,11 @@ class RequestListener
             $state = 'error';
         }
 
-        $event->setResponse($this->templating->renderResponse('@SonataUser/Admin/Security/two_step_form.html.twig', [
+        $event->setResponse($this->templating->renderResponse('@SonataUser/Admin/Security/login.html.twig', [
+            'base_template' => '@SonataAdmin/standard_layout.html.twig',
+            'error' => [],
             'state' => $state,
-         ]));
+            'two_step_submit' => true,
+        ]));
     }
 }

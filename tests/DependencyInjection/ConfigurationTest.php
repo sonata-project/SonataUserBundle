@@ -37,6 +37,8 @@ class ConfigurationTest extends TestCase
             ],
             'google_authenticator' => [
                 'enabled' => false,
+                'ip_white_list' => ['127.0.0.1'],
+                'forced_for_role' => ['ROLE_ADMIN'],
             ],
             'manager_type' => 'orm',
             'class' => [

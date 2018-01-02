@@ -646,6 +646,14 @@
                 <source>title_user_resetting_reset</source>
                 <target>Password zurücksetzen</target>
             </trans-unit>
+            <trans-unit id="qr_code_secret">
+                <source>qr_code_secret</source>
+                <target>QR-Code Secret</target>
+            </trans-unit>
+            <trans-unit id="qr_go_next">
+                <source>qr_go_next</source>
+                <target>Ist gescannt. Weiter gehts.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
