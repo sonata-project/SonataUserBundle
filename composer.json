@@ -54,7 +54,7 @@
     "conflict": {
         "friendsofsymfony/rest-bundle": "<1.1",
         "jms/serializer": "<0.13 || >=2.0",
-        "nelmio/api-doc-bundle": "<2.4 || >= 3.0",
+        "nelmio/api-doc-bundle": "<2.4",
         "sonata-project/block-bundle": "<3.2",
         "sonata-project/doctrine-orm-admin-bundle": "<3.0",
         "sonata-project/google-authenticator": "<1.0",
