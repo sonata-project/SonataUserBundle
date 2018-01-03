@@ -34,7 +34,7 @@ class AdminResettingController extends Controller
             return new RedirectResponse($this->get('router')->generate('sonata_admin_dashboard'));
         }
 
-        return $this->render('SonataUserBundle:Admin:Security/Resetting/request.html.twig', [
+        return $this->render('@SonataUser/Admin/Security/Resetting/request.html.twig', [
             'base_template' => $this->get('sonata.admin.pool')->getTemplate('layout'),
             'admin_pool' => $this->get('sonata.admin.pool'),
         ]);
@@ -91,7 +91,7 @@ class AdminResettingController extends Controller
             return new RedirectResponse($this->generateUrl('sonata_user_admin_resetting_request'));
         }
 
-        return $this->render('SonataUserBundle:Admin:Security/Resetting/checkEmail.html.twig', [
+        return $this->render('@SonataUser/Admin/Security/Resetting/checkEmail.html.twig', [
             'base_template' => $this->get('sonata.admin.pool')->getTemplate('layout'),
             'admin_pool' => $this->get('sonata.admin.pool'),
             'tokenLifetime' => ceil($this->container->getParameter('fos_user.resetting.retry_ttl') / 3600),
@@ -162,7 +162,7 @@ class AdminResettingController extends Controller
             return $response;
         }
 
-        return $this->render('SonataUserBundle:Admin:Security/Resetting/reset.html.twig', [
+        return $this->render('@SonataUser/Admin/Security/Resetting/reset.html.twig', [
             'token' => $token,
             'form' => $form->createView(),
             'base_template' => $this->get('sonata.admin.pool')->getTemplate('layout'),

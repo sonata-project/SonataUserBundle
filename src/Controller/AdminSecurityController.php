@@ -65,7 +65,7 @@ class AdminSecurityController extends Controller
             ? $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue()
             : null;
 
-        return $this->render('SonataUserBundle:Admin:Security/login.html.twig', [
+        return $this->render('@SonataUser/Admin/Security/login.html.twig', [
             'admin_pool' => $this->get('sonata.admin.pool'),
             'base_template' => $this->get('sonata.admin.pool')->getTemplate('layout'),
             'csrf_token' => $csrfToken,
