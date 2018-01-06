@@ -582,6 +582,14 @@
                 <source>title_user_resetting_reset</source>
                 <target>Сброс пароля</target>
             </trans-unit>
+            <trans-unit id="qr_code_secret">
+                <source>qr_code_secret</source>
+                <target>QR-code для ручного ввода</target>
+            </trans-unit>
+            <trans-unit id="qr_go_next">
+                <source>qr_go_next</source>
+                <target>Я отсканировал. Далее.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
