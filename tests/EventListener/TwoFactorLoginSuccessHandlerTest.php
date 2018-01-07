@@ -101,17 +101,14 @@ class TwoFactorLoginSuccessHandlerTest extends TestCase
         $authChecker = new AuthorizationChecker($tokenStorage, $authManagerMock, new AccessDecisionManager([new RoleHierarchyVoter($roleHierarchy)]));
         $templateEngineMock = $this->createMock(EngineInterface::class);
         $templateEngineMock->method('renderResponse')->willReturn(Response::create('Rendered response'));
-        $helper = new Helper('site.tld', new GoogleAuthenticator());
         $userManagerMock = $this->createMock(UserManagerInterface::class);
         $forcedRoles = ['ROLE_ADMIN'];
         $ipWhiteList = ['127.0.0.1'];
+        $helper = new Helper('site.tld', new GoogleAuthenticator(), $authChecker, $forcedRoles, $ipWhiteList);
         $this->testClass = new TwoFactorLoginSuccessHandler(
-            $authChecker,
             $templateEngineMock,
             $helper,
-            $userManagerMock,
-            $forcedRoles,
-            $ipWhiteList
+            $userManagerMock
         );
         $this->request = Request::create('/');
         if ($remoteAddr) {
