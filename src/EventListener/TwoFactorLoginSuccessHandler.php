@@ -21,7 +21,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface;
 
 /**
@@ -31,11 +30,6 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerI
  */
 final class TwoFactorLoginSuccessHandler implements AuthenticationSuccessHandlerInterface
 {
-    /**
-     * @var AuthorizationCheckerInterface
-     */
-    private $authorizationChecker;
-
     /**
      * @var EngineInterface
      */
@@ -51,34 +45,14 @@ final class TwoFactorLoginSuccessHandler implements AuthenticationSuccessHandler
      */
     private $userManager;
 
-    /**
-     * @var array
-     */
-    private $forcedForRoles;
-
-    /**
-     * @var array
-     */
-    private $ipWhiteList;
-
-    /**
-     * @param array $forcedForRole Roles that need to force use 2FA authorization
-     * @param array $ipWhiteList   IP's that will skip 2FA authorization
-     */
     public function __construct(
-        AuthorizationCheckerInterface $authorizationChecker,
         EngineInterface $engine,
         Helper $helper,
-        UserManagerInterface $userManager,
-        array $forcedForRole,
-        array $ipWhiteList
+        UserManagerInterface $userManager
     ) {
-        $this->authorizationChecker = $authorizationChecker;
         $this->engine = $engine;
         $this->googleAuthenticator = $helper;
         $this->userManager = $userManager;
-        $this->forcedForRoles = $forcedForRole;
-        $this->ipWhiteList = $ipWhiteList;
     }
 
     /**
@@ -90,7 +64,7 @@ final class TwoFactorLoginSuccessHandler implements AuthenticationSuccessHandler
         $user = $token->getUser();
         $redirectResponse = new RedirectResponse('/admin');
 
-        $needToHave2FA = $this->needToHaveGoogle2FACode($request);
+        $needToHave2FA = $this->googleAuthenticator->needToHaveGoogle2FACode($request);
 
         if ($needToHave2FA && !$user->getTwoStepVerificationCode()) {
             $secret = $this->googleAuthenticator->generateSecret();
@@ -113,26 +87,5 @@ final class TwoFactorLoginSuccessHandler implements AuthenticationSuccessHandler
         }
 
         return $redirectResponse;
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return bool
-     */
-    private function needToHaveGoogle2FACode(Request $request): bool
-    {
-        $ip = $request->server->get('HTTP_X_FORWARDED_FOR', $request->server->get('REMOTE_ADDR'));
-        if (in_array($ip, $this->ipWhiteList)) {
-            return false;
-        }
-
-        foreach ($this->forcedForRoles as $role) {
-            if ($this->authorizationChecker->isGranted($role)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }
