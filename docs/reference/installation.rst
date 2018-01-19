@@ -267,13 +267,16 @@ Now, add the new ``Application`` Bundle into the kernel:
 
 And then register the ``Application`` namespace in the ``composer.json`` file under ``autoload/psr-4`` section:
 
-.. code-block:: json
+::
 
-    "autoload": {
-        "psr-4": {
-            "AppBundle\\": "src/AppBundle",
-            "Application\\": "src/Application"
-        },
+    {
+	    "autoload": {
+	        "psr-4": {
+			    "AppBundle\\": "src/AppBundle",
+			    "Application\\": "src/Application"
+		    }
+	    }
+    }
 
 and run
 
