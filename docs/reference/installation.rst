@@ -266,9 +266,7 @@ Now, add the new ``Application`` Bundle into the kernel:
     }
 
 And then register the ``Application`` namespace in the ``composer.json``
-file under ``autoload/psr-4`` section:
-
-::
+file under ``autoload/psr-4`` section::
 
     {
 	    "autoload": {
