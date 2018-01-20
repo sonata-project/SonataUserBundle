@@ -265,27 +265,23 @@ Now, add the new ``Application`` Bundle into the kernel:
         }
     }
 
-And configure ``FosUserBundle`` to use the newly generated ``User`` and ``Group``
-classes:
+And then register the ``Application`` namespace in the ``composer.json``
+file under ``autoload/psr-4`` section::
 
+    {
+	    "autoload": {
+	        "psr-4": {
+			    "AppBundle\\": "src/AppBundle",
+			    "Application\\": "src/Application"
+		    }
+	    }
+    }
 
-.. code-block:: yaml
+and run
 
-    # app/config/config.yml
+.. code-block:: bash
 
-    fos_user:
-        db_driver:      orm # can be orm or odm
-        firewall_name:  main
-        user_class:     Application\Sonata\UserBundle\Entity\User
+    php composer.phar install
 
-        group:
-            group_class:   Application\Sonata\UserBundle\Entity\Group
-            group_manager: sonata.user.orm.group_manager                    # If you're using doctrine orm (use sonata.user.mongodb.group_manager for mongodb)
+to apply the change.
 
-        service:
-            user_manager: sonata.user.orm.user_manager                      # If you're using doctrine orm (use sonata.user.mongodb.user_manager for mongodb)
-
-    doctrine:
-        dbal:
-            types:
-                json: Sonata\Doctrine\Types\JsonType
