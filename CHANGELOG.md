@@ -2,6 +2,18 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.1.0](https://github.com/sonata-project/SonataUserBundle/compare/4.0.1...4.1.0) - 2018-01-20
+### Added
+- New experience for `sonata-project/google-authenticator` users. Showing QR-code in login form, automatically setting 2FA secret to user.
+- use forcedRoles and ipWhiteList also on InteractiveLoginListener
+
+### Changed
+- use `symfony/security-core` and `symfony/security-acl` instead of `symfony/security`
+
+### Fixed
+- Avoid templates path colon notation
+- Bad conflict rule for nelmio/api-doc-bundle
+
 ## [4.0.1](https://github.com/sonata-project/SonataUserBundle/compare/4.0.0...4.0.1) - 2017-12-20
 ### Fixed
 - Fixed flipped choices values/labels in SecurityRolesType when using symfony 2.8
