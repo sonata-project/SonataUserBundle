@@ -2,7 +2,11 @@
     "name": "sonata-project/user-bundle",
     "type": "symfony-bundle",
     "description": "Symfony SonataUserBundle",
-    "keywords": ["user", "sonata", "google authenticator"],
+    "keywords": [
+        "user",
+        "sonata",
+        "google authenticator"
+    ],
     "homepage": "http://sonata-project.org/bundles/user",
     "license": "MIT",
     "authors": [
@@ -32,6 +36,15 @@
         "symfony/security-core": "^2.8 || ^3.2 || ^4.0",
         "symfony/translation": "^2.8 || ^3.2 || ^4.0"
     },
+    "conflict": {
+        "friendsofsymfony/rest-bundle": "<1.1",
+        "jms/serializer": "<0.13 || >=2.0",
+        "nelmio/api-doc-bundle": "<2.4",
+        "sonata-project/block-bundle": "<3.2",
+        "sonata-project/doctrine-orm-admin-bundle": "<3.0",
+        "sonata-project/google-authenticator": "<1.0",
+        "sonata-project/seo-bundle": "<2.0"
+    },
     "require-dev": {
         "doctrine/orm": "^2.0",
         "friendsofsymfony/rest-bundle": "^1.5 || ^2.0",
@@ -52,27 +65,22 @@
         "sonata-project/google-authenticator": "For google auth user login",
         "sonata-project/seo-bundle": "For SEO breadcrumb block service usage"
     },
-    "conflict": {
-        "friendsofsymfony/rest-bundle": "<1.1",
-        "jms/serializer": "<0.13 || >=2.0",
-        "nelmio/api-doc-bundle": "<2.4",
-        "sonata-project/block-bundle": "<3.2",
-        "sonata-project/doctrine-orm-admin-bundle": "<3.0",
-        "sonata-project/google-authenticator": "<1.0",
-        "sonata-project/seo-bundle": "<2.0"
-    },
-    "autoload": {
-        "psr-4": { "Sonata\\UserBundle\\": "src/" }
-    },
-    "autoload-dev": {
-        "psr-4": { "Sonata\\UserBundle\\Tests\\": "tests/" }
-     },
     "config": {
         "sort-packages": true
     },
     "extra": {
         "branch-alias": {
             "dev-master": "5.x-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Sonata\\UserBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sonata\\UserBundle\\Tests\\": "tests/"
         }
     }
 }
