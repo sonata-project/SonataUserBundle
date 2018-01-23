@@ -60,7 +60,7 @@ class SecurityRolesType extends AbstractType
 
         // POST METHOD
         $formBuilder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) use ($transformer): void {
-            $transformer->setOriginalRoles($event->getForm()->getData());
+            $transformer->setOriginalRoles($event->getData());
         });
 
         $formBuilder->addModelTransformer($transformer);
@@ -81,6 +81,8 @@ class SecurityRolesType extends AbstractType
 
         $view->vars['attr'] = $attr;
         $view->vars['read_only_choices'] = $options['read_only_choices'];
+        $view->vars['label_permission'] = $this->rolesBuilder->getLabelPermission();
+        $view->vars['label_admin'] = $this->rolesBuilder->getLabelAdmin();
     }
 
     /**
@@ -98,7 +100,7 @@ class SecurityRolesType extends AbstractType
                 }
                 $roles = $this->rolesBuilder->getRoles($options['choice_translation_domain'], $options['expanded']);
 
-                return array_flip($roles);
+                return $roles;
             },
 
             'read_only_choices' => function (Options $options) {
