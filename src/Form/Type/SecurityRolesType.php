@@ -81,6 +81,9 @@ class SecurityRolesType extends AbstractType
 
         $view->vars['attr'] = $attr;
         $view->vars['read_only_choices'] = $options['read_only_choices'];
+
+        $view->vars['label_permission'] = $this->rolesBuilder->getLabelPermission();
+        $view->vars['label_admin'] = $this->rolesBuilder->getLabelAdmin();
     }
 
     /**
