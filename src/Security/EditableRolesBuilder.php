@@ -46,6 +46,21 @@ class EditableRolesBuilder
     protected $rolesHierarchy;
 
     /**
+     * @var array
+     */
+    protected $labelPermission;
+
+    /**
+     * @var array
+     */
+    protected $labelAdmin;
+
+    /**
+     * @var array
+     */
+    protected $exclude;
+
+    /**
      * @param TokenStorageInterface         $tokenStorage
      * @param AuthorizationCheckerInterface $authorizationChecker
      * @param Pool                          $pool
@@ -57,6 +72,9 @@ class EditableRolesBuilder
         $this->authorizationChecker = $authorizationChecker;
         $this->pool = $pool;
         $this->rolesHierarchy = $rolesHierarchy;
+        $this->labelPermission = [];
+        $this->labelAdmin = [];
+        $this->exclude = [];
     }
 
     /*
@@ -82,8 +100,7 @@ class EditableRolesBuilder
         }
 
         $this->iterateAdminRoles(function ($role, $isMaster) use ($domain, &$roles): void {
-            if ($isMaster) {
-                // if the user has the MASTER permission, allow to grant access the admin roles to other users
+            if ($this->authorizationChecker->isGranted($role) || $isMaster) {
                 $roles[$role] = $this->translateRole($role, $domain);
             }
         });
@@ -92,20 +109,35 @@ class EditableRolesBuilder
             $this->pool->getOption('role_super_admin', 'ROLE_SUPER_ADMIN')
         );
 
+        $roles['other'] = [
+            'ROLE_ADMIN' => 'Role Admin',
+            'ROLE_SUPER_ADMIN' => 'Role Super Admin',
+            'ROLE_SONATA_ADMIN' => 'Role Sonata Admin',
+        ];
+
         // get roles from the service container
         foreach ($this->rolesHierarchy as $name => $rolesHierarchy) {
             if ($this->authorizationChecker->isGranted($name) || $isMaster) {
-                $roles[$name] = $this->translateRole($name, $domain);
-                if ($expanded) {
-                    $result = array_map([$this, 'translateRole'], $rolesHierarchy, array_fill(0, count($rolesHierarchy), $domain));
-                    $roles[$name] .= ': '.implode(', ', $result);
-                }
+              // $roles[$name] = $this->translateRole($name, $domain);
+//                if ($expanded) {
+//                    $result = array_map([$this, 'translateRole'], $rolesHierarchy, array_fill(0, count($rolesHierarchy), $domain));
+//                    $roles[$name] .= ': '.implode(', ', $result);
+//                }
+
                 foreach ($rolesHierarchy as $role) {
-                    if (!isset($roles[$role])) {
-                        $roles[$role] = $this->translateRole($role, $domain);
+                    if (false === array_key_exists($role, $this->rolesHierarchy)
+                        && !isset($roles['other'][$role])
+                        && false === $this->recursiveArraySearch($name, $roles)
+                    ) {
+                        $roles['other'][$name] = $this->translateRole($name, $domain);
                     }
                 }
             }
+        }
+
+        if (empty($this->labelPermission)) {
+            throw new \InvalidArgumentException('You must add this line in the configuration of Sonata Admin: ' .
+                "[security:\n\thandler: sonata.admin.security.handler.role]");
         }
 
         return $roles;
@@ -126,8 +158,10 @@ class EditableRolesBuilder
 
         $this->iterateAdminRoles(function ($role, $isMaster) use ($domain, &$rolesReadOnly): void {
             if (!$isMaster && $this->authorizationChecker->isGranted($role)) {
-                // although the user has no MASTER permission, allow the currently logged in user to view the role
-                $rolesReadOnly[$role] = $this->translateRole($role, $domain);
+                $roles[str_replace('.', '_', $id)][sprintf($baseRole, $role)] = $role;
+                if (!$isMaster) {
+                    $rolesReadOnly[] = sprintf($baseRole, $role);
+                }
             }
         });
 
@@ -144,16 +178,27 @@ class EditableRolesBuilder
                 continue;
             }
 
-            $isMaster = $admin->isGranted('MASTER');
+            if (in_array($id, $this->exclude)) {
+                continue;
+            }
+
+            $isMaster = ($admin->isGranted('MASTER') || $admin->isGranted('OPERATOR') ||
+                $this->authorizationChecker->isGranted('ROLE_SUPER_ADMIN') ||
+                $this->authorizationChecker->isGranted('ROLE_SONATA_ADMIN'))
+            ;
+
             $securityHandler = $admin->getSecurityHandler();
             // TODO get the base role from the admin or security handler
             $baseRole = $securityHandler->getBaseRole($admin);
+            $groupPermission = $admin->getSecurityInformation();
+            $this->labelPermission = array_keys($groupPermission);
+            $this->labelAdmin[] = $admin->trans($admin->getLabel());
 
             if (0 == strlen($baseRole)) { // the security handler related to the admin does not provide a valid string
                 continue;
             }
 
-            foreach ($admin->getSecurityInformation() as $role => $permissions) {
+            foreach ($groupPermission as $role => $permissions) {
                 $role = sprintf($baseRole, $role);
                 call_user_func($func, $role, $isMaster, $permissions);
             }
@@ -175,5 +220,53 @@ class EditableRolesBuilder
         }
 
         return $this->translator->trans($role, [], $domain);
+    }
+
+    /**
+     * @return array
+     */
+    final public function getExclude()
+    {
+        return $this->exclude;
+    }
+
+    /**
+     * @param string $exclude
+     */
+    final public function addExclude($exclude): void
+    {
+        $this->exclude[] = $exclude;
+    }
+
+    /**
+     * @return array
+     */
+    final public function getLabelPermission()
+    {
+        return $this->labelPermission;
+    }
+
+    /**
+     * @return array
+     */
+    final public function getLabelAdmin()
+    {
+        return $this->labelAdmin;
+    }
+
+    /**
+     * @param string $role
+     * @param array $roles
+     *
+     * @return bool
+     */
+    private function recursiveArraySearch($role, array $roles)
+    {
+        foreach ($roles as $key => $value) {
+            if ($role === $key || (is_array($value) && true === $this->recursiveArraySearch($role, $value))) {
+                return true;
+            }
+        }
+        return false;
     }
 }
