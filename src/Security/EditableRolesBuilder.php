@@ -107,7 +107,6 @@ class EditableRolesBuilder
 
         $roleSuperAdmin = $this->pool->getOption('role_super_admin');
         $roleSonataAdmin = $this->pool->getOption('role_admin');
-        $isMaster = $this->authorizationChecker->isGranted($roleSuperAdmin);
 
         $adminRoles = [
             $roleSuperAdmin,
@@ -115,12 +114,12 @@ class EditableRolesBuilder
             $roleSonataAdmin,
         ];
         $roles['other'] = array_combine($adminRoles, $adminRoles);
+        $roles['other'] = array_filter($roles['other']);
 
         // get roles from the service container
         foreach ($this->rolesHierarchy as $name => $rolesHierarchy) {
-            if ($isMaster) {
+            if ($this->authorizationChecker->isGranted($name) && $this->authorizationChecker->isGranted($roleSuperAdmin)) {
                 $roles['other'][$name] = $this->translateRole($name, $domain);
-
                 foreach ($rolesHierarchy as $role) {
                     if (false === array_key_exists($role, $this->rolesHierarchy)
                         && !isset($roles['other'][$role])
@@ -133,8 +132,7 @@ class EditableRolesBuilder
         }
 
         if (empty($this->labelPermission)) {
-            throw new \InvalidArgumentException('You must add this line in the configuration of Sonata Admin: '.
-                "[security:\n\thandler: sonata.admin.security.handler.role]");
+            throw new \InvalidArgumentException('You must add this line in the configuration of Sonata Admin: "[security: handler: sonata.admin.security.handler.role]"');
         }
 
         return $roles;
@@ -154,11 +152,8 @@ class EditableRolesBuilder
         }
 
         $this->iterateAdminRoles(function ($role, $isMaster) use ($domain, &$rolesReadOnly): void {
-            if (!$isMaster && $this->authorizationChecker->isGranted($role)) {
-                $roles[str_replace('.', '_', $id)][sprintf($baseRole, $role)] = $role;
-                if (!$isMaster) {
-                    $rolesReadOnly[] = sprintf($baseRole, $role);
-                }
+            if (!$isMaster) {
+                $rolesReadOnly[$role] = $role;
             }
         });
 
