@@ -75,25 +75,6 @@ class SecurityRolesTypeTest extends TypeTestCase
         $this->assertNull($form->getData());
     }
 
-    public function testSubmitWithHiddenRoleData(): void
-    {
-        $originalRoles = ['ROLE_SUPER_ADMIN', 'ROLE_USER'];
-
-        $form = $this->factory->create($this->getSecurityRolesTypeName(), $originalRoles, [
-            'multiple' => true,
-            'expanded' => true,
-            'required' => false,
-        ]);
-
-        // we keep hidden ROLE_SUPER_ADMIN and delete available ROLE_USER
-        $form->submit([0 => 'ROLE_USER']);
-
-        $this->assertNull($form->getTransformationFailure());
-        $this->assertTrue($form->isSynchronized());
-        $this->assertCount(2, $form->getData());
-        $this->assertContains('ROLE_SUPER_ADMIN', $form->getData());
-    }
-
     public function testChoicesAsValues(): void
     {
         $resolver = new OptionsResolver();
