@@ -118,18 +118,33 @@ class EditableRolesBuilder
 
         // get roles from the service container
         foreach ($this->rolesHierarchy as $name => $rolesHierarchy) {
-            if ($this->authorizationChecker->isGranted($name) && $this->authorizationChecker->isGranted($roleSuperAdmin)) {
-                $roles['other'][$name] = $this->translateRole($name, $domain);
-                foreach ($rolesHierarchy as $role) {
-                    if (false === array_key_exists($role, $this->rolesHierarchy)
-                        && !isset($roles['other'][$role])
-                        && false === $this->recursiveArraySearch($role, $roles)
-                    ) {
-                        $roles['other'][$role] = $this->translateRole($role, $domain);
-                    }
+            $roles['other'][$name] = $this->translateRole($name, $domain);
+            if ($expanded) {
+                $result = array_map([$this, 'translateRole'], $rolesHierarchy, array_fill(0, count($rolesHierarchy), $domain));
+                $roles['other'][$name] .= ': '.implode(', ', $result);
+            }
+
+            foreach ($rolesHierarchy as $role) {
+                if (false === array_key_exists($role, $this->rolesHierarchy)
+                    && !isset($roles['other'][$role])
+                    && false === $this->recursiveArraySearch($role, $roles)
+                ) {
+                    $roles['other'][$role] = $this->translateRole($role, $domain);
                 }
             }
         }
+
+        $permittedRoles = [];
+        foreach ($roles['other'] as $key => $role) {
+            if ($this->authorizationChecker->isGranted($key)) {
+                $permittedRoles['other'][$role] = $key;
+            } else {
+                $permittedRoles['hidden'][$role] = $key;
+            }
+        }
+
+        unset($roles['other']);
+        $roles = array_merge($roles, $permittedRoles);
 
         if (empty($this->labelPermission)) {
             throw new \InvalidArgumentException('You must add this line in the configuration of Sonata Admin: "[security: handler: sonata.admin.security.handler.role]"');

@@ -72,11 +72,11 @@ class EditableRolesBuilderTest extends TestCase
                 'ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT' => 'ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT',
                 'ROLE_SONATA_PAGE_ADMIN_BLOCK_EDIT' => 'ROLE_SONATA_PAGE_ADMIN_BLOCK_EDIT',
                 'ROLE_SONATA_ADMIN' => 'ROLE_SONATA_ADMIN',
-                'ROLE_ADMIN' => 'ROLE_ADMIN',
-                'ROLE_SUPER_ADMIN' => 'ROLE_SUPER_ADMIN',
                 'ROLE_ALLOWED_TO_SWITCH' => 'ROLE_ALLOWED_TO_SWITCH',
                 'ROLE_USER' => 'ROLE_USER',
-                'SONATA' => 'SONATA',
+                'ROLE_ADMIN: ROLE_USER' => 'ROLE_ADMIN',
+                'ROLE_SUPER_ADMIN: ROLE_USER, ROLE_SONATA_ADMIN, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH, ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT, ROLE_SONATA_PAGE_ADMIN_BLOCK_EDIT' => 'ROLE_SUPER_ADMIN',
+                'SONATA: ' => 'SONATA',
             ],
         ];
 
