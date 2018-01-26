@@ -19,10 +19,6 @@ Indeed, for every admin defined in sonata admin we have eight roles by default:
 The permssions are represented in two parts in the following table.
 The first part shows all default permissions for each entity.
 The second part shows all custom defined roles from the ``security.yml`` configuration.
+It only shows the roles you are granted to and lower
 
 ![The permission matrix](../images/permission_matrix.png)
-
-How to use it
--------------
-
-You need to use the ``sonata_security_roles`` form type.

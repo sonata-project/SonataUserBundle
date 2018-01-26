@@ -108,12 +108,12 @@ class EditableRolesBuilder
         $roleSuperAdmin = $this->pool->getOption('role_super_admin');
         $roleSonataAdmin = $this->pool->getOption('role_admin');
 
-        $adminRoles = [
+        $baseRoles = [
             $roleSuperAdmin,
             'ROLE_ADMIN',
             $roleSonataAdmin,
         ];
-        $roles['other'] = array_combine($adminRoles, $adminRoles);
+        $roles['other'] = array_combine($baseRoles, $baseRoles);
         $roles['other'] = array_filter($roles['other']);
 
         // get roles from the service container
