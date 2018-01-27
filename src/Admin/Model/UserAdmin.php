@@ -22,11 +22,12 @@ use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Sonata\UserBundle\Form\Type\SecurityRolesType;
-use Sonata\UserBundle\Form\Type\UserGenderListType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimezoneType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\FormTypeInterface;
 
 class UserAdmin extends AbstractAdmin
 {
@@ -182,6 +183,17 @@ class UserAdmin extends AbstractAdmin
 
         $now = new \DateTime();
 
+        $genderOptions = [
+            'choices' => call_user_func([$this->getUserManager()->getClass(), 'getGenderList']),
+            'required' => true,
+            'translation_domain' => $this->getTranslationDomain(),
+        ];
+
+        // NEXT_MAJOR: Remove this when dropping support for SF 2.8
+        if (method_exists(FormTypeInterface::class, 'setDefaultOptions')) {
+            $genderOptions['choices_as_values'] = true;
+        }
+
         $formMapper
             ->tab('User')
                 ->with('General')
@@ -202,10 +214,7 @@ class UserAdmin extends AbstractAdmin
                     ->add('lastname', null, ['required' => false])
                     ->add('website', UrlType::class, ['required' => false])
                     ->add('biography', TextType::class, ['required' => false])
-                    ->add('gender', UserGenderListType::class, [
-                        'required' => true,
-                        'translation_domain' => $this->getTranslationDomain(),
-                    ])
+                    ->add('gender', ChoiceType::class, $genderOptions)
                     ->add('locale', LocaleType::class, ['required' => false])
                     ->add('timezone', TimezoneType::class, ['required' => false])
                     ->add('phone', null, ['required' => false])
