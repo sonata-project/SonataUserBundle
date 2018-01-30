@@ -14,19 +14,32 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Form\Type;
 
 use Sonata\CoreBundle\Form\Type\BaseStatusType;
+use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
-@trigger_error(
-    'The '.__NAMESPACE__.'\UserGenderListType class is deprecated since version 4.1 and will be removed in 5.0.'
-    .' Use Symfony\Component\Form\Extension\Core\Type\ChoiceType instead.',
-    E_USER_DEPRECATED
-);
-
-/**
- * NEXT_MAJOR: remove this class.
- *
- * @deprecated since version 4.1, to be removed in 5.0.
- * Use Symfony\Component\Form\Extension\Core\Type\ChoiceType instead
- */
 class UserGenderListType extends BaseStatusType
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        // NEXT_MAJOR: Call the parent to set the choices
+        $choices = \call_user_func([$this->class, $this->getter]);
+
+        // Only flip choice list, if the keys are m/f/u and not labels
+        if (method_exists(FormTypeInterface::class, 'setDefaultOptions') && 1 === \strlen(key($choices))) {
+            $choices = array_flip($choices);
+        }
+
+        $resolver->setDefaults([
+            'choices' => $choices,
+            'choice_translation_domain' => 'SonataUserBundle',
+        ]);
+
+        // NEXT_MAJOR: Remove this when dropping support for SF 2.8
+        if (method_exists(FormTypeInterface::class, 'setDefaultOptions')) {
+            $resolver->setDefault('choices_as_values', true);
+        }
+    }
 }

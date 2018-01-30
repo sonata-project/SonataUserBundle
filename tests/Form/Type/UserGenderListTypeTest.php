@@ -14,25 +14,42 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\Form\Type;
 
 use PHPUnit\Framework\TestCase;
+use Sonata\BlockBundle\Util\OptionsResolver;
 use Sonata\UserBundle\Entity\BaseUser;
 use Sonata\UserBundle\Form\Type\UserGenderListType;
+use Sonata\UserBundle\Model\UserInterface;
+use Symfony\Component\Form\FormTypeInterface;
 
 /**
  * @author Jordi Sala <jordism91@gmail.com>
  */
 final class UserGenderListTypeTest extends TestCase
 {
-    /**
-     * @group legacy
-     */
-    public function testDeprecatedUserGenderListType(): void
+    public function testChoices(): void
     {
-        $userGenderListType = new UserGenderListType(
+        $type = new UserGenderListType(
             BaseUser::class,
-            'getGenderLists',
+            'getGenderList',
             UserGenderListType::class
         );
 
-        $this->assertNotNull($userGenderListType);
+        $resolver = new OptionsResolver();
+
+        $type->configureOptions($resolver);
+
+        $choices = [
+            'gender_unknown' => UserInterface::GENDER_UNKNOWN,
+            'gender_female' => UserInterface::GENDER_FEMALE,
+            'gender_male' => UserInterface::GENDER_MALE,
+        ];
+
+        // NEXT_MAJOR: Remove this when dropping support for SF 2.8
+        if (method_exists(FormTypeInterface::class, 'setDefaultOptions')) {
+            $choices = array_flip($choices);
+        }
+
+        $options = $resolver->resolve();
+
+        $this->assertEquals($choices, $options['choices']);
     }
 }
