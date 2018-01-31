@@ -16,10 +16,12 @@ namespace Sonata\UserBundle\Form\Type;
 use Sonata\UserBundle\Form\Transformer\RestoreRolesTransformer;
 use Sonata\UserBundle\Security\EditableRolesBuilder;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -135,7 +137,7 @@ class SecurityRolesType extends AbstractType
         ]);
 
         // Symfony 2.8 BC
-        if ($resolver->isDefined('choices_as_values')) {
+        if (method_exists(FormTypeInterface::class, 'setDefaultOptions')) {
             $resolver->setDefault('choices_as_values', true);
         }
     }
@@ -145,7 +147,7 @@ class SecurityRolesType extends AbstractType
      */
     public function getParent()
     {
-        return 'Symfony\Component\Form\Extension\Core\Type\ChoiceType';
+        return ChoiceType::class;
     }
 
     /**
