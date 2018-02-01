@@ -82,9 +82,7 @@ class SecurityRolesType extends AbstractType
         $view->vars['choice_translation_domain'] = false; // RolesBuilder all ready does translate them
 
         $view->vars['attr'] = $attr;
-        $view->vars['read_only_choices'] = $options['read_only_choices'];
         $view->vars['label_permission'] = $this->rolesBuilder->getLabelPermission();
-        $view->vars['label_admin'] = $this->rolesBuilder->getLabelAdmin();
     }
 
     /**
@@ -100,17 +98,8 @@ class SecurityRolesType extends AbstractType
                 if (!empty($parentChoices)) {
                     return [];
                 }
-                $roles = $this->rolesBuilder->getRoles($options['choice_translation_domain'], $options['expanded']);
 
-                return $roles;
-            },
-
-            'read_only_choices' => function (Options $options) {
-                if (!empty($options['choices'])) {
-                    return [];
-                }
-
-                return $this->rolesBuilder->getRolesReadOnly($options['choice_translation_domain']);
+                return $this->rolesBuilder->getRoles($options['choice_translation_domain'], $options['expanded']);
             },
 
             'choice_translation_domain' => function (Options $options, $value) {

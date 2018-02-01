@@ -12,7 +12,7 @@
     {% spaceless %}
         {% set remainingRoles = {} %}
         {% set remainingHiddenRoles = {} %}
-        <table class="table">
+        <table class="table table-condensed">
             <thead>
             <tr>
                 <th></th>
@@ -22,63 +22,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                {% set i = 0 %}
-                {% set other = {} %}
-                {% if attribute(choices, 'other') is defined %}
-                    {% set other = attribute(choices, 'other') %}
-                {% endif %}
-
-                {% set hidden = {} %}
-                {% if attribute(choices, 'hidden') is defined %}
-                    {% set hidden = attribute(choices, 'hidden') %}
-                {% endif %}
-
-                {% for child in form %}
-                {% if (child.vars.name % label_permission|length == 0) %}
-                {% if child.vars.name != 0 %}
-            </tr>
-            <tr>
-                {% endif %}
-                {% if attribute(label_admin, i) is defined %}
-                    <td>{{ attribute(label_admin, i) }}</td>
-                    {% set i = i + 1 %}
-                {% endif %}
-                {% endif %}
-                {% if roleInTable(child.vars.value, other) %}
-                    {% set remainingRoles = remainingRoles | merge([child]) %}
-                {% elseif roleInTable(child.vars.value, hidden) %}
-                    {% set remainingHiddenRoles = remainingHiddenRoles | merge([child]) %}
-                {% else %}
-                    {% if child.vars.value in read_only_choices %}
-                        {% set attr = attr|merge({'readonly': true, 'class': 'readonly'}) %}
-                    {% endif %}
-                    <td>{{ form_widget(child, { 'attr': attr, 'label': false }) }}</td>
-                {% endif %}
-                {% endfor %}
-            </tr>
+            {{ renderTable(form)|raw }}
             </tbody>
         </table>
         <ul class="list-unstyled">
-            {% for role in remainingRoles %}
-                <li>
-                    {{ form_label(role) }}
-                    {% if role.vars.value in read_only_choices %}
-                        {% set attr = attr|merge({'readonly': true, 'disabled': true}) %}
-                    {% endif %}
-                    {{ form_widget(role,  { 'attr': attr }) }}
-                </li>
-            {% endfor %}
-            {% for role in remainingHiddenRoles %}
-                <li>
-                    {{ form_label(role) }}
-                    {{ form_widget(role) }}
-                    <script>
-                        $(document).ready(function(){
-                            $('input[value="{{ role.vars.value }}"]').iCheck().closest('.checkbox').css({'display': 'none'});
-                        });
-                    </script>
-                </li>
+            {% for child in form %}
+                {{ form_widget(child) }}
             {% endfor %}
         </ul>
     {% endspaceless %}

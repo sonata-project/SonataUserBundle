@@ -1,0 +1,18 @@
+{% for base_role, attr in roles %}
+    <tr>
+        <th>{{ attr.label }}</th>
+        {% for permission, params in attr.permissions %}
+            <td>
+                {{ form_widget(params.form, { 'label': false }) }}
+
+                {% if params.read_only %}
+                    <script>
+                        $(document).ready(function () {
+                            $('input[value="{{ base_role|format(permission) }}"]').iCheck('disable');
+                        });
+                    </script>
+                {% endif %}
+            </td>
+        {% endfor %}
+    </tr>
+{% endfor %}

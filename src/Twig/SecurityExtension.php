@@ -13,6 +13,9 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Twig;
 
+use Sonata\UserBundle\Security\EditableRolesBuilder;
+use Symfony\Component\Form\FormView;
+
 /**
  * @author Christian Gripp <mail@core23.de>
  * @author Cengizhan Çalışkan <cengizhancaliskan@gmail.com>
@@ -21,12 +24,25 @@ namespace Sonata\UserBundle\Twig;
 final class SecurityExtension extends \Twig_Extension
 {
     /**
+     * @var EditableRolesBuilder
+     */
+    private $rolesBuilder;
+
+    /**
+     * @param EditableRolesBuilder $rolesBuilder
+     */
+    public function __construct(EditableRolesBuilder $rolesBuilder)
+    {
+        $this->rolesBuilder = $rolesBuilder;
+    }
+
+    /**
      * @return array
      */
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('roleInTable', [$this, 'roleInTable']),
+            new \Twig_SimpleFunction('renderTable', [$this, 'renderTable'], ['needs_environment' => true]),
         ];
     }
 
@@ -38,20 +54,22 @@ final class SecurityExtension extends \Twig_Extension
         return 'sonata_user_security_extension';
     }
 
-    /**
-     * @param string $role
-     * @param array  $roles
-     *
-     * @return bool
-     */
-    public function roleInTable($role, $roles)
+    public function renderTable(\Twig_Environment $environment, FormView $form)
     {
-        foreach ($roles as $item) {
-            if ($item->data === $role) {
-                return true;
+        $roles = $this->rolesBuilder->getRolesForView();
+        foreach ($roles as $baseRole => $attributes) {
+            foreach ($attributes['permissions'] as $permission => $readOnly) {
+                foreach ($form->getIterator() as $child) {
+                    if ($child->vars['value'] == sprintf($baseRole, $permission)) {
+                        $roles[$baseRole]['permissions'][$permission] = ['form' => $child, 'read_only' => $readOnly];
+                    }
+                }
             }
         }
 
-        return false;
+        return $environment->render('@SonataUser/Form/roles_row.html.twig', [
+            'roles' => $roles,
+            'form' => $form,
+        ]);
     }
 }
