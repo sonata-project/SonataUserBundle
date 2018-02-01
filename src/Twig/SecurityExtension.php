@@ -88,7 +88,7 @@ final class SecurityExtension extends \Twig_Extension
      */
     public function renderTable(\Twig_Environment $environment, FormView $form)
     {
-        $roles = $this->rolesBuilder->getRolesForView();
+        $roles = $this->rolesBuilder->getAdminRolesForView();
         foreach ($roles as $baseRole => $attributes) {
             foreach ($attributes['permissions'] as $permission => $readOnly) {
                 foreach ($form->getIterator() as $child) {
