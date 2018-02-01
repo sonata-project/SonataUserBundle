@@ -64,7 +64,7 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
 
         $fakeContainer->expects($this->once())
             ->method('prependExtensionConfig')
-            ->with('twig', ['form_themes' => ['SonataUserBundle:Form:form_admin_fields.html.twig']]);
+            ->with('twig', ['form_themes' => ['@SonataUser/Form/form_admin_fields.html.twig']]);
 
         foreach ($this->getContainerExtensions() as $extension) {
             if ($extension instanceof PrependExtensionInterface) {
@@ -92,7 +92,7 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
         $this->assertArrayHasKey(0, $twigConfigurations);
         $this->assertArrayHasKey('form_themes', $twigConfigurations[0]);
         $this->assertEquals(
-            ['SonataUserBundle:Form:form_admin_fields.html.twig'],
+            ['@SonataUser/Form/form_admin_fields.html.twig'],
             $twigConfigurations[0]['form_themes']
         );
     }

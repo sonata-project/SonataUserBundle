@@ -103,7 +103,7 @@ class UserAdmin extends AbstractAdmin
 
         if ($this->isGranted('ROLE_ALLOWED_TO_SWITCH')) {
             $listMapper
-                ->add('impersonating', 'string', ['template' => 'SonataUserBundle:Admin:Field/impersonating.html.twig'])
+                ->add('impersonating', 'string', ['template' => '@SonataUser/Admin/Field/impersonating.html.twig'])
             ;
         }
     }

@@ -15,6 +15,8 @@ namespace Sonata\UserBundle\Tests\Form\Type;
 
 use Sonata\UserBundle\Form\Type\SecurityRolesType;
 use Sonata\UserBundle\Security\EditableRolesBuilder;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -35,15 +37,17 @@ class SecurityRolesTypeTest extends TypeTestCase
 
         $options = $optionResolver->resolve();
         $this->assertCount(3, $options['choices']);
+
+        if (method_exists(FormTypeInterface::class, 'setDefaultOptions')) {
+            $this->assertTrue($options['choices_as_values']);
+        }
     }
 
     public function testGetParent(): void
     {
         $type = new SecurityRolesType($this->roleBuilder);
-        $this->assertEquals(
-            'Symfony\Component\Form\Extension\Core\Type\ChoiceType',
-            $type->getParent()
-        );
+
+        $this->assertEquals(ChoiceType::class, $type->getParent());
     }
 
     public function testSubmitValidData(): void
@@ -92,6 +96,25 @@ class SecurityRolesTypeTest extends TypeTestCase
 
         $this->assertTrue($resolver->hasDefault('choices_as_values'));
         $this->assertTrue($options['choices_as_values']);
+    }
+
+    public function testSubmitWithHiddenRoleData(): void
+    {
+        $originalRoles = ['ROLE_SUPER_ADMIN', 'ROLE_USER'];
+
+        $form = $this->factory->create($this->getSecurityRolesTypeName(), $originalRoles, [
+            'multiple' => true,
+            'expanded' => true,
+            'required' => false,
+        ]);
+
+        // we keep hidden ROLE_SUPER_ADMIN and delete available ROLE_USER
+        $form->submit([0 => 'ROLE_USER']);
+
+        $this->assertNull($form->getTransformationFailure());
+        $this->assertTrue($form->isSynchronized());
+        $this->assertCount(2, $form->getData());
+        $this->assertContains('ROLE_SUPER_ADMIN', $form->getData());
     }
 
     protected function getExtensions()
