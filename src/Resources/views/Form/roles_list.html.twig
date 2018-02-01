@@ -1,0 +1,10 @@
+{% for custom_role, attr in roles %}
+    <li>{{ form_widget(attr.form) }}</li>
+    {% if attr.read_only %}
+        <script>
+            $(document).ready(function () {
+                $('input[value="{{ custom_role }}"]').iCheck('disable');
+            });
+        </script>
+    {% endif %}
+{% endfor %}

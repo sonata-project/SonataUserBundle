@@ -43,6 +43,7 @@ final class SecurityExtension extends \Twig_Extension
     {
         return [
             new \Twig_SimpleFunction('renderTable', [$this, 'renderTable'], ['needs_environment' => true]),
+            new \Twig_SimpleFunction('renderCustomRolesList', [$this, 'renderCustomRolesList'], ['needs_environment' => true]),
         ];
     }
 
@@ -54,6 +55,37 @@ final class SecurityExtension extends \Twig_Extension
         return 'sonata_user_security_extension';
     }
 
+    /**
+     * @param \Twig_Environment $environment
+     * @param FormView          $form
+     *
+     * @return string
+     */
+    public function renderCustomRolesList(\Twig_Environment $environment, FormView $form)
+    {
+        $roles = $this->rolesBuilder->getCustomRolesForView();
+        foreach ($roles as $mainRole => $attributes) {
+            foreach ($form->getIterator() as $child) {
+                if ($child->vars['value'] == $mainRole) {
+                    $roles[$mainRole] = [
+                        'read_only' => $attributes['read_only'] ?? false,
+                        'form' => $child,
+                    ];
+                }
+            }
+        }
+
+        return $environment->render('@SonataUser/Form/roles_list.html.twig', [
+            'roles' => $roles,
+        ]);
+    }
+
+    /**
+     * @param \Twig_Environment $environment
+     * @param FormView          $form
+     *
+     * @return string
+     */
     public function renderTable(\Twig_Environment $environment, FormView $form)
     {
         $roles = $this->rolesBuilder->getRolesForView();
@@ -69,7 +101,6 @@ final class SecurityExtension extends \Twig_Extension
 
         return $environment->render('@SonataUser/Form/roles_row.html.twig', [
             'roles' => $roles,
-            'form' => $form,
         ]);
     }
 }

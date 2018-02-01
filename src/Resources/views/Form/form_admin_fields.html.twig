@@ -10,8 +10,6 @@
  #}
 {% block sonata_security_roles_widget %}
     {% spaceless %}
-        {% set remainingRoles = {} %}
-        {% set remainingHiddenRoles = {} %}
         <table class="table table-condensed">
             <thead>
             <tr>
@@ -26,9 +24,7 @@
             </tbody>
         </table>
         <ul class="list-unstyled">
-            {% for child in form %}
-                {{ form_widget(child) }}
-            {% endfor %}
+           {{ renderCustomRolesList(form)|raw }}
         </ul>
     {% endspaceless %}
 {% endblock sonata_security_roles_widget %}

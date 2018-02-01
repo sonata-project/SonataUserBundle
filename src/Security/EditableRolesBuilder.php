@@ -91,7 +91,7 @@ class EditableRolesBuilder
      *
      * @return array
      */
-    public function getRoles($domain = false, $expanded = true)
+    public function getAllRoles($domain = false, $expanded = true)
     {
         $roles = [];
 
@@ -154,6 +154,42 @@ class EditableRolesBuilder
     /**
      * @return array
      */
+    public function getCustomRolesForView(): array
+    {
+        $roles = [];
+        $roleSuperAdmin = $this->pool->getOption('role_super_admin');
+        $roleSonataAdmin = $this->pool->getOption('role_admin');
+
+        $baseRoles = [
+            $roleSuperAdmin,
+            'ROLE_ADMIN',
+            $roleSonataAdmin,
+        ];
+
+        // get roles from the service container
+        foreach ($this->rolesHierarchy as $name => $rolesHierarchy) {
+            $roles[$name] = [
+                'read_only' => !$this->authorizationChecker->isGranted($name),
+            ];
+
+            foreach ($rolesHierarchy as $role) {
+                if (false === array_key_exists($role, $this->rolesHierarchy)
+                    && !isset($roles[$role])
+                    && false === $this->recursiveArraySearch($role, $roles)
+                ) {
+                    $roles[$role] = [
+                        'read_only' => !$this->authorizationChecker->isGranted($role),
+                    ];
+                }
+            }
+        }
+
+        return $roles;
+    }
+
+    /**
+     * @return array
+     */
     final public function getExclude()
     {
         return $this->exclude;
@@ -183,43 +219,10 @@ class EditableRolesBuilder
         return $this->labelAdmin;
     }
 
-    private function iterateAdminRoles(callable $func): void
-    {
-        // get roles from the Admin classes
-        foreach ($this->pool->getAdminServiceIds() as $id) {
-            try {
-                $admin = $this->pool->getInstance($id);
-            } catch (\Exception $e) {
-                continue;
-            }
-
-            if (in_array($id, $this->exclude)) {
-                continue;
-            }
-
-            $isMaster = ($admin->isGranted('MASTER') || $admin->isGranted('OPERATOR') ||
-                $this->authorizationChecker->isGranted($this->pool->getOption('role_super_admin')))
-            ;
-
-            $securityHandler = $admin->getSecurityHandler();
-            // TODO get the base role from the admin or security handler
-            $baseRole = $securityHandler->getBaseRole($admin);
-            $groupPermission = $admin->getSecurityInformation();
-            $this->labelPermission = array_keys($groupPermission);
-            $this->labelAdmin[] = $admin->trans($admin->getLabel());
-
-            if (0 == strlen($baseRole)) { // the security handler related to the admin does not provide a valid string
-                continue;
-            }
-
-            foreach ($groupPermission as $role => $permissions) {
-                $role = sprintf($baseRole, $role);
-                call_user_func($func, $role, $isMaster, $permissions);
-            }
-        }
-    }
-
-    public function getRolesForView()
+    /**
+     * @return array
+     */
+    public function getAdminRolesForView(): array
     {
         $roles = [];
         // get roles from the Admin classes
@@ -259,6 +262,45 @@ class EditableRolesBuilder
         }
 
         return $roles;
+    }
+
+    /**
+     * @param callable $func
+     */
+    private function iterateAdminRoles(callable $func): void
+    {
+        // get roles from the Admin classes
+        foreach ($this->pool->getAdminServiceIds() as $id) {
+            try {
+                $admin = $this->pool->getInstance($id);
+            } catch (\Exception $e) {
+                continue;
+            }
+
+            if (in_array($id, $this->exclude)) {
+                continue;
+            }
+
+            $isMaster = ($admin->isGranted('MASTER') || $admin->isGranted('OPERATOR') ||
+                $this->authorizationChecker->isGranted($this->pool->getOption('role_super_admin')))
+            ;
+
+            $securityHandler = $admin->getSecurityHandler();
+            // TODO get the base role from the admin or security handler
+            $baseRole = $securityHandler->getBaseRole($admin);
+            $groupPermission = $admin->getSecurityInformation();
+            $this->labelPermission = array_keys($groupPermission);
+            $this->labelAdmin[] = $admin->trans($admin->getLabel());
+
+            if (0 == strlen($baseRole)) { // the security handler related to the admin does not provide a valid string
+                continue;
+            }
+
+            foreach ($groupPermission as $role => $permissions) {
+                $role = sprintf($baseRole, $role);
+                call_user_func($func, $role, $isMaster, $permissions);
+            }
+        }
     }
 
     /*
