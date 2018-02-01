@@ -4,7 +4,7 @@ The permission matrix
 Configuration
 -------------
 
-The type of form ``sonata_security_roles`` was improved to show all roles in matrix.
+The type of form ``Sonata\UserBundle\Form\Type\SecurityRolesType`` was improved to show all roles in matrix.
 Indeed, for every admin defined in sonata admin we have eight roles by default:
 
     - Edit
