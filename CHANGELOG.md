@@ -2,6 +2,15 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.1.1](https://github.com/sonata-project/SonataUserBundle/compare/4.1.0...4.1.1) - 2018-02-08
+### Changed
+- Switch all templates references to Twig namespaced syntax
+- Switch from templating service to sonata.templating
+
+### Fixed
+- choices for User gender now appears correctly flipped and translated
+- Deprecation message on SecurityRolesType about `choices_as_values`
+
 ## [4.1.0](https://github.com/sonata-project/SonataUserBundle/compare/4.0.1...4.1.0) - 2018-01-20
 ### Added
 - New experience for `sonata-project/google-authenticator` users. Showing QR-code in login form, automatically setting 2FA secret to user.
