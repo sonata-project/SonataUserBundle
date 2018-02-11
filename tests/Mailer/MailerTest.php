@@ -65,7 +65,10 @@ class MailerTest extends TestCase
         $this->getMailer()->sendConfirmationEmailMessage($user);
     }
 
-    public function testSendResettingEmailMessage(): void
+    /**
+     * @dataProvider emailTemplateData
+     */
+    public function testSendResettingEmailMessage($template, $subject, $body): void
     {
         $user = $this->createMock(UserInterface::class);
         $user->expects($this->any())
@@ -83,18 +86,29 @@ class MailerTest extends TestCase
         $this->templating->expects($this->once())
             ->method('render')
             ->with('foo', ['user' => $user, 'confirmationUrl' => '/foo'])
-            ->willReturn("Subject\nMail content");
+            ->willReturn($template);
 
         $this->mailer->expects($this->once())
             ->method('send')
-            ->willReturnCallback(function (\Swift_Message $message): void {
-                $this->assertEquals('Subject', $message->getSubject());
-                $this->assertEquals('Mail content', $message->getBody());
+            ->willReturnCallback(function (\Swift_Message $message) use ($subject, $body): void {
+                $this->assertEquals($subject, $message->getSubject());
+                $this->assertEquals($body, $message->getBody());
                 $this->assertArrayHasKey($this->emailFrom[0], $message->getFrom());
                 $this->assertArrayHasKey('user@sonata-project.org', $message->getTo());
             });
 
         $this->getMailer()->sendResettingEmailMessage($user);
+    }
+
+    public function emailTemplateData()
+    {
+        return [
+            'CR' => ["Subject\rFirst line\rSecond line", 'Subject', "First line\rSecond line"],
+            'LF' => ["Subject\nFirst line\nSecond line", 'Subject', "First line\nSecond line"],
+            'CRLF' => ["Subject\r\nFirst line\r\nSecond line", 'Subject', "First line\r\nSecond line"],
+            'LFLF' => ["Subject\n\nFirst line\n\nSecond line", 'Subject', "\nFirst line\n\nSecond line"],
+            'CRCR' => ["Subject\r\rFirst line\r\rSecond line", 'Subject', "\rFirst line\r\rSecond line"],
+        ];
     }
 
     private function getMailer(): Mailer
