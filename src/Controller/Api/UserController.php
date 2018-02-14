@@ -19,7 +19,6 @@ use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\View\View as FOSRestView;
 use FOS\UserBundle\Model\GroupInterface;
-use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\UserBundle\Model\GroupManagerInterface;
@@ -72,6 +71,7 @@ class UserController
      *
      * @QueryParam(name="page", requirements="\d+", default="1", description="Page for users list pagination (1-indexed)")
      * @QueryParam(name="count", requirements="\d+", default="10", description="Number of users by page")
+     * @QueryParam(name="orderBy", map=true, requirements="ASC|DESC", nullable=true, strict=true, description="Query users order by clause (key is field, value is direction")
      * @QueryParam(name="enabled", requirements="0|1", nullable=true, strict=true, description="Enabled/disabled users only?")
      *
      * @View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
@@ -82,20 +82,6 @@ class UserController
      */
     public function getUsersAction(ParamFetcherInterface $paramFetcher)
     {
-        $orderByQueryParam = new QueryParam();
-        $orderByQueryParam->name = 'orderBy';
-        $orderByQueryParam->requirements = 'ASC|DESC';
-        $orderByQueryParam->nullable = true;
-        $orderByQueryParam->strict = true;
-        $orderByQueryParam->description = 'Query users order by clause (key is field, value is direction)';
-        if (property_exists($orderByQueryParam, 'map')) {
-            $orderByQueryParam->map = true;
-        } else {
-            $orderByQueryParam->array = true;
-        }
-
-        $paramFetcher->addParam($orderByQueryParam);
-
         $supporedCriteria = [
             'enabled' => '',
         ];
@@ -369,18 +355,12 @@ class UserController
             $user = $form->getData();
             $this->userManager->updateUser($user);
 
-            $view = FOSRestView::create($user);
+            $context = new Context();
+            $context->setGroups(['sonata_api_read']);
+            $context->enableMaxDepth();
 
-            if (class_exists('FOS\RestBundle\Context\Context')) {
-                $context = new Context();
-                $context->setGroups(['sonata_api_read']);
-                $view->setContext($context);
-            } else {
-                $serializationContext = SerializationContext::create();
-                $serializationContext->setGroups(['sonata_api_read']);
-                $serializationContext->enableMaxDepthChecks();
-                $view->setSerializationContext($serializationContext);
-            }
+            $view = FOSRestView::create($user);
+            $view->setContext($context);
 
             return $view;
         }
