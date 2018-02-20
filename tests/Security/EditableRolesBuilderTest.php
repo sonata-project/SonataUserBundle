@@ -37,7 +37,7 @@ class EditableRolesBuilderTest extends TestCase
     /**
      * {@inheritdoc}
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->securityHandler = $this->createMock(SecurityHandlerInterface::class);
         $this->authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
@@ -51,7 +51,7 @@ class EditableRolesBuilderTest extends TestCase
     /**
      * @test
      */
-    public function getAllRolesNoToken()
+    public function getAllRolesNoToken(): void
     {
         $this->tokenStorage
             ->expects($this->once())
@@ -64,11 +64,12 @@ class EditableRolesBuilderTest extends TestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage You must add this line in the configuration of Sonata Admin: "[security: handler: sonata.admin.security.handler.role]"
      */
-    public function getAllRolesNoLabelPermissions()
+    public function getAllRolesNoLabelPermissions(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('You must add this line in the configuration of Sonata Admin: "[security: handler: sonata.admin.security.handler.role]"');
+
         $this->tokenStorage
             ->expects($this->once())
             ->method('getToken')
@@ -118,7 +119,7 @@ class EditableRolesBuilderTest extends TestCase
     /**
      * @test
      */
-    public function getAllRoles()
+    public function getAllRoles(): void
     {
         $this->tokenStorage
             ->expects($this->once())
@@ -173,7 +174,7 @@ class EditableRolesBuilderTest extends TestCase
             'ROLE_SONATA_ADMIN_FOO_EDITOR' => 'ROLE_SONATA_ADMIN_FOO_EDITOR',
             'ROLE_SONATA_ADMIN_FOO_ADMIN' => 'ROLE_SONATA_ADMIN_FOO_ADMIN',
             'other' => [
-                'ROLE_ADMIN' => 'ROLE_ADMIN'
+                'ROLE_ADMIN' => 'ROLE_ADMIN',
             ],
         ];
 
@@ -184,7 +185,7 @@ class EditableRolesBuilderTest extends TestCase
     /**
      * @test
      */
-    public function getCustomRolesForView()
+    public function getCustomRolesForView(): void
     {
         $this->authorizationChecker
             ->method('isGranted')
@@ -199,8 +200,8 @@ class EditableRolesBuilderTest extends TestCase
         $rolesHierarchy = [
             'ROLE_PARENT' => [
                 'ROLE_CHILD_1' => 'ROLE_CHILD_1',
-                'ROLE_CHILD_2' => 'ROLE_CHILD_2'
-            ]
+                'ROLE_CHILD_2' => 'ROLE_CHILD_2',
+            ],
         ];
 
         $rolesBuilder = new EditableRolesBuilder($this->tokenStorage, $this->authorizationChecker, $this->pool, $rolesHierarchy);
@@ -210,7 +211,7 @@ class EditableRolesBuilderTest extends TestCase
     /**
      * @test
      */
-    public function getAddExclude()
+    public function getAddExclude(): void
     {
         $rolesBuilder = new EditableRolesBuilder($this->tokenStorage, $this->authorizationChecker, $this->pool);
         $rolesBuilder->addExclude('sonata.admin.bar');
@@ -221,7 +222,7 @@ class EditableRolesBuilderTest extends TestCase
     /**
      * @test
      */
-    public function getAdminRolesForView()
+    public function getAdminRolesForView(): void
     {
         $this->authorizationChecker
             ->method('isGranted')
@@ -273,7 +274,7 @@ class EditableRolesBuilderTest extends TestCase
                     'STAFF' => false,
                     'EDITOR' => false,
                     'ADMIN' => false,
-                ]
+                ],
             ],
         ];
 

@@ -13,13 +13,9 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Form\Type;
 
-use Sonata\UserBundle\Form\Transformer\RestoreRolesTransformer;
 use Sonata\UserBundle\Security\EditableRolesBuilder;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Form\FormView;

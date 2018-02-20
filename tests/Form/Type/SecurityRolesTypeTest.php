@@ -87,8 +87,6 @@ class SecurityRolesTypeTest extends TypeTestCase
         // If 'choices_as_values' option is not defined (Symfony >= 3.0), default value should not be set.
         $type->configureOptions($resolver);
 
-        $this->assertFalse($resolver->hasDefault('choices_as_values'));
-
         // If 'choices_as_values' option is defined (Symfony 2.8), default value should be set to true.
         $resolver->setDefault('choices_as_values', true);
         $type->configureOptions($resolver);
