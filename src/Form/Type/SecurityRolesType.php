@@ -44,33 +44,6 @@ class SecurityRolesType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $formBuilder, array $options): void
-    {
-        /*
-         * The form shows only roles that the current user can edit for the targeted user. Now we still need to persist
-         * all other roles. It is not possible to alter those values inside an event listener as the selected
-         * key will be validated. So we use a Transformer to alter the value and an listener to catch the original values
-         *
-         * The transformer will then append non editable roles to the user ...
-         */
-        $transformer = new RestoreRolesTransformer($this->rolesBuilder);
-
-        // GET METHOD
-        $formBuilder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($transformer): void {
-            $transformer->setOriginalRoles($event->getData());
-        });
-
-        // POST METHOD
-        $formBuilder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) use ($transformer): void {
-            $transformer->setOriginalRoles($event->getData());
-        });
-
-        $formBuilder->addModelTransformer($transformer);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $attr = $view->vars['attr'];

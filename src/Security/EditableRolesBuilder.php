@@ -157,14 +157,6 @@ class EditableRolesBuilder
     public function getCustomRolesForView(): array
     {
         $roles = [];
-        $roleSuperAdmin = $this->pool->getOption('role_super_admin');
-        $roleSonataAdmin = $this->pool->getOption('role_admin');
-
-        $baseRoles = [
-            $roleSuperAdmin,
-            'ROLE_ADMIN',
-            $roleSonataAdmin,
-        ];
 
         // get roles from the service container
         foreach ($this->rolesHierarchy as $name => $rolesHierarchy) {
@@ -245,14 +237,14 @@ class EditableRolesBuilder
             $baseRole = $securityHandler->getBaseRole($admin);
             $groupPermission = $admin->getSecurityInformation();
             $this->labelPermission = array_keys($groupPermission);
-            $this->labelAdmin[] = $admin->trans($admin->getLabel());
+            $this->labelAdmin[] = $admin->getTranslator()->trans($admin->getLabel());
 
             if (0 == strlen($baseRole)) { // the security handler related to the admin does not provide a valid string
                 continue;
             }
 
             $roles[$baseRole] = [
-                'label' => $admin->trans($admin->getLabel()),
+                'label' => $admin->getTranslator()->trans($admin->getLabel()),
             ];
 
             foreach ($groupPermission as $name => $item) {
@@ -290,7 +282,8 @@ class EditableRolesBuilder
             $baseRole = $securityHandler->getBaseRole($admin);
             $groupPermission = $admin->getSecurityInformation();
             $this->labelPermission = array_keys($groupPermission);
-            $this->labelAdmin[] = $admin->trans($admin->getLabel());
+
+            $this->labelAdmin[] = $admin->getTranslator()->trans($admin->getLabel());
 
             if (0 == strlen($baseRole)) { // the security handler related to the admin does not provide a valid string
                 continue;

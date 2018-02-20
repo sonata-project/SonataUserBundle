@@ -90,7 +90,7 @@ class SecurityRolesTypeTest extends TypeTestCase
         $this->assertFalse($resolver->hasDefault('choices_as_values'));
 
         // If 'choices_as_values' option is defined (Symfony 2.8), default value should be set to true.
-        $resolver->setDefined(['choices_as_values']);
+        $resolver->setDefault('choices_as_values', true);
         $type->configureOptions($resolver);
         $options = $resolver->resolve();
 
@@ -98,36 +98,15 @@ class SecurityRolesTypeTest extends TypeTestCase
         $this->assertTrue($options['choices_as_values']);
     }
 
-    public function testSubmitWithHiddenRoleData(): void
-    {
-        $originalRoles = ['ROLE_SUPER_ADMIN', 'ROLE_USER'];
-
-        $form = $this->factory->create($this->getSecurityRolesTypeName(), $originalRoles, [
-            'multiple' => true,
-            'expanded' => true,
-            'required' => false,
-        ]);
-
-        // we keep hidden ROLE_SUPER_ADMIN and delete available ROLE_USER
-        $form->submit([0 => 'ROLE_USER']);
-
-        $this->assertNull($form->getTransformationFailure());
-        $this->assertTrue($form->isSynchronized());
-        $this->assertCount(2, $form->getData());
-        $this->assertContains('ROLE_SUPER_ADMIN', $form->getData());
-    }
-
     protected function getExtensions()
     {
         $this->roleBuilder = $roleBuilder = $this->createMock(EditableRolesBuilder::class);
 
-        $this->roleBuilder->expects($this->any())->method('getRoles')->will($this->returnValue([
+        $this->roleBuilder->expects($this->any())->method('getAllRoles')->will($this->returnValue([
           'ROLE_FOO' => 'ROLE_FOO',
           'ROLE_USER' => 'ROLE_USER',
           'ROLE_ADMIN' => 'ROLE_ADMIN: ROLE_USER',
         ]));
-
-        $this->roleBuilder->expects($this->any())->method('getRolesReadOnly')->will($this->returnValue([]));
 
         $childType = new SecurityRolesType($this->roleBuilder);
 
