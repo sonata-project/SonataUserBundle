@@ -302,8 +302,8 @@ With provided parameters, the files are generated in ``src/Application/Sonata/Us
 
     The command will generate domain objects in an ``App\Application`` namespace.
     So you can point entities' associations to a global and common namespace.
-    This will make Entities sharing easier as your models will allow to
-    point to a global namespace. For instance the user will be
+    This will make Entities sharing easier as your models will allow
+    pointing to a global namespace. For instance, the user will be
     ``App\Application\Sonata\UserBundle\Entity\User``.
 
 .. note::
