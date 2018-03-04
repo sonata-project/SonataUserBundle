@@ -60,4 +60,4 @@ The taxonomy is as follows:
 * ``sonata_api_read`` is the group used to display entities
 * ``sonata_api_write`` is the group used for input entities (when used instead of forms)
 
-If you wish to customize the outputted data, feel free to setup your own serialization options by configuring `JMSSerializer` with those groups.
+If you wish to customize the outputted data, feel free to set up your own serialization options by configuring `JMSSerializer` with those groups.
