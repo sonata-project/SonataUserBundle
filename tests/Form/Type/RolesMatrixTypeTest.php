@@ -100,7 +100,7 @@ final class RolesMatrixTypeTest extends TypeTestCase
     {
         $this->roleBuilder = $roleBuilder = $this->createMock(RolesMatrixBuilder::class);
 
-        $this->roleBuilder->expects($this->any())->method('getAllRoles')->will($this->returnValue([
+        $this->roleBuilder->expects($this->any())->method('getRoles')->will($this->returnValue([
           'ROLE_FOO' => 'ROLE_FOO',
           'ROLE_USER' => 'ROLE_USER',
           'ROLE_ADMIN' => 'ROLE_ADMIN: ROLE_USER',

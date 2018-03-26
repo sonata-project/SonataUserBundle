@@ -54,7 +54,7 @@ final class RolesMatrixBuilderTest extends TestCase
     /**
      * @test
      */
-    public function getAllRolesNoToken(): void
+    public function getRolesNoToken(): void
     {
         $this->tokenStorage
             ->expects($this->once())
@@ -62,13 +62,13 @@ final class RolesMatrixBuilderTest extends TestCase
             ->willReturn([]);
 
         $rolesBuilder = new RolesMatrixBuilder($this->tokenStorage, $this->authorizationChecker, $this->pool);
-        $this->assertEmpty($rolesBuilder->getAllRoles());
+        $this->assertEmpty($rolesBuilder->getRoles());
     }
 
     /**
      * @test
      */
-    public function getAllRolesNoLabelPermissions(): void
+    public function getRolesNoLabelPermissions(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('You must add this line in the configuration of Sonata Admin: "[security: handler: sonata.admin.security.handler.role]"');
@@ -116,13 +116,13 @@ final class RolesMatrixBuilderTest extends TestCase
             ->willReturn($this->admin);
 
         $rolesBuilder = new RolesMatrixBuilder($this->tokenStorage, $this->authorizationChecker, $this->pool);
-        $rolesBuilder->getAllRoles();
+        $rolesBuilder->getRoles();
     }
 
     /**
      * @test
      */
-    public function getAllRoles(): void
+    public function getRoles(): void
     {
         $this->tokenStorage
             ->expects($this->once())
@@ -182,7 +182,7 @@ final class RolesMatrixBuilderTest extends TestCase
         ];
 
         $rolesBuilder = new RolesMatrixBuilder($this->tokenStorage, $this->authorizationChecker, $this->pool);
-        $this->assertSame($expected, $rolesBuilder->getAllRoles());
+        $this->assertSame($expected, $rolesBuilder->getRoles());
     }
 
     /**

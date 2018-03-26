@@ -94,7 +94,7 @@ class RolesMatrixBuilder
      *
      * @return array
      */
-    public function getAllRoles($domain = false, $expanded = true)
+    public function getRoles($domain = false, $expanded = true)
     {
         $roles = [];
 

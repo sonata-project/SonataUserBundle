@@ -13,4 +13,4 @@ User Bundle
    reference/two_step_validation
    reference/api
    reference/user_impersonation
-   reference/permission_matrix
+   reference/roles_matrix

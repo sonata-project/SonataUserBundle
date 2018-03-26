@@ -71,7 +71,7 @@ final class RolesMatrixType extends AbstractType
                     return [];
                 }
 
-                return $this->rolesBuilder->getAllRoles($options['choice_translation_domain'], $options['expanded']);
+                return $this->rolesBuilder->getRoles($options['choice_translation_domain'], $options['expanded']);
             },
 
             'choice_translation_domain' => function (Options $options, $value) {
