@@ -30,7 +30,7 @@ final class RolesMatrixCompilerPass implements CompilerPassInterface
 
         foreach ($container->findTaggedServiceIds('sonata.admin') as $name => $items) {
             foreach ($items as $item) {
-                if (isset($item['show_in_role_table']) && false === $item['show_in_role_table']) {
+                if (isset($item['show_in_roles_matrix']) && false === $item['show_in_roles_matrix']) {
                     $service->addMethodCall('addExclude', [$name]);
                 }
             }

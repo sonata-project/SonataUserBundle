@@ -26,6 +26,6 @@ The role matrix will display all roles for each admin. If the currend logged in 
 Exclude Admin
 -------------
 
-To exclude an admin
+To exclude an admin add following option to service declaration of the admin: ``show_in_roles_matrix: false``
 
 ![roles matrix](../images/roles_matrix.png)

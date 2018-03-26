@@ -39,8 +39,8 @@ final class RolesMatrixCompilerPassTest extends TestCase
             ->willReturn($definition);
 
         $taggedServices = [
-            'sonata.admin.foo' => [0 => ['show_in_role_table' => true]],
-            'sonata.admin.bar' => [0 => ['show_in_role_table' => false]],
+            'sonata.admin.foo' => [0 => ['show_in_roles_matrix' => true]],
+            'sonata.admin.bar' => [0 => ['show_in_roles_matrix' => false]],
             'sonata.admin.test' => [],
         ];
 
