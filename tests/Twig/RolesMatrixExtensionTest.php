@@ -68,7 +68,7 @@ final class RolesMatrixExtensionTest extends TestCase
         $this->environment
             ->expects($this->once())
             ->method('render')
-            ->with('@SonataUser/Form/roles_list.html.twig', [
+            ->with('@SonataUser/Form/roles_matrix_list.html.twig', [
                 'roles' => [
                     'ROLE_PARENT' => ['read_only' => false, 'form' => $form],
                     'ROLE_CHILD_1' => ['read_only' => false],
@@ -108,7 +108,7 @@ final class RolesMatrixExtensionTest extends TestCase
         $this->environment
             ->expects($this->once())
             ->method('render')
-            ->with('@SonataUser/Form/roles_row.html.twig', [
+            ->with('@SonataUser/Form/roles_matrix_row.html.twig', [
                 'roles' => [
                     'ROLE_SONATA_ADMIN_FOO_%s' => [
                         'label' => 'Foo Admin Translated',

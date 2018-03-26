@@ -60,7 +60,7 @@ final class RolesMatrixExtension extends \Twig_Extension
             }
         }
 
-        return (string) $environment->render('@SonataUser/Form/roles_list.html.twig', [
+        return (string) $environment->render('@SonataUser/Form/roles_matrix_list.html.twig', [
             'roles' => $roles,
         ]);
     }
@@ -78,7 +78,7 @@ final class RolesMatrixExtension extends \Twig_Extension
             }
         }
 
-        return (string) $environment->render('@SonataUser/Form/roles_row.html.twig', [
+        return (string) $environment->render('@SonataUser/Form/roles_matrix_row.html.twig', [
             'roles' => $roles,
         ]);
     }
