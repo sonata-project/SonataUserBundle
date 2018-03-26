@@ -34,8 +34,8 @@ class EditableRolesBuilderTest extends TestCase
         $authorizationChecker->expects($this->any())->method('isGranted')->will($this->returnValue(true));
 
         $pool = $this->getMockBuilder('Sonata\AdminBundle\Admin\Pool')
-           ->disableOriginalConstructor()
-           ->getMock();
+                ->disableOriginalConstructor()
+                ->getMock();
 
         $pool->expects($this->exactly(2))->method('getAdminServiceIds')->will($this->returnValue([]));
 
@@ -92,8 +92,8 @@ class EditableRolesBuilderTest extends TestCase
         $authorizationChecker->expects($this->any())->method('isGranted')->will($this->returnValue(true));
 
         $pool = $this->getMockBuilder('Sonata\AdminBundle\Admin\Pool')
-            ->disableOriginalConstructor()
-            ->getMock();
+                ->disableOriginalConstructor()
+                ->getMock();
 
         $pool->expects($this->exactly(2))->method('getInstance')->will($this->returnValue($admin));
         $pool->expects($this->exactly(2))->method('getAdminServiceIds')->will($this->returnValue(['myadmin']));
@@ -101,10 +101,10 @@ class EditableRolesBuilderTest extends TestCase
         $builder = new EditableRolesBuilder($tokenStorage, $authorizationChecker, $pool, []);
 
         $expected = [
-           'ROLE_FOO_GUEST' => 'ROLE_FOO_GUEST',
-           'ROLE_FOO_STAFF' => 'ROLE_FOO_STAFF',
-           'ROLE_FOO_EDITOR' => 'ROLE_FOO_EDITOR',
-           'ROLE_FOO_ADMIN' => 'ROLE_FOO_ADMIN',
+            'ROLE_FOO_GUEST' => 'ROLE_FOO_GUEST',
+            'ROLE_FOO_STAFF' => 'ROLE_FOO_STAFF',
+            'ROLE_FOO_EDITOR' => 'ROLE_FOO_EDITOR',
+            'ROLE_FOO_ADMIN' => 'ROLE_FOO_ADMIN',
         ];
 
         $roles = $builder->getRoles();
