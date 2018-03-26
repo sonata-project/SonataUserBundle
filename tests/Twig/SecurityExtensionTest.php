@@ -18,7 +18,10 @@ use Sonata\UserBundle\Security\RolesMatrixBuilder;
 use Sonata\UserBundle\Twig\SecurityExtension;
 use Symfony\Component\Form\FormView;
 
-class SecurityExtensionTest extends TestCase
+/**
+ * @author Silas Joisten <silasjoisten@hotmail.de>
+ */
+final class SecurityExtensionTest extends TestCase
 {
     private $rolesBuilder;
     private $environment;

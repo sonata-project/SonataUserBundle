@@ -21,7 +21,10 @@ use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SecurityRolesMatrixTypeTest extends TypeTestCase
+/**
+ * @author Silas Joisten <silasjoisten@hotmail.de>
+ */
+final class SecurityRolesMatrixTypeTest extends TypeTestCase
 {
     protected $roleBuilder;
 

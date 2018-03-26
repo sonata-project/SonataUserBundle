@@ -23,7 +23,10 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
-class RolesMatrixBuilderTest extends TestCase
+/**
+ * @author Silas Joisten <silasjoisten@hotmail.de>
+ */
+final class RolesMatrixBuilderTest extends TestCase
 {
     private $securityHandler;
     private $authorizationChecker;

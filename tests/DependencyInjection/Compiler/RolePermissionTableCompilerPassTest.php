@@ -18,7 +18,10 @@ use Sonata\UserBundle\DependencyInjection\Compiler\RolePermissionTableCompilerPa
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
-class RolePermissionTableCompilerPassTest extends TestCase
+/**
+ * @author Silas Joisten <silasjoisten@hotmail.de>
+ */
+final class RolePermissionTableCompilerPassTest extends TestCase
 {
     /**
      * @test
