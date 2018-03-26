@@ -35,7 +35,12 @@ final class RolesMatrixBuilderTest extends TestCase
     private $token;
     private $pool;
     private $translator;
-    private $securityInformation = ['GUEST' => [0 => 'VIEW', 1 => 'LIST'], 'STAFF' => [0 => 'EDIT', 1 => 'LIST', 2 => 'CREATE'], 'EDITOR' => [0 => 'OPERATOR', 1 => 'EXPORT'], 'ADMIN' => [0 => 'MASTER']];
+    private $securityInformation = [
+        'GUEST' => [0 => 'VIEW', 1 => 'LIST'],
+        'STAFF' => [0 => 'EDIT', 1 => 'LIST', 2 => 'CREATE'],
+        'EDITOR' => [0 => 'OPERATOR', 1 => 'EXPORT'],
+        'ADMIN' => [0 => 'MASTER'],
+    ];
 
     /**
      * {@inheritdoc}
@@ -71,7 +76,10 @@ final class RolesMatrixBuilderTest extends TestCase
     public function getRolesNoLabelPermissions(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('You must add this line in the configuration of Sonata Admin: "[security: handler: sonata.admin.security.handler.role]"');
+        $this->expectExceptionMessage(
+            'You must add this line in the configuration of Sonata Admin:'
+            .'"[security: handler: sonata.admin.security.handler.role]"'
+        );
 
         $this->tokenStorage
             ->expects($this->once())
@@ -207,7 +215,12 @@ final class RolesMatrixBuilderTest extends TestCase
             ],
         ];
 
-        $rolesBuilder = new RolesMatrixBuilder($this->tokenStorage, $this->authorizationChecker, $this->pool, $rolesHierarchy);
+        $rolesBuilder = new RolesMatrixBuilder(
+            $this->tokenStorage,
+            $this->authorizationChecker,
+            $this->pool,
+            $rolesHierarchy
+        );
         $this->assertSame($expected, $rolesBuilder->getCustomRolesForView());
     }
 

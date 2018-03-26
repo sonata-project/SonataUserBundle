@@ -78,9 +78,6 @@ class RolesMatrixBuilder
         $this->exclude = [];
     }
 
-    /*
-     * @param TranslatorInterface $translator
-     */
     public function setTranslator(TranslatorInterface $translator): void
     {
         $this->translator = $translator;
@@ -116,7 +113,11 @@ class RolesMatrixBuilder
         foreach ($this->rolesHierarchy as $name => $rolesHierarchy) {
             $roles['other'][$name] = $this->translateRole($name, $domain);
             if ($expanded) {
-                $result = array_map([$this, 'translateRole'], $rolesHierarchy, array_fill(0, count($rolesHierarchy), $domain));
+                $result = array_map(
+                    [$this, 'translateRole'],
+                    $rolesHierarchy,
+                    array_fill(0, count($rolesHierarchy), $domain)
+                );
                 $roles['other'][$name] .= ': '.implode(', ', $result);
             }
 
@@ -143,15 +144,15 @@ class RolesMatrixBuilder
         $roles = array_merge($roles, $permittedRoles);
 
         if (empty($this->labelPermission)) {
-            throw new \InvalidArgumentException('You must add this line in the configuration of Sonata Admin: "[security: handler: sonata.admin.security.handler.role]"');
+            throw new \InvalidArgumentException(
+                'You must add this line in the configuration of Sonata Admin:'
+                .'"[security: handler: sonata.admin.security.handler.role]"'
+            );
         }
 
         return $roles;
     }
 
-    /**
-     * @return array
-     */
     public function getCustomRolesForView(): array
     {
         $roles = [];
@@ -232,7 +233,8 @@ class RolesMatrixBuilder
 
             foreach ($groupPermission as $name => $item) {
                 $role = sprintf($baseRole, $name);
-                $roles[$baseRole]['permissions'][$name] = !$isMaster && !$this->authorizationChecker->isGranted($role);
+                $roles[$baseRole]['permissions'][$name] =
+                    !$isMaster && !$this->authorizationChecker->isGranted($role);
             }
         }
 

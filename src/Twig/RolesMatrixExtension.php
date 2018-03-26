@@ -43,9 +43,9 @@ final class RolesMatrixExtension extends \Twig_Extension
 
     public function getName(): string
     {
-        return RolesMatrixExtension::class;
+        return self::class;
     }
-    
+
     public function renderCustomRolesList(\Twig_Environment $environment, FormView $form): string
     {
         $roles = $this->rolesBuilder->getCustomRolesForView();
@@ -78,7 +78,7 @@ final class RolesMatrixExtension extends \Twig_Extension
             }
         }
 
-        return (string)$environment->render('@SonataUser/Form/roles_row.html.twig', [
+        return (string) $environment->render('@SonataUser/Form/roles_row.html.twig', [
             'roles' => $roles,
         ]);
     }

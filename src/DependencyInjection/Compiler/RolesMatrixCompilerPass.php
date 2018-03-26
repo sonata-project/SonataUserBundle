@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\DependencyInjection\Compiler;
 
+use Sonata\UserBundle\Security\RolesMatrixBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -23,12 +24,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 final class RolesMatrixCompilerPass implements CompilerPassInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container): void
     {
-        $service = $container->getDefinition('Sonata\UserBundle\Security\RolesMatrixBuilder');
+        $service = $container->getDefinition(RolesMatrixBuilder::class);
 
         foreach ($container->findTaggedServiceIds('sonata.admin') as $name => $items) {
             foreach ($items as $item) {

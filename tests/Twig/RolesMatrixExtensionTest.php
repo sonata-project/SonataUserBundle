@@ -48,7 +48,11 @@ final class RolesMatrixExtensionTest extends TestCase
      */
     public function renderCustomRolesList(): void
     {
-        $roles = ['ROLE_PARENT' => ['read_only' => false], 'ROLE_CHILD_1' => ['read_only' => false], 'ROLE_CHILD_2' => ['read_only' => false]];
+        $roles = [
+            'ROLE_PARENT' => ['read_only' => false],
+            'ROLE_CHILD_1' => ['read_only' => false],
+            'ROLE_CHILD_2' => ['read_only' => false],
+        ];
         $this->rolesBuilder
             ->expects($this->once())
             ->method('getCustomRolesForView')
