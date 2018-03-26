@@ -15,13 +15,13 @@ namespace Sonata\UserBundle\Tests\Twig;
 
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Security\RolesMatrixBuilder;
-use Sonata\UserBundle\Twig\SecurityExtension;
+use Sonata\UserBundle\Twig\RolesMatrixExtension;
 use Symfony\Component\Form\FormView;
 
 /**
  * @author Silas Joisten <silasjoisten@hotmail.de>
  */
-final class SecurityExtensionTest extends TestCase
+final class RolesMatrixExtensionTest extends TestCase
 {
     private $rolesBuilder;
     private $environment;
@@ -39,8 +39,8 @@ final class SecurityExtensionTest extends TestCase
 
     public function testGetName(): void
     {
-        $securityExtension = new SecurityExtension($this->rolesBuilder);
-        $this->assertSame('sonata_user_security_extension', $securityExtension->getName());
+        $securityExtension = new RolesMatrixExtension($this->rolesBuilder);
+        $this->assertSame(RolesMatrixExtension::class, $securityExtension->getName());
     }
 
     /**
@@ -72,7 +72,7 @@ final class SecurityExtensionTest extends TestCase
                 ],
             ]);
 
-        $securityExtension = new SecurityExtension($this->rolesBuilder);
+        $securityExtension = new RolesMatrixExtension($this->rolesBuilder);
         $securityExtension->renderCustomRolesList($this->environment, $this->formView);
     }
 
@@ -118,7 +118,7 @@ final class SecurityExtensionTest extends TestCase
                 ],
             ]);
 
-        $securityExtension = new SecurityExtension($this->rolesBuilder);
+        $securityExtension = new RolesMatrixExtension($this->rolesBuilder);
         $securityExtension->renderTable($this->environment, $this->formView);
     }
 }

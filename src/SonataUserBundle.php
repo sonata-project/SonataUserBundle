@@ -15,7 +15,7 @@ namespace Sonata\UserBundle;
 
 use Sonata\CoreBundle\Form\FormHelper;
 use Sonata\UserBundle\DependencyInjection\Compiler\GlobalVariablesCompilerPass;
-use Sonata\UserBundle\DependencyInjection\Compiler\RolePermissionTableCompilerPass;
+use Sonata\UserBundle\DependencyInjection\Compiler\RolesMatrixCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -27,7 +27,7 @@ class SonataUserBundle extends Bundle
     public function build(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new GlobalVariablesCompilerPass());
-        $container->addCompilerPass(new RolePermissionTableCompilerPass());
+        $container->addCompilerPass(new RolesMatrixCompilerPass());
 
         $this->registerFormMapping();
     }

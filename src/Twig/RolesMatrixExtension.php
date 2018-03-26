@@ -21,7 +21,7 @@ use Symfony\Component\Form\FormView;
  * @author Cengizhan Çalışkan <cengizhancaliskan@gmail.com>
  * @author Silas Joisten <silasjoisten@hotmail.de>
  */
-final class SecurityExtension extends \Twig_Extension
+final class RolesMatrixExtension extends \Twig_Extension
 {
     /**
      * @var RolesMatrixBuilder
@@ -52,7 +52,7 @@ final class SecurityExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'sonata_user_security_extension';
+        return 'Sonata\UserBundle\Twig\RolesMatrixExtension';
     }
 
     /**

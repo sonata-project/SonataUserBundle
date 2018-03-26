@@ -14,14 +14,15 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\DependencyInjection;
 
 use PHPUnit\Framework\TestCase;
-use Sonata\UserBundle\DependencyInjection\Compiler\RolePermissionTableCompilerPass;
+use Sonata\UserBundle\DependencyInjection\Compiler\RolesMatrixCompilerPass;
+use Sonata\UserBundle\Security\RolesMatrixBuilder;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
 /**
  * @author Silas Joisten <silasjoisten@hotmail.de>
  */
-final class RolePermissionTableCompilerPassTest extends TestCase
+final class RolesMatrixCompilerPassTest extends TestCase
 {
     /**
      * @test
@@ -34,7 +35,7 @@ final class RolePermissionTableCompilerPassTest extends TestCase
         $container
             ->expects($this->once())
             ->method('getDefinition')
-            ->with('sonata.user.roles_matrix_builder')
+            ->with(RolesMatrixBuilder::class)
             ->willReturn($definition);
 
         $taggedServices = [
@@ -54,7 +55,7 @@ final class RolePermissionTableCompilerPassTest extends TestCase
             ->method('addMethodCall')
             ->with('addExclude', ['sonata.admin.bar']);
 
-        $compilerPass = new RolePermissionTableCompilerPass();
+        $compilerPass = new RolesMatrixCompilerPass();
         $compilerPass->process($container);
     }
 }

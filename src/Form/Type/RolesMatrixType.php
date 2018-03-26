@@ -25,7 +25,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * @author Silas Joisten <silasjoisten@hotmail.de>
  */
-final class SecurityRolesMatrixType extends AbstractType
+final class RolesMatrixType extends AbstractType
 {
     /**
      * @var RolesMatrixBuilder
@@ -118,7 +118,7 @@ final class SecurityRolesMatrixType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'sonata_security_roles_matrix';
+        return 'sonata_roles_matrix';
     }
 
     /**

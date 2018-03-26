@@ -21,14 +21,14 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  * @author Cengizhan Çalışkan <cengizhancaliskan@gmail.com>
  * @author Silas Joisten <silasjoisten@hotmail.de>
  */
-final class RolePermissionTableCompilerPass implements CompilerPassInterface
+final class RolesMatrixCompilerPass implements CompilerPassInterface
 {
     /**
      * {@inheritdoc}
      */
     public function process(ContainerBuilder $container): void
     {
-        $service = $container->getDefinition('sonata.user.roles_matrix_builder');
+        $service = $container->getDefinition('Sonata\UserBundle\Security\RolesMatrixBuilder');
 
         foreach ($container->findTaggedServiceIds('sonata.admin') as $name => $items) {
             foreach ($items as $item) {

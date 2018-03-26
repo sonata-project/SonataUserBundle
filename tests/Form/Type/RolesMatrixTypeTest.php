@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Form\Type;
 
-use Sonata\UserBundle\Form\Type\SecurityRolesMatrixType;
+use Sonata\UserBundle\Form\Type\RolesMatrixType;
 use Sonata\UserBundle\Security\RolesMatrixBuilder;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormTypeInterface;
@@ -24,13 +24,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * @author Silas Joisten <silasjoisten@hotmail.de>
  */
-final class SecurityRolesMatrixTypeTest extends TypeTestCase
+final class RolesMatrixTypeTest extends TypeTestCase
 {
     protected $roleBuilder;
 
     public function testGetDefaultOptions(): void
     {
-        $type = new SecurityRolesMatrixType($this->roleBuilder);
+        $type = new RolesMatrixType($this->roleBuilder);
 
         $optionResolver = new OptionsResolver();
         $type->configureOptions($optionResolver);
@@ -45,14 +45,14 @@ final class SecurityRolesMatrixTypeTest extends TypeTestCase
 
     public function testGetParent(): void
     {
-        $type = new SecurityRolesMatrixType($this->roleBuilder);
+        $type = new RolesMatrixType($this->roleBuilder);
 
         $this->assertEquals(ChoiceType::class, $type->getParent());
     }
 
     public function testSubmitValidData(): void
     {
-        $form = $this->factory->create($this->getSecurityRolesTypeName(), null, [
+        $form = $this->factory->create(RolesMatrixType::class, null, [
             'multiple' => true,
             'expanded' => true,
             'required' => false,
@@ -67,7 +67,7 @@ final class SecurityRolesMatrixTypeTest extends TypeTestCase
 
     public function testSubmitInvalidData(): void
     {
-        $form = $this->factory->create($this->getSecurityRolesTypeName(), null, [
+        $form = $this->factory->create(RolesMatrixType::class, null, [
             'multiple' => true,
             'expanded' => true,
             'required' => false,
@@ -82,7 +82,7 @@ final class SecurityRolesMatrixTypeTest extends TypeTestCase
     public function testChoicesAsValues(): void
     {
         $resolver = new OptionsResolver();
-        $type = new SecurityRolesMatrixType($this->roleBuilder);
+        $type = new RolesMatrixType($this->roleBuilder);
 
         // If 'choices_as_values' option is not defined (Symfony >= 3.0), default value should not be set.
         $type->configureOptions($resolver);
@@ -106,15 +106,10 @@ final class SecurityRolesMatrixTypeTest extends TypeTestCase
           'ROLE_ADMIN' => 'ROLE_ADMIN: ROLE_USER',
         ]));
 
-        $childType = new SecurityRolesMatrixType($this->roleBuilder);
+        $childType = new RolesMatrixType($this->roleBuilder);
 
         return [new PreloadedExtension([
           $childType->getName() => $childType,
         ], [])];
-    }
-
-    private function getSecurityRolesTypeName()
-    {
-        return 'Sonata\UserBundle\Form\Type\SecurityRolesMatrixType';
     }
 }
