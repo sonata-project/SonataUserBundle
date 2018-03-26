@@ -18,6 +18,9 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
+/**
+ * @author Silas Joisten <silasjoisten@hotmail.de>
+ */
 class RolesMatrixBuilder
 {
     /**
