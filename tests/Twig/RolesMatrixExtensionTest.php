@@ -39,8 +39,8 @@ final class RolesMatrixExtensionTest extends TestCase
 
     public function testGetName(): void
     {
-        $roleMatrixExtension = new RolesMatrixExtension($this->rolesBuilder);
-        $this->assertSame(RolesMatrixExtension::class, $roleMatrixExtension->getName());
+        $rolesMatrixExtension = new RolesMatrixExtension($this->rolesBuilder);
+        $this->assertSame(RolesMatrixExtension::class, $rolesMatrixExtension->getName());
     }
 
     /**
@@ -76,8 +76,8 @@ final class RolesMatrixExtensionTest extends TestCase
                 ],
             ]);
 
-        $roleMatrixExtension = new RolesMatrixExtension($this->rolesBuilder);
-        $roleMatrixExtension->renderCustomRolesList($this->environment, $this->formView);
+        $rolesMatrixExtension = new RolesMatrixExtension($this->rolesBuilder);
+        $rolesMatrixExtension->renderCustomRolesList($this->environment, $this->formView);
     }
 
     /**
@@ -122,7 +122,7 @@ final class RolesMatrixExtensionTest extends TestCase
                 ],
             ]);
 
-        $roleMatrixExtension = new RolesMatrixExtension($this->rolesBuilder);
-        $roleMatrixExtension->renderMatrix($this->environment, $this->formView);
+        $rolesMatrixExtension = new RolesMatrixExtension($this->rolesBuilder);
+        $rolesMatrixExtension->renderMatrix($this->environment, $this->formView);
     }
 }
