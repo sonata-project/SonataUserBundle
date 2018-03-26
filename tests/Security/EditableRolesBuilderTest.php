@@ -14,271 +14,123 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\Security\Authorization\Voter;
 
 use PHPUnit\Framework\TestCase;
-use Sonata\AdminBundle\Admin\AdminInterface;
-use Sonata\AdminBundle\Admin\Pool;
-use Sonata\AdminBundle\Security\Handler\SecurityHandlerInterface;
 use Sonata\UserBundle\Security\EditableRolesBuilder;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Translation\TranslatorInterface;
 
 class EditableRolesBuilderTest extends TestCase
 {
-    private $securityHandler;
-    private $authorizationChecker;
-    private $admin;
-    private $tokenStorage;
-    private $token;
-    private $pool;
-    private $translator;
-    private $securityInformation = ['GUEST' => [0 => 'VIEW', 1 => 'LIST'], 'STAFF' => [0 => 'EDIT', 1 => 'LIST', 2 => 'CREATE'], 'EDITOR' => [0 => 'OPERATOR', 1 => 'EXPORT'], 'ADMIN' => [0 => 'MASTER']];
-
     /**
-     * {@inheritdoc}
+     * @group legacy
      */
-    public function setUp(): void
+    public function testRolesFromHierarchy(): void
     {
-        $this->securityHandler = $this->createMock(SecurityHandlerInterface::class);
-        $this->authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
-        $this->admin = $this->createMock(AdminInterface::class);
-        $this->tokenStorage = $this->createMock(TokenStorageInterface::class);
-        $this->token = $this->createMock(TokenInterface::class);
-        $this->pool = $this->createMock(Pool::class);
-        $this->translator = $this->createMock(TranslatorInterface::class);
-    }
+        $token = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
 
-    /**
-     * @test
-     */
-    public function getAllRolesNoToken(): void
-    {
-        $this->tokenStorage
-            ->expects($this->once())
-            ->method('getToken')
-            ->willReturn([]);
+        $tokenStorage = $this->createMock(TokenStorageInterface::class);
+        $tokenStorage->expects($this->any())->method('getToken')->will($this->returnValue($token));
 
-        $rolesBuilder = new EditableRolesBuilder($this->tokenStorage, $this->authorizationChecker, $this->pool);
-        $this->assertEmpty($rolesBuilder->getAllRoles());
-    }
+        $authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
+        $authorizationChecker->expects($this->any())->method('isGranted')->will($this->returnValue(true));
 
-    /**
-     * @test
-     */
-    public function getAllRolesNoLabelPermissions(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('You must add this line in the configuration of Sonata Admin: "[security: handler: sonata.admin.security.handler.role]"');
+        $pool = $this->getMockBuilder('Sonata\AdminBundle\Admin\Pool')
+            ->disableOriginalConstructor()
+            ->getMock();
 
-        $this->tokenStorage
-            ->expects($this->once())
-            ->method('getToken')
-            ->willReturn($this->token);
-
-        $this->authorizationChecker
-            ->method('isGranted')
-            ->willReturn(true);
-
-        $this->translator
-            ->method('trans')
-            ->willReturn('Foo Admin Translated');
-
-        $this->securityHandler
-            ->method('getBaseRole')
-            ->willReturn('ROLE_SONATA_ADMIN_FOO_%s');
-
-        $this->admin
-            ->method('isGranted')
-            ->willReturn(true);
-
-        $this->admin
-            ->method('getTranslator')
-            ->willReturn($this->translator);
-
-        $this->admin
-            ->method('getSecurityHandler')
-            ->willReturn($this->securityHandler);
-
-        $this->admin
-            ->method('getSecurityInformation')
-            ->willReturn([]);
-
-        $this->pool
-            ->method('getAdminServiceIds')
-            ->willReturn(['sonata.admin.foo']);
-
-        $this->pool
-            ->method('getInstance')
-            ->with('sonata.admin.foo')
-            ->willReturn($this->admin);
-
-        $rolesBuilder = new EditableRolesBuilder($this->tokenStorage, $this->authorizationChecker, $this->pool);
-        $rolesBuilder->getAllRoles();
-    }
-
-    /**
-     * @test
-     */
-    public function getAllRoles(): void
-    {
-        $this->tokenStorage
-            ->expects($this->once())
-            ->method('getToken')
-            ->willReturn($this->token);
-
-        $this->translator
-            ->method('trans')
-            ->with('Foo Admin')
-            ->willReturn('Foo Admin Translated');
-
-        $this->authorizationChecker
-            ->method('isGranted')
-            ->willReturn(true);
-
-        $this->securityHandler
-            ->method('getBaseRole')
-            ->willReturn('ROLE_SONATA_ADMIN_FOO_%s');
-
-        $this->admin
-            ->method('isGranted')
-            ->willReturn(true);
-
-        $this->admin
-            ->method('getSecurityHandler')
-            ->willReturn($this->securityHandler);
-
-        $this->admin
-            ->method('getLabel')
-            ->willReturn('Foo Admin');
-
-        $this->admin
-            ->method('getTranslator')
-            ->willReturn($this->translator);
-
-        $this->admin
-            ->method('getSecurityInformation')
-            ->willReturn($this->securityInformation);
-
-        $this->pool
-            ->method('getAdminServiceIds')
-            ->willReturn(['sonata.admin.foo']);
-
-        $this->pool
-            ->method('getInstance')
-            ->with('sonata.admin.foo')
-            ->willReturn($this->admin);
-
-        $expected = [
-            'ROLE_SONATA_ADMIN_FOO_GUEST' => 'ROLE_SONATA_ADMIN_FOO_GUEST',
-            'ROLE_SONATA_ADMIN_FOO_STAFF' => 'ROLE_SONATA_ADMIN_FOO_STAFF',
-            'ROLE_SONATA_ADMIN_FOO_EDITOR' => 'ROLE_SONATA_ADMIN_FOO_EDITOR',
-            'ROLE_SONATA_ADMIN_FOO_ADMIN' => 'ROLE_SONATA_ADMIN_FOO_ADMIN',
-            'other' => [
-                'ROLE_ADMIN' => 'ROLE_ADMIN',
-            ],
-        ];
-
-        $rolesBuilder = new EditableRolesBuilder($this->tokenStorage, $this->authorizationChecker, $this->pool);
-        $this->assertSame($expected, $rolesBuilder->getAllRoles());
-    }
-
-    /**
-     * @test
-     */
-    public function getCustomRolesForView(): void
-    {
-        $this->authorizationChecker
-            ->method('isGranted')
-            ->willReturn(true);
-
-        $expected = [
-            'ROLE_PARENT' => ['read_only' => false],
-            'ROLE_CHILD_1' => ['read_only' => false],
-            'ROLE_CHILD_2' => ['read_only' => false],
-        ];
+        $pool->expects($this->exactly(2))->method('getAdminServiceIds')->will($this->returnValue([]));
 
         $rolesHierarchy = [
-            'ROLE_PARENT' => [
-                'ROLE_CHILD_1' => 'ROLE_CHILD_1',
-                'ROLE_CHILD_2' => 'ROLE_CHILD_2',
+            'ROLE_ADMIN' => [
+                0 => 'ROLE_USER',
             ],
+            'ROLE_SUPER_ADMIN' => [
+                0 => 'ROLE_USER',
+                1 => 'ROLE_SONATA_ADMIN',
+                2 => 'ROLE_ADMIN',
+                3 => 'ROLE_ALLOWED_TO_SWITCH',
+                4 => 'ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT',
+                5 => 'ROLE_SONATA_PAGE_ADMIN_BLOCK_EDIT',
+            ],
+            'SONATA' => [],
         ];
-
-        $rolesBuilder = new EditableRolesBuilder($this->tokenStorage, $this->authorizationChecker, $this->pool, $rolesHierarchy);
-        $this->assertSame($expected, $rolesBuilder->getCustomRolesForView());
-    }
-
-    /**
-     * @test
-     */
-    public function getAddExclude(): void
-    {
-        $rolesBuilder = new EditableRolesBuilder($this->tokenStorage, $this->authorizationChecker, $this->pool);
-        $rolesBuilder->addExclude('sonata.admin.bar');
-
-        $this->assertSame(['sonata.admin.bar'], $rolesBuilder->getExclude());
-    }
-
-    /**
-     * @test
-     */
-    public function getAdminRolesForView(): void
-    {
-        $this->authorizationChecker
-            ->method('isGranted')
-            ->willReturn(true);
-
-        $this->translator
-            ->method('trans')
-            ->with('Foo Admin')
-            ->willReturn('Foo Admin Translated');
-
-        $this->securityHandler
-            ->method('getBaseRole')
-            ->willReturn('ROLE_SONATA_ADMIN_FOO_%s');
-
-        $this->admin
-            ->method('isGranted')
-            ->willReturn(true);
-
-        $this->admin
-            ->method('getSecurityHandler')
-            ->willReturn($this->securityHandler);
-
-        $this->admin
-            ->method('getTranslator')
-            ->willReturn($this->translator);
-
-        $this->admin
-            ->method('getLabel')
-            ->willReturn('Foo Admin');
-
-        $this->admin
-            ->method('getSecurityInformation')
-            ->willReturn($this->securityInformation);
-
-        $this->pool
-            ->method('getAdminServiceIds')
-            ->willReturn(['sonata.admin.foo']);
-
-        $this->pool
-            ->method('getInstance')
-            ->with('sonata.admin.foo')
-            ->willReturn($this->admin);
 
         $expected = [
-            'ROLE_SONATA_ADMIN_FOO_%s' => [
-                'label' => 'Foo Admin Translated',
-                'permissions' => [
-                    'GUEST' => false,
-                    'STAFF' => false,
-                    'EDITOR' => false,
-                    'ADMIN' => false,
-                ],
-            ],
+            'ROLE_ADMIN' => 'ROLE_ADMIN: ROLE_USER',
+            'ROLE_USER' => 'ROLE_USER',
+            'ROLE_SUPER_ADMIN' => 'ROLE_SUPER_ADMIN: ROLE_USER, ROLE_SONATA_ADMIN, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH, ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT, ROLE_SONATA_PAGE_ADMIN_BLOCK_EDIT',
+            'ROLE_SONATA_ADMIN' => 'ROLE_SONATA_ADMIN',
+            'ROLE_ALLOWED_TO_SWITCH' => 'ROLE_ALLOWED_TO_SWITCH',
+            'ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT' => 'ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT',
+            'ROLE_SONATA_PAGE_ADMIN_BLOCK_EDIT' => 'ROLE_SONATA_PAGE_ADMIN_BLOCK_EDIT',
+            'SONATA' => 'SONATA: ',
         ];
 
-        $rolesBuilder = new EditableRolesBuilder($this->tokenStorage, $this->authorizationChecker, $this->pool);
-        $this->assertSame($expected, $rolesBuilder->getAdminRolesForView());
+        $builder = new EditableRolesBuilder($tokenStorage, $authorizationChecker, $pool, $rolesHierarchy);
+        $roles = $builder->getRoles();
+        $rolesReadOnly = $builder->getRolesReadOnly();
+
+        $this->assertEmpty($rolesReadOnly);
+        $this->assertEquals($expected, $roles);
+    }
+
+    public function testRolesFromAdminWithMasterAdmin(): void
+    {
+        $securityHandler = $this->createMock('Sonata\AdminBundle\Security\Handler\SecurityHandlerInterface');
+        $securityHandler->expects($this->exactly(2))->method('getBaseRole')->will($this->returnValue('ROLE_FOO_%s'));
+
+        $admin = $this->createMock('Sonata\AdminBundle\Admin\AdminInterface');
+        $admin->expects($this->exactly(2))->method('isGranted')->will($this->returnValue(true));
+        $admin->expects($this->exactly(2))->method('getSecurityInformation')->will($this->returnValue(['GUEST' => [0 => 'VIEW', 1 => 'LIST'], 'STAFF' => [0 => 'EDIT', 1 => 'LIST', 2 => 'CREATE'], 'EDITOR' => [0 => 'OPERATOR', 1 => 'EXPORT'], 'ADMIN' => [0 => 'MASTER']]));
+        $admin->expects($this->exactly(2))->method('getSecurityHandler')->will($this->returnValue($securityHandler));
+
+        $token = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
+
+        $tokenStorage = $this->createMock(TokenStorageInterface::class);
+        $tokenStorage->expects($this->any())->method('getToken')->will($this->returnValue($token));
+
+        $authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
+        $authorizationChecker->expects($this->any())->method('isGranted')->will($this->returnValue(true));
+
+        $pool = $this->getMockBuilder('Sonata\AdminBundle\Admin\Pool')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $pool->expects($this->exactly(2))->method('getInstance')->will($this->returnValue($admin));
+        $pool->expects($this->exactly(2))->method('getAdminServiceIds')->will($this->returnValue(['myadmin']));
+
+        $builder = new EditableRolesBuilder($tokenStorage, $authorizationChecker, $pool, []);
+
+        $expected = [
+            'ROLE_FOO_GUEST' => 'ROLE_FOO_GUEST',
+            'ROLE_FOO_STAFF' => 'ROLE_FOO_STAFF',
+            'ROLE_FOO_EDITOR' => 'ROLE_FOO_EDITOR',
+            'ROLE_FOO_ADMIN' => 'ROLE_FOO_ADMIN',
+        ];
+
+        $roles = $builder->getRoles();
+        $rolesReadOnly = $builder->getRolesReadOnly();
+        $this->assertEmpty($rolesReadOnly);
+        $this->assertEquals($expected, $roles);
+    }
+
+    public function testWithNoSecurityToken(): void
+    {
+        $tokenStorage = $this->createMock(TokenStorageInterface::class);
+        $tokenStorage->expects($this->any())->method('getToken')->will($this->returnValue(null));
+
+        $authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
+        $authorizationChecker->expects($this->any())->method('isGranted')->will($this->returnValue(false));
+
+        $pool = $this->getMockBuilder('Sonata\AdminBundle\Admin\Pool')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $builder = new EditableRolesBuilder($tokenStorage, $authorizationChecker, $pool, []);
+
+        $roles = $builder->getRoles();
+        $rolesReadOnly = $builder->getRolesReadOnly();
+
+        $this->assertEmpty($roles);
+        $this->assertEmpty($rolesReadOnly);
     }
 }

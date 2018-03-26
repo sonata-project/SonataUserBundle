@@ -14,13 +14,10 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\Twig;
 
 use PHPUnit\Framework\TestCase;
-use Sonata\UserBundle\Security\EditableRolesBuilder;
+use Sonata\UserBundle\Security\RolesMatrixBuilder;
 use Sonata\UserBundle\Twig\SecurityExtension;
 use Symfony\Component\Form\FormView;
 
-/**
- * @group foo
- */
 class SecurityExtensionTest extends TestCase
 {
     private $rolesBuilder;
@@ -32,7 +29,7 @@ class SecurityExtensionTest extends TestCase
      */
     public function setUp(): void
     {
-        $this->rolesBuilder = $this->createMock(EditableRolesBuilder::class);
+        $this->rolesBuilder = $this->createMock(RolesMatrixBuilder::class);
         $this->environment = $this->createMock(\Twig_Environment::class);
         $this->formView = $this->createMock(FormView::class);
     }

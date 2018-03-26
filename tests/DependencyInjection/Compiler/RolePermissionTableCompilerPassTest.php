@@ -31,7 +31,7 @@ class RolePermissionTableCompilerPassTest extends TestCase
         $container
             ->expects($this->once())
             ->method('getDefinition')
-            ->with('sonata.user.editable_role_builder')
+            ->with('sonata.user.roles_matrix_builder')
             ->willReturn($definition);
 
         $taggedServices = [
