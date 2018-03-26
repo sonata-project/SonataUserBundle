@@ -28,40 +28,25 @@ final class RolesMatrixExtension extends \Twig_Extension
      */
     private $rolesBuilder;
 
-    /**
-     * @param RolesMatrixBuilder $rolesBuilder
-     */
     public function __construct(RolesMatrixBuilder $rolesBuilder)
     {
         $this->rolesBuilder = $rolesBuilder;
     }
 
-    /**
-     * @return array
-     */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
-            new \Twig_SimpleFunction('renderTable', [$this, 'renderTable'], ['needs_environment' => true]),
+            new \Twig_SimpleFunction('renderMatrix', [$this, 'renderMatrix'], ['needs_environment' => true]),
             new \Twig_SimpleFunction('renderCustomRolesList', [$this, 'renderCustomRolesList'], ['needs_environment' => true]),
         ];
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
-        return 'Sonata\UserBundle\Twig\RolesMatrixExtension';
+        return RolesMatrixExtension::class;
     }
-
-    /**
-     * @param \Twig_Environment $environment
-     * @param FormView          $form
-     *
-     * @return string
-     */
-    public function renderCustomRolesList(\Twig_Environment $environment, FormView $form)
+    
+    public function renderCustomRolesList(\Twig_Environment $environment, FormView $form): string
     {
         $roles = $this->rolesBuilder->getCustomRolesForView();
         foreach ($roles as $mainRole => $attributes) {
@@ -75,18 +60,12 @@ final class RolesMatrixExtension extends \Twig_Extension
             }
         }
 
-        return $environment->render('@SonataUser/Form/roles_list.html.twig', [
+        return (string) $environment->render('@SonataUser/Form/roles_list.html.twig', [
             'roles' => $roles,
         ]);
     }
 
-    /**
-     * @param \Twig_Environment $environment
-     * @param FormView          $form
-     *
-     * @return string
-     */
-    public function renderTable(\Twig_Environment $environment, FormView $form)
+    public function renderMatrix(\Twig_Environment $environment, FormView $form): string
     {
         $roles = $this->rolesBuilder->getAdminRolesForView();
         foreach ($roles as $baseRole => $attributes) {
@@ -99,7 +78,7 @@ final class RolesMatrixExtension extends \Twig_Extension
             }
         }
 
-        return $environment->render('@SonataUser/Form/roles_row.html.twig', [
+        return (string)$environment->render('@SonataUser/Form/roles_row.html.twig', [
             'roles' => $roles,
         ]);
     }

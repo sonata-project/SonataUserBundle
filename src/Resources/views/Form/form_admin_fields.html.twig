@@ -1,13 +1,13 @@
 {#
  
- This file is part of the Sonata package.
+This file is part of the Sonata package.
  
- (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
  
- For the full copyright and license information, please view the LICENSE
- file that was distributed with this source code.
- 
- #}
+#}
 {% block sonata_security_roles_widget %}
 {% spaceless %}
     <div class="editable">
@@ -39,7 +39,7 @@
         </tr>
         </thead>
         <tbody>
-        {{ renderTable(form)|raw }}
+        {{ renderMatrix(form)|raw }}
         </tbody>
     </table>
     <ul class="list-unstyled">

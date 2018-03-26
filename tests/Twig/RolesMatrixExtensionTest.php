@@ -39,8 +39,8 @@ final class RolesMatrixExtensionTest extends TestCase
 
     public function testGetName(): void
     {
-        $securityExtension = new RolesMatrixExtension($this->rolesBuilder);
-        $this->assertSame(RolesMatrixExtension::class, $securityExtension->getName());
+        $roleMatrixExtension = new RolesMatrixExtension($this->rolesBuilder);
+        $this->assertSame(RolesMatrixExtension::class, $roleMatrixExtension->getName());
     }
 
     /**
@@ -72,14 +72,14 @@ final class RolesMatrixExtensionTest extends TestCase
                 ],
             ]);
 
-        $securityExtension = new RolesMatrixExtension($this->rolesBuilder);
-        $securityExtension->renderCustomRolesList($this->environment, $this->formView);
+        $roleMatrixExtension = new RolesMatrixExtension($this->rolesBuilder);
+        $roleMatrixExtension->renderCustomRolesList($this->environment, $this->formView);
     }
 
     /**
      * @test
      */
-    public function renderTable(): void
+    public function renderMatrix(): void
     {
         $roles = [
             'ROLE_SONATA_ADMIN_FOO_%s' => [
@@ -118,7 +118,7 @@ final class RolesMatrixExtensionTest extends TestCase
                 ],
             ]);
 
-        $securityExtension = new RolesMatrixExtension($this->rolesBuilder);
-        $securityExtension->renderTable($this->environment, $this->formView);
+        $roleMatrixExtension = new RolesMatrixExtension($this->rolesBuilder);
+        $roleMatrixExtension->renderMatrix($this->environment, $this->formView);
     }
 }

@@ -63,14 +63,12 @@ class RolesMatrixBuilder
      */
     private $exclude;
 
-    /**
-     * @param TokenStorageInterface         $tokenStorage
-     * @param AuthorizationCheckerInterface $authorizationChecker
-     * @param Pool                          $pool
-     * @param array                         $rolesHierarchy
-     */
-    public function __construct(TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authorizationChecker, Pool $pool, array $rolesHierarchy = [])
-    {
+    public function __construct(
+        TokenStorageInterface $tokenStorage,
+        AuthorizationCheckerInterface $authorizationChecker,
+        Pool $pool,
+        array $rolesHierarchy = []
+    ) {
         $this->tokenStorage = $tokenStorage;
         $this->authorizationChecker = $authorizationChecker;
         $this->pool = $pool;
@@ -90,11 +88,8 @@ class RolesMatrixBuilder
 
     /**
      * @param string|bool|null $domain
-     * @param bool             $expanded
-     *
-     * @return array
      */
-    public function getRoles($domain = false, $expanded = true)
+    public function getRoles($domain = false, bool $expanded = true): array
     {
         $roles = [];
 
@@ -182,41 +177,26 @@ class RolesMatrixBuilder
         return $roles;
     }
 
-    /**
-     * @return array
-     */
-    final public function getExclude()
+    final public function getExclude(): array
     {
         return $this->exclude;
     }
 
-    /**
-     * @param string $exclude
-     */
-    final public function addExclude($exclude): void
+    final public function addExclude(string $exclude): void
     {
         $this->exclude[] = $exclude;
     }
 
-    /**
-     * @return array
-     */
-    final public function getLabelPermission()
+    final public function getLabelPermission(): array
     {
         return $this->labelPermission;
     }
 
-    /**
-     * @return array
-     */
-    final public function getLabelAdmin()
+    final public function getLabelAdmin(): array
     {
         return $this->labelAdmin;
     }
 
-    /**
-     * @return array
-     */
     public function getAdminRolesForView(): array
     {
         $roles = [];
@@ -259,9 +239,6 @@ class RolesMatrixBuilder
         return $roles;
     }
 
-    /**
-     * @param callable $func
-     */
     private function iterateAdminRoles(callable $func): void
     {
         // get roles from the Admin classes
@@ -299,13 +276,7 @@ class RolesMatrixBuilder
         }
     }
 
-    /*
-     * @param string $role
-     * @param string|bool|null $domain
-     *
-     * @return string
-     */
-    private function translateRole($role, $domain)
+    private function translateRole(string $role, $domain): string
     {
         // translation domain is false, do not translate it,
         // null is fallback to message domain
@@ -316,13 +287,7 @@ class RolesMatrixBuilder
         return $this->translator->trans($role, [], $domain);
     }
 
-    /**
-     * @param string $role
-     * @param array  $roles
-     *
-     * @return bool
-     */
-    private function recursiveArraySearch($role, array $roles)
+    private function recursiveArraySearch(string $role, array $roles): bool
     {
         foreach ($roles as $key => $value) {
             if ($role === $key || (is_array($value) && true === $this->recursiveArraySearch($role, $value))) {
