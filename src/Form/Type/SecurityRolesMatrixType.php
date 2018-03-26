@@ -22,6 +22,9 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @author Silas Joisten <silasjoisten@hotmail.de>
+ */
 class SecurityRolesMatrixType extends AbstractType
 {
     /**
