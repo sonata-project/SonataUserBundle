@@ -15,7 +15,6 @@ namespace Sonata\UserBundle\Tests\DependencyInjection;
 
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\DependencyInjection\Compiler\RolesMatrixCompilerPass;
-use Sonata\UserBundle\Security\RolesMatrixBuilder;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
@@ -35,7 +34,7 @@ final class RolesMatrixCompilerPassTest extends TestCase
         $container
             ->expects($this->once())
             ->method('getDefinition')
-            ->with(RolesMatrixBuilder::class)
+            ->with('sonata.user.roles_matrix_builder')
             ->willReturn($definition);
 
         $taggedServices = [

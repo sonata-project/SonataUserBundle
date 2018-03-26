@@ -4,7 +4,7 @@ Roles Matrix
 Configuration
 -------------
 
-The type of form ``Sonata\UserBundle\Form\Type\RolesMatrixType``was built to show all roles in matrix.
+The type of form ``Sonata\UserBundle\Form\Type\RolesMatrixType`` was built to show all roles in matrix.
 Every admin has a few defined default roles like:
 
     - EDIT
