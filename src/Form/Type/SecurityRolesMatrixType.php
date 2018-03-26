@@ -13,59 +13,28 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Form\Type;
 
-use Sonata\UserBundle\Form\Transformer\RestoreRolesTransformer;
-use Sonata\UserBundle\Security\EditableRolesBuilder;
+use Sonata\UserBundle\Security\RolesMatrixBuilder;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SecurityRolesType extends AbstractType
+class SecurityRolesMatrixType extends AbstractType
 {
     /**
-     * @var EditableRolesBuilder
+     * @var RolesMatrixBuilder
      */
     protected $rolesBuilder;
 
     /**
-     * @param EditableRolesBuilder $rolesBuilder
+     * @param RolesMatrixBuilder $rolesBuilder
      */
-    public function __construct(EditableRolesBuilder $rolesBuilder)
+    public function __construct(RolesMatrixBuilder $rolesBuilder)
     {
         $this->rolesBuilder = $rolesBuilder;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $formBuilder, array $options): void
-    {
-        /*
-         * The form shows only roles that the current user can edit for the targeted user. Now we still need to persist
-         * all other roles. It is not possible to alter those values inside an event listener as the selected
-         * key will be validated. So we use a Transformer to alter the value and an listener to catch the original values
-         *
-         * The transformer will then append non editable roles to the user ...
-         */
-        $transformer = new RestoreRolesTransformer($this->rolesBuilder);
-
-        // GET METHOD
-        $formBuilder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($transformer): void {
-            $transformer->setOriginalRoles($event->getData());
-        });
-
-        // POST METHOD
-        $formBuilder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) use ($transformer): void {
-            $transformer->setOriginalRoles($event->getForm()->getData());
-        });
-
-        $formBuilder->addModelTransformer($transformer);
     }
 
     /**
@@ -82,7 +51,7 @@ class SecurityRolesType extends AbstractType
         $view->vars['choice_translation_domain'] = false; // RolesBuilder all ready does translate them
 
         $view->vars['attr'] = $attr;
-        $view->vars['read_only_choices'] = $options['read_only_choices'];
+        $view->vars['label_permission'] = $this->rolesBuilder->getLabelPermission();
     }
 
     /**
@@ -98,17 +67,8 @@ class SecurityRolesType extends AbstractType
                 if (!empty($parentChoices)) {
                     return [];
                 }
-                $roles = $this->rolesBuilder->getRoles($options['choice_translation_domain'], $options['expanded']);
 
-                return array_flip($roles);
-            },
-
-            'read_only_choices' => function (Options $options) {
-                if (!empty($options['choices'])) {
-                    return [];
-                }
-
-                return $this->rolesBuilder->getRolesReadOnly($options['choice_translation_domain']);
+                return $this->rolesBuilder->getAllRoles($options['choice_translation_domain'], $options['expanded']);
             },
 
             'choice_translation_domain' => function (Options $options, $value) {
@@ -155,7 +115,7 @@ class SecurityRolesType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'sonata_security_roles';
+        return 'sonata_security_roles_matrix';
     }
 
     /**

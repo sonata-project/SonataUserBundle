@@ -28,7 +28,7 @@ final class RolePermissionTableCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container): void
     {
-        $service = $container->getDefinition('sonata.user.editable_role_builder');
+        $service = $container->getDefinition('sonata.user.roles_matrix_builder');
 
         foreach ($container->findTaggedServiceIds('sonata.admin') as $name => $items) {
             foreach ($items as $item) {

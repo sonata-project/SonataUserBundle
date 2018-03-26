@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Twig;
 
-use Sonata\UserBundle\Security\EditableRolesBuilder;
+use Sonata\UserBundle\Security\RolesMatrixBuilder;
 use Symfony\Component\Form\FormView;
 
 /**
@@ -24,14 +24,14 @@ use Symfony\Component\Form\FormView;
 final class SecurityExtension extends \Twig_Extension
 {
     /**
-     * @var EditableRolesBuilder
+     * @var RolesMatrixBuilder
      */
     private $rolesBuilder;
 
     /**
-     * @param EditableRolesBuilder $rolesBuilder
+     * @param RolesMatrixBuilder $rolesBuilder
      */
-    public function __construct(EditableRolesBuilder $rolesBuilder)
+    public function __construct(RolesMatrixBuilder $rolesBuilder)
     {
         $this->rolesBuilder = $rolesBuilder;
     }
