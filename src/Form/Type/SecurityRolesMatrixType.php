@@ -25,7 +25,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * @author Silas Joisten <silasjoisten@hotmail.de>
  */
-class SecurityRolesMatrixType extends AbstractType
+final class SecurityRolesMatrixType extends AbstractType
 {
     /**
      * @var RolesMatrixBuilder
