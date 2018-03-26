@@ -36,8 +36,16 @@ final class RolesMatrixExtension extends \Twig_Extension
     public function getFunctions(): array
     {
         return [
-            new \Twig_SimpleFunction('renderMatrix', [$this, 'renderMatrix'], ['needs_environment' => true]),
-            new \Twig_SimpleFunction('renderCustomRolesList', [$this, 'renderCustomRolesList'], ['needs_environment' => true]),
+            new \Twig_SimpleFunction(
+                'renderMatrix',
+                [$this, 'renderMatrix'],
+                ['needs_environment' => true]
+            ),
+            new \Twig_SimpleFunction(
+                'renderCustomRolesList',
+                [$this, 'renderCustomRolesList'],
+                ['needs_environment' => true]
+            ),
         ];
     }
 
