@@ -96,7 +96,7 @@ final class RolesMatrixTypeTest extends TypeTestCase
         $this->assertTrue($options['choices_as_values']);
     }
 
-    private function getExtensions()
+    protected function getExtensions()
     {
         $this->roleBuilder = $roleBuilder = $this->createMock(RolesMatrixBuilder::class);
 
