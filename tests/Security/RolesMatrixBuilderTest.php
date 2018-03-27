@@ -42,9 +42,6 @@ final class RolesMatrixBuilderTest extends TestCase
         'ADMIN' => [0 => 'MASTER'],
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     public function setUp(): void
     {
         $this->securityHandler = $this->createMock(SecurityHandlerInterface::class);
@@ -56,10 +53,7 @@ final class RolesMatrixBuilderTest extends TestCase
         $this->translator = $this->createMock(TranslatorInterface::class);
     }
 
-    /**
-     * @test
-     */
-    public function getRolesNoToken(): void
+    public function testGetRolesNoToken(): void
     {
         $this->tokenStorage
             ->expects($this->once())
@@ -70,10 +64,7 @@ final class RolesMatrixBuilderTest extends TestCase
         $this->assertEmpty($rolesBuilder->getRoles());
     }
 
-    /**
-     * @test
-     */
-    public function getRolesNoLabelPermissions(): void
+    public function testGetRolesNoLabelPermissions(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
@@ -127,10 +118,7 @@ final class RolesMatrixBuilderTest extends TestCase
         $rolesBuilder->getRoles();
     }
 
-    /**
-     * @test
-     */
-    public function getRoles(): void
+    public function testGetRoles(): void
     {
         $this->tokenStorage
             ->expects($this->once())
@@ -193,10 +181,7 @@ final class RolesMatrixBuilderTest extends TestCase
         $this->assertSame($expected, $rolesBuilder->getRoles());
     }
 
-    /**
-     * @test
-     */
-    public function getCustomRolesForView(): void
+    public function testGetCustomRolesForView(): void
     {
         $this->authorizationChecker
             ->method('isGranted')
@@ -224,10 +209,7 @@ final class RolesMatrixBuilderTest extends TestCase
         $this->assertSame($expected, $rolesBuilder->getCustomRolesForView());
     }
 
-    /**
-     * @test
-     */
-    public function getAddExclude(): void
+    public function testGetAddExclude(): void
     {
         $rolesBuilder = new RolesMatrixBuilder($this->tokenStorage, $this->authorizationChecker, $this->pool);
         $rolesBuilder->addExclude('sonata.admin.bar');
@@ -235,10 +217,7 @@ final class RolesMatrixBuilderTest extends TestCase
         $this->assertSame(['sonata.admin.bar'], $rolesBuilder->getExclude());
     }
 
-    /**
-     * @test
-     */
-    public function getAdminRolesForView(): void
+    public function testGetAdminRolesForView(): void
     {
         $this->authorizationChecker
             ->method('isGranted')
