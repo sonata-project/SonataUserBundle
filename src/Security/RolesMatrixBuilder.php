@@ -26,27 +26,27 @@ class RolesMatrixBuilder
     /**
      * @var TokenStorageInterface
      */
-    protected $tokenStorage;
+    private $tokenStorage;
 
     /**
      * @var AuthorizationCheckerInterface
      */
-    protected $authorizationChecker;
+    private $authorizationChecker;
 
     /**
      * @var Pool
      */
-    protected $pool;
+    private $pool;
 
     /**
      * @var TranslatorInterface
      */
-    protected $translator;
+    private $translator;
 
     /**
      * @var array
      */
-    protected $rolesHierarchy;
+    private $rolesHierarchy;
 
     /**
      * @var array
