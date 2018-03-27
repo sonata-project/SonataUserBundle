@@ -51,17 +51,17 @@ class RolesMatrixBuilder
     /**
      * @var array
      */
-    private $labelPermission;
+    private $labelPermission = [];
 
     /**
      * @var array
      */
-    private $labelAdmin;
+    private $labelAdmin = [];
 
     /**
      * @var array
      */
-    private $exclude;
+    private $exclude = [];
 
     public function __construct(
         TokenStorageInterface $tokenStorage,
@@ -73,9 +73,6 @@ class RolesMatrixBuilder
         $this->authorizationChecker = $authorizationChecker;
         $this->pool = $pool;
         $this->rolesHierarchy = $rolesHierarchy;
-        $this->labelPermission = [];
-        $this->labelAdmin = [];
-        $this->exclude = [];
     }
 
     public function setTranslator(TranslatorInterface $translator): void
