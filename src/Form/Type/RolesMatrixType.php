@@ -30,7 +30,7 @@ final class RolesMatrixType extends AbstractType
     /**
      * @var RolesMatrixBuilder
      */
-    protected $rolesBuilder;
+    private $rolesBuilder;
 
     public function __construct(RolesMatrixBuilder $rolesBuilder)
     {
