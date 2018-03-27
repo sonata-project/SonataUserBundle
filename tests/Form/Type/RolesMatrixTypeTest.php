@@ -26,7 +26,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class RolesMatrixTypeTest extends TypeTestCase
 {
-    protected $roleBuilder;
+    private $roleBuilder;
 
     public function testGetDefaultOptions(): void
     {
