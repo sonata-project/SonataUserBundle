@@ -47,7 +47,7 @@ final class RolesMatrixType extends AbstractType
         if (isset($attr['class']) && empty($attr['class'])) {
             $attr['class'] = 'sonata-medium';
         }
-        
+
         $view->vars['attr'] = $attr;
         $view->vars['choice_translation_domain'] = false; // RolesBuilder all ready does translate them
         $view->vars['label_permission'] = $this->rolesBuilder->getLabelPermission();
