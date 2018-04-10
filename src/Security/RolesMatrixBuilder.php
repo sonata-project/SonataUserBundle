@@ -21,7 +21,7 @@ use Symfony\Component\Translation\TranslatorInterface;
 /**
  * @author Silas Joisten <silasjoisten@hotmail.de>
  */
-class RolesMatrixBuilder
+final class RolesMatrixBuilder implements RolesBuilderInterface
 {
     /**
      * @var TokenStorageInterface
@@ -175,22 +175,22 @@ class RolesMatrixBuilder
         return $roles;
     }
 
-    final public function getExclude(): array
+    public function getExclude(): array
     {
         return $this->exclude;
     }
 
-    final public function addExclude(string $exclude): void
+    public function addExclude(string $exclude): void
     {
         $this->exclude[] = $exclude;
     }
 
-    final public function getLabelPermission(): array
+    public function getLabelPermission(): array
     {
         return $this->labelPermission;
     }
 
-    final public function getLabelAdmin(): array
+    public function getLabelAdmin(): array
     {
         return $this->labelAdmin;
     }
