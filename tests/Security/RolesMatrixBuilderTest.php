@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\Security\Authorization\Voter;
 
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Security\Handler\SecurityHandlerInterface;
@@ -35,6 +36,7 @@ final class RolesMatrixBuilderTest extends TestCase
     private $token;
     private $pool;
     private $translator;
+    private $logger;
     private $securityInformation = [
         'GUEST' => [0 => 'VIEW', 1 => 'LIST'],
         'STAFF' => [0 => 'EDIT', 1 => 'LIST', 2 => 'CREATE'],
@@ -51,6 +53,7 @@ final class RolesMatrixBuilderTest extends TestCase
         $this->token = $this->createMock(TokenInterface::class);
         $this->pool = $this->createMock(Pool::class);
         $this->translator = $this->createMock(TranslatorInterface::class);
+        $this->logger = $this->createMock(LoggerInterface::class);
     }
 
     public function testGetRolesNoToken(): void
@@ -60,7 +63,12 @@ final class RolesMatrixBuilderTest extends TestCase
             ->method('getToken')
             ->willReturn([]);
 
-        $rolesBuilder = new RolesMatrixBuilder($this->tokenStorage, $this->authorizationChecker, $this->pool);
+        $rolesBuilder = new RolesMatrixBuilder(
+            $this->tokenStorage,
+            $this->authorizationChecker,
+            $this->pool,
+            $this->logger
+        );
         $this->assertEmpty($rolesBuilder->getRoles());
     }
 
@@ -114,7 +122,12 @@ final class RolesMatrixBuilderTest extends TestCase
             ->with('sonata.admin.foo')
             ->willReturn($this->admin);
 
-        $rolesBuilder = new RolesMatrixBuilder($this->tokenStorage, $this->authorizationChecker, $this->pool);
+        $rolesBuilder = new RolesMatrixBuilder(
+            $this->tokenStorage,
+            $this->authorizationChecker,
+            $this->pool,
+            $this->logger
+        );
         $rolesBuilder->getRoles();
     }
 
@@ -177,7 +190,12 @@ final class RolesMatrixBuilderTest extends TestCase
             ],
         ];
 
-        $rolesBuilder = new RolesMatrixBuilder($this->tokenStorage, $this->authorizationChecker, $this->pool);
+        $rolesBuilder = new RolesMatrixBuilder(
+            $this->tokenStorage,
+            $this->authorizationChecker,
+            $this->pool,
+            $this->logger
+        );
         $this->assertSame($expected, $rolesBuilder->getRoles());
     }
 
@@ -204,6 +222,7 @@ final class RolesMatrixBuilderTest extends TestCase
             $this->tokenStorage,
             $this->authorizationChecker,
             $this->pool,
+            $this->logger,
             $rolesHierarchy
         );
         $this->assertSame($expected, $rolesBuilder->getCustomRolesForView());
@@ -211,7 +230,12 @@ final class RolesMatrixBuilderTest extends TestCase
 
     public function testGetAddExclude(): void
     {
-        $rolesBuilder = new RolesMatrixBuilder($this->tokenStorage, $this->authorizationChecker, $this->pool);
+        $rolesBuilder = new RolesMatrixBuilder(
+            $this->tokenStorage,
+            $this->authorizationChecker,
+            $this->pool,
+            $this->logger
+        );
         $rolesBuilder->addExclude('sonata.admin.bar');
 
         $this->assertSame(['sonata.admin.bar'], $rolesBuilder->getExclude());
@@ -273,7 +297,12 @@ final class RolesMatrixBuilderTest extends TestCase
             ],
         ];
 
-        $rolesBuilder = new RolesMatrixBuilder($this->tokenStorage, $this->authorizationChecker, $this->pool);
+        $rolesBuilder = new RolesMatrixBuilder(
+            $this->tokenStorage,
+            $this->authorizationChecker,
+            $this->pool,
+            $this->logger
+        );
         $this->assertSame($expected, $rolesBuilder->getAdminRolesForView());
     }
 }

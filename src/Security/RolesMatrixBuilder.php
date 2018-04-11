@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Security;
 
+use Psr\Log\LoggerInterface;
 use Sonata\AdminBundle\Admin\Pool;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -23,6 +24,8 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 final class RolesMatrixBuilder implements RolesBuilderInterface
 {
+    public const ROLE_ADMIN = 'ROLE_ADMIN';
+
     /**
      * @var TokenStorageInterface
      */
@@ -63,16 +66,23 @@ final class RolesMatrixBuilder implements RolesBuilderInterface
      */
     private $exclude = [];
 
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
     public function __construct(
         TokenStorageInterface $tokenStorage,
         AuthorizationCheckerInterface $authorizationChecker,
         Pool $pool,
+        LoggerInterface $logger,
         array $rolesHierarchy = []
     ) {
         $this->tokenStorage = $tokenStorage;
         $this->authorizationChecker = $authorizationChecker;
         $this->pool = $pool;
         $this->rolesHierarchy = $rolesHierarchy;
+        $this->logger = $logger;
     }
 
     public function setTranslator(TranslatorInterface $translator): void
@@ -100,7 +110,7 @@ final class RolesMatrixBuilder implements RolesBuilderInterface
 
         $baseRoles = [
             $roleSuperAdmin,
-            'ROLE_ADMIN',
+            self::ROLE_ADMIN,
             $roleSonataAdmin,
         ];
         $roles['other'] = array_combine($baseRoles, $baseRoles);
@@ -203,6 +213,7 @@ final class RolesMatrixBuilder implements RolesBuilderInterface
             try {
                 $admin = $this->pool->getInstance($id);
             } catch (\Exception $e) {
+                $this->logger->error($e->getMessage());
                 continue;
             }
 
@@ -214,7 +225,6 @@ final class RolesMatrixBuilder implements RolesBuilderInterface
                 $this->authorizationChecker->isGranted($this->pool->getOption('role_super_admin')));
 
             $securityHandler = $admin->getSecurityHandler();
-            // TODO get the base role from the admin or security handler
             $baseRole = $securityHandler->getBaseRole($admin);
             $groupPermission = $admin->getSecurityInformation();
             $this->labelPermission = array_keys($groupPermission);
@@ -245,6 +255,7 @@ final class RolesMatrixBuilder implements RolesBuilderInterface
             try {
                 $admin = $this->pool->getInstance($id);
             } catch (\Exception $e) {
+                $this->logger->error($e->getMessage());
                 continue;
             }
 
@@ -257,7 +268,6 @@ final class RolesMatrixBuilder implements RolesBuilderInterface
             ;
 
             $securityHandler = $admin->getSecurityHandler();
-            // TODO get the base role from the admin or security handler
             $baseRole = $securityHandler->getBaseRole($admin);
             $groupPermission = $admin->getSecurityInformation();
             $this->labelPermission = array_keys($groupPermission);
