@@ -213,7 +213,7 @@ final class RolesMatrixBuilder implements RolesBuilderInterface
             try {
                 $admin = $this->pool->getInstance($id);
             } catch (\Exception $e) {
-                $this->logger->error($e->getMessage());
+                $this->logger->error($e->getMessage(), ['exception' => $e]);
                 continue;
             }
 
@@ -255,7 +255,7 @@ final class RolesMatrixBuilder implements RolesBuilderInterface
             try {
                 $admin = $this->pool->getInstance($id);
             } catch (\Exception $e) {
-                $this->logger->error($e->getMessage());
+                $this->logger->error($e->getMessage(), ['exception' => $e]);
                 continue;
             }
 
