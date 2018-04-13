@@ -49,8 +49,7 @@ final class RolesMatrixType extends AbstractType
         }
 
         $view->vars['attr'] = $attr;
-        $view->vars['choice_translation_domain'] = false; // RolesBuilder all ready does translate them
-        $view->vars['label_permission'] = $this->rolesBuilder->getLabelPermission();
+        $view->vars['choice_translation_domain'] = false; // RolesBuilder already translate roles
     }
 
     /**
@@ -60,15 +59,16 @@ final class RolesMatrixType extends AbstractType
     {
         $resolver->setDefaults([
             'expanded' => true,
-
             'choices' => function (Options $options, $parentChoices) {
                 if (!empty($parentChoices)) {
                     return [];
                 }
 
-                return $this->rolesBuilder->getRoles($options['choice_translation_domain'], $options['expanded']);
-            },
+                $roles = $this->rolesBuilder->getRoles($options['choice_translation_domain'], $options['expanded']);
+                $roles = array_keys($roles);
 
+                return array_combine($roles, $roles);
+            },
             'choice_translation_domain' => function (Options $options, $value) {
                 // if choice_translation_domain is true, then it's the same as translation_domain
                 if (true === $value) {

@@ -18,7 +18,6 @@
             <argument type="service" id="security.token_storage"/>
             <argument type="service" id="security.authorization_checker"/>
             <argument type="service" id="sonata.admin.pool"/>
-            <argument type="service" id="logger"/>
             <argument>%security.role_hierarchy.roles%</argument>
             <call method="setTranslator">
                 <argument type="service" id="translator"/>

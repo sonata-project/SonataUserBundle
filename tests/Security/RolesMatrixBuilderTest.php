@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\Security\Authorization\Voter;
 
 use PHPUnit\Framework\TestCase;
-use Psr\Log\LoggerInterface;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Security\Handler\SecurityHandlerInterface;
@@ -36,7 +35,6 @@ final class RolesMatrixBuilderTest extends TestCase
     private $token;
     private $pool;
     private $translator;
-    private $logger;
     private $securityInformation = [
         'GUEST' => [0 => 'VIEW', 1 => 'LIST'],
         'STAFF' => [0 => 'EDIT', 1 => 'LIST', 2 => 'CREATE'],
@@ -53,7 +51,6 @@ final class RolesMatrixBuilderTest extends TestCase
         $this->token = $this->createMock(TokenInterface::class);
         $this->pool = $this->createMock(Pool::class);
         $this->translator = $this->createMock(TranslatorInterface::class);
-        $this->logger = $this->createMock(LoggerInterface::class);
     }
 
     public function testGetRolesNoToken(): void
@@ -66,69 +63,9 @@ final class RolesMatrixBuilderTest extends TestCase
         $rolesBuilder = new RolesMatrixBuilder(
             $this->tokenStorage,
             $this->authorizationChecker,
-            $this->pool,
-            $this->logger
+            $this->pool
         );
         $this->assertEmpty($rolesBuilder->getRoles());
-    }
-
-    public function testGetRolesNoLabelPermissions(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            'You must add this line in the configuration of Sonata Admin:'
-            .'"[security: handler: sonata.admin.security.handler.role]"'
-        );
-
-        $this->tokenStorage
-            ->expects($this->once())
-            ->method('getToken')
-            ->willReturn($this->token);
-
-        $this->authorizationChecker
-            ->method('isGranted')
-            ->willReturn(true);
-
-        $this->translator
-            ->method('trans')
-            ->willReturn('Foo Admin Translated');
-
-        $this->securityHandler
-            ->method('getBaseRole')
-            ->willReturn('ROLE_SONATA_ADMIN_FOO_%s');
-
-        $this->admin
-            ->method('isGranted')
-            ->willReturn(true);
-
-        $this->admin
-            ->method('getTranslator')
-            ->willReturn($this->translator);
-
-        $this->admin
-            ->method('getSecurityHandler')
-            ->willReturn($this->securityHandler);
-
-        $this->admin
-            ->method('getSecurityInformation')
-            ->willReturn([]);
-
-        $this->pool
-            ->method('getAdminServiceIds')
-            ->willReturn(['sonata.admin.foo']);
-
-        $this->pool
-            ->method('getInstance')
-            ->with('sonata.admin.foo')
-            ->willReturn($this->admin);
-
-        $rolesBuilder = new RolesMatrixBuilder(
-            $this->tokenStorage,
-            $this->authorizationChecker,
-            $this->pool,
-            $this->logger
-        );
-        $rolesBuilder->getRoles();
     }
 
     public function testGetRoles(): void
@@ -193,39 +130,9 @@ final class RolesMatrixBuilderTest extends TestCase
         $rolesBuilder = new RolesMatrixBuilder(
             $this->tokenStorage,
             $this->authorizationChecker,
-            $this->pool,
-            $this->logger
+            $this->pool
         );
-        $this->assertSame($expected, $rolesBuilder->getRoles());
-    }
-
-    public function testGetCustomRolesForView(): void
-    {
-        $this->authorizationChecker
-            ->method('isGranted')
-            ->willReturn(true);
-
-        $expected = [
-            'ROLE_PARENT' => ['read_only' => false],
-            'ROLE_CHILD_1' => ['read_only' => false],
-            'ROLE_CHILD_2' => ['read_only' => false],
-        ];
-
-        $rolesHierarchy = [
-            'ROLE_PARENT' => [
-                'ROLE_CHILD_1' => 'ROLE_CHILD_1',
-                'ROLE_CHILD_2' => 'ROLE_CHILD_2',
-            ],
-        ];
-
-        $rolesBuilder = new RolesMatrixBuilder(
-            $this->tokenStorage,
-            $this->authorizationChecker,
-            $this->pool,
-            $this->logger,
-            $rolesHierarchy
-        );
-        $this->assertSame($expected, $rolesBuilder->getCustomRolesForView());
+        $this->assertSame($expected, $rolesBuilder->getRoles(null, false));
     }
 
     public function testGetAddExclude(): void
@@ -233,76 +140,10 @@ final class RolesMatrixBuilderTest extends TestCase
         $rolesBuilder = new RolesMatrixBuilder(
             $this->tokenStorage,
             $this->authorizationChecker,
-            $this->pool,
-            $this->logger
+            $this->pool
         );
         $rolesBuilder->addExclude('sonata.admin.bar');
 
         $this->assertSame(['sonata.admin.bar'], $rolesBuilder->getExclude());
-    }
-
-    public function testGetAdminRolesForView(): void
-    {
-        $this->authorizationChecker
-            ->method('isGranted')
-            ->willReturn(true);
-
-        $this->translator
-            ->method('trans')
-            ->with('Foo Admin')
-            ->willReturn('Foo Admin Translated');
-
-        $this->securityHandler
-            ->method('getBaseRole')
-            ->willReturn('ROLE_SONATA_ADMIN_FOO_%s');
-
-        $this->admin
-            ->method('isGranted')
-            ->willReturn(true);
-
-        $this->admin
-            ->method('getSecurityHandler')
-            ->willReturn($this->securityHandler);
-
-        $this->admin
-            ->method('getTranslator')
-            ->willReturn($this->translator);
-
-        $this->admin
-            ->method('getLabel')
-            ->willReturn('Foo Admin');
-
-        $this->admin
-            ->method('getSecurityInformation')
-            ->willReturn($this->securityInformation);
-
-        $this->pool
-            ->method('getAdminServiceIds')
-            ->willReturn(['sonata.admin.foo']);
-
-        $this->pool
-            ->method('getInstance')
-            ->with('sonata.admin.foo')
-            ->willReturn($this->admin);
-
-        $expected = [
-            'ROLE_SONATA_ADMIN_FOO_%s' => [
-                'label' => 'Foo Admin Translated',
-                'permissions' => [
-                    'GUEST' => false,
-                    'STAFF' => false,
-                    'EDITOR' => false,
-                    'ADMIN' => false,
-                ],
-            ],
-        ];
-
-        $rolesBuilder = new RolesMatrixBuilder(
-            $this->tokenStorage,
-            $this->authorizationChecker,
-            $this->pool,
-            $this->logger
-        );
-        $this->assertSame($expected, $rolesBuilder->getAdminRolesForView());
     }
 }

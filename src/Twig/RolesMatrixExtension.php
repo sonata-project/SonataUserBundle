@@ -15,13 +15,16 @@ namespace Sonata\UserBundle\Twig;
 
 use Sonata\UserBundle\Security\RolesBuilderInterface;
 use Symfony\Component\Form\FormView;
+use Twig_Environment;
+use Twig_Extension;
+use Twig_SimpleFunction;
 
 /**
  * @author Christian Gripp <mail@core23.de>
  * @author Cengizhan Çalışkan <cengizhancaliskan@gmail.com>
  * @author Silas Joisten <silasjoisten@hotmail.de>
  */
-final class RolesMatrixExtension extends \Twig_Extension
+final class RolesMatrixExtension extends Twig_Extension
 {
     /**
      * @var RolesBuilderInterface
@@ -36,16 +39,9 @@ final class RolesMatrixExtension extends \Twig_Extension
     public function getFunctions(): array
     {
         return [
-            new \Twig_SimpleFunction(
-                'renderMatrix',
-                [$this, 'renderMatrix'],
-                ['needs_environment' => true]
-            ),
-            new \Twig_SimpleFunction(
-                'renderCustomRolesList',
-                [$this, 'renderCustomRolesList'],
-                ['needs_environment' => true]
-            ),
+            new Twig_SimpleFunction('renderMatrix', [$this, 'renderMatrix'], ['needs_environment' => true]),
+            new Twig_SimpleFunction('renderRolesList', [$this, 'renderRolesList'],
+                ['needs_environment' => true]),
         ];
     }
 
@@ -54,40 +50,47 @@ final class RolesMatrixExtension extends \Twig_Extension
         return self::class;
     }
 
-    public function renderCustomRolesList(\Twig_Environment $environment, FormView $form): string
+    public function renderRolesList(Twig_Environment $environment, FormView $form): ?string
     {
-        $roles = $this->rolesBuilder->getCustomRolesForView();
-        foreach ($roles as $mainRole => $attributes) {
+        $roles = $this->rolesBuilder->getRoles();
+        foreach ($roles as $role => $attributes) {
+            if (isset($attributes['admin_label'])) {
+                unset($roles[$role]);
+                continue;
+            }
+
+            $roles[$role] = $attributes;
             foreach ($form->getIterator() as $child) {
-                if ($child->vars['value'] == $mainRole) {
-                    $roles[$mainRole] = [
-                        'read_only' => $attributes['read_only'] ?? false,
-                        'form' => $child,
-                    ];
+                if ($child->vars['value'] == $role) {
+                    $roles[$role]['form'] = $child;
                 }
             }
         }
 
-        return (string) $environment->render('@SonataUser/Form/roles_matrix_list.html.twig', [
+        return $environment->render('@SonataUser/Form/roles_matrix_list.html.twig', [
             'roles' => $roles,
         ]);
     }
 
-    public function renderMatrix(\Twig_Environment $environment, FormView $form): string
+    public function renderMatrix(Twig_Environment $environment, FormView $form): ?string
     {
-        $roles = $this->rolesBuilder->getAdminRolesForView();
-        foreach ($roles as $baseRole => $attributes) {
-            foreach ($attributes['permissions'] as $permission => $readOnly) {
-                foreach ($form->getIterator() as $child) {
-                    if ($child->vars['value'] == sprintf($baseRole, $permission)) {
-                        $roles[$baseRole]['permissions'][$permission] = ['form' => $child, 'read_only' => $readOnly];
-                    }
+        $groupedRoles = [];
+        foreach ($this->rolesBuilder->getRoles() as $role => $attributes) {
+            if (!isset($attributes['admin_label'])) {
+                continue;
+            }
+
+            $groupedRoles[$attributes['admin_label']][$role] = $attributes;
+            foreach ($form->getIterator() as $child) {
+                if ($child->vars['value'] == $role) {
+                    $groupedRoles[$attributes['admin_label']][$role]['form'] = $child;
                 }
             }
         }
 
-        return (string) $environment->render('@SonataUser/Form/roles_matrix_row.html.twig', [
-            'roles' => $roles,
+        return $environment->render('@SonataUser/Form/roles_matrix.html.twig', [
+            'grouped_roles' => $groupedRoles,
+            'permission_labels' => $this->rolesBuilder->getPermissionLabels(),
         ]);
     }
 }

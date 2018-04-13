@@ -18,9 +18,7 @@ namespace Sonata\UserBundle\Security;
  */
 interface RolesBuilderInterface
 {
-    public function getRoles($domain = false, bool $expanded = true): array;
+    public function getRoles(string $domain = null, bool $expanded = true): array;
 
-    public function getAdminRolesForView(): array;
-
-    public function getCustomRolesForView(): array;
+    public function getPermissionLabels(): array;
 }

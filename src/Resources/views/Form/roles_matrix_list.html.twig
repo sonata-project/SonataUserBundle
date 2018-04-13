@@ -8,12 +8,13 @@ For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code.
 
 #}
-{% for custom_role, attr in roles %}
-    <li>{{ form_widget(attr.form) }}</li>
-    {% if attr.read_only %}
+{% for role, attributes in roles|sort %}
+    <li>{{ form_widget(attributes.form, {label: attributes.role_translated, value: attributes.role}) }}</li>
+    {% if attributes.is_granted == false %}
         <script>
-            $(document).ready(function () {
-                $('input[value="{{ custom_role }}"]').iCheck('disable');
+            $('input[value="{{ role }}"]').iCheck('disable');
+            $('form').on('submit', function() {
+                $('input[value="{{ role }}"]').iCheck('enable');
             });
         </script>
     {% endif %}
