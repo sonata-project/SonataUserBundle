@@ -105,7 +105,7 @@ final class RolesMatrixBuilder implements RolesBuilderInterface
         $this->excludeAdmin[] = $exclude;
     }
 
-    private function getSecurityRoles(array $hierarchy, $domain = null, bool $expanded = true): array
+    private function getSecurityRoles(array $hierarchy, string $domain = null, bool $expanded = true): array
     {
         $baseRoles = [$this->pool->getOption('role_super_admin'), $this->pool->getOption('role_admin')];
         $baseRoles = array_combine($baseRoles, $baseRoles);
@@ -147,7 +147,7 @@ final class RolesMatrixBuilder implements RolesBuilderInterface
     {
         $adminRoles = [];
         foreach ($this->pool->getAdminServiceIds() as $id) {
-            if(in_array($id, $this->excludeAdmin)) {
+            if (in_array($id, $this->excludeAdmin)) {
                 continue;
             }
 
