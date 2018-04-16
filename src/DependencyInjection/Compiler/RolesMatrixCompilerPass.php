@@ -25,12 +25,11 @@ final class RolesMatrixCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
     {
-        $definition = $container->getDefinition('sonata.user.roles_matrix_builder');
-
         foreach ($container->findTaggedServiceIds('sonata.admin') as $name => $items) {
             foreach ($items as $item) {
-                if (isset($item['show_in_roles_matrix']) && false === $item['show_in_roles_matrix']) {
-                    $definition->addMethodCall('addExclude', [$name]);
+                if (($item['show_in_roles_matrix'] ?? true) === false) {
+                    $container->getDefinition('sonata.user.roles_matrix_builder')
+                        ->addMethodCall('addExcludeAdmin', [$name]);
                 }
             }
         }

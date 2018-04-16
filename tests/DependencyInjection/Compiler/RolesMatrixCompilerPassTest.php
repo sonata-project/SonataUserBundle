@@ -52,7 +52,7 @@ final class RolesMatrixCompilerPassTest extends TestCase
         $definition
             ->expects($this->once())
             ->method('addMethodCall')
-            ->with('addExclude', ['sonata.admin.bar']);
+            ->with('addExcludeAdmin', ['sonata.admin.bar']);
 
         $compilerPass = new RolesMatrixCompilerPass();
         $compilerPass->process($container);

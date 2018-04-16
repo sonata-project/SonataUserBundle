@@ -45,14 +45,14 @@ final class RolesMatrixBuilder implements RolesBuilderInterface
     private $translator;
 
     /**
-     * @var array
+     * @var string []
      */
     private $rolesHierarchy;
 
     /**
-     * @var array
+     * @var string []
      */
-    private $exclude = [];
+    private $excludeAdmin = [];
 
     public function __construct(
         TokenStorageInterface $tokenStorage,
@@ -95,14 +95,14 @@ final class RolesMatrixBuilder implements RolesBuilderInterface
         return $permissionLabels;
     }
 
-    public function getExclude(): array
+    public function getExcludeAdmin(): array
     {
-        return $this->exclude;
+        return $this->excludeAdmin;
     }
 
-    public function addExclude(string $exclude): void
+    public function addExcludeAdmin(string $exclude): void
     {
-        $this->exclude[] = $exclude;
+        $this->excludeAdmin[] = $exclude;
     }
 
     private function getSecurityRoles(array $hierarchy, $domain = null, bool $expanded = true): array
@@ -147,6 +147,10 @@ final class RolesMatrixBuilder implements RolesBuilderInterface
     {
         $adminRoles = [];
         foreach ($this->pool->getAdminServiceIds() as $id) {
+            if(in_array($id, $this->excludeAdmin)) {
+                continue;
+            }
+
             $admin = $this->pool->getInstance($id);
             $securityHandler = $admin->getSecurityHandler();
             $baseRole = $securityHandler->getBaseRole($admin);

@@ -135,15 +135,15 @@ final class RolesMatrixBuilderTest extends TestCase
         $this->assertSame($expected, $rolesBuilder->getRoles(null, false));
     }
 
-    public function testGetAddExclude(): void
+    public function testGetAddExcludeAdmin(): void
     {
         $rolesBuilder = new RolesMatrixBuilder(
             $this->tokenStorage,
             $this->authorizationChecker,
             $this->pool
         );
-        $rolesBuilder->addExclude('sonata.admin.bar');
+        $rolesBuilder->addExcludeAdmin('sonata.admin.bar');
 
-        $this->assertSame(['sonata.admin.bar'], $rolesBuilder->getExclude());
+        $this->assertSame(['sonata.admin.bar'], $rolesBuilder->getExcludeAdmin());
     }
 }
