@@ -250,6 +250,10 @@
                 <source>Security</source>
                 <target>Sécurité</target>
             </trans-unit>
+            <trans-unit id="form_status">
+                <source>Status</source>
+                <target>Statut</target>
+            </trans-unit>
             <trans-unit id="field.label_roles_editable">
                 <source>field.label_roles_editable</source>
                 <target>Rôles</target>

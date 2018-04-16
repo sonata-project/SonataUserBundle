@@ -246,6 +246,10 @@
                 <source>Management</source>
                 <target>Management</target>
             </trans-unit>
+            <trans-unit id="form_status">
+                <source>Status</source>
+                <target>Status</target>
+            </trans-unit>
             <trans-unit id="field.label_roles_editable">
                 <source>field.label_roles_editable</source>
                 <target>Roles</target>
