@@ -164,7 +164,7 @@ final class RolesMatrixBuilderTest extends TestCase
                 'role_translated' => 'ROLE_BASE_FOO_ADMIN',
                 'is_granted' => false,
                 'admin_label' => 'translated foo admin',
-            ]
+            ],
         ];
         $this->assertSame($expected, $rolesBuilder->getRoles());
     }
