@@ -35,6 +35,8 @@ final class RolesMatrixBuilderTest extends TestCase
     private $token;
     private $pool;
     private $translator;
+    private $rolesHierarchy = ['ROLE_FOO' => ['ROLE_BAR', 'ROLE_ADMIN']];
+
     private $securityInformation = [
         'GUEST' => [0 => 'VIEW', 1 => 'LIST'],
         'STAFF' => [0 => 'EDIT', 1 => 'LIST', 2 => 'CREATE'],
@@ -70,69 +72,101 @@ final class RolesMatrixBuilderTest extends TestCase
 
     public function testGetRoles(): void
     {
-        $this->tokenStorage
-            ->expects($this->once())
+        $this->tokenStorage->expects($this->once())
             ->method('getToken')
-            ->willReturn($this->token);
+            ->willReturn(['tokenshouldbethere']);
 
-        $this->translator
-            ->method('trans')
-            ->with('Foo Admin')
-            ->willReturn('Foo Admin Translated');
+        $this->pool->expects($this->any())
+            ->method('getOption')
+            ->willReturn('ROLE_FOO');
 
-        $this->authorizationChecker
-            ->method('isGranted')
-            ->willReturn(true);
-
-        $this->securityHandler
-            ->method('getBaseRole')
-            ->willReturn('ROLE_SONATA_ADMIN_FOO_%s');
-
-        $this->admin
-            ->method('isGranted')
-            ->willReturn(true);
-
-        $this->admin
-            ->method('getSecurityHandler')
-            ->willReturn($this->securityHandler);
-
-        $this->admin
-            ->method('getLabel')
-            ->willReturn('Foo Admin');
-
-        $this->admin
-            ->method('getTranslator')
-            ->willReturn($this->translator);
-
-        $this->admin
-            ->method('getSecurityInformation')
-            ->willReturn($this->securityInformation);
-
-        $this->pool
+        $this->pool->expects($this->once())
             ->method('getAdminServiceIds')
             ->willReturn(['sonata.admin.foo']);
 
-        $this->pool
+        $this->pool->expects($this->once())
             ->method('getInstance')
             ->with('sonata.admin.foo')
             ->willReturn($this->admin);
 
-        $expected = [
-            'ROLE_SONATA_ADMIN_FOO_GUEST' => 'ROLE_SONATA_ADMIN_FOO_GUEST',
-            'ROLE_SONATA_ADMIN_FOO_STAFF' => 'ROLE_SONATA_ADMIN_FOO_STAFF',
-            'ROLE_SONATA_ADMIN_FOO_EDITOR' => 'ROLE_SONATA_ADMIN_FOO_EDITOR',
-            'ROLE_SONATA_ADMIN_FOO_ADMIN' => 'ROLE_SONATA_ADMIN_FOO_ADMIN',
-            'other' => [
-                'ROLE_ADMIN' => 'ROLE_ADMIN',
-            ],
-        ];
+        $this->securityHandler->expects($this->once())
+            ->method('getBaseRole')
+            ->with($this->admin)
+            ->willReturn('ROLE_BASE_FOO_%s');
+
+        $this->admin->expects($this->once())
+            ->method('getSecurityHandler')
+            ->willReturn($this->securityHandler);
+
+        $this->admin->expects($this->once())
+            ->method('getSecurityInformation')
+            ->willReturn($this->securityInformation);
+
+        $this->admin->expects($this->atLeastOnce())
+            ->method('getTranslator')
+            ->willReturn($this->translator);
+
+        $this->admin->expects($this->atLeastOnce())
+            ->method('getLabel')
+            ->willReturn('foo_admin_label');
+
+        $this->translator->expects($this->atLeastOnce())
+            ->method('trans')
+            ->willReturn('translated foo admin');
 
         $rolesBuilder = new RolesMatrixBuilder(
             $this->tokenStorage,
             $this->authorizationChecker,
-            $this->pool
+            $this->pool,
+            $this->rolesHierarchy
         );
-        $this->assertSame($expected, $rolesBuilder->getRoles(null, false));
+
+        $expected = [
+            'ROLE_FOO' => [
+                'role' => 'ROLE_FOO',
+                'role_translated' => 'ROLE_FOO: ROLE_BAR, ROLE_ADMIN',
+                'is_granted' => null,
+            ],
+            'ROLE_BAR' => [
+                'role' => 'ROLE_BAR',
+                'role_translated' => 'ROLE_BAR',
+                'is_granted' => null,
+            ],
+            'ROLE_ADMIN' => [
+                'role' => 'ROLE_ADMIN',
+                'role_translated' => 'ROLE_ADMIN',
+                'is_granted' => null,
+            ],
+            'ROLE_BASE_FOO_GUEST' => [
+                'role' => 'ROLE_BASE_FOO_GUEST',
+                'label' => 'GUEST',
+                'role_translated' => 'ROLE_BASE_FOO_GUEST',
+                'is_granted' => false,
+                'admin_label' => 'translated foo admin',
+            ],
+            'ROLE_BASE_FOO_STAFF' => [
+                'role' => 'ROLE_BASE_FOO_STAFF',
+                'label' => 'STAFF',
+                'role_translated' => 'ROLE_BASE_FOO_STAFF',
+                'is_granted' => false,
+                'admin_label' => 'translated foo admin',
+            ],
+            'ROLE_BASE_FOO_EDITOR' => [
+                'role' => 'ROLE_BASE_FOO_EDITOR',
+                'label' => 'EDITOR',
+                'role_translated' => 'ROLE_BASE_FOO_EDITOR',
+                'is_granted' => false,
+                'admin_label' => 'translated foo admin',
+            ],
+            'ROLE_BASE_FOO_ADMIN' => [
+                'role' => 'ROLE_BASE_FOO_ADMIN',
+                'label' => 'ADMIN',
+                'role_translated' => 'ROLE_BASE_FOO_ADMIN',
+                'is_granted' => false,
+                'admin_label' => 'translated foo admin',
+            ]
+        ];
+        $this->assertSame($expected, $rolesBuilder->getRoles());
     }
 
     public function testGetAddExcludeAdmin(): void

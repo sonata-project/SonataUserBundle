@@ -108,9 +108,7 @@ final class RolesMatrixBuilder implements RolesBuilderInterface
     private function getSecurityRoles(array $hierarchy, string $domain = null, bool $expanded = true): array
     {
         $baseRoles = [$this->pool->getOption('role_super_admin'), $this->pool->getOption('role_admin')];
-        $baseRoles = array_combine($baseRoles, $baseRoles);
-        $hierarchy = array_merge($baseRoles, $hierarchy);
-
+        $hierarchy = array_merge(array_combine($baseRoles, $baseRoles), $hierarchy);
         $securityRoles = [];
         foreach ($hierarchy as $role => $childRoles) {
             $securityRoles[$role] = $this->translateRole($role, $domain);
