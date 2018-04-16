@@ -3,7 +3,11 @@ Roles Matrix
 
 The ``Sonata\UserBundle\Form\Type\RolesMatrixType`` was built to show all roles in a matrix view.
 
-![Roles matrix](../images/roles_matrix.png)
+
+.. figure:: ../images/roles_matrix.png
+    :align: center
+    :alt: Role matrix
+    :width: 700px
 
 Every admin has defined default roles like:
 
@@ -18,16 +22,17 @@ Every admin has defined default roles like:
 The roles matrix consists of two parts:
 
 1. shows the matrix with each admin and their permissions.
-2. shows the custom roles which are configured in ``security.yml`` and list them as checkboxes (+ showing their inherited roles).
+2. shows the custom roles which are configured in ``security.yml`` and list them as checkboxes
+(+ showing their inherited roles).
 
 .. note::
 
-    If the current logged in user is not granted to an admin the checkbox is disabled.
+   The user can just use roles which he is granted.
 
 How to exclude an admin
 -----------------------
 
-To exclude an admin you can add ``show_in_roles_matrix`` option like this:
+You can set the ``show_in_roles_matrix`` option to false, like this:
 
 .. configuration-block::
 
@@ -39,7 +44,10 @@ To exclude an admin you can add ``show_in_roles_matrix`` option like this:
             app.admin.post:
                 class: App\Admin\PostAdmin
                 tags:
-                    - { name: sonata.admin, manager_type: orm, label: "Post", show_in_roles_matrix: false }
+                    -   name: sonata.admin
+                        manager_type: orm
+                        label: "Post"
+                        show_in_roles_matrix: false
                 arguments:
                     - ~
                     - App\Entity\Post
