@@ -1,7 +1,8 @@
 Roles Matrix
 ============
 
-The ``Sonata\UserBundle\Form\Type\RolesMatrixType`` was built to show all roles in a matrix view.
+The ``Sonata\UserBundle\Form\Type\RolesMatrixType`` was built to show all
+roles in a matrix view.
 
 
 .. figure:: ../images/roles_matrix.png
@@ -22,8 +23,8 @@ Every admin has defined default roles like:
 The roles matrix consists of two parts:
 
 1. shows the matrix with each admin and their permissions.
-2. shows the custom roles which are configured in ``security.yml`` and list them as checkboxes
-(+ showing their inherited roles).
+2. shows the custom roles which are configured in ``security.yml`` and
+   list them as checkboxes (+ showing their inherited roles).
 
 .. note::
 

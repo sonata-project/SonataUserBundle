@@ -15,16 +15,16 @@ namespace Sonata\UserBundle\Twig;
 
 use Sonata\UserBundle\Security\RolesBuilderInterface;
 use Symfony\Component\Form\FormView;
-use Twig_Environment;
-use Twig_Extension;
-use Twig_SimpleFunction;
+use Twig\Environment;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
 /**
  * @author Christian Gripp <mail@core23.de>
  * @author Cengizhan Çalışkan <cengizhancaliskan@gmail.com>
  * @author Silas Joisten <silasjoisten@hotmail.de>
  */
-final class RolesMatrixExtension extends Twig_Extension
+final class RolesMatrixExtension extends AbstractExtension
 {
     /**
      * @var RolesBuilderInterface
@@ -39,8 +39,8 @@ final class RolesMatrixExtension extends Twig_Extension
     public function getFunctions(): array
     {
         return [
-            new Twig_SimpleFunction('renderMatrix', [$this, 'renderMatrix'], ['needs_environment' => true]),
-            new Twig_SimpleFunction('renderRolesList', [$this, 'renderRolesList'],
+            new TwigFunction('renderMatrix', [$this, 'renderMatrix'], ['needs_environment' => true]),
+            new TwigFunction('renderRolesList', [$this, 'renderRolesList'],
                 ['needs_environment' => true]),
         ];
     }
@@ -50,7 +50,7 @@ final class RolesMatrixExtension extends Twig_Extension
         return self::class;
     }
 
-    public function renderRolesList(Twig_Environment $environment, FormView $form): ?string
+    public function renderRolesList(Environment $environment, FormView $form): ?string
     {
         $roles = $this->rolesBuilder->getRoles();
         foreach ($roles as $role => $attributes) {
@@ -72,7 +72,7 @@ final class RolesMatrixExtension extends Twig_Extension
         ]);
     }
 
-    public function renderMatrix(Twig_Environment $environment, FormView $form): ?string
+    public function renderMatrix(Environment $environment, FormView $form): ?string
     {
         $groupedRoles = [];
         foreach ($this->rolesBuilder->getRoles() as $role => $attributes) {
