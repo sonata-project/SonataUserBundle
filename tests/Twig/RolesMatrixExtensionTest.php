@@ -14,9 +14,10 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\Twig;
 
 use PHPUnit\Framework\TestCase;
-use Sonata\UserBundle\Security\RolesBuilderInterface;
+use Sonata\UserBundle\Security\RolesBuilder\RolesBuilderInterface;
 use Sonata\UserBundle\Twig\RolesMatrixExtension;
 use Symfony\Component\Form\FormView;
+use Twig\Environment;
 
 /**
  * @author Silas Joisten <silasjoisten@hotmail.de>
@@ -33,7 +34,7 @@ final class RolesMatrixExtensionTest extends TestCase
     public function setUp(): void
     {
         $this->rolesBuilder = $this->createMock(RolesBuilderInterface::class);
-        $this->environment = $this->createMock(\Twig_Environment::class);
+        $this->environment = $this->createMock(Environment::class);
         $this->formView = $this->createMock(FormView::class);
     }
 

@@ -34,7 +34,7 @@ final class RolesMatrixCompilerPassTest extends TestCase
         $container
             ->expects($this->once())
             ->method('getDefinition')
-            ->with('sonata.user.roles_matrix_builder')
+            ->with('sonata.user.admin_roles_builder')
             ->willReturn($definition);
 
         $taggedServices = [

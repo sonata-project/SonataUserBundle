@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\Form\Type;
 
 use Sonata\UserBundle\Form\Type\RolesMatrixType;
-use Sonata\UserBundle\Security\RolesBuilderInterface;
+use Sonata\UserBundle\Security\RolesBuilder\RolesBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Form\PreloadedExtension;
