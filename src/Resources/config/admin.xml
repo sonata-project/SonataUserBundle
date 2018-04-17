@@ -14,14 +14,21 @@
             <tag name="form.type" alias="sonata_security_roles"/>
             <argument type="service" id="sonata.user.editable_role_builder"/>
         </service>
-        <service id="sonata.user.roles_matrix_builder" class="Sonata\UserBundle\Security\RolesMatrixBuilder">
+        <service id="sonata.user.roles_matrix_builder" class="Sonata\UserBundle\Security\RolesBuilder\RolesMatrixBuilder">
             <argument type="service" id="security.token_storage"/>
+            <argument type="service" id="sonata.user.admin_roles_builder"/>
+            <argument type="service" id="sonata.user.security_roles_builder"/>
+        </service>
+        <service id="sonata.user.admin_roles_builder" class="Sonata\UserBundle\Security\RolesBuilder\AdminRolesBuilder">
             <argument type="service" id="security.authorization_checker"/>
             <argument type="service" id="sonata.admin.pool"/>
+            <argument type="service" id="translator"/>
+        </service>
+        <service id="sonata.user.security_roles_builder" class="Sonata\UserBundle\Security\RolesBuilder\SecurityRolesBuilder">
+            <argument type="service" id="security.authorization_checker"/>
+            <argument type="service" id="sonata.admin.pool"/>
+            <argument type="service" id="translator"/>
             <argument>%security.role_hierarchy.roles%</argument>
-            <call method="setTranslator">
-                <argument type="service" id="translator"/>
-            </call>
         </service>
         <service id="sonata.user.form.roles_matrix_type" class="Sonata\UserBundle\Form\Type\RolesMatrixType">
             <tag name="form.type"/>

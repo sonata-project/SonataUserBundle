@@ -13,12 +13,10 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Form\Type;
 
-use Sonata\UserBundle\Security\RolesBuilderInterface;
+use Sonata\UserBundle\Security\RolesBuilder\RolesBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormTypeInterface;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -35,21 +33,6 @@ final class RolesMatrixType extends AbstractType
     public function __construct(RolesBuilderInterface $rolesBuilder)
     {
         $this->rolesBuilder = $rolesBuilder;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function buildView(FormView $view, FormInterface $form, array $options): void
-    {
-        $attr = $view->vars['attr'];
-
-        if (isset($attr['class']) && empty($attr['class'])) {
-            $attr['class'] = 'sonata-medium';
-        }
-
-        $view->vars['attr'] = $attr;
-        $view->vars['choice_translation_domain'] = false; // RolesBuilder already translate roles
     }
 
     /**

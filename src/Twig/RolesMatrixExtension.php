@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Twig;
 
-use Sonata\UserBundle\Security\RolesBuilderInterface;
+use Sonata\UserBundle\Security\RolesBuilder\RolesBuilderInterface;
 use Symfony\Component\Form\FormView;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;

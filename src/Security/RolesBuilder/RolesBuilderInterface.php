@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Sonata\UserBundle\Security;
+namespace Sonata\UserBundle\Security\RolesBuilder;
 
 /**
  * @author Silas Joisten <silasjoisten@hotmail.de>

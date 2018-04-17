@@ -4,7 +4,7 @@
         <service id="sonata.user.twig.global" class="Sonata\UserBundle\Twig\GlobalVariables">
             <argument type="service" id="service_container"/>
         </service>
-        <service id="sonata.user.roles_matrix_extension" class="Sonata\UserBundle\Twig\RolesMatrixExtension" public="false">
+        <service id="sonata.user.roles_matrix_extension" class="Sonata\UserBundle\Twig\RolesMatrixExtension">
             <argument type="service" id="sonata.user.roles_matrix_builder"/>
             <tag name="twig.extension"/>
         </service>
