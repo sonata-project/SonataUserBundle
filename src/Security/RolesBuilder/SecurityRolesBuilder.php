@@ -61,11 +61,18 @@ final class SecurityRolesBuilder implements RolesBuilderInterface
 
     public function getRoles(string $domain = null, bool $expanded = true): array
     {
-        $baseRoles = [$this->pool->getOption('role_super_admin'), $this->pool->getOption('role_admin')];
-        $hierarchy = array_merge(array_combine($baseRoles, $baseRoles), $this->rolesHierarchy);
+        $baseRoles = [$this->pool->getOption('role_super_admin') => [],
+            $this->pool->getOption('role_admin') => [], ];
+        $hierarchy = array_merge($baseRoles, $this->rolesHierarchy);
+
         $securityRoles = [];
         foreach ($hierarchy as $role => $childRoles) {
-            $securityRoles[$role] = $this->translateRole($role, $domain);
+            $securityRoles[$role] = [
+                'role' => $role,
+                'role_translated' => $this->translateRole($role, $domain),
+                'is_granted' => $this->authorizationChecker->isGranted($role),
+            ];
+
             if ($expanded) {
                 $concatedRole = array_map([$this, 'translateRole'], $childRoles,
                     array_fill(0, count($childRoles), $domain));
