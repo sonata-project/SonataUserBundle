@@ -54,11 +54,6 @@ final class SecurityRolesBuilder implements RolesBuilderInterface
         $this->rolesHierarchy = $rolesHierarchy;
     }
 
-    public function setTranslator(TranslatorInterface $translator): void
-    {
-        $this->translator = $translator;
-    }
-
     public function getPermissionLabels(): array
     {
         return [];
