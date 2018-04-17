@@ -18,7 +18,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 /**
  * @author Silas Joisten <silasjoisten@hotmail.de>
  */
-final class RolesMatrixBuilder implements RolesBuilderInterface
+final class MatrixRolesBuilder implements RolesBuilderInterface
 {
     /**
      * @var TokenStorageInterface

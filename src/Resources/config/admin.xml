@@ -14,7 +14,7 @@
             <tag name="form.type" alias="sonata_security_roles"/>
             <argument type="service" id="sonata.user.editable_role_builder"/>
         </service>
-        <service id="sonata.user.roles_matrix_builder" class="Sonata\UserBundle\Security\RolesBuilder\RolesMatrixBuilder">
+        <service id="sonata.user.roles_matrix_builder" class="Sonata\UserBundle\Security\RolesBuilder\MatrixRolesBuilder">
             <argument type="service" id="security.token_storage"/>
             <argument type="service" id="sonata.user.admin_roles_builder"/>
             <argument type="service" id="sonata.user.security_roles_builder"/>
