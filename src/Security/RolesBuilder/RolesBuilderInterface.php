@@ -20,5 +20,8 @@ interface RolesBuilderInterface
 {
     public function getRoles(string $domain = null, bool $expanded = true): array;
 
+    /**
+     * @return string[]
+     */
     public function getPermissionLabels(): array;
 }
