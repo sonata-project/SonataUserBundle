@@ -74,12 +74,15 @@ final class SecurityRolesBuilder implements RolesBuilderInterface
             ];
 
             if ($expanded) {
-                $concatedRole = array_map([$this, 'translateRole'], $childRoles,
-                    array_fill(0, count($childRoles), $domain));
+                $translatedRoles = array_map(
+                    [$this, 'translateRole'],
+                    $childRoles,
+                    array_fill(0, count($childRoles), $domain)
+                );
 
                 $securityRoles[$role] = [
                     'role' => $role,
-                    'role_translated' => $role.': '.implode(', ', $concatedRole),
+                    'role_translated' => $role.': '.implode(', ', $translatedRoles),
                     'is_granted' => $this->authorizationChecker->isGranted($role),
                 ];
             }

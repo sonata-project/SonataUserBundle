@@ -24,7 +24,7 @@ file that was distributed with this source code.
             {% for role, attributes in roles|sort %}
                 <td>
                     {{ form_widget(attributes.form, { label: false }) }}
-                    {% if attributes.is_granted == false %}
+                    {% if not attributes.is_granted %}
                         <script>
                             $('input[value="{{ role }}"]').iCheck('disable');
                             $('form').on('submit', function() {

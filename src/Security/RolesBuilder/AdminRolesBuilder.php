@@ -56,7 +56,7 @@ final class AdminRolesBuilder implements RolesBuilderInterface
     public function getPermissionLabels(): array
     {
         $permissionLabels = [];
-        foreach ($this->getRoles() as $role => $attributes) {
+        foreach ($this->getRoles() as $attributes) {
             if (isset($attributes['label'])) {
                 $permissionLabels[$attributes['label']] = $attributes['label'];
             }
@@ -86,7 +86,7 @@ final class AdminRolesBuilder implements RolesBuilderInterface
             $admin = $this->pool->getInstance($id);
             $securityHandler = $admin->getSecurityHandler();
             $baseRole = $securityHandler->getBaseRole($admin);
-            foreach ($admin->getSecurityInformation() as $key => $permission) {
+            foreach (array_keys($admin->getSecurityInformation()) as $key) {
                 $role = sprintf($baseRole, $key);
                 $adminRoles[$role] = [
                     'role' => $role,

@@ -10,7 +10,7 @@ file that was distributed with this source code.
 #}
 {% for role, attributes in roles|sort %}
     <li>{{ form_widget(attributes.form, {label: attributes.role_translated, value: attributes.role}) }}</li>
-    {% if attributes.is_granted == false %}
+    {% if not attributes.is_granted %}
         <script>
             $('input[value="{{ role }}"]').iCheck('disable');
             $('form').on('submit', function() {

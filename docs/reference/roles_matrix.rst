@@ -22,9 +22,10 @@ Every admin has defined default roles like:
 
 The roles matrix consists of two parts:
 
-1. shows the matrix with each admin and their permissions.
-2. shows the custom roles which are configured in ``security.yml`` and
-   list them as checkboxes (+ showing their inherited roles).
+1. one that shows the matrix with each admin and their permissions.
+2. another that shows the custom roles which are configured in
+   ``security.yml`` and lists them as checkboxes (and shows their
+   inherited roles).
 
 .. note::
 
@@ -33,7 +34,7 @@ The roles matrix consists of two parts:
 How to exclude an admin
 -----------------------
 
-You can set the ``show_in_roles_matrix`` option to false, like this:
+You can set the ``show_in_roles_matrix`` option to ``false``, like this:
 
 .. configuration-block::
 

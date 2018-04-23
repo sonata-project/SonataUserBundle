@@ -42,17 +42,20 @@ final class RolesMatrixType extends AbstractType
     {
         $resolver->setDefaults([
             'expanded' => true,
-            'choices' => function (Options $options, $parentChoices) {
+            'choices' => function (Options $options, $parentChoices): array {
                 if (!empty($parentChoices)) {
                     return [];
                 }
 
-                $roles = $this->rolesBuilder->getRoles($options['choice_translation_domain'], $options['expanded']);
+                $roles = $this->rolesBuilder->getRoles(
+                    $options['choice_translation_domain'],
+                    $options['expanded']
+                );
                 $roles = array_keys($roles);
 
                 return array_combine($roles, $roles);
             },
-            'choice_translation_domain' => function (Options $options, $value) {
+            'choice_translation_domain' => function (Options $options, $value): string {
                 // if choice_translation_domain is true, then it's the same as translation_domain
                 if (true === $value) {
                     $value = $options['translation_domain'];
