@@ -51,8 +51,10 @@ final class MatrixRolesBuilder implements RolesBuilderInterface
             return [];
         }
 
-        return array_merge($this->securityRolesBuilder->getRoles($domain),
-            $this->adminRolesBuilder->getRoles($domain, $expanded));
+        return array_merge(
+            $this->securityRolesBuilder->getRoles($domain),
+            $this->adminRolesBuilder->getRoles($domain, $expanded)
+            );
     }
 
     public function getPermissionLabels(): array
