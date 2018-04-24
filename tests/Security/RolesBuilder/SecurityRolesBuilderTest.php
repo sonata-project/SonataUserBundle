@@ -89,7 +89,7 @@ final class SecurityRolesBuilderTest extends TestCase
             ],
         ];
 
-        $this->assertSame($expected, $securityRolesBuilder->getRoles());
+        $this->assertEquals($expected, $securityRolesBuilder->getExpandedRoles());
     }
 
     public function testGetRolesNotExpanded(): void
@@ -142,7 +142,7 @@ final class SecurityRolesBuilderTest extends TestCase
             ],
         ];
 
-        $this->assertSame($expected, $securityRolesBuilder->getRoles(null, false));
+        $this->assertEquals($expected, $securityRolesBuilder->getRoles(null, false));
     }
 
     public function testGetRolesWithExistingRole(): void
@@ -202,6 +202,6 @@ final class SecurityRolesBuilderTest extends TestCase
             ],
         ];
 
-        $this->assertSame($expected, $securityRolesBuilder->getRoles());
+        $this->assertEquals($expected, $securityRolesBuilder->getExpandedRoles());
     }
 }

@@ -16,7 +16,7 @@ namespace Sonata\UserBundle\Security\RolesBuilder;
 /**
  * @author Silas Joisten <silasjoisten@hotmail.de>
  */
-interface PermissionLabelsBuilderInterface extends ExpandableRolesBuilderInterface
+interface PermissionLabelsBuilderInterface
 {
     /**
      * @return string[]

@@ -14,12 +14,11 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Security\RolesBuilder;
 
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Sonata\UserBundle\Security\RolesBuilder\ExpandableRolesBuilderInterface;
 
 /**
  * @author Silas Joisten <silasjoisten@hotmail.de>
  */
-final class MatrixRolesBuilder implements ExpandableRolesBuilderInterface, PermissionLabelsBuilderInterface
+final class MatrixRolesBuilder implements MatrixRolesBuilderInterface
 {
     /**
      * @var TokenStorageInterface
@@ -27,18 +26,18 @@ final class MatrixRolesBuilder implements ExpandableRolesBuilderInterface, Permi
     private $tokenStorage;
 
     /**
-     * @var RolesBuilderInterface
+     * @var AdminRolesBuilderInterface
      */
     private $adminRolesBuilder;
 
     /**
-     * @var RolesBuilderInterface
+     * @var ExpandableRolesBuilderInterface
      */
     private $securityRolesBuilder;
 
     public function __construct(
         TokenStorageInterface $tokenStorage,
-        ExpandableRolesBuilderInterface $adminRolesBuilder,
+        AdminRolesBuilderInterface $adminRolesBuilder,
         ExpandableRolesBuilderInterface $securityRolesBuilder
     ) {
         $this->tokenStorage = $tokenStorage;
@@ -46,7 +45,7 @@ final class MatrixRolesBuilder implements ExpandableRolesBuilderInterface, Permi
         $this->securityRolesBuilder = $securityRolesBuilder;
     }
 
-    public function getRoles(string $domain = null, bool $expanded = true): array
+    public function getRoles(?string $domain = null): array
     {
         if (!$this->tokenStorage->getToken()) {
             return [];
@@ -54,7 +53,19 @@ final class MatrixRolesBuilder implements ExpandableRolesBuilderInterface, Permi
 
         return array_merge(
             $this->securityRolesBuilder->getRoles($domain),
-            $this->adminRolesBuilder->getRoles($domain, $expanded)
+            $this->adminRolesBuilder->getRoles($domain)
+        );
+    }
+
+    public function getExpandedRoles(?string $domain = null): array
+    {
+        if (!$this->tokenStorage->getToken()) {
+            return [];
+        }
+
+        return array_merge(
+            $this->securityRolesBuilder->getExpandedRoles($domain),
+            $this->adminRolesBuilder->getRoles($domain)
         );
     }
 
