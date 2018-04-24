@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Twig;
 
-use Sonata\UserBundle\Security\RolesBuilder\RolesBuilderInterface;
+use Sonata\UserBundle\Security\RolesBuilder\ExpandableRolesBuilderInterface;
 use Symfony\Component\Form\FormView;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
@@ -31,7 +31,7 @@ final class RolesMatrixExtension extends AbstractExtension
      */
     private $rolesBuilder;
 
-    public function __construct(RolesBuilderInterface $rolesBuilder)
+    public function __construct(ExpandableRolesBuilderInterface $rolesBuilder)
     {
         $this->rolesBuilder = $rolesBuilder;
     }

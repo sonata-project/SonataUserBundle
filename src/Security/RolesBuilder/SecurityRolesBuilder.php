@@ -20,7 +20,7 @@ use Symfony\Component\Translation\TranslatorInterface;
 /**
  * @author Silas Joisten <silasjoisten@hotmail.de>
  */
-final class SecurityRolesBuilder implements RolesBuilderInterface
+final class SecurityRolesBuilder implements ExpandableRolesBuilderInterface
 {
     /**
      * @var AuthorizationCheckerInterface
@@ -52,11 +52,6 @@ final class SecurityRolesBuilder implements RolesBuilderInterface
         $this->pool = $pool;
         $this->translator = $translator;
         $this->rolesHierarchy = $rolesHierarchy;
-    }
-
-    public function getPermissionLabels(): array
-    {
-        return [];
     }
 
     public function getRoles(string $domain = null, bool $expanded = true): array

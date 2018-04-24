@@ -39,18 +39,6 @@ final class SecurityRolesBuilderTest extends TestCase
         $this->translator = $this->createMock(TranslatorInterface::class);
     }
 
-    public function testGetPermissionLabels(): void
-    {
-        $securityRolesBuilder = new SecurityRolesBuilder(
-            $this->authorizationChecker,
-            $this->pool,
-            $this->translator,
-            $this->rolesHierarchy
-        );
-
-        $this->assertEmpty($securityRolesBuilder->getPermissionLabels());
-    }
-
     public function testGetRoles(): void
     {
         $this->pool->expects($this->at(0))

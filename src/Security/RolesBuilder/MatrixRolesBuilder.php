@@ -14,11 +14,12 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Security\RolesBuilder;
 
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Sonata\UserBundle\Security\RolesBuilder\ExpandableRolesBuilderInterface;
 
 /**
  * @author Silas Joisten <silasjoisten@hotmail.de>
  */
-final class MatrixRolesBuilder implements RolesBuilderInterface
+final class MatrixRolesBuilder implements ExpandableRolesBuilderInterface, PermissionLabelsBuilderInterface
 {
     /**
      * @var TokenStorageInterface
@@ -37,8 +38,8 @@ final class MatrixRolesBuilder implements RolesBuilderInterface
 
     public function __construct(
         TokenStorageInterface $tokenStorage,
-        RolesBuilderInterface $adminRolesBuilder,
-        RolesBuilderInterface $securityRolesBuilder
+        ExpandableRolesBuilderInterface $adminRolesBuilder,
+        ExpandableRolesBuilderInterface $securityRolesBuilder
     ) {
         $this->tokenStorage = $tokenStorage;
         $this->adminRolesBuilder = $adminRolesBuilder;

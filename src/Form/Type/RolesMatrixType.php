@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Form\Type;
 
-use Sonata\UserBundle\Security\RolesBuilder\RolesBuilderInterface;
+use Sonata\UserBundle\Security\RolesBuilder\ExpandableRolesBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormTypeInterface;
@@ -30,7 +30,7 @@ final class RolesMatrixType extends AbstractType
      */
     private $rolesBuilder;
 
-    public function __construct(RolesBuilderInterface $rolesBuilder)
+    public function __construct(ExpandableRolesBuilderInterface $rolesBuilder)
     {
         $this->rolesBuilder = $rolesBuilder;
     }

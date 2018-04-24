@@ -15,7 +15,8 @@ namespace Sonata\UserBundle\Tests\Security\RolesBuilder;
 
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Security\RolesBuilder\MatrixRolesBuilder;
-use Sonata\UserBundle\Security\RolesBuilder\RolesBuilderInterface;
+use Sonata\UserBundle\Security\RolesBuilder\ExpandableRolesBuilderInterface;
+use Sonata\UserBundle\Security\RolesBuilder\PermissionLabelsBuilderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
@@ -33,8 +34,8 @@ final class MatrixRolesBuilderTest extends TestCase
     {
         $this->tokenStorage = $this->createMock(TokenStorageInterface::class);
         $this->token = $this->createMock(TokenInterface::class);
-        $this->adminRolesBuilder = $this->createMock(RolesBuilderInterface::class);
-        $this->securityRolesBuilder = $this->createMock(RolesBuilderInterface::class);
+        $this->adminRolesBuilder = $this->createMock(PermissionLabelsBuilderInterface::class);
+        $this->securityRolesBuilder = $this->createMock(ExpandableRolesBuilderInterface::class);
     }
 
     public function testGetPermissionLabels(): void
