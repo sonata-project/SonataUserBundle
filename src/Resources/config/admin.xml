@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="sonata.user.editable_role_builder" class="Sonata\UserBundle\Security\EditableRolesBuilder">
+        <service id="sonata.user.editable_role_builder" class="Sonata\UserBundle\Security\EditableRolesBuilder" public="false">
             <argument type="service" id="security.token_storage"/>
             <argument type="service" id="security.authorization_checker"/>
             <argument type="service" id="sonata.admin.pool"/>
@@ -10,21 +10,21 @@
                 <argument type="service" id="translator"/>
             </call>
         </service>
-        <service id="sonata.user.form.type.security_roles" class="Sonata\UserBundle\Form\Type\SecurityRolesType">
+        <service id="sonata.user.form.type.security_roles" class="Sonata\UserBundle\Form\Type\SecurityRolesType" public="false">
             <tag name="form.type" alias="sonata_security_roles"/>
             <argument type="service" id="sonata.user.editable_role_builder"/>
         </service>
-        <service id="sonata.user.matrix_roles_builder" class="Sonata\UserBundle\Security\RolesBuilder\MatrixRolesBuilder">
+        <service id="sonata.user.matrix_roles_builder" class="Sonata\UserBundle\Security\RolesBuilder\MatrixRolesBuilder" public="false">
             <argument type="service" id="security.token_storage"/>
             <argument type="service" id="sonata.user.admin_roles_builder"/>
             <argument type="service" id="sonata.user.security_roles_builder"/>
         </service>
-        <service id="sonata.user.admin_roles_builder" class="Sonata\UserBundle\Security\RolesBuilder\AdminRolesBuilder">
+        <service id="sonata.user.admin_roles_builder" class="Sonata\UserBundle\Security\RolesBuilder\AdminRolesBuilder" public="false">
             <argument type="service" id="security.authorization_checker"/>
             <argument type="service" id="sonata.admin.pool"/>
             <argument type="service" id="translator"/>
         </service>
-        <service id="sonata.user.security_roles_builder" class="Sonata\UserBundle\Security\RolesBuilder\SecurityRolesBuilder">
+        <service id="sonata.user.security_roles_builder" class="Sonata\UserBundle\Security\RolesBuilder\SecurityRolesBuilder" public="false">
             <argument type="service" id="security.authorization_checker"/>
             <argument type="service" id="sonata.admin.pool"/>
             <argument type="service" id="translator"/>

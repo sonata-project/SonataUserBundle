@@ -40,8 +40,11 @@ final class RolesMatrixExtension extends AbstractExtension
     {
         return [
             new TwigFunction('renderMatrix', [$this, 'renderMatrix'], ['needs_environment' => true]),
-            new TwigFunction('renderRolesList', [$this, 'renderRolesList'],
-                ['needs_environment' => true]),
+            new TwigFunction(
+                'renderRolesList',
+                [$this, 'renderRolesList'],
+                ['needs_environment' => true]
+            ),
         ];
     }
 
