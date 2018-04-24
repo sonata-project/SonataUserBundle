@@ -55,7 +55,7 @@ final class RolesMatrixType extends AbstractType
 
                 return array_combine($roles, $roles);
             },
-            'choice_translation_domain' => function (Options $options, $value): string {
+            'choice_translation_domain' => function (Options $options, $value): ?string {
                 // if choice_translation_domain is true, then it's the same as translation_domain
                 if (true === $value) {
                     $value = $options['translation_domain'];
