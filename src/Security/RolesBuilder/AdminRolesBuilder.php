@@ -21,7 +21,7 @@ use Symfony\Component\Translation\TranslatorInterface;
 /**
  * @author Silas Joisten <silasjoisten@hotmail.de>
  */
-final class AdminRolesBuilder implements RolesBuilderInterface, PermissionLabelsBuilderInterface
+final class AdminRolesBuilder implements AdminRolesBuilderInterface
 {
     /**
      * @var AuthorizationCheckerInterface
