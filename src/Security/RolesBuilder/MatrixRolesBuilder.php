@@ -18,7 +18,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 /**
  * @author Silas Joisten <silasjoisten@hotmail.de>
  */
-final class MatrixRolesBuilder implements RolesBuilderInterface
+final class MatrixRolesBuilder implements MatrixRolesBuilderInterface
 {
     /**
      * @var TokenStorageInterface
@@ -26,26 +26,26 @@ final class MatrixRolesBuilder implements RolesBuilderInterface
     private $tokenStorage;
 
     /**
-     * @var RolesBuilderInterface
+     * @var AdminRolesBuilderInterface
      */
     private $adminRolesBuilder;
 
     /**
-     * @var RolesBuilderInterface
+     * @var ExpandableRolesBuilderInterface
      */
     private $securityRolesBuilder;
 
     public function __construct(
         TokenStorageInterface $tokenStorage,
-        RolesBuilderInterface $adminRolesBuilder,
-        RolesBuilderInterface $securityRolesBuilder
+        AdminRolesBuilderInterface $adminRolesBuilder,
+        ExpandableRolesBuilderInterface $securityRolesBuilder
     ) {
         $this->tokenStorage = $tokenStorage;
         $this->adminRolesBuilder = $adminRolesBuilder;
         $this->securityRolesBuilder = $securityRolesBuilder;
     }
 
-    public function getRoles(string $domain = null, bool $expanded = true): array
+    public function getRoles(?string $domain = null): array
     {
         if (!$this->tokenStorage->getToken()) {
             return [];
@@ -53,7 +53,19 @@ final class MatrixRolesBuilder implements RolesBuilderInterface
 
         return array_merge(
             $this->securityRolesBuilder->getRoles($domain),
-            $this->adminRolesBuilder->getRoles($domain, $expanded)
+            $this->adminRolesBuilder->getRoles($domain)
+        );
+    }
+
+    public function getExpandedRoles(?string $domain = null): array
+    {
+        if (!$this->tokenStorage->getToken()) {
+            return [];
+        }
+
+        return array_merge(
+            $this->securityRolesBuilder->getExpandedRoles($domain),
+            $this->adminRolesBuilder->getRoles($domain)
         );
     }
 

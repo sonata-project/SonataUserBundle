@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\Form\Type;
 
 use Sonata\UserBundle\Form\Type\RolesMatrixType;
-use Sonata\UserBundle\Security\RolesBuilder\RolesBuilderInterface;
+use Sonata\UserBundle\Security\RolesBuilder\ExpandableRolesBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Form\PreloadedExtension;
@@ -98,7 +98,7 @@ final class RolesMatrixTypeTest extends TypeTestCase
 
     protected function getExtensions()
     {
-        $this->roleBuilder = $this->createMock(RolesBuilderInterface::class);
+        $this->roleBuilder = $this->createMock(ExpandableRolesBuilderInterface::class);
 
         $this->roleBuilder->expects($this->any())->method('getRoles')->will($this->returnValue([
           'ROLE_FOO' => 'ROLE_FOO',

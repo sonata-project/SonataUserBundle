@@ -21,7 +21,7 @@ use Symfony\Component\Translation\TranslatorInterface;
 /**
  * @author Silas Joisten <silasjoisten@hotmail.de>
  */
-final class AdminRolesBuilder implements RolesBuilderInterface
+final class AdminRolesBuilder implements RolesBuilderInterface, PermissionLabelsBuilderInterface
 {
     /**
      * @var AuthorizationCheckerInterface
@@ -75,7 +75,7 @@ final class AdminRolesBuilder implements RolesBuilderInterface
         $this->excludeAdmin[] = $exclude;
     }
 
-    public function getRoles(string $domain = null, bool $expanded = false): array
+    public function getRoles(string $domain = null): array
     {
         $adminRoles = [];
         foreach ($this->pool->getAdminServiceIds() as $id) {

@@ -16,7 +16,6 @@ namespace Sonata\UserBundle\Security\RolesBuilder;
 /**
  * @author Silas Joisten <silasjoisten@hotmail.de>
  */
-interface RolesBuilderInterface
+interface MatrixRolesBuilderInterface extends ExpandableRolesBuilderInterface, PermissionLabelsBuilderInterface
 {
-    public function getRoles(?string $domain = null): array;
 }

@@ -39,18 +39,6 @@ final class SecurityRolesBuilderTest extends TestCase
         $this->translator = $this->createMock(TranslatorInterface::class);
     }
 
-    public function testGetPermissionLabels(): void
-    {
-        $securityRolesBuilder = new SecurityRolesBuilder(
-            $this->authorizationChecker,
-            $this->pool,
-            $this->translator,
-            $this->rolesHierarchy
-        );
-
-        $this->assertEmpty($securityRolesBuilder->getPermissionLabels());
-    }
-
     public function testGetRoles(): void
     {
         $this->pool->expects($this->at(0))
@@ -101,7 +89,7 @@ final class SecurityRolesBuilderTest extends TestCase
             ],
         ];
 
-        $this->assertSame($expected, $securityRolesBuilder->getRoles());
+        $this->assertEquals($expected, $securityRolesBuilder->getExpandedRoles());
     }
 
     public function testGetRolesNotExpanded(): void
@@ -154,7 +142,7 @@ final class SecurityRolesBuilderTest extends TestCase
             ],
         ];
 
-        $this->assertSame($expected, $securityRolesBuilder->getRoles(null, false));
+        $this->assertEquals($expected, $securityRolesBuilder->getRoles(null, false));
     }
 
     public function testGetRolesWithExistingRole(): void
@@ -214,6 +202,6 @@ final class SecurityRolesBuilderTest extends TestCase
             ],
         ];
 
-        $this->assertSame($expected, $securityRolesBuilder->getRoles());
+        $this->assertEquals($expected, $securityRolesBuilder->getExpandedRoles());
     }
 }

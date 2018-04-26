@@ -16,7 +16,10 @@ namespace Sonata\UserBundle\Security\RolesBuilder;
 /**
  * @author Silas Joisten <silasjoisten@hotmail.de>
  */
-interface RolesBuilderInterface
+interface PermissionLabelsBuilderInterface
 {
-    public function getRoles(?string $domain = null): array;
+    /**
+     * @return string[]
+     */
+    public function getPermissionLabels(): array;
 }
