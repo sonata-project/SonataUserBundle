@@ -64,9 +64,10 @@ final class SecurityRolesBuilder implements ExpandableRolesBuilderInterface
                 array_fill(0, count($childRoles), $domain)
             );
 
+            $translatedRoles = count($translatedRoles) > 0 ? ': '.implode(', ', $translatedRoles) : '';
             $securityRoles[$role] = [
                 'role' => $role,
-                'role_translated' => $role.': '.implode(', ', $translatedRoles),
+                'role_translated' => $role.$translatedRoles,
                 'is_granted' => $this->authorizationChecker->isGranted($role),
             ];
 

@@ -64,12 +64,12 @@ final class SecurityRolesBuilderTest extends TestCase
         $expected = [
             'ROLE_SUPER_ADMIN' => [
                 'role' => 'ROLE_SUPER_ADMIN',
-                'role_translated' => 'ROLE_SUPER_ADMIN: ',
+                'role_translated' => 'ROLE_SUPER_ADMIN',
                 'is_granted' => true,
             ],
             'ROLE_SONATA_ADMIN' => [
                 'role' => 'ROLE_SONATA_ADMIN',
-                'role_translated' => 'ROLE_SONATA_ADMIN: ',
+                'role_translated' => 'ROLE_SONATA_ADMIN',
                 'is_granted' => true,
             ],
             'ROLE_FOO' => [
@@ -172,12 +172,12 @@ final class SecurityRolesBuilderTest extends TestCase
         $expected = [
             'ROLE_SUPER_ADMIN' => [
                 'role' => 'ROLE_SUPER_ADMIN',
-                'role_translated' => 'ROLE_SUPER_ADMIN: ',
+                'role_translated' => 'ROLE_SUPER_ADMIN',
                 'is_granted' => true,
             ],
             'ROLE_SONATA_ADMIN' => [
                 'role' => 'ROLE_SONATA_ADMIN',
-                'role_translated' => 'ROLE_SONATA_ADMIN: ',
+                'role_translated' => 'ROLE_SONATA_ADMIN',
                 'is_granted' => true,
             ],
             'ROLE_FOO' => [
