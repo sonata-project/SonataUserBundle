@@ -69,7 +69,9 @@ final class RolesMatrixExtensionTest extends TestCase
         $this->environment
             ->expects($this->once())
             ->method('render')
-            ->with('@SonataUser/Form/roles_matrix_list.html.twig', ['roles' => []]);
+            ->with('@SonataUser/Form/roles_matrix_list.html.twig', ['roles' => []])
+            ->willReturn('')
+        ;
 
         $rolesMatrixExtension = new RolesMatrixExtension($this->rolesBuilder);
         $rolesMatrixExtension->renderRolesList($this->environment, $this->formView);
@@ -111,7 +113,8 @@ final class RolesMatrixExtensionTest extends TestCase
                         'form' => $form,
                     ],
                 ],
-            ]);
+            ])
+            ->willReturn('');
 
         $rolesMatrixExtension = new RolesMatrixExtension($this->rolesBuilder);
         $rolesMatrixExtension->renderRolesList($this->environment, $this->formView);
@@ -152,7 +155,8 @@ final class RolesMatrixExtensionTest extends TestCase
                         'is_granted' => true,
                     ],
                 ],
-            ]);
+            ])
+            ->willReturn('');
 
         $rolesMatrixExtension = new RolesMatrixExtension($this->rolesBuilder);
         $rolesMatrixExtension->renderRolesList($this->environment, $this->formView);
@@ -191,7 +195,8 @@ final class RolesMatrixExtensionTest extends TestCase
             ->with('@SonataUser/Form/roles_matrix.html.twig', [
                 'grouped_roles' => [],
                 'permission_labels' => ['EDIT', 'CREATE'],
-            ]);
+            ])
+            ->willReturn('');
 
         $rolesMatrixExtension = new RolesMatrixExtension($this->rolesBuilder);
         $rolesMatrixExtension->renderMatrix($this->environment, $this->formView);
@@ -246,7 +251,8 @@ final class RolesMatrixExtensionTest extends TestCase
                     ],
                 ],
                 'permission_labels' => ['EDIT', 'CREATE'],
-            ]);
+            ])
+            ->willReturn('');
 
         $rolesMatrixExtension = new RolesMatrixExtension($this->rolesBuilder);
         $rolesMatrixExtension->renderMatrix($this->environment, $this->formView);
@@ -300,7 +306,8 @@ final class RolesMatrixExtensionTest extends TestCase
                     ],
                 ],
                 'permission_labels' => ['EDIT', 'CREATE'],
-            ]);
+            ])
+            ->willReturn('');
 
         $rolesMatrixExtension = new RolesMatrixExtension($this->rolesBuilder);
         $rolesMatrixExtension->renderMatrix($this->environment, $this->formView);

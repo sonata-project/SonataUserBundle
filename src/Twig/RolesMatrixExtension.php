@@ -53,7 +53,7 @@ final class RolesMatrixExtension extends AbstractExtension
         return self::class;
     }
 
-    public function renderRolesList(Environment $environment, FormView $form): ?string
+    public function renderRolesList(Environment $environment, FormView $form): string
     {
         $roles = $this->rolesBuilder->getRoles();
         foreach ($roles as $role => $attributes) {
@@ -75,7 +75,7 @@ final class RolesMatrixExtension extends AbstractExtension
         ]);
     }
 
-    public function renderMatrix(Environment $environment, FormView $form): ?string
+    public function renderMatrix(Environment $environment, FormView $form): string
     {
         $groupedRoles = [];
         foreach ($this->rolesBuilder->getRoles() as $role => $attributes) {
