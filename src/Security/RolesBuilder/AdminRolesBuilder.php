@@ -41,7 +41,7 @@ final class AdminRolesBuilder implements AdminRolesBuilderInterface
     /**
      * @var string []
      */
-    private $excludeAdmins  = [];
+    private $excludeAdmins = [];
 
     public function __construct(
         AuthorizationCheckerInterface $authorizationChecker,
