@@ -41,7 +41,7 @@ final class AdminRolesBuilder implements AdminRolesBuilderInterface
     /**
      * @var string []
      */
-    private $excludeAdmin = [];
+    private $excludeAdmins  = [];
 
     public function __construct(
         AuthorizationCheckerInterface $authorizationChecker,
@@ -65,21 +65,21 @@ final class AdminRolesBuilder implements AdminRolesBuilderInterface
         return $permissionLabels;
     }
 
-    public function getExcludeAdmin(): array
+    public function getExcludeAdmins(): array
     {
-        return $this->excludeAdmin;
+        return $this->excludeAdmins;
     }
 
     public function addExcludeAdmin(string $exclude): void
     {
-        $this->excludeAdmin[] = $exclude;
+        $this->excludeAdmins[] = $exclude;
     }
 
     public function getRoles(string $domain = null): array
     {
         $adminRoles = [];
         foreach ($this->pool->getAdminServiceIds() as $id) {
-            if (in_array($id, $this->excludeAdmin)) {
+            if (in_array($id, $this->excludeAdmins)) {
                 continue;
             }
 

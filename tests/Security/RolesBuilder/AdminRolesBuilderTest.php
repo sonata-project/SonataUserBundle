@@ -164,7 +164,7 @@ final class AdminRolesBuilderTest extends TestCase
         $this->assertSame($expected, $rolesBuilder->getRoles());
     }
 
-    public function testGetAddExcludeAdmin(): void
+    public function testGetAddExcludeAdmins(): void
     {
         $rolesBuilder = new AdminRolesBuilder(
             $this->authorizationChecker,
@@ -173,6 +173,6 @@ final class AdminRolesBuilderTest extends TestCase
         );
         $rolesBuilder->addExcludeAdmin('sonata.admin.bar');
 
-        $this->assertSame(['sonata.admin.bar'], $rolesBuilder->getExcludeAdmin());
+        $this->assertSame(['sonata.admin.bar'], $rolesBuilder->getExcludeAdmins());
     }
 }
