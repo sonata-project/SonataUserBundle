@@ -1,0 +1,21 @@
+{#
+
+This file is part of the Sonata package.
+
+(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+{% for role, attributes in roles|sort %}
+    <li>{{ form_widget(attributes.form, {label: attributes.role_translated, value: attributes.role}) }}</li>
+    {% if not attributes.is_granted %}
+        <script>
+            $('input[value="{{ role }}"]').iCheck('disable');
+            $('form').on('submit', function() {
+                $('input[value="{{ role }}"]').iCheck('enable');
+            });
+        </script>
+    {% endif %}
+{% endfor %}
