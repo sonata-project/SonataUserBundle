@@ -2,6 +2,18 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.2.0](https://github.com/sonata-project/SonataUserBundle/compare/4.1.1...4.2.0) - 2018-05-08
+
+### Added
+- Role permissions can now be displayed in a matrix view using the `Sonata\UserBundle\Form\Type\RolesMatrixType`
+
+### Fixed
+- Missing french translations were added
+- Commands now work on Symfony 4
+
+### Removed
+- Removed compatibility with older versions of FOSRestBundle (<2.1)
+
 ## [4.1.1](https://github.com/sonata-project/SonataUserBundle/compare/4.1.0...4.1.1) - 2018-02-08
 ### Changed
 - Switch all templates references to Twig namespaced syntax
