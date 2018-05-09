@@ -39,6 +39,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->booleanNode('check_mapping')->defaultFalse()->end()
                 ->booleanNode('security_acl')->defaultFalse()->end()
                 ->arrayNode('table')
                     ->addDefaultsIfNotSet()
