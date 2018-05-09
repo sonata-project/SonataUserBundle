@@ -1,0 +1,41 @@
+{#
+
+This file is part of the Sonata package.
+
+(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+<table class="table table-condensed">
+    <thead>
+    <tr>
+        <th></th>
+        {% for label in permission_labels|sort %}
+            <th> {{ label }} </th>
+        {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for admin_label, roles in grouped_roles %}
+        <tr>
+            <th>{{ admin_label }}</th>
+            {% for role, attributes in roles|sort %}
+                <td>
+                    {{ form_widget(attributes.form, { label: false }) }}
+                    {% if not attributes.is_granted %}
+                        <script>
+                            $('input[value="{{ role }}"]').iCheck('disable');
+                            $('form').on('submit', function() {
+                                $('input[value="{{ role }}"]').iCheck('enable');
+                            });
+                        </script>
+                    {% endif %}
+                </td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+

@@ -27,3 +27,12 @@ file that was distributed with this source code.
     {% endif %}
 {% endspaceless %}
 {% endblock sonata_security_roles_widget %}
+
+{% block sonata_roles_matrix_widget %}
+{% spaceless %}
+    {{ renderMatrix(form)|raw }}
+    <ul class="list-unstyled">
+        {{ renderRolesList(form)|raw }}
+    </ul>
+{% endspaceless %}
+{% endblock sonata_roles_matrix_widget %}
