@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Entity;
 
 use Sonata\UserBundle\Model\User as AbstractedUser;
-use Sonata\UserBundle\Model\UserInterface;
 
 /**
  * Represents a Base User Entity.
