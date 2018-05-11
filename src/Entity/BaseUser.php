@@ -37,18 +37,4 @@ class BaseUser extends AbstractedUser
     {
         $this->updatedAt = new \DateTime();
     }
-
-    /**
-     * Returns the gender list.
-     *
-     * @return array
-     */
-    public static function getGenderList()
-    {
-        return [
-            'gender_unknown' => UserInterface::GENDER_UNKNOWN,
-            'gender_female' => UserInterface::GENDER_FEMALE,
-            'gender_male' => UserInterface::GENDER_MALE,
-        ];
-    }
 }
