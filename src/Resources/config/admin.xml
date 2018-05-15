@@ -10,7 +10,7 @@
                 <argument type="service" id="translator"/>
             </call>
         </service>
-        <service id="sonata.user.form.type.security_roles" class="Sonata\UserBundle\Form\Type\SecurityRolesType" public="false">
+        <service id="sonata.user.form.type.security_roles" class="Sonata\UserBundle\Form\Type\SecurityRolesType" public="true">
             <tag name="form.type" alias="sonata_security_roles"/>
             <argument type="service" id="sonata.user.editable_role_builder"/>
         </service>
