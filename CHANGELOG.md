@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.2.1](https://github.com/sonata-project/SonataUserBundle/compare/4.2.0...4.2.1) - 2018-05-15
+
+### Fixed
+
+- Load `Sonata\UserBundle\Twig\RolesMatrixExtension` only if UserBundle is used
+- Make `Sonata\UserBundle\Form\Type\SecurityRolesType` public, as it is lazy loaded
+- Move static `Entity\BaseUser::getGenderList` to `Model\User` so that it is available to all persistence systems
+
 ## [4.2.0](https://github.com/sonata-project/SonataUserBundle/compare/4.1.1...4.2.0) - 2018-05-08
 
 ### Added
