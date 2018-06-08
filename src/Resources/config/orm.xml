@@ -7,7 +7,7 @@
             <argument type="service" id="fos_user.object_manager"/>
             <argument>%fos_user.model.user.class%</argument>
         </service>
-        <service id="sonata.user.manager.user" class="Sonata\UserBundle\Entity\UserManagerProxy">
+        <service id="sonata.user.manager.user" class="Sonata\UserBundle\Entity\UserManagerProxy" public="true">
             <argument>%fos_user.model.user.class%</argument>
             <argument type="service" id="doctrine"/>
             <argument type="service" id="sonata.user.orm.user_manager"/>
