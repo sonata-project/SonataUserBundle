@@ -260,6 +260,10 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     {
         $container->setAlias('sonata.user.user_manager', sprintf('sonata.user.%s.user_manager', $managerType));
         $container->setAlias('sonata.user.group_manager', sprintf('sonata.user.%s.group_manager', $managerType));
+
+        // NEXT_MAJOR: call setPublic(true) directly, when dropping support for Sf 3.3
+        $container->getAlias('sonata.user.user_manager')->setPublic(true);
+        $container->getAlias('sonata.user.group_manager')->setPublic(true);
     }
 
     /**
