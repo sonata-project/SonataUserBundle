@@ -2,6 +2,16 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.2.2](https://github.com/sonata-project/SonataUserBundle/compare/4.2.1...4.2.2) - 2018-06-09
+
+### Fixed
+
+- The following services can be get via the container again:
+  - `sonata.user.user_manager`
+  - `sonata.user.group_manager`
+  - `Sonata\UserBundle\Form\Type\RolesMatrixType`
+  - `Sonata\UserBundle\Entity\UserManagerProxy`
+
 ## [4.2.1](https://github.com/sonata-project/SonataUserBundle/compare/4.2.0...4.2.1) - 2018-05-15
 
 ### Fixed
