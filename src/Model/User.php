@@ -21,12 +21,12 @@ use FOS\UserBundle\Model\User as AbstractedUser;
 abstract class User extends AbstractedUser implements UserInterface
 {
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      */
     protected $createdAt;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      */
     protected $updatedAt;
 
@@ -36,7 +36,7 @@ abstract class User extends AbstractedUser implements UserInterface
     protected $twoStepVerificationCode;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      */
     protected $dateOfBirth;
 
