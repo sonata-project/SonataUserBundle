@@ -67,6 +67,14 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         $loader->load('form.xml');
 
         if (class_exists('Google\Authenticator\GoogleAuthenticator')) {
+            @trigger_error(
+                'The \'Google\Authenticator\' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.',
+                E_USER_DEPRECATED
+            );
+        }
+
+        if (class_exists('Google\Authenticator\GoogleAuthenticator') ||
+            class_exists('Sonata\GoogleAuthenticator\GoogleAuthenticator')) {
             $loader->load('google_authenticator.xml');
         }
 
@@ -156,7 +164,8 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
             return;
         }
 
-        if (!class_exists('Google\Authenticator\GoogleAuthenticator')) {
+        if (!class_exists('Google\Authenticator\GoogleAuthenticator')
+            && !class_exists('Sonata\GoogleAuthenticator\GoogleAuthenticator')) {
             throw new \RuntimeException('Please add ``sonata-project/google-authenticator`` package');
         }
 
