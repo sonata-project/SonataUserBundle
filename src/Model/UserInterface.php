@@ -96,7 +96,7 @@ interface UserInterface extends \FOS\UserBundle\Model\UserInterface
     public function setDateOfBirth($dateOfBirth);
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getDateOfBirth();
 
