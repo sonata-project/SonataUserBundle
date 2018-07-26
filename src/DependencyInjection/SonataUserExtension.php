@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\DependencyInjection;
 
 use Sonata\EasyExtendsBundle\Mapper\DoctrineCollector;
+use Sonata\GoogleAuthenticator\GoogleAuthenticator;
 use Sonata\UserBundle\Document\BaseGroup as DocumentGroup;
 use Sonata\UserBundle\Document\BaseUser as DocumentUser;
 use Sonata\UserBundle\Entity\BaseGroup as EntityGroup;
@@ -66,15 +67,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
 
         $loader->load('form.xml');
 
-        if (class_exists('Google\Authenticator\GoogleAuthenticator')) {
-            @trigger_error(
-                'The \'Google\Authenticator\' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.',
-                E_USER_DEPRECATED
-            );
-        }
-
-        if (class_exists('Google\Authenticator\GoogleAuthenticator') ||
-            class_exists('Sonata\GoogleAuthenticator\GoogleAuthenticator')) {
+        if (class_exists(GoogleAuthenticator::class)) {
             $loader->load('google_authenticator.xml');
         }
 
@@ -164,8 +157,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
             return;
         }
 
-        if (!class_exists('Google\Authenticator\GoogleAuthenticator')
-            && !class_exists('Sonata\GoogleAuthenticator\GoogleAuthenticator')) {
+        if (!class_exists(GoogleAuthenticator::class)) {
             throw new \RuntimeException('Please add ``sonata-project/google-authenticator`` package');
         }
 

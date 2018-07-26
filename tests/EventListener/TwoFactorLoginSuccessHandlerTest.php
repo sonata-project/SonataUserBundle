@@ -11,8 +11,8 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-use Google\Authenticator\GoogleAuthenticator;
 use PHPUnit\Framework\TestCase;
+use Sonata\GoogleAuthenticator\GoogleAuthenticator;
 use Sonata\UserBundle\Entity\BaseUser;
 use Sonata\UserBundle\EventListener\TwoFactorLoginSuccessHandler;
 use Sonata\UserBundle\GoogleAuthenticator\Helper;
@@ -86,7 +86,7 @@ class TwoFactorLoginSuccessHandlerTest extends TestCase
 
     private function createTestClass(string $secret, string $userRole, string $remoteAddr, bool $needSession): void
     {
-        $this->user = new BaseUser();
+        $this->user = (new BaseUser())->setUsername('username');
         if ($secret) {
             $this->user->setTwoStepVerificationCode($secret);
         }
