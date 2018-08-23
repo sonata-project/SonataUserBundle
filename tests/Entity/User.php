@@ -16,7 +16,7 @@ namespace Sonata\UserBundle\Tests\Entity;
 use Sonata\UserBundle\Entity\BaseUser;
 
 /**
- * Class User
+ * Class User.
  */
 class User extends BaseUser
 {
