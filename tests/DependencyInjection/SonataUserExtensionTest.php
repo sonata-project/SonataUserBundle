@@ -124,7 +124,7 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
      */
     public function testCorrectModelClass(): void
     {
-        $this->load(['class' => ['user' => 'Sonata\UserBundle\Tests\Entity\User']]);
+        $this->load(['class' => ['user' => 'Sonata\UserBundle\Entity\BaseUser']]);
     }
 
     /**
@@ -133,7 +133,7 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
      */
     public function testCorrectModelClassWithLeadingSlash(): void
     {
-        $this->load(['class' => ['user' => '\Sonata\UserBundle\Tests\Entity\User']]);
+        $this->load(['class' => ['user' => '\Sonata\UserBundle\Entity\BaseUser']]);
     }
 
     /**
@@ -161,7 +161,7 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
             'Class "Foo\User" should implement interface "FOS\UserBundle\Model\UserInterface"'
         );
 
-        $this->load(['class' => ['user' => 'Foo\User', 'group' => 'Sonata\UserBundle\Tests\Entity\Group']]);
+        $this->load(['class' => ['user' => 'Foo\User', 'group' => 'Sonata\UserBundle\Entity\BaseGroup']]);
     }
 
     /**
@@ -174,7 +174,7 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
             'Class "Foo\Group" should implement interface "FOS\UserBundle\Model\GroupInterface"'
         );
 
-        $this->load(['class' => ['user' => 'Sonata\UserBundle\Tests\Entity\User', 'group' => 'Foo\Group']]);
+        $this->load(['class' => ['user' => 'Sonata\UserBundle\Entity\BaseUser', 'group' => 'Foo\Group']]);
     }
 
     /**
@@ -183,7 +183,7 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
      */
     public function testCorrectImplementGroupInterface(): void
     {
-        $this->load(['class' => ['user' => 'Sonata\UserBundle\Tests\Entity\User', 'group' => 'Sonata\UserBundle\Tests\Entity\Group']]);
+        $this->load(['class' => ['user' => 'Sonata\UserBundle\Entity\BaseUser', 'group' => 'Sonata\UserBundle\Entity\BaseGroup']]);
     }
 
     /**
