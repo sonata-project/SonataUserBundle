@@ -13,11 +13,9 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\DependencyInjection;
 
+use FOS\UserBundle\Model\GroupInterface;
+use FOS\UserBundle\Model\UserInterface;
 use Sonata\EasyExtendsBundle\Mapper\DoctrineCollector;
-use Sonata\UserBundle\Document\BaseGroup as DocumentGroup;
-use Sonata\UserBundle\Document\BaseUser as DocumentUser;
-use Sonata\UserBundle\Entity\BaseGroup as EntityGroup;
-use Sonata\UserBundle\Entity\BaseUser as EntityUser;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -96,7 +94,8 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
             $loader->load('security_acl.xml');
         }
 
-        $this->checkManagerTypeToModelTypeMapping($config);
+        $this->checkImplementInterface($config['class']['user'], UserInterface::class);
+        $this->checkImplementInterface($config['class']['group'], GroupInterface::class);
 
         $this->registerDoctrineMapping($config);
         $this->configureAdminClass($config, $container);
@@ -276,47 +275,19 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     }
 
     /**
-     * @param array $config
+     * @param string $class
+     * @param string $expectedInterface
      */
-    private function checkManagerTypeToModelTypeMapping(array $config): void
+    private function checkImplementInterface(string $class, string $expectedInterface): void
     {
-        $managerType = $config['manager_type'];
-
-        $actualModelClasses = [
-            $config['class']['user'],
-            $config['class']['group'],
-        ];
-
-        if ('orm' === $managerType) {
-            $expectedModelClasses = [
-                EntityUser::class,
-                EntityGroup::class,
-            ];
-        } elseif ('mongodb' === $managerType) {
-            $expectedModelClasses = [
-                DocumentUser::class,
-                DocumentGroup::class,
-            ];
-        } else {
-            throw new \InvalidArgumentException(sprintf('Invalid manager type "%s".', $managerType));
-        }
-
-        foreach ($actualModelClasses as $index => $actualModelClass) {
-            if ('\\' === substr($actualModelClass, 0, 1)) {
-                $actualModelClass = substr($actualModelClass, 1);
-            }
-
-            $expectedModelClass = $expectedModelClasses[$index];
-
-            if ($actualModelClass !== $expectedModelClass && !is_subclass_of($actualModelClass, $expectedModelClass)) {
-                throw new \InvalidArgumentException(
-                    sprintf(
-                        'Model class "%s" does not correspond to manager type "%s".',
-                        $actualModelClass,
-                        $managerType
-                    )
-                );
-            }
+        if (!is_subclass_of($class, $expectedInterface)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'Class "%s" should implement interface "%s".',
+                    $class,
+                    $expectedInterface
+                )
+            );
         }
     }
 }
