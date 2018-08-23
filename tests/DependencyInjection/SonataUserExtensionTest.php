@@ -140,15 +140,6 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
      * @group legacy
      * @expectedDeprecation The 'Google\Authenticator' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.
      */
-    public function testCorrectAdminClass(): void
-    {
-        $this->load(['admin' => ['user' => ['class' => '\Sonata\UserBundle\Tests\Admin\Entity\UserAdmin']]]);
-    }
-
-    /**
-     * @group legacy
-     * @expectedDeprecation The 'Google\Authenticator' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.
-     */
     public function testCorrectModelClassWithNotDefaultManagerType(): void
     {
         $this->load([
@@ -157,10 +148,6 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
                 'user' => 'Sonata\UserBundle\Tests\Document\User',
                 'group' => 'Sonata\UserBundle\Tests\Document\Group',
             ],
-            'admin' => [
-                'user' => ['class' => 'Sonata\UserBundle\Tests\Admin\Document\UserAdmin'],
-                'group' => ['class' => 'Sonata\UserBundle\Tests\Admin\Document\GroupAdmin'],
-            ],
         ]);
     }
 
@@ -168,28 +155,35 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
      * @group legacy
      * @expectedDeprecation The 'Google\Authenticator' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.
      */
-    public function testIncorrectModelClass(): void
+    public function testNotImplementUserInterface(): void
     {
-        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessage(
+            'Class "Foo\User" should implement interface "FOS\UserBundle\Model\UserInterface"'
+        );
 
-        $this->expectExceptionMessage('Model class "Foo\User" does not correspond to manager type "orm".');
-
-        $this->load(['class' => ['user' => 'Foo\User']]);
+        $this->load(['class' => ['user' => 'Foo\User', 'group' => 'Sonata\UserBundle\Tests\Entity\Group']]);
     }
 
     /**
      * @group legacy
      * @expectedDeprecation The 'Google\Authenticator' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.
      */
-    public function testNotCorrespondingModelClass(): void
+    public function testNotImplementGroupInterface(): void
     {
-        $this->expectException('InvalidArgumentException');
-
         $this->expectExceptionMessage(
-            'Model class "Sonata\UserBundle\Admin\Entity\UserAdmin" does not correspond to manager type "mongodb".'
+            'Class "Foo\Group" should implement interface "FOS\UserBundle\Model\GroupInterface"'
         );
 
-        $this->load(['manager_type' => 'mongodb', 'class' => ['user' => 'Sonata\UserBundle\Admin\Entity\UserAdmin']]);
+        $this->load(['class' => ['user' => 'Sonata\UserBundle\Tests\Entity\User', 'group' => 'Foo\Group']]);
+    }
+
+    /**
+     * @group legacy
+     * @expectedDeprecation The 'Google\Authenticator' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.
+     */
+    public function testCorrectImplementGroupInterface(): void
+    {
+        $this->load(['class' => ['user' => 'Sonata\UserBundle\Tests\Entity\User', 'group' => 'Sonata\UserBundle\Tests\Entity\Group']]);
     }
 
     /**
