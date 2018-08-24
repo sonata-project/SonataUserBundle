@@ -60,7 +60,7 @@ class UserAdmin extends AbstractAdmin
     {
         // avoid security field to be exported
         return array_filter(parent::getExportFields(), function ($v) {
-            return !in_array($v, ['password', 'salt']);
+            return !\in_array($v, ['password', 'salt']);
         });
     }
 
@@ -184,7 +184,7 @@ class UserAdmin extends AbstractAdmin
         $now = new \DateTime();
 
         $genderOptions = [
-            'choices' => call_user_func([$this->getUserManager()->getClass(), 'getGenderList']),
+            'choices' => \call_user_func([$this->getUserManager()->getClass(), 'getGenderList']),
             'required' => true,
             'translation_domain' => $this->getTranslationDomain(),
         ];
