@@ -54,6 +54,14 @@ class AdminResettingController extends Controller
 
         $user = $userManager->findUserByUsernameOrEmail($username);
 
+        if (null === $user) {
+            return $this->render('@SonataUser/Admin/Security/Resetting/request.html.twig', [
+                'base_template' => $this->get('sonata.admin.pool')->getTemplate('layout'),
+                'admin_pool' => $this->get('sonata.admin.pool'),
+                'invalid_username' => $username,
+            ]);
+        }
+
         $ttl = $this->container->getParameter('fos_user.resetting.retry_ttl');
 
         if (null !== $user && !$user->isPasswordRequestNonExpired($ttl)) {
