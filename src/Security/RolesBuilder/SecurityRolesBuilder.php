@@ -61,10 +61,10 @@ final class SecurityRolesBuilder implements ExpandableRolesBuilderInterface
             $translatedRoles = array_map(
                 [$this, 'translateRole'],
                 $childRoles,
-                array_fill(0, count($childRoles), $domain)
+                array_fill(0, \count($childRoles), $domain)
             );
 
-            $translatedRoles = count($translatedRoles) > 0 ? ': '.implode(', ', $translatedRoles) : '';
+            $translatedRoles = \count($translatedRoles) > 0 ? ': '.implode(', ', $translatedRoles) : '';
             $securityRoles[$role] = [
                 'role' => $role,
                 'role_translated' => $role.$translatedRoles,
@@ -136,7 +136,7 @@ final class SecurityRolesBuilder implements ExpandableRolesBuilderInterface
     private function recursiveArraySearch(string $role, array $roles): bool
     {
         foreach ($roles as $key => $value) {
-            if ($role === $key || (is_array($value) && true === $this->recursiveArraySearch($role, $value))) {
+            if ($role === $key || (\is_array($value) && true === $this->recursiveArraySearch($role, $value))) {
                 return true;
             }
         }
