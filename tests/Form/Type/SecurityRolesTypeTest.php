@@ -62,7 +62,7 @@ class SecurityRolesTypeTest extends TypeTestCase
 
         $this->assertTrue($form->isSynchronized());
         $this->assertCount(1, $form->getData());
-        $this->assertTrue(in_array('ROLE_FOO', $form->getData()));
+        $this->assertTrue(\in_array('ROLE_FOO', $form->getData()));
     }
 
     public function testSubmitInvalidData(): void
