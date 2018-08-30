@@ -21,6 +21,7 @@ use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Kernel;
 
 class AdminResettingControllerTest extends TestCase
 {
@@ -37,10 +38,10 @@ class AdminResettingControllerTest extends TestCase
     protected function setUp(): void
     {
         $this->controller = new AdminResettingController();
-        $this->container = $this->getMockBuilder(ContainerBuilder::class)->getMock();
-        $this->twig = $this->getMockBuilder(TwigEngine::class)->disableOriginalConstructor()->getMock();
-        $this->userManager = $this->getMockBuilder(UserManager::class)->disableOriginalConstructor()->getMock();
-        $this->adminPool = $this->getMockBuilder(Pool::class)->disableOriginalConstructor()->getMock();
+        $this->container = $this->createMock(ContainerBuilder::class);
+        $this->twig = $this->createMock(TwigEngine::class);
+        $this->userManager = $this->createMock(UserManager::class);
+        $this->adminPool = $this->createMock(Pool::class);
     }
 
     public function testItIsInstantiable(): void
@@ -86,7 +87,7 @@ class AdminResettingControllerTest extends TestCase
             ->willReturn($this->twig);
 
         $this->twig->expects($this->once())
-            ->method('render')
+            ->method(Kernel::VERSION_ID < 30000 ? 'renderResponse' : 'render')
             ->with('@SonataUser/Admin/Security/Resetting/request.html.twig', [
                 'base_template' => '@SonataAdmin/standard_layout.html.twig',
                 'admin_pool' => $this->adminPool,
