@@ -124,11 +124,11 @@ class UserManager extends BaseUserManager implements UserManagerInterface, Manag
 
         $fields = $this->objectManager->getClassMetadata($this->getClass())->getFieldNames();
         foreach ($sort as $field => $direction) {
-            if (!in_array($field, $fields)) {
+            if (!\in_array($field, $fields)) {
                 throw new \RuntimeException(sprintf("Invalid sort field '%s' in '%s' class", $field, $this->getClass()));
             }
         }
-        if (0 == count($sort)) {
+        if (0 == \count($sort)) {
             $sort = ['username' => 'ASC'];
         }
         foreach ($sort as $field => $direction) {
