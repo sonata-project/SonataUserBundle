@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Action;
 
-use FOS\UserBundle\Model\UserInterface;
+use FOS\UserBundle\Mailer\MailerInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Util\TokenGeneratorInterface;
 use Sonata\AdminBundle\Admin\Pool;
@@ -52,7 +52,7 @@ final class SendEmailAction
     private $userManager;
 
     /**
-     * @var \Swift_Mailer
+     * @var MailerInterface
      */
     private $mailer;
 
@@ -66,27 +66,15 @@ final class SendEmailAction
      */
     private $resetTtl;
 
-    /**
-     * @var string[]
-     */
-    private $fromEmail;
-
-    /**
-     * @var string
-     */
-    private $template;
-
     public function __construct(
         EngineInterface $templating,
         UrlGeneratorInterface $urlGenerator,
         Pool $adminPool,
         TemplateRegistryInterface $templateRegistry,
         UserManagerInterface $userManager,
-        \Swift_Mailer $mailer,
+        MailerInterface $mailer,
         TokenGeneratorInterface $tokenGenerator,
-        int $resetTtl,
-        array $fromEmail,
-        string $template
+        int $resetTtl
     ) {
         $this->templating = $templating;
         $this->urlGenerator = $urlGenerator;
@@ -96,8 +84,6 @@ final class SendEmailAction
         $this->mailer = $mailer;
         $this->tokenGenerator = $tokenGenerator;
         $this->resetTtl = $resetTtl;
-        $this->fromEmail = $fromEmail;
-        $this->template = $template;
     }
 
     public function __invoke(Request $request): Response
@@ -123,7 +109,7 @@ final class SendEmailAction
                 $user->setConfirmationToken($this->tokenGenerator->generateToken());
             }
 
-            $this->sendResettingEmailMessage($user);
+            $this->mailer->sendResettingEmailMessage($user);
             $user->setPasswordRequestedAt(new \DateTime());
             $this->userManager->updateUser($user);
         }
@@ -131,29 +117,5 @@ final class SendEmailAction
         return new RedirectResponse($this->urlGenerator->generate('sonata_user_admin_resetting_check_email', [
             'username' => $username,
         ]));
-    }
-
-    private function sendResettingEmailMessage(UserInterface $user): void
-    {
-        $url = $this->urlGenerator->generate('sonata_user_admin_resetting_reset', [
-            'token' => $user->getConfirmationToken(),
-        ], UrlGeneratorInterface::ABSOLUTE_URL);
-
-        $rendered = $this->templating->render($this->template, [
-            'user' => $user,
-            'confirmationUrl' => $url,
-        ]);
-
-        // Render the email, use the first line as the subject, and the rest as the body
-        $renderedLines = explode(PHP_EOL, trim($rendered));
-        $subject = array_shift($renderedLines);
-        $body = implode(PHP_EOL, $renderedLines);
-        $message = (new \Swift_Message())
-            ->setSubject($subject)
-            ->setFrom($this->fromEmail)
-            ->setTo((string) $user->getEmail())
-            ->setBody($body);
-
-        $this->mailer->send($message);
     }
 }

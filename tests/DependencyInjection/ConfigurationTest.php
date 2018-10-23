@@ -60,6 +60,7 @@ class ConfigurationTest extends TestCase
             'profile' => [
                 'default_avatar' => 'bundles/sonatauser/default_avatar.png',
             ],
+            'mailer' => 'sonata.user.mailer.default',
         ]);
     }
 }

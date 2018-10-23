@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Action;
 
+use FOS\UserBundle\Mailer\MailerInterface;
 use FOS\UserBundle\Model\User;
 use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Util\TokenGeneratorInterface;
@@ -50,7 +51,7 @@ class SendEmailActionTest extends TestCase
     protected $userManager;
 
     /**
-     * @var \Swift_Mailer|\PHPUnit_Framework_MockObject_MockObject
+     * @var MailerInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $mailer;
 
@@ -91,7 +92,7 @@ class SendEmailActionTest extends TestCase
         $this->pool = $this->createMock(Pool::class);
         $this->templateRegistry = $this->createMock(TemplateRegistryInterface::class);
         $this->userManager = $this->createMock(UserManagerInterface::class);
-        $this->mailer = $this->createMock(\Swift_Mailer::class);
+        $this->mailer = $this->createMock(MailerInterface::class);
         $this->tokenGenerator = $this->createMock(TokenGeneratorInterface::class);
         $this->resetTtl = 60;
         $this->fromEmail = 'noreply@sonata-project.org';
@@ -146,7 +147,7 @@ class SendEmailActionTest extends TestCase
             ->willReturn($user);
 
         $this->mailer->expects($this->never())
-            ->method('send');
+            ->method('sendResettingEmailMessage');
 
         $this->urlGenerator->expects($this->any())
             ->method('generate')
@@ -178,7 +179,7 @@ class SendEmailActionTest extends TestCase
             ->willReturn($user);
 
         $this->mailer->expects($this->never())
-            ->method('send');
+            ->method('sendResettingEmailMessage');
 
         $this->urlGenerator->expects($this->any())
             ->method('generate')
@@ -229,37 +230,16 @@ class SendEmailActionTest extends TestCase
             ->willReturn('user-token');
 
         $this->mailer->expects($this->once())
-            ->method('send');
+            ->method('sendResettingEmailMessage');
 
         $this->urlGenerator->expects($this->any())
             ->method('generate')
             ->withConsecutive(
-                ['sonata_user_admin_resetting_reset', ['token' => 'user-token']],
                 ['sonata_user_admin_resetting_check_email', ['username' => 'bar']]
             )
             ->willReturnOnConsecutiveCalls(
-                '/reset',
                 '/check-email'
             );
-
-        $parameters = [
-            'user' => $user,
-            'confirmationUrl' => '/reset',
-        ];
-
-        $this->templating->expects($this->once())
-            ->method('render')
-            ->with($this->template, $parameters)
-            ->willReturn("Subject\nMail content");
-
-        $this->mailer->expects($this->once())
-            ->method('send')
-            ->willReturnCallback(function (\Swift_Message $message): void {
-                $this->assertEquals('Subject', $message->getSubject());
-                $this->assertEquals('Mail content', $message->getBody());
-                $this->assertArrayHasKey($this->fromEmail, $message->getFrom());
-                $this->assertArrayHasKey('user@sonata-project.org', $message->getTo());
-            });
 
         $action = $this->getAction();
         $result = $action($request);
@@ -278,9 +258,7 @@ class SendEmailActionTest extends TestCase
             $this->userManager,
             $this->mailer,
             $this->tokenGenerator,
-            $this->resetTtl,
-            [$this->fromEmail],
-            $this->template
+            $this->resetTtl
         );
     }
 }

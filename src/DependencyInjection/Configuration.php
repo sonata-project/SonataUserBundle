@@ -115,6 +115,7 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('default_avatar')->defaultValue('bundles/sonatauser/default_avatar.png')->end()
                     ->end()
                 ->end()
+                ->scalarNode('mailer')->defaultValue('sonata.user.mailer.default')->info('Custom mailer used to send reset password emails')->end()
             ->end()
         ;
 

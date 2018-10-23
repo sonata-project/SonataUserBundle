@@ -15,11 +15,9 @@
             <argument type="service" id="sonata.admin.pool"/>
             <argument type="service" id="sonata.admin.global_template_registry"/>
             <argument type="service" id="fos_user.user_manager"/>
-            <argument type="service" id="mailer"/>
+            <argument type="service" id="sonata.user.mailer"/>
             <argument type="service" id="fos_user.util.token_generator"/>
             <argument>%fos_user.resetting.retry_ttl%</argument>
-            <argument>%fos_user.resetting.email.from_email%</argument>
-            <argument>%fos_user.resetting.email.template%</argument>
         </service>
         <service id="Sonata\UserBundle\Action\CheckEmailAction" class="Sonata\UserBundle\Action\CheckEmailAction" public="true">
             <argument type="service" id="templating"/>
