@@ -166,6 +166,19 @@ Add these config lines to your FOSUserBundle configuration:
             address: "%mailer_user%"
             sender_name: "%mailer_user%"
 
+Mailer Configuration
+~~~~~~~~~~~~~~~~~~~~
+
+You can define a custom mailer to send reset password emails.
+Your mailer will have to implement ``FOS\UserBundle\Mailer\MailerInterface``.
+
+.. code-block:: yaml
+
+    # config/packages/sonata.yaml
+
+    sonata_user:
+        mailer: custom.mailer.service.id
+
 Integrating the bundle into the Sonata Admin Bundle
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

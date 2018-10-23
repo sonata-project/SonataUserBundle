@@ -53,6 +53,8 @@ Full configuration options:
         profile:
             default_avatar: 'bundles/sonatauser/default_avatar.png' # Default avatar displayed if the user doesn't have one
 
+        mailer: sonata.user.mailer.default # Service used to send emails
+
     # override FOSUser default serialization
     jms_serializer:
         metadata:
