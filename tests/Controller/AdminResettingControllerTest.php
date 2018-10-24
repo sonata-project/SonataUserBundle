@@ -13,89 +13,130 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Controller;
 
-use FOS\UserBundle\Model\UserManager;
 use PHPUnit\Framework\TestCase;
-use Sonata\AdminBundle\Admin\Pool;
+use Sonata\UserBundle\Action\CheckEmailAction;
+use Sonata\UserBundle\Action\RequestAction;
+use Sonata\UserBundle\Action\ResetAction;
+use Sonata\UserBundle\Action\SendEmailAction;
 use Sonata\UserBundle\Controller\AdminResettingController;
-use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class AdminResettingControllerTest extends TestCase
 {
-    private $controller;
+    /**
+     * @var RequestStack|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $requestStack;
 
+    /**
+     * @var TestAction
+     */
+    protected $testAction;
+    /**
+     * @var ContainerBuilder|\PHPUnit_Framework_MockObject_MockObject
+     */
     private $container;
-
-    private $twig;
-
-    private $userManager;
-
-    private $adminPool;
 
     protected function setUp(): void
     {
-        $this->controller = new AdminResettingController();
         $this->container = $this->createMock(ContainerBuilder::class);
-        $this->twig = $this->createMock(TwigEngine::class);
-        $this->userManager = $this->createMock(UserManager::class);
-        $this->adminPool = $this->createMock(Pool::class);
-    }
+        $this->requestStack = $this->createMock(RequestStack::class);
+        $this->testAction = new TestAction();
 
-    public function testItIsInstantiable(): void
-    {
-        $this->assertNotNull($this->controller);
-    }
-
-    public function testIfUsernameNotFound(): void
-    {
-        $this->controller->setContainer($this->container);
-
-        $request = new Request();
-        $request->request = new ParameterBag(['username' => 'foo']);
-
-        $this->container->expects($this->at(0))
-            ->method('get')
-            ->with('fos_user.user_manager')
-            ->willReturn($this->userManager);
-
-        $this->userManager->expects($this->once())
-            ->method('findUserByUsernameOrEmail')
-            ->with('foo')
-            ->willReturn(null);
-
-        $this->adminPool->expects($this->once())
-            ->method('getTemplate')
-            ->with('layout')
-            ->willReturn('@SonataAdmin/standard_layout.html.twig');
-
-        $this->container->expects($this->at(1))
-            ->method('get')
-            ->with('sonata.admin.pool')
-            ->willReturn($this->adminPool);
-
-        $this->container->expects($this->once())
+        $services = [
+            CheckEmailAction::class => $this->testAction,
+            RequestAction::class => $this->testAction,
+            ResetAction::class => $this->testAction,
+            SendEmailAction::class => $this->testAction,
+            'request_stack' => $this->requestStack,
+        ];
+        $this->container->expects($this->any())
             ->method('has')
-            ->with('templating')
-            ->willReturn(true);
-
-        $this->container->expects($this->at(3))
+            ->willReturnCallback(function ($service) use ($services) {
+                return isset($services[$service]);
+            });
+        $this->container->expects($this->any())
             ->method('get')
-            ->with('templating')
-            ->willReturn($this->twig);
+            ->willReturnCallback(function ($service) use ($services) {
+                return $services[$service] ?? null;
+            });
+    }
 
-        $this->twig->expects($this->once())
-            ->method(Kernel::VERSION_ID < 30000 ? 'renderResponse' : 'render')
-            ->with('@SonataUser/Admin/Security/Resetting/request.html.twig', [
-                'base_template' => '@SonataAdmin/standard_layout.html.twig',
-                'admin_pool' => $this->adminPool,
-                'invalid_username' => 'foo',
-            ])
-            ->willReturn('success')
-        ;
+    public function getController(): AdminResettingController
+    {
+        $controller = new AdminResettingController();
+        $controller->setContainer($this->container);
 
-        $this->controller->sendEmailAction($request);
+        return $controller;
+    }
+
+    /**
+     * @group legacy
+     * @expectedDeprecation The Sonata\UserBundle\Controller\AdminResettingController class is deprecated since version 4.x and will be removed in 5.0. Use Sonata\UserBundle\Controller\RequestAction, Sonata\UserBundle\Controller\CheckEmailAction, Sonata\UserBundle\Controller\ResetAction or Sonata\UserBundle\Controller\SendEmailAction instead.
+     */
+    public function testCheckEmailAction(): void
+    {
+        $request = new Request();
+
+        $this->requestStack->expects($this->any())
+            ->method('getCurrentRequest')
+            ->willReturn($request);
+
+        $controller = $this->getController();
+        $result = $controller->checkEmailAction($request);
+
+        $this->assertEquals('ok', $result);
+    }
+
+    public function testRequestAction(): void
+    {
+        $request = new Request();
+
+        $this->requestStack->expects($this->any())
+            ->method('getCurrentRequest')
+            ->willReturn($request);
+
+        $controller = $this->getController();
+        $result = $controller->requestAction();
+
+        $this->assertEquals('ok', $result);
+    }
+
+    public function testResetAction(): void
+    {
+        $request = new Request();
+
+        $this->requestStack->expects($this->any())
+            ->method('getCurrentRequest')
+            ->willReturn($request);
+
+        $controller = $this->getController();
+        $result = $controller->resetAction($request, 'foo');
+
+        $this->assertEquals('ok', $result);
+    }
+
+    public function testSendEmailAction(): void
+    {
+        $request = new Request();
+
+        $this->requestStack->expects($this->any())
+            ->method('getCurrentRequest')
+            ->willReturn($request);
+
+        $controller = $this->getController();
+        $result = $controller->sendEmailAction();
+
+        $this->assertEquals('ok', $result);
+    }
+}
+
+final class TestAction
+{
+    public function __invoke()
+    {
+        return 'ok';
     }
 }
