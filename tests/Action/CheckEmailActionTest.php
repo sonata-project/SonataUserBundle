@@ -18,14 +18,23 @@ use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Action\CheckEmailAction;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class CheckEmailActionTest extends TestCase
 {
+    /**
+     * @var EngineInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $templating;
+
+    /**
+     * @var UrlGeneratorInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $urlGenerator;
+
     /**
      * @var Pool|\PHPUnit_Framework_MockObject_MockObject
      */
@@ -41,51 +50,20 @@ class CheckEmailActionTest extends TestCase
      */
     protected $resetTtl;
 
-    /**
-     * @var ContainerBuilder|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $container;
-
-    /**
-     * @var RouterInterface|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $router;
-
-    /**
-     * @var EngineInterface|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $templating;
-
     public function setUp(): void
     {
+        $this->templating = $this->createMock(EngineInterface::class);
+        $this->urlGenerator = $this->createMock(UrlGeneratorInterface::class);
         $this->pool = $this->createMock(Pool::class);
         $this->templateRegistry = $this->createMock(TemplateRegistryInterface::class);
         $this->resetTtl = 60;
-        $this->container = $this->createMock(ContainerBuilder::class);
-        $this->router = $this->createMock(RouterInterface::class);
-        $this->templating = $this->createMock(EngineInterface::class);
-
-        $services = [
-            'router' => $this->router,
-            'templating' => $this->templating,
-        ];
-        $this->container->expects($this->any())
-            ->method('has')
-            ->willReturnCallback(function ($service) use ($services) {
-                return isset($services[$service]);
-            });
-        $this->container->expects($this->any())
-            ->method('get')
-            ->willReturnCallback(function ($service) use ($services) {
-                return $services[$service] ?? null;
-            });
     }
 
     public function testWithoutUsername(): void
     {
         $request = new Request();
 
-        $this->router->expects($this->once())
+        $this->urlGenerator->expects($this->once())
             ->method('generate')
             ->with('sonata_user_admin_resetting_request')
             ->willReturn('/foo');
@@ -100,6 +78,7 @@ class CheckEmailActionTest extends TestCase
     public function testWithUsername(): void
     {
         $request = new Request(['username' => 'bar']);
+        $response = $this->createMock(Response::class);
 
         $parameters = [
             'base_template' => 'base.html.twig',
@@ -108,9 +87,9 @@ class CheckEmailActionTest extends TestCase
         ];
 
         $this->templating->expects($this->once())
-            ->method('render')
+            ->method('renderResponse')
             ->with('@SonataUser/Admin/Security/Resetting/checkEmail.html.twig', $parameters)
-            ->willReturn('Foo Content');
+            ->willReturn($response);
 
         $this->templateRegistry->expects($this->any())
             ->method('getTemplate')
@@ -120,15 +99,11 @@ class CheckEmailActionTest extends TestCase
         $action = $this->getAction();
         $result = $action($request);
 
-        $this->assertInstanceOf(Response::class, $result);
-        $this->assertEquals('Foo Content', $result->getContent());
+        $this->assertEquals($response, $result);
     }
 
     private function getAction(): CheckEmailAction
     {
-        $action = new CheckEmailAction($this->pool, $this->templateRegistry, $this->resetTtl);
-        $action->setContainer($this->container);
-
-        return $action;
+        return new CheckEmailAction($this->templating, $this->urlGenerator, $this->pool, $this->templateRegistry, $this->resetTtl);
     }
 }

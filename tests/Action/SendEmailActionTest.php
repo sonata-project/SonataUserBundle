@@ -25,14 +25,14 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class SendEmailActionTest extends TestCase
 {
     /**
-     * @var RouterInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var UrlGeneratorInterface|\PHPUnit_Framework_MockObject_MockObject
      */
-    protected $router;
+    protected $urlGenerator;
 
     /**
      * @var Pool|\PHPUnit_Framework_MockObject_MockObject
@@ -86,7 +86,8 @@ class SendEmailActionTest extends TestCase
 
     public function setUp(): void
     {
-        $this->router = $this->createMock(RouterInterface::class);
+        $this->templating = $this->createMock(EngineInterface::class);
+        $this->urlGenerator = $this->createMock(UrlGeneratorInterface::class);
         $this->pool = $this->createMock(Pool::class);
         $this->templateRegistry = $this->createMock(TemplateRegistryInterface::class);
         $this->userManager = $this->createMock(UserManagerInterface::class);
@@ -96,27 +97,12 @@ class SendEmailActionTest extends TestCase
         $this->fromEmail = 'noreply@sonata-project.org';
         $this->template = 'email.txt.twig';
         $this->container = $this->createMock(ContainerBuilder::class);
-        $this->templating = $this->createMock(EngineInterface::class);
-
-        $services = [
-            'router' => $this->router,
-            'templating' => $this->templating,
-        ];
-        $this->container->expects($this->any())
-            ->method('has')
-            ->willReturnCallback(function ($service) use ($services) {
-                return isset($services[$service]);
-            });
-        $this->container->expects($this->any())
-            ->method('get')
-            ->willReturnCallback(function ($service) use ($services) {
-                return $services[$service] ?? null;
-            });
     }
 
     public function testUnknownUsername(): void
     {
         $request = new Request([], ['username' => 'bar']);
+        $response = $this->createMock(Response::class);
 
         $parameters = [
             'base_template' => 'base.html.twig',
@@ -125,9 +111,9 @@ class SendEmailActionTest extends TestCase
         ];
 
         $this->templating->expects($this->once())
-            ->method('render')
+            ->method('renderResponse')
             ->with('@SonataUser/Admin/Security/Resetting/request.html.twig', $parameters)
-            ->willReturn('Foo Content');
+            ->willReturn($response);
 
         $this->templateRegistry->expects($this->any())
             ->method('getTemplate')
@@ -142,8 +128,7 @@ class SendEmailActionTest extends TestCase
         $action = $this->getAction();
         $result = $action($request);
 
-        $this->assertInstanceOf(Response::class, $result);
-        $this->assertEquals('Foo Content', $result->getContent());
+        $this->assertEquals($response, $result);
     }
 
     public function testPasswordRequestNonExpired(): void
@@ -163,7 +148,7 @@ class SendEmailActionTest extends TestCase
         $this->mailer->expects($this->never())
             ->method('send');
 
-        $this->router->expects($this->any())
+        $this->urlGenerator->expects($this->any())
             ->method('generate')
             ->with('sonata_user_admin_resetting_check_email')
             ->willReturn('/foo');
@@ -195,7 +180,7 @@ class SendEmailActionTest extends TestCase
         $this->mailer->expects($this->never())
             ->method('send');
 
-        $this->router->expects($this->any())
+        $this->urlGenerator->expects($this->any())
             ->method('generate')
             ->with('sonata_user_admin_resetting_request')
             ->willReturn('/foo');
@@ -246,7 +231,7 @@ class SendEmailActionTest extends TestCase
         $this->mailer->expects($this->once())
             ->method('send');
 
-        $this->router->expects($this->any())
+        $this->urlGenerator->expects($this->any())
             ->method('generate')
             ->withConsecutive(
                 ['sonata_user_admin_resetting_reset', ['token' => 'user-token']],
@@ -285,8 +270,9 @@ class SendEmailActionTest extends TestCase
 
     private function getAction(): SendEmailAction
     {
-        $action = new SendEmailAction(
-            $this->router,
+        return new SendEmailAction(
+            $this->templating,
+            $this->urlGenerator,
             $this->pool,
             $this->templateRegistry,
             $this->userManager,
@@ -296,8 +282,5 @@ class SendEmailActionTest extends TestCase
             [$this->fromEmail],
             $this->template
         );
-        $action->setContainer($this->container);
-
-        return $action;
     }
 }

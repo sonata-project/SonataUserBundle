@@ -22,28 +22,32 @@ use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Action\ResetAction;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class ResetActionTest extends TestCase
 {
     /**
+     * @var EngineInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $templating;
+
+    /**
+     * @var UrlGeneratorInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $urlGenerator;
+
+    /**
      * @var AuthorizationCheckerInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $authorizationChecker;
-
-    /**
-     * @var RouterInterface|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $router;
 
     /**
      * @var Pool|\PHPUnit_Framework_MockObject_MockObject
@@ -76,6 +80,11 @@ class ResetActionTest extends TestCase
     protected $translator;
 
     /**
+     * @var Session|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $session;
+
+    /**
      * @var int
      */
     protected $resetTtl;
@@ -85,52 +94,20 @@ class ResetActionTest extends TestCase
      */
     protected $firewallName;
 
-    /**
-     * @var ContainerBuilder|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $container;
-
-    /**
-     * @var EngineInterface|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $templating;
-
-    /**
-     * @var Session|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $session;
-
     public function setUp(): void
     {
+        $this->templating = $this->createMock(EngineInterface::class);
+        $this->urlGenerator = $this->createMock(UrlGeneratorInterface::class);
         $this->authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
-        $this->router = $this->createMock(RouterInterface::class);
         $this->pool = $this->createMock(Pool::class);
         $this->templateRegistry = $this->createMock(TemplateRegistryInterface::class);
         $this->formFactory = $this->createMock(FactoryInterface::class);
         $this->userManager = $this->createMock(UserManagerInterface::class);
         $this->loginManager = $this->createMock(LoginManagerInterface::class);
         $this->translator = $this->createMock(TranslatorInterface::class);
+        $this->session = $this->createMock(Session::class);
         $this->resetTtl = 60;
         $this->firewallName = 'default';
-        $this->container = $this->createMock(ContainerBuilder::class);
-        $this->templating = $this->createMock(EngineInterface::class);
-        $this->session = $this->createMock(Session::class);
-
-        $services = [
-            'router' => $this->router,
-            'templating' => $this->templating,
-            'session' => $this->session,
-        ];
-        $this->container->expects($this->any())
-            ->method('has')
-            ->willReturnCallback(function ($service) use ($services) {
-                return isset($services[$service]);
-            });
-        $this->container->expects($this->any())
-            ->method('get')
-            ->willReturnCallback(function ($service) use ($services) {
-                return $services[$service] ?? null;
-            });
     }
 
     public function testAuthenticated(): void
@@ -141,7 +118,7 @@ class ResetActionTest extends TestCase
             ->method('isGranted')
             ->willReturn(true);
 
-        $this->router->expects($this->any())
+        $this->urlGenerator->expects($this->any())
             ->method('generate')
             ->with('sonata_admin_dashboard')
             ->willReturn('/foo');
@@ -183,7 +160,7 @@ class ResetActionTest extends TestCase
             ->with('token')
             ->willReturn($user);
 
-        $this->router->expects($this->any())
+        $this->urlGenerator->expects($this->any())
             ->method('generate')
             ->with('sonata_user_admin_resetting_request')
             ->willReturn('/foo');
@@ -196,6 +173,64 @@ class ResetActionTest extends TestCase
     }
 
     public function testReset(): void
+    {
+        $request = new Request();
+        $response = $this->createMock(Response::class);
+
+        $parameters = [
+            'token' => 'user-token',
+            'form' => 'Form View',
+            'base_template' => 'base.html.twig',
+            'admin_pool' => $this->pool,
+        ];
+
+        $user = $this->createMock(User::class);
+        $user->expects($this->any())
+            ->method('isPasswordRequestNonExpired')
+            ->willReturn(true);
+
+        $form = $this->createMock(Form::class);
+        $form->expects($this->any())
+            ->method('isValid')
+            ->willReturn(true);
+        $form->expects($this->any())
+            ->method('isSubmitted')
+            ->willReturn(false);
+        $form->expects($this->once())
+            ->method('createView')
+            ->willReturn('Form View');
+
+        $this->userManager->expects($this->any())
+            ->method('findUserByConfirmationToken')
+            ->with('user-token')
+            ->willReturn($user);
+
+        $this->formFactory->expects($this->once())
+            ->method('createForm')
+            ->willReturn($form);
+
+        $this->urlGenerator->expects($this->any())
+            ->method('generate')
+            ->with('sonata_admin_dashboard')
+            ->willReturn('/foo');
+
+        $this->templating->expects($this->any())
+            ->method('renderResponse')
+            ->with('@SonataUser/Admin/Security/Resetting/reset.html.twig', $parameters)
+            ->willReturn($response);
+
+        $this->templateRegistry->expects($this->any())
+            ->method('getTemplate')
+            ->with('layout')
+            ->willReturn('base.html.twig');
+
+        $action = $this->getAction();
+        $result = $action($request, 'user-token');
+
+        $this->assertEquals($response, $result);
+    }
+
+    public function testPostedReset(): void
     {
         $request = new Request();
 
@@ -254,7 +289,7 @@ class ResetActionTest extends TestCase
             ->method('createForm')
             ->willReturn($form);
 
-        $this->router->expects($this->any())
+        $this->urlGenerator->expects($this->any())
             ->method('generate')
             ->with('sonata_admin_dashboard')
             ->willReturn('/foo');
@@ -268,20 +303,19 @@ class ResetActionTest extends TestCase
 
     private function getAction(): ResetAction
     {
-        $action = new ResetAction(
+        return new ResetAction(
+            $this->templating,
+            $this->urlGenerator,
             $this->authorizationChecker,
-            $this->router,
             $this->pool,
             $this->templateRegistry,
             $this->formFactory,
             $this->userManager,
             $this->loginManager,
             $this->translator,
+            $this->session,
             $this->resetTtl,
             $this->firewallName
         );
-        $action->setContainer($this->container);
-
-        return $action;
     }
 }

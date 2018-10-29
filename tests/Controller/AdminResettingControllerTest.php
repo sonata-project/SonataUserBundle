@@ -127,7 +127,7 @@ class AdminResettingControllerTest extends TestCase
             ->willReturn($request);
 
         $controller = $this->getController();
-        $result = $controller->sendEmailAction();
+        $result = $controller->sendEmailAction($request);
 
         $this->assertEquals('ok', $result);
     }

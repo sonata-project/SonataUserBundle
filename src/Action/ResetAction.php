@@ -17,99 +17,117 @@ use FOS\UserBundle\Form\Factory\FactoryInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Security\LoginManagerInterface;
 use Psr\Log\LoggerAwareTrait;
+use Psr\Log\NullLogger;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AccountStatusException;
 use Symfony\Component\Translation\TranslatorInterface;
 
-final class ResetAction extends Controller
+final class ResetAction
 {
     use LoggerAwareTrait;
 
     /**
-     * @var AuthorizationCheckerInterface
+     * @var EngineInterface
      */
-    protected $authorizationChecker;
+    private $templating;
 
     /**
-     * @var RouterInterface
+     * @var UrlGeneratorInterface
      */
-    protected $router;
+    private $urlGenerator;
+
+    /**
+     * @var AuthorizationCheckerInterface
+     */
+    private $authorizationChecker;
 
     /**
      * @var Pool
      */
-    protected $adminPool;
+    private $adminPool;
 
     /**
      * @var TemplateRegistryInterface
      */
-    protected $templateRegistry;
+    private $templateRegistry;
 
     /**
      * @var FactoryInterface
      */
-    protected $formFactory;
+    private $formFactory;
 
     /**
      * @var UserManagerInterface
      */
-    protected $userManager;
+    private $userManager;
 
     /**
      * @var LoginManagerInterface
      */
-    protected $loginManager;
+    private $loginManager;
 
     /**
      * @var TranslatorInterface
      */
-    protected $translator;
+    private $translator;
+
+    /**
+     * @var Session
+     */
+    private $session;
 
     /**
      * @var int
      */
-    protected $resetTtl;
+    private $resetTtl;
 
     /**
      * @var string
      */
-    protected $firewallName;
+    private $firewallName;
 
     public function __construct(
+        EngineInterface $templating,
+        UrlGeneratorInterface $urlGenerator,
         AuthorizationCheckerInterface $authorizationChecker,
-        RouterInterface $router,
         Pool $adminPool,
         TemplateRegistryInterface $templateRegistry,
         FactoryInterface $formFactory,
         UserManagerInterface $userManager,
         LoginManagerInterface $loginManager,
         TranslatorInterface $translator,
+        Session $session,
         int $resetTtl,
         string $firewallName
     ) {
+        $this->templating = $templating;
+        $this->urlGenerator = $urlGenerator;
         $this->authorizationChecker = $authorizationChecker;
-        $this->router = $router;
         $this->adminPool = $adminPool;
         $this->templateRegistry = $templateRegistry;
         $this->formFactory = $formFactory;
         $this->userManager = $userManager;
         $this->loginManager = $loginManager;
         $this->translator = $translator;
+        $this->session = $session;
         $this->resetTtl = $resetTtl;
         $this->firewallName = $firewallName;
+        $this->logger = new NullLogger();
     }
 
-    public function __invoke(Request $request, $token)
+    public function __invoke(Request $request, $token): Response
     {
         if ($this->authorizationChecker->isGranted('IS_AUTHENTICATED_FULLY')) {
-            return new RedirectResponse($this->router->generate('sonata_admin_dashboard'));
+            return new RedirectResponse($this->urlGenerator->generate('sonata_admin_dashboard'));
         }
 
         $user = $this->userManager->findUserByConfirmationToken($token);
@@ -119,7 +137,7 @@ final class ResetAction extends Controller
         }
 
         if (!$user->isPasswordRequestNonExpired($this->resetTtl)) {
-            return new RedirectResponse($this->generateUrl('sonata_user_admin_resetting_request'));
+            return new RedirectResponse($this->urlGenerator->generate('sonata_user_admin_resetting_request'));
         }
 
         $form = $this->formFactory->createForm();
@@ -133,9 +151,9 @@ final class ResetAction extends Controller
             $user->setEnabled(true);
 
             $message = $this->translator->trans('resetting.flash.success', [], 'FOSUserBundle');
-            $this->addFlash('success', $message);
+            $this->session->getFlashBag()->add('success', $message);
 
-            $response = new RedirectResponse($this->generateUrl('sonata_admin_dashboard'));
+            $response = new RedirectResponse($this->urlGenerator->generate('sonata_admin_dashboard'));
 
             try {
                 $this->loginManager->logInUser($this->firewallName, $user, $response);
@@ -143,12 +161,10 @@ final class ResetAction extends Controller
             } catch (AccountStatusException $ex) {
                 // We simply do not authenticate users which do not pass the user
                 // checker (not enabled, expired, etc.).
-                if ($this->logger) {
-                    $this->getLogger()->warning(sprintf(
-                        'Unable to login user %d after password reset',
-                        $user->getId()
+                $this->getLogger()->warning(sprintf(
+                    'Unable to login user %d after password reset',
+                    $user->getId()
                 ), ['exception' => $ex]);
-                }
             }
 
             $this->userManager->updateUser($user);
@@ -156,7 +172,7 @@ final class ResetAction extends Controller
             return $response;
         }
 
-        return $this->render('@SonataUser/Admin/Security/Resetting/reset.html.twig', [
+        return $this->templating->renderResponse('@SonataUser/Admin/Security/Resetting/reset.html.twig', [
             'token' => $token,
             'form' => $form->createView(),
             'base_template' => $this->templateRegistry->getTemplate('layout'),

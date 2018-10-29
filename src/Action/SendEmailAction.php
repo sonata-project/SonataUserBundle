@@ -18,61 +18,67 @@ use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Util\TokenGeneratorInterface;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Routing\RouterInterface;
 
-final class SendEmailAction extends Controller
+final class SendEmailAction
 {
     /**
-     * @var RouterInterface
+     * @var EngineInterface
      */
-    protected $router;
+    private $templating;
+
+    /**
+     * @var UrlGeneratorInterface
+     */
+    private $urlGenerator;
 
     /**
      * @var Pool
      */
-    protected $adminPool;
+    private $adminPool;
 
     /**
      * @var TemplateRegistryInterface
      */
-    protected $templateRegistry;
+    private $templateRegistry;
 
     /**
      * @var UserManagerInterface
      */
-    protected $userManager;
+    private $userManager;
 
     /**
      * @var \Swift_Mailer
      */
-    protected $mailer;
+    private $mailer;
 
     /**
      * @var TokenGeneratorInterface
      */
-    protected $tokenGenerator;
+    private $tokenGenerator;
 
     /**
      * @var int
      */
-    protected $resetTtl;
+    private $resetTtl;
 
     /**
      * @var string[]
      */
-    protected $fromEmail;
+    private $fromEmail;
 
     /**
      * @var string
      */
-    protected $template;
+    private $template;
 
     public function __construct(
-        RouterInterface $router,
+        EngineInterface $templating,
+        UrlGeneratorInterface $urlGenerator,
         Pool $adminPool,
         TemplateRegistryInterface $templateRegistry,
         UserManagerInterface $userManager,
@@ -82,7 +88,8 @@ final class SendEmailAction extends Controller
         array $fromEmail,
         string $template
     ) {
-        $this->router = $router;
+        $this->templating = $templating;
+        $this->urlGenerator = $urlGenerator;
         $this->adminPool = $adminPool;
         $this->templateRegistry = $templateRegistry;
         $this->userManager = $userManager;
@@ -93,14 +100,14 @@ final class SendEmailAction extends Controller
         $this->template = $template;
     }
 
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): Response
     {
         $username = $request->request->get('username');
 
         $user = $this->userManager->findUserByUsernameOrEmail($username);
 
         if (null === $user) {
-            return $this->render('@SonataUser/Admin/Security/Resetting/request.html.twig', [
+            return $this->templating->renderResponse('@SonataUser/Admin/Security/Resetting/request.html.twig', [
                 'base_template' => $this->templateRegistry->getTemplate('layout'),
                 'admin_pool' => $this->adminPool,
                 'invalid_username' => $username,
@@ -109,7 +116,7 @@ final class SendEmailAction extends Controller
 
         if (null !== $user && !$user->isPasswordRequestNonExpired($this->resetTtl)) {
             if (!$user->isAccountNonLocked()) {
-                return new RedirectResponse($this->router->generate('sonata_user_admin_resetting_request'));
+                return new RedirectResponse($this->urlGenerator->generate('sonata_user_admin_resetting_request'));
             }
 
             if (null === $user->getConfirmationToken()) {
@@ -121,18 +128,18 @@ final class SendEmailAction extends Controller
             $this->userManager->updateUser($user);
         }
 
-        return new RedirectResponse($this->generateUrl('sonata_user_admin_resetting_check_email', [
+        return new RedirectResponse($this->urlGenerator->generate('sonata_user_admin_resetting_check_email', [
             'username' => $username,
         ]));
     }
 
     private function sendResettingEmailMessage(UserInterface $user): void
     {
-        $url = $this->generateUrl('sonata_user_admin_resetting_reset', [
+        $url = $this->urlGenerator->generate('sonata_user_admin_resetting_reset', [
             'token' => $user->getConfirmationToken(),
         ], UrlGeneratorInterface::ABSOLUTE_URL);
 
-        $rendered = $this->renderView($this->template, [
+        $rendered = $this->templating->render($this->template, [
             'user' => $user,
             'confirmationUrl' => $url,
         ]);

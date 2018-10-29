@@ -18,24 +18,28 @@ use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Action\RequestAction;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class RequestActionTest extends TestCase
 {
     /**
+     * @var EngineInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $templating;
+
+    /**
+     * @var UrlGeneratorInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $urlGenerator;
+
+    /**
      * @var AuthorizationCheckerInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $authorizationChecker;
-
-    /**
-     * @var RouterInterface|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $router;
 
     /**
      * @var Pool|\PHPUnit_Framework_MockObject_MockObject
@@ -47,39 +51,13 @@ class RequestActionTest extends TestCase
      */
     protected $templateRegistry;
 
-    /**
-     * @var ContainerBuilder|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $container;
-
-    /**
-     * @var EngineInterface|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $templating;
-
     public function setUp(): void
     {
+        $this->templating = $this->createMock(EngineInterface::class);
+        $this->urlGenerator = $this->createMock(UrlGeneratorInterface::class);
         $this->authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
-        $this->router = $this->createMock(RouterInterface::class);
         $this->pool = $this->createMock(Pool::class);
         $this->templateRegistry = $this->createMock(TemplateRegistryInterface::class);
-        $this->container = $this->createMock(ContainerBuilder::class);
-        $this->templating = $this->createMock(EngineInterface::class);
-
-        $services = [
-            'router' => $this->router,
-            'templating' => $this->templating,
-        ];
-        $this->container->expects($this->any())
-            ->method('has')
-            ->willReturnCallback(function ($service) use ($services) {
-                return isset($services[$service]);
-            });
-        $this->container->expects($this->any())
-            ->method('get')
-            ->willReturnCallback(function ($service) use ($services) {
-                return $services[$service] ?? null;
-            });
     }
 
     public function testAuthenticated(): void
@@ -90,7 +68,7 @@ class RequestActionTest extends TestCase
             ->method('isGranted')
             ->willReturn(true);
 
-        $this->router->expects($this->any())
+        $this->urlGenerator->expects($this->any())
             ->method('generate')
             ->with('sonata_admin_dashboard')
             ->willReturn('/foo');
@@ -105,6 +83,7 @@ class RequestActionTest extends TestCase
     public function testUnauthenticated(): void
     {
         $request = new Request();
+        $response = $this->createMock(Response::class);
 
         $parameters = [
             'base_template' => 'base.html.twig',
@@ -116,9 +95,9 @@ class RequestActionTest extends TestCase
             ->willReturn(false);
 
         $this->templating->expects($this->once())
-            ->method('render')
+            ->method('renderResponse')
             ->with('@SonataUser/Admin/Security/Resetting/request.html.twig', $parameters)
-            ->willReturn('Foo Content');
+            ->willReturn($response);
 
         $this->templateRegistry->expects($this->any())
             ->method('getTemplate')
@@ -128,15 +107,17 @@ class RequestActionTest extends TestCase
         $action = $this->getAction();
         $result = $action($request);
 
-        $this->assertInstanceOf(Response::class, $result);
-        $this->assertEquals('Foo Content', $result->getContent());
+        $this->assertEquals($response, $result);
     }
 
     private function getAction(): RequestAction
     {
-        $action = new RequestAction($this->authorizationChecker, $this->router, $this->pool, $this->templateRegistry);
-        $action->setContainer($this->container);
-
-        return $action;
+        return new RequestAction(
+            $this->templating,
+            $this->urlGenerator,
+            $this->authorizationChecker,
+            $this->pool,
+            $this->templateRegistry
+        );
     }
 }

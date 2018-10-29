@@ -44,7 +44,7 @@ class AdminResettingController extends Controller
     /**
      * @return Response
      */
-    public function sendEmailAction()
+    public function sendEmailAction(Request $request)
     {
         /** @var SendEmailAction $sendEmailAction */
         $sendEmailAction = $this->container->get(SendEmailAction::class);
@@ -55,7 +55,7 @@ class AdminResettingController extends Controller
     /**
      * @return Response
      */
-    public function checkEmailAction()
+    public function checkEmailAction(Request $request)
     {
         /** @var CheckEmailAction $checkEmailAction */
         $checkEmailAction = $this->container->get(CheckEmailAction::class);

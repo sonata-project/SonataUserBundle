@@ -15,47 +15,63 @@ namespace Sonata\UserBundle\Action;
 
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-final class CheckEmailAction extends Controller
+final class CheckEmailAction
 {
+    /**
+     * @var EngineInterface
+     */
+    private $templating;
+
+    /**
+     * @var UrlGeneratorInterface
+     */
+    private $urlGenerator;
+
     /**
      * @var Pool
      */
-    protected $adminPool;
+    private $adminPool;
 
     /**
      * @var TemplateRegistryInterface
      */
-    protected $templateRegistry;
+    private $templateRegistry;
 
     /**
      * @var int
      */
-    protected $resetTtl;
+    private $resetTtl;
 
     public function __construct(
+        EngineInterface $templating,
+        UrlGeneratorInterface $urlGenerator,
         Pool $adminPool,
         TemplateRegistryInterface $templateRegistry,
         int $resetTtl
     ) {
+        $this->templating = $templating;
+        $this->urlGenerator = $urlGenerator;
         $this->adminPool = $adminPool;
         $this->templateRegistry = $templateRegistry;
         $this->resetTtl = $resetTtl;
     }
 
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): Response
     {
         $username = $request->query->get('username');
 
         if (empty($username)) {
             // the user does not come from the sendEmail action
-            return new RedirectResponse($this->generateUrl('sonata_user_admin_resetting_request'));
+            return new RedirectResponse($this->urlGenerator->generate('sonata_user_admin_resetting_request'));
         }
 
-        return $this->render('@SonataUser/Admin/Security/Resetting/checkEmail.html.twig', [
+        return $this->templating->renderResponse('@SonataUser/Admin/Security/Resetting/checkEmail.html.twig', [
             'base_template' => $this->templateRegistry->getTemplate('layout'),
             'admin_pool' => $this->adminPool,
             'tokenLifetime' => ceil($this->resetTtl / 3600),
