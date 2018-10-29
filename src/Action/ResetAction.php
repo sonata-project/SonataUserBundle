@@ -146,7 +146,7 @@ final class ResetAction extends Controller
                 if ($this->logger) {
                     $this->getLogger()->warning(sprintf(
                         'Unable to login user %d after password reset',
-                            $user->getId())
+                        $user->getId()
                     );
                 }
             }
