@@ -73,6 +73,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
 
         $loader->load('twig.xml');
         $loader->load('command.xml');
+        $loader->load('actions.xml');
 
         if ('orm' === $config['manager_type'] && isset(
             $bundles['FOSRestBundle'],
