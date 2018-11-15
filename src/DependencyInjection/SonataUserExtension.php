@@ -74,6 +74,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         $loader->load('twig.xml');
         $loader->load('command.xml');
         $loader->load('actions.xml');
+        $loader->load('mailer.xml');
 
         if ('orm' === $config['manager_type'] && isset(
             $bundles['FOSRestBundle'],
@@ -98,6 +99,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
 
         $this->configureTranslationDomain($config, $container);
         $this->configureController($config, $container);
+        $this->configureMailer($config, $container);
 
         $container->setParameter('sonata.user.default_avatar', $config['profile']['default_avatar']);
 
@@ -107,8 +109,6 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     }
 
     /**
-     * @param array $config
-     *
      * @throws \RuntimeException
      *
      * @return array
@@ -256,7 +256,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
      * Adds aliases for user & group managers depending on $managerType.
      *
      * @param ContainerBuilder $container
-     * @param                  $managerType
+     * @param string           $managerType
      */
     protected function aliasManagers(ContainerBuilder $container, $managerType): void
     {
@@ -268,9 +268,6 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         $container->getAlias('sonata.user.group_manager')->setPublic(true);
     }
 
-    /**
-     * @param array $config
-     */
     private function checkManagerTypeToModelTypeMapping(array $config): void
     {
         $managerType = $config['manager_type'];
@@ -311,5 +308,10 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
                 );
             }
         }
+    }
+
+    private function configureMailer(array $config, ContainerBuilder $container): void
+    {
+        $container->setAlias('sonata.user.mailer', $config['mailer']);
     }
 }
