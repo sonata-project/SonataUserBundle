@@ -11,17 +11,18 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
+use FOS\UserBundle\Model\UserManagerInterface;
 use Google\Authenticator\GoogleAuthenticator;
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Entity\BaseUser;
 use Sonata\UserBundle\EventListener\TwoFactorLoginSuccessHandler;
 use Sonata\UserBundle\GoogleAuthenticator\Helper;
-use Sonata\UserBundle\Model\UserManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -102,13 +103,16 @@ class TwoFactorLoginSuccessHandlerTest extends TestCase
         $templateEngineMock = $this->createMock(EngineInterface::class);
         $templateEngineMock->method('renderResponse')->willReturn(Response::create('Rendered response'));
         $userManagerMock = $this->createMock(UserManagerInterface::class);
+        $routerMock = $this->createMock(UrlGeneratorInterface::class);
+        $routerMock->method('generate')->willReturn('/admin/dashboard');
         $forcedRoles = ['ROLE_ADMIN'];
         $ipWhiteList = ['127.0.0.1'];
         $helper = new Helper('site.tld', new GoogleAuthenticator(), $authChecker, $forcedRoles, $ipWhiteList);
         $this->testClass = new TwoFactorLoginSuccessHandler(
             $templateEngineMock,
             $helper,
-            $userManagerMock
+            $userManagerMock,
+            $routerMock
         );
         $this->request = Request::create('/');
         if ($remoteAddr) {

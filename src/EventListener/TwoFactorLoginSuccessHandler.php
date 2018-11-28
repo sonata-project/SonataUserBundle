@@ -20,6 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface;
 
@@ -45,14 +46,21 @@ final class TwoFactorLoginSuccessHandler implements AuthenticationSuccessHandler
      */
     private $userManager;
 
+    /**
+     * @var UrlGeneratorInterface
+     */
+    private $urlGenerator;
+
     public function __construct(
         EngineInterface $engine,
         Helper $helper,
-        UserManagerInterface $userManager
+        UserManagerInterface $userManager,
+        UrlGeneratorInterface $urlGenerator = null // NEXT_MAJOR: make it mandatory.
     ) {
         $this->engine = $engine;
         $this->googleAuthenticator = $helper;
         $this->userManager = $userManager;
+        $this->urlGenerator = $urlGenerator;
     }
 
     /**
@@ -62,8 +70,6 @@ final class TwoFactorLoginSuccessHandler implements AuthenticationSuccessHandler
     {
         /** @var $user User */
         $user = $token->getUser();
-        $redirectResponse = new RedirectResponse('/admin');
-
         $needToHave2FA = $this->googleAuthenticator->needToHaveGoogle2FACode($request);
 
         if ($needToHave2FA && !$user->getTwoStepVerificationCode()) {
@@ -86,6 +92,12 @@ final class TwoFactorLoginSuccessHandler implements AuthenticationSuccessHandler
             $request->getSession()->set($this->googleAuthenticator->getSessionKey($token), null);
         }
 
-        return $redirectResponse;
+        // NEXT_MAJOR: remove hardcoded url.
+        $url = $this->urlGenerator
+            ? $this->urlGenerator->generate('sonata_admin_dashboard')
+            : '/admin'
+        ;
+
+        return new RedirectResponse($url);
     }
 }
