@@ -562,6 +562,10 @@
                 <source>title_user_resetting_reset</source>
                 <target>title_user_resetting_reset</target>
             </trans-unit>
+            <trans-unit id="qr_go_next">
+                <source>qr_go_next</source>
+                <target>Je l'ai scanné. Continuer.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
