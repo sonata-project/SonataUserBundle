@@ -66,9 +66,9 @@ final class Mailer implements MailerInterface
         ]);
 
         // Render the email, use the first line as the subject, and the rest as the body
-        $renderedLines = explode(PHP_EOL, trim($rendered));
+        $renderedLines = preg_split('/\R/', trim($rendered), 2, PREG_SPLIT_NO_EMPTY);
         $subject = array_shift($renderedLines);
-        $body = implode(PHP_EOL, $renderedLines);
+        $body = implode('', $renderedLines);
         $message = (new \Swift_Message())
             ->setSubject($subject)
             ->setFrom($this->fromEmail)
