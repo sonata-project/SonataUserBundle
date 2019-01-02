@@ -21,15 +21,15 @@ So if your login and password are compromised then the hacker must also hold you
 Installation
 ------------
 
-Add the following line to the ``composer.json`` file::
+.. code-block:: bash
 
-    "sonata-project/google-authenticator": "dev-master"
+    composer require sonata-project/google-authenticator
 
 Edit the configuration file:
 
 .. code-block:: yaml
 
-    # app/config/config.yml
+    # config/packages/sonata_user.yaml
 
     sonata_user:
         google_authenticator:
@@ -48,7 +48,7 @@ in your firewall to ``sonata.user.google.authenticator.success_handler``, exampl
 
 .. code-block:: yaml
 
-    # app/config/security.yml
+    # config/packages/security.yaml
 
     security:
         firewalls:
