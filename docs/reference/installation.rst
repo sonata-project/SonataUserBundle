@@ -18,6 +18,7 @@ their configuration step; you will find everything you need in their own
 installation chapter.
 
 .. note::
+
     If a dependency is already installed somewhere in your project or in
     another dependency, you won't need to install it again.
 
@@ -34,11 +35,7 @@ Enable the Bundle
     composer update
 
 Next, be sure to enable the bundles in your ``bundles.php`` file if they
-are not already enabled:
-
-.. code-block:: php
-
-    <?php
+are not already enabled::
 
     // config/bundles.php
 
@@ -53,12 +50,11 @@ are not already enabled:
     ];
 
 .. note::
+
     If you are not using Symfony Flex, you should enable bundles in your
     ``AppKernel.php``.
 
 .. code-block:: php
-
-    <?php
 
     // app/AppKernel.php
 
@@ -80,6 +76,7 @@ Configuration
 -------------
 
 .. note::
+
     If you are not using Symfony Flex, all configuration in this section should
     be added to ``app/config/config.yml``.
 
@@ -90,7 +87,7 @@ settings of `super-admin` users, to enable this use the following configuration:
 
 .. code-block:: yaml
 
-    # config/packages/sonata.yaml
+    # config/packages/sonata_user.yaml
 
     sonata_user:
         security_acl: true
@@ -101,8 +98,6 @@ settings of `super-admin` users, to enable this use the following configuration:
     # config/packages/security.yaml
 
     security:
-        # [...]
-
         encoders:
             FOS\UserBundle\Model\UserInterface: sha512
 
@@ -119,7 +114,6 @@ Add these config lines to your Doctrine configuration:
     # config/packages/doctrine.yaml
 
     doctrine:
-        #...
         dbal:
             types:
                 json: Sonata\Doctrine\Types\JsonType
@@ -132,7 +126,6 @@ And these in the config mapping definition (or enable `auto_mapping <http://symf
     # config/packages/doctrine.yaml
 
     doctrine:
-        #...
         orm:
             entity_managers:
                 default:
@@ -154,7 +147,6 @@ Add these config lines to your FOSUserBundle configuration:
         firewall_name:  main
         user_class:     Sonata\UserBundle\Entity\BaseUser
 
-
         group:
             group_class:   Sonata\UserBundle\Entity\BaseGroup
             group_manager: sonata.user.orm.group_manager # If you're using doctrine orm (use sonata.user.mongodb.group_manager for mongodb)
@@ -174,7 +166,7 @@ Your mailer will have to implement ``FOS\UserBundle\Mailer\MailerInterface``.
 
 .. code-block:: yaml
 
-    # config/packages/sonata.yaml
+    # config/packages/sonata_user.yaml
 
     sonata_user:
         mailer: custom.mailer.service.id
@@ -197,11 +189,13 @@ Add the related security routing information:
         prefix: /admin/resetting
 
 .. note::
+
     If you are not using Symfony Flex, routes should be added to ``app/config/routing.yml``.
 
 Then, add a new custom firewall handlers for the admin:
 
 .. note::
+
     If you are not using Symfony Flex, rest of this configuration should be
     added to ``app/config/security.yml``.
 
@@ -307,6 +301,7 @@ to generate the correct entities for the media:
     bin/console sonata:easy-extends:generate SonataUserBundle --dest=src --namespace_prefix=App
 
 .. note::
+
     If you are not using Symfony Flex, use command without ``--namespace_prefix=App``.
 
 With provided parameters, the files are generated in ``src/Application/Sonata/UserBundle``.
@@ -320,13 +315,10 @@ With provided parameters, the files are generated in ``src/Application/Sonata/Us
     ``App\Application\Sonata\UserBundle\Entity\User``.
 
 .. note::
+
     If you are not using Symfony Flex, the namespace will be ``Application\Sonata\UserBundle\Entity\User``.
 
-Now, add the new ``Application`` Bundle into the ``bundles.php``:
-
-.. code-block:: php
-
-    <?php
+Now, add the new ``Application`` Bundle into the ``bundles.php``::
 
     // config/bundles.php
 
@@ -336,12 +328,11 @@ Now, add the new ``Application`` Bundle into the ``bundles.php``:
     ];
 
 .. note::
+
     If you are not using Symfony Flex, add the new ``Application`` Bundle into your
     ``AppKernel.php``.
 
 .. code-block:: php
-
-    <?php
 
     // app/AppKernel.php
 
@@ -358,6 +349,7 @@ If you are not using auto-mapping in doctrine you will have to add it there
 too:
 
 .. note::
+
     If you are not using Symfony Flex, next configuration should be added
     to ``app/config/config.yml``.
 
@@ -366,18 +358,18 @@ too:
     # config/packages/doctrine.yaml
 
     doctrine:
-        #...
         orm:
             entity_managers:
                 default:
                     mappings:
-                        #...
+                        # ...
                         ApplicationSonataUserBundle: ~
 
 And configure FOSUserBundle and SonataUserBundle to use the newly generated
 User and Group classes:
 
 .. note::
+
     If you are not using Symfony Flex, add classes without the ``App\``
     part.
 
@@ -391,17 +383,15 @@ User and Group classes:
 
         group:
             group_class:   App\Application\Sonata\UserBundle\Entity\Group
-        #...
 
 .. code-block:: php
 
-    # config/packages/sonata.yaml
+    # config/packages/sonata_user.yaml
 
     sonata_user:
         class:
             user: App\Application\Sonata\UserBundle\Entity\User
             group: App\Application\Sonata\UserBundle\Entity\Group
-
 
 The only thing left is to update your schema:
 

@@ -24,8 +24,8 @@ The roles matrix consists of two parts:
 
 1. one that shows the matrix with each admin and their permissions.
 2. another that shows the custom roles which are configured in
-   ``security.yml`` and lists them as checkboxes (and shows their
-   inherited roles).
+   ``config/packages/security.yaml`` and lists them as checkboxes
+   (and shows their inherited roles).
 
 .. note::
 
@@ -45,13 +45,13 @@ You can set the ``show_in_roles_matrix`` option to ``false``, like this:
         services:
             app.admin.post:
                 class: App\Admin\PostAdmin
-                tags:
-                    -   name: sonata.admin
-                        manager_type: orm
-                        label: "Post"
-                        show_in_roles_matrix: false
                 arguments:
                     - ~
                     - App\Entity\Post
                     - ~
-                public: true
+                tags:
+                    -
+                        name: sonata.admin
+                        manager_type: orm
+                        label: 'Post'
+                        show_in_roles_matrix: false
