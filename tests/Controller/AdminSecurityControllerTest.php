@@ -74,6 +74,9 @@ class AdminSecurityControllerTest extends TestCase
         $controller->logoutAction();
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testCheckLoginAction(): void
     {
         $controller = $this->getController();
