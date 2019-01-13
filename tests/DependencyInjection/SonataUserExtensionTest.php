@@ -208,28 +208,6 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
     }
 
     /**
-     * @group legacy
-     * @expectedDeprecation The 'Google\Authenticator' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.
-     */
-    public function testMailerConfigParameterIfNotSet(): void
-    {
-        $this->load();
-
-        $this->assertContainerBuilderHasAlias('sonata.user.mailer', 'sonata.user.mailer.default');
-    }
-
-    /**
-     * @group legacy
-     * @expectedDeprecation The 'Google\Authenticator' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.
-     */
-    public function testMailerConfigParameter(): void
-    {
-        $this->load(['mailer' => 'custom.mailer.service.id']);
-
-        $this->assertContainerBuilderHasAlias('sonata.user.mailer', 'custom.mailer.service.id');
-    }
-
-    /**
      * {@inheritdoc}
      */
     protected function getMinimalConfiguration()
