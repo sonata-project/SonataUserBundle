@@ -127,7 +127,7 @@ class ResetActionTest extends TestCase
         $result = $action($request, 'token');
 
         $this->assertInstanceOf(RedirectResponse::class, $result);
-        $this->assertEquals('/foo', $result->getTargetUrl());
+        $this->assertSame('/foo', $result->getTargetUrl());
     }
 
     public function testUnknownToken(): void
@@ -169,7 +169,7 @@ class ResetActionTest extends TestCase
         $result = $action($request, 'token');
 
         $this->assertInstanceOf(RedirectResponse::class, $result);
-        $this->assertEquals('/foo', $result->getTargetUrl());
+        $this->assertSame('/foo', $result->getTargetUrl());
     }
 
     public function testReset(): void
@@ -227,7 +227,7 @@ class ResetActionTest extends TestCase
         $action = $this->getAction();
         $result = $action($request, 'user-token');
 
-        $this->assertEquals($response, $result);
+        $this->assertSame($response, $result);
     }
 
     public function testPostedReset(): void
@@ -298,7 +298,7 @@ class ResetActionTest extends TestCase
         $result = $action($request, 'token');
 
         $this->assertInstanceOf(RedirectResponse::class, $result);
-        $this->assertEquals('/foo', $result->getTargetUrl());
+        $this->assertSame('/foo', $result->getTargetUrl());
     }
 
     private function getAction(): ResetAction

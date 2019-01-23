@@ -48,7 +48,7 @@ class RestoreRolesTransformerTest extends TestCase
 
         $data = ['ROLE_FOO'];
 
-        $this->assertEquals($data, $transformer->transform($data));
+        $this->assertSame($data, $transformer->transform($data));
     }
 
     public function testValidReverseTransform(): void
@@ -62,7 +62,7 @@ class RestoreRolesTransformerTest extends TestCase
 
         $data = ['ROLE_FOO'];
 
-        $this->assertEquals(['ROLE_FOO', 'ROLE_HIDDEN'], $transformer->reverseTransform($data));
+        $this->assertSame(['ROLE_FOO', 'ROLE_HIDDEN'], $transformer->reverseTransform($data));
     }
 
     public function testTransformAllowEmptyOriginalRoles(): void
@@ -74,7 +74,7 @@ class RestoreRolesTransformerTest extends TestCase
 
         $data = ['ROLE_FOO'];
 
-        $this->assertEquals($data, $transformer->transform($data));
+        $this->assertSame($data, $transformer->transform($data));
     }
 
     public function testReverseTransformAllowEmptyOriginalRoles(): void
@@ -88,7 +88,7 @@ class RestoreRolesTransformerTest extends TestCase
 
         $data = ['ROLE_FOO'];
 
-        $this->assertEquals(['ROLE_FOO'], $transformer->reverseTransform($data));
+        $this->assertSame(['ROLE_FOO'], $transformer->reverseTransform($data));
     }
 
     public function testReverseTransformRevokedHierarchicalRole(): void
@@ -134,7 +134,7 @@ class RestoreRolesTransformerTest extends TestCase
         // add a new role
         array_push($userRoles, 'ROLE_SONATA_ADMIN');
         // remove existing user role that is not availableRoles
-        unset($userRoles[array_search('ROLE_SUPER_ADMIN', $userRoles)]);
+        unset($userRoles[array_search('ROLE_SUPER_ADMIN', $userRoles, true)]);
         $processedRoles = $transformer->reverseTransform($userRoles);
 
         $this->assertContains('ROLE_SUPER_ADMIN', $processedRoles);

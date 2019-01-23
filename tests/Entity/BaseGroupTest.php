@@ -27,6 +27,6 @@ class BaseGroupTest extends TestCase
         $string = (string) $group;
 
         // Then
-        $this->assertEquals('Group', $string, 'Should return the group name as string representation');
+        $this->assertSame('Group', $string, 'Should return the group name as string representation');
     }
 }

@@ -33,13 +33,13 @@ class UserControllerTest extends TestCase
         $paramFetcher->expects($this->exactly(3))->method('get');
         $paramFetcher->expects($this->once())->method('all')->will($this->returnValue([]));
 
-        $this->assertEquals([], $this->createUserController(null, $userManager)->getUsersAction($paramFetcher));
+        $this->assertSame([], $this->createUserController(null, $userManager)->getUsersAction($paramFetcher));
     }
 
     public function testGetUserAction(): void
     {
         $user = $this->createMock('Sonata\UserBundle\Model\UserInterface');
-        $this->assertEquals($user, $this->createUserController($user)->getUserAction(1));
+        $this->assertSame($user, $this->createUserController($user)->getUserAction(1));
     }
 
     public function testGetUserActionNotFoundException(): void
@@ -142,7 +142,7 @@ class UserControllerTest extends TestCase
 
         $view = $this->createUserController($user, $userManager, $groupManager)->postUserGroupAction(1, 1);
 
-        $this->assertEquals(['added' => true], $view);
+        $this->assertSame(['added' => true], $view);
     }
 
     public function testPostUserGroupInvalidAction(): void
@@ -161,11 +161,11 @@ class UserControllerTest extends TestCase
         $view = $this->createUserController($user, $userManager, $groupManager)->postUserGroupAction(1, 1);
 
         $this->assertInstanceOf('FOS\RestBundle\View\View', $view);
-        $this->assertEquals(400, $view->getStatusCode(), 'Should return 400');
+        $this->assertSame(400, $view->getStatusCode(), 'Should return 400');
 
         $data = $view->getData();
 
-        $this->assertEquals(['error' => 'User "1" already has group "1"'], $data);
+        $this->assertSame(['error' => 'User "1" already has group "1"'], $data);
     }
 
     public function testDeleteUserGroupAction(): void
@@ -184,7 +184,7 @@ class UserControllerTest extends TestCase
 
         $view = $this->createUserController($user, $userManager, $groupManager)->deleteUserGroupAction(1, 1);
 
-        $this->assertEquals(['removed' => true], $view);
+        $this->assertSame(['removed' => true], $view);
     }
 
     public function testDeleteUserGroupInvalidAction(): void
@@ -203,11 +203,11 @@ class UserControllerTest extends TestCase
         $view = $this->createUserController($user, $userManager, $groupManager)->deleteUserGroupAction(1, 1);
 
         $this->assertInstanceOf('FOS\RestBundle\View\View', $view);
-        $this->assertEquals(400, $view->getStatusCode(), 'Should return 400');
+        $this->assertSame(400, $view->getStatusCode(), 'Should return 400');
 
         $data = $view->getData();
 
-        $this->assertEquals(['error' => 'User "1" has not group "1"'], $data);
+        $this->assertSame(['error' => 'User "1" has not group "1"'], $data);
     }
 
     public function testDeleteUserAction(): void
@@ -220,7 +220,7 @@ class UserControllerTest extends TestCase
 
         $view = $this->createUserController($user, $userManager)->deleteUserAction(1);
 
-        $this->assertEquals(['deleted' => true], $view);
+        $this->assertSame(['deleted' => true], $view);
     }
 
     public function testDeleteUserInvalidAction(): void

@@ -79,7 +79,7 @@ final class AdminRolesBuilder implements AdminRolesBuilderInterface
     {
         $adminRoles = [];
         foreach ($this->pool->getAdminServiceIds() as $id) {
-            if (\in_array($id, $this->excludeAdmins)) {
+            if (\in_array($id, $this->excludeAdmins, true)) {
                 continue;
             }
 

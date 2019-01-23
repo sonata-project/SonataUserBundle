@@ -119,7 +119,7 @@ class LoginActionTest extends TestCase
         $result = $action($request);
 
         $this->assertInstanceOf(RedirectResponse::class, $result);
-        $this->assertEquals('/foo', $result->getTargetUrl());
+        $this->assertSame('/foo', $result->getTargetUrl());
     }
 
     /**
@@ -150,7 +150,7 @@ class LoginActionTest extends TestCase
         $result = $action($request);
 
         $this->assertInstanceOf(RedirectResponse::class, $result);
-        $this->assertEquals($expectedRedirectUrl, $result->getTargetUrl());
+        $this->assertSame($expectedRedirectUrl, $result->getTargetUrl());
     }
 
     public function userGrantedAdminProvider(): array
@@ -233,7 +233,7 @@ class LoginActionTest extends TestCase
         $action = $this->getAction();
         $result = $action($request);
 
-        $this->assertEquals($response, $result);
+        $this->assertSame($response, $result);
     }
 
     public function unauthenticatedProvider(): array
