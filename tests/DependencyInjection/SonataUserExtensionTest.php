@@ -99,7 +99,7 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
 
         $this->assertArrayHasKey(0, $twigConfigurations);
         $this->assertArrayHasKey('form_themes', $twigConfigurations[0]);
-        $this->assertEquals(
+        $this->assertSame(
             ['@SonataUser/Form/form_admin_fields.html.twig'],
             $twigConfigurations[0]['form_themes']
         );

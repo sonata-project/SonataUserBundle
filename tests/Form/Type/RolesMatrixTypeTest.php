@@ -47,7 +47,7 @@ final class RolesMatrixTypeTest extends TypeTestCase
     {
         $type = new RolesMatrixType($this->roleBuilder);
 
-        $this->assertEquals(ChoiceType::class, $type->getParent());
+        $this->assertSame(ChoiceType::class, $type->getParent());
     }
 
     public function testSubmitValidData(): void
@@ -62,7 +62,7 @@ final class RolesMatrixTypeTest extends TypeTestCase
 
         $this->assertTrue($form->isSynchronized());
         $this->assertCount(1, $form->getData());
-        $this->assertTrue(\in_array('ROLE_FOO', $form->getData()));
+        $this->assertTrue(\in_array('ROLE_FOO', $form->getData(), true));
     }
 
     public function testSubmitInvalidData(): void

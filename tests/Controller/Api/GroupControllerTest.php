@@ -34,13 +34,13 @@ class GroupControllerTest extends TestCase
         $paramFetcher->expects($this->exactly(3))->method('get');
         $paramFetcher->expects($this->once())->method('all')->will($this->returnValue([]));
 
-        $this->assertEquals([$group], $this->createGroupController(null, $groupManager)->getGroupsAction($paramFetcher));
+        $this->assertSame([$group], $this->createGroupController(null, $groupManager)->getGroupsAction($paramFetcher));
     }
 
     public function testGetGroupAction(): void
     {
         $group = $this->createMock('FOS\UserBundle\Model\GroupInterface');
-        $this->assertEquals($group, $this->createGroupController($group)->getGroupAction(1));
+        $this->assertSame($group, $this->createGroupController($group)->getGroupAction(1));
     }
 
     public function testGetGroupActionNotFoundException(): void
@@ -141,7 +141,7 @@ class GroupControllerTest extends TestCase
 
         $view = $this->createGroupController($group, $groupManager)->deleteGroupAction(1);
 
-        $this->assertEquals(['deleted' => true], $view);
+        $this->assertSame(['deleted' => true], $view);
     }
 
     public function testDeleteGroupInvalidAction(): void

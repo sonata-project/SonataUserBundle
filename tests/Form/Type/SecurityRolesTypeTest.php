@@ -47,7 +47,7 @@ class SecurityRolesTypeTest extends TypeTestCase
     {
         $type = new SecurityRolesType($this->roleBuilder);
 
-        $this->assertEquals(ChoiceType::class, $type->getParent());
+        $this->assertSame(ChoiceType::class, $type->getParent());
     }
 
     public function testSubmitValidData(): void
@@ -62,7 +62,7 @@ class SecurityRolesTypeTest extends TypeTestCase
 
         $this->assertTrue($form->isSynchronized());
         $this->assertCount(1, $form->getData());
-        $this->assertTrue(\in_array('ROLE_FOO', $form->getData()));
+        $this->assertTrue(\in_array('ROLE_FOO', $form->getData(), true));
     }
 
     public function testSubmitInvalidData(): void

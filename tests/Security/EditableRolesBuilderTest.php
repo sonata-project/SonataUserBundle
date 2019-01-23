@@ -70,7 +70,7 @@ class EditableRolesBuilderTest extends TestCase
         $rolesReadOnly = $builder->getRolesReadOnly();
 
         $this->assertEmpty($rolesReadOnly);
-        $this->assertEquals($expected, $roles);
+        $this->assertSame($expected, $roles);
     }
 
     public function testRolesFromAdminWithMasterAdmin(): void
@@ -110,7 +110,7 @@ class EditableRolesBuilderTest extends TestCase
         $roles = $builder->getRoles();
         $rolesReadOnly = $builder->getRolesReadOnly();
         $this->assertEmpty($rolesReadOnly);
-        $this->assertEquals($expected, $roles);
+        $this->assertSame($expected, $roles);
     }
 
     public function testWithNoSecurityToken(): void

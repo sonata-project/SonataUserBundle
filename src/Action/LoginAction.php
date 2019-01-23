@@ -116,7 +116,7 @@ final class LoginAction
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             $refererUri = $request->server->get('HTTP_REFERER');
-            $url = $refererUri && $refererUri != $request->getUri() ? $refererUri : $this->urlGenerator->generate('sonata_admin_dashboard');
+            $url = $refererUri && $refererUri !== $request->getUri() ? $refererUri : $this->urlGenerator->generate('sonata_admin_dashboard');
 
             return new RedirectResponse($url);
         }

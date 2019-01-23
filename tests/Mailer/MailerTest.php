@@ -91,8 +91,8 @@ class MailerTest extends TestCase
         $this->mailer->expects($this->once())
             ->method('send')
             ->willReturnCallback(function (\Swift_Message $message) use ($subject, $body): void {
-                $this->assertEquals($subject, $message->getSubject());
-                $this->assertEquals($body, $message->getBody());
+                $this->assertSame($subject, $message->getSubject());
+                $this->assertSame($body, $message->getBody());
                 $this->assertArrayHasKey($this->emailFrom[0], $message->getFrom());
                 $this->assertArrayHasKey('user@sonata-project.org', $message->getTo());
             });

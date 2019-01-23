@@ -53,7 +53,7 @@ class RequestListener
      */
     public function onCoreRequest(GetResponseEvent $event): void
     {
-        if (HttpKernel::MASTER_REQUEST != $event->getRequestType()) {
+        if (HttpKernel::MASTER_REQUEST !== $event->getRequestType()) {
             return;
         }
 
@@ -81,8 +81,8 @@ class RequestListener
         }
 
         $state = 'init';
-        if ('POST' == $request->getMethod()) {
-            if (true == $this->helper->checkCode($user, $request->get('_code'))) {
+        if ('POST' === $request->getMethod()) {
+            if (true === $this->helper->checkCode($user, $request->get('_code'))) {
                 $session->set($key, true);
 
                 return;
