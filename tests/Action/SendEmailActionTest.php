@@ -129,7 +129,7 @@ class SendEmailActionTest extends TestCase
         $action = $this->getAction();
         $result = $action($request);
 
-        $this->assertEquals($response, $result);
+        $this->assertSame($response, $result);
     }
 
     public function testPasswordRequestNonExpired(): void
@@ -158,7 +158,7 @@ class SendEmailActionTest extends TestCase
         $result = $action($request);
 
         $this->assertInstanceOf(RedirectResponse::class, $result);
-        $this->assertEquals('/foo', $result->getTargetUrl());
+        $this->assertSame('/foo', $result->getTargetUrl());
     }
 
     public function testAccountLocked(): void
@@ -190,7 +190,7 @@ class SendEmailActionTest extends TestCase
         $result = $action($request);
 
         $this->assertInstanceOf(RedirectResponse::class, $result);
-        $this->assertEquals('/foo', $result->getTargetUrl());
+        $this->assertSame('/foo', $result->getTargetUrl());
     }
 
     public function testEmailSent(): void
@@ -245,7 +245,7 @@ class SendEmailActionTest extends TestCase
         $result = $action($request);
 
         $this->assertInstanceOf(RedirectResponse::class, $result);
-        $this->assertEquals('/check-email', $result->getTargetUrl());
+        $this->assertSame('/check-email', $result->getTargetUrl());
     }
 
     private function getAction(): SendEmailAction
