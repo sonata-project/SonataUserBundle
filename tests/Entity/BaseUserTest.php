@@ -30,10 +30,10 @@ class BaseUserTest extends TestCase
 
         // Then
         $this->assertTrue($user->getCreatedAt() instanceof \DateTime, 'Should return a DateTime object');
-        $this->assertEquals($today->format('U'), $user->getCreatedAt()->format('U'), 'Should contain today\'s date');
+        $this->assertSame($today->format('U'), $user->getCreatedAt()->format('U'), 'Should contain today\'s date');
 
         $this->assertTrue($user->getUpdatedAt() instanceof \DateTime, 'Should return a DateTime object');
-        $this->assertEquals($today->format('U'), $user->getUpdatedAt()->format('U'), 'Should contain today\'s date');
+        $this->assertSame($today->format('U'), $user->getUpdatedAt()->format('U'), 'Should contain today\'s date');
     }
 
     public function testDateWithPrePersist(): void
@@ -47,10 +47,10 @@ class BaseUserTest extends TestCase
 
         // Then
         $this->assertTrue($user->getCreatedAt() instanceof \DateTime, 'Should contain a DateTime object');
-        $this->assertEquals($today->format('Y-m-d'), $user->getUpdatedAt()->format('Y-m-d'), 'Should be created today');
+        $this->assertSame($today->format('Y-m-d'), $user->getUpdatedAt()->format('Y-m-d'), 'Should be created today');
 
         $this->assertTrue($user->getUpdatedAt() instanceof \DateTime, 'Should contain a DateTime object');
-        $this->assertEquals($today->format('Y-m-d'), $user->getUpdatedAt()->format('Y-m-d'), 'Should be updated today');
+        $this->assertSame($today->format('Y-m-d'), $user->getUpdatedAt()->format('Y-m-d'), 'Should be updated today');
     }
 
     public function testDateWithPreUpdate(): void
@@ -65,10 +65,10 @@ class BaseUserTest extends TestCase
 
         // Then
         $this->assertTrue($user->getCreatedAt() instanceof \DateTime, 'Should contain a DateTime object');
-        $this->assertEquals('2012-01-01', $user->getCreatedAt()->format('Y-m-d'), 'Should be created at 2012-01-01.');
+        $this->assertSame('2012-01-01', $user->getCreatedAt()->format('Y-m-d'), 'Should be created at 2012-01-01.');
 
         $this->assertTrue($user->getUpdatedAt() instanceof \DateTime, 'Should contain a DateTime object');
-        $this->assertEquals($today->format('Y-m-d'), $user->getUpdatedAt()->format('Y-m-d'), 'Should be updated today');
+        $this->assertSame($today->format('Y-m-d'), $user->getUpdatedAt()->format('Y-m-d'), 'Should be updated today');
     }
 
     public function testSettingMultipleGroups(): void
@@ -98,7 +98,7 @@ class BaseUserTest extends TestCase
         $user->setTwoStepVerificationCode('123456');
 
         // Then
-        $this->assertEquals('123456', $user->getTwoStepVerificationCode(), 'Should return the two step verification code');
+        $this->assertSame('123456', $user->getTwoStepVerificationCode(), 'Should return the two step verification code');
     }
 
     public function testToStringWithName(): void
@@ -111,7 +111,7 @@ class BaseUserTest extends TestCase
         $string = (string) $user;
 
         // Then
-        $this->assertEquals('John', $string, 'Should return the username as string representation');
+        $this->assertSame('John', $string, 'Should return the username as string representation');
     }
 
     public function testToStringWithoutName(): void
@@ -123,6 +123,6 @@ class BaseUserTest extends TestCase
         $string = (string) $user;
 
         // Then
-        $this->assertEquals('-', $string, 'Should return a string representation');
+        $this->assertSame('-', $string, 'Should return a string representation');
     }
 }

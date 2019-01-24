@@ -72,7 +72,7 @@ class CheckEmailActionTest extends TestCase
         $result = $action($request);
 
         $this->assertInstanceOf(RedirectResponse::class, $result);
-        $this->assertEquals('/foo', $result->getTargetUrl());
+        $this->assertSame('/foo', $result->getTargetUrl());
     }
 
     public function testWithUsername(): void
@@ -99,7 +99,7 @@ class CheckEmailActionTest extends TestCase
         $action = $this->getAction();
         $result = $action($request);
 
-        $this->assertEquals($response, $result);
+        $this->assertSame($response, $result);
     }
 
     private function getAction(): CheckEmailAction
