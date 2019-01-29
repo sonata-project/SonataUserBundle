@@ -22,6 +22,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * NEXT_MAJOR: stop extending ContainerAwareCommand.
+ */
 class TwoStepVerificationCommand extends ContainerAwareCommand
 {
     /**
@@ -34,6 +37,9 @@ class TwoStepVerificationCommand extends ContainerAwareCommand
      */
     private $userManager;
 
+    /**
+     * NEXT_MAJOR: make $helper and $userManager mandatory (but still nullable).
+     */
     public function __construct(
         ?string $name,
         ?Helper $helper = null,
@@ -72,19 +78,27 @@ class TwoStepVerificationCommand extends ContainerAwareCommand
         }
 
         if (null === $this->helper) {
+            @trigger_error(sprintf(
+                'Not providing the $helper argument of "%s::__construct()" is deprecated since 4.x and will no longer be possible in 5.0',
+                __CLASS__
+            ), E_USER_DEPRECATED);
             $helper = $this->getContainer()->get('sonata.user.google.authenticator.provider');
-            assert($helper instanceof Helper);
+            \assert($helper instanceof Helper);
             $this->helper = $helper;
         }
 
         if (null === $this->userManager) {
+            @trigger_error(sprintf(
+                'Not providing the $userManager argument of "%s::__construct()" is deprecated since 4.x and will no longer be possible in 5.0',
+                __CLASS__
+            ), E_USER_DEPRECATED);
             $manager = $this->getContainer()->get('fos_user.user_manager');
-            assert($manager instanceof UserManagerInterface);
+            \assert($manager instanceof UserManagerInterface);
             $this->userManager = $manager;
         }
 
         $user = $this->userManager->findUserByUsernameOrEmail($input->getArgument('username'));
-        assert($user instanceof UserInterface);
+        \assert($user instanceof UserInterface);
 
         if (!$user) {
             throw new \RuntimeException(sprintf('Unable to find the username : %s', $input->getArgument('username')));
