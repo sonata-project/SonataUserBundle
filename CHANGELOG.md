@@ -2,6 +2,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.3.0](https://github.com/sonata-project/SonataUserBundle/compare/4.2.3...4.3.0) - 2019-01-30
+
+### Fixed
+- exception when calling `sonata:user:two-step-verification` even with proper configuration
+- deprecation for symfony/config 4.2+
+- case when user was not found in sendEmailAction
+- rendering resetting email on Windows
+
+### Deprecated
+- executing a `Sonata\UserBundle\Command\TwoStepVerificationCommand` that did not receive arguments.
+
 ## [4.2.3](https://github.com/sonata-project/SonataUserBundle/compare/4.2.2...4.2.3) - 2018-07-08
 
 ### Fixed
