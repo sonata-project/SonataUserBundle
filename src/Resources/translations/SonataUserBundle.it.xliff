@@ -246,6 +246,10 @@
                 <source>Management</source>
                 <target>Gestione</target>
             </trans-unit>
+            <trans-unit id="form_status">
+                <source>Status</source>
+                <target>Stato</target>
+            </trans-unit>
             <trans-unit id="field.label_roles_editable">
                 <source>field.label_roles_editable</source>
                 <target>Ruoli</target>
@@ -554,6 +558,14 @@
                 <source>title_user_resetting_reset</source>
                 <target>Reset password</target>
             </trans-unit>
+            <trans-unit id="qr_code_secret">
+                <source>qr_code_secret</source>
+                <target>Segreto QR-code</target>
+            </trans-unit>
+            <trans-unit id="qr_go_next">
+                <source>qr_go_next</source>
+                <target>Scansionato. Procedi.</target>
+            </trans-unit>
             <trans-unit id="general">
                 <source>General</source>
                 <target>Generale</target>
@@ -581,10 +593,6 @@
             <trans-unit id="social">
                 <source>Social</source>
                 <target>Social</target>
-            </trans-unit>
-            <trans-unit id="status">
-                <source>Status</source>
-                <target>Stato</target>
             </trans-unit>
             <trans-unit id="user">
                 <source>User</source>
