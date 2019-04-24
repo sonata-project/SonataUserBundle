@@ -211,12 +211,12 @@ class SendEmailActionTest extends TestCase
             ->willReturn(true);
         $user->expects($this->any())
             ->method('setConfirmationToken')
-            ->willReturnCallback(function ($token) use (&$storedToken): void {
+            ->willReturnCallback(static function ($token) use (&$storedToken): void {
                 $storedToken = $token;
             });
         $user->expects($this->any())
             ->method('getConfirmationToken')
-            ->willReturnCallback(function () use (&$storedToken) {
+            ->willReturnCallback(static function () use (&$storedToken) {
                 return $storedToken;
             });
 
