@@ -56,12 +56,12 @@ class SecurityRolesType extends AbstractType
         $transformer = new RestoreRolesTransformer($this->rolesBuilder);
 
         // GET METHOD
-        $formBuilder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($transformer): void {
+        $formBuilder->addEventListener(FormEvents::PRE_SET_DATA, static function (FormEvent $event) use ($transformer): void {
             $transformer->setOriginalRoles($event->getData());
         });
 
         // POST METHOD
-        $formBuilder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) use ($transformer): void {
+        $formBuilder->addEventListener(FormEvents::PRE_SUBMIT, static function (FormEvent $event) use ($transformer): void {
             $transformer->setOriginalRoles($event->getForm()->getData());
         });
 
@@ -111,7 +111,7 @@ class SecurityRolesType extends AbstractType
                 return $this->rolesBuilder->getRolesReadOnly($options['choice_translation_domain']);
             },
 
-            'choice_translation_domain' => function (Options $options, $value) {
+            'choice_translation_domain' => static function (Options $options, $value) {
                 // if choice_translation_domain is true, then it's the same as translation_domain
                 if (true === $value) {
                     $value = $options['translation_domain'];
