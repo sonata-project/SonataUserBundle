@@ -59,7 +59,7 @@ class UserAdmin extends AbstractAdmin
     public function getExportFields()
     {
         // avoid security field to be exported
-        return array_filter(parent::getExportFields(), function ($v) {
+        return array_filter(parent::getExportFields(), static function ($v) {
             return !\in_array($v, ['password', 'salt'], true);
         });
     }
