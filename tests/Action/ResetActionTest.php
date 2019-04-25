@@ -260,7 +260,7 @@ class ResetActionTest extends TestCase
 
         $this->translator->expects($this->any())
             ->method('trans')
-            ->willReturnCallback(function ($message) {
+            ->willReturnCallback(static function ($message) {
                 return $message;
             });
 

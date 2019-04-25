@@ -23,7 +23,7 @@ class UserManagerTest extends TestCase
     {
         $self = $this;
         $this
-            ->getUserManager(function ($qb) use ($self): void {
+            ->getUserManager(static function ($qb) use ($self): void {
                 $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(['u']));
                 $qb->expects($self->never())->method('andWhere');
                 $qb->expects($self->once())->method('orderBy')->with(
@@ -41,7 +41,7 @@ class UserManagerTest extends TestCase
 
         $self = $this;
         $this
-            ->getUserManager(function ($qb) use ($self): void {
+            ->getUserManager(static function ($qb) use ($self): void {
                 $qb->expects($self->never())->method('andWhere');
                 $qb->expects($self->never())->method('orderBy');
                 $qb->expects($self->never())->method('setParameters');
@@ -53,7 +53,7 @@ class UserManagerTest extends TestCase
     {
         $self = $this;
         $this
-            ->getUserManager(function ($qb) use ($self): void {
+            ->getUserManager(static function ($qb) use ($self): void {
                 $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(['u']));
                 $qb->expects($self->once())->method('andWhere')->with($self->equalTo('u.enabled = :enabled'));
                 $qb->expects($self->once())->method('setParameter')->with(
@@ -72,7 +72,7 @@ class UserManagerTest extends TestCase
     {
         $self = $this;
         $this
-            ->getUserManager(function ($qb) use ($self): void {
+            ->getUserManager(static function ($qb) use ($self): void {
                 $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(['u']));
                 $qb->expects($self->once())->method('andWhere')->with($self->equalTo('u.enabled = :enabled'));
                 $qb->expects($self->once())->method('setParameter')->with(
@@ -91,7 +91,7 @@ class UserManagerTest extends TestCase
     {
         $self = $this;
         $this
-            ->getUserManager(function ($qb) use ($self): void {
+            ->getUserManager(static function ($qb) use ($self): void {
                 $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(['u']));
                 $qb->expects($self->once())->method('andWhere')->with($self->equalTo('u.enabled = :enabled'));
                 $qb->expects($self->once())->method('setParameter')->with(

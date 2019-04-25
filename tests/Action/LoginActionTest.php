@@ -174,12 +174,12 @@ class LoginActionTest extends TestCase
         ];
         $session->expects($this->any())
             ->method('get')
-            ->willReturnCallback(function ($key) use ($sessionParameters) {
+            ->willReturnCallback(static function ($key) use ($sessionParameters) {
                 return $sessionParameters[$key] ?? null;
             });
         $session->expects($this->any())
             ->method('has')
-            ->willReturnCallback(function ($key) use ($sessionParameters) {
+            ->willReturnCallback(static function ($key) use ($sessionParameters) {
                 return isset($sessionParameters[$key]);
             });
         $request = new Request();

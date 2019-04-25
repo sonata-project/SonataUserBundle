@@ -23,7 +23,7 @@ class GroupManagerTest extends TestCase
     {
         $self = $this;
         $this
-            ->getUserManager(function ($qb) use ($self): void {
+            ->getUserManager(static function ($qb) use ($self): void {
                 $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(['g']));
                 $qb->expects($self->never())->method('andWhere');
                 $qb->expects($self->once())->method('orderBy')->with(
@@ -42,7 +42,7 @@ class GroupManagerTest extends TestCase
 
         $self = $this;
         $this
-            ->getUserManager(function ($qb) use ($self): void {
+            ->getUserManager(static function ($qb) use ($self): void {
                 $qb->expects($self->never())->method('andWhere');
                 $qb->expects($self->never())->method('orderBy');
                 $qb->expects($self->never())->method('setParameters');
@@ -54,7 +54,7 @@ class GroupManagerTest extends TestCase
     {
         $self = $this;
         $this
-            ->getUserManager(function ($qb) use ($self): void {
+            ->getUserManager(static function ($qb) use ($self): void {
                 $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(['g']));
                 $qb->expects($self->once())->method('andWhere')->with($self->equalTo('g.enabled = :enabled'));
                 $qb->expects($self->once())->method('orderBy')->with(
@@ -70,7 +70,7 @@ class GroupManagerTest extends TestCase
     {
         $self = $this;
         $this
-            ->getUserManager(function ($qb) use ($self): void {
+            ->getUserManager(static function ($qb) use ($self): void {
                 $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(['g']));
                 $qb->expects($self->once())->method('andWhere')->with($self->equalTo('g.enabled = :enabled'));
                 $qb->expects($self->once())->method('orderBy')->with(
