@@ -102,13 +102,13 @@ class SecurityRolesTypeTest extends TypeTestCase
     {
         $this->roleBuilder = $roleBuilder = $this->createMock(EditableRolesBuilder::class);
 
-        $this->roleBuilder->expects($this->any())->method('getRoles')->will($this->returnValue([
+        $this->roleBuilder->expects($this->any())->method('getRoles')->willReturn([
           'ROLE_FOO' => 'ROLE_FOO',
           'ROLE_USER' => 'ROLE_USER',
           'ROLE_ADMIN' => 'ROLE_ADMIN: ROLE_USER',
-        ]));
+        ]);
 
-        $this->roleBuilder->expects($this->any())->method('getRolesReadOnly')->will($this->returnValue([]));
+        $this->roleBuilder->expects($this->any())->method('getRolesReadOnly')->willReturn([]);
 
         $childType = new SecurityRolesType($this->roleBuilder);
 

@@ -55,7 +55,7 @@ class RestoreRolesTransformerTest extends TestCase
     {
         $roleBuilder = $this->createMock(EditableRolesBuilder::class);
 
-        $roleBuilder->expects($this->once())->method('getRoles')->will($this->returnValue([]));
+        $roleBuilder->expects($this->once())->method('getRoles')->willReturn([]);
 
         $transformer = new RestoreRolesTransformer($roleBuilder);
         $transformer->setOriginalRoles(['ROLE_HIDDEN']);
@@ -81,7 +81,7 @@ class RestoreRolesTransformerTest extends TestCase
     {
         $roleBuilder = $this->createMock(EditableRolesBuilder::class);
 
-        $roleBuilder->expects($this->once())->method('getRoles')->will($this->returnValue([]));
+        $roleBuilder->expects($this->once())->method('getRoles')->willReturn([]);
 
         $transformer = new RestoreRolesTransformer($roleBuilder);
         $transformer->setOriginalRoles(null);
@@ -102,7 +102,7 @@ class RestoreRolesTransformerTest extends TestCase
             'ROLE_COMPANY_BOOKKEEPER' => 'ROLE_COMPANY_BOOKKEEPER: ROLE_COMPANY_USER',
             'ROLE_USER' => 'ROLE_USER',
         ];
-        $roleBuilder->expects($this->once())->method('getRoles')->will($this->returnValue($availableRoles));
+        $roleBuilder->expects($this->once())->method('getRoles')->willReturn($availableRoles);
 
         // user roles
         $userRoles = ['ROLE_COMPANY_PERSONAL_MODERATOR', 'ROLE_COMPANY_NEWS_MODERATOR', 'ROLE_COMPANY_BOOKKEEPER'];
@@ -124,7 +124,7 @@ class RestoreRolesTransformerTest extends TestCase
             'ROLE_SONATA_ADMIN' => 'ROLE_SONATA_ADMIN',
             'ROLE_ADMIN' => 'ROLE_ADMIN: ROLE_USER ROLE_COMPANY_ADMIN',
         ];
-        $roleBuilder->expects($this->once())->method('getRoles')->will($this->returnValue($availableRoles));
+        $roleBuilder->expects($this->once())->method('getRoles')->willReturn($availableRoles);
 
         // user roles
         $userRoles = ['ROLE_USER', 'ROLE_SUPER_ADMIN'];

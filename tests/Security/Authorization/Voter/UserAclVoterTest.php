@@ -24,13 +24,13 @@ class UserAclVoterTest extends TestCase
     {
         // Given
         $user = $this->createMock('FOS\UserBundle\Model\UserInterface');
-        $user->expects($this->any())->method('isSuperAdmin')->will($this->returnValue(true));
+        $user->expects($this->any())->method('isSuperAdmin')->willReturn(true);
 
         $loggedInUser = $this->createMock('FOS\UserBundle\Model\UserInterface');
-        $loggedInUser->expects($this->any())->method('isSuperAdmin')->will($this->returnValue(true));
+        $loggedInUser->expects($this->any())->method('isSuperAdmin')->willReturn(true);
 
         $token = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
-        $token->expects($this->any())->method('getUser')->will($this->returnValue($loggedInUser));
+        $token->expects($this->any())->method('getUser')->willReturn($loggedInUser);
 
         $aclProvider = $this->createMock('Symfony\Component\Security\Acl\Model\AclProviderInterface');
         $oidRetrievalStrategy = $this->createMock('Symfony\Component\Security\Acl\Model\ObjectIdentityRetrievalStrategyInterface');
@@ -50,13 +50,13 @@ class UserAclVoterTest extends TestCase
     {
         // Given
         $user = $this->createMock('FOS\UserBundle\Model\UserInterface');
-        $user->expects($this->any())->method('isSuperAdmin')->will($this->returnValue(true));
+        $user->expects($this->any())->method('isSuperAdmin')->willReturn(true);
 
         $loggedInUser = $this->createMock('FOS\UserBundle\Model\UserInterface');
-        $loggedInUser->expects($this->any())->method('isSuperAdmin')->will($this->returnValue(false));
+        $loggedInUser->expects($this->any())->method('isSuperAdmin')->willReturn(false);
 
         $token = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
-        $token->expects($this->any())->method('getUser')->will($this->returnValue($loggedInUser));
+        $token->expects($this->any())->method('getUser')->willReturn($loggedInUser);
 
         $aclProvider = $this->createMock('Symfony\Component\Security\Acl\Model\AclProviderInterface');
         $oidRetrievalStrategy = $this->createMock('Symfony\Component\Security\Acl\Model\ObjectIdentityRetrievalStrategyInterface');
@@ -76,12 +76,12 @@ class UserAclVoterTest extends TestCase
     {
         // Given
         $user = $this->createMock('FOS\UserBundle\Model\UserInterface');
-        $user->expects($this->any())->method('isSuperAdmin')->will($this->returnValue(true));
+        $user->expects($this->any())->method('isSuperAdmin')->willReturn(true);
 
         $loggedInUser = null;
 
         $token = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
-        $token->expects($this->any())->method('getUser')->will($this->returnValue($loggedInUser));
+        $token->expects($this->any())->method('getUser')->willReturn($loggedInUser);
 
         $aclProvider = $this->createMock('Symfony\Component\Security\Acl\Model\AclProviderInterface');
         $oidRetrievalStrategy = $this->createMock('Symfony\Component\Security\Acl\Model\ObjectIdentityRetrievalStrategyInterface');
@@ -101,12 +101,12 @@ class UserAclVoterTest extends TestCase
     {
         // Given
         $user = $this->createMock('FOS\UserBundle\Model\UserInterface');
-        $user->expects($this->any())->method('isSuperAdmin')->will($this->returnValue(true));
+        $user->expects($this->any())->method('isSuperAdmin')->willReturn(true);
 
         $loggedInUser = $this->createMock(UserInterface::class);
 
         $token = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
-        $token->expects($this->any())->method('getUser')->will($this->returnValue($loggedInUser));
+        $token->expects($this->any())->method('getUser')->willReturn($loggedInUser);
 
         $aclProvider = $this->createMock('Symfony\Component\Security\Acl\Model\AclProviderInterface');
         $oidRetrievalStrategy = $this->createMock('Symfony\Component\Security\Acl\Model\ObjectIdentityRetrievalStrategyInterface');
