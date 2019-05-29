@@ -98,7 +98,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
             $loader->load('security_acl.xml');
         }
 
-        $this->checkManagerTypeToModelTypeMapping($config);
+        $this->checkManagerTypeToModelTypesMapping($config);
 
         $this->registerDoctrineMapping($config);
         $this->configureAdminClass($config, $container);
@@ -276,45 +276,47 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         $container->getAlias('sonata.user.group_manager')->setPublic(true);
     }
 
-    private function checkManagerTypeToModelTypeMapping(array $config): void
+    private function checkManagerTypeToModelTypesMapping(array $config): void
     {
         $managerType = $config['manager_type'];
 
-        $actualModelClasses = [
-            $config['class']['user'],
-            $config['class']['group'],
-        ];
-
-        if ('orm' === $managerType) {
-            $expectedModelClasses = [
-                EntityUser::class,
-                EntityGroup::class,
-            ];
-        } elseif ('mongodb' === $managerType) {
-            $expectedModelClasses = [
-                DocumentUser::class,
-                DocumentGroup::class,
-            ];
-        } else {
+        if (!\in_array($managerType, ['orm', 'mongodb'], true)) {
             throw new \InvalidArgumentException(sprintf('Invalid manager type "%s".', $managerType));
         }
 
-        foreach ($actualModelClasses as $index => $actualModelClass) {
-            if ('\\' === substr($actualModelClass, 0, 1)) {
-                $actualModelClass = substr($actualModelClass, 1);
-            }
+        $this->prohibitModelTypeMapping(
+            $config['class']['user'],
+            'orm' === $managerType ? DocumentUser::class : EntityUser::class,
+            $managerType
+        );
 
-            $expectedModelClass = $expectedModelClasses[$index];
+        $this->prohibitModelTypeMapping(
+            $config['class']['group'],
+            'orm' === $managerType ? DocumentGroup::class : EntityGroup::class,
+            $managerType
+        );
+    }
 
-            if ($actualModelClass !== $expectedModelClass && !is_subclass_of($actualModelClass, $expectedModelClass)) {
-                throw new \InvalidArgumentException(
-                    sprintf(
-                        'Model class "%s" does not correspond to manager type "%s".',
-                        $actualModelClass,
-                        $managerType
-                    )
-                );
-            }
+    /**
+     * Prohibit using wrong model type mapping.
+     *
+     * @param string $actualModelClass
+     * @param string $prohibitedModelClass
+     * @param string $managerType
+     */
+    private function prohibitModelTypeMapping(
+        string $actualModelClass,
+        string $prohibitedModelClass,
+        string $managerType
+    ): void {
+        if (is_a($actualModelClass, $prohibitedModelClass, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'Model class "%s" does not correspond to manager type "%s".',
+                    $actualModelClass,
+                    $managerType
+                )
+            );
         }
     }
 

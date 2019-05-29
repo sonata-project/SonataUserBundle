@@ -168,28 +168,45 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
      * @group legacy
      * @expectedDeprecation The 'Google\Authenticator' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.
      */
-    public function testIncorrectModelClass(): void
+    public function testFosUserBundleModelClasses(): void
     {
-        $this->expectException('InvalidArgumentException');
-
-        $this->expectExceptionMessage('Model class "Foo\User" does not correspond to manager type "orm".');
-
-        $this->load(['class' => ['user' => 'Foo\User']]);
+        $this->load(['manager_type' => 'orm', 'class' => [
+            'user' => 'FOS\UserBundle\Model\UserInterface',
+            'group' => 'FOS\UserBundle\Model\GroupInterface',
+        ]]);
     }
 
     /**
      * @group legacy
      * @expectedDeprecation The 'Google\Authenticator' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.
      */
-    public function testNotCorrespondingModelClass(): void
+    public function testNotCorrespondingUserClass(): void
     {
         $this->expectException('InvalidArgumentException');
 
         $this->expectExceptionMessage(
-            'Model class "Sonata\UserBundle\Admin\Entity\UserAdmin" does not correspond to manager type "mongodb".'
+            'Model class "Sonata\UserBundle\Entity\BaseUser" does not correspond to manager type "mongodb".'
         );
 
-        $this->load(['manager_type' => 'mongodb', 'class' => ['user' => 'Sonata\UserBundle\Admin\Entity\UserAdmin']]);
+        $this->load(['manager_type' => 'mongodb', 'class' => ['user' => 'Sonata\UserBundle\Entity\BaseUser']]);
+    }
+
+    /**
+     * @group legacy
+     * @expectedDeprecation The 'Google\Authenticator' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.
+     */
+    public function testNotCorrespondingGroupClass(): void
+    {
+        $this->expectException('InvalidArgumentException');
+
+        $this->expectExceptionMessage(
+            'Model class "Sonata\UserBundle\Entity\BaseGroup" does not correspond to manager type "mongodb".'
+        );
+
+        $this->load(['manager_type' => 'mongodb', 'class' => [
+            'user' => 'Sonata\UserBundle\Document\BaseUser',
+            'group' => 'Sonata\UserBundle\Entity\BaseGroup',
+        ]]);
     }
 
     /**
