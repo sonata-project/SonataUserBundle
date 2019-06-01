@@ -60,7 +60,7 @@
         "sonata-project/block-bundle": "^3.11",
         "sonata-project/google-authenticator": "^1.0 || ^2.0",
         "sonata-project/seo-bundle": "^2.0",
-        "symfony/phpunit-bridge": "^4.1"
+        "symfony/phpunit-bridge": "^4.3"
     },
     "suggest": {
         "friendsofsymfony/rest-bundle": "For using the public API methods.",
