@@ -28,16 +28,16 @@ class EditableRolesBuilderTest extends TestCase
         $token = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
 
         $tokenStorage = $this->createMock(TokenStorageInterface::class);
-        $tokenStorage->expects($this->any())->method('getToken')->will($this->returnValue($token));
+        $tokenStorage->expects($this->any())->method('getToken')->willReturn($token);
 
         $authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
-        $authorizationChecker->expects($this->any())->method('isGranted')->will($this->returnValue(true));
+        $authorizationChecker->expects($this->any())->method('isGranted')->willReturn(true);
 
         $pool = $this->getMockBuilder('Sonata\AdminBundle\Admin\Pool')
                 ->disableOriginalConstructor()
                 ->getMock();
 
-        $pool->expects($this->exactly(2))->method('getAdminServiceIds')->will($this->returnValue([]));
+        $pool->expects($this->exactly(2))->method('getAdminServiceIds')->willReturn([]);
 
         $rolesHierarchy = [
             'ROLE_ADMIN' => [
@@ -76,27 +76,27 @@ class EditableRolesBuilderTest extends TestCase
     public function testRolesFromAdminWithMasterAdmin(): void
     {
         $securityHandler = $this->createMock('Sonata\AdminBundle\Security\Handler\SecurityHandlerInterface');
-        $securityHandler->expects($this->exactly(2))->method('getBaseRole')->will($this->returnValue('ROLE_FOO_%s'));
+        $securityHandler->expects($this->exactly(2))->method('getBaseRole')->willReturn('ROLE_FOO_%s');
 
         $admin = $this->createMock('Sonata\AdminBundle\Admin\AdminInterface');
-        $admin->expects($this->exactly(2))->method('isGranted')->will($this->returnValue(true));
-        $admin->expects($this->exactly(2))->method('getSecurityInformation')->will($this->returnValue(['GUEST' => [0 => 'VIEW', 1 => 'LIST'], 'STAFF' => [0 => 'EDIT', 1 => 'LIST', 2 => 'CREATE'], 'EDITOR' => [0 => 'OPERATOR', 1 => 'EXPORT'], 'ADMIN' => [0 => 'MASTER']]));
-        $admin->expects($this->exactly(2))->method('getSecurityHandler')->will($this->returnValue($securityHandler));
+        $admin->expects($this->exactly(2))->method('isGranted')->willReturn(true);
+        $admin->expects($this->exactly(2))->method('getSecurityInformation')->willReturn(['GUEST' => [0 => 'VIEW', 1 => 'LIST'], 'STAFF' => [0 => 'EDIT', 1 => 'LIST', 2 => 'CREATE'], 'EDITOR' => [0 => 'OPERATOR', 1 => 'EXPORT'], 'ADMIN' => [0 => 'MASTER']]);
+        $admin->expects($this->exactly(2))->method('getSecurityHandler')->willReturn($securityHandler);
 
         $token = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
 
         $tokenStorage = $this->createMock(TokenStorageInterface::class);
-        $tokenStorage->expects($this->any())->method('getToken')->will($this->returnValue($token));
+        $tokenStorage->expects($this->any())->method('getToken')->willReturn($token);
 
         $authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
-        $authorizationChecker->expects($this->any())->method('isGranted')->will($this->returnValue(true));
+        $authorizationChecker->expects($this->any())->method('isGranted')->willReturn(true);
 
         $pool = $this->getMockBuilder('Sonata\AdminBundle\Admin\Pool')
                 ->disableOriginalConstructor()
                 ->getMock();
 
-        $pool->expects($this->exactly(2))->method('getInstance')->will($this->returnValue($admin));
-        $pool->expects($this->exactly(2))->method('getAdminServiceIds')->will($this->returnValue(['myadmin']));
+        $pool->expects($this->exactly(2))->method('getInstance')->willReturn($admin);
+        $pool->expects($this->exactly(2))->method('getAdminServiceIds')->willReturn(['myadmin']);
 
         $builder = new EditableRolesBuilder($tokenStorage, $authorizationChecker, $pool, []);
 
@@ -116,10 +116,10 @@ class EditableRolesBuilderTest extends TestCase
     public function testWithNoSecurityToken(): void
     {
         $tokenStorage = $this->createMock(TokenStorageInterface::class);
-        $tokenStorage->expects($this->any())->method('getToken')->will($this->returnValue(null));
+        $tokenStorage->expects($this->any())->method('getToken')->willReturn(null);
 
         $authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
-        $authorizationChecker->expects($this->any())->method('isGranted')->will($this->returnValue(false));
+        $authorizationChecker->expects($this->any())->method('isGranted')->willReturn(false);
 
         $pool = $this->getMockBuilder('Sonata\AdminBundle\Admin\Pool')
                 ->disableOriginalConstructor()
