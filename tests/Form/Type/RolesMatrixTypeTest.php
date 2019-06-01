@@ -100,11 +100,11 @@ final class RolesMatrixTypeTest extends TypeTestCase
     {
         $this->roleBuilder = $this->createMock(ExpandableRolesBuilderInterface::class);
 
-        $this->roleBuilder->expects($this->any())->method('getRoles')->will($this->returnValue([
+        $this->roleBuilder->expects($this->any())->method('getRoles')->willReturn([
           'ROLE_FOO' => 'ROLE_FOO',
           'ROLE_USER' => 'ROLE_USER',
           'ROLE_ADMIN' => 'ROLE_ADMIN: ROLE_USER',
-        ]));
+        ]);
 
         $childType = new RolesMatrixType($this->roleBuilder);
 
