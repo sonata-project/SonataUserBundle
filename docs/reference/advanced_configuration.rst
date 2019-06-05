@@ -42,12 +42,12 @@ Full configuration options:
         admin:                  # Admin Classes
             user:
                 class:          Sonata\UserBundle\Admin\Entity\UserAdmin
-                controller:     SonataAdminBundle:CRUD
+                controller:     Sonata\AdminBundle\Controller\CRUDController
                 translation:    SonataUserBundle
 
             group:
                 class:          Sonata\UserBundle\Admin\Entity\GroupAdmin
-                controller:     SonataAdminBundle:CRUD
+                controller:     Sonata\AdminBundle\Controller\CRUDController
                 translation:    SonataUserBundle
 
         profile:
