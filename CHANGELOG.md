@@ -2,6 +2,20 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.4.0](https://github.com/sonata-project/SonataUserBundle/compare/4.3.0...4.4.0) - 2019-06-13
+
+### Added
+- Added compatibility with jms/serializer-bundle:^3.0 and jms/serializer:^2.0
+- Added missing google auth french translation
+
+### Fixed
+- Fixed a bug with inability to use external model classes
+- Fixed wrong google auth user manager argument when not using autowiring
+- Fixed hard coded google auth redirection url
+
+### Changed
+- Updated `_controller` attribute for routes which were using deprecated syntax.
+
 ## [4.3.0](https://github.com/sonata-project/SonataUserBundle/compare/4.2.3...4.3.0) - 2019-01-30
 
 ### Fixed

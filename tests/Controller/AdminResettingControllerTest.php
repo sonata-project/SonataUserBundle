@@ -74,7 +74,7 @@ class AdminResettingControllerTest extends TestCase
 
     /**
      * @group legacy
-     * @expectedDeprecation The Sonata\UserBundle\Controller\AdminResettingController class is deprecated since version 4.x and will be removed in 5.0. Use Sonata\UserBundle\Controller\RequestAction, Sonata\UserBundle\Controller\CheckEmailAction, Sonata\UserBundle\Controller\ResetAction or Sonata\UserBundle\Controller\SendEmailAction instead.
+     * @expectedDeprecation The Sonata\UserBundle\Controller\AdminResettingController class is deprecated since version 4.3.0 and will be removed in 5.0. Use Sonata\UserBundle\Controller\RequestAction, Sonata\UserBundle\Controller\CheckEmailAction, Sonata\UserBundle\Controller\ResetAction or Sonata\UserBundle\Controller\SendEmailAction instead.
      */
     public function testCheckEmailAction(): void
     {

@@ -15,7 +15,7 @@ namespace Sonata\UserBundle\Controller;
 
 // NEXT_MAJOR: remove this file
 @trigger_error(
-    'The '.__NAMESPACE__.'\AdminSecurityController class is deprecated since version 4.x and will be removed in 5.0.'
+    'The '.__NAMESPACE__.'\AdminSecurityController class is deprecated since version 4.3.0 and will be removed in 5.0.'
     .' Use '.__NAMESPACE__.'\CheckLoginAction, '.__NAMESPACE__.'\LoginAction or '.__NAMESPACE__.'\LogoutAction instead.',
     E_USER_DEPRECATED
 );
