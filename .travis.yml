@@ -4,12 +4,14 @@ php:
   - 5.3
   - 5.4
   - 5.5
+  - 7.2
   - hhvm
 
 env:
   - SYMFONY_VERSION=2.2.*
   - SYMFONY_VERSION=2.3.*
   - SYMFONY_VERSION=2.4.*
+  - SYMFONY_VERSION=2.8.*
   - SYMFONY_VERSION=dev-master
 
 before_script:
