@@ -15,7 +15,7 @@ namespace Sonata\UserBundle\Controller;
 
 // NEXT_MAJOR: remove this file
 @trigger_error(
-    'The '.__NAMESPACE__.'\AdminResettingController class is deprecated since version 4.x and will be removed in 5.0.'
+    'The '.__NAMESPACE__.'\AdminResettingController class is deprecated since version 4.3.0 and will be removed in 5.0.'
     .' Use '.__NAMESPACE__.'\RequestAction, '.__NAMESPACE__.'\CheckEmailAction, '.__NAMESPACE__.'\ResetAction or '.__NAMESPACE__.'\SendEmailAction instead.',
     E_USER_DEPRECATED
 );

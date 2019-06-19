@@ -10,7 +10,7 @@ file that was distributed with this source code.
 #}
 
 {% block sonata_security_roles_widget %}
-{% spaceless %}
+{% apply spaceless %}
     <div class="editable">
         <h4>{{ 'field.label_roles_editable'|trans({}, "SonataUserBundle") }}</h4>
         {{ block('choice_widget') }}
@@ -25,14 +25,14 @@ file that was distributed with this source code.
         </ul>
     </div>
     {% endif %}
-{% endspaceless %}
+{% endapply %}
 {% endblock sonata_security_roles_widget %}
 
 {% block sonata_roles_matrix_widget %}
-{% spaceless %}
+{% apply spaceless %}
     {{ renderMatrix(form)|raw }}
     <ul class="list-unstyled">
         {{ renderRolesList(form)|raw }}
     </ul>
-{% endspaceless %}
+{% endapply %}
 {% endblock sonata_roles_matrix_widget %}

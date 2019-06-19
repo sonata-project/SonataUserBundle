@@ -165,9 +165,11 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
     {
         $this->expectException('InvalidArgumentException');
 
-        $this->expectExceptionMessage('Model class "Foo\User" does not correspond to manager type "orm".');
+        $this->expectExceptionMessage(
+            'Model class "Sonata\UserBundle\Entity\BaseUser" does not correspond to manager type "mongodb".'
+        );
 
-        $this->load(['class' => ['user' => 'Foo\User']]);
+        $this->load(['manager_type' => 'mongodb', 'class' => ['user' => 'Sonata\UserBundle\Entity\BaseUser']]);
     }
 
     public function testNotCorrespondingModelClass(): void
@@ -175,10 +177,13 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
         $this->expectException('InvalidArgumentException');
 
         $this->expectExceptionMessage(
-            'Model class "Sonata\UserBundle\Admin\Entity\UserAdmin" does not correspond to manager type "mongodb".'
+            'Model class "Sonata\UserBundle\Entity\BaseGroup" does not correspond to manager type "mongodb".'
         );
 
-        $this->load(['manager_type' => 'mongodb', 'class' => ['user' => 'Sonata\UserBundle\Admin\Entity\UserAdmin']]);
+        $this->load(['manager_type' => 'mongodb', 'class' => [
+            'user' => 'Sonata\UserBundle\Document\BaseUser',
+            'group' => 'Sonata\UserBundle\Entity\BaseGroup',
+        ]]);
     }
 
     public function testConfigureGoogleAuthenticatorDisabled(): void
