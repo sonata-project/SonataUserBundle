@@ -81,7 +81,10 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         $loader->load('twig.xml');
         $loader->load('command.xml');
         $loader->load('actions.xml');
-        $loader->load('mailer.xml');
+
+        if ('sonata.user.mailer.default' === $config['mailer']) {
+            $loader->load('mailer.xml');
+        }
 
         if ('orm' === $config['manager_type'] && isset(
             $bundles['FOSRestBundle'],
