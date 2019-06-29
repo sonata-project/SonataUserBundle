@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping                   http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
     <mapped-superclass name="Sonata\UserBundle\Document\BaseUser">
-        <field name="createdAt" type="date"/>
-        <field name="updatedAt" type="date"/>
+        <field name="createdAt" type="date_immutable"/>
+        <field name="updatedAt" type="date_immutable"/>
         <!-- Profile fields -->
-        <field name="dateOfBirth" type="date"/>
+        <field name="dateOfBirth" type="date_immutable"/>
         <field name="firstname" type="string"/>
         <field name="lastname" type="string"/>
         <field name="website" type="string"/>

@@ -22,17 +22,17 @@ class BaseUserTest extends TestCase
     {
         // Given
         $user = new BaseUser();
-        $today = new \DateTime();
+        $today = new \DateTimeImmutable();
 
         // When
         $user->setCreatedAt($today);
         $user->setUpdatedAt($today);
 
         // Then
-        $this->assertTrue($user->getCreatedAt() instanceof \DateTime, 'Should return a DateTime object');
+        $this->assertInstanceOf(\DateTimeImmutable::class, $user->getCreatedAt(), 'Should return a DateTimeImmutable object');
         $this->assertSame($today->format('U'), $user->getCreatedAt()->format('U'), 'Should contain today\'s date');
 
-        $this->assertTrue($user->getUpdatedAt() instanceof \DateTime, 'Should return a DateTime object');
+        $this->assertInstanceOf(\DateTimeImmutable::class, $user->getUpdatedAt(), 'Should return a DateTimeImmutable object');
         $this->assertSame($today->format('U'), $user->getUpdatedAt()->format('U'), 'Should contain today\'s date');
     }
 
@@ -40,16 +40,16 @@ class BaseUserTest extends TestCase
     {
         // Given
         $user = new BaseUser();
-        $today = new \DateTime();
+        $today = new \DateTimeImmutable();
 
         // When
         $user->prePersist();
 
         // Then
-        $this->assertTrue($user->getCreatedAt() instanceof \DateTime, 'Should contain a DateTime object');
+        $this->assertInstanceOf(\DateTimeImmutable::class, $user->getCreatedAt(), 'Should contain a DateTimeImmutable object');
         $this->assertSame($today->format('Y-m-d'), $user->getUpdatedAt()->format('Y-m-d'), 'Should be created today');
 
-        $this->assertTrue($user->getUpdatedAt() instanceof \DateTime, 'Should contain a DateTime object');
+        $this->assertInstanceOf(\DateTimeImmutable::class, $user->getUpdatedAt(), 'Should contain a DateTimeImmutable object');
         $this->assertSame($today->format('Y-m-d'), $user->getUpdatedAt()->format('Y-m-d'), 'Should be updated today');
     }
 
@@ -57,17 +57,17 @@ class BaseUserTest extends TestCase
     {
         // Given
         $user = new BaseUser();
-        $user->setCreatedAt(\DateTime::createFromFormat('Y-m-d', '2012-01-01'));
-        $today = new \DateTime();
+        $user->setCreatedAt(\DateTimeImmutable::createFromFormat('Y-m-d', '2012-01-01'));
+        $today = new \DateTimeImmutable();
 
         // When
         $user->preUpdate();
 
         // Then
-        $this->assertTrue($user->getCreatedAt() instanceof \DateTime, 'Should contain a DateTime object');
+        $this->assertInstanceOf(\DateTimeImmutable::class, $user->getCreatedAt(), 'Should contain a DateTimeImmutable object');
         $this->assertSame('2012-01-01', $user->getCreatedAt()->format('Y-m-d'), 'Should be created at 2012-01-01.');
 
-        $this->assertTrue($user->getUpdatedAt() instanceof \DateTime, 'Should contain a DateTime object');
+        $this->assertInstanceOf(\DateTimeImmutable::class, $user->getUpdatedAt(), 'Should contain a DateTimeImmutable object');
         $this->assertSame($today->format('Y-m-d'), $user->getUpdatedAt()->format('Y-m-d'), 'Should be updated today');
     }
 

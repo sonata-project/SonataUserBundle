@@ -28,7 +28,7 @@ class UserManager extends BaseUserManager implements UserManagerInterface, Manag
     /**
      * {@inheritdoc}
      */
-    public function findUsersBy(array $criteria = null, array $orderBy = null, $limit = null, $offset = null)
+    public function findUsersBy(array $criteria = null, array $orderBy = null, $limit = null, $offset = null): array
     {
         return $this->getRepository()->findBy($criteria, $orderBy, $limit, $offset);
     }
@@ -62,7 +62,7 @@ class UserManager extends BaseUserManager implements UserManagerInterface, Manag
      */
     public function findOneBy(array $criteria, array $orderBy = null)
     {
-        return parent::findUserBy($criteria);
+        return self::findUserBy($criteria);
     }
 
     /**
@@ -70,7 +70,7 @@ class UserManager extends BaseUserManager implements UserManagerInterface, Manag
      */
     public function create()
     {
-        return parent::createUser();
+        return self::createUser();
     }
 
     /**
@@ -94,7 +94,7 @@ class UserManager extends BaseUserManager implements UserManagerInterface, Manag
             throw new \InvalidArgumentException('Save method expected entity of type UserInterface');
         }
 
-        parent::deleteUser($entity);
+        self::deleteUser($entity);
     }
 
     /**

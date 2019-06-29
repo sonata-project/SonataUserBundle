@@ -31,5 +31,5 @@ interface UserManagerInterface extends BaseInterface, PageableManagerInterface
      *
      * @return UserInterface[]
      */
-    public function findUsersBy(array $criteria = null, array $orderBy = null, $limit = null, $offset = null);
+    public function findUsersBy(array $criteria = null, array $orderBy = null, $limit = null, $offset = null): array;
 }

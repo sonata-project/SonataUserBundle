@@ -21,12 +21,12 @@ use FOS\UserBundle\Model\User as AbstractedUser;
 abstract class User extends AbstractedUser implements UserInterface
 {
     /**
-     * @var \DateTime|null
+     * @var \DateTimeImmutable|null
      */
     protected $createdAt;
 
     /**
-     * @var \DateTime|null
+     * @var \DateTimeImmutable|null
      */
     protected $updatedAt;
 
@@ -36,7 +36,7 @@ abstract class User extends AbstractedUser implements UserInterface
     protected $twoStepVerificationCode;
 
     /**
-     * @var \DateTime|null
+     * @var \DateTimeImmutable|null
      */
     protected $dateOfBirth;
 
@@ -63,7 +63,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * @var string
      */
-    protected $gender = UserInterface::GENDER_UNKNOWN; // set the default to unknown
+    protected $gender = self::GENDER_UNKNOWN; // set the default to unknown
 
     /**
      * @var string
@@ -143,7 +143,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setCreatedAt(\DateTime $createdAt = null)
+    public function setCreatedAt(\DateTimeInterface $createdAt = null): UserInterface
     {
         $this->createdAt = $createdAt;
 
@@ -153,7 +153,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
@@ -161,7 +161,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setUpdatedAt(\DateTime $updatedAt = null)
+    public function setUpdatedAt(\DateTimeInterface $updatedAt = null): UserInterface
     {
         $this->updatedAt = $updatedAt;
 
@@ -171,7 +171,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getUpdatedAt()
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
     }
@@ -179,7 +179,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setGroups($groups)
+    public function setGroups(array $groups): UserInterface
     {
         foreach ($groups as $group) {
             $this->addGroup($group);
@@ -191,7 +191,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setTwoStepVerificationCode($twoStepVerificationCode)
+    public function setTwoStepVerificationCode(?string $twoStepVerificationCode): UserInterface
     {
         $this->twoStepVerificationCode = $twoStepVerificationCode;
 
@@ -201,7 +201,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getTwoStepVerificationCode()
+    public function getTwoStepVerificationCode(): ?string
     {
         return $this->twoStepVerificationCode;
     }
@@ -209,7 +209,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setBiography($biography)
+    public function setBiography(?string $biography): UserInterface
     {
         $this->biography = $biography;
 
@@ -219,7 +219,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getBiography()
+    public function getBiography(): ?string
     {
         return $this->biography;
     }
@@ -227,7 +227,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setDateOfBirth($dateOfBirth)
+    public function setDateOfBirth(\DateTimeInterface $dateOfBirth = null): UserInterface
     {
         $this->dateOfBirth = $dateOfBirth;
 
@@ -237,7 +237,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getDateOfBirth()
+    public function getDateOfBirth(): ?\DateTimeInterface
     {
         return $this->dateOfBirth;
     }
@@ -245,7 +245,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setFacebookData($facebookData)
+    public function setFacebookData(?array $facebookData): UserInterface
     {
         $this->facebookData = $facebookData;
 
@@ -255,7 +255,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getFacebookData()
+    public function getFacebookData(): ?array
     {
         return $this->facebookData;
     }
@@ -263,7 +263,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setFacebookName($facebookName)
+    public function setFacebookName(?string $facebookName): UserInterface
     {
         $this->facebookName = $facebookName;
 
@@ -273,7 +273,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getFacebookName()
+    public function getFacebookName(): ?string
     {
         return $this->facebookName;
     }
@@ -281,7 +281,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setFacebookUid($facebookUid)
+    public function setFacebookUid(?string $facebookUid): UserInterface
     {
         $this->facebookUid = $facebookUid;
 
@@ -291,7 +291,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getFacebookUid()
+    public function getFacebookUid(): ?string
     {
         return $this->facebookUid;
     }
@@ -299,7 +299,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setFirstname($firstname)
+    public function setFirstname(?string $firstname): UserInterface
     {
         $this->firstname = $firstname;
 
@@ -309,7 +309,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getFirstname()
+    public function getFirstname(): ?string
     {
         return $this->firstname;
     }
@@ -317,7 +317,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setGender($gender)
+    public function setGender(?string $gender): UserInterface
     {
         $this->gender = $gender;
 
@@ -327,7 +327,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getGender()
+    public function getGender(): ?string
     {
         return $this->gender;
     }
@@ -335,7 +335,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setGplusData($gplusData)
+    public function setGplusData(?array $gplusData): UserInterface
     {
         $this->gplusData = $gplusData;
 
@@ -345,7 +345,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getGplusData()
+    public function getGplusData(): ?array
     {
         return $this->gplusData;
     }
@@ -353,7 +353,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setGplusName($gplusName)
+    public function setGplusName(?string $gplusName): UserInterface
     {
         $this->gplusName = $gplusName;
 
@@ -363,7 +363,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getGplusName()
+    public function getGplusName(): ?string
     {
         return $this->gplusName;
     }
@@ -371,7 +371,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setGplusUid($gplusUid)
+    public function setGplusUid(?string $gplusUid): UserInterface
     {
         $this->gplusUid = $gplusUid;
 
@@ -381,7 +381,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getGplusUid()
+    public function getGplusUid(): ?string
     {
         return $this->gplusUid;
     }
@@ -389,7 +389,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setLastname($lastname)
+    public function setLastname(?string $lastname): UserInterface
     {
         $this->lastname = $lastname;
 
@@ -399,7 +399,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getLastname()
+    public function getLastname(): ?string
     {
         return $this->lastname;
     }
@@ -407,7 +407,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setLocale($locale)
+    public function setLocale(?string $locale): UserInterface
     {
         $this->locale = $locale;
 
@@ -417,7 +417,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getLocale()
+    public function getLocale(): ?string
     {
         return $this->locale;
     }
@@ -425,7 +425,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setPhone($phone)
+    public function setPhone(?string $phone): UserInterface
     {
         $this->phone = $phone;
 
@@ -435,7 +435,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getPhone()
+    public function getPhone(): ?string
     {
         return $this->phone;
     }
@@ -443,7 +443,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setTimezone($timezone)
+    public function setTimezone(?string $timezone): UserInterface
     {
         $this->timezone = $timezone;
 
@@ -453,7 +453,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getTimezone()
+    public function getTimezone(): ?string
     {
         return $this->timezone;
     }
@@ -461,7 +461,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setTwitterData($twitterData)
+    public function setTwitterData(?array $twitterData): UserInterface
     {
         $this->twitterData = $twitterData;
 
@@ -471,7 +471,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getTwitterData()
+    public function getTwitterData(): ?array
     {
         return $this->twitterData;
     }
@@ -479,7 +479,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setTwitterName($twitterName)
+    public function setTwitterName(?string $twitterName): UserInterface
     {
         $this->twitterName = $twitterName;
 
@@ -489,7 +489,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getTwitterName()
+    public function getTwitterName(): ?string
     {
         return $this->twitterName;
     }
@@ -497,7 +497,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setTwitterUid($twitterUid)
+    public function setTwitterUid(?string $twitterUid): UserInterface
     {
         $this->twitterUid = $twitterUid;
 
@@ -507,7 +507,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getTwitterUid()
+    public function getTwitterUid(): ?string
     {
         return $this->twitterUid;
     }
@@ -515,7 +515,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setWebsite($website)
+    public function setWebsite(?string $website): UserInterface
     {
         $this->website = $website;
 
@@ -525,7 +525,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getWebsite()
+    public function getWebsite(): ?string
     {
         return $this->website;
     }
@@ -533,7 +533,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setToken($token)
+    public function setToken(?string $token): UserInterface
     {
         $this->token = $token;
 
@@ -543,7 +543,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getToken()
+    public function getToken(): ?string
     {
         return $this->token;
     }
@@ -551,7 +551,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getFullname()
+    public function getFullname(): ?string
     {
         return sprintf('%s %s', $this->getFirstname(), $this->getLastname());
     }
@@ -559,7 +559,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getRealRoles()
+    public function getRealRoles(): array
     {
         return $this->roles;
     }
@@ -567,7 +567,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setRealRoles(array $roles)
+    public function setRealRoles(array $roles): UserInterface
     {
         $this->setRoles($roles);
 
@@ -576,15 +576,13 @@ abstract class User extends AbstractedUser implements UserInterface
 
     /**
      * Returns the gender list.
-     *
-     * @return array
      */
-    public static function getGenderList()
+    public static function getGenderList(): array
     {
         return [
-            'gender_unknown' => UserInterface::GENDER_UNKNOWN,
-            'gender_female' => UserInterface::GENDER_FEMALE,
-            'gender_male' => UserInterface::GENDER_MALE,
+            'gender_unknown' => self::GENDER_UNKNOWN,
+            'gender_female' => self::GENDER_FEMALE,
+            'gender_male' => self::GENDER_MALE,
         ];
     }
 }

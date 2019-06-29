@@ -26,8 +26,8 @@ class BaseUser extends AbstractedUser implements UserInterface
      */
     public function prePersist(): void
     {
-        $this->createdAt = new \DateTime();
-        $this->updatedAt = new \DateTime();
+        $this->createdAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable();
     }
 
     /**
@@ -35,6 +35,6 @@ class BaseUser extends AbstractedUser implements UserInterface
      */
     public function preUpdate(): void
     {
-        $this->updatedAt = new \DateTime();
+        $this->updatedAt = new \DateTimeImmutable();
     }
 }

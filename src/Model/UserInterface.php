@@ -13,7 +13,9 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Model;
 
-interface UserInterface extends \FOS\UserBundle\Model\UserInterface
+use FOS\UserBundle\Model\UserInterface as BaseUserInterface;
+
+interface UserInterface extends BaseUserInterface
 {
     public const GENDER_FEMALE = 'f';
     public const GENDER_MALE = 'm';
@@ -21,303 +23,118 @@ interface UserInterface extends \FOS\UserBundle\Model\UserInterface
 
     /**
      * Sets the creation date.
-     *
-     * @param \DateTime|null $createdAt
-     *
-     * @return UserInterface
      */
-    public function setCreatedAt(\DateTime $createdAt = null);
+    public function setCreatedAt(\DateTimeInterface $createdAt = null): self;
 
     /**
      * Returns the creation date.
-     *
-     * @return \DateTime|null
      */
-    public function getCreatedAt();
+    public function getCreatedAt(): ?\DateTimeInterface;
 
     /**
      * Sets the last update date.
-     *
-     * @param \DateTime|null $updatedAt
-     *
-     * @return UserInterface
      */
-    public function setUpdatedAt(\DateTime $updatedAt = null);
+    public function setUpdatedAt(\DateTimeInterface $updatedAt = null): self;
 
     /**
      * Returns the last update date.
-     *
-     * @return \DateTime|null
      */
-    public function getUpdatedAt();
+    public function getUpdatedAt(): ?\DateTimeInterface;
 
     /**
      * Sets the user groups.
-     *
-     * @param array $groups
-     *
-     * @return UserInterface
      */
-    public function setGroups($groups);
+    public function setGroups(array $groups): self;
 
     /**
      * Sets the two-step verification code.
-     *
-     * @param string $twoStepVerificationCode
-     *
-     * @return UserInterface
      */
-    public function setTwoStepVerificationCode($twoStepVerificationCode);
+    public function setTwoStepVerificationCode(?string $twoStepVerificationCode): self;
 
     /**
      * Returns the two-step verification code.
-     *
-     * @return string
      */
-    public function getTwoStepVerificationCode();
+    public function getTwoStepVerificationCode(): ?string;
 
-    /**
-     * @param string $biography
-     *
-     * @return UserInterface
-     */
-    public function setBiography($biography);
+    public function setBiography(?string $biography): self;
 
-    /**
-     * @return string
-     */
-    public function getBiography();
+    public function getBiography(): ?string;
 
-    /**
-     * @param \DateTime $dateOfBirth
-     *
-     * @return UserInterface
-     */
-    public function setDateOfBirth($dateOfBirth);
+    public function setDateOfBirth(\DateTimeInterface $dateOfBirth = null): self;
 
-    /**
-     * @return \DateTime|null
-     */
-    public function getDateOfBirth();
+    public function getDateOfBirth(): ?\DateTimeInterface;
 
-    /**
-     * @param string $facebookData
-     *
-     * @return UserInterface
-     */
-    public function setFacebookData($facebookData);
+    public function setFacebookData(?array $facebookData): self;
 
-    /**
-     * @return string
-     */
-    public function getFacebookData();
+    public function getFacebookData(): ?array;
 
-    /**
-     * @param string $facebookName
-     *
-     * @return UserInterface
-     */
-    public function setFacebookName($facebookName);
+    public function setFacebookName(?string $facebookName): self;
 
-    /**
-     * @return string
-     */
-    public function getFacebookName();
+    public function getFacebookName(): ?string;
 
-    /**
-     * @param string $facebookUid
-     *
-     * @return UserInterface
-     */
-    public function setFacebookUid($facebookUid);
+    public function setFacebookUid(?string $facebookUid): self;
 
-    /**
-     * @return string
-     */
-    public function getFacebookUid();
+    public function getFacebookUid(): ?string;
 
-    /**
-     * @param string $firstname
-     *
-     * @return UserInterface
-     */
-    public function setFirstname($firstname);
+    public function setFirstname(?string $firstname): self;
 
-    /**
-     * @return string
-     */
-    public function getFirstname();
+    public function getFirstname(): ?string;
 
-    /**
-     * @param string $gender
-     *
-     * @return UserInterface
-     */
-    public function setGender($gender);
+    public function setGender(?string $gender): self;
 
-    /**
-     * @return string
-     */
-    public function getGender();
+    public function getGender(): ?string;
 
-    /**
-     * @param string $gplusData
-     *
-     * @return UserInterface
-     */
-    public function setGplusData($gplusData);
+    public function setGplusData(?array $gplusData): self;
 
-    /**
-     * @return string
-     */
-    public function getGplusData();
+    public function getGplusData(): ?array;
 
-    /**
-     * @param string $gplusName
-     *
-     * @return UserInterface
-     */
-    public function setGplusName($gplusName);
+    public function setGplusName(?string $gplusName): self;
 
-    /**
-     * @return string
-     */
-    public function getGplusName();
+    public function getGplusName(): ?string;
 
-    /**
-     * @param string $gplusUid
-     *
-     * @return UserInterface
-     */
-    public function setGplusUid($gplusUid);
+    public function setGplusUid(?string $gplusUid): self;
 
-    /**
-     * @return string
-     */
-    public function getGplusUid();
+    public function getGplusUid(): ?string;
 
-    /**
-     * @param string $lastname
-     *
-     * @return UserInterface
-     */
-    public function setLastname($lastname);
+    public function setLastname(?string $lastname): self;
 
-    /**
-     * @return string
-     */
-    public function getLastname();
+    public function getLastname(): ?string;
 
-    /**
-     * @param string $locale
-     *
-     * @return UserInterface
-     */
-    public function setLocale($locale);
+    public function setLocale(?string $locale): self;
 
-    /**
-     * @return string
-     */
-    public function getLocale();
+    public function getLocale(): ?string;
 
-    /**
-     * @param string $phone
-     *
-     * @return UserInterface
-     */
-    public function setPhone($phone);
+    public function setPhone(?string $phone): self;
 
-    /**
-     * @return string
-     */
-    public function getPhone();
+    public function getPhone(): ?string;
 
-    /**
-     * @param string $timezone
-     *
-     * @return UserInterface
-     */
-    public function setTimezone($timezone);
+    public function setTimezone(?string $timezone): self;
 
-    /**
-     * @return string
-     */
-    public function getTimezone();
+    public function getTimezone(): ?string;
 
-    /**
-     * @param string $twitterData
-     *
-     * @return UserInterface
-     */
-    public function setTwitterData($twitterData);
+    public function setTwitterData(?array $twitterData): self;
 
-    /**
-     * @return string
-     */
-    public function getTwitterData();
+    public function getTwitterData(): ?array;
 
-    /**
-     * @param string $twitterName
-     *
-     * @return UserInterface
-     */
-    public function setTwitterName($twitterName);
+    public function setTwitterName(?string $twitterName): self;
 
-    /**
-     * @return string
-     */
-    public function getTwitterName();
+    public function getTwitterName(): ?string;
 
-    /**
-     * @param string $twitterUid
-     *
-     * @return UserInterface
-     */
-    public function setTwitterUid($twitterUid);
+    public function setTwitterUid(?string $twitterUid): self;
 
-    /**
-     * @return string
-     */
-    public function getTwitterUid();
+    public function getTwitterUid(): ?string;
 
-    /**
-     * @param string $website
-     *
-     * @return UserInterface
-     */
-    public function setWebsite($website);
+    public function setWebsite(?string $website): self;
 
-    /**
-     * @return string
-     */
-    public function getWebsite();
+    public function getWebsite(): ?string;
 
-    /**
-     * @param string $token
-     *
-     * @return UserInterface
-     */
-    public function setToken($token);
+    public function setToken(?string $token): self;
 
-    /**
-     * @return string
-     */
-    public function getToken();
+    public function getToken(): ?string;
 
-    /**
-     * @return string
-     */
-    public function getFullname();
+    public function getFullname(): ?string;
 
-    /**
-     * @return array
-     */
-    public function getRealRoles();
+    public function getRealRoles(): array;
 
-    /**
-     * @param array $roles
-     *
-     * @return UserInterface
-     */
-    public function setRealRoles(array $roles);
+    public function setRealRoles(array $roles): self;
 }

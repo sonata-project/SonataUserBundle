@@ -24,7 +24,7 @@ class UserManager extends BaseUserManager implements UserManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function findUsersBy(array $criteria = null, array $orderBy = null, $limit = null, $offset = null)
+    public function findUsersBy(array $criteria = null, array $orderBy = null, $limit = null, $offset = null): array
     {
         return $this->getRepository()->findBy($criteria, $orderBy, $limit, $offset);
     }
@@ -32,8 +32,8 @@ class UserManager extends BaseUserManager implements UserManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getPager(array $criteria, $page, $limit = 10, array $sort = []): void
+    public function getPager(array $criteria, $page, $limit = 10, array $sort = [])
     {
-        new \RuntimeException('method not implemented');
+        throw new \BadMethodCallException('Method not implemented.');
     }
 }
