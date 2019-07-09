@@ -45,12 +45,6 @@ class EditableRolesBuilder
      */
     protected $rolesHierarchy;
 
-    /**
-     * @param TokenStorageInterface         $tokenStorage
-     * @param AuthorizationCheckerInterface $authorizationChecker
-     * @param Pool                          $pool
-     * @param array                         $rolesHierarchy
-     */
     public function __construct(TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authorizationChecker, Pool $pool, array $rolesHierarchy = [])
     {
         $this->tokenStorage = $tokenStorage;

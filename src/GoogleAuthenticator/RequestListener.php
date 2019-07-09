@@ -36,11 +36,6 @@ class RequestListener
      */
     protected $templating;
 
-    /**
-     * @param Helper                $helper
-     * @param TokenStorageInterface $tokenStorage
-     * @param EngineInterface       $templating
-     */
     public function __construct(Helper $helper, TokenStorageInterface $tokenStorage, EngineInterface $templating)
     {
         $this->helper = $helper;
@@ -48,9 +43,6 @@ class RequestListener
         $this->templating = $templating;
     }
 
-    /**
-     * @param GetResponseEvent $event
-     */
     public function onCoreRequest(GetResponseEvent $event): void
     {
         if (HttpKernel::MASTER_REQUEST !== $event->getRequestType()) {

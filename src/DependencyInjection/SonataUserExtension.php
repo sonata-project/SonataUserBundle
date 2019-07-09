@@ -145,8 +145,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     }
 
     /**
-     * @param array            $config
-     * @param ContainerBuilder $container
+     * @param array $config
      *
      * @throws \RuntimeException
      *
@@ -178,8 +177,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     }
 
     /**
-     * @param array            $config
-     * @param ContainerBuilder $container
+     * @param array $config
      */
     public function configureClass($config, ContainerBuilder $container): void
     {
@@ -196,8 +194,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     }
 
     /**
-     * @param array            $config
-     * @param ContainerBuilder $container
+     * @param array $config
      */
     public function configureAdminClass($config, ContainerBuilder $container): void
     {
@@ -206,8 +203,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     }
 
     /**
-     * @param array            $config
-     * @param ContainerBuilder $container
+     * @param array $config
      */
     public function configureTranslationDomain($config, ContainerBuilder $container): void
     {
@@ -216,8 +212,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     }
 
     /**
-     * @param array            $config
-     * @param ContainerBuilder $container
+     * @param array $config
      */
     public function configureController($config, ContainerBuilder $container): void
     {
@@ -225,9 +220,6 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         $container->setParameter('sonata.user.admin.group.controller', $config['admin']['group']['controller']);
     }
 
-    /**
-     * @param array $config
-     */
     public function registerDoctrineMapping(array $config): void
     {
         foreach ($config['class'] as $type => $class) {
@@ -263,8 +255,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     /**
      * Adds aliases for user & group managers depending on $managerType.
      *
-     * @param ContainerBuilder $container
-     * @param string           $managerType
+     * @param string $managerType
      */
     protected function aliasManagers(ContainerBuilder $container, $managerType): void
     {
@@ -299,10 +290,6 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
 
     /**
      * Prohibit using wrong model type mapping.
-     *
-     * @param string $actualModelClass
-     * @param string $prohibitedModelClass
-     * @param string $managerType
      */
     private function prohibitModelTypeMapping(
         string $actualModelClass,
