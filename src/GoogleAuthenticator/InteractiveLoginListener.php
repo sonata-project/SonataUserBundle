@@ -24,17 +24,11 @@ class InteractiveLoginListener
      */
     protected $helper;
 
-    /**
-     * @param Helper $helper
-     */
     public function __construct(Helper $helper)
     {
         $this->helper = $helper;
     }
 
-    /**
-     * @param InteractiveLoginEvent $event
-     */
     public function onSecurityInteractiveLogin(InteractiveLoginEvent $event): void
     {
         if (!$this->helper->needToHaveGoogle2FACode($event->getRequest())) {
