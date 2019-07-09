@@ -73,9 +73,6 @@ class UserAdmin extends AbstractAdmin
         $this->getUserManager()->updatePassword($user);
     }
 
-    /**
-     * @param UserManagerInterface $userManager
-     */
     public function setUserManager(UserManagerInterface $userManager): void
     {
         $this->userManager = $userManager;

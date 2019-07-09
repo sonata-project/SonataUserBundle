@@ -33,9 +33,6 @@ class SecurityRolesType extends AbstractType
      */
     protected $rolesBuilder;
 
-    /**
-     * @param EditableRolesBuilder $rolesBuilder
-     */
     public function __construct(EditableRolesBuilder $rolesBuilder)
     {
         $this->rolesBuilder = $rolesBuilder;

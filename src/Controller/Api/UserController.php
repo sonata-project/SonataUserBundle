@@ -49,11 +49,6 @@ class UserController
      */
     protected $formFactory;
 
-    /**
-     * @param UserManagerInterface  $userManager
-     * @param GroupManagerInterface $groupManager
-     * @param FormFactoryInterface  $formFactory
-     */
     public function __construct(UserManagerInterface $userManager, GroupManagerInterface $groupManager, FormFactoryInterface $formFactory)
     {
         $this->userManager = $userManager;
@@ -75,8 +70,6 @@ class UserController
      * @QueryParam(name="enabled", requirements="0|1", nullable=true, strict=true, description="Enabled/disabled users only?")
      *
      * @View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
-     *
-     * @param ParamFetcherInterface $paramFetcher
      *
      * @return PagerInterface
      */
