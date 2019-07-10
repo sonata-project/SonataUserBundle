@@ -47,8 +47,7 @@ class Helper
     private $authorizationChecker;
 
     /**
-     * @param string[] $forcedForRole Roles that require 2FA authorization
-     * @param string[] $ipWhiteList   IPs that will bypass 2FA authorization
+     * @param string[] $ipWhiteList IPs that will bypass 2FA authorization
      */
     public function __construct(
       $server,
@@ -65,7 +64,6 @@ class Helper
     }
 
     /**
-     * @param UserInterface $user
      * @param $code
      *
      * @return bool
@@ -76,8 +74,6 @@ class Helper
     }
 
     /**
-     * @param UserInterface $user
-     *
      * @return string
      */
     public function getUrl(UserInterface $user)
@@ -94,8 +90,6 @@ class Helper
     }
 
     /**
-     * @param UsernamePasswordToken $token
-     *
      * @return string
      */
     public function getSessionKey(UsernamePasswordToken $token)
@@ -103,9 +97,6 @@ class Helper
         return sprintf('sonata_user_google_authenticator_%s_%s', $token->getProviderKey(), $token->getUsername());
     }
 
-    /**
-     * @return bool
-     */
     public function needToHaveGoogle2FACode(Request $request): bool
     {
         $ip = $request->server->get('HTTP_X_FORWARDED_FOR', $request->server->get('REMOTE_ADDR'));

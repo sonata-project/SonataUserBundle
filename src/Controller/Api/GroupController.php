@@ -67,8 +67,6 @@ class GroupController
      *
      * @View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
      *
-     * @param ParamFetcherInterface $paramFetcher
-     *
      * @return PagerInterface
      */
     public function getGroupsAction(ParamFetcherInterface $paramFetcher)
