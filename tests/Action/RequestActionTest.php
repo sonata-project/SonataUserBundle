@@ -13,47 +13,47 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Action;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Action\RequestAction;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Twig\Environment;
 
 class RequestActionTest extends TestCase
 {
     /**
-     * @var EngineInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var Environment|MockObject
      */
     protected $templating;
 
     /**
-     * @var UrlGeneratorInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var UrlGeneratorInterface|MockObject
      */
     protected $urlGenerator;
 
     /**
-     * @var AuthorizationCheckerInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var AuthorizationCheckerInterface|MockObject
      */
     protected $authorizationChecker;
 
     /**
-     * @var Pool|\PHPUnit_Framework_MockObject_MockObject
+     * @var Pool|MockObject
      */
     protected $pool;
 
     /**
-     * @var TemplateRegistryInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var TemplateRegistryInterface|MockObject
      */
     protected $templateRegistry;
 
     public function setUp(): void
     {
-        $this->templating = $this->createMock(EngineInterface::class);
+        $this->templating = $this->createMock(Environment::class);
         $this->urlGenerator = $this->createMock(UrlGeneratorInterface::class);
         $this->authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
         $this->pool = $this->createMock(Pool::class);
@@ -83,7 +83,6 @@ class RequestActionTest extends TestCase
     public function testUnauthenticated(): void
     {
         $request = new Request();
-        $response = $this->createMock(Response::class);
 
         $parameters = [
             'base_template' => 'base.html.twig',
@@ -95,9 +94,9 @@ class RequestActionTest extends TestCase
             ->willReturn(false);
 
         $this->templating->expects($this->once())
-            ->method('renderResponse')
+            ->method('render')
             ->with('@SonataUser/Admin/Security/Resetting/request.html.twig', $parameters)
-            ->willReturn($response);
+            ->willReturn('template content');
 
         $this->templateRegistry->expects($this->any())
             ->method('getTemplate')
@@ -107,7 +106,7 @@ class RequestActionTest extends TestCase
         $action = $this->getAction();
         $result = $action($request);
 
-        $this->assertSame($response, $result);
+        $this->assertSame('template content', $result->getContent());
     }
 
     private function getAction(): RequestAction

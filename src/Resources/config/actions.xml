@@ -3,14 +3,14 @@
     <services>
         <!-- NEXT_MAJOR: remove the "class" and "public" attributes -->
         <service id="Sonata\UserBundle\Action\RequestAction" class="Sonata\UserBundle\Action\RequestAction" public="true">
-            <argument type="service" id="templating"/>
+            <argument type="service" id="twig"/>
             <argument type="service" id="router"/>
             <argument type="service" id="security.authorization_checker"/>
             <argument type="service" id="sonata.admin.pool"/>
             <argument type="service" id="sonata.admin.global_template_registry"/>
         </service>
         <service id="Sonata\UserBundle\Action\SendEmailAction" class="Sonata\UserBundle\Action\SendEmailAction" public="true">
-            <argument type="service" id="templating"/>
+            <argument type="service" id="twig"/>
             <argument type="service" id="router"/>
             <argument type="service" id="sonata.admin.pool"/>
             <argument type="service" id="sonata.admin.global_template_registry"/>
@@ -20,14 +20,14 @@
             <argument>%fos_user.resetting.retry_ttl%</argument>
         </service>
         <service id="Sonata\UserBundle\Action\CheckEmailAction" class="Sonata\UserBundle\Action\CheckEmailAction" public="true">
-            <argument type="service" id="templating"/>
+            <argument type="service" id="twig"/>
             <argument type="service" id="router"/>
             <argument type="service" id="sonata.admin.pool"/>
             <argument type="service" id="sonata.admin.global_template_registry"/>
             <argument>%fos_user.resetting.retry_ttl%</argument>
         </service>
         <service id="Sonata\UserBundle\Action\ResetAction" class="Sonata\UserBundle\Action\ResetAction" public="true">
-            <argument type="service" id="templating"/>
+            <argument type="service" id="twig"/>
             <argument type="service" id="router"/>
             <argument type="service" id="security.authorization_checker"/>
             <argument type="service" id="sonata.admin.pool"/>
@@ -44,7 +44,7 @@
             </call>
         </service>
         <service id="Sonata\UserBundle\Action\LoginAction" class="Sonata\UserBundle\Action\LoginAction" public="true">
-            <argument type="service" id="templating"/>
+            <argument type="service" id="twig"/>
             <argument type="service" id="router"/>
             <argument type="service" id="security.authorization_checker"/>
             <argument type="service" id="sonata.admin.pool"/>

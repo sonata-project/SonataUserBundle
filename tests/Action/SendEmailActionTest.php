@@ -17,46 +17,47 @@ use FOS\UserBundle\Mailer\MailerInterface;
 use FOS\UserBundle\Model\User;
 use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Util\TokenGeneratorInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Action\SendEmailAction;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Twig\Environment;
 
 class SendEmailActionTest extends TestCase
 {
     /**
-     * @var UrlGeneratorInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var UrlGeneratorInterface|MockObject
      */
     protected $urlGenerator;
 
     /**
-     * @var Pool|\PHPUnit_Framework_MockObject_MockObject
+     * @var Pool|MockObject
      */
     protected $pool;
 
     /**
-     * @var TemplateRegistryInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var TemplateRegistryInterface|MockObject
      */
     protected $templateRegistry;
 
     /**
-     * @var UserManagerInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var UserManagerInterface|MockObject
      */
     protected $userManager;
 
     /**
-     * @var MailerInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var MailerInterface|MockObject
      */
     protected $mailer;
 
     /**
-     * @var TokenGeneratorInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var TokenGeneratorInterface|MockObject
      */
     protected $tokenGenerator;
 
@@ -76,18 +77,18 @@ class SendEmailActionTest extends TestCase
     protected $template;
 
     /**
-     * @var ContainerBuilder|\PHPUnit_Framework_MockObject_MockObject
+     * @var ContainerBuilder|MockObject
      */
     protected $container;
 
     /**
-     * @var EngineInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var Environment|MockObject
      */
     protected $templating;
 
     public function setUp(): void
     {
-        $this->templating = $this->createMock(EngineInterface::class);
+        $this->templating = $this->createMock(Environment::class);
         $this->urlGenerator = $this->createMock(UrlGeneratorInterface::class);
         $this->pool = $this->createMock(Pool::class);
         $this->templateRegistry = $this->createMock(TemplateRegistryInterface::class);
@@ -112,9 +113,9 @@ class SendEmailActionTest extends TestCase
         ];
 
         $this->templating->expects($this->once())
-            ->method('renderResponse')
+            ->method('render')
             ->with('@SonataUser/Admin/Security/Resetting/request.html.twig', $parameters)
-            ->willReturn($response);
+            ->willReturn('template content');
 
         $this->templateRegistry->expects($this->any())
             ->method('getTemplate')
@@ -129,7 +130,7 @@ class SendEmailActionTest extends TestCase
         $action = $this->getAction();
         $result = $action($request);
 
-        $this->assertSame($response, $result);
+        $this->assertSame('template content', $result->getContent());
     }
 
     public function testPasswordRequestNonExpired(): void

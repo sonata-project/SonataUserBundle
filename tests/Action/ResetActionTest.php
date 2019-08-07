@@ -17,11 +17,11 @@ use FOS\UserBundle\Form\Factory\FactoryInterface;
 use FOS\UserBundle\Model\User;
 use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Security\LoginManagerInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Action\ResetAction;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,56 +31,57 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use Twig\Environment;
 
 class ResetActionTest extends TestCase
 {
     /**
-     * @var EngineInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var Environment|MockObject
      */
     protected $templating;
 
     /**
-     * @var UrlGeneratorInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var UrlGeneratorInterface|MockObject
      */
     protected $urlGenerator;
 
     /**
-     * @var AuthorizationCheckerInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var AuthorizationCheckerInterface|MockObject
      */
     protected $authorizationChecker;
 
     /**
-     * @var Pool|\PHPUnit_Framework_MockObject_MockObject
+     * @var Pool|MockObject
      */
     protected $pool;
 
     /**
-     * @var TemplateRegistryInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var TemplateRegistryInterface|MockObject
      */
     protected $templateRegistry;
 
     /**
-     * @var FactoryInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var FactoryInterface|MockObject
      */
     protected $formFactory;
 
     /**
-     * @var UserManagerInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var UserManagerInterface|MockObject
      */
     protected $userManager;
 
     /**
-     * @var LoginManagerInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var LoginManagerInterface|MockObject
      */
     protected $loginManager;
 
     /**
-     * @var TranslatorInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var TranslatorInterface|MockObject
      */
     protected $translator;
 
     /**
-     * @var Session|\PHPUnit_Framework_MockObject_MockObject
+     * @var Session|MockObject
      */
     protected $session;
 
@@ -96,7 +97,7 @@ class ResetActionTest extends TestCase
 
     public function setUp(): void
     {
-        $this->templating = $this->createMock(EngineInterface::class);
+        $this->templating = $this->createMock(Environment::class);
         $this->urlGenerator = $this->createMock(UrlGeneratorInterface::class);
         $this->authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
         $this->pool = $this->createMock(Pool::class);
@@ -175,7 +176,6 @@ class ResetActionTest extends TestCase
     public function testReset(): void
     {
         $request = new Request();
-        $response = $this->createMock(Response::class);
 
         $parameters = [
             'token' => 'user-token',
@@ -215,9 +215,9 @@ class ResetActionTest extends TestCase
             ->willReturn('/foo');
 
         $this->templating->expects($this->any())
-            ->method('renderResponse')
+            ->method('render')
             ->with('@SonataUser/Admin/Security/Resetting/reset.html.twig', $parameters)
-            ->willReturn($response);
+            ->willReturn('template content');
 
         $this->templateRegistry->expects($this->any())
             ->method('getTemplate')
@@ -227,7 +227,7 @@ class ResetActionTest extends TestCase
         $action = $this->getAction();
         $result = $action($request, 'user-token');
 
-        $this->assertSame($response, $result);
+        $this->assertSame('template content', $result->getContent());
     }
 
     public function testPostedReset(): void

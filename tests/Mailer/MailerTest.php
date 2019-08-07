@@ -14,25 +14,26 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\DependencyInjection;
 
 use FOS\UserBundle\Model\UserInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Mailer\Mailer;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Twig\Environment;
 
 class MailerTest extends TestCase
 {
     /**
-     * @var RouterInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var RouterInterface|MockObject
      */
     private $router;
 
     /**
-     * @var EngineInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var Environment|MockObject
      */
     private $templating;
 
     /**
-     * @var \Swift_Mailer|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Swift_Mailer|MockObject
      */
     private $mailer;
 
@@ -49,7 +50,7 @@ class MailerTest extends TestCase
     public function setUp(): void
     {
         $this->router = $this->createMock(RouterInterface::class);
-        $this->templating = $this->createMock(EngineInterface::class);
+        $this->templating = $this->createMock(Environment::class);
         $this->mailer = $this->createMock(\Swift_Mailer::class);
         $this->emailFrom = ['noreply@sonata-project.org'];
         $this->template = 'foo';
