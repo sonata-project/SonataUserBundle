@@ -16,7 +16,6 @@ namespace Sonata\UserBundle\Action;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Model\UserInterface;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,13 +26,14 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Twig\Environment;
 
 final class LoginAction
 {
     /**
-     * @var EngineInterface
+     * @var Environment
      */
-    private $templating;
+    private $twig;
 
     /**
      * @var UrlGeneratorInterface
@@ -71,7 +71,7 @@ final class LoginAction
     private $csrfTokenManager;
 
     public function __construct(
-        EngineInterface $templating,
+        Environment $twig,
         UrlGeneratorInterface $urlGenerator,
         AuthorizationCheckerInterface $authorizationChecker,
         Pool $adminPool,
@@ -79,7 +79,7 @@ final class LoginAction
         TokenStorageInterface $tokenStorage,
         Session $session
     ) {
-        $this->templating = $templating;
+        $this->twig = $twig;
         $this->urlGenerator = $urlGenerator;
         $this->authorizationChecker = $authorizationChecker;
         $this->adminPool = $adminPool;
@@ -126,14 +126,14 @@ final class LoginAction
             $csrfToken = $this->csrfTokenManager->getToken('authenticate')->getValue();
         }
 
-        return $this->templating->renderResponse('@SonataUser/Admin/Security/login.html.twig', [
+        return new Response($this->twig->render('@SonataUser/Admin/Security/login.html.twig', [
             'admin_pool' => $this->adminPool,
             'base_template' => $this->templateRegistry->getTemplate('layout'),
             'csrf_token' => $csrfToken,
             'error' => $error,
             'last_username' => (null === $session) ? '' : $session->get(Security::LAST_USERNAME),
             'reset_route' => $this->urlGenerator->generate('sonata_user_admin_resetting_request'),
-        ]);
+        ]));
     }
 
     public function setCsrfTokenManager(CsrfTokenManagerInterface $csrfTokenManager): void

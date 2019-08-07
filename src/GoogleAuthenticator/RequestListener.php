@@ -14,10 +14,12 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\GoogleAuthenticator;
 
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Twig\Environment;
 
 class RequestListener
 {
@@ -32,15 +34,53 @@ class RequestListener
     protected $tokenStorage;
 
     /**
+     * NEXT_MAJOR: Remove this property.
+     *
      * @var EngineInterface
      */
     protected $templating;
 
-    public function __construct(Helper $helper, TokenStorageInterface $tokenStorage, EngineInterface $templating)
+    /**
+     * @var Environment
+     */
+    private $twig;
+
+    /**
+     * NEXT_MAJOR: Remove `$templating` argument and make `$twig` argument mandatory.
+     *
+     * @param EngineInterface|Environment $templating
+     */
+    public function __construct(Helper $helper, TokenStorageInterface $tokenStorage, object $templating = null, Environment $twig = null)
     {
         $this->helper = $helper;
         $this->tokenStorage = $tokenStorage;
-        $this->templating = $templating;
+        // $this->twig = $twig;
+        // NEXT_MAJOR: Uncomment the previous assignment and remove the following lines in this method.
+
+        if ($templating instanceof EngineInterface) {
+            $this->templating = $templating;
+
+            @trigger_error(sprintf(
+                'Passing an instance of %s as argument 3 to "%s()" is deprecated since 4.x and will only accept an instance of %s in version 5.0.',
+                EngineInterface::class,
+                __METHOD__,
+                Environment::class
+            ), E_USER_DEPRECATED);
+        } elseif ($templating instanceof Environment) {
+            $this->twig = $templating;
+        } else {
+            throw new \TypeError(sprintf(
+                'Argument 3 passed to %s() must be an instance of %s or %s, %s given.',
+                __METHOD__,
+                Environment::class,
+                EngineInterface::class,
+                \get_class($templating)
+            ));
+        }
+
+        if (null === $this->twig) {
+            $this->twig = $twig;
+        }
     }
 
     public function onCoreRequest(GetResponseEvent $event): void
@@ -83,11 +123,21 @@ class RequestListener
             $state = 'error';
         }
 
-        $event->setResponse($this->templating->renderResponse('@SonataUser/Admin/Security/login.html.twig', [
-            'base_template' => '@SonataAdmin/standard_layout.html.twig',
-            'error' => [],
-            'state' => $state,
-            'two_step_submit' => true,
-        ]));
+        // NEXT_MAJOR: Remove the following check and the `else` condition
+        if ($this->twig) {
+            $event->setResponse(new Response($this->twig->render('@SonataUser/Admin/Security/login.html.twig', [
+                'base_template' => '@SonataAdmin/standard_layout.html.twig',
+                'error' => [],
+                'state' => $state,
+                'two_step_submit' => true,
+            ])));
+        } else {
+            $event->setResponse($this->templating->renderResponse('@SonataUser/Admin/Security/login.html.twig', [
+                'base_template' => '@SonataAdmin/standard_layout.html.twig',
+                'error' => [],
+                'state' => $state,
+                'two_step_submit' => true,
+            ]));
+        }
     }
 }

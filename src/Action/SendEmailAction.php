@@ -18,18 +18,18 @@ use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Util\TokenGeneratorInterface;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Twig\Environment;
 
 final class SendEmailAction
 {
     /**
-     * @var EngineInterface
+     * @var Environment
      */
-    private $templating;
+    private $twig;
 
     /**
      * @var UrlGeneratorInterface
@@ -67,7 +67,7 @@ final class SendEmailAction
     private $resetTtl;
 
     public function __construct(
-        EngineInterface $templating,
+        Environment $twig,
         UrlGeneratorInterface $urlGenerator,
         Pool $adminPool,
         TemplateRegistryInterface $templateRegistry,
@@ -76,7 +76,7 @@ final class SendEmailAction
         TokenGeneratorInterface $tokenGenerator,
         int $resetTtl
     ) {
-        $this->templating = $templating;
+        $this->twig = $twig;
         $this->urlGenerator = $urlGenerator;
         $this->adminPool = $adminPool;
         $this->templateRegistry = $templateRegistry;
@@ -93,11 +93,11 @@ final class SendEmailAction
         $user = $this->userManager->findUserByUsernameOrEmail($username);
 
         if (null === $user) {
-            return $this->templating->renderResponse('@SonataUser/Admin/Security/Resetting/request.html.twig', [
+            return new Response($this->twig->render('@SonataUser/Admin/Security/Resetting/request.html.twig', [
                 'base_template' => $this->templateRegistry->getTemplate('layout'),
                 'admin_pool' => $this->adminPool,
                 'invalid_username' => $username,
-            ]);
+            ]));
         }
 
         if (null !== $user && !$user->isPasswordRequestNonExpired($this->resetTtl)) {

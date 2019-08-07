@@ -17,7 +17,6 @@ use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Entity\BaseUser;
 use Sonata\UserBundle\EventListener\TwoFactorLoginSuccessHandler;
 use Sonata\UserBundle\GoogleAuthenticator\Helper;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,6 +30,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Symfony\Component\Security\Core\Authorization\Voter\RoleHierarchyVoter;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\Role\RoleHierarchy;
+use Twig\Environment;
 
 /**
  * @author Aleksey Krichevsky <krich.al.vl@gmail.com>
@@ -100,8 +100,8 @@ class TwoFactorLoginSuccessHandlerTest extends TestCase
             'ROLE_USER' => [''],
         ]);
         $authChecker = new AuthorizationChecker($tokenStorage, $authManagerMock, new AccessDecisionManager([new RoleHierarchyVoter($roleHierarchy)]));
-        $templateEngineMock = $this->createMock(EngineInterface::class);
-        $templateEngineMock->method('renderResponse')->willReturn(Response::create('Rendered response'));
+        $templateEngineMock = $this->createMock(Environment::class);
+        $templateEngineMock->method('render')->willReturn('Rendered view');
         $userManagerMock = $this->createMock(UserManagerInterface::class);
         $routerMock = $this->createMock(UrlGeneratorInterface::class);
         $routerMock->method('generate')->willReturn('/admin/dashboard');

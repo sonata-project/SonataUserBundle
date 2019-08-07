@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Controller;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Action\CheckEmailAction;
 use Sonata\UserBundle\Action\RequestAction;
@@ -26,7 +27,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class AdminResettingControllerTest extends TestCase
 {
     /**
-     * @var RequestStack|\PHPUnit_Framework_MockObject_MockObject
+     * @var RequestStack|MockObject
      */
     protected $requestStack;
 
@@ -35,7 +36,7 @@ class AdminResettingControllerTest extends TestCase
      */
     protected $testAction;
     /**
-     * @var ContainerBuilder|\PHPUnit_Framework_MockObject_MockObject
+     * @var ContainerBuilder|MockObject
      */
     private $container;
 

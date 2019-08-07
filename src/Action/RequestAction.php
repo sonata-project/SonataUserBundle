@@ -15,19 +15,19 @@ namespace Sonata\UserBundle\Action;
 
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Twig\Environment;
 
 final class RequestAction
 {
     /**
-     * @var EngineInterface
+     * @var Environment
      */
-    private $templating;
+    private $twig;
 
     /**
      * @var UrlGeneratorInterface
@@ -50,13 +50,13 @@ final class RequestAction
     private $templateRegistry;
 
     public function __construct(
-        EngineInterface $templating,
+        Environment $twig,
         UrlGeneratorInterface $urlGenerator,
         AuthorizationCheckerInterface $authorizationChecker,
         Pool $adminPool,
         TemplateRegistryInterface $templateRegistry
     ) {
-        $this->templating = $templating;
+        $this->twig = $twig;
         $this->urlGenerator = $urlGenerator;
         $this->authorizationChecker = $authorizationChecker;
         $this->adminPool = $adminPool;
@@ -69,9 +69,9 @@ final class RequestAction
             return new RedirectResponse($this->urlGenerator->generate('sonata_admin_dashboard'));
         }
 
-        return $this->templating->renderResponse('@SonataUser/Admin/Security/Resetting/request.html.twig', [
+        return new Response($this->twig->render('@SonataUser/Admin/Security/Resetting/request.html.twig', [
             'base_template' => $this->templateRegistry->getTemplate('layout'),
             'admin_pool' => $this->adminPool,
-        ]);
+        ]));
     }
 }

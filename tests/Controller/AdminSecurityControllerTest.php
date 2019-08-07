@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Controller;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Action\CheckLoginAction;
 use Sonata\UserBundle\Action\LoginAction;
@@ -30,7 +31,7 @@ class AdminSecurityControllerTest extends TestCase
     private $testAction;
 
     /**
-     * @var ContainerBuilder|\PHPUnit_Framework_MockObject_MockObject
+     * @var ContainerBuilder|MockObject
      */
     private $container;
 
