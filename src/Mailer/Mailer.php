@@ -15,8 +15,8 @@ namespace Sonata\UserBundle\Mailer;
 
 use FOS\UserBundle\Mailer\MailerInterface;
 use FOS\UserBundle\Model\UserInterface;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Twig\Environment;
 
 final class Mailer implements MailerInterface
 {
@@ -26,9 +26,9 @@ final class Mailer implements MailerInterface
     private $urlGenerator;
 
     /**
-     * @var EngineInterface
+     * @var Environment
      */
-    private $templating;
+    private $twig;
 
     /**
      * @var \Swift_Mailer
@@ -45,10 +45,10 @@ final class Mailer implements MailerInterface
      */
     private $emailTemplate;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator, EngineInterface $templating, \Swift_Mailer $mailer, array $fromEmail, string $emailTemplate)
+    public function __construct(UrlGeneratorInterface $urlGenerator, Environment $twig, \Swift_Mailer $mailer, array $fromEmail, string $emailTemplate)
     {
         $this->urlGenerator = $urlGenerator;
-        $this->templating = $templating;
+        $this->twig = $twig;
         $this->mailer = $mailer;
         $this->fromEmail = $fromEmail;
         $this->emailTemplate = $emailTemplate;
@@ -60,7 +60,7 @@ final class Mailer implements MailerInterface
             'token' => $user->getConfirmationToken(),
         ], UrlGeneratorInterface::ABSOLUTE_URL);
 
-        $rendered = $this->templating->render($this->emailTemplate, [
+        $rendered = $this->twig->render($this->emailTemplate, [
             'user' => $user,
             'confirmationUrl' => $url,
         ]);

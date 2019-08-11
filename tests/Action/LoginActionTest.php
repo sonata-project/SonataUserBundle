@@ -13,15 +13,14 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Action;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Action\LoginAction;
 use Sonata\UserBundle\Model\UserInterface;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -31,52 +30,53 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Twig\Environment;
 
 class LoginActionTest extends TestCase
 {
     /**
-     * @var EngineInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var Environment|MockObject
      */
     protected $templating;
 
     /**
-     * @var UrlGeneratorInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var UrlGeneratorInterface|MockObject
      */
     protected $urlGenerator;
 
     /**
-     * @var AuthorizationCheckerInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var AuthorizationCheckerInterface|MockObject
      */
     protected $authorizationChecker;
 
     /**
-     * @var Pool|\PHPUnit_Framework_MockObject_MockObject
+     * @var Pool|MockObject
      */
     protected $pool;
 
     /**
-     * @var TemplateRegistryInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var TemplateRegistryInterface|MockObject
      */
     protected $templateRegistry;
 
     /**
-     * @var TokenStorageInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var TokenStorageInterface|MockObject
      */
     protected $tokenStorage;
 
     /**
-     * @var Session|\PHPUnit_Framework_MockObject_MockObject
+     * @var Session|MockObject
      */
     protected $session;
 
     /**
-     * @var CsrfTokenManagerInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var CsrfTokenManagerInterface|MockObject
      */
     protected $csrfTokenManager;
 
     public function setUp(): void
     {
-        $this->templating = $this->createMock(EngineInterface::class);
+        $this->templating = $this->createMock(Environment::class);
         $this->urlGenerator = $this->createMock(UrlGeneratorInterface::class);
         $this->authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
         $this->pool = $this->createMock(Pool::class);
@@ -185,8 +185,6 @@ class LoginActionTest extends TestCase
         $request = new Request();
         $request->setSession($session);
 
-        $response = $this->createMock(Response::class);
-
         $parameters = [
             'admin_pool' => $this->pool,
             'base_template' => 'base.html.twig',
@@ -226,14 +224,14 @@ class LoginActionTest extends TestCase
             ->willReturn('base.html.twig');
 
         $this->templating->expects($this->any())
-            ->method('renderResponse')
+            ->method('render')
             ->with('@SonataUser/Admin/Security/login.html.twig', $parameters)
-            ->willReturn($response);
+            ->willReturn('template content');
 
         $action = $this->getAction();
         $result = $action($request);
 
-        $this->assertSame($response, $result);
+        $this->assertSame('template content', $result->getContent());
     }
 
     public function unauthenticatedProvider(): array

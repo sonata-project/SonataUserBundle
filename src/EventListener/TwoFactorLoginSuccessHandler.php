@@ -17,13 +17,13 @@ use FOS\UserBundle\Model\UserManagerInterface;
 use Sonata\GoogleAuthenticator\GoogleQrUrl;
 use Sonata\UserBundle\GoogleAuthenticator\Helper;
 use Sonata\UserBundle\Model\User;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface;
+use Twig\Environment;
 
 /**
  * Class TwoFactorLoginSuccessHandler is used for handling 2FA authorization for enabled roles and ips.
@@ -33,7 +33,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerI
 final class TwoFactorLoginSuccessHandler implements AuthenticationSuccessHandlerInterface
 {
     /**
-     * @var EngineInterface
+     * @var Environment
      */
     private $engine;
 
@@ -53,7 +53,7 @@ final class TwoFactorLoginSuccessHandler implements AuthenticationSuccessHandler
     private $urlGenerator;
 
     public function __construct(
-        EngineInterface $engine,
+        Environment $engine,
         Helper $helper,
         UserManagerInterface $userManager,
         UrlGeneratorInterface $urlGenerator = null // NEXT_MAJOR: make it mandatory.
@@ -67,7 +67,7 @@ final class TwoFactorLoginSuccessHandler implements AuthenticationSuccessHandler
     /**
      * @return RedirectResponse|Response
      */
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token)
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token): Response
     {
         /** @var $user User */
         $user = $token->getUser();
@@ -80,7 +80,7 @@ final class TwoFactorLoginSuccessHandler implements AuthenticationSuccessHandler
             $qrCodeUrl = GoogleQrUrl::generate($user->getUsername(), $secret);
             $this->userManager->updateUser($user);
 
-            return $this->engine->renderResponse(
+            return new Response($this->engine->render(
                 '@SonataUser/Admin/Security/login.html.twig',
                 [
                     'qrCodeUrl' => $qrCodeUrl,
@@ -88,7 +88,7 @@ final class TwoFactorLoginSuccessHandler implements AuthenticationSuccessHandler
                     'base_template' => '@SonataAdmin/standard_layout.html.twig',
                     'error' => [],
                 ]
-            );
+            ));
         } elseif ($needToHave2FA && $user->getTwoStepVerificationCode()) {
             $request->getSession()->set($this->googleAuthenticator->getSessionKey($token), null);
         }

@@ -19,10 +19,12 @@
             <tag name="kernel.event_listener" event="kernel.request" method="onCoreRequest" priority="-1"/>
             <argument type="service" id="sonata.user.google.authenticator.provider"/>
             <argument type="service" id="security.token_storage"/>
-            <argument type="service" id="sonata.templating"/>
+            <!-- NEXT_MAJOR: Remove "sonata.templating" argument -->
+            <argument type="service" id="sonata.templating" on-invalid="null"/>
+            <argument type="service" id="twig"/>
         </service>
         <service id="sonata.user.google.authenticator.success_handler" class="Sonata\UserBundle\EventListener\TwoFactorLoginSuccessHandler" public="false">
-            <argument type="service" id="sonata.templating"/>
+            <argument type="service" id="twig"/>
             <argument type="service" id="sonata.user.google.authenticator.provider"/>
             <argument type="service" id="fos_user.user_manager.default"/>
             <argument type="service" id="router"/>
