@@ -22,6 +22,7 @@ use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Sonata\UserBundle\Form\Type\SecurityRolesType;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -99,7 +100,7 @@ class UserAdmin extends AbstractAdmin
             ->add('createdAt')
         ;
 
-        if ($this->isGranted('ROLE_ALLOWED_TO_SWITCH')) {
+        if ($this->canImpersonate()) {
             $listMapper
                 ->add('impersonating', 'string', ['template' => '@SonataUser/Admin/Field/impersonating.html.twig'])
             ;
@@ -250,5 +251,20 @@ class UserAdmin extends AbstractAdmin
                 ->end()
             ->end()
         ;
+    }
+
+    private function canImpersonate(): bool
+    {
+        if (!$this->getConfigurationPool()->getContainer()->getParameter('sonata.user.impersonating')) {
+            return false;
+        }
+        $role = 'ROLE_ALLOWED_TO_SWITCH';
+        $firewallMap = $this->getConfigurationPool()->getContainer()->get('security.firewall.map', ContainerInterface::NULL_ON_INVALID_REFERENCE);
+        $firewallConfig = $firewallMap ? $firewallMap->getFirewallConfig($this->getRequest()) : null;
+        if ($firewallConfig && null !== $switchUserConfig = $firewallConfig->getSwitchUser()) {
+            $role = $switchUserConfig['role'];
+        }
+
+        return $this->isGranted($role);
     }
 }
