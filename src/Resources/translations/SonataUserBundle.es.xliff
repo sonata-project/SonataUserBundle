@@ -92,7 +92,7 @@
             </trans-unit>
             <trans-unit id="form.label_roles">
                 <source>form.label_roles</source>
-                <target>Perfiles</target>
+                <target>Roles</target>
             </trans-unit>
             <trans-unit id="form.label_locked">
                 <source>form.label_locked</source>
@@ -109,6 +109,14 @@
             <trans-unit id="form.label_credentials_expired">
                 <source>form.label_credentials_expired</source>
                 <target>Credenciales caducadas</target>
+            </trans-unit>
+            <trans-unit id="form.label_created_at">
+                <source>form.label_created_at</source>
+                <target>Creado en</target>
+            </trans-unit>
+            <trans-unit id="form.label_last_login">
+                <source>form.label_last_login</source>
+                <target>Último acceso</target>
             </trans-unit>
             <trans-unit id="user_form.label_name">
                 <source>form.label_name</source>
@@ -134,13 +142,21 @@
                 <source>filter.label_id</source>
                 <target>ID</target>
             </trans-unit>
+            <trans-unit id="filter.label_enabled">
+                <source>filter.label_enabled</source>
+                <target>Activo</target>
+            </trans-unit>
             <trans-unit id="filter.label_groups">
                 <source>filter.label_groups</source>
                 <target>Grupos</target>
             </trans-unit>
-            <trans-unit id="filter.label_roles">
-                <source>filter.label_roles</source>
-                <target>Perfiles</target>
+            <trans-unit id="filter.label_created_at">
+                <source>filter.label_created_at</source>
+                <target>Creado en</target>
+            </trans-unit>
+            <trans-unit id="filter.label_last_login">
+                <source>filter.label_last_login</source>
+                <target>Último acceso</target>
             </trans-unit>
             <trans-unit id="filter.label_firstname">
                 <source>filter.label_firstname</source>
@@ -149,6 +165,10 @@
             <trans-unit id="filter.label_lastname">
                 <source>filter.label_lastname</source>
                 <target>Apellido</target>
+            </trans-unit>
+            <trans-unit id="filter.label_roles">
+                <source>filter.label_roles</source>
+                <target>Roles</target>
             </trans-unit>
             <trans-unit id="list.label_username">
                 <source>list.label_username</source>
@@ -178,13 +198,17 @@
                 <source>list.label_created_at</source>
                 <target>Creado en</target>
             </trans-unit>
+            <trans-unit id="list.label_last_login">
+                <source>list.label_last_login</source>
+                <target>Último acceso</target>
+            </trans-unit>
             <trans-unit id="list.label_impersonating">
                 <source>list.label_impersonating</source>
                 <target>Suplantar usuario</target>
             </trans-unit>
             <trans-unit id="list.label_roles">
                 <source>list.label_roles</source>
-                <target>Perfiles</target>
+                <target>Roles</target>
             </trans-unit>
             <trans-unit id="list.label_firstname">
                 <source>list.label_firstname</source>
@@ -221,6 +245,10 @@
             <trans-unit id="form_management">
                 <source>Management</source>
                 <target>Administración</target>
+            </trans-unit>
+            <trans-unit id="form_status">
+                <source>Status</source>
+                <target>Estado</target>
             </trans-unit>
             <trans-unit id="field.label_roles_editable">
                 <source>field.label_roles_editable</source>
@@ -374,6 +402,14 @@
                 <source>show.label_two_step_verification_code</source>
                 <target>Código de verificación de dos pasos</target>
             </trans-unit>
+            <trans-unit id="show.label_created_at">
+                <source>show.label_created_at</source>
+                <target>Creado en</target>
+            </trans-unit>
+            <trans-unit id="show.label_last_login">
+                <source>show.label_last_login</source>
+                <target>Último acceso</target>
+            </trans-unit>
             <trans-unit id="breadcrumb.link_user_show">
                 <source>breadcrumb.link_user_show</source>
                 <target>Mostrar</target>
@@ -521,6 +557,14 @@
             <trans-unit id="title_user_resetting_reset">
                 <source>title_user_resetting_reset</source>
                 <target>Restablecer contraseña</target>
+            </trans-unit>
+            <trans-unit id="qr_code_secret">
+                <source>qr_code_secret</source>
+                <target>Secret del código QR</target>
+            </trans-unit>
+            <trans-unit id="qr_go_next">
+                <source>qr_go_next</source>
+                <target>Ya lo he leído. Continuar.</target>
             </trans-unit>
         </body>
     </file>
