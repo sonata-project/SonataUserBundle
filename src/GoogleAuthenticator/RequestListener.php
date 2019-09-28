@@ -61,7 +61,7 @@ class RequestListener
             $this->templating = $templating;
 
             @trigger_error(sprintf(
-                'Passing an instance of %s as argument 3 to "%s()" is deprecated since 4.x and will only accept an instance of %s in version 5.0.',
+                'Passing an instance of %s as argument 3 to "%s()" is deprecated since sonata-project/user-bundle 4.5 and will only accept an instance of %s in version 5.0.',
                 EngineInterface::class,
                 __METHOD__,
                 Environment::class

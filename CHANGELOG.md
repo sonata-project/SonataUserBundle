@@ -2,6 +2,21 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.5.0](https://github.com/sonata-project/SonataUserBundle/compare/4.4.0...4.5.0) - 2019-09-27
+### Fixed
+- Missing Spanish translations.
+
+### Changed
+- Replaced usages of deprecated "templating" service with "twig" where possible.
+
+### Removed
+- Dependency conflict against "jms/serializer:^3.0".
+
+### Changed
+- Add missing dependency against "twig/twig"
+- Changed usages of `{% spaceless %}` tag, which is deprecated as of Twig 1.38
+  with `{% apply spaceless %}` filter
+
 ## [4.4.0](https://github.com/sonata-project/SonataUserBundle/compare/4.3.0...4.4.0) - 2019-06-13
 
 ### Added
