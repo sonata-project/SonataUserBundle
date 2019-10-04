@@ -161,7 +161,7 @@ final class ResetAction
             } catch (AccountStatusException $ex) {
                 // We simply do not authenticate users which do not pass the user
                 // checker (not enabled, expired, etc.).
-                $this->getLogger()->warning(sprintf(
+                $this->logger->warning(sprintf(
                     'Unable to login user %d after password reset',
                     $user->getId()
                 ), ['exception' => $ex]);
