@@ -94,12 +94,12 @@ class Helper
      */
     public function getSessionKey(TokenInterface $token)
     {
-        if (method_exists($token,'getProviderKey')) {
+        if (method_exists($token, 'getProviderKey')) {
             $providerKey = $token->getProviderKey();
         } else {
             $providerKey = '';
         }
-        
+
         return sprintf('sonata_user_google_authenticator_%s_%s', $providerKey, $token->getUsername());
     }
 
