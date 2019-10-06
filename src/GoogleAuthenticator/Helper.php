@@ -16,7 +16,7 @@ namespace Sonata\UserBundle\GoogleAuthenticator;
 use Google\Authenticator\GoogleAuthenticator as BaseGoogleAuthenticator;
 use Sonata\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class Helper
@@ -92,9 +92,15 @@ class Helper
     /**
      * @return string
      */
-    public function getSessionKey(UsernamePasswordToken $token)
+    public function getSessionKey(TokenInterface $token)
     {
-        return sprintf('sonata_user_google_authenticator_%s_%s', $token->getProviderKey(), $token->getUsername());
+        if (method_exists($token,'getProviderKey')) {
+            $providerKey = $token->getProviderKey();
+        } else {
+            $providerKey = '';
+        }
+        
+        return sprintf('sonata_user_google_authenticator_%s_%s', $providerKey, $token->getUsername());
     }
 
     public function needToHaveGoogle2FACode(Request $request): bool
