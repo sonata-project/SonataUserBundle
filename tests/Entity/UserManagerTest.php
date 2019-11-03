@@ -113,8 +113,8 @@ class UserManagerTest extends TestCase
             'email',
         ]);
 
-        $passwordUpdater = $this->createMock('FOS\UserBundle\Util\PasswordUpdaterInterface');
-        $canonical = $this->createMock('FOS\UserBundle\Util\CanonicalFieldsUpdater');
+        $passwordUpdater = $this->createMock('Sonata\UserBundle\Util\PasswordUpdaterInterface');
+        $canonical = $this->createMock('Sonata\UserBundle\Util\CanonicalFieldsUpdater');
 
         return new UserManager($passwordUpdater, $canonical, $om, 'Sonata\UserBundle\Entity\BaseUser');
     }

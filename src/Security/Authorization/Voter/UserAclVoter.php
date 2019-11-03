@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Security\Authorization\Voter;
 
-use FOS\UserBundle\Model\UserInterface;
+use Sonata\UserBundle\Model\FOSUserInterface;
 use Symfony\Component\Security\Acl\Voter\AclVoter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
@@ -25,7 +25,7 @@ class UserAclVoter extends AclVoter
     public function supportsClass($class)
     {
         // support the Object-Scope ACL
-        return is_subclass_of($class, 'FOS\UserBundle\Model\UserInterface');
+        return is_subclass_of($class, 'Sonata\UserBundle\Model\FOSUserInterface');
     }
 
     /**
@@ -46,7 +46,7 @@ class UserAclVoter extends AclVoter
         }
 
         foreach ($attributes as $attribute) {
-            if ($this->supportsAttribute($attribute) && $subject instanceof UserInterface && $token->getUser() instanceof UserInterface) {
+            if ($this->supportsAttribute($attribute) && $subject instanceof FOSUserInterface && $token->getUser() instanceof FOSUserInterface) {
                 if ($subject->isSuperAdmin() && !$token->getUser()->isSuperAdmin()) {
                     // deny a non super admin user to edit or delete a super admin user
                     return self::ACCESS_DENIED;

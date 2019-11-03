@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Model;
 
-use FOS\UserBundle\Model\UserManagerInterface as BaseInterface;
+use Sonata\UserBundle\Model\FOSUserManagerInterface as BaseInterface;
 use Sonata\CoreBundle\Model\PageableManagerInterface;
 
 /**

@@ -75,9 +75,9 @@ class BaseUserTest extends TestCase
     {
         // Given
         $user = new BaseUser();
-        $group1 = $this->createMock('FOS\UserBundle\Model\GroupInterface');
+        $group1 = $this->createMock('Sonata\UserBundle\Model\GroupInterface');
         $group1->expects($this->any())->method('getName')->willReturn('Group 1');
-        $group2 = $this->createMock('FOS\UserBundle\Model\GroupInterface');
+        $group2 = $this->createMock('Sonata\UserBundle\Model\GroupInterface');
         $group2->expects($this->any())->method('getName')->willReturn('Group 2');
 
         // When

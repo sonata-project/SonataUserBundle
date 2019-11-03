@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Action;
 
-use FOS\UserBundle\Form\Factory\FactoryInterface;
-use FOS\UserBundle\Model\User;
-use FOS\UserBundle\Model\UserManagerInterface;
-use FOS\UserBundle\Security\LoginManagerInterface;
+use Sonata\UserBundle\Form\Factory\FactoryInterface;
+use Sonata\UserBundle\Model\FOSUser;
+use Sonata\UserBundle\Model\UserManagerInterface;
+use Sonata\UserBundle\Security\LoginManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\AdminBundle\Admin\Pool;
@@ -151,7 +151,7 @@ class ResetActionTest extends TestCase
     {
         $request = new Request();
 
-        $user = $this->createMock(User::class);
+        $user = $this->createMock(FOSUser::class);
         $user->expects($this->any())
             ->method('isPasswordRequestNonExpired')
             ->willReturn(false);
@@ -184,7 +184,7 @@ class ResetActionTest extends TestCase
             'admin_pool' => $this->pool,
         ];
 
-        $user = $this->createMock(User::class);
+        $user = $this->createMock(FOSUser::class);
         $user->expects($this->any())
             ->method('isPasswordRequestNonExpired')
             ->willReturn(true);
@@ -234,7 +234,7 @@ class ResetActionTest extends TestCase
     {
         $request = new Request();
 
-        $user = $this->createMock(User::class);
+        $user = $this->createMock(FOSUser::class);
         $user->expects($this->any())
             ->method('isPasswordRequestNonExpired')
             ->willReturn(true);

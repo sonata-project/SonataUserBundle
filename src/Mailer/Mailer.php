@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Mailer;
 
-use FOS\UserBundle\Mailer\MailerInterface;
-use FOS\UserBundle\Model\UserInterface;
+use Sonata\UserBundle\Mailer\MailerInterface;
+use Sonata\UserBundle\Model\FOSUserInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 
@@ -54,7 +54,7 @@ final class Mailer implements MailerInterface
         $this->emailTemplate = $emailTemplate;
     }
 
-    public function sendResettingEmailMessage(UserInterface $user): void
+    public function sendResettingEmailMessage(FOSUserInterface $user): void
     {
         $url = $this->urlGenerator->generate('sonata_user_admin_resetting_reset', [
             'token' => $user->getConfirmationToken(),
@@ -78,7 +78,7 @@ final class Mailer implements MailerInterface
         $this->mailer->send($message);
     }
 
-    public function sendConfirmationEmailMessage(UserInterface $user): void
+    public function sendConfirmationEmailMessage(FOSUserInterface $user): void
     {
         throw new \LogicException('This method is not implemented.');
     }

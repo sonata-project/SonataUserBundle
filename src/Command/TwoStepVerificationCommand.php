@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Command;
 
-use FOS\UserBundle\Model\UserManagerInterface;
+use Sonata\UserBundle\Model\FOSUserManagerInterface;
 use Sonata\UserBundle\GoogleAuthenticator\Helper;
 use Sonata\UserBundle\Model\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -33,7 +33,7 @@ class TwoStepVerificationCommand extends ContainerAwareCommand
     private $helper;
 
     /**
-     * @var ?UserManagerInterface
+     * @var ?FOSUserManagerInterface
      */
     private $userManager;
 
@@ -43,7 +43,7 @@ class TwoStepVerificationCommand extends ContainerAwareCommand
     public function __construct(
         ?string $name,
         ?Helper $helper = null,
-        ?UserManagerInterface $userManager = null
+        ?FOSUserManagerInterface $userManager = null
     ) {
         parent::__construct($name);
 
@@ -93,7 +93,7 @@ class TwoStepVerificationCommand extends ContainerAwareCommand
                 __CLASS__
             ), E_USER_DEPRECATED);
             $manager = $this->getContainer()->get('fos_user.user_manager');
-            \assert($manager instanceof UserManagerInterface);
+            \assert($manager instanceof FOSUserManagerInterface);
             $this->userManager = $manager;
         }
 

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Model;
 
-use FOS\UserBundle\Model\User as AbstractedUser;
+use Sonata\UserBundle\Model\FOSUser as AbstractedUser;
 
 /**
  * Represents a User model.

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Admin\Model;
 
-use FOS\UserBundle\Model\UserManagerInterface;
+use Sonata\UserBundle\Model\FOSUserManagerInterface;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -32,7 +32,7 @@ use Symfony\Component\Form\FormTypeInterface;
 class UserAdmin extends AbstractAdmin
 {
     /**
-     * @var UserManagerInterface
+     * @var FOSUserManagerInterface
      */
     protected $userManager;
 
@@ -73,13 +73,13 @@ class UserAdmin extends AbstractAdmin
         $this->getUserManager()->updatePassword($user);
     }
 
-    public function setUserManager(UserManagerInterface $userManager): void
+    public function setUserManager(FOSUserManagerInterface $userManager): void
     {
         $this->userManager = $userManager;
     }
 
     /**
-     * @return UserManagerInterface
+     * @return FOSUserManagerInterface
      */
     public function getUserManager()
     {

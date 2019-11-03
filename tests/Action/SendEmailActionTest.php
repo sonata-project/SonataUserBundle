@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Action;
 
-use FOS\UserBundle\Mailer\MailerInterface;
-use FOS\UserBundle\Model\User;
-use FOS\UserBundle\Model\UserManagerInterface;
-use FOS\UserBundle\Util\TokenGeneratorInterface;
+use Sonata\UserBundle\Mailer\MailerInterface;
+use Sonata\UserBundle\Model\FOSUser;
+use Sonata\UserBundle\Model\UserManagerInterface;
+use Sonata\UserBundle\Util\TokenGeneratorInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\AdminBundle\Admin\Pool;
@@ -137,7 +137,7 @@ class SendEmailActionTest extends TestCase
     {
         $request = new Request([], ['username' => 'bar']);
 
-        $user = $this->createMock(User::class);
+        $user = $this->createMock(FOSUser::class);
         $user->expects($this->any())
             ->method('isPasswordRequestNonExpired')
             ->willReturn(true);
@@ -166,7 +166,7 @@ class SendEmailActionTest extends TestCase
     {
         $request = new Request([], ['username' => 'bar']);
 
-        $user = $this->createMock(User::class);
+        $user = $this->createMock(FOSUser::class);
         $user->expects($this->any())
             ->method('isPasswordRequestNonExpired')
             ->willReturn(false);
@@ -200,7 +200,7 @@ class SendEmailActionTest extends TestCase
 
         $storedToken = null;
 
-        $user = $this->createMock(User::class);
+        $user = $this->createMock(FOSUser::class);
         $user->expects($this->any())
             ->method('getEmail')
             ->willReturn('user@sonata-project.org');

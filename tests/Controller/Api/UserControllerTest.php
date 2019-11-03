@@ -52,7 +52,7 @@ class UserControllerTest extends TestCase
 
     public function testPostUserAction(): void
     {
-        $user = $this->createMock('FOS\UserBundle\Model\UserInterface');
+        $user = $this->createMock('Sonata\UserBundle\Model\FOSUserInterface');
 
         $userManager = $this->createMock('Sonata\UserBundle\Model\UserManagerInterface');
         $userManager->expects($this->once())->method('updateUser')->willReturn($user);
@@ -88,7 +88,7 @@ class UserControllerTest extends TestCase
 
     public function testPutUserAction(): void
     {
-        $user = $this->createMock('FOS\UserBundle\Model\UserInterface');
+        $user = $this->createMock('Sonata\UserBundle\Model\FOSUserInterface');
 
         $userManager = $this->createMock('Sonata\UserBundle\Model\UserManagerInterface');
         $userManager->expects($this->once())->method('findUserBy')->willReturn($user);
@@ -109,7 +109,7 @@ class UserControllerTest extends TestCase
 
     public function testPutUserInvalidAction(): void
     {
-        $user = $this->createMock('FOS\UserBundle\Model\UserInterface');
+        $user = $this->createMock('Sonata\UserBundle\Model\FOSUserInterface');
 
         $userManager = $this->createMock('Sonata\UserBundle\Model\UserManagerInterface');
         $userManager->expects($this->once())->method('findUserBy')->willReturn($user);
@@ -131,7 +131,7 @@ class UserControllerTest extends TestCase
         $user = $this->createMock('Sonata\UserBundle\Entity\BaseUser');
         $user->expects($this->once())->method('hasGroup')->willReturn(false);
 
-        $group = $this->createMock('FOS\UserBundle\Model\GroupInterface');
+        $group = $this->createMock('Sonata\UserBundle\Model\GroupInterface');
 
         $userManager = $this->createMock('Sonata\UserBundle\Model\UserManagerInterface');
         $userManager->expects($this->once())->method('findUserBy')->willReturn($user);
@@ -150,7 +150,7 @@ class UserControllerTest extends TestCase
         $user = $this->createMock('Sonata\UserBundle\Entity\BaseUser');
         $user->expects($this->once())->method('hasGroup')->willReturn(true);
 
-        $group = $this->createMock('FOS\UserBundle\Model\GroupInterface');
+        $group = $this->createMock('Sonata\UserBundle\Model\GroupInterface');
 
         $userManager = $this->createMock('Sonata\UserBundle\Model\UserManagerInterface');
         $userManager->expects($this->once())->method('findUserBy')->willReturn($user);
@@ -173,7 +173,7 @@ class UserControllerTest extends TestCase
         $user = $this->createMock('Sonata\UserBundle\Entity\BaseUser');
         $user->expects($this->once())->method('hasGroup')->willReturn(true);
 
-        $group = $this->createMock('FOS\UserBundle\Model\GroupInterface');
+        $group = $this->createMock('Sonata\UserBundle\Model\GroupInterface');
 
         $userManager = $this->createMock('Sonata\UserBundle\Model\UserManagerInterface');
         $userManager->expects($this->once())->method('findUserBy')->willReturn($user);
@@ -192,7 +192,7 @@ class UserControllerTest extends TestCase
         $user = $this->createMock('Sonata\UserBundle\Entity\BaseUser');
         $user->expects($this->once())->method('hasGroup')->willReturn(false);
 
-        $group = $this->createMock('FOS\UserBundle\Model\GroupInterface');
+        $group = $this->createMock('Sonata\UserBundle\Model\GroupInterface');
 
         $userManager = $this->createMock('Sonata\UserBundle\Model\UserManagerInterface');
         $userManager->expects($this->once())->method('findUserBy')->willReturn($user);
@@ -212,7 +212,7 @@ class UserControllerTest extends TestCase
 
     public function testDeleteUserAction(): void
     {
-        $user = $this->createMock('FOS\UserBundle\Model\UserInterface');
+        $user = $this->createMock('Sonata\UserBundle\Model\FOSUserInterface');
 
         $userManager = $this->createMock('Sonata\UserBundle\Model\UserManagerInterface');
         $userManager->expects($this->once())->method('findUserBy')->willReturn($user);

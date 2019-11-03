@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Model;
 
-use FOS\UserBundle\Model\GroupInterface;
-use FOS\UserBundle\Model\GroupManagerInterface as BaseInterface;
+use Sonata\UserBundle\Model\GroupInterface;
+use Sonata\UserBundle\Model\FOSGroupManagerInterface as BaseInterface;
 use Sonata\CoreBundle\Model\PageableManagerInterface;
 
 /**

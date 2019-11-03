@@ -24,7 +24,7 @@ class GroupControllerTest extends TestCase
 {
     public function testGetGroupsAction(): void
     {
-        $group = $this->createMock('FOS\UserBundle\Model\GroupInterface');
+        $group = $this->createMock('Sonata\UserBundle\Model\GroupInterface');
         $groupManager = $this->createMock('Sonata\UserBundle\Model\GroupManagerInterface');
         $groupManager->expects($this->once())->method('getPager')->willReturn([$group]);
 
@@ -39,7 +39,7 @@ class GroupControllerTest extends TestCase
 
     public function testGetGroupAction(): void
     {
-        $group = $this->createMock('FOS\UserBundle\Model\GroupInterface');
+        $group = $this->createMock('Sonata\UserBundle\Model\GroupInterface');
         $this->assertSame($group, $this->createGroupController($group)->getGroupAction(1));
     }
 
@@ -53,7 +53,7 @@ class GroupControllerTest extends TestCase
 
     public function testPostGroupAction(): void
     {
-        $group = $this->createMock('FOS\UserBundle\Model\GroupInterface');
+        $group = $this->createMock('Sonata\UserBundle\Model\GroupInterface');
 
         $groupManager = $this->createMock('Sonata\UserBundle\Model\GroupManagerInterface');
         $groupManager->expects($this->once())->method('getClass')->willReturn('Sonata\UserBundle\Entity\BaseGroup');
@@ -91,7 +91,7 @@ class GroupControllerTest extends TestCase
 
     public function testPutGroupAction(): void
     {
-        $group = $this->createMock('FOS\UserBundle\Model\GroupInterface');
+        $group = $this->createMock('Sonata\UserBundle\Model\GroupInterface');
 
         $groupManager = $this->createMock('Sonata\UserBundle\Model\GroupManagerInterface');
         $groupManager->expects($this->once())->method('getClass')->willReturn('Sonata\UserBundle\Entity\BaseGroup');
@@ -113,7 +113,7 @@ class GroupControllerTest extends TestCase
 
     public function testPutGroupInvalidAction(): void
     {
-        $group = $this->createMock('FOS\UserBundle\Model\GroupInterface');
+        $group = $this->createMock('Sonata\UserBundle\Model\GroupInterface');
 
         $groupManager = $this->createMock('Sonata\UserBundle\Model\GroupManagerInterface');
         $groupManager->expects($this->once())->method('getClass')->willReturn('Sonata\UserBundle\Entity\BaseGroup');
@@ -133,7 +133,7 @@ class GroupControllerTest extends TestCase
 
     public function testDeleteGroupAction(): void
     {
-        $group = $this->createMock('FOS\UserBundle\Model\GroupInterface');
+        $group = $this->createMock('Sonata\UserBundle\Model\GroupInterface');
 
         $groupManager = $this->createMock('Sonata\UserBundle\Model\GroupManagerInterface');
         $groupManager->expects($this->once())->method('findGroupBy')->willReturn($group);

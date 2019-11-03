@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Entity;
 
-use FOS\UserBundle\Doctrine\GroupManager as BaseGroupManager;
+use Sonata\UserBundle\Doctrine\GroupManager as BaseGroupManager;
 use Sonata\DatagridBundle\Pager\Doctrine\Pager;
 use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;
 use Sonata\UserBundle\Model\GroupManagerInterface;

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Model;
 
-interface UserInterface extends \FOS\UserBundle\Model\UserInterface
+interface UserInterface extends \Sonata\UserBundle\Model\FOSUserInterface
 {
     public const GENDER_FEMALE = 'f';
     public const GENDER_MALE = 'm';

@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Action;
 
-use FOS\UserBundle\Mailer\MailerInterface;
-use FOS\UserBundle\Model\UserManagerInterface;
-use FOS\UserBundle\Util\TokenGeneratorInterface;
+use Sonata\UserBundle\Mailer\MailerInterface;
+use Sonata\UserBundle\Model\FOSUserManagerInterface;
+use Sonata\UserBundle\Util\TokenGeneratorInterface;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -47,7 +47,7 @@ final class SendEmailAction
     private $templateRegistry;
 
     /**
-     * @var UserManagerInterface
+     * @var FOSUserManagerInterface
      */
     private $userManager;
 
@@ -71,7 +71,7 @@ final class SendEmailAction
         UrlGeneratorInterface $urlGenerator,
         Pool $adminPool,
         TemplateRegistryInterface $templateRegistry,
-        UserManagerInterface $userManager,
+        FOSUserManagerInterface $userManager,
         MailerInterface $mailer,
         TokenGeneratorInterface $tokenGenerator,
         int $resetTtl

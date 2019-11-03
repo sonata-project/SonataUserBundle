@@ -23,10 +23,10 @@ class UserAclVoterTest extends TestCase
     public function testVoteWillAbstainWhenAUserIsLoggedInAndASuperAdmin(): void
     {
         // Given
-        $user = $this->createMock('FOS\UserBundle\Model\UserInterface');
+        $user = $this->createMock('Sonata\UserBundle\Model\FOSUserInterface');
         $user->expects($this->any())->method('isSuperAdmin')->willReturn(true);
 
-        $loggedInUser = $this->createMock('FOS\UserBundle\Model\UserInterface');
+        $loggedInUser = $this->createMock('Sonata\UserBundle\Model\FOSUserInterface');
         $loggedInUser->expects($this->any())->method('isSuperAdmin')->willReturn(true);
 
         $token = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
@@ -49,10 +49,10 @@ class UserAclVoterTest extends TestCase
     public function testVoteWillDenyAccessWhenAUserIsLoggedInAndNotASuperAdmin(): void
     {
         // Given
-        $user = $this->createMock('FOS\UserBundle\Model\UserInterface');
+        $user = $this->createMock('Sonata\UserBundle\Model\FOSUserInterface');
         $user->expects($this->any())->method('isSuperAdmin')->willReturn(true);
 
-        $loggedInUser = $this->createMock('FOS\UserBundle\Model\UserInterface');
+        $loggedInUser = $this->createMock('Sonata\UserBundle\Model\FOSUserInterface');
         $loggedInUser->expects($this->any())->method('isSuperAdmin')->willReturn(false);
 
         $token = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
@@ -75,7 +75,7 @@ class UserAclVoterTest extends TestCase
     public function testVoteWillAbstainWhenAUserIsNotAvailable(): void
     {
         // Given
-        $user = $this->createMock('FOS\UserBundle\Model\UserInterface');
+        $user = $this->createMock('Sonata\UserBundle\Model\FOSUserInterface');
         $user->expects($this->any())->method('isSuperAdmin')->willReturn(true);
 
         $loggedInUser = null;
@@ -100,7 +100,7 @@ class UserAclVoterTest extends TestCase
     public function testVoteWillAbstainWhenAUserIsLoggedInButIsNotAFOSUser(): void
     {
         // Given
-        $user = $this->createMock('FOS\UserBundle\Model\UserInterface');
+        $user = $this->createMock('Sonata\UserBundle\Model\FOSUserInterface');
         $user->expects($this->any())->method('isSuperAdmin')->willReturn(true);
 
         $loggedInUser = $this->createMock(UserInterface::class);

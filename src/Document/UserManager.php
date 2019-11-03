@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Document;
 
-use FOS\UserBundle\Doctrine\UserManager as BaseUserManager;
+use Sonata\UserBundle\Doctrine\UserManager as BaseUserManager;
 use Sonata\UserBundle\Model\UserManagerInterface;
 
 /**

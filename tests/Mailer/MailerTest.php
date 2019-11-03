@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\DependencyInjection;
 
-use FOS\UserBundle\Model\UserInterface;
+use Sonata\UserBundle\Model\FOSUserInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Mailer\Mailer;
@@ -61,7 +61,7 @@ class MailerTest extends TestCase
         $this->expectException(\LogicException::class);
         $this->expectExceptionMessage('This method is not implemented.');
 
-        $user = $this->createMock(UserInterface::class);
+        $user = $this->createMock(FOSUserInterface::class);
 
         $this->getMailer()->sendConfirmationEmailMessage($user);
     }
@@ -71,7 +71,7 @@ class MailerTest extends TestCase
      */
     public function testSendResettingEmailMessage($template, $subject, $body): void
     {
-        $user = $this->createMock(UserInterface::class);
+        $user = $this->createMock(FOSUserInterface::class);
         $user->expects($this->any())
             ->method('getConfirmationToken')
             ->willReturn('user-token');

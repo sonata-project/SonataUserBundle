@@ -18,7 +18,7 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\View\View as FOSRestView;
-use FOS\UserBundle\Model\GroupInterface;
+use Sonata\UserBundle\Model\GroupInterface;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\UserBundle\Model\GroupManagerInterface;
@@ -102,7 +102,7 @@ class GroupController
      *  requirements={
      *      {"name"="id", "dataType"="integer", "requirement"="\d+", "description"="group id"}
      *  },
-     *  output={"class"="FOS\UserBundle\Model\GroupInterface", "groups"={"sonata_api_read"}},
+     *  output={"class"="Sonata\UserBundle\Model\GroupInterface", "groups"={"sonata_api_read"}},
      *  statusCodes={
      *      200="Returned when successful",
      *      404="Returned when group is not found"

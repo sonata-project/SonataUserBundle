@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Action;
 
-use FOS\UserBundle\Form\Factory\FactoryInterface;
-use FOS\UserBundle\Model\UserManagerInterface;
-use FOS\UserBundle\Security\LoginManagerInterface;
+use Sonata\UserBundle\Form\Factory\FactoryInterface;
+use Sonata\UserBundle\Model\FOSUserManagerInterface;
+use Sonata\UserBundle\Security\LoginManagerInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 use Sonata\AdminBundle\Admin\Pool;
@@ -66,7 +66,7 @@ final class ResetAction
     private $formFactory;
 
     /**
-     * @var UserManagerInterface
+     * @var FOSUserManagerInterface
      */
     private $userManager;
 
@@ -102,7 +102,7 @@ final class ResetAction
         Pool $adminPool,
         TemplateRegistryInterface $templateRegistry,
         FactoryInterface $formFactory,
-        UserManagerInterface $userManager,
+        FOSUserManagerInterface $userManager,
         LoginManagerInterface $loginManager,
         TranslatorInterface $translator,
         Session $session,

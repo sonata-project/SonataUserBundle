@@ -19,6 +19,7 @@ use Sonata\UserBundle\Admin\Entity\UserAdmin;
 use Sonata\UserBundle\Entity\BaseGroup;
 use Sonata\UserBundle\Entity\BaseUser;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
@@ -125,7 +126,248 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('mailer')->defaultValue('sonata.user.mailer.default')->info('Custom mailer used to send reset password emails')->end()
             ->end()
         ;
-
+        // $this->addFOSSection($rootNode);
         return $treeBuilder;
+    }
+
+    private function addFOSSection(ArrayNodeDefinition $node)
+    {
+        $supportedDrivers = array('orm', 'mongodb', 'couchdb', 'custom');
+
+        $node
+            ->children()
+                ->scalarNode('db_driver')
+                    ->validate()
+                        ->ifNotInArray($supportedDrivers)
+                        ->thenInvalid('The driver %s is not supported. Please choose one of '.json_encode($supportedDrivers))
+                    ->end()
+                    ->cannotBeOverwritten()
+                    ->isRequired()
+                    ->cannotBeEmpty()
+                ->end()
+                ->scalarNode('user_class')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('firewall_name')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('model_manager_name')->defaultNull()->end()
+                ->booleanNode('use_authentication_listener')->defaultTrue()->end()
+                ->booleanNode('use_listener')->defaultTrue()->end()
+                ->booleanNode('use_flash_notifications')->defaultTrue()->end()
+                ->booleanNode('use_username_form_type')->defaultTrue()->end()
+                ->arrayNode('from_email')
+                    ->isRequired()
+                    ->children()
+                        ->scalarNode('address')->isRequired()->cannotBeEmpty()->end()
+                        ->scalarNode('sender_name')->isRequired()->cannotBeEmpty()->end()
+                    ->end()
+                ->end()
+            ->end()
+            // Using the custom driver requires changing the manager services
+            ->validate()
+                ->ifTrue(function ($v) {
+                    return 'custom' === $v['db_driver'] && 'fos_user.user_manager.default' === $v['service']['user_manager'];
+                })
+                ->thenInvalid('You need to specify your own user manager service when using the "custom" driver.')
+            ->end()
+            ->validate()
+                ->ifTrue(function ($v) {
+                    return 'custom' === $v['db_driver'] && !empty($v['group']) && 'fos_user.group_manager.default' === $v['group']['group_manager'];
+                })
+                ->thenInvalid('You need to specify your own group manager service when using the "custom" driver.')
+            ->end();
+
+        $this->addProfileSection($node);
+        $this->addChangePasswordSection($node);
+        $this->addRegistrationSection($node);
+        $this->addResettingSection($node);
+        $this->addServiceSection($node);
+        $this->addGroupSection($node);
+    }
+
+    /**
+     * @param ArrayNodeDefinition $node
+     */
+    private function addProfileSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('profile')
+                    ->addDefaultsIfNotSet()
+                    ->canBeUnset()
+                    ->children()
+                        ->arrayNode('form')
+                            ->addDefaultsIfNotSet()
+                            ->fixXmlConfig('validation_group')
+                            ->children()
+                                ->scalarNode('type')->defaultValue(Type\ProfileFormType::class)->end()
+                                ->scalarNode('name')->defaultValue('fos_user_profile_form')->end()
+                                ->arrayNode('validation_groups')
+                                    ->prototype('scalar')->end()
+                                    ->defaultValue(array('Profile', 'Default'))
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+    }
+
+    /**
+     * @param ArrayNodeDefinition $node
+     */
+    private function addRegistrationSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('registration')
+                    ->addDefaultsIfNotSet()
+                    ->canBeUnset()
+                    ->children()
+                        ->arrayNode('confirmation')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->booleanNode('enabled')->defaultFalse()->end()
+                                ->scalarNode('template')->defaultValue('@FOSUser/Registration/email.txt.twig')->end()
+                                ->arrayNode('from_email')
+                                    ->canBeUnset()
+                                    ->children()
+                                        ->scalarNode('address')->isRequired()->cannotBeEmpty()->end()
+                                        ->scalarNode('sender_name')->isRequired()->cannotBeEmpty()->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('form')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('type')->defaultValue(Type\RegistrationFormType::class)->end()
+                                ->scalarNode('name')->defaultValue('fos_user_registration_form')->end()
+                                ->arrayNode('validation_groups')
+                                    ->prototype('scalar')->end()
+                                    ->defaultValue(array('Registration', 'Default'))
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+    }
+
+    /**
+     * @param ArrayNodeDefinition $node
+     */
+    private function addResettingSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('resetting')
+                    ->addDefaultsIfNotSet()
+                    ->canBeUnset()
+                    ->children()
+                        ->scalarNode('retry_ttl')->defaultValue(7200)->end()
+                        ->scalarNode('token_ttl')->defaultValue(86400)->end()
+                        ->arrayNode('email')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('template')->defaultValue('@FOSUser/Resetting/email.txt.twig')->end()
+                                ->arrayNode('from_email')
+                                    ->canBeUnset()
+                                    ->children()
+                                        ->scalarNode('address')->isRequired()->cannotBeEmpty()->end()
+                                        ->scalarNode('sender_name')->isRequired()->cannotBeEmpty()->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('form')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('type')->defaultValue(Type\ResettingFormType::class)->end()
+                                ->scalarNode('name')->defaultValue('fos_user_resetting_form')->end()
+                                ->arrayNode('validation_groups')
+                                    ->prototype('scalar')->end()
+                                    ->defaultValue(array('ResetPassword', 'Default'))
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+    }
+
+    /**
+     * @param ArrayNodeDefinition $node
+     */
+    private function addChangePasswordSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('change_password')
+                    ->addDefaultsIfNotSet()
+                    ->canBeUnset()
+                    ->children()
+                        ->arrayNode('form')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('type')->defaultValue(Type\ChangePasswordFormType::class)->end()
+                                ->scalarNode('name')->defaultValue('fos_user_change_password_form')->end()
+                                ->arrayNode('validation_groups')
+                                    ->prototype('scalar')->end()
+                                    ->defaultValue(array('ChangePassword', 'Default'))
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+    }
+
+    /**
+     * @param ArrayNodeDefinition $node
+     */
+    private function addServiceSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->arrayNode('service')
+                    ->addDefaultsIfNotSet()
+                        ->children()
+                            ->scalarNode('mailer')->defaultValue('fos_user.mailer.default')->end()
+                            ->scalarNode('email_canonicalizer')->defaultValue('fos_user.util.canonicalizer.default')->end()
+                            ->scalarNode('token_generator')->defaultValue('fos_user.util.token_generator.default')->end()
+                            ->scalarNode('username_canonicalizer')->defaultValue('fos_user.util.canonicalizer.default')->end()
+                            ->scalarNode('user_manager')->defaultValue('fos_user.user_manager.default')->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+    }
+
+    /**
+     * @param ArrayNodeDefinition $node
+     */
+    private function addGroupSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('group')
+                    ->canBeUnset()
+                    ->children()
+                        ->scalarNode('group_class')->isRequired()->cannotBeEmpty()->end()
+                        ->scalarNode('group_manager')->defaultValue('fos_user.group_manager.default')->end()
+                        ->arrayNode('form')
+                            ->addDefaultsIfNotSet()
+                            ->fixXmlConfig('validation_group')
+                            ->children()
+                                ->scalarNode('type')->defaultValue(Type\GroupFormType::class)->end()
+                                ->scalarNode('name')->defaultValue('fos_user_group_form')->end()
+                                ->arrayNode('validation_groups')
+                                    ->prototype('scalar')->end()
+                                    ->defaultValue(array('Registration', 'Default'))
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
     }
 }
