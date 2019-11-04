@@ -69,13 +69,7 @@ class RequestListener
         } elseif ($templating instanceof Environment) {
             $this->twig = $templating;
         } else {
-            throw new \TypeError(sprintf(
-                'Argument 3 passed to %s() must be an instance of %s or %s, %s given.',
-                __METHOD__,
-                Environment::class,
-                EngineInterface::class,
-                \get_class($templating)
-            ));
+            throw new \TypeError(sprintf('Argument 3 passed to %s() must be an instance of %s or %s, %s given.', __METHOD__, Environment::class, EngineInterface::class, \get_class($templating)));
         }
 
         if (null === $this->twig) {
