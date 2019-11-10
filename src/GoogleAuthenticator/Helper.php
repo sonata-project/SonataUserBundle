@@ -16,6 +16,7 @@ namespace Sonata\UserBundle\GoogleAuthenticator;
 use Google\Authenticator\GoogleAuthenticator as BaseGoogleAuthenticator;
 use Sonata\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
@@ -94,7 +95,7 @@ class Helper
      */
     public function getSessionKey(TokenInterface $token)
     {
-        if (method_exists($token, 'getProviderKey')) {
+        if ($token instanceof UsernamePasswordToken) {
             $providerKey = $token->getProviderKey();
         } else {
             $providerKey = '';
