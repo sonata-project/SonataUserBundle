@@ -48,11 +48,6 @@ final class RolesMatrixExtension extends AbstractExtension
         ];
     }
 
-    public function getName(): string
-    {
-        return self::class;
-    }
-
     public function renderRolesList(Environment $environment, FormView $form): string
     {
         $roles = $this->rolesBuilder->getRoles();

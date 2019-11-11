@@ -38,12 +38,6 @@ final class RolesMatrixExtensionTest extends TestCase
         $this->formView = $this->createMock(FormView::class);
     }
 
-    public function testGetName(): void
-    {
-        $rolesMatrixExtension = new RolesMatrixExtension($this->rolesBuilder);
-        $this->assertSame(RolesMatrixExtension::class, $rolesMatrixExtension->getName());
-    }
-
     /**
      * @test
      */

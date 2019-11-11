@@ -16,7 +16,6 @@ namespace Sonata\UserBundle\Tests\Form\Type;
 use Sonata\UserBundle\Form\Type\SecurityRolesType;
 use Sonata\UserBundle\Security\EditableRolesBuilder;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -37,10 +36,6 @@ class SecurityRolesTypeTest extends TypeTestCase
 
         $options = $optionResolver->resolve();
         $this->assertCount(3, $options['choices']);
-
-        if (method_exists(FormTypeInterface::class, 'setDefaultOptions')) {
-            $this->assertTrue($options['choices_as_values']);
-        }
     }
 
     public function testGetParent(): void
@@ -113,7 +108,7 @@ class SecurityRolesTypeTest extends TypeTestCase
         $childType = new SecurityRolesType($this->roleBuilder);
 
         return [new PreloadedExtension([
-          $childType->getName() => $childType,
+          $childType,
         ], [])];
     }
 
