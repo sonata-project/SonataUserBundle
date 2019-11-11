@@ -27,7 +27,6 @@ use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimezoneType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
-use Symfony\Component\Form\FormTypeInterface;
 
 class UserAdmin extends AbstractAdmin
 {
@@ -185,11 +184,6 @@ class UserAdmin extends AbstractAdmin
             'required' => true,
             'translation_domain' => $this->getTranslationDomain(),
         ];
-
-        // NEXT_MAJOR: Remove this when dropping support for SF 2.8
-        if (method_exists(FormTypeInterface::class, 'setDefaultOptions')) {
-            $genderOptions['choices_as_values'] = true;
-        }
 
         $formMapper
             ->tab('User')
