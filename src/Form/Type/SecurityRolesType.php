@@ -21,7 +21,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -132,11 +131,6 @@ class SecurityRolesType extends AbstractType
 
             'data_class' => null,
         ]);
-
-        // Symfony 2.8 BC
-        if (method_exists(FormTypeInterface::class, 'setDefaultOptions')) {
-            $resolver->setDefault('choices_as_values', true);
-        }
     }
 
     /**
@@ -153,13 +147,5 @@ class SecurityRolesType extends AbstractType
     public function getBlockPrefix()
     {
         return 'sonata_security_roles';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return $this->getBlockPrefix();
     }
 }

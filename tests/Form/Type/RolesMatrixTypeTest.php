@@ -16,7 +16,6 @@ namespace Sonata\UserBundle\Tests\Form\Type;
 use Sonata\UserBundle\Form\Type\RolesMatrixType;
 use Sonata\UserBundle\Security\RolesBuilder\ExpandableRolesBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -37,10 +36,6 @@ final class RolesMatrixTypeTest extends TypeTestCase
 
         $options = $optionResolver->resolve();
         $this->assertCount(3, $options['choices']);
-
-        if (method_exists(FormTypeInterface::class, 'setDefaultOptions')) {
-            $this->assertTrue($options['choices_as_values']);
-        }
     }
 
     public function testGetParent(): void
@@ -79,23 +74,6 @@ final class RolesMatrixTypeTest extends TypeTestCase
         $this->assertNull($form->getData());
     }
 
-    public function testChoicesAsValues(): void
-    {
-        $resolver = new OptionsResolver();
-        $type = new RolesMatrixType($this->roleBuilder);
-
-        // If 'choices_as_values' option is not defined (Symfony >= 3.0), default value should not be set.
-        $type->configureOptions($resolver);
-
-        // If 'choices_as_values' option is defined (Symfony 2.8), default value should be set to true.
-        $resolver->setDefault('choices_as_values', true);
-        $type->configureOptions($resolver);
-        $options = $resolver->resolve();
-
-        $this->assertTrue($resolver->hasDefault('choices_as_values'));
-        $this->assertTrue($options['choices_as_values']);
-    }
-
     protected function getExtensions()
     {
         $this->roleBuilder = $this->createMock(ExpandableRolesBuilderInterface::class);
@@ -109,7 +87,7 @@ final class RolesMatrixTypeTest extends TypeTestCase
         $childType = new RolesMatrixType($this->roleBuilder);
 
         return [new PreloadedExtension([
-          $childType->getName() => $childType,
+          $childType,
         ], [])];
     }
 }

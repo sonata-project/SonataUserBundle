@@ -16,7 +16,6 @@ namespace Sonata\UserBundle\Form\Type;
 use Sonata\UserBundle\Security\RolesBuilder\ExpandableRolesBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -79,11 +78,6 @@ final class RolesMatrixType extends AbstractType
 
             'data_class' => null,
         ]);
-
-        // Symfony 2.8 BC
-        if (method_exists(FormTypeInterface::class, 'setDefaultOptions')) {
-            $resolver->setDefault('choices_as_values', true);
-        }
     }
 
     public function getParent(): string
@@ -94,10 +88,5 @@ final class RolesMatrixType extends AbstractType
     public function getBlockPrefix(): string
     {
         return 'sonata_roles_matrix';
-    }
-
-    public function getName(): string
-    {
-        return $this->getBlockPrefix();
     }
 }
