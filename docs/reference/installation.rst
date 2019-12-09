@@ -42,7 +42,6 @@ are not already enabled::
     return [
         //...
         Sonata\AdminBundle\SonataAdminBundle::class => ['all' => true],
-        Sonata\CoreBundle\SonataCoreBundle::class => ['all' => true],
         Sonata\BlockBundle\SonataBlockBundle::class => ['all' => true],
         Sonata\EasyExtendsBundle\SonataEasyExtendsBundle::class => ['all' => true],
         FOS\UserBundle\FOSUserBundle::class => ['all' => true],
@@ -62,7 +61,6 @@ are not already enabled::
     {
         return [
             new Sonata\AdminBundle\SonataAdminBundle(),
-            new Sonata\CoreBundle\SonataCoreBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
             // ...

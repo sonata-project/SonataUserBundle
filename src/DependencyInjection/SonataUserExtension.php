@@ -65,8 +65,6 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
 
         $this->aliasManagers($container, $config['manager_type']);
 
-        $loader->load('form.xml');
-
         if (class_exists(GoogleAuthenticator::class)) {
             $loader->load('google_authenticator.xml');
         }
