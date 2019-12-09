@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Model;
 
 use FOS\UserBundle\Model\UserManagerInterface as BaseInterface;
-use Sonata\CoreBundle\Model\PageableManagerInterface;
+use Sonata\Doctrine\Model\PageableManagerInterface;
 
 /**
  * @author Hugo Briand <briand@ekino.com>

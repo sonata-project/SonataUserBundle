@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Form\Type;
 
-use Sonata\CoreBundle\Form\Type\BaseDoctrineORMSerializationType;
+use Sonata\Form\Type\BaseDoctrineORMSerializationType;
 
 class ApiUserType extends BaseDoctrineORMSerializationType
 {
