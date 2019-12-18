@@ -69,7 +69,7 @@ class MailerTest extends TestCase
     /**
      * @dataProvider emailTemplateData
      */
-    public function testSendResettingEmailMessage($template, $subject, $body): void
+    public function testSendResettingEmailMessage(string $template, string $subject, string $body): void
     {
         $user = $this->createMock(UserInterface::class);
         $user
@@ -101,7 +101,7 @@ class MailerTest extends TestCase
         $this->getMailer()->sendResettingEmailMessage($user);
     }
 
-    public function emailTemplateData()
+    public function emailTemplateData(): array
     {
         return [
             'CR' => ["Subject\rFirst line\rSecond line", 'Subject', "First line\rSecond line"],

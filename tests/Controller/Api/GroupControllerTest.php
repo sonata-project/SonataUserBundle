@@ -164,14 +164,11 @@ class GroupControllerTest extends TestCase
         $this->createGroupController(null, $groupManager)->deleteGroupAction(1);
     }
 
-    /**
-     * @param $group
-     * @param $groupManager
-     * @param $formFactory
-     *
-     * @return GroupController
-     */
-    public function createGroupController($group = null, $groupManager = null, $formFactory = null)
+    public function createGroupController(
+        GroupInterface $group = null,
+        GroupManagerInterface $groupManager = null,
+        FormFactoryInterface $formFactory = null
+    ): GroupController
     {
         if (null === $groupManager) {
             $groupManager = $this->createMock(GroupManagerInterface::class);

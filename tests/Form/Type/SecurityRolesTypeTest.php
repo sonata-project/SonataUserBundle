@@ -93,7 +93,7 @@ class SecurityRolesTypeTest extends TypeTestCase
         $this->assertContains('ROLE_SUPER_ADMIN', $form->getData());
     }
 
-    protected function getExtensions()
+    protected function getExtensions(): array
     {
         $this->roleBuilder = $this->createMock(EditableRolesBuilder::class);
 
@@ -112,7 +112,7 @@ class SecurityRolesTypeTest extends TypeTestCase
         ], [])];
     }
 
-    private function getSecurityRolesTypeName()
+    private function getSecurityRolesTypeName(): string
     {
         return SecurityRolesType::class;
     }

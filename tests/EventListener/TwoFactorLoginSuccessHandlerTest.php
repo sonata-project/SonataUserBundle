@@ -74,7 +74,7 @@ class TwoFactorLoginSuccessHandlerTest extends TestCase
         $this->assertInstanceOf($expected, $response);
     }
 
-    public function data()
+    public function data(): array
     {
         return [
             [false, 'ROLE_USER', '192.168.1.1', false, Response::class],

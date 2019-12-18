@@ -26,7 +26,7 @@ class ConfigurationTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 
-    public function getConfiguration()
+    public function getConfiguration(): Configuration
     {
         return new Configuration();
     }

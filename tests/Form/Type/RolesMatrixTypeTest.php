@@ -74,7 +74,7 @@ final class RolesMatrixTypeTest extends TypeTestCase
         $this->assertNull($form->getData());
     }
 
-    protected function getExtensions()
+    protected function getExtensions(): array
     {
         $this->roleBuilder = $this->createMock(ExpandableRolesBuilderInterface::class);
 

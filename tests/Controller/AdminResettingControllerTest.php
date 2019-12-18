@@ -55,12 +55,12 @@ class AdminResettingControllerTest extends TestCase
         ];
         $this->container
             ->method('has')
-            ->willReturnCallback(static function ($service) use ($services) {
+            ->willReturnCallback(static function (string $service) use ($services): bool {
                 return isset($services[$service]);
             });
         $this->container
             ->method('get')
-            ->willReturnCallback(static function ($service) use ($services) {
+            ->willReturnCallback(static function (string $service) use ($services) {
                 return $services[$service] ?? null;
             });
     }

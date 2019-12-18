@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Entity;
 
+use Doctrine\Persistence\ManagerRegistry;
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Entity\UserManagerProxy;
 use Sonata\UserBundle\Entity\UserManager;
-use Doctrine\Common\Persistence\ManagerRegistry;
 
 class UserManagerProxyTest extends TestCase
 {

@@ -28,6 +28,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -133,7 +134,7 @@ class ResetActionTest extends TestCase
 
     public function testUnknownToken(): void
     {
-        $this->expectException(\Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class);
+        $this->expectException(NotFoundHttpException::class);
         $this->expectExceptionMessage('The user with "confirmation token" does not exist for value "token"');
 
         $request = new Request();
@@ -260,7 +261,7 @@ class ResetActionTest extends TestCase
 
         $this->translator
             ->method('trans')
-            ->willReturnCallback(static function ($message) {
+            ->willReturnCallback(static function (string $message): string {
                 return $message;
             });
 
