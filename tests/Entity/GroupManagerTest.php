@@ -17,8 +17,8 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 use Sonata\Doctrine\Test\EntityManagerMockFactoryTrait;
-use Sonata\UserBundle\Entity\GroupManager;
 use Sonata\UserBundle\Entity\BaseGroup;
+use Sonata\UserBundle\Entity\GroupManager;
 
 class GroupManagerTest extends TestCase
 {

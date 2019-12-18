@@ -16,9 +16,9 @@ namespace Sonata\UserBundle\Tests\DependencyInjection;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use PHPUnit\Framework\TestCase;
 use Sonata\AdminBundle\Controller\CRUDController;
-use Sonata\UserBundle\DependencyInjection\Configuration;
 use Sonata\UserBundle\Admin\Entity\GroupAdmin;
 use Sonata\UserBundle\Admin\Entity\UserAdmin;
+use Sonata\UserBundle\DependencyInjection\Configuration;
 use Sonata\UserBundle\Entity\BaseGroup;
 use Sonata\UserBundle\Entity\BaseUser;
 

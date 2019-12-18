@@ -13,18 +13,18 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Controller\Api;
 
+use FOS\RestBundle\Request\ParamFetcher;
+use FOS\RestBundle\View\View;
+use FOS\UserBundle\Model\GroupInterface;
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Controller\Api\GroupController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\FormFactoryInterface;
-use Sonata\UserBundle\Model\GroupManagerInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use FOS\UserBundle\Model\GroupInterface;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\Form;
 use Sonata\UserBundle\Entity\BaseGroup;
-use FOS\RestBundle\View\View;
-use FOS\RestBundle\Request\ParamFetcher;
+use Sonata\UserBundle\Model\GroupManagerInterface;
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
@@ -168,8 +168,7 @@ class GroupControllerTest extends TestCase
         GroupInterface $group = null,
         GroupManagerInterface $groupManager = null,
         FormFactoryInterface $formFactory = null
-    ): GroupController
-    {
+    ): GroupController {
         if (null === $groupManager) {
             $groupManager = $this->createMock(GroupManagerInterface::class);
         }

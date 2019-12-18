@@ -13,20 +13,20 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Controller\Api;
 
-use PHPUnit\Framework\TestCase;
-use Sonata\UserBundle\Controller\Api\UserController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\FormFactoryInterface;
-use Sonata\UserBundle\Model\GroupManagerInterface;
-use Sonata\UserBundle\Model\UserManagerInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use FOS\UserBundle\Model\UserInterface;
+use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\View\View;
 use FOS\UserBundle\Model\GroupInterface;
+use FOS\UserBundle\Model\UserInterface;
+use PHPUnit\Framework\TestCase;
+use Sonata\UserBundle\Controller\Api\UserController;
 use Sonata\UserBundle\Entity\BaseUser;
-use Symfony\Component\Form\FormInterface;
+use Sonata\UserBundle\Model\GroupManagerInterface;
+use Sonata\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\Form\Form;
-use FOS\RestBundle\Request\ParamFetcher;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
@@ -250,16 +250,13 @@ class UserControllerTest extends TestCase
      * @param $userManager
      * @param $groupManager
      * @param $formFactory
-     *
-     * @return UserController
      */
     public function createUserController(
         UserInterface $user = null,
         UserManagerInterface $userManager = null,
         GroupManagerInterface $groupManager = null,
         FormFactoryInterface $formFactory = null
-    ): UserController
-    {
+    ): UserController {
         if (null === $userManager) {
             $userManager = $this->createMock(UserManagerInterface::class);
         }

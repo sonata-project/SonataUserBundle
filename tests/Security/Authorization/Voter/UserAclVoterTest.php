@@ -15,13 +15,13 @@ namespace Sonata\UserBundle\Tests\Security\Authorization\Voter;
 
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Security\Authorization\Voter\UserAclVoter;
+use Symfony\Component\Security\Acl\Model\AclProviderInterface;
+use Symfony\Component\Security\Acl\Model\ObjectIdentityRetrievalStrategyInterface;
+use Symfony\Component\Security\Acl\Model\SecurityIdentityRetrievalStrategyInterface;
+use Symfony\Component\Security\Acl\Permission\PermissionMapInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Acl\Permission\PermissionMapInterface;
-use Symfony\Component\Security\Acl\Model\SecurityIdentityRetrievalStrategyInterface;
-use Symfony\Component\Security\Acl\Model\ObjectIdentityRetrievalStrategyInterface;
-use Symfony\Component\Security\Acl\Model\AclProviderInterface;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class UserAclVoterTest extends TestCase
 {

@@ -13,13 +13,13 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Entity;
 
+use FOS\UserBundle\Util\CanonicalFieldsUpdater;
+use FOS\UserBundle\Util\PasswordUpdaterInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\Doctrine\Test\EntityManagerMockFactoryTrait;
-use Sonata\UserBundle\Entity\UserManager;
 use Sonata\UserBundle\Entity\BaseUser;
-use FOS\UserBundle\Util\CanonicalFieldsUpdater;
-use FOS\UserBundle\Util\PasswordUpdaterInterface;
+use Sonata\UserBundle\Entity\UserManager;
 
 class UserManagerTest extends TestCase
 {

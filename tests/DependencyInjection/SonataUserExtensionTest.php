@@ -13,21 +13,21 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\DependencyInjection;
 
+use FOS\UserBundle\Model\GroupInterface;
+use FOS\UserBundle\Model\UserInterface;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Sonata\UserBundle\DependencyInjection\Configuration;
 use Sonata\UserBundle\DependencyInjection\SonataUserExtension;
-use Symfony\Bundle\TwigBundle\DependencyInjection\TwigExtension;
-use Symfony\Component\Config\Definition\Processor;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
-use Sonata\UserBundle\Entity\BaseGroup;
 use Sonata\UserBundle\Document\BaseUser;
-use FOS\UserBundle\Model\GroupInterface;
-use FOS\UserBundle\Model\UserInterface;
+use Sonata\UserBundle\Entity\BaseGroup;
 use Sonata\UserBundle\Tests\Admin\Document\GroupAdmin;
 use Sonata\UserBundle\Tests\Admin\Document\UserAdmin;
 use Sonata\UserBundle\Tests\Document\Group;
 use Sonata\UserBundle\Tests\Document\User;
+use Symfony\Bundle\TwigBundle\DependencyInjection\TwigExtension;
+use Symfony\Component\Config\Definition\Processor;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 
 /**
  * @author Anton Dyshkant <vyshkant@gmail.com>

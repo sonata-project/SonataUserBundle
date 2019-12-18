@@ -14,13 +14,13 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\Security\Authorization\Voter;
 
 use PHPUnit\Framework\TestCase;
+use Sonata\AdminBundle\Admin\AdminInterface;
+use Sonata\AdminBundle\Admin\Pool;
+use Sonata\AdminBundle\Security\Handler\SecurityHandlerInterface;
 use Sonata\UserBundle\Security\EditableRolesBuilder;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Sonata\AdminBundle\Admin\Pool;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Sonata\AdminBundle\Admin\AdminInterface;
-use Sonata\AdminBundle\Security\Handler\SecurityHandlerInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class EditableRolesBuilderTest extends TestCase
 {
