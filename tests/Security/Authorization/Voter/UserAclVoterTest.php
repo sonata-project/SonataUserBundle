@@ -15,6 +15,11 @@ namespace Sonata\UserBundle\Tests\Security\Authorization\Voter;
 
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Security\Authorization\Voter\UserAclVoter;
+use Symfony\Component\Security\Acl\Model\AclProviderInterface;
+use Symfony\Component\Security\Acl\Model\ObjectIdentityRetrievalStrategyInterface;
+use Symfony\Component\Security\Acl\Model\SecurityIdentityRetrievalStrategyInterface;
+use Symfony\Component\Security\Acl\Permission\PermissionMapInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -23,19 +28,19 @@ class UserAclVoterTest extends TestCase
     public function testVoteWillAbstainWhenAUserIsLoggedInAndASuperAdmin(): void
     {
         // Given
-        $user = $this->createMock('FOS\UserBundle\Model\UserInterface');
-        $user->expects($this->any())->method('isSuperAdmin')->willReturn(true);
+        $user = $this->createMock(\FOS\UserBundle\Model\UserInterface::class);
+        $user->method('isSuperAdmin')->willReturn(true);
 
-        $loggedInUser = $this->createMock('FOS\UserBundle\Model\UserInterface');
-        $loggedInUser->expects($this->any())->method('isSuperAdmin')->willReturn(true);
+        $loggedInUser = $this->createMock(\FOS\UserBundle\Model\UserInterface::class);
+        $loggedInUser->method('isSuperAdmin')->willReturn(true);
 
-        $token = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
-        $token->expects($this->any())->method('getUser')->willReturn($loggedInUser);
+        $token = $this->createMock(TokenInterface::class);
+        $token->method('getUser')->willReturn($loggedInUser);
 
-        $aclProvider = $this->createMock('Symfony\Component\Security\Acl\Model\AclProviderInterface');
-        $oidRetrievalStrategy = $this->createMock('Symfony\Component\Security\Acl\Model\ObjectIdentityRetrievalStrategyInterface');
-        $sidRetrievalStrategy = $this->createMock('Symfony\Component\Security\Acl\Model\SecurityIdentityRetrievalStrategyInterface');
-        $permissionMap = $this->createMock('Symfony\Component\Security\Acl\Permission\PermissionMapInterface');
+        $aclProvider = $this->createMock(AclProviderInterface::class);
+        $oidRetrievalStrategy = $this->createMock(ObjectIdentityRetrievalStrategyInterface::class);
+        $sidRetrievalStrategy = $this->createMock(SecurityIdentityRetrievalStrategyInterface::class);
+        $permissionMap = $this->createMock(PermissionMapInterface::class);
 
         $voter = new UserAclVoter($aclProvider, $oidRetrievalStrategy, $sidRetrievalStrategy, $permissionMap);
 
@@ -49,19 +54,19 @@ class UserAclVoterTest extends TestCase
     public function testVoteWillDenyAccessWhenAUserIsLoggedInAndNotASuperAdmin(): void
     {
         // Given
-        $user = $this->createMock('FOS\UserBundle\Model\UserInterface');
-        $user->expects($this->any())->method('isSuperAdmin')->willReturn(true);
+        $user = $this->createMock(\FOS\UserBundle\Model\UserInterface::class);
+        $user->method('isSuperAdmin')->willReturn(true);
 
-        $loggedInUser = $this->createMock('FOS\UserBundle\Model\UserInterface');
-        $loggedInUser->expects($this->any())->method('isSuperAdmin')->willReturn(false);
+        $loggedInUser = $this->createMock(\FOS\UserBundle\Model\UserInterface::class);
+        $loggedInUser->method('isSuperAdmin')->willReturn(false);
 
-        $token = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
-        $token->expects($this->any())->method('getUser')->willReturn($loggedInUser);
+        $token = $this->createMock(TokenInterface::class);
+        $token->method('getUser')->willReturn($loggedInUser);
 
-        $aclProvider = $this->createMock('Symfony\Component\Security\Acl\Model\AclProviderInterface');
-        $oidRetrievalStrategy = $this->createMock('Symfony\Component\Security\Acl\Model\ObjectIdentityRetrievalStrategyInterface');
-        $sidRetrievalStrategy = $this->createMock('Symfony\Component\Security\Acl\Model\SecurityIdentityRetrievalStrategyInterface');
-        $permissionMap = $this->createMock('Symfony\Component\Security\Acl\Permission\PermissionMapInterface');
+        $aclProvider = $this->createMock(AclProviderInterface::class);
+        $oidRetrievalStrategy = $this->createMock(ObjectIdentityRetrievalStrategyInterface::class);
+        $sidRetrievalStrategy = $this->createMock(SecurityIdentityRetrievalStrategyInterface::class);
+        $permissionMap = $this->createMock(PermissionMapInterface::class);
 
         $voter = new UserAclVoter($aclProvider, $oidRetrievalStrategy, $sidRetrievalStrategy, $permissionMap);
 
@@ -75,18 +80,18 @@ class UserAclVoterTest extends TestCase
     public function testVoteWillAbstainWhenAUserIsNotAvailable(): void
     {
         // Given
-        $user = $this->createMock('FOS\UserBundle\Model\UserInterface');
-        $user->expects($this->any())->method('isSuperAdmin')->willReturn(true);
+        $user = $this->createMock(\FOS\UserBundle\Model\UserInterface::class);
+        $user->method('isSuperAdmin')->willReturn(true);
 
         $loggedInUser = null;
 
-        $token = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
-        $token->expects($this->any())->method('getUser')->willReturn($loggedInUser);
+        $token = $this->createMock(TokenInterface::class);
+        $token->method('getUser')->willReturn($loggedInUser);
 
-        $aclProvider = $this->createMock('Symfony\Component\Security\Acl\Model\AclProviderInterface');
-        $oidRetrievalStrategy = $this->createMock('Symfony\Component\Security\Acl\Model\ObjectIdentityRetrievalStrategyInterface');
-        $sidRetrievalStrategy = $this->createMock('Symfony\Component\Security\Acl\Model\SecurityIdentityRetrievalStrategyInterface');
-        $permissionMap = $this->createMock('Symfony\Component\Security\Acl\Permission\PermissionMapInterface');
+        $aclProvider = $this->createMock(AclProviderInterface::class);
+        $oidRetrievalStrategy = $this->createMock(ObjectIdentityRetrievalStrategyInterface::class);
+        $sidRetrievalStrategy = $this->createMock(SecurityIdentityRetrievalStrategyInterface::class);
+        $permissionMap = $this->createMock(PermissionMapInterface::class);
 
         $voter = new UserAclVoter($aclProvider, $oidRetrievalStrategy, $sidRetrievalStrategy, $permissionMap);
 
@@ -100,18 +105,18 @@ class UserAclVoterTest extends TestCase
     public function testVoteWillAbstainWhenAUserIsLoggedInButIsNotAFOSUser(): void
     {
         // Given
-        $user = $this->createMock('FOS\UserBundle\Model\UserInterface');
-        $user->expects($this->any())->method('isSuperAdmin')->willReturn(true);
+        $user = $this->createMock(\FOS\UserBundle\Model\UserInterface::class);
+        $user->method('isSuperAdmin')->willReturn(true);
 
         $loggedInUser = $this->createMock(UserInterface::class);
 
-        $token = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
-        $token->expects($this->any())->method('getUser')->willReturn($loggedInUser);
+        $token = $this->createMock(TokenInterface::class);
+        $token->method('getUser')->willReturn($loggedInUser);
 
-        $aclProvider = $this->createMock('Symfony\Component\Security\Acl\Model\AclProviderInterface');
-        $oidRetrievalStrategy = $this->createMock('Symfony\Component\Security\Acl\Model\ObjectIdentityRetrievalStrategyInterface');
-        $sidRetrievalStrategy = $this->createMock('Symfony\Component\Security\Acl\Model\SecurityIdentityRetrievalStrategyInterface');
-        $permissionMap = $this->createMock('Symfony\Component\Security\Acl\Permission\PermissionMapInterface');
+        $aclProvider = $this->createMock(AclProviderInterface::class);
+        $oidRetrievalStrategy = $this->createMock(ObjectIdentityRetrievalStrategyInterface::class);
+        $sidRetrievalStrategy = $this->createMock(SecurityIdentityRetrievalStrategyInterface::class);
+        $permissionMap = $this->createMock(PermissionMapInterface::class);
 
         $voter = new UserAclVoter($aclProvider, $oidRetrievalStrategy, $sidRetrievalStrategy, $permissionMap);
 

@@ -16,13 +16,17 @@ namespace Sonata\UserBundle\Tests\DependencyInjection;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use PHPUnit\Framework\TestCase;
 use Sonata\AdminBundle\Controller\CRUDController;
+use Sonata\UserBundle\Admin\Entity\GroupAdmin;
+use Sonata\UserBundle\Admin\Entity\UserAdmin;
 use Sonata\UserBundle\DependencyInjection\Configuration;
+use Sonata\UserBundle\Entity\BaseGroup;
+use Sonata\UserBundle\Entity\BaseUser;
 
 class ConfigurationTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 
-    public function getConfiguration()
+    public function getConfiguration(): Configuration
     {
         return new Configuration();
     }
@@ -43,17 +47,17 @@ class ConfigurationTest extends TestCase
             ],
             'manager_type' => 'orm',
             'class' => [
-                'user' => 'Sonata\UserBundle\Entity\BaseUser',
-                'group' => 'Sonata\UserBundle\Entity\BaseGroup',
+                'user' => BaseUser::class,
+                'group' => BaseGroup::class,
             ],
             'admin' => [
                 'user' => [
-                    'class' => 'Sonata\UserBundle\Admin\Entity\UserAdmin',
+                    'class' => UserAdmin::class,
                     'controller' => CRUDController::class,
                     'translation' => 'SonataUserBundle',
                 ],
                 'group' => [
-                    'class' => 'Sonata\UserBundle\Admin\Entity\GroupAdmin',
+                    'class' => GroupAdmin::class,
                     'controller' => CRUDController::class,
                     'translation' => 'SonataUserBundle',
                 ],

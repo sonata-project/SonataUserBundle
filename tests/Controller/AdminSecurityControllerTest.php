@@ -45,14 +45,14 @@ class AdminSecurityControllerTest extends TestCase
             LoginAction::class => $this->testAction,
             LogoutAction::class => $this->testAction,
         ];
-        $this->container->expects($this->any())
+        $this->container
             ->method('has')
-            ->willReturnCallback(static function ($service) use ($services) {
+            ->willReturnCallback(static function (string $service) use ($services): bool {
                 return isset($services[$service]);
             });
-        $this->container->expects($this->any())
+        $this->container
             ->method('get')
-            ->willReturnCallback(static function ($service) use ($services) {
+            ->willReturnCallback(static function (string $service) use ($services) {
                 return $services[$service] ?? null;
             });
     }
@@ -84,14 +84,15 @@ class AdminSecurityControllerTest extends TestCase
         $controller->checkAction();
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testLoginAction(): void
     {
         $request = new Request();
 
         $controller = $this->getController();
         $result = $controller->loginAction($request);
-
-        $this->assertInstanceOf(Response::class, $result);
     }
 }
 

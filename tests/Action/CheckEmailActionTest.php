@@ -90,7 +90,7 @@ class CheckEmailActionTest extends TestCase
             ->with('@SonataUser/Admin/Security/Resetting/checkEmail.html.twig', $parameters)
             ->willReturn('template content');
 
-        $this->templateRegistry->expects($this->any())
+        $this->templateRegistry
             ->method('getTemplate')
             ->with('layout')
             ->willReturn('base.html.twig');

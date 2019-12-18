@@ -13,18 +13,23 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Entity;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Sonata\CoreBundle\Test\EntityManagerMockFactory;
+
+use Sonata\Doctrine\Test\EntityManagerMockFactoryTrait;
+use Sonata\UserBundle\Entity\BaseGroup;
 use Sonata\UserBundle\Entity\GroupManager;
 
 class GroupManagerTest extends TestCase
 {
+    use EntityManagerMockFactoryTrait;
+
     public function testGetPager(): void
     {
         $self = $this;
         $this
-            ->getUserManager(static function ($qb) use ($self): void {
-                $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(['g']));
+            ->getUserManager(static function (MockObject $qb) use ($self): void {
+                $qb->expects($self->once())->method('getRootAliases')->willReturn(['g']);
                 $qb->expects($self->never())->method('andWhere');
                 $qb->expects($self->once())->method('orderBy')->with(
                     $self->equalTo('g.name'),
@@ -42,7 +47,7 @@ class GroupManagerTest extends TestCase
 
         $self = $this;
         $this
-            ->getUserManager(static function ($qb) use ($self): void {
+            ->getUserManager(static function (MockObject $qb) use ($self): void {
                 $qb->expects($self->never())->method('andWhere');
                 $qb->expects($self->never())->method('orderBy');
                 $qb->expects($self->never())->method('setParameters');
@@ -54,8 +59,8 @@ class GroupManagerTest extends TestCase
     {
         $self = $this;
         $this
-            ->getUserManager(static function ($qb) use ($self): void {
-                $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(['g']));
+            ->getUserManager(static function (MockObject $qb) use ($self): void {
+                $qb->expects($self->once())->method('getRootAliases')->willReturn(['g']);
                 $qb->expects($self->once())->method('andWhere')->with($self->equalTo('g.enabled = :enabled'));
                 $qb->expects($self->once())->method('orderBy')->with(
                     $self->equalTo('g.name'),
@@ -70,8 +75,8 @@ class GroupManagerTest extends TestCase
     {
         $self = $this;
         $this
-            ->getUserManager(static function ($qb) use ($self): void {
-                $qb->expects($self->once())->method('getRootAliases')->will($self->returnValue(['g']));
+            ->getUserManager(static function (MockObject $qb) use ($self): void {
+                $qb->expects($self->once())->method('getRootAliases')->willReturn(['g']);
                 $qb->expects($self->once())->method('andWhere')->with($self->equalTo('g.enabled = :enabled'));
                 $qb->expects($self->once())->method('orderBy')->with(
                     $self->equalTo('g.name'),
@@ -82,18 +87,13 @@ class GroupManagerTest extends TestCase
             ->getPager(['enabled' => false], 1);
     }
 
-    /**
-     * @param $qbCallback
-     *
-     * @return GroupManager
-     */
-    protected function getUserManager($qbCallback)
+    protected function getUserManager(\Closure $qbCallback): GroupManager
     {
-        $em = EntityManagerMockFactory::create($this, $qbCallback, [
+        $em = $this->createEntityManagerMock($qbCallback, [
             'name',
             'roles',
         ]);
 
-        return new GroupManager($em, 'Sonata\UserBundle\Entity\BaseGroup');
+        return new GroupManager($em, BaseGroup::class);
     }
 }

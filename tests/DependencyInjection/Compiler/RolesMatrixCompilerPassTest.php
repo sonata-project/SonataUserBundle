@@ -23,10 +23,7 @@ use Symfony\Component\DependencyInjection\Definition;
  */
 final class RolesMatrixCompilerPassTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function process(): void
+    public function testProcess(): void
     {
         $definition = $this->createMock(Definition::class);
 
