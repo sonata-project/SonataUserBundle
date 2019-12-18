@@ -16,6 +16,15 @@ namespace Sonata\UserBundle\Tests\Controller\Api;
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Controller\Api\GroupController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\FormFactoryInterface;
+use Sonata\UserBundle\Model\GroupManagerInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use FOS\UserBundle\Model\GroupInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\Form;
+use Sonata\UserBundle\Entity\BaseGroup;
+use FOS\RestBundle\View\View;
+use FOS\RestBundle\Request\ParamFetcher;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
@@ -24,11 +33,11 @@ class GroupControllerTest extends TestCase
 {
     public function testGetGroupsAction(): void
     {
-        $group = $this->createMock('FOS\UserBundle\Model\GroupInterface');
-        $groupManager = $this->createMock('Sonata\UserBundle\Model\GroupManagerInterface');
+        $group = $this->createMock(GroupInterface::class);
+        $groupManager = $this->createMock(GroupManagerInterface::class);
         $groupManager->expects($this->once())->method('getPager')->willReturn([$group]);
 
-        $paramFetcher = $this->getMockBuilder('FOS\RestBundle\Request\ParamFetcher')
+        $paramFetcher = $this->getMockBuilder(ParamFetcher::class)
             ->disableOriginalConstructor()
             ->getMock();
         $paramFetcher->expects($this->exactly(3))->method('get');
@@ -39,7 +48,7 @@ class GroupControllerTest extends TestCase
 
     public function testGetGroupAction(): void
     {
-        $group = $this->createMock('FOS\UserBundle\Model\GroupInterface');
+        $group = $this->createMock(GroupInterface::class);
         $this->assertSame($group, $this->createGroupController($group)->getGroupAction(1));
     }
 
@@ -53,89 +62,89 @@ class GroupControllerTest extends TestCase
 
     public function testPostGroupAction(): void
     {
-        $group = $this->createMock('FOS\UserBundle\Model\GroupInterface');
+        $group = $this->createMock(GroupInterface::class);
 
-        $groupManager = $this->createMock('Sonata\UserBundle\Model\GroupManagerInterface');
-        $groupManager->expects($this->once())->method('getClass')->willReturn('Sonata\UserBundle\Entity\BaseGroup');
+        $groupManager = $this->createMock(GroupManagerInterface::class);
+        $groupManager->expects($this->once())->method('getClass')->willReturn(BaseGroup::class);
         $groupManager->expects($this->once())->method('updateGroup')->willReturn($group);
 
-        $form = $this->getMockBuilder('Symfony\Component\Form\Form')->disableOriginalConstructor()->getMock();
+        $form = $this->getMockBuilder(Form::class)->disableOriginalConstructor()->getMock();
         $form->expects($this->once())->method('handleRequest');
         $form->expects($this->once())->method('isValid')->willReturn(true);
         $form->expects($this->once())->method('getData')->willReturn($group);
 
-        $formFactory = $this->createMock('Symfony\Component\Form\FormFactoryInterface');
+        $formFactory = $this->createMock(FormFactoryInterface::class);
         $formFactory->expects($this->once())->method('createNamed')->willReturn($form);
 
         $view = $this->createGroupController(null, $groupManager, $formFactory)->postGroupAction(new Request());
 
-        $this->assertInstanceOf('FOS\RestBundle\View\View', $view);
+        $this->assertInstanceOf(View::class, $view);
     }
 
     public function testPostGroupInvalidAction(): void
     {
-        $groupManager = $this->createMock('Sonata\UserBundle\Model\GroupManagerInterface');
-        $groupManager->expects($this->once())->method('getClass')->willReturn('Sonata\UserBundle\Entity\BaseGroup');
+        $groupManager = $this->createMock(GroupManagerInterface::class);
+        $groupManager->expects($this->once())->method('getClass')->willReturn(BaseGroup::class);
 
-        $form = $this->getMockBuilder('Symfony\Component\Form\Form')->disableOriginalConstructor()->getMock();
+        $form = $this->getMockBuilder(Form::class)->disableOriginalConstructor()->getMock();
         $form->expects($this->once())->method('handleRequest');
         $form->expects($this->once())->method('isValid')->willReturn(false);
 
-        $formFactory = $this->createMock('Symfony\Component\Form\FormFactoryInterface');
+        $formFactory = $this->createMock(FormFactoryInterface::class);
         $formFactory->expects($this->once())->method('createNamed')->willReturn($form);
 
         $view = $this->createGroupController(null, $groupManager, $formFactory)->postGroupAction(new Request());
 
-        $this->assertInstanceOf('Symfony\Component\Form\FormInterface', $view);
+        $this->assertInstanceOf(FormInterface::class, $view);
     }
 
     public function testPutGroupAction(): void
     {
-        $group = $this->createMock('FOS\UserBundle\Model\GroupInterface');
+        $group = $this->createMock(GroupInterface::class);
 
-        $groupManager = $this->createMock('Sonata\UserBundle\Model\GroupManagerInterface');
-        $groupManager->expects($this->once())->method('getClass')->willReturn('Sonata\UserBundle\Entity\BaseGroup');
+        $groupManager = $this->createMock(GroupManagerInterface::class);
+        $groupManager->expects($this->once())->method('getClass')->willReturn(BaseGroup::class);
         $groupManager->expects($this->once())->method('findGroupBy')->willReturn($group);
         $groupManager->expects($this->once())->method('updateGroup')->willReturn($group);
 
-        $form = $this->getMockBuilder('Symfony\Component\Form\Form')->disableOriginalConstructor()->getMock();
+        $form = $this->getMockBuilder(Form::class)->disableOriginalConstructor()->getMock();
         $form->expects($this->once())->method('handleRequest');
         $form->expects($this->once())->method('isValid')->willReturn(true);
         $form->expects($this->once())->method('getData')->willReturn($group);
 
-        $formFactory = $this->createMock('Symfony\Component\Form\FormFactoryInterface');
+        $formFactory = $this->createMock(FormFactoryInterface::class);
         $formFactory->expects($this->once())->method('createNamed')->willReturn($form);
 
         $view = $this->createGroupController($group, $groupManager, $formFactory)->putGroupAction(1, new Request());
 
-        $this->assertInstanceOf('FOS\RestBundle\View\View', $view);
+        $this->assertInstanceOf(View::class, $view);
     }
 
     public function testPutGroupInvalidAction(): void
     {
-        $group = $this->createMock('FOS\UserBundle\Model\GroupInterface');
+        $group = $this->createMock(GroupInterface::class);
 
-        $groupManager = $this->createMock('Sonata\UserBundle\Model\GroupManagerInterface');
-        $groupManager->expects($this->once())->method('getClass')->willReturn('Sonata\UserBundle\Entity\BaseGroup');
+        $groupManager = $this->createMock(GroupManagerInterface::class);
+        $groupManager->expects($this->once())->method('getClass')->willReturn(BaseGroup::class);
         $groupManager->expects($this->once())->method('findGroupBy')->willReturn($group);
 
-        $form = $this->getMockBuilder('Symfony\Component\Form\Form')->disableOriginalConstructor()->getMock();
+        $form = $this->getMockBuilder(Form::class)->disableOriginalConstructor()->getMock();
         $form->expects($this->once())->method('handleRequest');
         $form->expects($this->once())->method('isValid')->willReturn(false);
 
-        $formFactory = $this->createMock('Symfony\Component\Form\FormFactoryInterface');
+        $formFactory = $this->createMock(FormFactoryInterface::class);
         $formFactory->expects($this->once())->method('createNamed')->willReturn($form);
 
         $view = $this->createGroupController($group, $groupManager, $formFactory)->putGroupAction(1, new Request());
 
-        $this->assertInstanceOf('Symfony\Component\Form\FormInterface', $view);
+        $this->assertInstanceOf(FormInterface::class, $view);
     }
 
     public function testDeleteGroupAction(): void
     {
-        $group = $this->createMock('FOS\UserBundle\Model\GroupInterface');
+        $group = $this->createMock(GroupInterface::class);
 
-        $groupManager = $this->createMock('Sonata\UserBundle\Model\GroupManagerInterface');
+        $groupManager = $this->createMock(GroupManagerInterface::class);
         $groupManager->expects($this->once())->method('findGroupBy')->willReturn($group);
         $groupManager->expects($this->once())->method('deleteGroup')->willReturn($group);
 
@@ -146,9 +155,9 @@ class GroupControllerTest extends TestCase
 
     public function testDeleteGroupInvalidAction(): void
     {
-        $this->expectException('Symfony\Component\HttpKernel\Exception\NotFoundHttpException');
+        $this->expectException(NotFoundHttpException::class);
 
-        $groupManager = $this->createMock('Sonata\UserBundle\Model\GroupManagerInterface');
+        $groupManager = $this->createMock(GroupManagerInterface::class);
         $groupManager->expects($this->once())->method('findGroupBy')->willReturn(null);
         $groupManager->expects($this->never())->method('deleteGroup');
 
@@ -165,13 +174,13 @@ class GroupControllerTest extends TestCase
     public function createGroupController($group = null, $groupManager = null, $formFactory = null)
     {
         if (null === $groupManager) {
-            $groupManager = $this->createMock('Sonata\UserBundle\Model\GroupManagerInterface');
+            $groupManager = $this->createMock(GroupManagerInterface::class);
         }
         if (null !== $group) {
             $groupManager->expects($this->once())->method('findGroupBy')->willReturn($group);
         }
         if (null === $formFactory) {
-            $formFactory = $this->createMock('Symfony\Component\Form\FormFactoryInterface');
+            $formFactory = $this->createMock(FormFactoryInterface::class);
         }
 
         return new GroupController($groupManager, $formFactory);

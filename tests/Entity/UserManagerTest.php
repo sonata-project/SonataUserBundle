@@ -16,6 +16,9 @@ namespace Sonata\UserBundle\Tests\Entity;
 use PHPUnit\Framework\TestCase;
 use Sonata\Doctrine\Test\EntityManagerMockFactoryTrait;
 use Sonata\UserBundle\Entity\UserManager;
+use Sonata\UserBundle\Entity\BaseUser;
+use FOS\UserBundle\Util\CanonicalFieldsUpdater;
+use FOS\UserBundle\Util\PasswordUpdaterInterface;
 
 class UserManagerTest extends TestCase
 {
@@ -115,9 +118,9 @@ class UserManagerTest extends TestCase
             'email',
         ]);
 
-        $passwordUpdater = $this->createMock('FOS\UserBundle\Util\PasswordUpdaterInterface');
-        $canonical = $this->createMock('FOS\UserBundle\Util\CanonicalFieldsUpdater');
+        $passwordUpdater = $this->createMock(PasswordUpdaterInterface::class);
+        $canonical = $this->createMock(CanonicalFieldsUpdater::class);
 
-        return new UserManager($passwordUpdater, $canonical, $om, 'Sonata\UserBundle\Entity\BaseUser');
+        return new UserManager($passwordUpdater, $canonical, $om, BaseUser::class);
     }
 }

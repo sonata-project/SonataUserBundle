@@ -114,6 +114,6 @@ class SecurityRolesTypeTest extends TypeTestCase
 
     private function getSecurityRolesTypeName()
     {
-        return 'Sonata\UserBundle\Form\Type\SecurityRolesType';
+        return SecurityRolesType::class;
     }
 }

@@ -28,7 +28,6 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManager;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Symfony\Component\Security\Core\Authorization\Voter\RoleHierarchyVoter;
-use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\Role\RoleHierarchy;
 use Twig\Environment;
 
@@ -91,7 +90,7 @@ class TwoFactorLoginSuccessHandlerTest extends TestCase
         if ($secret) {
             $this->user->setTwoStepVerificationCode($secret);
         }
-        $this->token = new UsernamePasswordToken($this->user, null, 'admin', [new Role($userRole)]);
+        $this->token = new UsernamePasswordToken($this->user, null, 'admin', [$userRole]);
         $tokenStorage = new TokenStorage();
         $tokenStorage->setToken($this->token);
         $authManagerMock = $this->createMock(AuthenticationManagerInterface::class);

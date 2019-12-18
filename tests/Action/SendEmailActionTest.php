@@ -104,7 +104,6 @@ class SendEmailActionTest extends TestCase
     public function testUnknownUsername(): void
     {
         $request = new Request([], ['username' => 'bar']);
-        $response = $this->createMock(Response::class);
 
         $parameters = [
             'base_template' => 'base.html.twig',

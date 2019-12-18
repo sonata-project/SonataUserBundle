@@ -15,6 +15,7 @@ namespace Sonata\UserBundle\Tests\Document;
 
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Document\BaseUser;
+use FOS\UserBundle\Model\GroupInterface;
 
 class BaseUserTest extends TestCase
 {
@@ -75,9 +76,9 @@ class BaseUserTest extends TestCase
     {
         // Given
         $user = new BaseUser();
-        $group1 = $this->createMock('FOS\UserBundle\Model\GroupInterface');
+        $group1 = $this->createMock(GroupInterface::class);
         $group1->expects($this->any())->method('getName')->willReturn('Group 1');
-        $group2 = $this->createMock('FOS\UserBundle\Model\GroupInterface');
+        $group2 = $this->createMock(GroupInterface::class);
         $group2->expects($this->any())->method('getName')->willReturn('Group 2');
 
         // When

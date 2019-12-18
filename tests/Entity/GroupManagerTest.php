@@ -17,6 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 use Sonata\Doctrine\Test\EntityManagerMockFactoryTrait;
 use Sonata\UserBundle\Entity\GroupManager;
+use Sonata\UserBundle\Entity\BaseGroup;
 
 class GroupManagerTest extends TestCase
 {
@@ -97,6 +98,6 @@ class GroupManagerTest extends TestCase
             'roles',
         ]);
 
-        return new GroupManager($em, 'Sonata\UserBundle\Entity\BaseGroup');
+        return new GroupManager($em, BaseGroup::class);
     }
 }

@@ -142,7 +142,7 @@ final class SecurityRolesBuilderTest extends TestCase
             ],
         ];
 
-        $this->assertSame($expected, $securityRolesBuilder->getRoles(null, false));
+        $this->assertSame($expected, $securityRolesBuilder->getRoles(null));
     }
 
     public function testGetRolesWithExistingRole(): void
