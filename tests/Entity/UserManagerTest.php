@@ -14,11 +14,13 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\Entity;
 
 use PHPUnit\Framework\TestCase;
-use Sonata\CoreBundle\Test\EntityManagerMockFactory;
+use Sonata\Doctrine\Test\EntityManagerMockFactoryTrait;
 use Sonata\UserBundle\Entity\UserManager;
 
 class UserManagerTest extends TestCase
 {
+    use EntityManagerMockFactoryTrait;
+
     public function testGetPager(): void
     {
         $self = $this;
@@ -108,7 +110,7 @@ class UserManagerTest extends TestCase
 
     protected function getUserManager($qbCallback)
     {
-        $om = EntityManagerMockFactory::create($this, $qbCallback, [
+        $om = $this->createEntityManagerMock($qbCallback, [
             'username',
             'email',
         ]);
