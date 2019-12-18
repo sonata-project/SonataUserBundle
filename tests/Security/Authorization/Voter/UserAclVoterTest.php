@@ -29,13 +29,13 @@ class UserAclVoterTest extends TestCase
     {
         // Given
         $user = $this->createMock(\FOS\UserBundle\Model\UserInterface::class);
-        $user->expects($this->any())->method('isSuperAdmin')->willReturn(true);
+        $user->method('isSuperAdmin')->willReturn(true);
 
         $loggedInUser = $this->createMock(\FOS\UserBundle\Model\UserInterface::class);
-        $loggedInUser->expects($this->any())->method('isSuperAdmin')->willReturn(true);
+        $loggedInUser->method('isSuperAdmin')->willReturn(true);
 
         $token = $this->createMock(TokenInterface::class);
-        $token->expects($this->any())->method('getUser')->willReturn($loggedInUser);
+        $token->method('getUser')->willReturn($loggedInUser);
 
         $aclProvider = $this->createMock(AclProviderInterface::class);
         $oidRetrievalStrategy = $this->createMock(ObjectIdentityRetrievalStrategyInterface::class);
@@ -55,13 +55,13 @@ class UserAclVoterTest extends TestCase
     {
         // Given
         $user = $this->createMock(\FOS\UserBundle\Model\UserInterface::class);
-        $user->expects($this->any())->method('isSuperAdmin')->willReturn(true);
+        $user->method('isSuperAdmin')->willReturn(true);
 
         $loggedInUser = $this->createMock(\FOS\UserBundle\Model\UserInterface::class);
-        $loggedInUser->expects($this->any())->method('isSuperAdmin')->willReturn(false);
+        $loggedInUser->method('isSuperAdmin')->willReturn(false);
 
         $token = $this->createMock(TokenInterface::class);
-        $token->expects($this->any())->method('getUser')->willReturn($loggedInUser);
+        $token->method('getUser')->willReturn($loggedInUser);
 
         $aclProvider = $this->createMock(AclProviderInterface::class);
         $oidRetrievalStrategy = $this->createMock(ObjectIdentityRetrievalStrategyInterface::class);
@@ -81,12 +81,12 @@ class UserAclVoterTest extends TestCase
     {
         // Given
         $user = $this->createMock(\FOS\UserBundle\Model\UserInterface::class);
-        $user->expects($this->any())->method('isSuperAdmin')->willReturn(true);
+        $user->method('isSuperAdmin')->willReturn(true);
 
         $loggedInUser = null;
 
         $token = $this->createMock(TokenInterface::class);
-        $token->expects($this->any())->method('getUser')->willReturn($loggedInUser);
+        $token->method('getUser')->willReturn($loggedInUser);
 
         $aclProvider = $this->createMock(AclProviderInterface::class);
         $oidRetrievalStrategy = $this->createMock(ObjectIdentityRetrievalStrategyInterface::class);
@@ -106,12 +106,12 @@ class UserAclVoterTest extends TestCase
     {
         // Given
         $user = $this->createMock(\FOS\UserBundle\Model\UserInterface::class);
-        $user->expects($this->any())->method('isSuperAdmin')->willReturn(true);
+        $user->method('isSuperAdmin')->willReturn(true);
 
         $loggedInUser = $this->createMock(UserInterface::class);
 
         $token = $this->createMock(TokenInterface::class);
-        $token->expects($this->any())->method('getUser')->willReturn($loggedInUser);
+        $token->method('getUser')->willReturn($loggedInUser);
 
         $aclProvider = $this->createMock(AclProviderInterface::class);
         $oidRetrievalStrategy = $this->createMock(ObjectIdentityRetrievalStrategyInterface::class);

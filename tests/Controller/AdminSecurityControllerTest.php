@@ -45,12 +45,12 @@ class AdminSecurityControllerTest extends TestCase
             LoginAction::class => $this->testAction,
             LogoutAction::class => $this->testAction,
         ];
-        $this->container->expects($this->any())
+        $this->container
             ->method('has')
             ->willReturnCallback(static function ($service) use ($services) {
                 return isset($services[$service]);
             });
-        $this->container->expects($this->any())
+        $this->container
             ->method('get')
             ->willReturnCallback(static function ($service) use ($services) {
                 return $services[$service] ?? null;

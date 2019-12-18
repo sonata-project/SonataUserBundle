@@ -119,7 +119,7 @@ class ResetActionTest extends TestCase
             ->method('isGranted')
             ->willReturn(true);
 
-        $this->urlGenerator->expects($this->any())
+        $this->urlGenerator
             ->method('generate')
             ->with('sonata_admin_dashboard')
             ->willReturn('/foo');
@@ -138,7 +138,7 @@ class ResetActionTest extends TestCase
 
         $request = new Request();
 
-        $this->userManager->expects($this->any())
+        $this->userManager
             ->method('findUserByConfirmationToken')
             ->with('token')
             ->willReturn(null);
@@ -152,16 +152,16 @@ class ResetActionTest extends TestCase
         $request = new Request();
 
         $user = $this->createMock(User::class);
-        $user->expects($this->any())
+        $user
             ->method('isPasswordRequestNonExpired')
             ->willReturn(false);
 
-        $this->userManager->expects($this->any())
+        $this->userManager
             ->method('findUserByConfirmationToken')
             ->with('token')
             ->willReturn($user);
 
-        $this->urlGenerator->expects($this->any())
+        $this->urlGenerator
             ->method('generate')
             ->with('sonata_user_admin_resetting_request')
             ->willReturn('/foo');
@@ -185,22 +185,22 @@ class ResetActionTest extends TestCase
         ];
 
         $user = $this->createMock(User::class);
-        $user->expects($this->any())
+        $user
             ->method('isPasswordRequestNonExpired')
             ->willReturn(true);
 
         $form = $this->createMock(Form::class);
-        $form->expects($this->any())
+        $form
             ->method('isValid')
             ->willReturn(true);
-        $form->expects($this->any())
+        $form
             ->method('isSubmitted')
             ->willReturn(false);
         $form->expects($this->once())
             ->method('createView')
             ->willReturn('Form View');
 
-        $this->userManager->expects($this->any())
+        $this->userManager
             ->method('findUserByConfirmationToken')
             ->with('user-token')
             ->willReturn($user);
@@ -209,17 +209,17 @@ class ResetActionTest extends TestCase
             ->method('createForm')
             ->willReturn($form);
 
-        $this->urlGenerator->expects($this->any())
+        $this->urlGenerator
             ->method('generate')
             ->with('sonata_admin_dashboard')
             ->willReturn('/foo');
 
-        $this->templating->expects($this->any())
+        $this->templating
             ->method('render')
             ->with('@SonataUser/Admin/Security/Resetting/reset.html.twig', $parameters)
             ->willReturn('template content');
 
-        $this->templateRegistry->expects($this->any())
+        $this->templateRegistry
             ->method('getTemplate')
             ->with('layout')
             ->willReturn('base.html.twig');
@@ -235,7 +235,7 @@ class ResetActionTest extends TestCase
         $request = new Request();
 
         $user = $this->createMock(User::class);
-        $user->expects($this->any())
+        $user
             ->method('isPasswordRequestNonExpired')
             ->willReturn(true);
         $user->expects($this->once())
@@ -251,14 +251,14 @@ class ResetActionTest extends TestCase
             ->with(true);
 
         $form = $this->createMock(Form::class);
-        $form->expects($this->any())
+        $form
             ->method('isValid')
             ->willReturn(true);
-        $form->expects($this->any())
+        $form
             ->method('isSubmitted')
             ->willReturn(true);
 
-        $this->translator->expects($this->any())
+        $this->translator
             ->method('trans')
             ->willReturnCallback(static function ($message) {
                 return $message;
@@ -269,11 +269,11 @@ class ResetActionTest extends TestCase
             ->method('add')
             ->with('success', 'resetting.flash.success');
 
-        $this->session->expects($this->any())
+        $this->session
             ->method('getFlashBag')
             ->willReturn($bag);
 
-        $this->userManager->expects($this->any())
+        $this->userManager
             ->method('findUserByConfirmationToken')
             ->with('token')
             ->willReturn($user);
@@ -289,7 +289,7 @@ class ResetActionTest extends TestCase
             ->method('createForm')
             ->willReturn($form);
 
-        $this->urlGenerator->expects($this->any())
+        $this->urlGenerator
             ->method('generate')
             ->with('sonata_admin_dashboard')
             ->willReturn('/foo');

@@ -32,10 +32,10 @@ class EditableRolesBuilderTest extends TestCase
         $token = $this->createMock(TokenInterface::class);
 
         $tokenStorage = $this->createMock(TokenStorageInterface::class);
-        $tokenStorage->expects($this->any())->method('getToken')->willReturn($token);
+        $tokenStorage->method('getToken')->willReturn($token);
 
         $authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
-        $authorizationChecker->expects($this->any())->method('isGranted')->willReturn(true);
+        $authorizationChecker->method('isGranted')->willReturn(true);
 
         $pool = $this->getMockBuilder(Pool::class)
                 ->disableOriginalConstructor()
@@ -90,10 +90,10 @@ class EditableRolesBuilderTest extends TestCase
         $token = $this->createMock(TokenInterface::class);
 
         $tokenStorage = $this->createMock(TokenStorageInterface::class);
-        $tokenStorage->expects($this->any())->method('getToken')->willReturn($token);
+        $tokenStorage->method('getToken')->willReturn($token);
 
         $authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
-        $authorizationChecker->expects($this->any())->method('isGranted')->willReturn(true);
+        $authorizationChecker->method('isGranted')->willReturn(true);
 
         $pool = $this->getMockBuilder(Pool::class)
                 ->disableOriginalConstructor()
@@ -120,10 +120,10 @@ class EditableRolesBuilderTest extends TestCase
     public function testWithNoSecurityToken(): void
     {
         $tokenStorage = $this->createMock(TokenStorageInterface::class);
-        $tokenStorage->expects($this->any())->method('getToken')->willReturn(null);
+        $tokenStorage->method('getToken')->willReturn(null);
 
         $authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
-        $authorizationChecker->expects($this->any())->method('isGranted')->willReturn(false);
+        $authorizationChecker->method('isGranted')->willReturn(false);
 
         $pool = $this->getMockBuilder(Pool::class)
                 ->disableOriginalConstructor()

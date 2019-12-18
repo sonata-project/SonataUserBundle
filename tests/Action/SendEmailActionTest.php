@@ -116,12 +116,12 @@ class SendEmailActionTest extends TestCase
             ->with('@SonataUser/Admin/Security/Resetting/request.html.twig', $parameters)
             ->willReturn('template content');
 
-        $this->templateRegistry->expects($this->any())
+        $this->templateRegistry
             ->method('getTemplate')
             ->with('layout')
             ->willReturn('base.html.twig');
 
-        $this->userManager->expects($this->any())
+        $this->userManager
             ->method('findUserByUsernameOrEmail')
             ->with('bar')
             ->willReturn(null);
@@ -137,11 +137,11 @@ class SendEmailActionTest extends TestCase
         $request = new Request([], ['username' => 'bar']);
 
         $user = $this->createMock(User::class);
-        $user->expects($this->any())
+        $user
             ->method('isPasswordRequestNonExpired')
             ->willReturn(true);
 
-        $this->userManager->expects($this->any())
+        $this->userManager
             ->method('findUserByUsernameOrEmail')
             ->with('bar')
             ->willReturn($user);
@@ -149,7 +149,7 @@ class SendEmailActionTest extends TestCase
         $this->mailer->expects($this->never())
             ->method('sendResettingEmailMessage');
 
-        $this->urlGenerator->expects($this->any())
+        $this->urlGenerator
             ->method('generate')
             ->with('sonata_user_admin_resetting_check_email')
             ->willReturn('/foo');
@@ -166,14 +166,14 @@ class SendEmailActionTest extends TestCase
         $request = new Request([], ['username' => 'bar']);
 
         $user = $this->createMock(User::class);
-        $user->expects($this->any())
+        $user
             ->method('isPasswordRequestNonExpired')
             ->willReturn(false);
-        $user->expects($this->any())
+        $user
             ->method('isAccountNonLocked')
             ->willReturn(false);
 
-        $this->userManager->expects($this->any())
+        $this->userManager
             ->method('findUserByUsernameOrEmail')
             ->with('bar')
             ->willReturn($user);
@@ -181,7 +181,7 @@ class SendEmailActionTest extends TestCase
         $this->mailer->expects($this->never())
             ->method('sendResettingEmailMessage');
 
-        $this->urlGenerator->expects($this->any())
+        $this->urlGenerator
             ->method('generate')
             ->with('sonata_user_admin_resetting_request')
             ->willReturn('/foo');
@@ -200,27 +200,27 @@ class SendEmailActionTest extends TestCase
         $storedToken = null;
 
         $user = $this->createMock(User::class);
-        $user->expects($this->any())
+        $user
             ->method('getEmail')
             ->willReturn('user@sonata-project.org');
-        $user->expects($this->any())
+        $user
             ->method('isPasswordRequestNonExpired')
             ->willReturn(false);
-        $user->expects($this->any())
+        $user
             ->method('isAccountNonLocked')
             ->willReturn(true);
-        $user->expects($this->any())
+        $user
             ->method('setConfirmationToken')
             ->willReturnCallback(static function ($token) use (&$storedToken): void {
                 $storedToken = $token;
             });
-        $user->expects($this->any())
+        $user
             ->method('getConfirmationToken')
             ->willReturnCallback(static function () use (&$storedToken) {
                 return $storedToken;
             });
 
-        $this->userManager->expects($this->any())
+        $this->userManager
             ->method('findUserByUsernameOrEmail')
             ->with('bar')
             ->willReturn($user);
@@ -232,7 +232,7 @@ class SendEmailActionTest extends TestCase
         $this->mailer->expects($this->once())
             ->method('sendResettingEmailMessage');
 
-        $this->urlGenerator->expects($this->any())
+        $this->urlGenerator
             ->method('generate')
             ->withConsecutive(
                 ['sonata_user_admin_resetting_check_email', ['username' => 'bar']]

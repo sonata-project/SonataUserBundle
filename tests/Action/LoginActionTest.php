@@ -93,11 +93,11 @@ class LoginActionTest extends TestCase
         $user = $this->createMock(UserInterface::class);
 
         $token = $this->createMock(TokenInterface::class);
-        $token->expects($this->any())
+        $token
             ->method('getUser')
             ->willReturn($user);
 
-        $this->tokenStorage->expects($this->any())
+        $this->tokenStorage
             ->method('getToken')
             ->willReturn($token);
 
@@ -106,11 +106,11 @@ class LoginActionTest extends TestCase
             ->method('add')
             ->with('sonata_user_error', 'sonata_user_already_authenticated');
 
-        $this->session->expects($this->any())
+        $this->session
             ->method('getFlashBag')
             ->willReturn($bag);
 
-        $this->urlGenerator->expects($this->any())
+        $this->urlGenerator
             ->method('generate')
             ->with('sonata_admin_dashboard')
             ->willReturn('/foo');
@@ -132,11 +132,11 @@ class LoginActionTest extends TestCase
         $request->server->add(['HTTP_REFERER' => $referer]);
         $request->setSession($session);
 
-        $this->tokenStorage->expects($this->any())
+        $this->tokenStorage
             ->method('getToken')
             ->willReturn(null);
 
-        $this->urlGenerator->expects($this->any())
+        $this->urlGenerator
             ->method('generate')
             ->with('sonata_admin_dashboard')
             ->willReturn('/foo');
@@ -172,12 +172,12 @@ class LoginActionTest extends TestCase
             '_security.last_error' => $errorMessage,
             '_security.last_username' => $lastUsername,
         ];
-        $session->expects($this->any())
+        $session
             ->method('get')
             ->willReturnCallback(static function ($key) use ($sessionParameters) {
                 return $sessionParameters[$key] ?? null;
             });
-        $session->expects($this->any())
+        $session
             ->method('has')
             ->willReturnCallback(static function ($key) use ($sessionParameters) {
                 return isset($sessionParameters[$key]);
@@ -195,15 +195,15 @@ class LoginActionTest extends TestCase
         ];
 
         $csrfToken = $this->createMock(CsrfToken::class);
-        $csrfToken->expects($this->any())
+        $csrfToken
             ->method('getValue')
             ->willReturn('csrf-token');
 
-        $this->tokenStorage->expects($this->any())
+        $this->tokenStorage
             ->method('getToken')
             ->willReturn(null);
 
-        $this->urlGenerator->expects($this->any())
+        $this->urlGenerator
             ->method('generate')
             ->with('sonata_user_admin_resetting_request')
             ->willReturn('/foo');
@@ -213,17 +213,17 @@ class LoginActionTest extends TestCase
             ->with('ROLE_ADMIN')
             ->willReturn(false);
 
-        $this->csrfTokenManager->expects($this->any())
+        $this->csrfTokenManager
             ->method('getToken')
             ->with('authenticate')
             ->willReturn($csrfToken);
 
-        $this->templateRegistry->expects($this->any())
+        $this->templateRegistry
             ->method('getTemplate')
             ->with('layout')
             ->willReturn('base.html.twig');
 
-        $this->templating->expects($this->any())
+        $this->templating
             ->method('render')
             ->with('@SonataUser/Admin/Security/login.html.twig', $parameters)
             ->willReturn('template content');

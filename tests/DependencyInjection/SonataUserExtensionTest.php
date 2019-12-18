@@ -95,7 +95,7 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
             ->setMethods(['load', 'getAlias'])
             ->getMock();
 
-        $fakeTwigExtension->expects($this->any())
+        $fakeTwigExtension
             ->method('getAlias')
             ->willReturn('twig');
 

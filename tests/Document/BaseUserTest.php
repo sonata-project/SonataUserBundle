@@ -30,10 +30,10 @@ class BaseUserTest extends TestCase
         $user->setUpdatedAt($today);
 
         // Then
-        $this->assertTrue($user->getCreatedAt() instanceof \DateTime, 'Should return a DateTime object');
+        $this->assertInstanceOf(\DateTime::class, $user->getCreatedAt(), 'Should return a DateTime object');
         $this->assertSame($today->format('U'), $user->getCreatedAt()->format('U'), 'Should contain today\'s date');
 
-        $this->assertTrue($user->getUpdatedAt() instanceof \DateTime, 'Should return a DateTime object');
+        $this->assertInstanceOf(\DateTime::class, $user->getUpdatedAt(), 'Should return a DateTime object');
         $this->assertSame($today->format('U'), $user->getUpdatedAt()->format('U'), 'Should contain today\'s date');
     }
 
@@ -47,10 +47,10 @@ class BaseUserTest extends TestCase
         $user->prePersist();
 
         // Then
-        $this->assertTrue($user->getCreatedAt() instanceof \DateTime, 'Should contain a DateTime object');
+        $this->assertInstanceOf(\DateTime::class, $user->getCreatedAt(), 'Should contain a DateTime object');
         $this->assertSame($today->format('Y-m-d'), $user->getUpdatedAt()->format('Y-m-d'), 'Should be created today');
 
-        $this->assertTrue($user->getUpdatedAt() instanceof \DateTime, 'Should contain a DateTime object');
+        $this->assertInstanceOf(\DateTime::class, $user->getUpdatedAt(), 'Should contain a DateTime object');
         $this->assertSame($today->format('Y-m-d'), $user->getUpdatedAt()->format('Y-m-d'), 'Should be updated today');
     }
 
@@ -65,10 +65,10 @@ class BaseUserTest extends TestCase
         $user->preUpdate();
 
         // Then
-        $this->assertTrue($user->getCreatedAt() instanceof \DateTime, 'Should contain a DateTime object');
+        $this->assertInstanceOf(\DateTime::class, $user->getCreatedAt(), 'Should contain a DateTime object');
         $this->assertSame('2012-01-01', $user->getCreatedAt()->format('Y-m-d'), 'Should be created at 2012-01-01.');
 
-        $this->assertTrue($user->getUpdatedAt() instanceof \DateTime, 'Should contain a DateTime object');
+        $this->assertInstanceOf(\DateTime::class, $user->getUpdatedAt(), 'Should contain a DateTime object');
         $this->assertSame($today->format('Y-m-d'), $user->getUpdatedAt()->format('Y-m-d'), 'Should be updated today');
     }
 
@@ -77,9 +77,9 @@ class BaseUserTest extends TestCase
         // Given
         $user = new BaseUser();
         $group1 = $this->createMock(GroupInterface::class);
-        $group1->expects($this->any())->method('getName')->willReturn('Group 1');
+        $group1->method('getName')->willReturn('Group 1');
         $group2 = $this->createMock(GroupInterface::class);
-        $group2->expects($this->any())->method('getName')->willReturn('Group 2');
+        $group2->method('getName')->willReturn('Group 2');
 
         // When
         $user->setGroups([$group1, $group2]);

@@ -72,10 +72,10 @@ class MailerTest extends TestCase
     public function testSendResettingEmailMessage($template, $subject, $body): void
     {
         $user = $this->createMock(UserInterface::class);
-        $user->expects($this->any())
+        $user
             ->method('getConfirmationToken')
             ->willReturn('user-token');
-        $user->expects($this->any())
+        $user
             ->method('getEmail')
             ->willReturn('user@sonata-project.org');
 

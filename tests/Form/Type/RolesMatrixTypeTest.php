@@ -57,7 +57,7 @@ final class RolesMatrixTypeTest extends TypeTestCase
 
         $this->assertTrue($form->isSynchronized());
         $this->assertCount(1, $form->getData());
-        $this->assertTrue(\in_array('ROLE_FOO', $form->getData(), true));
+        $this->assertContains('ROLE_FOO', $form->getData());
     }
 
     public function testSubmitInvalidData(): void
@@ -78,7 +78,7 @@ final class RolesMatrixTypeTest extends TypeTestCase
     {
         $this->roleBuilder = $this->createMock(ExpandableRolesBuilderInterface::class);
 
-        $this->roleBuilder->expects($this->any())->method('getRoles')->willReturn([
+        $this->roleBuilder->method('getRoles')->willReturn([
           'ROLE_FOO' => 'ROLE_FOO',
           'ROLE_USER' => 'ROLE_USER',
           'ROLE_ADMIN' => 'ROLE_ADMIN: ROLE_USER',

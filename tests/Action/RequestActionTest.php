@@ -68,7 +68,7 @@ class RequestActionTest extends TestCase
             ->method('isGranted')
             ->willReturn(true);
 
-        $this->urlGenerator->expects($this->any())
+        $this->urlGenerator
             ->method('generate')
             ->with('sonata_admin_dashboard')
             ->willReturn('/foo');
@@ -98,7 +98,7 @@ class RequestActionTest extends TestCase
             ->with('@SonataUser/Admin/Security/Resetting/request.html.twig', $parameters)
             ->willReturn('template content');
 
-        $this->templateRegistry->expects($this->any())
+        $this->templateRegistry
             ->method('getTemplate')
             ->with('layout')
             ->willReturn('base.html.twig');
