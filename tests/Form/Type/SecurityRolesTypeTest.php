@@ -57,7 +57,7 @@ class SecurityRolesTypeTest extends TypeTestCase
 
         $this->assertTrue($form->isSynchronized());
         $this->assertCount(1, $form->getData());
-        $this->assertTrue(\in_array('ROLE_FOO', $form->getData(), true));
+        $this->assertContains('ROLE_FOO', $form->getData());
     }
 
     public function testSubmitInvalidData(): void
@@ -93,17 +93,17 @@ class SecurityRolesTypeTest extends TypeTestCase
         $this->assertContains('ROLE_SUPER_ADMIN', $form->getData());
     }
 
-    protected function getExtensions()
+    protected function getExtensions(): array
     {
-        $this->roleBuilder = $roleBuilder = $this->createMock(EditableRolesBuilder::class);
+        $this->roleBuilder = $this->createMock(EditableRolesBuilder::class);
 
-        $this->roleBuilder->expects($this->any())->method('getRoles')->willReturn([
+        $this->roleBuilder->method('getRoles')->willReturn([
           'ROLE_FOO' => 'ROLE_FOO',
           'ROLE_USER' => 'ROLE_USER',
           'ROLE_ADMIN' => 'ROLE_ADMIN: ROLE_USER',
         ]);
 
-        $this->roleBuilder->expects($this->any())->method('getRolesReadOnly')->willReturn([]);
+        $this->roleBuilder->method('getRolesReadOnly')->willReturn([]);
 
         $childType = new SecurityRolesType($this->roleBuilder);
 
@@ -112,8 +112,8 @@ class SecurityRolesTypeTest extends TypeTestCase
         ], [])];
     }
 
-    private function getSecurityRolesTypeName()
+    private function getSecurityRolesTypeName(): string
     {
-        return 'Sonata\UserBundle\Form\Type\SecurityRolesType';
+        return SecurityRolesType::class;
     }
 }

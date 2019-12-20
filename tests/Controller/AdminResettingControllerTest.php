@@ -53,14 +53,14 @@ class AdminResettingControllerTest extends TestCase
             SendEmailAction::class => $this->testAction,
             'request_stack' => $this->requestStack,
         ];
-        $this->container->expects($this->any())
+        $this->container
             ->method('has')
-            ->willReturnCallback(static function ($service) use ($services) {
+            ->willReturnCallback(static function (string $service) use ($services): bool {
                 return isset($services[$service]);
             });
-        $this->container->expects($this->any())
+        $this->container
             ->method('get')
-            ->willReturnCallback(static function ($service) use ($services) {
+            ->willReturnCallback(static function (string $service) use ($services) {
                 return $services[$service] ?? null;
             });
     }
@@ -81,7 +81,7 @@ class AdminResettingControllerTest extends TestCase
     {
         $request = new Request();
 
-        $this->requestStack->expects($this->any())
+        $this->requestStack
             ->method('getCurrentRequest')
             ->willReturn($request);
 
@@ -95,7 +95,7 @@ class AdminResettingControllerTest extends TestCase
     {
         $request = new Request();
 
-        $this->requestStack->expects($this->any())
+        $this->requestStack
             ->method('getCurrentRequest')
             ->willReturn($request);
 
@@ -109,7 +109,7 @@ class AdminResettingControllerTest extends TestCase
     {
         $request = new Request();
 
-        $this->requestStack->expects($this->any())
+        $this->requestStack
             ->method('getCurrentRequest')
             ->willReturn($request);
 
@@ -123,7 +123,7 @@ class AdminResettingControllerTest extends TestCase
     {
         $request = new Request();
 
-        $this->requestStack->expects($this->any())
+        $this->requestStack
             ->method('getCurrentRequest')
             ->willReturn($request);
 

@@ -18,6 +18,7 @@ use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Entity\BaseGroup;
 use Sonata\UserBundle\Entity\GroupManager;
@@ -28,7 +29,7 @@ final class GroupManagerTest extends TestCase
     {
         $self = $this;
         $this
-            ->getUserManager(static function ($qb) use ($self): void {
+            ->getUserManager(static function (MockObject $qb) use ($self): void {
                 $qb->expects($self->once())->method('getRootAliases')->willReturn(['g']);
                 $qb->expects($self->never())->method('andWhere');
                 $qb->expects($self->once())->method('orderBy')->with(
@@ -47,7 +48,7 @@ final class GroupManagerTest extends TestCase
 
         $self = $this;
         $this
-            ->getUserManager(static function ($qb) use ($self): void {
+            ->getUserManager(static function (MockObject $qb) use ($self): void {
                 $qb->expects($self->never())->method('andWhere');
                 $qb->expects($self->never())->method('orderBy');
                 $qb->expects($self->never())->method('setParameters');
@@ -59,7 +60,7 @@ final class GroupManagerTest extends TestCase
     {
         $self = $this;
         $this
-            ->getUserManager(static function ($qb) use ($self): void {
+            ->getUserManager(static function (MockObject $qb) use ($self): void {
                 $qb->expects($self->once())->method('getRootAliases')->willReturn(['g']);
                 $qb->expects($self->once())->method('andWhere')->with($self->equalTo('g.enabled = :enabled'));
                 $qb->expects($self->once())->method('orderBy')->with(
@@ -75,7 +76,7 @@ final class GroupManagerTest extends TestCase
     {
         $self = $this;
         $this
-            ->getUserManager(static function ($qb) use ($self): void {
+            ->getUserManager(static function (MockObject $qb) use ($self): void {
                 $qb->expects($self->once())->method('getRootAliases')->willReturn(['g']);
                 $qb->expects($self->once())->method('andWhere')->with($self->equalTo('g.enabled = :enabled'));
                 $qb->expects($self->once())->method('orderBy')->with(
@@ -87,7 +88,7 @@ final class GroupManagerTest extends TestCase
             ->getPager(['enabled' => false], 1);
     }
 
-    private function getUserManager($qbCallback): GroupManager
+    private function getUserManager(\Closure $qbCallback): GroupManager
     {
         $query = $this->createMock(AbstractQuery::class);
         $query->method('execute')->willReturn(true);

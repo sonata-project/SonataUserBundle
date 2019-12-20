@@ -16,6 +16,12 @@ namespace Sonata\UserBundle\Tests\DependencyInjection;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Sonata\UserBundle\DependencyInjection\Configuration;
 use Sonata\UserBundle\DependencyInjection\SonataUserExtension;
+use Sonata\UserBundle\Document\BaseUser;
+use Sonata\UserBundle\Entity\BaseGroup;
+use Sonata\UserBundle\Tests\Admin\Document\GroupAdmin;
+use Sonata\UserBundle\Tests\Admin\Document\UserAdmin;
+use Sonata\UserBundle\Tests\Document\Group;
+use Sonata\UserBundle\Tests\Document\User;
 use Symfony\Bundle\TwigBundle\DependencyInjection\TwigExtension;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -104,7 +110,7 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
             ->setMethods(['load', 'getAlias'])
             ->getMock();
 
-        $fakeTwigExtension->expects($this->any())
+        $fakeTwigExtension
             ->method('getAlias')
             ->willReturn('twig');
 
@@ -133,17 +139,17 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
 
     public function testCorrectModelClass(): void
     {
-        $this->load(['class' => ['user' => 'Sonata\UserBundle\Tests\Entity\User']]);
+        $this->load(['class' => ['user' => \Sonata\UserBundle\Tests\Entity\User::class]]);
     }
 
     public function testCorrectModelClassWithLeadingSlash(): void
     {
-        $this->load(['class' => ['user' => '\Sonata\UserBundle\Tests\Entity\User']]);
+        $this->load(['class' => ['user' => \Sonata\UserBundle\Tests\Entity\User::class]]);
     }
 
     public function testCorrectAdminClass(): void
     {
-        $this->load(['admin' => ['user' => ['class' => '\Sonata\UserBundle\Tests\Admin\Entity\UserAdmin']]]);
+        $this->load(['admin' => ['user' => ['class' => \Sonata\UserBundle\Tests\Admin\Entity\UserAdmin::class]]]);
     }
 
     public function testCorrectModelClassWithNotDefaultManagerType(): void
@@ -151,12 +157,12 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
         $this->load([
             'manager_type' => 'mongodb',
             'class' => [
-                'user' => 'Sonata\UserBundle\Tests\Document\User',
-                'group' => 'Sonata\UserBundle\Tests\Document\Group',
+                'user' => User::class,
+                'group' => Group::class,
             ],
             'admin' => [
-                'user' => ['class' => 'Sonata\UserBundle\Tests\Admin\Document\UserAdmin'],
-                'group' => ['class' => 'Sonata\UserBundle\Tests\Admin\Document\GroupAdmin'],
+                'user' => ['class' => UserAdmin::class],
+                'group' => ['class' => GroupAdmin::class],
             ],
         ]);
     }
@@ -169,7 +175,7 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
             'Model class "Sonata\UserBundle\Entity\BaseUser" does not correspond to manager type "mongodb".'
         );
 
-        $this->load(['manager_type' => 'mongodb', 'class' => ['user' => 'Sonata\UserBundle\Entity\BaseUser']]);
+        $this->load(['manager_type' => 'mongodb', 'class' => ['user' => \Sonata\UserBundle\Entity\BaseUser::class]]);
     }
 
     public function testNotCorrespondingModelClass(): void
@@ -181,8 +187,8 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
         );
 
         $this->load(['manager_type' => 'mongodb', 'class' => [
-            'user' => 'Sonata\UserBundle\Document\BaseUser',
-            'group' => 'Sonata\UserBundle\Entity\BaseGroup',
+            'user' => BaseUser::class,
+            'group' => BaseGroup::class,
         ]]);
     }
 
@@ -223,7 +229,7 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
     /**
      * {@inheritdoc}
      */
-    protected function getContainerExtensions()
+    protected function getContainerExtensions(): array
     {
         return [
             new SonataUserExtension(),

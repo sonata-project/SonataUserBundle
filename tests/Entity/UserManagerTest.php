@@ -20,6 +20,7 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use FOS\UserBundle\Util\CanonicalFieldsUpdater;
 use FOS\UserBundle\Util\PasswordUpdaterInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Entity\BaseUser;
 use Sonata\UserBundle\Entity\UserManager;
@@ -30,7 +31,7 @@ final class UserManagerTest extends TestCase
     {
         $self = $this;
         $this
-            ->getUserManager(static function ($qb) use ($self): void {
+            ->getUserManager(static function (MockObject $qb) use ($self): void {
                 $qb->expects($self->once())->method('getRootAliases')->willReturn(['u']);
                 $qb->expects($self->never())->method('andWhere');
                 $qb->expects($self->once())->method('orderBy')->with(
@@ -48,7 +49,7 @@ final class UserManagerTest extends TestCase
 
         $self = $this;
         $this
-            ->getUserManager(static function ($qb) use ($self): void {
+            ->getUserManager(static function (MockObject $qb) use ($self): void {
                 $qb->expects($self->never())->method('andWhere');
                 $qb->expects($self->never())->method('orderBy');
                 $qb->expects($self->never())->method('setParameters');
@@ -60,7 +61,7 @@ final class UserManagerTest extends TestCase
     {
         $self = $this;
         $this
-            ->getUserManager(static function ($qb) use ($self): void {
+            ->getUserManager(static function (MockObject $qb) use ($self): void {
                 $qb->expects($self->once())->method('getRootAliases')->willReturn(['u']);
                 $qb->expects($self->once())->method('andWhere')->with($self->equalTo('u.enabled = :enabled'));
                 $qb->expects($self->once())->method('setParameter')->with(
@@ -79,7 +80,7 @@ final class UserManagerTest extends TestCase
     {
         $self = $this;
         $this
-            ->getUserManager(static function ($qb) use ($self): void {
+            ->getUserManager(static function (MockObject $qb) use ($self): void {
                 $qb->expects($self->once())->method('getRootAliases')->willReturn(['u']);
                 $qb->expects($self->once())->method('andWhere')->with($self->equalTo('u.enabled = :enabled'));
                 $qb->expects($self->once())->method('setParameter')->with(
@@ -98,7 +99,7 @@ final class UserManagerTest extends TestCase
     {
         $self = $this;
         $this
-            ->getUserManager(static function ($qb) use ($self): void {
+            ->getUserManager(static function (MockObject $qb) use ($self): void {
                 $qb->expects($self->once())->method('getRootAliases')->willReturn(['u']);
                 $qb->expects($self->once())->method('andWhere')->with($self->equalTo('u.enabled = :enabled'));
                 $qb->expects($self->once())->method('setParameter')->with(
