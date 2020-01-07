@@ -1,0 +1,48 @@
+{#
+
+This file is part of the Sonata package.
+
+(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
+{% extends sonata_block.templates.block_base %}
+
+{% block block %}
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <i class="fa fa-barcode"></i> {{ 'user_block_profile' | trans({}, "SonataUserBundle") }}
+            </h3>
+        </div>
+
+            {% if user %}
+                <table class="panel-body table table-condensed">
+                    <tr>
+                        <th>{{ 'list.label_username' | trans({}, "SonataUserBundle") }}</th>
+                        <td>{{ user.username }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'label_profile_firstname' | trans({}, "SonataUserBundle") }}</th>
+                        <td>{{ user.firstname }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'label_profile_lastname' | trans({}, "SonataUserBundle") }}</th>
+                        <td>{{ user.lastname }}</td>
+                    </tr>
+
+                    <th>{{ 'list.label_email' | trans({}, "SonataUserBundle") }}</th>
+                    <td>{{ user.email }}</td>
+                    </tr>
+                </table>
+            {% else %}
+                <a href="{{ path('fos_user_security_login') }}">{{ 'link_login'|trans({}, 'SonataUserBundle') }}
+                    / {{ 'link_register'|trans({}, 'SonataUserBundle') }}</a>
+            {% endif %}
+        </div>
+
+{% endblock %}

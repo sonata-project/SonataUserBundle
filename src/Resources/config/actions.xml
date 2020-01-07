@@ -57,5 +57,11 @@
         </service>
         <service id="Sonata\UserBundle\Action\CheckLoginAction" class="Sonata\UserBundle\Action\CheckLoginAction" public="true"/>
         <service id="Sonata\UserBundle\Action\LogoutAction" class="Sonata\UserBundle\Action\LogoutAction" public="true"/>
+        <service id="Sonata\UserBundle\Action\ProfileDashboardAction" class="Sonata\UserBundle\Action\ProfileDashboardAction" public="true">
+            <argument type="service" id="twig"/>
+            <argument type="service" id="security.token_storage"/>
+            <argument type="service" id="security.authorization_checker"/>
+            <argument type="collection"/>
+        </service>
     </services>
 </container>

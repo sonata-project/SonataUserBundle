@@ -53,4 +53,9 @@ class GlobalVariables
     {
         return $this->container->get('sonata.user.admin.user');
     }
+
+    public function getProfileTemplate(): string
+    {
+        return $this->container->getParameter('sonata.user.profile.template');
+    }
 }

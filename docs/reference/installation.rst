@@ -188,6 +188,9 @@ Add the related security routing information:
         resource: '@SonataUserBundle/Resources/config/routing/admin_resetting.xml'
         prefix: /admin/resetting
 
+    sonata_user_profile:
+        resource: '@SonataUserBundle/Resources/config/routing/profile.xml'
+        prefix: /user_profile
 .. note::
 
     If you are not using Symfony Flex, routes should be added to ``app/config/routing.yml``.

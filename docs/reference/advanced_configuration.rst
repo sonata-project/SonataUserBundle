@@ -52,6 +52,27 @@ Full configuration options:
 
         profile:
             default_avatar: 'bundles/sonatauser/default_avatar.png' # Default avatar displayed if the user doesn't have one
+            template:       '@SonataUser/Profile/action.html.twig' # or '@SonataUser/Profile/action_with_customer_menu.html.twig'
+            menu_builder:   'sonata.user.profile.menu_builder.default'
+
+            menu:
+                -
+                    route: 'sonata_user_profile_dashboard'
+                    label: 'link_show_profile'
+                    domain: 'SonataUserBundle'
+                    route_parameters:  {}
+
+            blocks:
+                -
+                    position: left
+                    type: sonata.user.block.account
+                    settings:
+                        template: '@SonataUser/Block/account_dashboard.html.twig'
+                -
+                    position: right
+                    type: sonata.block.service.text
+                    settings:
+                        content: '<h2>Welcome!</h2> This is a sample user profile dashboard, feel free to override it in the configuration!'
 
         mailer: sonata.user.mailer.default # Service used to send emails
 

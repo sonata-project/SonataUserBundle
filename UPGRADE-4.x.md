@@ -1,6 +1,11 @@
 UPGRADE 4.x
 ===========
 
+## Restored user profile part with some changes
+
+User profile from 3.x version are restored. Configuration parameter: `template` and `menu_builder` 
+was added to improve modification performance. 
+ 
 ### Deprecated `TwoStepVerificationCommand` with no arguments
 
 Attempting to run that command with 2FA enabled and without building the

@@ -60,6 +60,14 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
             $loader->load(sprintf('admin_%s.xml', $config['manager_type']));
         }
 
+        if (isset($bundles['SonataBlockBundle'])) {
+            $loader->load('block.xml');
+
+            if (isset($bundles['SonataSeoBundle'])) {
+                $loader->load('seo_block.xml');
+            }
+        }
+
         $loader->load(sprintf('%s.xml', $config['manager_type']));
 
         $this->aliasManagers($container, $config['manager_type']);
@@ -82,6 +90,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         $loader->load('command.xml');
         $loader->load('actions.xml');
         $loader->load('mailer.xml');
+        $loader->load('menu.xml');
 
         if ('orm' === $config['manager_type'] && isset(
             $bundles['FOSRestBundle'],
@@ -113,6 +122,8 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         $container->setParameter('sonata.user.impersonating', $config['impersonating']);
 
         $this->configureGoogleAuthenticator($config, $container);
+
+        $this->configureUserProfile($container, $config);
     }
 
     /**
@@ -310,5 +321,15 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     private function configureMailer(array $config, ContainerBuilder $container): void
     {
         $container->setAlias('sonata.user.mailer', $config['mailer']);
+    }
+
+    private function configureUserProfile(ContainerBuilder $container, array $config)
+    {
+        $container->setParameter('sonata.user.profile.blocks', $config['profile']['blocks']);
+        $container->getDefinition('Sonata\UserBundle\Action\ProfileDashboardAction')->replaceArgument(2, $config['profile']['blocks']);
+        $container->setParameter('sonata.user.profile.template', $config['profile']['template']);
+
+        $container->setAlias('sonata.user.profile.menu_builder', $config['profile']['menu_builder']);
+        $container->getDefinition('sonata.user.profile.menu_builder.default')->replaceArgument(2, $config['profile']['menu']);
     }
 }
