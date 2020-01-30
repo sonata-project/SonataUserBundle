@@ -87,7 +87,7 @@ class TwoFactorLoginSuccessHandlerTest extends TestCase
     private function createTestClass(?string $secret, string $userRole, ?string $remoteAddr, bool $needSession): void
     {
         $this->user = new BaseUser();
-        if ($secret !== null) {
+        if (null !== $secret) {
             $this->user->setTwoStepVerificationCode($secret);
         }
         $this->token = new UsernamePasswordToken($this->user, null, 'admin', [$userRole]);
@@ -114,7 +114,7 @@ class TwoFactorLoginSuccessHandlerTest extends TestCase
             $routerMock
         );
         $this->request = Request::create('/');
-        if ($remoteAddr !== null) {
+        if (null !== $remoteAddr) {
             $this->request->server->set('REMOTE_ADDR', $remoteAddr);
         }
         if ($needSession) {
