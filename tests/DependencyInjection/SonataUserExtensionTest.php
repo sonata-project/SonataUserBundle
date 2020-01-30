@@ -276,7 +276,7 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
     /**
      * {@inheritdoc}
      */
-    protected function getMinimalConfiguration()
+    protected function getMinimalConfiguration(): array
     {
         return (new Processor())->process((new Configuration())->getConfigTreeBuilder()->buildTree(), []);
     }
@@ -289,21 +289,5 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
         return [
             new SonataUserExtension(),
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function load(array $configurationValues = []): void
-    {
-        $configs = [$this->getMinimalConfiguration(), $configurationValues];
-
-        foreach ($this->container->getExtensions() as $extension) {
-            if ($extension instanceof PrependExtensionInterface) {
-                $extension->prepend($this->container);
-            }
-
-            $extension->load($configs, $this->container);
-        }
     }
 }
