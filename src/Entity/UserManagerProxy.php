@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Entity;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Sonata\CoreBundle\Model\BaseEntityManager;
+use Sonata\Doctrine\Entity\BaseEntityManager;
 
 /**
  * This UserManageProxy class is used to keep UserManager compatible with Sonata ManagerInterface implementation

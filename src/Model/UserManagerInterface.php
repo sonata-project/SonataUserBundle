@@ -14,12 +14,12 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Model;
 
 use FOS\UserBundle\Model\UserManagerInterface as BaseInterface;
-use Sonata\CoreBundle\Model\PageableManagerInterface;
+use Sonata\DatagridBundle\Pager\PageableInterface;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
  */
-interface UserManagerInterface extends BaseInterface, PageableManagerInterface
+interface UserManagerInterface extends BaseInterface, PageableInterface
 {
     /**
      * Alias for the repository method.

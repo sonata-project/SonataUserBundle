@@ -25,7 +25,7 @@
         "friendsofsymfony/user-bundle": "^2.0",
         "sonata-project/admin-bundle": "^3.34",
         "sonata-project/core-bundle": "^3.18",
-        "sonata-project/datagrid-bundle": "^2.2.1",
+        "sonata-project/datagrid-bundle": "^2.4.0",
         "sonata-project/doctrine-extensions": "^1.5.1",
         "sonata-project/easy-extends-bundle": "^2.2",
         "swiftmailer/swiftmailer": "^4.3 || ^5.0 || ^6.0",
