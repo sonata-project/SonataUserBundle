@@ -67,7 +67,7 @@ class TwoFactorLoginSuccessHandlerTest extends TestCase
     /**
      * @dataProvider data
      */
-    public function testDifferentCases(string $secret, string $role, string $ip, bool $needSession, string $expected): void
+    public function testDifferentCases(?string $secret, string $role, ?string $ip, bool $needSession, string $expected): void
     {
         $this->createTestClass($secret, $role, $ip, $needSession);
         $response = $this->testClass->onAuthenticationSuccess($this->request, $this->token);
@@ -77,17 +77,17 @@ class TwoFactorLoginSuccessHandlerTest extends TestCase
     public function data(): array
     {
         return [
-            [false, 'ROLE_USER', '192.168.1.1', false, Response::class],
-            [false, 'ROLE_ADMIN', false, false, RedirectResponse::class],
+            [null, 'ROLE_USER', '192.168.1.1', false, Response::class],
+            [null, 'ROLE_ADMIN', null, false, RedirectResponse::class],
             ['AQAOXT322JDYRKVJ', 'ROLE_ADMIN', '192.168.1.1', true, RedirectResponse::class],
-            [false, 'ROLE_ADMIN', '192.168.1.1', false, Response::class],
+            [null, 'ROLE_ADMIN', '192.168.1.1', false, Response::class],
         ];
     }
 
-    private function createTestClass(string $secret, string $userRole, string $remoteAddr, bool $needSession): void
+    private function createTestClass(?string $secret, string $userRole, ?string $remoteAddr, bool $needSession): void
     {
         $this->user = (new BaseUser())->setUsername('username');
-        if ($secret) {
+        if (null !== $secret) {
             $this->user->setTwoStepVerificationCode($secret);
         }
         $this->token = new UsernamePasswordToken($this->user, null, 'admin', [$userRole]);
@@ -114,7 +114,7 @@ class TwoFactorLoginSuccessHandlerTest extends TestCase
             $routerMock
         );
         $this->request = Request::create('/');
-        if ($remoteAddr) {
+        if (null !== $remoteAddr) {
             $this->request->server->set('REMOTE_ADDR', $remoteAddr);
         }
         if ($needSession) {
