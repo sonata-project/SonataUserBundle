@@ -40,7 +40,7 @@ are not already enabled::
     // config/bundles.php
 
     return [
-        //...
+        // ...
         Sonata\AdminBundle\SonataAdminBundle::class => ['all' => true],
         Sonata\CoreBundle\SonataCoreBundle::class => ['all' => true],
         Sonata\BlockBundle\SonataBlockBundle::class => ['all' => true],
@@ -58,7 +58,7 @@ are not already enabled::
 
     // app/AppKernel.php
 
-    public function registerbundles()
+    public function registerBundles()
     {
         return [
             new Sonata\AdminBundle\SonataAdminBundle(),
@@ -323,7 +323,7 @@ Now, add the new ``Application`` Bundle into the ``bundles.php``::
     // config/bundles.php
 
     return [
-        //...
+        // ...
         App\Application\Sonata\UserBundle\ApplicationSonataUserBundle::class => ['all' => true],
     ];
 
@@ -336,7 +336,7 @@ Now, add the new ``Application`` Bundle into the ``bundles.php``::
 
     // app/AppKernel.php
 
-    public function registerbundles()
+    public function registerBundles()
     {
         return [
             // ...
@@ -366,19 +366,12 @@ too:
                         ApplicationSonataUserBundle: ~
 
 And configure FOSUserBundle and SonataUserBundle to use the newly generated
-User and Group classes:
-
-.. note::
-
-    If you are not using Symfony Flex, add classes without the ``App\``
-    part.
-
-.. code-block:: php
+User and Group classes::
 
     # config/packages/fos_user.yaml
 
     fos_user:
-        #...
+        # ...
         user_class:     App\Application\Sonata\UserBundle\Entity\User
 
         group:
@@ -393,8 +386,13 @@ User and Group classes:
             user: App\Application\Sonata\UserBundle\Entity\User
             group: App\Application\Sonata\UserBundle\Entity\Group
 
+.. note::
+
+    If you are not using Symfony Flex, add classes without the ``App\``
+    part.
+
 The only thing left is to update your schema:
 
 .. code-block:: bash
 
-    php bin/console doctrine:schema:update --force
+    bin/console doctrine:schema:update --force
