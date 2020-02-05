@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.5.2](https://github.com/sonata-project/SonataUserBundle/compare/4.5.1...4.5.2) - 2020-02-04
+### Fixed
+- some deprecations form the core bundle
+- Doctrine MongoDB mapping
+
 ## [4.5.1](https://github.com/sonata-project/SonataUserBundle/compare/4.5.0...4.5.1) - 2019-10-21
 ### Added
 - Add missing translation for admin menu
