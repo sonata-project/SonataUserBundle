@@ -50,12 +50,12 @@ class Helper
      * @param string[] $ipWhiteList IPs that will bypass 2FA authorization
      */
     public function __construct(
-      $server,
-      BaseGoogleAuthenticator $authenticator,
-      AuthorizationCheckerInterface $authorizationChecker,
-      array $forcedForRoles = [],
-      array $ipWhiteList = []
-      ) {
+        $server,
+        BaseGoogleAuthenticator $authenticator,
+        AuthorizationCheckerInterface $authorizationChecker,
+        array $forcedForRoles = [],
+        array $ipWhiteList = []
+    ) {
         $this->server = $server;
         $this->authenticator = $authenticator;
         $this->authorizationChecker = $authorizationChecker;
