@@ -16,7 +16,7 @@
             </trans-unit>
             <trans-unit id="title_user_authentication">
                 <source>title_user_authentication</source>
-                <target>Authentication</target>
+                <target>Přihlášení</target>
             </trans-unit>
             <trans-unit id="sonata_user_submit">
                 <source>sonata_user_submit</source>
@@ -72,7 +72,7 @@
             </trans-unit>
             <trans-unit id="user_block_profile">
                 <source>user_block_profile</source>
-                <target>user_block_profile</target>
+                <target>Profil</target>
             </trans-unit>
             <trans-unit id="user_form.label_username">
                 <source>form.label_username</source>
@@ -460,15 +460,15 @@
             </trans-unit>
             <trans-unit id="title_user_edit_password">
                 <source>title_user_edit_password</source>
-                <target>title_user_edit_password</target>
+                <target>Změnit heslo</target>
             </trans-unit>
             <trans-unit id="title_user_resetting">
                 <source>title_user_resetting</source>
-                <target>title_user_resetting</target>
+                <target>Resetování hesla</target>
             </trans-unit>
             <trans-unit id="title_user_resetting_reset">
                 <source>title_user_resetting_reset</source>
-                <target>title_user_resetting_reset</target>
+                <target>Resetovat heslo</target>
             </trans-unit>
         </body>
     </file>
