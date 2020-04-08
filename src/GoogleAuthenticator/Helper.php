@@ -99,7 +99,7 @@ class Helper
 
     public function needToHaveGoogle2FACode(Request $request): bool
     {
-        $ip = $request->server->get('HTTP_X_FORWARDED_FOR', $request->server->get('REMOTE_ADDR'));
+        $ip = $request->getClientIp();
         if (\in_array($ip, $this->ipWhiteList, true)) {
             return false;
         }
