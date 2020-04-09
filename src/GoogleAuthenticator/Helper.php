@@ -99,8 +99,7 @@ class Helper
 
     public function needToHaveGoogle2FACode(Request $request): bool
     {
-        $ip = $request->getClientIp();
-        if (\in_array($ip, $this->ipWhiteList, true)) {
+        if (\in_array($request->getClientIp(), $this->ipWhiteList, true)) {
             return false;
         }
 
