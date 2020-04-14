@@ -165,7 +165,7 @@ class LoginActionTest extends TestCase
     /**
      * @dataProvider unauthenticatedProvider
      */
-    public function testUnauthenticated(string $lastUsername, AuthenticationException $errorMessage = null): void
+    public function testUnauthenticated(string $lastUsername, ?AuthenticationException $errorMessage = null): void
     {
         $session = $this->createMock(Session::class);
         $sessionParameters = [

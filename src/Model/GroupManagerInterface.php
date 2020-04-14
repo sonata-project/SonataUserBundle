@@ -30,5 +30,5 @@ interface GroupManagerInterface extends BaseInterface, PageableInterface
      *
      * @return GroupInterface[]
      */
-    public function findGroupsBy(array $criteria = null, array $orderBy = null, $limit = null, $offset = null);
+    public function findGroupsBy(?array $criteria = null, ?array $orderBy = null, $limit = null, $offset = null);
 }

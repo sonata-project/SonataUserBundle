@@ -60,7 +60,7 @@ class UserManagerProxy extends BaseEntityManager
     /**
      * {@inheritdoc}
      */
-    public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+    public function findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null)
     {
         return $this->userManager->findBy($criteria, $orderBy, $limit, $offset);
     }
@@ -68,7 +68,7 @@ class UserManagerProxy extends BaseEntityManager
     /**
      * {@inheritdoc}
      */
-    public function findOneBy(array $criteria, array $orderBy = null)
+    public function findOneBy(array $criteria, ?array $orderBy = null)
     {
         return $this->userManager->findOneBy($criteria, $orderBy);
     }
