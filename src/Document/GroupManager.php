@@ -24,7 +24,7 @@ class GroupManager extends BaseGroupManager implements GroupManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function findGroupsBy(array $criteria = null, array $orderBy = null, $limit = null, $offset = null)
+    public function findGroupsBy(?array $criteria = null, ?array $orderBy = null, $limit = null, $offset = null)
     {
         return $this->repository->findBy($criteria, $orderBy, $limit, $offset);
     }

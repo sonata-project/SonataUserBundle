@@ -75,7 +75,7 @@ final class AdminRolesBuilder implements AdminRolesBuilderInterface
         $this->excludeAdmins[] = $exclude;
     }
 
-    public function getRoles(string $domain = null): array
+    public function getRoles(?string $domain = null): array
     {
         $adminRoles = [];
         foreach ($this->pool->getAdminServiceIds() as $id) {

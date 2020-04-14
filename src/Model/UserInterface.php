@@ -24,7 +24,7 @@ interface UserInterface extends \FOS\UserBundle\Model\UserInterface
      *
      * @return UserInterface
      */
-    public function setCreatedAt(\DateTime $createdAt = null);
+    public function setCreatedAt(?\DateTime $createdAt = null);
 
     /**
      * Returns the creation date.
@@ -38,7 +38,7 @@ interface UserInterface extends \FOS\UserBundle\Model\UserInterface
      *
      * @return UserInterface
      */
-    public function setUpdatedAt(\DateTime $updatedAt = null);
+    public function setUpdatedAt(?\DateTime $updatedAt = null);
 
     /**
      * Returns the last update date.
