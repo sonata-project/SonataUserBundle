@@ -252,10 +252,10 @@ class UserControllerTest extends TestCase
      * @param $formFactory
      */
     public function createUserController(
-        UserInterface $user = null,
-        UserManagerInterface $userManager = null,
-        GroupManagerInterface $groupManager = null,
-        FormFactoryInterface $formFactory = null
+        ?UserInterface $user = null,
+        ?UserManagerInterface $userManager = null,
+        ?GroupManagerInterface $groupManager = null,
+        ?FormFactoryInterface $formFactory = null
     ): UserController {
         if (null === $userManager) {
             $userManager = $this->createMock(UserManagerInterface::class);
