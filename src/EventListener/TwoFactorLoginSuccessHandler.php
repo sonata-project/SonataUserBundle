@@ -56,7 +56,7 @@ final class TwoFactorLoginSuccessHandler implements AuthenticationSuccessHandler
         Environment $engine,
         Helper $helper,
         UserManagerInterface $userManager,
-        UrlGeneratorInterface $urlGenerator = null // NEXT_MAJOR: make it mandatory.
+        ?UrlGeneratorInterface $urlGenerator = null // NEXT_MAJOR: make it mandatory.
     ) {
         $this->engine = $engine;
         $this->googleAuthenticator = $helper;

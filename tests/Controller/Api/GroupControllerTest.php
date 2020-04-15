@@ -165,9 +165,9 @@ class GroupControllerTest extends TestCase
     }
 
     public function createGroupController(
-        GroupInterface $group = null,
-        GroupManagerInterface $groupManager = null,
-        FormFactoryInterface $formFactory = null
+        ?GroupInterface $group = null,
+        ?GroupManagerInterface $groupManager = null,
+        ?FormFactoryInterface $formFactory = null
     ): GroupController {
         if (null === $groupManager) {
             $groupManager = $this->createMock(GroupManagerInterface::class);
