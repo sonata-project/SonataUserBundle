@@ -96,7 +96,7 @@ class ResetActionTest extends TestCase
      */
     protected $firewallName;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->templating = $this->createMock(Environment::class);
         $this->urlGenerator = $this->createMock(UrlGeneratorInterface::class);
