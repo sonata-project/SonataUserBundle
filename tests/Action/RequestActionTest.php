@@ -51,7 +51,7 @@ class RequestActionTest extends TestCase
      */
     protected $templateRegistry;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->templating = $this->createMock(Environment::class);
         $this->urlGenerator = $this->createMock(UrlGeneratorInterface::class);

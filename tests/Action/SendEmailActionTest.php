@@ -85,7 +85,7 @@ class SendEmailActionTest extends TestCase
      */
     protected $templating;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->templating = $this->createMock(Environment::class);
         $this->urlGenerator = $this->createMock(UrlGeneratorInterface::class);
