@@ -43,7 +43,7 @@ final class AdminRolesBuilderTest extends TestCase
         'ADMIN' => [0 => 'MASTER'],
     ];
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->securityHandler = $this->createMock(SecurityHandlerInterface::class);
         $this->authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);

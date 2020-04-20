@@ -47,7 +47,7 @@ class MailerTest extends TestCase
      */
     private $template;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->router = $this->createMock(RouterInterface::class);
         $this->templating = $this->createMock(Environment::class);

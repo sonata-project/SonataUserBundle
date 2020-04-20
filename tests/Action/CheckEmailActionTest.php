@@ -50,7 +50,7 @@ class CheckEmailActionTest extends TestCase
      */
     protected $resetTtl;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->templating = $this->createMock(Environment::class);
         $this->urlGenerator = $this->createMock(UrlGeneratorInterface::class);

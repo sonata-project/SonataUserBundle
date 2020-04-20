@@ -30,7 +30,7 @@ final class MatrixRolesBuilderTest extends TestCase
     private $adminRolesBuilder;
     private $securityRolesBuilder;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->tokenStorage = $this->createMock(TokenStorageInterface::class);
         $this->token = $this->createMock(TokenInterface::class);
