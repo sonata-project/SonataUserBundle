@@ -29,7 +29,7 @@ class XliffTest extends TestCase
      */
     private $errors = [];
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->loader = new XliffFileLoader();
     }
