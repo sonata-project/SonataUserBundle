@@ -31,7 +31,7 @@ final class SecurityRolesBuilderTest extends TestCase
     private $translator;
     private $rolesHierarchy = ['ROLE_FOO' => ['ROLE_BAR', 'ROLE_ADMIN']];
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
         $this->admin = $this->createMock(AdminInterface::class);

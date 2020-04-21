@@ -31,7 +31,7 @@ final class RolesMatrixExtensionTest extends TestCase
     /**
      * {@inheritdoc}
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->rolesBuilder = $this->createMock(MatrixRolesBuilderInterface::class);
         $this->environment = $this->createMock(Environment::class);
