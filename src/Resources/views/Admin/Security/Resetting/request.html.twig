@@ -41,13 +41,6 @@ file that was distributed with this source code.
         {% endblock %}
         <div class="login-box-body">
             {% block sonata_user_reset_request_form %}
-                {% block sonata_user_reset_request_error %}
-                    {% if invalid_username is defined %}
-                        <div class="alert alert-danger">
-                            {{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}, 'FOSUserBundle') }}
-                        </div>
-                    {% endif %}
-                {% endblock %}
                 <p class="login-box-msg">{{ 'resetting.request.submit'|trans({}, 'FOSUserBundle') }}</p>
                 <form action="{{ path('sonata_user_admin_resetting_send_email') }}" method="post" role="form">
                     <div class="form-group has-feedback">
