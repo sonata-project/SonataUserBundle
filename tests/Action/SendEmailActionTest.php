@@ -110,25 +110,24 @@ class SendEmailActionTest extends TestCase
             'invalid_username' => 'bar',
         ];
 
-        $this->templating->expects($this->once())
-            ->method('render')
-            ->with('@SonataUser/Admin/Security/Resetting/request.html.twig', $parameters)
-            ->willReturn('template content');
-
-        $this->templateRegistry
-            ->method('getTemplate')
-            ->with('layout')
-            ->willReturn('base.html.twig');
-
         $this->userManager
             ->method('findUserByUsernameOrEmail')
             ->with('bar')
             ->willReturn(null);
 
+        $this->mailer->expects($this->never())
+            ->method('sendResettingEmailMessage');
+
+        $this->urlGenerator
+            ->method('generate')
+            ->with('sonata_user_admin_resetting_check_email')
+            ->willReturn('/foo');
+
         $action = $this->getAction();
         $result = $action($request);
 
-        $this->assertSame('template content', $result->getContent());
+        $this->assertInstanceOf(RedirectResponse::class, $result);
+        $this->assertSame('/foo', $result->getTargetUrl());
     }
 
     public function testPasswordRequestNonExpired(): void
@@ -182,7 +181,7 @@ class SendEmailActionTest extends TestCase
 
         $this->urlGenerator
             ->method('generate')
-            ->with('sonata_user_admin_resetting_request')
+            ->with('sonata_user_admin_resetting_check_email')
             ->willReturn('/foo');
 
         $action = $this->getAction();
