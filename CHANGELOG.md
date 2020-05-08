@@ -2,6 +2,16 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.5.3](https://github.com/sonata-project/SonataUserBundle/compare/4.5.2...4.5.3) - 2020-05-07
+### Added
+- czech translations
+
+### Fixed
+- Fixed retrieving all forwarded ip headers in the google authenticator helper
+
+### Security
+- Avoid leaking usernames in password recovery
+
 ## [4.5.2](https://github.com/sonata-project/SonataUserBundle/compare/4.5.1...4.5.2) - 2020-02-04
 ### Fixed
 - some deprecations form the core bundle

@@ -92,19 +92,7 @@ final class SendEmailAction
 
         $user = $this->userManager->findUserByUsernameOrEmail($username);
 
-        if (null === $user) {
-            return new Response($this->twig->render('@SonataUser/Admin/Security/Resetting/request.html.twig', [
-                'base_template' => $this->templateRegistry->getTemplate('layout'),
-                'admin_pool' => $this->adminPool,
-                'invalid_username' => $username,
-            ]));
-        }
-
-        if (null !== $user && !$user->isPasswordRequestNonExpired($this->resetTtl)) {
-            if (!$user->isAccountNonLocked()) {
-                return new RedirectResponse($this->urlGenerator->generate('sonata_user_admin_resetting_request'));
-            }
-
+        if (null !== $user && !$user->isPasswordRequestNonExpired($this->resetTtl) && $user->isAccountNonLocked()) {
             if (null === $user->getConfirmationToken()) {
                 $user->setConfirmationToken($this->tokenGenerator->generateToken());
             }
