@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Resources;
 
-use Sonata\CoreBundle\Test\XliffValidatorTestCase;
-
 class XliffTest extends XliffValidatorTestCase
 {
     public function getXliffPaths(): array

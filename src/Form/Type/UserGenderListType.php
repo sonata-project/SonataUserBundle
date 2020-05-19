@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Form\Type;
 
-use Sonata\CoreBundle\Form\Type\BaseStatusType;
+use Sonata\Form\Type\BaseStatusType;
 
 @trigger_error(
     'The '.__NAMESPACE__.'\UserGenderListType class is deprecated since version 4.1 and will be removed in 5.0.'
