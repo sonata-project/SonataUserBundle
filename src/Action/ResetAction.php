@@ -23,7 +23,7 @@ use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -81,7 +81,7 @@ final class ResetAction
     private $translator;
 
     /**
-     * @var Session
+     * @var SessionInterface
      */
     private $session;
 
@@ -105,7 +105,7 @@ final class ResetAction
         UserManagerInterface $userManager,
         LoginManagerInterface $loginManager,
         TranslatorInterface $translator,
-        Session $session,
+        SessionInterface $session,
         int $resetTtl,
         string $firewallName
     ) {
