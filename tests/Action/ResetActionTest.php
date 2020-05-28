@@ -28,6 +28,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -107,7 +108,7 @@ class ResetActionTest extends TestCase
         $this->userManager = $this->createMock(UserManagerInterface::class);
         $this->loginManager = $this->createMock(LoginManagerInterface::class);
         $this->translator = $this->createMock(TranslatorInterface::class);
-        $this->session = $this->createMock(Session::class);
+        $this->session = $this->createMock(SessionInterface::class);
         $this->resetTtl = 60;
         $this->firewallName = 'default';
     }
