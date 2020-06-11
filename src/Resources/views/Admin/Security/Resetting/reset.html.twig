@@ -48,12 +48,14 @@ file that was distributed with this source code.
                             'class': 'form-control',
                             'placeholder': 'form.new_password'|trans({}, 'FOSUserBundle')
                         }}) }}
+                        {{ form_errors(form.plainPassword.first) }}
                     </div>
                     <div class="form-group">
                         {{ form_widget(form.plainPassword.second, {'attr': {
                             'class': 'form-control',
                             'placeholder': 'form.new_password_confirmation'|trans({}, 'FOSUserBundle')
                         }}) }}
+                        {{ form_errors(form.plainPassword.second) }}
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
