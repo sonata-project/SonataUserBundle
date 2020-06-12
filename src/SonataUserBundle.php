@@ -20,9 +20,6 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class SonataUserBundle extends Bundle
 {
-    /**
-     * {@inheritdoc}
-     */
     public function build(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new GlobalVariablesCompilerPass());
