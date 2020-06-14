@@ -41,7 +41,10 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
     {
         parent::setUp();
 
-        $this->setParameter('kernel.bundles', ['SonataAdminBundle' => true]);
+        $this->setParameter('kernel.bundles', [
+            'SonataDoctrineBundle' => true,
+            'SonataAdminBundle' => true,
+        ]);
     }
 
     /**
