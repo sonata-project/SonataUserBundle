@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Controller\Api;
 
-use FOS\RestBundle\Request\ParamFetcher;
+use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\View\View;
 use FOS\UserBundle\Model\GroupInterface;
 use PHPUnit\Framework\TestCase;
@@ -37,9 +37,8 @@ class GroupControllerTest extends TestCase
         $groupManager = $this->createMock(GroupManagerInterface::class);
         $groupManager->expects($this->once())->method('getPager')->willReturn([$group]);
 
-        $paramFetcher = $this->getMockBuilder(ParamFetcher::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $paramFetcher = $this->createMock(ParamFetcherInterface::class);
+
         $paramFetcher->expects($this->exactly(3))->method('get');
         $paramFetcher->expects($this->once())->method('all')->willReturn([]);
 
