@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Controller\Api;
 
-use FOS\RestBundle\Request\ParamFetcher;
+use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\View\View;
 use FOS\UserBundle\Model\GroupInterface;
 use FOS\UserBundle\Model\UserInterface;
@@ -38,9 +38,7 @@ class UserControllerTest extends TestCase
         $userManager = $this->createMock(UserManagerInterface::class);
         $userManager->expects($this->once())->method('getPager')->willReturn([]);
 
-        $paramFetcher = $this->getMockBuilder(ParamFetcher::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $paramFetcher = $this->createMock(ParamFetcherInterface::class);
         $paramFetcher->expects($this->exactly(3))->method('get');
         $paramFetcher->expects($this->once())->method('all')->willReturn([]);
 
