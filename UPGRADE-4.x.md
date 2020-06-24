@@ -1,6 +1,30 @@
 UPGRADE 4.x
 ===========
 
+UPGRADE FROM 4.x to 4.x
+=======================
+
+### Support for NelmioApiDocBundle < 3 is deprecated
+
+Since version 4.x, support for nelmio/api-doc-bundle < 3.0 is deprecated.
+
+Before:
+```yaml
+# config/routes/sonata_user.yaml
+
+sonata_api_user:
+    prefix: /api/user
+    resource: "@SonataUserBundle/Resources/config/routing/api.xml"
+```
+
+After:
+```yaml
+# config/routes/sonata_user.yaml
+
+sonata_api_user:
+    prefix: /api/user
+    resource: "@SonataUserBundle/Resources/config/routing/api_forward_compatible.xml"
+
 UPGRADE FROM 4.6 to 4.7
 ========================
 

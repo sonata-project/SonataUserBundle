@@ -18,6 +18,8 @@ Here's the configuration we used, you may adapt it to your needs:
 
 .. code-block:: yaml
 
+    # config/packages/fos_rest.yaml
+
     fos_rest:
         param_fetcher_listener: true
         body_listener: true
@@ -30,14 +32,37 @@ Here's the configuration we used, you may adapt it to your needs:
         exception:
             map_exception_codes: true
 
+    # config/packages/sensio_framework_extra.yaml
+
     sensio_framework_extra:
         view: { annotations: false }
         router: { annotations: true }
         request: { converters: true }
 
-In order to activate the API's, you'll also need to add this to your routing:
+In order to activate the REST API's, you'll also need to add this to your routing:
 
 .. code-block:: yaml
+
+    # config/routes/sonata_user.yaml
+
+    NelmioApiDocBundle:
+        resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+        prefix: /api/doc
+
+    sonata_api_user:
+        prefix: /api/user
+        resource: "@SonataUserBundle/Resources/config/routing/api_forward_compatible.xml"
+
+.. deprecated:: 4.x
+
+    Since version 4.x, support for nelmio/api-doc-bundle < 3.0 is deprecated.
+
+If you are using nelmio/api-doc-bundle < 3.0, you MUST use the following routing
+configuration instead:
+
+.. code-block:: yaml
+
+    # config/routes/sonata_user.yaml
 
     NelmioApiDocBundle:
         resource: "@NelmioApiDocBundle/Resources/config/routing.yml"

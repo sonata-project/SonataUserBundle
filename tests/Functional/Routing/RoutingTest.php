@@ -39,7 +39,7 @@ final class RoutingTest extends WebTestCase
 
         $matchingPath = $path;
         $matchingFormat = '';
-        if (false !== strpos($matchingPath, '.{_format}', -10)) {
+        if (\strlen($matchingPath) >= 10 && false !== strpos($matchingPath, '.{_format}', -10)) {
             $matchingFormat = '.json';
             $matchingPath = str_replace('.{_format}', $matchingFormat, $path);
         }
@@ -74,7 +74,8 @@ final class RoutingTest extends WebTestCase
 
     public function getRoutes(): iterable
     {
-        yield ['nelmio_api_doc_index', '/api/doc/{view}', ['GET']];
+        yield ['app.swagger_ui', '/api/doc', ['GET']];
+        yield ['app.swagger', '/api/doc.json', ['GET']];
         yield ['sonata_api_user_user_get_users', '/api/user/users.{_format}', ['GET']];
         yield ['sonata_api_user_user_get_user', '/api/user/user/{id}.{_format}', ['GET']];
         yield ['sonata_api_user_user_post_user', '/api/user/user.{_format}', ['POST']];

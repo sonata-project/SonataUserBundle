@@ -1,0 +1,263 @@
+<?php
+
+declare(strict_types=1);
+
+/*
+ * This file is part of the Sonata Project package.
+ *
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Sonata\UserBundle\Controller\Api\Legacy;
+
+@trigger_error(
+    'The '.__NAMESPACE__.'\GroupController class is deprecated since sonata-project/user-bundle 4.x and will be removed in version 5.0.'
+    .' Use '.\Sonata\UserBundle\Controller\Api\GroupController::class.' instead.',
+    E_USER_DEPRECATED
+);
+
+use FOS\RestBundle\Context\Context;
+use FOS\RestBundle\Controller\Annotations as REST;
+use FOS\RestBundle\Request\ParamFetcherInterface;
+use FOS\RestBundle\View\View as FOSRestView;
+use FOS\UserBundle\Model\GroupInterface;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Sonata\DatagridBundle\Pager\PagerInterface;
+use Sonata\UserBundle\Model\GroupManagerInterface;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Annotation\Route;
+
+/**
+ * NEXT_MAJOR: Remove this class.
+ *
+ * @author Hugo Briand <briand@ekino.com>
+ *
+ * @Route(requirements={"_format": "json|xml|html"}, defaults={"_format": "json"})
+ */
+final class GroupController
+{
+    /**
+     * @var GroupManagerInterface
+     */
+    private $groupManager;
+
+    /**
+     * @var FormFactoryInterface
+     */
+    private $formFactory;
+
+    /**
+     * @param GroupManagerInterface $groupManager Sonata group manager
+     * @param FormFactoryInterface  $formFactory  Symfony form factory
+     */
+    public function __construct(GroupManagerInterface $groupManager, FormFactoryInterface $formFactory)
+    {
+        $this->groupManager = $groupManager;
+        $this->formFactory = $formFactory;
+    }
+
+    /**
+     * Returns a paginated list of groups.
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  output={"class"="Sonata\DatagridBundle\Pager\PagerInterface", "groups"={"sonata_api_read"}}
+     * )
+     *
+     * @REST\QueryParam(name="page", requirements="\d+", default="1", description="Page for groups list pagination (1-indexed)")
+     * @REST\QueryParam(name="count", requirements="\d+", default="10", description="Number of groups by page")
+     * @REST\QueryParam(name="orderBy", map=true, requirements="ASC|DESC", nullable=true, strict=true, description="Query groups order by clause (key is field, value is direction")
+     * @REST\QueryParam(name="enabled", requirements="0|1", nullable=true, strict=true, description="Enabled/disabled groups only?")
+     *
+     * @REST\View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
+     *
+     * @return PagerInterface
+     */
+    public function getGroupsAction(ParamFetcherInterface $paramFetcher)
+    {
+        $supportedFilters = [
+            'enabled' => '',
+        ];
+
+        $page = $paramFetcher->get('page');
+        $limit = $paramFetcher->get('count');
+        $sort = $paramFetcher->get('orderBy');
+        $criteria = array_intersect_key($paramFetcher->all(), $supportedFilters);
+
+        foreach ($criteria as $key => $value) {
+            if (null === $value) {
+                unset($criteria[$key]);
+            }
+        }
+
+        if (!$sort) {
+            $sort = [];
+        } elseif (!\is_array($sort)) {
+            $sort = [$sort, 'asc'];
+        }
+
+        return $this->groupManager->getPager($criteria, $page, $limit, $sort);
+    }
+
+    /**
+     * Retrieves a specific group.
+     *
+     * @ApiDoc(
+     *  requirements={
+     *      {"name"="id", "dataType"="integer", "requirement"="\d+", "description"="group id"}
+     *  },
+     *  output={"class"="FOS\UserBundle\Model\GroupInterface", "groups"={"sonata_api_read"}},
+     *  statusCodes={
+     *      200="Returned when successful",
+     *      404="Returned when group is not found"
+     *  }
+     * )
+     *
+     * @REST\View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
+     *
+     * @param mixed $id
+     *
+     * @return GroupInterface
+     */
+    public function getGroupAction($id)
+    {
+        return $this->getGroup($id);
+    }
+
+    /**
+     * Adds a group.
+     *
+     * @ApiDoc(
+     *  input={"class"="sonata_user_api_form_group", "name"="", "groups"={"sonata_api_write"}},
+     *  output={"class"="Sonata\UserBundle\Model\Group", "groups"={"sonata_api_read"}},
+     *  statusCodes={
+     *      200="Returned when successful",
+     *      400="Returned when an error has occurred while group creation",
+     *  }
+     * )
+     *
+     * @param Request $request A Symfony request
+     *
+     * @throws NotFoundHttpException
+     *
+     * @return GroupInterface
+     */
+    public function postGroupAction(Request $request)
+    {
+        return $this->handleWriteGroup($request);
+    }
+
+    /**
+     * Updates a group.
+     *
+     * @ApiDoc(
+     *  requirements={
+     *      {"name"="id", "dataType"="integer", "requirement"="\d+", "description"="group identifier"}
+     *  },
+     *  input={"class"="sonata_user_api_form_group", "name"="", "groups"={"sonata_api_write"}},
+     *  output={"class"="Sonata\UserBundle\Model\Group", "groups"={"sonata_api_read"}},
+     *  statusCodes={
+     *      200="Returned when successful",
+     *      400="Returned when an error has occurred while group creation",
+     *      404="Returned when unable to find group"
+     *  }
+     * )
+     *
+     * @param int     $id      Group identifier
+     * @param Request $request A Symfony request
+     *
+     * @throws NotFoundHttpException
+     *
+     * @return GroupInterface
+     */
+    public function putGroupAction($id, Request $request)
+    {
+        return $this->handleWriteGroup($request, $id);
+    }
+
+    /**
+     * Deletes a group.
+     *
+     * @ApiDoc(
+     *  requirements={
+     *      {"name"="id", "dataType"="integer", "requirement"="\d+", "description"="group identifier"}
+     *  },
+     *  statusCodes={
+     *      200="Returned when group is successfully deleted",
+     *      400="Returned when an error has occurred while group deletion",
+     *      404="Returned when unable to find group"
+     *  }
+     * )
+     *
+     * @param int $id A Group identifier
+     *
+     * @throws NotFoundHttpException
+     *
+     * @return \FOS\RestBundle\View\View
+     */
+    public function deleteGroupAction($id)
+    {
+        $group = $this->getGroup($id);
+
+        $this->groupManager->deleteGroup($group);
+
+        return ['deleted' => true];
+    }
+
+    /**
+     * Write a Group, this method is used by both POST and PUT action methods.
+     *
+     * @param int|null $id A Group identifier
+     */
+    private function handleWriteGroup(Request $request, $id = null): FormInterface
+    {
+        $groupClassName = $this->groupManager->getClass();
+        $group = $id ? $this->getGroup($id) : new $groupClassName('');
+
+        $form = $this->formFactory->createNamed(null, 'sonata_user_api_form_group', $group, [
+            'csrf_protection' => false,
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $group = $form->getData();
+            $this->groupManager->updateGroup($group);
+
+            $context = new Context();
+            $context->setGroups(['sonata_api_read']);
+            $context->enableMaxDepth();
+
+            $view = FOSRestView::create($group);
+            $view->setContext($context);
+
+            return $view;
+        }
+
+        return $form;
+    }
+
+    /**
+     * Retrieves group with id $id or throws an exception if it doesn't exist.
+     *
+     * @param mixed $id
+     *
+     * @throws NotFoundHttpException
+     */
+    private function getGroup($id): GroupInterface
+    {
+        $group = $this->groupManager->findGroupBy(['id' => $id]);
+
+        if (null === $group) {
+            throw new NotFoundHttpException(sprintf('Group (%d) not found', $id));
+        }
+
+        return $group;
+    }
+}

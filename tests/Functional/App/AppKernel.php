@@ -18,6 +18,7 @@ use FOS\RestBundle\FOSRestBundle;
 use FOS\UserBundle\FOSUserBundle;
 use JMS\SerializerBundle\JMSSerializerBundle;
 use Knp\Bundle\MenuBundle\KnpMenuBundle;
+use Nelmio\ApiDocBundle\Annotation\Operation;
 use Nelmio\ApiDocBundle\NelmioApiDocBundle;
 use Sonata\AdminBundle\SonataAdminBundle;
 use Sonata\Doctrine\Bridge\Symfony\SonataDoctrineBundle;
@@ -28,6 +29,7 @@ use Sonata\UserBundle\Tests\Entity\User;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Bundle\SecurityBundle\SecurityBundle;
+use Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle;
 use Symfony\Bundle\TwigBundle\TwigBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -53,6 +55,7 @@ final class AppKernel extends Kernel
             new TwigBundle(),
             new SecurityBundle(),
             new DoctrineBundle(),
+            new SwiftmailerBundle(),
             new FOSUserBundle(),
             new FOSRestBundle(),
             new JMSSerializerBundle(),
@@ -82,16 +85,27 @@ final class AppKernel extends Kernel
 
     protected function configureRoutes(RouteCollectionBuilder $routes): void
     {
-        $routes->import($this->getProjectDir().'/config/routes.yml');
+        $routes->add('/api/doc', null, 'app.swagger_ui')
+            ->addDefaults(['_controller' => 'nelmio_api_doc.controller.swagger_ui'])
+            ->setMethods(['GET'])
+        ;
+
+        $routes->add('/api/doc.json', null, 'app.swagger')
+            ->addDefaults(['_controller' => 'nelmio_api_doc.controller.swagger'])
+            ->setMethods(['GET'])
+        ;
+
+        // NEXT_MAJOR: Follow the upgrade process at "api_forward_compatible.xml" and remove this check.
+        if (class_exists(Operation::class)) {
+            $routes->import('@SonataUserBundle/Resources/config/routing/api_forward_compatible.xml', '/api/user');
+        } else {
+            $routes->import('@SonataUserBundle/Resources/config/routing/api.xml', '/api/user');
+        }
     }
 
     protected function configureContainer(ContainerBuilder $containerBuilder, LoaderInterface $loader): void
     {
-        $containerBuilder->register('templating')->setSynthetic(true);
-        $containerBuilder->register('templating.locator')->setSynthetic(true);
-        $containerBuilder->register('templating.name_parser')->setSynthetic(true);
-        $containerBuilder->register('mailer')->setSynthetic(true);
-
+        // @todo: Remove "templating" node when support for nelmio/api-doc-bundle <3.0 were removed.
         $containerBuilder->loadFromExtension('framework', [
             'secret' => '50n474.U53r',
             'session' => [
@@ -108,6 +122,11 @@ final class AppKernel extends Kernel
             ],
             'assets' => null,
             'test' => true,
+            'templating' => [
+                'engines' => [
+                    'twig',
+                ],
+            ],
             'profiler' => [
                 'enabled' => true,
                 'collect' => false,
@@ -154,7 +173,22 @@ final class AppKernel extends Kernel
         ]);
 
         $containerBuilder->loadFromExtension('fos_rest', [
+            'format_listener' => [
+                'enabled' => true,
+                'rules' => [
+                    [
+                        'priorities' => [
+                            'json',
+                        ],
+                        'fallback_format' => 'json',
+                        'prefer_extension' => false,
+                    ],
+                ],
+            ],
             'param_fetcher_listener' => true,
+            'view' => [
+                'view_response_listener' => true,
+            ],
         ]);
     }
 
