@@ -20,21 +20,20 @@ Here's the configuration we used, you may adapt it to your needs:
 
     fos_rest:
         param_fetcher_listener: true
-        body_listener:          true
-        format_listener:        true
+        body_listener: true
+        format_listener: true
         view:
             view_response_listener: force
         body_converter:
             enabled: true
             validate: true
+        exception:
+            map_exception_codes: true
 
     sensio_framework_extra:
-        view:    { annotations: false }
-        router:  { annotations: true }
+        view: { annotations: false }
+        router: { annotations: true }
         request: { converters: true }
-
-    twig:
-        exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'
 
 In order to activate the API's, you'll also need to add this to your routing:
 
@@ -42,12 +41,11 @@ In order to activate the API's, you'll also need to add this to your routing:
 
     NelmioApiDocBundle:
         resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
-        prefix:   /api/doc
+        prefix: /api/doc
 
     sonata_api_user:
-        type:         rest
-        prefix:       /api/user
-        resource:     "@SonataUserBundle/Resources/config/routing/api.xml"
+        prefix: /api/user
+        resource: "@SonataUserBundle/Resources/config/routing/api.xml"
 
 
 Serialization

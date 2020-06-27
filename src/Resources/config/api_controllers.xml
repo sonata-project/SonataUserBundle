@@ -2,13 +2,17 @@
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="sonata.user.controller.api.user" class="Sonata\UserBundle\Controller\Api\UserController">
+            <tag name="controller.service_arguments"/>
             <argument type="service" id="sonata.user.user_manager"/>
             <argument type="service" id="sonata.user.group_manager"/>
             <argument type="service" id="form.factory"/>
         </service>
+        <service id="Sonata\UserBundle\Controller\Api\UserController" alias="sonata.user.controller.api.user" public="true"/>
         <service id="sonata.user.controller.api.group" class="Sonata\UserBundle\Controller\Api\GroupController">
+            <tag name="controller.service_arguments"/>
             <argument type="service" id="sonata.user.group_manager"/>
             <argument type="service" id="form.factory"/>
         </service>
+        <service id="Sonata\UserBundle\Controller\Api\GroupController" alias="sonata.user.controller.api.group" public="true"/>
     </services>
 </container>

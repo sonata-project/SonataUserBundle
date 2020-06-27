@@ -14,6 +14,10 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Controller\Api;
 
 use FOS\RestBundle\Context\Context;
+use FOS\RestBundle\Controller\Annotations\Delete;
+use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\Post;
+use FOS\RestBundle\Controller\Annotations\Put;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcherInterface;
@@ -64,6 +68,8 @@ class UserController
      *  output={"class"="Sonata\DatagridBundle\Pager\PagerInterface", "groups"={"sonata_api_read"}}
      * )
      *
+     * @Get("/users")
+     *
      * @QueryParam(name="page", requirements="\d+", default="1", description="Page for users list pagination (1-indexed)")
      * @QueryParam(name="count", requirements="\d+", default="10", description="Number of users by page")
      * @QueryParam(name="orderBy", map=true, requirements="ASC|DESC", nullable=true, strict=true, description="Query users order by clause (key is field, value is direction")
@@ -113,6 +119,8 @@ class UserController
      *  }
      * )
      *
+     * @Get("/user/(id}")
+     *
      * @View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
      *
      * @param $id
@@ -135,6 +143,8 @@ class UserController
      *      400="Returned when an error has occurred while user creation",
      *  }
      * )
+     *
+     * @Post("/user")
      *
      * @param Request $request A Symfony request
      *
@@ -163,6 +173,8 @@ class UserController
      *  }
      * )
      *
+     * @Put("/user/(id}")
+     *
      * @param int     $id      User id
      * @param Request $request A Symfony request
      *
@@ -188,6 +200,8 @@ class UserController
      *      404="Returned when unable to find user"
      *  }
      * )
+     *
+     * @Delete("/user/(id}")
      *
      * @param int $id An User identifier
      *
@@ -219,6 +233,8 @@ class UserController
      *      404="Returned when unable to find user or group"
      *  }
      * )
+     *
+     * @Post("/user/(userId}/{groupId}")
      *
      * @param int $userId  A User identifier
      * @param int $groupId A Group identifier
@@ -260,6 +276,8 @@ class UserController
      *      404="Returned when unable to find user or group"
      *  }
      * )
+     *
+     * @Delete("/user/(userId}/{groupId}")
      *
      * @param int $userId  A User identifier
      * @param int $groupId A Group identifier
