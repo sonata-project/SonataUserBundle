@@ -2,6 +2,39 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.6.0](https://github.com/sonata-project/SonataUserBundle/compare/4.5.3...4.6.0) - 2020-06-29
+### Added
+- [[#1185](https://github.com/sonata-project/SonataUserBundle/pull/1185)] Added
+  support for "friendsofsymfony/rest-bundle:^3.0";
+([@phansys](https://github.com/phansys))
+- [[#1185](https://github.com/sonata-project/SonataUserBundle/pull/1185)] Added
+  public alias `Sonata\UserBundle\Controller\Api\UserController` for
+`sonata.user.controller.api.user` service;
+([@phansys](https://github.com/phansys))
+- [[#1185](https://github.com/sonata-project/SonataUserBundle/pull/1185)] Added
+  public alias `Sonata\UserBundle\Controller\Api\GroupController` for
+`sonata.user.controller.api.group` service.
+([@phansys](https://github.com/phansys))
+
+### Fixed
+- [[#1180](https://github.com/sonata-project/SonataUserBundle/pull/1180)] Fixed
+  display errors in reset template
+([@clementlefrancois](https://github.com/clementlefrancois))
+- [[#1175](https://github.com/sonata-project/SonataUserBundle/pull/1175)] Fixed
+  a bug with ResetAction relying on concrete Session implementation
+([@oleg-andreyev](https://github.com/oleg-andreyev))
+
+### Removed
+- [[#1185](https://github.com/sonata-project/SonataUserBundle/pull/1185)]
+  Removed support for `symfony/*`:<4.4;
+([@phansys](https://github.com/phansys))
+- [[#1185](https://github.com/sonata-project/SonataUserBundle/pull/1185)]
+  Removed support for deprecated "rest" routing type.
+([@phansys](https://github.com/phansys))
+- [[#1173](https://github.com/sonata-project/SonataUserBundle/pull/1173)]
+  Remove SonataCoreBundle dependencies
+([@wbloszyk](https://github.com/wbloszyk))
+
 ## [4.5.3](https://github.com/sonata-project/SonataUserBundle/compare/4.5.2...4.5.3) - 2020-05-07
 ### Added
 - czech translations
