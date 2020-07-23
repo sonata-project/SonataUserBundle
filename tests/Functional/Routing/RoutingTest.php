@@ -41,18 +41,18 @@ final class RoutingTest extends WebTestCase
     public function getRoutes(): iterable
     {
         yield ['nelmio_api_doc_index', '/api/doc/{view}', ['GET']];
-        yield ['sonata_api_user_user_sonata_user_api_user_getusers', '/api/user/users', ['GET']];
-        yield ['sonata_api_user_user_sonata_user_api_user_getuser', '/api/user/user/(id}', ['GET']];
-        yield ['sonata_api_user_user_sonata_user_api_user_postuser', '/api/user/user', ['POST']];
-        yield ['sonata_api_user_user_sonata_user_api_user_putuser', '/api/user/user/(id}', ['PUT']];
-        yield ['sonata_api_user_user_sonata_user_api_user_deleteuser', '/api/user/user/(id}', ['DELETE']];
-        yield ['sonata_api_user_user_sonata_user_api_user_postusergroup', '/api/user/user/(userId}/{groupId}', ['POST']];
-        yield ['sonata_api_user_user_sonata_user_api_user_deleteusergroup', '/api/user/user/(userId}/{groupId}', ['DELETE']];
-        yield ['sonata_api_user_group_sonata_user_api_group_getgroups', '/api/user/groups', ['GET']];
-        yield ['sonata_api_user_group_sonata_user_api_group_getgroup', '/api/user/group/{id}', ['GET']];
-        yield ['sonata_api_user_group_sonata_user_api_group_postgroup', '/api/user/group', ['POST']];
-        yield ['sonata_api_user_group_sonata_user_api_group_putgroup', '/api/user/group/{id}', ['PUT']];
-        yield ['sonata_api_user_group_sonata_user_api_group_deletegroup', '/api/user/group/{id}', ['DELETE']];
+        yield ['sonata_api_user_user_get_users', '/api/user/users', ['GET']];
+        yield ['sonata_api_user_user_get_user', '/api/user/user/(id}', ['GET']];
+        yield ['sonata_api_user_user_post_user', '/api/user/user', ['POST']];
+        yield ['sonata_api_user_user_put_user', '/api/user/user/(id}', ['PUT']];
+        yield ['sonata_api_user_user_delete_user', '/api/user/user/(id}', ['DELETE']];
+        yield ['sonata_api_user_user_post_user_group', '/api/user/user/(userId}/{groupId}', ['POST']];
+        yield ['sonata_api_user_user_delete_user_group', '/api/user/user/(userId}/{groupId}', ['DELETE']];
+        yield ['sonata_api_user_group_get_groups', '/api/user/groups', ['GET']];
+        yield ['sonata_api_user_group_get_group', '/api/user/group/{id}', ['GET']];
+        yield ['sonata_api_user_group_post_group', '/api/user/group', ['POST']];
+        yield ['sonata_api_user_group_put_group', '/api/user/group/{id}', ['PUT']];
+        yield ['sonata_api_user_group_delete_group', '/api/user/group/{id}', ['DELETE']];
     }
 
     protected static function getKernelClass(): string
