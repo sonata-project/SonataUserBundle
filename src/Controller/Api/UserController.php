@@ -32,9 +32,12 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
+ *
+ * @Route(requirements={"_format": "json|xml|html"}, defaults={"_format": "json"})
  */
 class UserController
 {
@@ -68,7 +71,7 @@ class UserController
      *  output={"class"="Sonata\DatagridBundle\Pager\PagerInterface", "groups"={"sonata_api_read"}}
      * )
      *
-     * @Get("/users", name="get_users")
+     * @Get("/users.{_format}", name="get_users")
      *
      * @QueryParam(name="page", requirements="\d+", default="1", description="Page for users list pagination (1-indexed)")
      * @QueryParam(name="count", requirements="\d+", default="10", description="Number of users by page")
@@ -119,7 +122,7 @@ class UserController
      *  }
      * )
      *
-     * @Get("/user/(id}", name="get_user")
+     * @Get("/user/(id}.{_format}", name="get_user")
      *
      * @View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
      *
@@ -144,7 +147,7 @@ class UserController
      *  }
      * )
      *
-     * @Post("/user", name="post_user")
+     * @Post("/user.{_format}", name="post_user")
      *
      * @param Request $request A Symfony request
      *
@@ -173,7 +176,7 @@ class UserController
      *  }
      * )
      *
-     * @Put("/user/(id}", name="put_user")
+     * @Put("/user/(id}.{_format}", name="put_user")
      *
      * @param int     $id      User id
      * @param Request $request A Symfony request
@@ -201,7 +204,7 @@ class UserController
      *  }
      * )
      *
-     * @Delete("/user/(id}", name="delete_user")
+     * @Delete("/user/(id}.{_format}", name="delete_user")
      *
      * @param int $id An User identifier
      *
@@ -234,7 +237,7 @@ class UserController
      *  }
      * )
      *
-     * @Post("/user/(userId}/{groupId}", name="post_user_group")
+     * @Post("/user/(userId}/{groupId}.{_format}", name="post_user_group")
      *
      * @param int $userId  A User identifier
      * @param int $groupId A Group identifier
@@ -277,7 +280,7 @@ class UserController
      *  }
      * )
      *
-     * @Delete("/user/(userId}/{groupId}", name="delete_user_group")
+     * @Delete("/user/(userId}/{groupId}.{_format}", name="delete_user_group")
      *
      * @param int $userId  A User identifier
      * @param int $groupId A Group identifier
