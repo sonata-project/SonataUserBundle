@@ -68,7 +68,7 @@ class UserController
      *  output={"class"="Sonata\DatagridBundle\Pager\PagerInterface", "groups"={"sonata_api_read"}}
      * )
      *
-     * @Get("/users")
+     * @Get("/users", name="get_users")
      *
      * @QueryParam(name="page", requirements="\d+", default="1", description="Page for users list pagination (1-indexed)")
      * @QueryParam(name="count", requirements="\d+", default="10", description="Number of users by page")
@@ -119,7 +119,7 @@ class UserController
      *  }
      * )
      *
-     * @Get("/user/(id}")
+     * @Get("/user/(id}", name="get_user")
      *
      * @View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
      *
@@ -144,7 +144,7 @@ class UserController
      *  }
      * )
      *
-     * @Post("/user")
+     * @Post("/user", name="post_user")
      *
      * @param Request $request A Symfony request
      *
@@ -173,7 +173,7 @@ class UserController
      *  }
      * )
      *
-     * @Put("/user/(id}")
+     * @Put("/user/(id}", name="put_user")
      *
      * @param int     $id      User id
      * @param Request $request A Symfony request
@@ -201,7 +201,7 @@ class UserController
      *  }
      * )
      *
-     * @Delete("/user/(id}")
+     * @Delete("/user/(id}", name="delete_user")
      *
      * @param int $id An User identifier
      *
@@ -234,7 +234,7 @@ class UserController
      *  }
      * )
      *
-     * @Post("/user/(userId}/{groupId}")
+     * @Post("/user/(userId}/{groupId}", name="post_user_group")
      *
      * @param int $userId  A User identifier
      * @param int $groupId A Group identifier
@@ -277,7 +277,7 @@ class UserController
      *  }
      * )
      *
-     * @Delete("/user/(userId}/{groupId}")
+     * @Delete("/user/(userId}/{groupId}", name="delete_user_group")
      *
      * @param int $userId  A User identifier
      * @param int $groupId A Group identifier

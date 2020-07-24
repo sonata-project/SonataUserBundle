@@ -64,7 +64,7 @@ class GroupController
      *  output={"class"="Sonata\DatagridBundle\Pager\PagerInterface", "groups"={"sonata_api_read"}}
      * )
      *
-     * @Get("/groups")
+     * @Get("/groups", name="get_groups")
      *
      * @QueryParam(name="page", requirements="\d+", default="1", description="Page for groups list pagination (1-indexed)")
      * @QueryParam(name="count", requirements="\d+", default="10", description="Number of groups by page")
@@ -115,7 +115,7 @@ class GroupController
      *  }
      * )
      *
-     * @Get("/group/{id}")
+     * @Get("/group/{id}", name="get_group")
      *
      * @View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
      *
@@ -140,7 +140,7 @@ class GroupController
      *  }
      * )
      *
-     * @Post("/group")
+     * @Post("/group", name="post_group")
      *
      * @param Request $request A Symfony request
      *
@@ -169,7 +169,7 @@ class GroupController
      *  }
      * )
      *
-     * @Put("/group/{id}")
+     * @Put("/group/{id}", name="put_group")
      *
      * @param int     $id      Group identifier
      * @param Request $request A Symfony request
@@ -197,7 +197,7 @@ class GroupController
      *  }
      * )
      *
-     * @Delete("/group/{id}")
+     * @Delete("/group/{id}", name="delete_group")
      *
      * @param int $id A Group identifier
      *
