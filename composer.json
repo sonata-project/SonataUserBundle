@@ -61,7 +61,7 @@
         "sonata-project/doctrine-orm-admin-bundle": "^3.18",
         "sonata-project/google-authenticator": "^1.0 || ^2.0",
         "symfony/browser-kit": "^4.4 || ^5.1",
-        "symfony/phpunit-bridge": "^5.1"
+        "symfony/phpunit-bridge": "^5.1.1"
     },
     "suggest": {
         "friendsofsymfony/rest-bundle": "For using the public API methods.",
