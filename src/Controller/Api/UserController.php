@@ -122,7 +122,7 @@ class UserController
      *  }
      * )
      *
-     * @Get("/user/(id}.{_format}", name="get_user")
+     * @Get("/user/{id}.{_format}", name="get_user")
      *
      * @View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
      *
@@ -176,7 +176,7 @@ class UserController
      *  }
      * )
      *
-     * @Put("/user/(id}.{_format}", name="put_user")
+     * @Put("/user/{id}.{_format}", name="put_user")
      *
      * @param int     $id      User id
      * @param Request $request A Symfony request
@@ -204,7 +204,7 @@ class UserController
      *  }
      * )
      *
-     * @Delete("/user/(id}.{_format}", name="delete_user")
+     * @Delete("/user/{id}.{_format}", name="delete_user")
      *
      * @param int $id An User identifier
      *
@@ -237,7 +237,7 @@ class UserController
      *  }
      * )
      *
-     * @Post("/user/(userId}/{groupId}.{_format}", name="post_user_group")
+     * @Post("/user/{userId}/{groupId}.{_format}", name="post_user_group")
      *
      * @param int $userId  A User identifier
      * @param int $groupId A Group identifier
@@ -280,7 +280,7 @@ class UserController
      *  }
      * )
      *
-     * @Delete("/user/(userId}/{groupId}.{_format}", name="delete_user_group")
+     * @Delete("/user/{userId}/{groupId}.{_format}", name="delete_user_group")
      *
      * @param int $userId  A User identifier
      * @param int $groupId A Group identifier
