@@ -76,12 +76,12 @@ final class RoutingTest extends WebTestCase
     {
         yield ['nelmio_api_doc_index', '/api/doc/{view}', ['GET']];
         yield ['sonata_api_user_user_get_users', '/api/user/users.{_format}', ['GET']];
-        yield ['sonata_api_user_user_get_user', '/api/user/user/(id}.{_format}', ['GET']];
+        yield ['sonata_api_user_user_get_user', '/api/user/user/{id}.{_format}', ['GET']];
         yield ['sonata_api_user_user_post_user', '/api/user/user.{_format}', ['POST']];
-        yield ['sonata_api_user_user_put_user', '/api/user/user/(id}.{_format}', ['PUT']];
-        yield ['sonata_api_user_user_delete_user', '/api/user/user/(id}.{_format}', ['DELETE']];
-        yield ['sonata_api_user_user_post_user_group', '/api/user/user/(userId}/{groupId}.{_format}', ['POST']];
-        yield ['sonata_api_user_user_delete_user_group', '/api/user/user/(userId}/{groupId}.{_format}', ['DELETE']];
+        yield ['sonata_api_user_user_put_user', '/api/user/user/{id}.{_format}', ['PUT']];
+        yield ['sonata_api_user_user_delete_user', '/api/user/user/{id}.{_format}', ['DELETE']];
+        yield ['sonata_api_user_user_post_user_group', '/api/user/user/{userId}/{groupId}.{_format}', ['POST']];
+        yield ['sonata_api_user_user_delete_user_group', '/api/user/user/{userId}/{groupId}.{_format}', ['DELETE']];
         yield ['sonata_api_user_group_get_groups', '/api/user/groups.{_format}', ['GET']];
         yield ['sonata_api_user_group_get_group', '/api/user/group/{id}.{_format}', ['GET']];
         yield ['sonata_api_user_group_post_group', '/api/user/group.{_format}', ['POST']];
