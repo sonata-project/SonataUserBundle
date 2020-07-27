@@ -24,6 +24,7 @@ use Sonata\UserBundle\Tests\Admin\Document\GroupAdmin;
 use Sonata\UserBundle\Tests\Admin\Document\UserAdmin;
 use Sonata\UserBundle\Tests\Document\Group;
 use Sonata\UserBundle\Tests\Document\User;
+use Symfony\Bridge\PhpUnit\ExpectDeprecationTrait;
 use Symfony\Bundle\TwigBundle\DependencyInjection\TwigExtension;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -34,6 +35,8 @@ use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
  */
 final class SonataUserExtensionTest extends AbstractExtensionTestCase
 {
+    use ExpectDeprecationTrait;
+
     /**
      * {@inheritdoc}
      */
@@ -49,10 +52,11 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
 
     /**
      * @group legacy
-     * @expectedDeprecation The 'Google\Authenticator' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.
      */
     public function testLoadDefault(): void
     {
+        $this->expectDeprecation('The \'Google\Authenticator\' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.');
+
         $this->load();
 
         $this->assertContainerBuilderHasAlias(
@@ -90,7 +94,6 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
 
     /**
      * @group legacy
-     * @expectedDeprecation The 'Google\Authenticator' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.
      */
     public function testTwigConfigParameterIsSet(): void
     {
@@ -103,6 +106,8 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
             ->willReturn('twig');
 
         $this->container->registerExtension($fakeTwigExtension);
+
+        $this->expectDeprecation('The \'Google\Authenticator\' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.');
 
         $this->load();
 
@@ -118,10 +123,11 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
 
     /**
      * @group legacy
-     * @expectedDeprecation The 'Google\Authenticator' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.
      */
     public function testTwigConfigParameterIsNotSet(): void
     {
+        $this->expectDeprecation('The \'Google\Authenticator\' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.');
+
         $this->load();
 
         $twigConfigurations = $this->container->getExtensionConfig('twig');
@@ -131,37 +137,41 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
 
     /**
      * @group legacy
-     * @expectedDeprecation The 'Google\Authenticator' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.
      */
     public function testCorrectModelClass(): void
     {
+        $this->expectDeprecation('The \'Google\Authenticator\' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.');
+
         $this->load(['class' => ['user' => \Sonata\UserBundle\Tests\Entity\User::class]]);
     }
 
     /**
      * @group legacy
-     * @expectedDeprecation The 'Google\Authenticator' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.
      */
     public function testCorrectModelClassWithLeadingSlash(): void
     {
+        $this->expectDeprecation('The \'Google\Authenticator\' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.');
+
         $this->load(['class' => ['user' => \Sonata\UserBundle\Tests\Entity\User::class]]);
     }
 
     /**
      * @group legacy
-     * @expectedDeprecation The 'Google\Authenticator' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.
      */
     public function testCorrectAdminClass(): void
     {
+        $this->expectDeprecation('The \'Google\Authenticator\' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.');
+
         $this->load(['admin' => ['user' => ['class' => \Sonata\UserBundle\Tests\Admin\Entity\UserAdmin::class]]]);
     }
 
     /**
      * @group legacy
-     * @expectedDeprecation The 'Google\Authenticator' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.
      */
     public function testCorrectModelClassWithNotDefaultManagerType(): void
     {
+        $this->expectDeprecation('The \'Google\Authenticator\' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.');
+
         $this->load([
             'manager_type' => 'mongodb',
             'class' => [
@@ -177,10 +187,11 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
 
     /**
      * @group legacy
-     * @expectedDeprecation The 'Google\Authenticator' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.
      */
     public function testFosUserBundleModelClasses(): void
     {
+        $this->expectDeprecation('The \'Google\Authenticator\' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.');
+
         $this->load(['manager_type' => 'orm', 'class' => [
             'user' => UserInterface::class,
             'group' => GroupInterface::class,
@@ -189,7 +200,6 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
 
     /**
      * @group legacy
-     * @expectedDeprecation The 'Google\Authenticator' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.
      */
     public function testNotCorrespondingUserClass(): void
     {
@@ -199,12 +209,13 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
             'Model class "Sonata\UserBundle\Entity\BaseUser" does not correspond to manager type "mongodb".'
         );
 
+        $this->expectDeprecation('The \'Google\Authenticator\' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.');
+
         $this->load(['manager_type' => 'mongodb', 'class' => ['user' => \Sonata\UserBundle\Entity\BaseUser::class]]);
     }
 
     /**
      * @group legacy
-     * @expectedDeprecation The 'Google\Authenticator' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.
      */
     public function testNotCorrespondingGroupClass(): void
     {
@@ -214,6 +225,8 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
             'Model class "Sonata\UserBundle\Entity\BaseGroup" does not correspond to manager type "mongodb".'
         );
 
+        $this->expectDeprecation('The \'Google\Authenticator\' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.');
+
         $this->load(['manager_type' => 'mongodb', 'class' => [
             'user' => BaseUser::class,
             'group' => BaseGroup::class,
@@ -222,10 +235,11 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
 
     /**
      * @group legacy
-     * @expectedDeprecation The 'Google\Authenticator' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.
      */
     public function testConfigureGoogleAuthenticatorDisabled(): void
     {
+        $this->expectDeprecation('The \'Google\Authenticator\' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.');
+
         $this->load(['google_authenticator' => ['enabled' => false]]);
 
         $this->assertContainerBuilderHasParameter('sonata.user.google.authenticator.enabled', false);
@@ -237,10 +251,11 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
 
     /**
      * @group legacy
-     * @expectedDeprecation The 'Google\Authenticator' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.
      */
     public function testConfigureGoogleAuthenticatorEnabled(): void
     {
+        $this->expectDeprecation('The \'Google\Authenticator\' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.');
+
         $this->load(['google_authenticator' => ['enabled' => true, 'forced_for_role' => ['ROLE_USER'], 'ip_white_list' => ['0.0.0.1'],
                                                 'server' => 'bar', ]]);
 
@@ -256,10 +271,11 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
 
     /**
      * @group legacy
-     * @expectedDeprecation The 'Google\Authenticator' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.
      */
     public function testMailerConfigParameterIfNotSet(): void
     {
+        $this->expectDeprecation('The \'Google\Authenticator\' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.');
+
         $this->load();
 
         $this->assertContainerBuilderHasAlias('sonata.user.mailer', 'sonata.user.mailer.default');
@@ -267,10 +283,11 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
 
     /**
      * @group legacy
-     * @expectedDeprecation The 'Google\Authenticator' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.
      */
     public function testMailerConfigParameter(): void
     {
+        $this->expectDeprecation('The \'Google\Authenticator\' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.');
+
         $this->load(['mailer' => 'custom.mailer.service.id']);
 
         $this->assertContainerBuilderHasAlias('sonata.user.mailer', 'custom.mailer.service.id');
