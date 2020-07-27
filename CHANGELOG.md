@@ -2,6 +2,30 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.7.0](https://github.com/sonata-project/SonataUserBundle/compare/4.6.0...4.7.0) - 2020-07-30
+### Changed
+- [[#1183](https://github.com/sonata-project/SonataUserBundle/pull/1183)]
+  SonataEasyExtendsBundle is now optional, using SonataDoctrineBundle is
+preferred ([@jordisala1991](https://github.com/jordisala1991))
+
+### Deprecated
+- [[#1183](https://github.com/sonata-project/SonataUserBundle/pull/1183)] Using
+  SonataEasyExtendsBundle to add Doctrine mapping information
+([@jordisala1991](https://github.com/jordisala1991))
+
+### Fixed
+- [[#1202](https://github.com/sonata-project/SonataUserBundle/pull/1202)] Fixed
+  wrong placeholder delimiters at ReST API controller `UserController`.
+([@phansys](https://github.com/phansys))
+- [[#1195](https://github.com/sonata-project/SonataUserBundle/pull/1195)] Fixed
+  passing "format' parameter to API routes.
+([@phansys](https://github.com/phansys))
+- [[#1194](https://github.com/sonata-project/SonataUserBundle/pull/1194)] Fixed
+  API route names. ([@phansys](https://github.com/phansys))
+
+### Removed
+- [[#1192](https://github.com/sonata-project/SonataUserBundle/pull/1192)] Support for PHP < 7.2 ([@wbloszyk](https://github.com/wbloszyk))
+
 ## [4.6.0](https://github.com/sonata-project/SonataUserBundle/compare/4.5.3...4.6.0) - 2020-06-29
 ### Added
 - [[#1185](https://github.com/sonata-project/SonataUserBundle/pull/1185)] Added

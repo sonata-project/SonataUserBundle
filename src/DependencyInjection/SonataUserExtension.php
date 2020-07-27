@@ -234,7 +234,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     public function registerDoctrineMapping(array $config): void
     {
         @trigger_error(
-            'Using this method is deprecated since sonata-project/user-bundle 4.x. You should instead register SonataDoctrineBundle and use `registerSonataDoctrineMapping()`',
+            'Using this method is deprecated since sonata-project/user-bundle 4.7. You should instead register SonataDoctrineBundle and use `registerSonataDoctrineMapping()`',
             E_USER_DEPRECATED
         );
 
