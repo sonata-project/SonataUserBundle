@@ -67,7 +67,7 @@ class AdminSecurityControllerTest extends TestCase
 
     /**
      * @group legacy
-     * @expectedDeprecation The Sonata\UserBundle\Controller\AdminSecurityController class is deprecated since version 4.3.0 and will be removed in 5.0. Use Sonata\UserBundle\Controller\CheckLoginAction, Sonata\UserBundle\Controller\LoginAction or Sonata\UserBundle\Controller\LogoutAction instead.
+     * @expectedDeprecation The Sonata\UserBundle\Controller\AdminSecurityController class is deprecated since version 4.3.0 and will be removed in 5.0. Use Sonata\UserBundle\Action\CheckLoginAction, Sonata\UserBundle\Action\LoginAction or Sonata\UserBundle\Action\LogoutAction instead.
      */
     public function testLogoutAction(): void
     {

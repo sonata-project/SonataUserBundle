@@ -13,13 +13,6 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Controller;
 
-// NEXT_MAJOR: remove this file
-@trigger_error(
-    'The '.__NAMESPACE__.'\AdminResettingController class is deprecated since version 4.3.0 and will be removed in 5.0.'
-    .' Use '.__NAMESPACE__.'\RequestAction, '.__NAMESPACE__.'\CheckEmailAction, '.__NAMESPACE__.'\ResetAction or '.__NAMESPACE__.'\SendEmailAction instead.',
-    E_USER_DEPRECATED
-);
-
 use Sonata\UserBundle\Action\CheckEmailAction;
 use Sonata\UserBundle\Action\RequestAction;
 use Sonata\UserBundle\Action\ResetAction;
@@ -27,6 +20,13 @@ use Sonata\UserBundle\Action\SendEmailAction;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
+// NEXT_MAJOR: remove this file
+@trigger_error(
+    'The '.__NAMESPACE__.'\AdminResettingController class is deprecated since version 4.3.0 and will be removed in 5.0.'
+    .' Use '.RequestAction::class.', '.CheckEmailAction::class.', '.ResetAction::class.' or '.SendEmailAction::class.' instead.',
+    E_USER_DEPRECATED
+);
 
 class AdminResettingController extends Controller
 {
