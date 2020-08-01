@@ -14,10 +14,6 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Controller\Api;
 
 use FOS\RestBundle\Context\Context;
-use FOS\RestBundle\Controller\Annotations\Delete;
-use FOS\RestBundle\Controller\Annotations\Get;
-use FOS\RestBundle\Controller\Annotations\Post;
-use FOS\RestBundle\Controller\Annotations\Put;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcherInterface;
@@ -30,12 +26,9 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
- *
- * @Route(requirements={"_format": "json|xml|html"}, defaults={"_format": "json"})
  */
 class GroupController
 {
@@ -66,8 +59,6 @@ class GroupController
      *  resource=true,
      *  output={"class"="Sonata\DatagridBundle\Pager\PagerInterface", "groups"={"sonata_api_read"}}
      * )
-     *
-     * @Get("/groups.{_format}", name="get_groups")
      *
      * @QueryParam(name="page", requirements="\d+", default="1", description="Page for groups list pagination (1-indexed)")
      * @QueryParam(name="count", requirements="\d+", default="10", description="Number of groups by page")
@@ -118,8 +109,6 @@ class GroupController
      *  }
      * )
      *
-     * @Get("/group/{id}.{_format}", name="get_group")
-     *
      * @View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
      *
      * @param $id
@@ -142,8 +131,6 @@ class GroupController
      *      400="Returned when an error has occurred while group creation",
      *  }
      * )
-     *
-     * @Post("/group.{_format}", name="post_group")
      *
      * @param Request $request A Symfony request
      *
@@ -172,8 +159,6 @@ class GroupController
      *  }
      * )
      *
-     * @Put("/group/{id}.{_format}", name="put_group")
-     *
      * @param int     $id      Group identifier
      * @param Request $request A Symfony request
      *
@@ -199,8 +184,6 @@ class GroupController
      *      404="Returned when unable to find group"
      *  }
      * )
-     *
-     * @Delete("/group/{id}.{_format}", name="delete_group")
      *
      * @param int $id A Group identifier
      *

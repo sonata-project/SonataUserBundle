@@ -25,8 +25,7 @@
         "friendsofsymfony/user-bundle": "^2.0",
         "sonata-project/admin-bundle": "^3.34",
         "sonata-project/datagrid-bundle": "^2.4.0",
-        "sonata-project/doctrine-extensions": "^1.5.1",
-        "sonata-project/easy-extends-bundle": "^2.2",
+        "sonata-project/doctrine-extensions": "^1.8",
         "sonata-project/form-extensions": "^1.4",
         "swiftmailer/swiftmailer": "^4.3 || ^5.0 || ^6.0",
         "symfony/config": "^4.4",
@@ -48,8 +47,7 @@
         "nelmio/api-doc-bundle": "<2.4",
         "sonata-project/core-bundle": "<3.20",
         "sonata-project/doctrine-orm-admin-bundle": "<3.0",
-        "sonata-project/google-authenticator": "<1.0",
-        "sonata-project/seo-bundle": "<2.0"
+        "sonata-project/google-authenticator": "<1.0"
     },
     "require-dev": {
         "doctrine/doctrine-bundle": "^2.0",
@@ -59,13 +57,10 @@
         "matthiasnoback/symfony-config-test": "^4.0",
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
         "nelmio/api-doc-bundle": "^2.4",
-        "sensio/framework-extra-bundle": "^5.5",
-        "sonata-project/block-bundle": "^3.11",
         "sonata-project/doctrine-orm-admin-bundle": "^3.18",
         "sonata-project/google-authenticator": "^2.1",
-        "sonata-project/seo-bundle": "^2.0",
         "symfony/browser-kit": "^4.4 || ^5.1",
-        "symfony/phpunit-bridge": "^5.1"
+        "symfony/phpunit-bridge": "^5.1.1"
     },
     "suggest": {
         "friendsofsymfony/rest-bundle": "For using the public API methods.",

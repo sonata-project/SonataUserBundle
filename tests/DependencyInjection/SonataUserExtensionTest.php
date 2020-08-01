@@ -39,7 +39,10 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
     {
         parent::setUp();
 
-        $this->setParameter('kernel.bundles', ['SonataAdminBundle' => true]);
+        $this->setParameter('kernel.bundles', [
+            'SonataDoctrineBundle' => true,
+            'SonataAdminBundle' => true,
+        ]);
     }
 
     public function testLoadDefault(): void
@@ -167,7 +170,15 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
         ]);
     }
 
-    public function testIncorrectModelClass(): void
+    public function testFosUserBundleModelClasses(): void
+    {
+        $this->load(['manager_type' => 'orm', 'class' => [
+            'user' => UserInterface::class,
+            'group' => GroupInterface::class,
+        ]]);
+    }
+
+    public function testNotCorrespondingUserClass(): void
     {
         $this->expectException('InvalidArgumentException');
 
@@ -178,7 +189,7 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
         $this->load(['manager_type' => 'mongodb', 'class' => ['user' => \Sonata\UserBundle\Entity\BaseUser::class]]);
     }
 
-    public function testNotCorrespondingModelClass(): void
+    public function testNotCorrespondingGroupClass(): void
     {
         $this->expectException('InvalidArgumentException');
 
@@ -216,6 +227,20 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasParameter('sonata.user.google.authenticator.forced_for_role', ['ROLE_ADMIN', 'ROLE_USER']);
         $this->assertContainerBuilderHasParameter('sonata.user.google.authenticator.ip_white_list', ['127.0.0.1', '0.0.0.1']);
         $this->assertContainerBuilderHasServiceDefinitionWithArgument('sonata.user.google.authenticator.provider', 0, 'bar');
+    }
+
+    public function testMailerConfigParameterIfNotSet(): void
+    {
+        $this->load();
+
+        $this->assertContainerBuilderHasAlias('sonata.user.mailer', 'sonata.user.mailer.default');
+    }
+
+    public function testMailerConfigParameter(): void
+    {
+        $this->load(['mailer' => 'custom.mailer.service.id']);
+
+        $this->assertContainerBuilderHasAlias('sonata.user.mailer', 'custom.mailer.service.id');
     }
 
     /**

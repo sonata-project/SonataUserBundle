@@ -13,7 +13,9 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\DependencyInjection;
 
-use Sonata\EasyExtendsBundle\Mapper\DoctrineCollector;
+use Sonata\Doctrine\Mapper\Builder\OptionsBuilder;
+use Sonata\Doctrine\Mapper\DoctrineCollector;
+use Sonata\EasyExtendsBundle\Mapper\DoctrineCollector as DeprecatedDoctrineCollector;
 use Sonata\GoogleAuthenticator\GoogleAuthenticator;
 use Sonata\UserBundle\Document\BaseGroup as DocumentGroup;
 use Sonata\UserBundle\Document\BaseUser as DocumentUser;
@@ -91,7 +93,13 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
 
         $this->checkManagerTypeToModelTypesMapping($config);
 
-        $this->registerDoctrineMapping($config);
+        if (isset($bundles['SonataDoctrineBundle'])) {
+            $this->registerSonataDoctrineMapping($config);
+        } else {
+            // NEXT MAJOR: Remove next line and throw error when not registering SonataDoctrineBundle
+            $this->registerDoctrineMapping($config);
+        }
+
         $this->configureAdminClass($config, $container);
         $this->configureClass($config, $container);
 
@@ -210,15 +218,23 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         $container->setParameter('sonata.user.admin.group.controller', $config['admin']['group']['controller']);
     }
 
+    /**
+     * NEXT_MAJOR: Remove this method.
+     */
     public function registerDoctrineMapping(array $config): void
     {
+        @trigger_error(
+            'Using this method is deprecated since sonata-project/user-bundle 4.7. You should instead register SonataDoctrineBundle and use `registerSonataDoctrineMapping()`',
+            E_USER_DEPRECATED
+        );
+
         foreach ($config['class'] as $type => $class) {
             if (!class_exists($class)) {
                 return;
             }
         }
 
-        $collector = DoctrineCollector::getInstance();
+        $collector = DeprecatedDoctrineCollector::getInstance();
 
         $collector->addAssociation($config['class']['user'], 'mapManyToMany', [
             'fieldName' => 'groups',
@@ -300,5 +316,31 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     private function configureMailer(array $config, ContainerBuilder $container): void
     {
         $container->setAlias('sonata.user.mailer', $config['mailer']);
+    }
+
+    private function registerSonataDoctrineMapping(array $config): void
+    {
+        foreach ($config['class'] as $type => $class) {
+            if (!class_exists($class)) {
+                return;
+            }
+        }
+
+        $collector = DoctrineCollector::getInstance();
+
+        $collector->addAssociation(
+            $config['class']['user'],
+            'mapManyToMany',
+            OptionsBuilder::createManyToMany('groups', $config['class']['group'])
+                ->addJoinTable($config['table']['user_group'], [[
+                    'name' => 'user_id',
+                    'referencedColumnName' => 'id',
+                    'onDelete' => 'CASCADE',
+                ]], [[
+                    'name' => 'group_id',
+                    'referencedColumnName' => 'id',
+                    'onDelete' => 'CASCADE',
+                ]])
+        );
     }
 }

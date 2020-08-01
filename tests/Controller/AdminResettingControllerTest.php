@@ -20,12 +20,15 @@ use Sonata\UserBundle\Action\RequestAction;
 use Sonata\UserBundle\Action\ResetAction;
 use Sonata\UserBundle\Action\SendEmailAction;
 use Sonata\UserBundle\Controller\AdminResettingController;
+use Symfony\Bridge\PhpUnit\ExpectDeprecationTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class AdminResettingControllerTest extends TestCase
 {
+    use ExpectDeprecationTrait;
+
     /**
      * @var RequestStack|MockObject
      */
@@ -75,7 +78,6 @@ class AdminResettingControllerTest extends TestCase
 
     /**
      * @group legacy
-     * @expectedDeprecation The Sonata\UserBundle\Controller\AdminResettingController class is deprecated since version 4.3.0 and will be removed in 5.0. Use Sonata\UserBundle\Controller\RequestAction, Sonata\UserBundle\Controller\CheckEmailAction, Sonata\UserBundle\Controller\ResetAction or Sonata\UserBundle\Controller\SendEmailAction instead.
      */
     public function testCheckEmailAction(): void
     {
@@ -85,7 +87,14 @@ class AdminResettingControllerTest extends TestCase
             ->method('getCurrentRequest')
             ->willReturn($request);
 
+        $this->expectDeprecation(
+            'The Sonata\UserBundle\Controller\AdminResettingController class is deprecated since version 4.3.0'
+            .' and will be removed in 5.0. Use Sonata\UserBundle\Action\RequestAction, Sonata\UserBundle\Action\CheckEmailAction'
+            .', Sonata\UserBundle\Action\ResetAction or Sonata\UserBundle\Action\SendEmailAction instead.'
+        );
+
         $controller = $this->getController();
+
         $result = $controller->checkEmailAction($request);
 
         $this->assertSame('ok', $result);

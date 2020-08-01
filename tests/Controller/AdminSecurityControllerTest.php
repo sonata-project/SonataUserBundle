@@ -19,12 +19,15 @@ use Sonata\UserBundle\Action\CheckLoginAction;
 use Sonata\UserBundle\Action\LoginAction;
 use Sonata\UserBundle\Action\LogoutAction;
 use Sonata\UserBundle\Controller\AdminSecurityController;
+use Symfony\Bridge\PhpUnit\ExpectDeprecationTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class AdminSecurityControllerTest extends TestCase
 {
+    use ExpectDeprecationTrait;
+
     /**
      * @var TestSecurityAction
      */
@@ -67,10 +70,15 @@ class AdminSecurityControllerTest extends TestCase
 
     /**
      * @group legacy
-     * @expectedDeprecation The Sonata\UserBundle\Controller\AdminSecurityController class is deprecated since version 4.3.0 and will be removed in 5.0. Use Sonata\UserBundle\Controller\CheckLoginAction, Sonata\UserBundle\Controller\LoginAction or Sonata\UserBundle\Controller\LogoutAction instead.
      */
     public function testLogoutAction(): void
     {
+        $this->expectDeprecation(
+            'The Sonata\UserBundle\Controller\AdminSecurityController class is deprecated since version 4.3.0'
+            .' and will be removed in 5.0. Use Sonata\UserBundle\Action\CheckLoginAction, Sonata\UserBundle\Action\LoginAction'
+            .' or Sonata\UserBundle\Action\LogoutAction instead.'
+        );
+
         $controller = $this->getController();
         $controller->logoutAction();
     }

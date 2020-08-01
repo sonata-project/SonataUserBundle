@@ -13,19 +13,19 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Controller;
 
-// NEXT_MAJOR: remove this file
-@trigger_error(
-    'The '.__NAMESPACE__.'\AdminSecurityController class is deprecated since version 4.3.0 and will be removed in 5.0.'
-    .' Use '.__NAMESPACE__.'\CheckLoginAction, '.__NAMESPACE__.'\LoginAction or '.__NAMESPACE__.'\LogoutAction instead.',
-    E_USER_DEPRECATED
-);
-
 use Sonata\UserBundle\Action\CheckLoginAction;
 use Sonata\UserBundle\Action\LoginAction;
 use Sonata\UserBundle\Action\LogoutAction;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
+// NEXT_MAJOR: remove this file
+@trigger_error(
+    'The '.__NAMESPACE__.'\AdminSecurityController class is deprecated since version 4.3.0 and will be removed in 5.0.'
+    .' Use '.CheckLoginAction::class.', '.LoginAction::class.' or '.LogoutAction::class.' instead.',
+    E_USER_DEPRECATED
+);
 
 class AdminSecurityController extends Controller
 {
