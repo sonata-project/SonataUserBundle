@@ -35,12 +35,12 @@ Edit the configuration file:
         google_authenticator:
             enabled: true
             server:  yourserver.com
-            ip_white_list:
+            trusted_ip_list:
                 - 127.0.0.1
             forced_for_role:
                 - ROLE_ADMIN
 
-Also, if you want to use ``ip_white_list`` and ``forced_for_role``
+Also, if you want to use ``trusted_ip_list`` and ``forced_for_role``
 configuration nodes for automatically setting the secret to user
 (secret - a connection between user and device that will scans QR-code)
 and showing QR-code in login form, you need to set the success handler

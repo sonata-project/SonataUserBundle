@@ -256,7 +256,7 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
     {
         $this->expectDeprecation('The \'Google\Authenticator\' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.');
 
-        $this->load(['google_authenticator' => ['enabled' => true, 'forced_for_role' => ['ROLE_USER'], 'ip_white_list' => ['0.0.0.1'],
+        $this->load(['google_authenticator' => ['enabled' => true, 'forced_for_role' => ['ROLE_USER'], 'trusted_ip_list' => ['0.0.0.1'],
                                                 'server' => 'bar', ]]);
 
         $this->assertContainerBuilderHasParameter('sonata.user.google.authenticator.enabled', true);
@@ -265,7 +265,7 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasService('sonata.user.google.authenticator.interactive_login_listener');
         $this->assertContainerBuilderHasService('sonata.user.google.authenticator.request_listener');
         $this->assertContainerBuilderHasParameter('sonata.user.google.authenticator.forced_for_role', ['ROLE_ADMIN', 'ROLE_USER']);
-        $this->assertContainerBuilderHasParameter('sonata.user.google.authenticator.ip_white_list', ['127.0.0.1', '0.0.0.1']);
+        $this->assertContainerBuilderHasParameter('sonata.user.google.authenticator.trusted_ip_list', ['127.0.0.1', '0.0.0.1']);
         $this->assertContainerBuilderHasServiceDefinitionWithArgument('sonata.user.google.authenticator.provider', 0, 'bar');
     }
 
