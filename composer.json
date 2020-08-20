@@ -35,7 +35,7 @@
         "symfony/framework-bundle": "^4.4",
         "symfony/http-foundation": "^4.4",
         "symfony/http-kernel": "^4.4",
-        "symfony/options-resolver": "^4.4",
+        "symfony/options-resolver": "^4.4 || ^5.1",
         "symfony/security-acl": "^3.0",
         "symfony/security-core": "^4.4",
         "symfony/translation": "^4.4",
