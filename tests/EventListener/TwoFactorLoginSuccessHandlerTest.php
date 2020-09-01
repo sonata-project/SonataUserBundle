@@ -105,8 +105,8 @@ class TwoFactorLoginSuccessHandlerTest extends TestCase
         $routerMock = $this->createMock(UrlGeneratorInterface::class);
         $routerMock->method('generate')->willReturn('/admin/dashboard');
         $forcedRoles = ['ROLE_ADMIN'];
-        $ipWhiteList = ['127.0.0.1'];
-        $helper = new Helper('site.tld', new GoogleAuthenticator(), $authChecker, $forcedRoles, $ipWhiteList);
+        $trustedIpList = ['127.0.0.1'];
+        $helper = new Helper('site.tld', new GoogleAuthenticator(), $authChecker, $forcedRoles, $trustedIpList);
         $this->testClass = new TwoFactorLoginSuccessHandler(
             $templateEngineMock,
             $helper,

@@ -164,11 +164,22 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         }
 
         if (!class_exists(GoogleAuthenticator::class)) {
-            throw new \RuntimeException('Please add ``sonata-project/google-authenticator`` package');
+            throw new \RuntimeException('Please add "sonata-project/google-authenticator" package');
         }
 
         $container->setParameter('sonata.user.google.authenticator.forced_for_role', $config['google_authenticator']['forced_for_role']);
-        $container->setParameter('sonata.user.google.authenticator.ip_white_list', $config['google_authenticator']['ip_white_list']);
+
+        // NEXT_MAJOR: Remove this checks and only set the `trusted_ip_list`.
+        if (\count($config['google_authenticator']['ip_white_list']) > 0 && $config['google_authenticator']['trusted_ip_list'] !== ['127.0.0.1']) {
+            throw new \LogicException('Please use only "trusted_ip_list" parameter, "ip_white_list" is deprecated.');
+        }
+        $trustedIpList = $config['google_authenticator']['trusted_ip_list'];
+        if (\count($config['google_authenticator']['ip_white_list']) > 0) {
+            $trustedIpList = $config['google_authenticator']['ip_white_list'];
+        }
+        // NEXT_MAJOR: Remove `sonata.user.google.authenticator.ip_white_list` parameter.
+        $container->setParameter('sonata.user.google.authenticator.ip_white_list', $trustedIpList);
+        $container->setParameter('sonata.user.google.authenticator.trusted_ip_list', $trustedIpList);
 
         $container->getDefinition('sonata.user.google.authenticator.provider')
             ->replaceArgument(0, $config['google_authenticator']['server']);
