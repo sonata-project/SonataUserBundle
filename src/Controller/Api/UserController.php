@@ -104,7 +104,7 @@ class UserController
      *
      * @ApiDoc(
      *  requirements={
-     *      {"name"="id", "dataType"="integer", "requirement"="\d+", "description"="user id"}
+     *      {"name"="id", "dataType"="string", "description"="User identifier"}
      *  },
      *  output={"class"="Sonata\UserBundle\Model\UserInterface", "groups"={"sonata_api_read"}},
      *  statusCodes={
@@ -115,7 +115,7 @@ class UserController
      *
      * @View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
      *
-     * @param $id
+     * @param string $id
      *
      * @return UserInterface
      */
@@ -152,7 +152,7 @@ class UserController
      *
      * @ApiDoc(
      *  requirements={
-     *      {"name"="id", "dataType"="integer", "requirement"="\d+", "description"="user identifier"}
+     *      {"name"="id", "dataType"="string", "description"="User identifier"}
      *  },
      *  input={"class"="sonata_user_api_form_user", "name"="", "groups"={"sonata_api_write"}},
      *  output={"class"="Sonata\UserBundle\Model\User", "groups"={"sonata_api_read"}},
@@ -163,7 +163,7 @@ class UserController
      *  }
      * )
      *
-     * @param int     $id      User id
+     * @param string  $id      User id
      * @param Request $request A Symfony request
      *
      * @throws NotFoundHttpException
@@ -180,7 +180,7 @@ class UserController
      *
      * @ApiDoc(
      *  requirements={
-     *      {"name"="id", "dataType"="integer", "requirement"="\d+", "description"="user identifier"}
+     *      {"name"="id", "dataType"="string", "description"="User identifier"}
      *  },
      *  statusCodes={
      *      200="Returned when user is successfully deleted",
@@ -189,7 +189,7 @@ class UserController
      *  }
      * )
      *
-     * @param int $id An User identifier
+     * @param string $id An User identifier
      *
      * @throws NotFoundHttpException
      *
@@ -209,8 +209,8 @@ class UserController
      *
      * @ApiDoc(
      *  requirements={
-     *      {"name"="userId", "dataType"="integer", "requirement"="\d+", "description"="user identifier"},
-     *      {"name"="groupId", "dataType"="integer", "requirement"="\d+", "description"="group identifier"}
+     *      {"name"="userId", "dataType"="string", "description"="User identifier"},
+     *      {"name"="groupId", "dataType"="string", "description"="Group identifier"}
      *  },
      *  output={"class"="Sonata\UserBundle\Model\User", "groups"={"sonata_api_read"}},
      *  statusCodes={
@@ -220,8 +220,8 @@ class UserController
      *  }
      * )
      *
-     * @param int $userId  A User identifier
-     * @param int $groupId A Group identifier
+     * @param string $userId  A User identifier
+     * @param string $groupId A Group identifier
      *
      * @throws NotFoundHttpException
      * @throws \RuntimeException
@@ -250,8 +250,8 @@ class UserController
      *
      * @ApiDoc(
      *  requirements={
-     *      {"name"="userId", "dataType"="integer", "requirement"="\d+", "description"="user identifier"},
-     *      {"name"="groupId", "dataType"="integer", "requirement"="\d+", "description"="group identifier"}
+     *      {"name"="userId", "dataType"="string", "description"="User identifier"},
+     *      {"name"="groupId", "dataType"="string", "description"="Group identifier"}
      *  },
      *  output={"class"="Sonata\UserBundle\Model\User", "groups"={"sonata_api_read"}},
      *  statusCodes={
@@ -261,8 +261,8 @@ class UserController
      *  }
      * )
      *
-     * @param int $userId  A User identifier
-     * @param int $groupId A Group identifier
+     * @param string $userId  A User identifier
+     * @param string $groupId A Group identifier
      *
      * @throws NotFoundHttpException
      * @throws \RuntimeException
@@ -289,7 +289,7 @@ class UserController
     /**
      * Retrieves user with id $id or throws an exception if it doesn't exist.
      *
-     * @param $id
+     * @param string $id
      *
      * @throws NotFoundHttpException
      *
@@ -309,7 +309,7 @@ class UserController
     /**
      * Retrieves user with id $id or throws an exception if it doesn't exist.
      *
-     * @param $id
+     * @param string $id
      *
      * @throws NotFoundHttpException
      *
@@ -329,8 +329,8 @@ class UserController
     /**
      * Write an User, this method is used by both POST and PUT action methods.
      *
-     * @param Request  $request Symfony request
-     * @param int|null $id      An User identifier
+     * @param Request     $request Symfony request
+     * @param string|null $id      An User identifier
      *
      * @return FormInterface
      */

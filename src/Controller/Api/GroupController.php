@@ -100,7 +100,7 @@ class GroupController
      *
      * @ApiDoc(
      *  requirements={
-     *      {"name"="id", "dataType"="integer", "requirement"="\d+", "description"="group id"}
+     *      {"name"="id", "dataType"="string", "description"="Group identifier"}
      *  },
      *  output={"class"="FOS\UserBundle\Model\GroupInterface", "groups"={"sonata_api_read"}},
      *  statusCodes={
@@ -111,7 +111,7 @@ class GroupController
      *
      * @View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
      *
-     * @param $id
+     * @param string $id
      *
      * @return GroupInterface
      */
@@ -148,7 +148,7 @@ class GroupController
      *
      * @ApiDoc(
      *  requirements={
-     *      {"name"="id", "dataType"="integer", "requirement"="\d+", "description"="group identifier"}
+     *      {"name"="id", "dataType"="string", "description"="Group identifier"}
      *  },
      *  input={"class"="sonata_user_api_form_group", "name"="", "groups"={"sonata_api_write"}},
      *  output={"class"="Sonata\UserBundle\Model\Group", "groups"={"sonata_api_read"}},
@@ -159,7 +159,7 @@ class GroupController
      *  }
      * )
      *
-     * @param int     $id      Group identifier
+     * @param string  $id      Group identifier
      * @param Request $request A Symfony request
      *
      * @throws NotFoundHttpException
@@ -176,7 +176,7 @@ class GroupController
      *
      * @ApiDoc(
      *  requirements={
-     *      {"name"="id", "dataType"="integer", "requirement"="\d+", "description"="group identifier"}
+     *      {"name"="id", "dataType"="string", "description"="Group identifier"}
      *  },
      *  statusCodes={
      *      200="Returned when group is successfully deleted",
@@ -185,7 +185,7 @@ class GroupController
      *  }
      * )
      *
-     * @param int $id A Group identifier
+     * @param string $id A Group identifier
      *
      * @throws NotFoundHttpException
      *
@@ -203,8 +203,8 @@ class GroupController
     /**
      * Write a Group, this method is used by both POST and PUT action methods.
      *
-     * @param Request  $request Symfony request
-     * @param int|null $id      A Group identifier
+     * @param Request     $request Symfony request
+     * @param string|null $id      A Group identifier
      *
      * @return FormInterface
      */
@@ -239,7 +239,7 @@ class GroupController
     /**
      * Retrieves group with id $id or throws an exception if it doesn't exist.
      *
-     * @param $id
+     * @param string $id
      *
      * @throws NotFoundHttpException
      *
