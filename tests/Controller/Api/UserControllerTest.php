@@ -51,12 +51,28 @@ class UserControllerTest extends TestCase
         $this->assertSame($user, $this->createUserController($user)->getUserAction(1));
     }
 
-    public function testGetUserActionNotFoundException(): void
+    /**
+     * @dataProvider getIdsForNotFound
+     */
+    public function testGetUserActionNotFoundException($identifier, string $message): void
     {
-        $this->expectException(\Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class);
-        $this->expectExceptionMessage('User (42) not found');
+        $this->expectException(NotFoundHttpException::class);
+        $this->expectExceptionMessage($message);
 
-        $this->createUserController()->getUserAction(42);
+        $this->createUserController()->getUserAction($identifier);
+    }
+
+    /**
+     * @phpstan-return list<array{mixed, string}>
+     */
+    public function getIdsForNotFound(): array
+    {
+        return [
+            [42, 'User not found for identifier 42.'],
+            ['42', 'User not found for identifier \'42\'.'],
+            [null, 'User not found for identifier NULL.'],
+            ['', 'User not found for identifier \'\'.'],
+        ];
     }
 
     public function testPostUserAction(): void
