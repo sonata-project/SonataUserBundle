@@ -2,6 +2,19 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.8.0](https://github.com/sonata-project/SonataUserBundle/compare/4.7.0...4.8.0) - 2020-09-07
+### Added
+- [[#1210](https://github.com/sonata-project/SonataUserBundle/pull/1210)] Added support for symfony/options-resolver:^5.1 ([@phansys](https://github.com/phansys))
+
+### Changed
+- [[#1205](https://github.com/sonata-project/SonataUserBundle/pull/1205)] Replace `ip_white_list` by `trusted_ip_list` configuration key ([@davidromani](https://github.com/davidromani))
+
+### Fixed
+- [[#1198](https://github.com/sonata-project/SonataUserBundle/pull/1198)] Fixed support for string model identifiers at Open API definitions ([@phansys](https://github.com/phansys))
+
+### Removed
+- [[#1198](https://github.com/sonata-project/SonataUserBundle/pull/1198)] Removed requirements that were only allowing integers for model identifiers at Open API definitions ([@phansys](https://github.com/phansys))
+
 ## [4.7.0](https://github.com/sonata-project/SonataUserBundle/compare/4.6.0...4.7.0) - 2020-07-30
 ### Changed
 - [[#1183](https://github.com/sonata-project/SonataUserBundle/pull/1183)]
