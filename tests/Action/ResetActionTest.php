@@ -26,9 +26,8 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -108,7 +107,7 @@ class ResetActionTest extends TestCase
         $this->userManager = $this->createMock(UserManagerInterface::class);
         $this->loginManager = $this->createMock(LoginManagerInterface::class);
         $this->translator = $this->createMock(TranslatorInterface::class);
-        $this->session = $this->createMock(SessionInterface::class);
+        $this->session = new Session(new MockFileSessionStorage());
         $this->resetTtl = 60;
         $this->firewallName = 'default';
     }
@@ -266,15 +265,6 @@ class ResetActionTest extends TestCase
                 return $message;
             });
 
-        $bag = $this->createMock(FlashBag::class);
-        $bag->expects($this->once())
-            ->method('add')
-            ->with('success', 'resetting.flash.success');
-
-        $this->session
-            ->method('getFlashBag')
-            ->willReturn($bag);
-
         $this->userManager
             ->method('findUserByConfirmationToken')
             ->with('token')
@@ -301,6 +291,9 @@ class ResetActionTest extends TestCase
 
         $this->assertInstanceOf(RedirectResponse::class, $result);
         $this->assertSame('/foo', $result->getTargetUrl());
+        $this->assertSame([
+            'success' => ['resetting.flash.success'],
+        ], $this->session->getFlashBag()->all());
     }
 
     private function getAction(): ResetAction
