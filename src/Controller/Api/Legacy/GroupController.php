@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Sonata\UserBundle\Controller\Api;
+namespace Sonata\UserBundle\Controller\Api\Legacy;
 
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
@@ -19,11 +19,9 @@ use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\View\View as FOSRestView;
 use FOS\UserBundle\Model\GroupInterface;
-use Nelmio\ApiDocBundle\Annotation\Model;
-use Nelmio\ApiDocBundle\Annotation\Operation;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\UserBundle\Model\GroupManagerInterface;
-use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,42 +55,9 @@ class GroupController
     /**
      * Returns a paginated list of groups.
      *
-     * @Operation(
-     *     tags={"/api/user/groups"},
-     *     summary="Returns a paginated list of groups.",
-     *     @SWG\Parameter(
-     *         name="page",
-     *         in="query",
-     *         description="Page for groups list pagination (1-indexed)",
-     *         required=false,
-     *         type="string"
-     *     ),
-     *     @SWG\Parameter(
-     *         name="count",
-     *         in="query",
-     *         description="Number of groups per page",
-     *         required=false,
-     *         type="string"
-     *     ),
-     *     @SWG\Parameter(
-     *         name="orderBy",
-     *         in="query",
-     *         description="Query groups order by clause (key is field, value is direction)",
-     *         required=false,
-     *         type="string"
-     *     ),
-     *     @SWG\Parameter(
-     *         name="enabled",
-     *         in="query",
-     *         description="Enables or disables the groups only?",
-     *         required=false,
-     *         type="string"
-     *     ),
-     *     @SWG\Response(
-     *         response="200",
-     *         description="Returned when successful",
-     *         @SWG\Schema(ref=@Model(type="Sonata\DatagridBundle\Pager\PagerInterface"))
-     *     )
+     * @ApiDoc(
+     *  resource=true,
+     *  output={"class"="Sonata\DatagridBundle\Pager\PagerInterface", "groups"={"sonata_api_read"}}
      * )
      *
      * @QueryParam(name="page", requirements="\d+", default="1", description="Page for groups list pagination (1-indexed)")
@@ -131,18 +96,15 @@ class GroupController
     /**
      * Retrieves a specific group.
      *
-     * @Operation(
-     *     tags={"/api/user/groups"},
-     *     summary="Retrieves a specific group.",
-     *     @SWG\Response(
-     *         response="200",
-     *         description="Returned when successful",
-     *         @SWG\Schema(ref=@Model(type="FOS\UserBundle\Model\GroupInterface"))
-     *     ),
-     *     @SWG\Response(
-     *         response="404",
-     *         description="Returned when group is not found"
-     *     )
+     * @ApiDoc(
+     *  requirements={
+     *      {"name"="id", "dataType"="string", "description"="Group identifier"}
+     *  },
+     *  output={"class"="FOS\UserBundle\Model\GroupInterface", "groups"={"sonata_api_read"}},
+     *  statusCodes={
+     *      200="Returned when successful",
+     *      404="Returned when group is not found"
+     *  }
      * )
      *
      * @View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
@@ -159,18 +121,13 @@ class GroupController
     /**
      * Adds a group.
      *
-     * @Operation(
-     *     tags={"/api/user/groups"},
-     *     summary="Adds a group.",
-     *     @SWG\Response(
-     *         response="200",
-     *         description="Returned when successful",
-     *         @SWG\Schema(ref=@Model(type="Sonata\UserBundle\Model\Group"))
-     *     ),
-     *     @SWG\Response(
-     *         response="400",
-     *         description="Returned when an error has occurred during the group creation"
-     *     )
+     * @ApiDoc(
+     *  input={"class"="sonata_user_api_form_group", "name"="", "groups"={"sonata_api_write"}},
+     *  output={"class"="Sonata\UserBundle\Model\Group", "groups"={"sonata_api_read"}},
+     *  statusCodes={
+     *      200="Returned when successful",
+     *      400="Returned when an error has occurred during the group creation",
+     *  }
      * )
      *
      * @param Request $request A Symfony request
@@ -187,22 +144,17 @@ class GroupController
     /**
      * Updates a group.
      *
-     * @Operation(
-     *     tags={"/api/user/groups"},
-     *     summary="Updates a group.",
-     *     @SWG\Response(
-     *         response="200",
-     *         description="Returned when successful",
-     *         @SWG\Schema(ref=@Model(type="Sonata\UserBundle\Model\Group"))
-     *     ),
-     *     @SWG\Response(
-     *         response="400",
-     *         description="Returned when an error has occurred during the group creation"
-     *     ),
-     *     @SWG\Response(
-     *         response="404",
-     *         description="Returned when unable to find group"
-     *     )
+     * @ApiDoc(
+     *  requirements={
+     *      {"name"="id", "dataType"="string", "description"="Group identifier"}
+     *  },
+     *  input={"class"="sonata_user_api_form_group", "name"="", "groups"={"sonata_api_write"}},
+     *  output={"class"="Sonata\UserBundle\Model\Group", "groups"={"sonata_api_read"}},
+     *  statusCodes={
+     *      200="Returned when successful",
+     *      400="Returned when an error has occurred during the group creation",
+     *      404="Returned when unable to find group"
+     *  }
      * )
      *
      * @param string  $id      Group identifier
@@ -220,21 +172,15 @@ class GroupController
     /**
      * Deletes a group.
      *
-     * @Operation(
-     *     tags={"/api/user/groups"},
-     *     summary="Deletes a group.",
-     *     @SWG\Response(
-     *         response="200",
-     *         description="Returned when group is successfully deleted"
-     *     ),
-     *     @SWG\Response(
-     *         response="400",
-     *         description="Returned when an error has occurred during the group deletion"
-     *     ),
-     *     @SWG\Response(
-     *         response="404",
-     *         description="Returned when unable to find group"
-     *     )
+     * @ApiDoc(
+     *  requirements={
+     *      {"name"="id", "dataType"="string", "description"="Group identifier"}
+     *  },
+     *  statusCodes={
+     *      200="Returned when group is successfully deleted",
+     *      400="Returned when an error has occurred during the group deletion",
+     *      404="Returned when unable to find group"
+     *  }
      * )
      *
      * @param string $id A Group identifier
