@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Sonata\UserBundle\Controller\Api;
+namespace Sonata\UserBundle\Controller\Api\Legacy;
 
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
@@ -19,13 +19,11 @@ use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\View\View as FOSRestView;
 use FOS\UserBundle\Model\GroupInterface;
-use Nelmio\ApiDocBundle\Annotation\Model;
-use Nelmio\ApiDocBundle\Annotation\Operation;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\UserBundle\Model\GroupManagerInterface;
 use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
-use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -61,42 +59,9 @@ class UserController
     /**
      * Returns a paginated list of users.
      *
-     * @Operation(
-     *     tags={"/api/user/users"},
-     *     summary="Returns a paginated list of users.",
-     *     @SWG\Parameter(
-     *         name="page",
-     *         in="query",
-     *         description="Page for users list pagination (1-indexed)",
-     *         required=false,
-     *         type="string"
-     *     ),
-     *     @SWG\Parameter(
-     *         name="count",
-     *         in="query",
-     *         description="Number of users per page",
-     *         required=false,
-     *         type="string"
-     *     ),
-     *     @SWG\Parameter(
-     *         name="orderBy",
-     *         in="query",
-     *         description="Query users order by clause (key is field, value is direction)",
-     *         required=false,
-     *         type="string"
-     *     ),
-     *     @SWG\Parameter(
-     *         name="enabled",
-     *         in="query",
-     *         description="Enables or disables the users only?",
-     *         required=false,
-     *         type="string"
-     *     ),
-     *     @SWG\Response(
-     *         response="200",
-     *         description="Returned when successful",
-     *         @SWG\Schema(ref=@Model(type="Sonata\DatagridBundle\Pager\PagerInterface"))
-     *     )
+     * @ApiDoc(
+     *  resource=true,
+     *  output={"class"="Sonata\DatagridBundle\Pager\PagerInterface", "groups"={"sonata_api_read"}}
      * )
      *
      * @QueryParam(name="page", requirements="\d+", default="1", description="Page for users list pagination (1-indexed)")
@@ -135,18 +100,15 @@ class UserController
     /**
      * Retrieves a specific user.
      *
-     * @Operation(
-     *     tags={"/api/user/users"},
-     *     summary="Retrieves a specific user.",
-     *     @SWG\Response(
-     *         response="200",
-     *         description="Returned when successful",
-     *         @SWG\Schema(ref=@Model(type="Sonata\UserBundle\Model\UserInterface"))
-     *     ),
-     *     @SWG\Response(
-     *         response="404",
-     *         description="Returned when user is not found"
-     *     )
+     * @ApiDoc(
+     *  requirements={
+     *      {"name"="id", "dataType"="string", "description"="User identifier"}
+     *  },
+     *  output={"class"="Sonata\UserBundle\Model\UserInterface", "groups"={"sonata_api_read"}},
+     *  statusCodes={
+     *      200="Returned when successful",
+     *      404="Returned when user is not found"
+     *  }
      * )
      *
      * @View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
@@ -163,18 +125,13 @@ class UserController
     /**
      * Adds an user.
      *
-     * @Operation(
-     *     tags={"/api/user/users"},
-     *     summary="Adds a user.",
-     *     @SWG\Response(
-     *         response="200",
-     *         description="Returned when successful",
-     *         @SWG\Schema(ref=@Model(type="Sonata\UserBundle\Model\Group"))
-     *     ),
-     *     @SWG\Response(
-     *         response="400",
-     *         description="Returned when an error has occurred during the user creation"
-     *     )
+     * @ApiDoc(
+     *  input={"class"="sonata_user_api_form_user", "name"="", "groups"={"sonata_api_write"}},
+     *  output={"class"="Sonata\UserBundle\Model\User", "groups"={"sonata_api_read"}},
+     *  statusCodes={
+     *      200="Returned when successful",
+     *      400="Returned when an error has occurred during the user creation",
+     *  }
      * )
      *
      * @param Request $request A Symfony request
@@ -191,22 +148,17 @@ class UserController
     /**
      * Updates an user.
      *
-     * @Operation(
-     *     tags={"/api/user/users"},
-     *     summary="Updates a user.",
-     *     @SWG\Response(
-     *         response="200",
-     *         description="Returned when successful",
-     *         @SWG\Schema(ref=@Model(type="Sonata\UserBundle\Model\User"))
-     *     ),
-     *     @SWG\Response(
-     *         response="400",
-     *         description="Returned when an error has occurred during the user creation"
-     *     ),
-     *     @SWG\Response(
-     *         response="404",
-     *         description="Returned when unable to find user"
-     *     )
+     * @ApiDoc(
+     *  requirements={
+     *      {"name"="id", "dataType"="string", "description"="User identifier"}
+     *  },
+     *  input={"class"="sonata_user_api_form_user", "name"="", "groups"={"sonata_api_write"}},
+     *  output={"class"="Sonata\UserBundle\Model\User", "groups"={"sonata_api_read"}},
+     *  statusCodes={
+     *      200="Returned when successful",
+     *      400="Returned when an error has occurred during the user creation",
+     *      404="Returned when unable to find user"
+     *  }
      * )
      *
      * @param string  $id      User id
@@ -224,21 +176,15 @@ class UserController
     /**
      * Deletes an user.
      *
-     * @Operation(
-     *     tags={"/api/user/users"},
-     *     summary="Deletes an user.",
-     *     @SWG\Response(
-     *         response="200",
-     *         description="Returned when user is successfully deleted"
-     *     ),
-     *     @SWG\Response(
-     *         response="400",
-     *         description="Returned when an error has occurred during the user deletion"
-     *     ),
-     *     @SWG\Response(
-     *         response="404",
-     *         description="Returned when unable to find user"
-     *     )
+     * @ApiDoc(
+     *  requirements={
+     *      {"name"="id", "dataType"="string", "description"="User identifier"}
+     *  },
+     *  statusCodes={
+     *      200="Returned when user is successfully deleted",
+     *      400="Returned when an error has occurred during the user deletion",
+     *      404="Returned when unable to find user"
+     *  }
      * )
      *
      * @param string $id An User identifier
@@ -259,22 +205,17 @@ class UserController
     /**
      * Attach a group to a user.
      *
-     * @Operation(
-     *     tags={"/api/user/users"},
-     *     summary="Attach a group to a user.",
-     *     @SWG\Response(
-     *         response="200",
-     *         description="Returned when successful",
-     *         @SWG\Schema(ref=@Model(type="Sonata\UserBundle\Model\User"))
-     *     ),
-     *     @SWG\Response(
-     *         response="400",
-     *         description="Returned when an error has occurred while user/group attachment"
-     *     ),
-     *     @SWG\Response(
-     *         response="404",
-     *         description="Returned when unable to find user or group"
-     *     )
+     * @ApiDoc(
+     *  requirements={
+     *      {"name"="userId", "dataType"="string", "description"="User identifier"},
+     *      {"name"="groupId", "dataType"="string", "description"="Group identifier"}
+     *  },
+     *  output={"class"="Sonata\UserBundle\Model\User", "groups"={"sonata_api_read"}},
+     *  statusCodes={
+     *      200="Returned when successful",
+     *      400="Returned when an error has occurred while user/group attachment",
+     *      404="Returned when unable to find user or group"
+     *  }
      * )
      *
      * @param string $userId  A User identifier
@@ -305,22 +246,17 @@ class UserController
     /**
      * Detach a group to a user.
      *
-     * @Operation(
-     *     tags={"/api/user/users"},
-     *     summary="Detach a group to a user.",
-     *     @SWG\Response(
-     *         response="200",
-     *         description="Returned when successful",
-     *         @SWG\Schema(ref=@Model(type="Sonata\UserBundle\Model\User"))
-     *     ),
-     *     @SWG\Response(
-     *         response="400",
-     *         description="Returned when an error occurred while detaching the user from the group"
-     *     ),
-     *     @SWG\Response(
-     *         response="404",
-     *         description="Returned when unable to find user or group"
-     *     )
+     * @ApiDoc(
+     *  requirements={
+     *      {"name"="userId", "dataType"="string", "description"="User identifier"},
+     *      {"name"="groupId", "dataType"="string", "description"="Group identifier"}
+     *  },
+     *  output={"class"="Sonata\UserBundle\Model\User", "groups"={"sonata_api_read"}},
+     *  statusCodes={
+     *      200="Returned when successful",
+     *      400="Returned when an error occurred while detaching the user from the group",
+     *      404="Returned when unable to find user or group"
+     *  }
      * )
      *
      * @param string $userId  A User identifier

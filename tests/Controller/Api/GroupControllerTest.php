@@ -51,12 +51,28 @@ class GroupControllerTest extends TestCase
         $this->assertSame($group, $this->createGroupController($group)->getGroupAction(1));
     }
 
-    public function testGetGroupActionNotFoundException(): void
+    /**
+     * @dataProvider getIdsForNotFound
+     */
+    public function testGetGroupActionNotFoundException($identifier, string $message): void
     {
-        $this->expectException(\Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class);
-        $this->expectExceptionMessage('Group (42) not found');
+        $this->expectException(NotFoundHttpException::class);
+        $this->expectExceptionMessage($message);
 
-        $this->createGroupController()->getGroupAction(42);
+        $this->createGroupController()->getGroupAction($identifier);
+    }
+
+    /**
+     * @phpstan-return list<array{mixed, string}>
+     */
+    public function getIdsForNotFound(): array
+    {
+        return [
+            [42, 'Group not found for identifier 42.'],
+            ['42', 'Group not found for identifier \'42\'.'],
+            [null, 'Group not found for identifier NULL.'],
+            ['', 'Group not found for identifier \'\'.'],
+        ];
     }
 
     public function testPostGroupAction(): void
