@@ -17,6 +17,7 @@ use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\View\View;
 use FOS\UserBundle\Model\GroupInterface;
 use PHPUnit\Framework\TestCase;
+use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\UserBundle\Controller\Api\GroupController;
 use Sonata\UserBundle\Entity\BaseGroup;
 use Sonata\UserBundle\Model\GroupManagerInterface;
@@ -35,14 +36,16 @@ class GroupControllerTest extends TestCase
     {
         $group = $this->createMock(GroupInterface::class);
         $groupManager = $this->createMock(GroupManagerInterface::class);
-        $groupManager->expects($this->once())->method('getPager')->willReturn([$group]);
+        $pager = $this->createStub(PagerInterface::class);
+        $pager->method('getResults')->willReturn([$group]);
+        $groupManager->expects($this->once())->method('getPager')->willReturn($pager);
 
         $paramFetcher = $this->createMock(ParamFetcherInterface::class);
 
-        $paramFetcher->expects($this->exactly(3))->method('get');
+        $paramFetcher->expects($this->exactly(3))->method('get')->willReturn(1, 10, null);
         $paramFetcher->expects($this->once())->method('all')->willReturn([]);
 
-        $this->assertSame([$group], $this->createGroupController(null, $groupManager)->getGroupsAction($paramFetcher));
+        $this->assertSame([$group], $this->createGroupController(null, $groupManager)->getGroupsAction($paramFetcher)->getResults());
     }
 
     public function testGetGroupAction(): void

@@ -4,9 +4,17 @@ UPGRADE 4.x
 UPGRADE FROM 4.x to 4.x
 =======================
 
-### Support for NelmioApiDocBundle > 3.6 is added
+### Dependencies
 
-Controllers for NelmioApiDocBundle v2 were moved under `Sonata\UserBundle\Controller\Api\Legacy\` namespace and controllers for NelmioApiDocBundle v3 were added as replacement. If you extend them, you must ensure they are using the corresponding inheritance.
+- "sonata-project/datagrid-bundle" is bumped from ^2.4 to ^3.0.
+
+  If you are extending these methods, you MUST add argument and return type declarations:
+  - `Sonata\UserBundle\Entity\UserManager::getPager()`
+  - `Sonata\UserBundle\Entity\GroupManager::getPager()`
+
+- Added support for "nelmio/api-doc-bundle" ^3.6.
+
+  Controllers for NelmioApiDocBundle v2 were moved under `Sonata\UserBundle\Controller\Api\Legacy\` namespace and controllers for NelmioApiDocBundle v3 were added as replacement. If you extend them, you must ensure they are using the corresponding inheritance.
 
 ### Fix REST API routing paths
 
