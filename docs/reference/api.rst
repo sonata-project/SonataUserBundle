@@ -47,7 +47,7 @@ In order to activate the API's, you'll also need to add this to your routing:
 
     sonata_api_user:
         prefix: /api/user
-        resource: "@SonataUserBundle/Resources/config/routing/api_nelmio_v3.xml"
+        resource: "@SonataUserBundle/Resources/config/routing/standard_api_nelmio_v3.xml"
 
 Serialization
 -------------
