@@ -18,11 +18,14 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\View\View as FOSRestView;
+use FOS\UserBundle\Model\Group;
 use FOS\UserBundle\Model\GroupInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Operation;
+use Sonata\DatagridBundle\Pager\BasePager;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\UserBundle\Model\GroupManagerInterface;
+use Sonata\UserBundle\Model\User;
 use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
 use Swagger\Annotations as SWG;
@@ -95,7 +98,7 @@ class UserController
      *     @SWG\Response(
      *         response="200",
      *         description="Returned when successful",
-     *         @SWG\Schema(ref=@Model(type="Sonata\DatagridBundle\Pager\PagerInterface"))
+     *         @SWG\Schema(ref=@Model(type=BasePager::class, groups={"sonata_api_read"}))
      *     )
      * )
      *
@@ -141,7 +144,7 @@ class UserController
      *     @SWG\Response(
      *         response="200",
      *         description="Returned when successful",
-     *         @SWG\Schema(ref=@Model(type="Sonata\UserBundle\Model\UserInterface"))
+     *         @SWG\Schema(ref=@Model(type=User::class, groups={"sonata_api_read"}))
      *     ),
      *     @SWG\Response(
      *         response="404",
@@ -169,15 +172,13 @@ class UserController
      *     @SWG\Response(
      *         response="200",
      *         description="Returned when successful",
-     *         @SWG\Schema(ref=@Model(type="Sonata\UserBundle\Model\Group"))
+     *         @SWG\Schema(ref=@Model(type=Group::class, groups={"sonata_api_read"}))
      *     ),
      *     @SWG\Response(
      *         response="400",
      *         description="Returned when an error has occurred during the user creation"
      *     )
      * )
-     *
-     * @param Request $request A Symfony request
      *
      * @throws NotFoundHttpException
      *
@@ -197,7 +198,7 @@ class UserController
      *     @SWG\Response(
      *         response="200",
      *         description="Returned when successful",
-     *         @SWG\Schema(ref=@Model(type="Sonata\UserBundle\Model\User"))
+     *         @SWG\Schema(ref=@Model(type=User::class, groups={"sonata_api_read"}))
      *     ),
      *     @SWG\Response(
      *         response="400",
@@ -209,8 +210,7 @@ class UserController
      *     )
      * )
      *
-     * @param string  $id      User id
-     * @param Request $request A Symfony request
+     * @param string $id User identifier
      *
      * @throws NotFoundHttpException
      *
@@ -241,7 +241,7 @@ class UserController
      *     )
      * )
      *
-     * @param string $id An User identifier
+     * @param string $id User identifier
      *
      * @throws NotFoundHttpException
      *
@@ -265,7 +265,7 @@ class UserController
      *     @SWG\Response(
      *         response="200",
      *         description="Returned when successful",
-     *         @SWG\Schema(ref=@Model(type="Sonata\UserBundle\Model\User"))
+     *         @SWG\Schema(ref=@Model(type=User::class, groups={"sonata_api_read"}))
      *     ),
      *     @SWG\Response(
      *         response="400",
@@ -277,8 +277,8 @@ class UserController
      *     )
      * )
      *
-     * @param string $userId  A User identifier
-     * @param string $groupId A Group identifier
+     * @param string $userId  User identifier
+     * @param string $groupId Group identifier
      *
      * @throws NotFoundHttpException
      * @throws \RuntimeException
@@ -311,7 +311,7 @@ class UserController
      *     @SWG\Response(
      *         response="200",
      *         description="Returned when successful",
-     *         @SWG\Schema(ref=@Model(type="Sonata\UserBundle\Model\User"))
+     *         @SWG\Schema(ref=@Model(type=User::class, groups={"sonata_api_read"}))
      *     ),
      *     @SWG\Response(
      *         response="400",
@@ -323,8 +323,8 @@ class UserController
      *     )
      * )
      *
-     * @param string $userId  A User identifier
-     * @param string $groupId A Group identifier
+     * @param string $userId  User identifier
+     * @param string $groupId Group identifier
      *
      * @throws NotFoundHttpException
      * @throws \RuntimeException
@@ -351,7 +351,7 @@ class UserController
     /**
      * Retrieves user with id $id or throws an exception if it doesn't exist.
      *
-     * @param string $id
+     * @param string $id User identifier
      *
      * @throws NotFoundHttpException
      *
@@ -371,7 +371,7 @@ class UserController
     /**
      * Retrieves user with id $id or throws an exception if it doesn't exist.
      *
-     * @param string $id
+     * @param string $id Group identifier
      *
      * @throws NotFoundHttpException
      *
@@ -392,7 +392,7 @@ class UserController
      * Write an User, this method is used by both POST and PUT action methods.
      *
      * @param Request     $request Symfony request
-     * @param string|null $id      An User identifier
+     * @param string|null $id      User identifier
      *
      * @return FormInterface
      */

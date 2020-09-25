@@ -35,6 +35,14 @@ Here's the configuration we used, you may adapt it to your needs:
         router: { annotations: true }
         request: { converters: true }
 
+    jms_serializer:
+        metadata:
+            directories:
+                - { name: 'sonata_datagrid', path: "%kernel.project_dir%/vendor/sonata-project/datagrid-bundle/src/Resources/config/serializer", namespace_prefix: 'Sonata\DatagridBundle' }
+                - { name: 'sonata_user', path: "%kernel.project_dir%/vendor/sonata-project/user-bundle/src/Resources/config/serializer", namespace_prefix: 'Sonata\UserBundle' }
+                # override FOSUser default serialization
+                - { name: 'fos_user', path: "%kernel.project_dir%/vendor/sonata-project/user-bundle/src/Resources/config/serializer/FOSUserBundle", namespace_prefix: 'FOS\UserBundle' }
+
     twig:
         exception_controller: null
 

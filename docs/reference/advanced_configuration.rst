@@ -55,13 +55,14 @@ Full configuration options:
 
         mailer: sonata.user.mailer.default # Service used to send emails
 
-    # override FOSUser default serialization
+
     jms_serializer:
         metadata:
             directories:
-                App:
-                    path: "%kernel.root_dir%/../vendor/sonata-project/user-bundle/Sonata/UserBundle/Resources/config/serializer/FOSUserBundle"
-                    namespace_prefix: 'FOS\UserBundle'
+                - { name: 'sonata_datagrid', path: "%kernel.project_dir%/vendor/sonata-project/datagrid-bundle/src/Resources/config/serializer", namespace_prefix: 'Sonata\DatagridBundle' }
+                - { name: 'sonata_user', path: "%kernel.project_dir%/vendor/sonata-project/user-bundle/src/Resources/config/serializer", namespace_prefix: 'Sonata\UserBundle' }
+                # override FOSUser default serialization
+                - { name: 'fos_user', path: "%kernel.project_dir%/vendor/sonata-project/user-bundle/src/Resources/config/serializer/FOSUserBundle", namespace_prefix: 'FOS\UserBundle' }
 
     # Enable Doctrine to map the provided entities
     doctrine:

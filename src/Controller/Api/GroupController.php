@@ -18,9 +18,11 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\View\View as FOSRestView;
+use FOS\UserBundle\Model\Group;
 use FOS\UserBundle\Model\GroupInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Operation;
+use Sonata\DatagridBundle\Pager\BasePager;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\UserBundle\Model\GroupManagerInterface;
 use Swagger\Annotations as SWG;
@@ -44,10 +46,6 @@ class GroupController
      */
     protected $formFactory;
 
-    /**
-     * @param GroupManagerInterface $groupManager Sonata group manager
-     * @param FormFactoryInterface  $formFactory  Symfony form factory
-     */
     public function __construct(GroupManagerInterface $groupManager, FormFactoryInterface $formFactory)
     {
         $this->groupManager = $groupManager;
@@ -91,7 +89,7 @@ class GroupController
      *     @SWG\Response(
      *         response="200",
      *         description="Returned when successful",
-     *         @SWG\Schema(ref=@Model(type="Sonata\DatagridBundle\Pager\PagerInterface"))
+     *         @SWG\Schema(ref=@Model(type=BasePager::class, groups={"sonata_api_read"}))
      *     )
      * )
      *
@@ -137,7 +135,7 @@ class GroupController
      *     @SWG\Response(
      *         response="200",
      *         description="Returned when successful",
-     *         @SWG\Schema(ref=@Model(type="FOS\UserBundle\Model\GroupInterface"))
+     *         @SWG\Schema(ref=@Model(type=Group::class, groups={"sonata_api_read"}))
      *     ),
      *     @SWG\Response(
      *         response="404",
@@ -147,7 +145,7 @@ class GroupController
      *
      * @View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
      *
-     * @param string $id
+     * @param string $id Group identifier
      *
      * @return GroupInterface
      */
@@ -165,15 +163,13 @@ class GroupController
      *     @SWG\Response(
      *         response="200",
      *         description="Returned when successful",
-     *         @SWG\Schema(ref=@Model(type="Sonata\UserBundle\Model\Group"))
+     *         @SWG\Schema(ref=@Model(type=Group::class, groups={"sonata_api_read"}))
      *     ),
      *     @SWG\Response(
      *         response="400",
      *         description="Returned when an error has occurred during the group creation"
      *     )
      * )
-     *
-     * @param Request $request A Symfony request
      *
      * @throws NotFoundHttpException
      *
@@ -193,7 +189,7 @@ class GroupController
      *     @SWG\Response(
      *         response="200",
      *         description="Returned when successful",
-     *         @SWG\Schema(ref=@Model(type="Sonata\UserBundle\Model\Group"))
+     *         @SWG\Schema(ref=@Model(type=Group::class, groups={"sonata_api_read"}))
      *     ),
      *     @SWG\Response(
      *         response="400",
@@ -205,8 +201,7 @@ class GroupController
      *     )
      * )
      *
-     * @param string  $id      Group identifier
-     * @param Request $request A Symfony request
+     * @param string $id Group identifier
      *
      * @throws NotFoundHttpException
      *
