@@ -16,16 +16,31 @@ UPGRADE FROM 4.x to 4.x
 
   Controllers for NelmioApiDocBundle v2 were moved under `Sonata\UserBundle\Controller\Api\Legacy\` namespace and controllers for NelmioApiDocBundle v3 were added as replacement. If you extend them, you must ensure they are using the corresponding inheritance.
 
-### Fix REST API routing paths
+### Fix REST API
 
-In version 4.6.0 some extra REST API routes were added by mistake, creating new duplicated paths pointing to existing actions (by instance `/groups/{id}.{_format}` was duplicated as `/group/{id}.{_format}`, `/users/{id}.{_format}` was duplicated as `/user/{id}.{_format}`, etc).
-You MUST avoid importing these routes in order to keep your API routing clean and consistent with previous versions. To do so, make sure to import some of these routing files, depending on your needs:
+- Routing paths
 
-    sonata_api_user:
-        prefix: /api/user
-        resource: "@SonataUserBundle/Resources/config/routing/standard_api.xml"
-        # or for NelmioApiDocBundle v3
-        #resource: "@SonataUserBundle/Resources/config/routing/standard_api_nelmio_v3.xml"
+  In version 4.6.0 some extra REST API routes were added by mistake, creating new duplicated paths pointing to existing actions (by instance `/groups/{id}.{_format}` was duplicated as `/group/{id}.{_format}`, `/users/{id}.{_format}` was duplicated as `/user/{id}.{_format}`, etc).
+  You MUST avoid importing these routes in order to keep your API routing clean and consistent with previous versions. To do so, make sure to import some of these routing files, depending on your needs:
+
+      sonata_api_user:
+          prefix: /api/user
+          resource: "@SonataUserBundle/Resources/config/routing/standard_api.xml"
+          # or for NelmioApiDocBundle v3
+          #resource: "@SonataUserBundle/Resources/config/routing/standard_api_nelmio_v3.xml"
+
+- Open Api Definitions
+
+  If you want use NelmioApiDocBudle v3 you MUST add extra config for it:
+
+      nelmio_api_doc:
+          models:
+              names:
+                  - { alias: SonataUserGroup, type: '%sonata.user.admin.group.entity%', groups: [sonata_api_read] }
+                  - { alias: SonataUserUser, type: '%sonata.user.admin.user.entity%', groups: [sonata_api_read] }
+                  # or these alias for ODM
+                  #- { alias: SonataUserGroup, type: '%sonata.user.admin.group.document%', groups: [sonata_api_read] }
+                  #- { alias: SonataUserUser, type: '%sonata.user.admin.user.document%', groups: [sonata_api_read] }
 
 UPGRADE FROM 4.6 to 4.7
 ========================

@@ -19,7 +19,6 @@ use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\View\View as FOSRestView;
 use FOS\UserBundle\Model\GroupInterface;
-use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Operation;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\UserBundle\Model\GroupManagerInterface;
@@ -95,7 +94,14 @@ class UserController
      *     @SWG\Response(
      *         response="200",
      *         description="Returned when successful",
-     *         @SWG\Schema(ref=@Model(type="Sonata\DatagridBundle\Pager\PagerInterface"))
+     *         @SWG\Schema(
+     *             type="object",
+     *             @SWG\Property(property="page", type="integer"),
+     *             @SWG\Property(property="per_page", type="integer"),
+     *             @SWG\Property(property="last_page", type="integer"),
+     *             @SWG\Property(property="total", type="integer"),
+     *             @SWG\Property(property="entries", type="array", @SWG\Items(ref="#/definitions/SonataUserUser") ))
+     *         )
      *     )
      * )
      *
@@ -141,7 +147,7 @@ class UserController
      *     @SWG\Response(
      *         response="200",
      *         description="Returned when successful",
-     *         @SWG\Schema(ref=@Model(type="Sonata\UserBundle\Model\UserInterface"))
+     *         @SWG\Schema(ref="#/definitions/SonataUserUser")
      *     ),
      *     @SWG\Response(
      *         response="404",
@@ -169,7 +175,7 @@ class UserController
      *     @SWG\Response(
      *         response="200",
      *         description="Returned when successful",
-     *         @SWG\Schema(ref=@Model(type="Sonata\UserBundle\Model\Group"))
+     *         @SWG\Schema(ref="#/definitions/SonataUserGroup")
      *     ),
      *     @SWG\Response(
      *         response="400",
@@ -197,7 +203,7 @@ class UserController
      *     @SWG\Response(
      *         response="200",
      *         description="Returned when successful",
-     *         @SWG\Schema(ref=@Model(type="Sonata\UserBundle\Model\User"))
+     *         @SWG\Schema(ref="#/definitions/SonataUserUser")
      *     ),
      *     @SWG\Response(
      *         response="400",
@@ -265,7 +271,7 @@ class UserController
      *     @SWG\Response(
      *         response="200",
      *         description="Returned when successful",
-     *         @SWG\Schema(ref=@Model(type="Sonata\UserBundle\Model\User"))
+     *         @SWG\Schema(ref="#/definitions/SonataUserUser")
      *     ),
      *     @SWG\Response(
      *         response="400",
@@ -311,7 +317,7 @@ class UserController
      *     @SWG\Response(
      *         response="200",
      *         description="Returned when successful",
-     *         @SWG\Schema(ref=@Model(type="Sonata\UserBundle\Model\User"))
+     *         @SWG\Schema(ref="#/definitions/SonataUserUser")
      *     ),
      *     @SWG\Response(
      *         response="400",

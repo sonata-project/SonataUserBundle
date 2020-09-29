@@ -35,6 +35,15 @@ Here's the configuration we used, you may adapt it to your needs:
         router: { annotations: true }
         request: { converters: true }
 
+    nelmio_api_doc:
+        models:
+            names:
+                - { alias: SonataUserGroup, type: '%sonata.user.admin.group.entity%', groups: [sonata_api_read] }
+                - { alias: SonataUserUser, type: '%sonata.user.admin.user.entity%', groups: [sonata_api_read] }
+                # or these alias for ODM
+                #- { alias: SonataUserGroup, type: '%sonata.user.admin.group.document%', groups: [sonata_api_read] }
+                #- { alias: SonataUserUser, type: '%sonata.user.admin.user.document%', groups: [sonata_api_read] }
+
     twig:
         exception_controller: null
 
@@ -60,3 +69,29 @@ The taxonomy is as follows:
 * ``sonata_api_write`` is the group used for input entities (when used instead of forms)
 
 If you wish to customize the outputted data, feel free to set up your own serialization options by configuring `JMSSerializer` with those groups.
+
+Documentation
+-------------
+
+In order to activate the API’s documentation, you’ll also need to add this to your routing:
+
+.. code-block:: yaml
+
+    ## Requires the Asset component and the Twig bundle
+    ## $ composer require twig asset
+    app.swagger_ui:
+        path: /api/doc
+        methods: GET
+        defaults: { _controller: nelmio_api_doc.controller.swagger_ui }
+
+Open Api Definition
+-------------------
+
+You can generate your Open Api Definitions after add this to your routing:
+
+.. code-block:: yaml
+
+    app.swagger:
+        path: /api/doc.json
+        methods: GET
+        defaults: { _controller: nelmio_api_doc.controller.swagger }
