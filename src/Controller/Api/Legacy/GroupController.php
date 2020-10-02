@@ -13,45 +13,21 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Controller\Api\Legacy;
 
-use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcherInterface;
-use FOS\RestBundle\View\View as FOSRestView;
 use FOS\UserBundle\Model\GroupInterface;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sonata\DatagridBundle\Pager\PagerInterface;
-use Sonata\UserBundle\Model\GroupManagerInterface;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormInterface;
+use Sonata\UserBundle\Controller\Api\BaseGroupController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
  */
-class GroupController
+class GroupController extends BaseGroupController
 {
-    /**
-     * @var GroupManagerInterface
-     */
-    protected $groupManager;
-
-    /**
-     * @var FormFactoryInterface
-     */
-    protected $formFactory;
-
-    /**
-     * @param GroupManagerInterface $groupManager Sonata group manager
-     * @param FormFactoryInterface  $formFactory  Symfony form factory
-     */
-    public function __construct(GroupManagerInterface $groupManager, FormFactoryInterface $formFactory)
-    {
-        $this->groupManager = $groupManager;
-        $this->formFactory = $formFactory;
-    }
-
     /**
      * Returns a paginated list of groups.
      *
@@ -71,26 +47,7 @@ class GroupController
      */
     public function getGroupsAction(ParamFetcherInterface $paramFetcher)
     {
-        $supportedFilters = [
-            'enabled' => '',
-        ];
-
-        $page = $paramFetcher->get('page');
-        $limit = $paramFetcher->get('count');
-        $sort = $paramFetcher->get('orderBy');
-        $criteria = array_intersect_key($paramFetcher->all(), $supportedFilters);
-
-        $criteria = array_filter($criteria, static function ($value): bool {
-            return null !== $value;
-        });
-
-        if (!$sort) {
-            $sort = [];
-        } elseif (!\is_array($sort)) {
-            $sort = [$sort, 'asc'];
-        }
-
-        return $this->groupManager->getPager($criteria, $page, $limit, $sort);
+        return parent::getGroupsAction($paramFetcher);
     }
 
     /**
@@ -115,7 +72,7 @@ class GroupController
      */
     public function getGroupAction($id)
     {
-        return $this->getGroup($id);
+        return parent::getGroupAction($id);
     }
 
     /**
@@ -138,7 +95,7 @@ class GroupController
      */
     public function postGroupAction(Request $request)
     {
-        return $this->handleWriteGroup($request);
+        return parent::postGroupAction($request);
     }
 
     /**
@@ -166,7 +123,7 @@ class GroupController
      */
     public function putGroupAction($id, Request $request)
     {
-        return $this->handleWriteGroup($request, $id);
+        return parent::putGroupAction($id, $request);
     }
 
     /**
@@ -191,66 +148,6 @@ class GroupController
      */
     public function deleteGroupAction($id)
     {
-        $group = $this->getGroup($id);
-
-        $this->groupManager->deleteGroup($group);
-
-        return ['deleted' => true];
-    }
-
-    /**
-     * Write a Group, this method is used by both POST and PUT action methods.
-     *
-     * @param Request     $request Symfony request
-     * @param string|null $id      A Group identifier
-     *
-     * @return FormInterface
-     */
-    protected function handleWriteGroup($request, $id = null)
-    {
-        $groupClassName = $this->groupManager->getClass();
-        $group = $id ? $this->getGroup($id) : new $groupClassName('');
-
-        $form = $this->formFactory->createNamed(null, 'sonata_user_api_form_group', $group, [
-            'csrf_protection' => false,
-        ]);
-
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $group = $form->getData();
-            $this->groupManager->updateGroup($group);
-
-            $context = new Context();
-            $context->setGroups(['sonata_api_read']);
-            $context->enableMaxDepth();
-
-            $view = FOSRestView::create($group);
-            $view->setContext($context);
-
-            return $view;
-        }
-
-        return $form;
-    }
-
-    /**
-     * Retrieves group with id $id or throws an exception if it doesn't exist.
-     *
-     * @param string $id
-     *
-     * @throws NotFoundHttpException
-     *
-     * @return GroupInterface
-     */
-    protected function getGroup($id)
-    {
-        $group = $this->groupManager->findGroupBy(['id' => $id]);
-
-        if (null === $group) {
-            throw new NotFoundHttpException(sprintf('Group not found for identifier %s.', var_export($id, true)));
-        }
-
-        return $group;
+        return parent::deleteGroupAction($id);
     }
 }
