@@ -12,9 +12,9 @@ UPGRADE FROM 4.x to 4.x
   - `Sonata\UserBundle\Entity\UserManager::getPager()`
   - `Sonata\UserBundle\Entity\GroupManager::getPager()`
 
-- Added support for "nelmio/api-doc-bundle" ^3.6.
+- Added support for "nelmio/api-doc-bundle" ^3.6 and ^4.0.
 
-  Controllers for NelmioApiDocBundle v2 were moved under `Sonata\UserBundle\Controller\Api\Legacy\` namespace and controllers for NelmioApiDocBundle v3 were added as replacement. If you extend them, you must ensure they are using the corresponding inheritance.
+  Controllers for NelmioApiDocBundle v3 were added under `Sonata\UserBundle\Controller\Api\Nelmio_v3\` namespace and controllers for NelmioApiDocBundle v4 were added under `Sonata\UserBundle\Controller\Api\Nelmio_v4\` namespace. If you extend controllers for API, you must ensure they are using the corresponding inheritance for your "nelmio/api-doc-bundle" version.
 
 ### Fix REST API routing paths
 
