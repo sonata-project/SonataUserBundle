@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Sonata\UserBundle\Controller\Api;
+namespace Sonata\UserBundle\Controller\Api\Nelmio_v3;
 
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
@@ -19,6 +19,7 @@ use FOS\RestBundle\Request\ParamFetcherInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Operation;
 use Sonata\DatagridBundle\Pager\PagerInterface;
+use Sonata\UserBundle\Controller\Api\BaseUserController;
 use Sonata\UserBundle\Model\UserInterface;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
