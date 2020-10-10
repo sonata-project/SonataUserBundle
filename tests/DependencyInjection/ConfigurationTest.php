@@ -34,7 +34,12 @@ class ConfigurationTest extends TestCase
     public function testDefault(): void
     {
         $this->assertProcessedConfigurationEquals([
-            [],
+            [
+                'from_email' => [
+                    'address' => 'sonatauser@example.com',
+                    'sender_name' => 'SonataUserBundle',
+                ],
+            ],
         ], [
             'security_acl' => false,
             'table' => [
@@ -67,6 +72,10 @@ class ConfigurationTest extends TestCase
                 'default_avatar' => 'bundles/sonatauser/default_avatar.png',
             ],
             'mailer' => 'sonata.user.mailer.default',
+            'from_email' => [
+                'address' => 'sonatauser@example.com',
+                'sender_name' => 'SonataUserBundle',
+            ],
         ]);
     }
 }

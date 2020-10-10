@@ -128,6 +128,14 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
                 ->scalarNode('mailer')->defaultValue('sonata.user.mailer.default')->info('Custom mailer used to send reset password emails')->end()
+
+                ->arrayNode('from_email')
+                    ->isRequired()
+                    ->children()
+                        ->scalarNode('address')->isRequired()->cannotBeEmpty()->end()
+                        ->scalarNode('sender_name')->isRequired()->cannotBeEmpty()->end()
+                    ->end()
+                ->end()
             ->end()
         ;
 

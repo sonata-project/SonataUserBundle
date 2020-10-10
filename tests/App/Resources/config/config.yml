@@ -59,3 +59,8 @@ fos_user:
         sender_name: 'SonataUserBundle'
     service:
         mailer: 'fos_user.mailer.noop'
+
+sonata_user:
+    from_email:
+        address: 'sonatauser@example.com'
+        sender_name: 'SonataUserBundle'

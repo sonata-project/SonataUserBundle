@@ -112,6 +112,8 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         $this->configureController($config, $container);
         $this->configureMailer($config, $container);
 
+        $container->setParameter('sonata.user.resetting.email.from_email', [$config['from_email']['address'] => $config['from_email']['sender_name']]);
+
         $container->setParameter('sonata.user.default_avatar', $config['profile']['default_avatar']);
 
         $container->setParameter('sonata.user.impersonating', $config['impersonating']);
