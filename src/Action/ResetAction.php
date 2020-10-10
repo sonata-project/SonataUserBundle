@@ -14,12 +14,12 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Action;
 
 use FOS\UserBundle\Form\Factory\FactoryInterface;
-use FOS\UserBundle\Security\LoginManagerInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
+use Sonata\UserBundle\Security\LoginManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
