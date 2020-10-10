@@ -76,6 +76,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         $loader->load('command.xml');
         $loader->load('actions.xml');
         $loader->load('mailer.xml');
+        $loader->load('security.xml');
         $loader->load('util.xml');
 
         if ('orm' === $config['manager_type'] && isset(
