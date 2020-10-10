@@ -15,11 +15,11 @@ namespace Sonata\UserBundle\Tests\Controller\Api;
 
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\View\View;
-use FOS\UserBundle\Model\GroupInterface;
 use PHPUnit\Framework\TestCase;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\UserBundle\Controller\Api\GroupController;
 use Sonata\UserBundle\Entity\BaseGroup;
+use Sonata\UserBundle\Model\GroupInterface;
 use Sonata\UserBundle\Model\GroupManagerInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactoryInterface;

@@ -14,14 +14,14 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\Action;
 
 use FOS\UserBundle\Form\Factory\FactoryInterface;
-use FOS\UserBundle\Model\User;
-use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Security\LoginManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Action\ResetAction;
+use Sonata\UserBundle\Model\User;
+use Sonata\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
