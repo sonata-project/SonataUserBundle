@@ -2,8 +2,8 @@
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="sonata.user.mongodb.user_manager" class="Sonata\UserBundle\Document\UserManager" public="false">
-            <argument type="service" id="fos_user.util.password_updater"/>
-            <argument type="service" id="fos_user.util.canonical_fields_updater"/>
+            <argument type="service" id="sonata.user.util.password_updater"/>
+            <argument type="service" id="sonata.user.util.canonical_fields_updater"/>
             <argument type="service" id="fos_user.object_manager"/>
             <argument>%sonata.user.admin.user.document%</argument>
         </service>
