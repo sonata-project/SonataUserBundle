@@ -13,13 +13,12 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Document;
 
-use FOS\UserBundle\Doctrine\GroupManager as BaseGroupManager;
-use Sonata\UserBundle\Model\GroupManagerInterface;
+use Sonata\UserBundle\Model\GroupManager as BaseGroupManager;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
  */
-class GroupManager extends BaseGroupManager implements GroupManagerInterface
+class GroupManager extends BaseGroupManager
 {
     /**
      * {@inheritdoc}
