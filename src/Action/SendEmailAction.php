@@ -14,10 +14,10 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Action;
 
 use FOS\UserBundle\Mailer\MailerInterface;
-use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Util\TokenGeneratorInterface;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
+use Sonata\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

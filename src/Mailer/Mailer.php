@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Mailer;
 
 use FOS\UserBundle\Mailer\MailerInterface;
-use FOS\UserBundle\Model\UserInterface;
+use Sonata\UserBundle\Model\UserInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 
