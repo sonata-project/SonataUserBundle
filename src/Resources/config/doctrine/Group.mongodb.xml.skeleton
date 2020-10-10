@@ -4,10 +4,10 @@
       xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
                     http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
-    <document name="{{ namespace }}\Document\Group" collection="fos_user_group">
+    <document name="{{ namespace }}\Document\Group" collection="sonata_user_group">
 
 		<field fieldName="id" id="true" strategy="INCREMENT" />
-        
+
     </document>
 
 </doctrine-mongo-mapping>
