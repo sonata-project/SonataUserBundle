@@ -16,9 +16,9 @@ namespace Sonata\UserBundle\Doctrine\CouchDB;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ODM\CouchDB\Event;
 use Doctrine\ODM\CouchDB\Event\LifecycleEventArgs;
-use FOS\UserBundle\Model\UserInterface;
-use FOS\UserBundle\Util\CanonicalFieldsUpdater;
-use FOS\UserBundle\Util\PasswordUpdaterInterface;
+use Sonata\UserBundle\Model\UserInterface;
+use Sonata\UserBundle\Util\CanonicalFieldsUpdater;
+use Sonata\UserBundle\Util\PasswordUpdaterInterface;
 
 class UserListener implements EventSubscriber
 {
