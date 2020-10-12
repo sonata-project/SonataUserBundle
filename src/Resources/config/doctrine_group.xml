@@ -5,7 +5,7 @@
     </parameters>
     <services>
         <service id="sonata.user.group_manager.default" class="%sonata.user.group_manager.class%" public="false">
-            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="doctrine.orm.entity_manager"/>
             <argument>%sonata.user.model.group.class%</argument>
         </service>
     </services>

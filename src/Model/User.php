@@ -734,7 +734,7 @@ abstract class User implements UserInterface
             $data = array_values($data);
         }
 
-        list(
+        [
             $this->password,
             $this->salt,
             $this->usernameCanonical,
@@ -743,7 +743,7 @@ abstract class User implements UserInterface
             $this->id,
             $this->email,
             $this->emailCanonical
-            ) = $data;
+            ] = $data;
     }
 
     /**
