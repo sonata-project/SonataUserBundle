@@ -76,6 +76,13 @@ class ConfigurationTest extends TestCase
                 'address' => 'sonatauser@example.com',
                 'sender_name' => 'SonataUserBundle',
             ],
+            'service' => [
+                'mailer' => 'sonata.user.mailer.default',
+                'email_canonicalizer' => 'sonata.user.util.canonicalizer.default',
+                'token_generator' => 'sonata.user.util.token_generator.default',
+                'username_canonicalizer' => 'sonata.user.util.canonicalizer.default',
+                'user_manager' => 'sonata.user.user_manager.default',
+            ],
         ]);
     }
 }

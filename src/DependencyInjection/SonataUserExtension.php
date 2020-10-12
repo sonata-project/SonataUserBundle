@@ -24,6 +24,7 @@ use Sonata\UserBundle\Entity\BaseGroup as EntityGroup;
 use Sonata\UserBundle\Entity\BaseUser as EntityUser;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
@@ -121,6 +122,11 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         $container->setParameter('sonata.user.impersonating', $config['impersonating']);
 
         $this->configureGoogleAuthenticator($config, $container);
+
+        $container->setAlias('sonata.user.util.email_canonicalizer', $config['service']['email_canonicalizer']);
+        $container->setAlias('sonata.user.util.username_canonicalizer', $config['service']['username_canonicalizer']);
+        $container->setAlias('sonata.user.util.token_generator', $config['service']['token_generator']);
+        //$container->setAlias('sonata.user.user_manager', new Alias($config['service']['user_manager'], true));
     }
 
     /**

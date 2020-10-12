@@ -18,6 +18,7 @@ use Sonata\UserBundle\Admin\Entity\GroupAdmin;
 use Sonata\UserBundle\Admin\Entity\UserAdmin;
 use Sonata\UserBundle\Entity\BaseGroup;
 use Sonata\UserBundle\Entity\BaseUser;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -139,6 +140,27 @@ class Configuration implements ConfigurationInterface
             ->end()
         ;
 
+        $this->addServiceSection($rootNode);
+
         return $treeBuilder;
+    }
+
+    private function addServiceSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->arrayNode('service')
+                    ->addDefaultsIfNotSet()
+                        ->children()
+                            ->scalarNode('mailer')->defaultValue('sonata.user.mailer.default')->end()
+                            ->scalarNode('email_canonicalizer')->defaultValue('sonata.user.util.canonicalizer.default')->end()
+                            ->scalarNode('token_generator')->defaultValue('sonata.user.util.token_generator.default')->end()
+                            ->scalarNode('username_canonicalizer')->defaultValue('sonata.user.util.canonicalizer.default')->end()
+                            ->scalarNode('user_manager')->defaultValue('sonata.user.user_manager.default')->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
     }
 }
