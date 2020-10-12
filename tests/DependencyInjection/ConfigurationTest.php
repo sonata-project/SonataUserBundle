@@ -21,6 +21,7 @@ use Sonata\UserBundle\Admin\Entity\UserAdmin;
 use Sonata\UserBundle\DependencyInjection\Configuration;
 use Sonata\UserBundle\Entity\BaseGroup;
 use Sonata\UserBundle\Entity\BaseUser;
+use Sonata\UserBundle\Form\Type\ResettingPasswordType;
 
 class ConfigurationTest extends TestCase
 {
@@ -42,6 +43,8 @@ class ConfigurationTest extends TestCase
             ],
         ], [
             'security_acl' => false,
+            'firewall_name' => 'admin',
+            'model_manager_name' => null,
             'table' => [
                 'user_group' => 'sonata_user_user_group',
             ],
@@ -83,6 +86,19 @@ class ConfigurationTest extends TestCase
                 'username_canonicalizer' => 'sonata.user.util.canonicalizer.default',
                 'user_manager' => 'sonata.user.user_manager.default',
             ],
+            'resetting' => [
+                'retry_ttl' => 7200,
+                'token_ttl' => 86400,
+                'email' => [
+                    'template' => '@FOSUser/Resetting/email.txt.twig',
+                ],
+                'form' => [
+                    'type' => ResettingPasswordType::class,
+                    'name' => 'sonata_user_resetting_form',
+                    'validation_groups' => ['ResetPassword', 'Default'],
+                ],
+            ],
+
         ]);
     }
 }

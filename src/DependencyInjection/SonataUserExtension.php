@@ -74,6 +74,8 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         }
 
         $loader->load('twig.xml');
+        $loader->load('doctrine.xml');
+        $loader->load('doctrine_group.xml');
         $loader->load('command.xml');
         $loader->load('actions.xml');
         $loader->load('mailer.xml');
@@ -127,6 +129,17 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         $container->setAlias('sonata.user.util.username_canonicalizer', $config['service']['username_canonicalizer']);
         $container->setAlias('sonata.user.util.token_generator', $config['service']['token_generator']);
         //$container->setAlias('sonata.user.user_manager', new Alias($config['service']['user_manager'], true));
+
+        if (!empty($config['resetting'])) {
+            $this->loadResetting($config['resetting'], $container, $loader, $config['from_email']);
+        }
+
+        $this->remapParametersNamespaces($config, $container, [
+            '' => [
+                'firewall_name' => 'sonata.user.firewall_name',
+                'model_manager_name' => 'sonata.user.model_manager_name',
+            ],
+        ]);
     }
 
     /**
@@ -216,8 +229,8 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         $container->setParameter(sprintf('sonata.user.admin.user.%s', $modelType), $config['class']['user']);
         $container->setParameter(sprintf('sonata.user.admin.group.%s', $modelType), $config['class']['group']);
 
-        $container->setParameter('sonata.user.model.user', $config['class']['user']);
-        $container->setParameter('sonata.user.model.group', $config['class']['group']);
+        $container->setParameter('sonata.user.model.user.class', $config['class']['user']);
+        $container->setParameter('sonata.user.model.group.class', $config['class']['group']);
     }
 
     /**
@@ -302,6 +315,36 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
             ->setPublic(true);
     }
 
+    protected function remapParametersNamespaces(array $config, ContainerBuilder $container, array $namespaces)
+    {
+        foreach ($namespaces as $ns => $map) {
+            if ($ns) {
+                if (!\array_key_exists($ns, $config)) {
+                    continue;
+                }
+                $namespaceConfig = $config[$ns];
+            } else {
+                $namespaceConfig = $config;
+            }
+            if (\is_array($map)) {
+                $this->remapParameters($namespaceConfig, $container, $map);
+            } else {
+                foreach ($namespaceConfig as $name => $value) {
+                    $container->setParameter(sprintf($map, $name), $value);
+                }
+            }
+        }
+    }
+
+    protected function remapParameters(array $config, ContainerBuilder $container, array $map)
+    {
+        foreach ($map as $name => $paramName) {
+            if (\array_key_exists($name, $config)) {
+                $container->setParameter($paramName, $config[$name]);
+            }
+        }
+    }
+
     private function checkManagerTypeToModelTypesMapping(array $config): void
     {
         $managerType = $config['manager_type'];
@@ -371,5 +414,27 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
                     'onDelete' => 'CASCADE',
                 ]])
         );
+    }
+
+    private function loadResetting(array $config, ContainerBuilder $container, XmlFileLoader $loader, array $fromEmail)
+    {
+        $this->mailerNeeded = true;
+        $loader->load('resetting.xml');
+
+        if (isset($config['email']['from_email'])) {
+            // overwrite the global one
+            $fromEmail = $config['email']['from_email'];
+            unset($config['email']['from_email']);
+        }
+        $container->setParameter('sonata.user.resetting.email.from_email', [$fromEmail['address'] => $fromEmail['sender_name']]);
+
+        $this->remapParametersNamespaces($config, $container, [
+            '' => [
+                'retry_ttl' => 'sonata.user.resetting.retry_ttl',
+                'token_ttl' => 'sonata.user.resetting.token_ttl',
+            ],
+            'email' => 'sonata.user.resetting.email.%s',
+            'form' => 'sonata.user.resetting.form.%s',
+        ]);
     }
 }

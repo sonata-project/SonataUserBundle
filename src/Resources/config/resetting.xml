@@ -11,10 +11,10 @@
             <tag name="form.type" alias="sonata_user_resetting" />
             <argument>%sonata.user.model.user.class%</argument>
         </service>
-        <service id="fos_user.listener.resetting" class="Sonata\UserBundle\EventListener\ResettingListener">
+        <service id="sonata.user.listener.resetting" class="Sonata\UserBundle\EventListener\ResettingListener">
             <tag name="kernel.event_subscriber" />
             <argument type="service" id="router" />
-            <argument>%fos_user.resetting.token_ttl%</argument>
+            <argument>%sonata.user.resetting.token_ttl%</argument>
         </service>
     </services>
 </container>

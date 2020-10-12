@@ -24,7 +24,7 @@
         <service id="sonata.user.google.authenticator.success_handler" class="Sonata\UserBundle\EventListener\TwoFactorLoginSuccessHandler" public="false">
             <argument type="service" id="twig"/>
             <argument type="service" id="sonata.user.google.authenticator.provider"/>
-            <argument type="service" id="fos_user.user_manager.default"/>
+            <argument type="service" id="sonata.user.user_manager.default"/>
             <argument type="service" id="router"/>
         </service>
     </services>

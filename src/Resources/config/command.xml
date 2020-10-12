@@ -4,7 +4,7 @@
         <service id="Sonata\UserBundle\Command\TwoStepVerificationCommand" class="Sonata\UserBundle\Command\TwoStepVerificationCommand" public="true">
             <argument type="constant">null</argument>
             <argument type="service" id="sonata.user.google.authenticator.provider" on-invalid="null"/>
-            <argument type="service" id="fos_user.user_manager" on-invalid="null"/>
+            <argument type="service" id="sonata.user.user_manager" on-invalid="null"/>
             <tag name="console.command"/>
         </service>
     </services>

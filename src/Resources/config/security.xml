@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <parameters>
-        <parameter key="fos_user.security.interactive_login_listener.class">Sonata\UserBundle\EventListener\LastLoginListener</parameter>
-        <parameter key="fos_user.security.login_manager.class">Sonata\UserBundle\Security\LoginManager</parameter>
+        <parameter key="sonata.user.security.interactive_login_listener.class">Sonata\UserBundle\EventListener\LastLoginListener</parameter>
+        <parameter key="sonata.user.security.login_manager.class">Sonata\UserBundle\Security\LoginManager</parameter>
     </parameters>
     <services>
-        <service id="fos_user.security.interactive_login_listener" class="%fos_user.security.interactive_login_listener.class%">
+        <service id="sonata.user.security.interactive_login_listener" class="%sonata.user.security.interactive_login_listener.class%">
             <tag name="kernel.event_subscriber"/>
-            <argument type="service" id="fos_user.user_manager"/>
+            <argument type="service" id="sonata.user.user_manager"/>
         </service>
-        <service id="sonata.user.security.login_manager" class="%fos_user.security.login_manager.class%">
+        <service id="sonata.user.security.login_manager" class="%sonata.user.security.login_manager.class%">
             <argument type="service" id="security.token_storage"/>
             <argument type="service" id="security.user_checker"/>
             <argument type="service" id="security.authentication.session_strategy"/>
@@ -18,10 +18,10 @@
         </service>
         <service id="Sonata\UserBundle\Security\LoginManagerInterface" alias="sonata.user.security.login_manager" public="false"/>
         <service id="sonata.user.user_provider.username" class="Sonata\UserBundle\Security\UserProvider" public="false">
-            <argument type="service" id="fos_user.user_manager"/>
+            <argument type="service" id="sonata.user.user_manager"/>
         </service>
         <service id="sonata.user.user_provider.username_email" class="Sonata\UserBundle\Security\EmailUserProvider" public="false">
-            <argument type="service" id="fos_user.user_manager"/>
+            <argument type="service" id="sonata.user.user_manager"/>
         </service>
     </services>
 </container>

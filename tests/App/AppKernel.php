@@ -15,7 +15,6 @@ namespace Sonata\UserBundle\Tests\App;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use FOS\RestBundle\FOSRestBundle;
-use FOS\UserBundle\FOSUserBundle;
 use JMS\SerializerBundle\JMSSerializerBundle;
 use Knp\Bundle\MenuBundle\KnpMenuBundle;
 use Nelmio\ApiDocBundle\Annotation\Operation;
@@ -53,7 +52,6 @@ final class AppKernel extends Kernel
             new TwigBundle(),
             new SecurityBundle(),
             new DoctrineBundle(),
-            new FOSUserBundle(),
             new FOSRestBundle(),
             new JMSSerializerBundle(),
             new NelmioApiDocBundle(),
@@ -99,6 +97,6 @@ final class AppKernel extends Kernel
 
     private function getBaseDir(): string
     {
-        return sys_get_temp_dir().'/sonata-user-bundle/var/dadadsadasdasaaaaadsa17';
+        return sys_get_temp_dir().'/sonata-user-bundle/var/';
     }
 }

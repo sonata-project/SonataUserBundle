@@ -18,6 +18,7 @@ use Sonata\UserBundle\Admin\Entity\GroupAdmin;
 use Sonata\UserBundle\Admin\Entity\UserAdmin;
 use Sonata\UserBundle\Entity\BaseGroup;
 use Sonata\UserBundle\Entity\BaseUser;
+use Sonata\UserBundle\Form\Type\ResettingPasswordType;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -47,6 +48,8 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->scalarNode('firewall_name')->defaultValue('admin')->cannotBeEmpty()->end()
+                ->scalarNode('model_manager_name')->defaultNull()->end()
                 ->booleanNode('security_acl')->defaultFalse()->end()
                 ->arrayNode('table')
                     ->addDefaultsIfNotSet()
@@ -141,6 +144,7 @@ class Configuration implements ConfigurationInterface
         ;
 
         $this->addServiceSection($rootNode);
+        $this->addResettingSection($rootNode);
 
         return $treeBuilder;
     }
@@ -158,6 +162,45 @@ class Configuration implements ConfigurationInterface
                             ->scalarNode('token_generator')->defaultValue('sonata.user.util.token_generator.default')->end()
                             ->scalarNode('username_canonicalizer')->defaultValue('sonata.user.util.canonicalizer.default')->end()
                             ->scalarNode('user_manager')->defaultValue('sonata.user.user_manager.default')->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+    }
+
+    private function addResettingSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('resetting')
+                    ->addDefaultsIfNotSet()
+                    ->canBeUnset()
+                    ->children()
+                        ->scalarNode('retry_ttl')->defaultValue(7200)->end()
+                        ->scalarNode('token_ttl')->defaultValue(86400)->end()
+                        ->arrayNode('email')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('template')->defaultValue('@FOSUser/Resetting/email.txt.twig')->end()
+                                ->arrayNode('from_email')
+                                    ->canBeUnset()
+                                        ->children()
+                                        ->scalarNode('address')->isRequired()->cannotBeEmpty()->end()
+                                        ->scalarNode('sender_name')->isRequired()->cannotBeEmpty()->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('form')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('type')->defaultValue(ResettingPasswordType::class)->end()
+                                ->scalarNode('name')->defaultValue('sonata_user_resetting_form')->end()
+                                ->arrayNode('validation_groups')
+                                    ->prototype('scalar')->end()
+                                    ->defaultValue(['ResetPassword', 'Default'])
+                                ->end()
+                            ->end()
                         ->end()
                     ->end()
                 ->end()
