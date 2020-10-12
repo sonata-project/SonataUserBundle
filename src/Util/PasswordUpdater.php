@@ -33,7 +33,7 @@ class PasswordUpdater implements PasswordUpdaterInterface
 
     public function hashPassword(UserInterface $user)
     {
-        $plainPassword = $user->getPlainPassword();
+        $plainPassword = $user->getPlainPassword() ?? '';
 
         if (0 === \strlen($plainPassword)) {
             return;

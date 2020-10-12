@@ -5,7 +5,10 @@
             <argument type="service" id="form.factory"/>
             <argument>sonata_user_resetting</argument>
             <argument>Sonata\UserBundle\Form\Type\ResettingPasswordType</argument>
-            <argument>['ResetPassword','Default']</argument>
+            <argument type="collection">
+                <argument>ResetPassword</argument>
+                <argument>Default</argument>
+            </argument>
         </service>
         <service id="sonata.user.resetting.form.type" class="Sonata\UserBundle\Form\Type\ResettingPasswordType">
             <tag name="form.type" alias="sonata_user_resetting"/>

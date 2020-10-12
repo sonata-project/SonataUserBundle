@@ -67,7 +67,7 @@ resetting:
         success: O contrasinal cambiaouse con éxito.
     email:
         subject: Benvido %username%!
-        message : |
+        message: |
             Hola %username%!
 
             Para restablecelo teu contrasinal - por favor visita %confirmationUrl%
