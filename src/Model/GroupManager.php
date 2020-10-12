@@ -13,8 +13,23 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Model;
 
-use FOS\UserBundle\Doctrine\GroupManager as BaseGroupManager;
-
-abstract class GroupManager extends BaseGroupManager implements GroupManagerInterface
+abstract class GroupManager implements GroupManagerInterface
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function createGroup($name)
+    {
+        $class = $this->getClass();
+
+        return new $class($name);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findGroupByName($name)
+    {
+        return $this->findGroupBy(['name' => $name]);
+    }
 }

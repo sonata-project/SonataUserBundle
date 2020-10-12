@@ -11,11 +11,11 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace FOS\UserBundle\Tests\Util;
+namespace Sonata\UserBundle\Tests\Util;
 
-use FOS\UserBundle\Util\CanonicalFieldsUpdater;
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Tests\Entity\User;
+use Sonata\UserBundle\Util\CanonicalFieldsUpdater;
 
 class CanonicalFieldsUpdaterTest extends TestCase
 {
@@ -57,6 +57,6 @@ class CanonicalFieldsUpdaterTest extends TestCase
 
     private function getMockCanonicalizer()
     {
-        return $this->getMockBuilder('FOS\UserBundle\Util\CanonicalizerInterface')->getMock();
+        return $this->getMockBuilder('Sonata\UserBundle\Util\CanonicalizerInterface')->getMock();
     }
 }

@@ -13,6 +13,53 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Model;
 
-interface GroupInterface extends \FOS\UserBundle\Model\GroupInterface
+interface GroupInterface
 {
+    /**
+     * @param string $role
+     *
+     * @return GroupInterface
+     */
+    public function addRole($role);
+
+    /**
+     * @return int
+     */
+    public function getId();
+
+    /**
+     * @return string
+     */
+    public function getName();
+
+    /**
+     * @param string $role
+     *
+     * @return bool
+     */
+    public function hasRole($role);
+
+    /**
+     * @return GroupInterface
+     */
+    public function getRoles();
+
+    /**
+     * @param string $role
+     *
+     * @return GroupInterface
+     */
+    public function removeRole($role);
+
+    /**
+     * @param string $name
+     *
+     * @return GroupInterface
+     */
+    public function setName($name);
+
+    /**
+     * @return GroupInterface
+     */
+    public function setRoles(array $roles);
 }

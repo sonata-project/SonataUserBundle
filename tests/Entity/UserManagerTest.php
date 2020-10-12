@@ -18,12 +18,12 @@ use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
-use FOS\UserBundle\Util\CanonicalFieldsUpdater;
-use FOS\UserBundle\Util\PasswordUpdaterInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Entity\BaseUser;
 use Sonata\UserBundle\Entity\UserManager;
+use Sonata\UserBundle\Util\CanonicalFieldsUpdater;
+use Sonata\UserBundle\Util\PasswordUpdaterInterface;
 
 final class UserManagerTest extends TestCase
 {

@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace FOS\UserBundle\Tests\Util;
+namespace Sonata\UserBundle\Tests\Util;
 
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Tests\Entity\User;
