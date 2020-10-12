@@ -40,7 +40,7 @@ registration:
             Zdravo %username%!
 
             Da bi aktivirali Vaš nalog posetite %confirmationUrl%
-            
+
             Ovaj link možete upotrebiti samo jednom da biste potvrdili Vaš nalog.
 
             S poštovanjem,

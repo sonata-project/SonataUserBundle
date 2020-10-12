@@ -49,7 +49,7 @@ resetting:
     check_email: |
         E-posta adresinize parolanızı sıfırlama adresi bulunan bir e-posta gönderildi.
         Not: Yeni şifre talep etmek için %tokenLifetime% saat beklemelisiniz.
-        
+
         E-posta gelmedi ise spam klasörünü kontrol edin veya tekrar deneyin.
     request:
         username: 'Kullanıcı adı ya da e-posta adresi'

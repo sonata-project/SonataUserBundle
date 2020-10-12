@@ -42,7 +42,7 @@ registration:
             Tere %username%!
 
             Konto aktiveerimiseks palun avage viide %confirmationUrl%
-            
+
             Seda viidet saate kasutada vaid ühe korra konto valideerimiseks.
 
             Parimatega,
@@ -50,9 +50,9 @@ registration:
 
 resetting:
     check_email: |
-        E-mail on saadetud. Selles sisaldub viide, mis tuleb salasõna muutmiseks avada.        
+        E-mail on saadetud. Selles sisaldub viide, mis tuleb salasõna muutmiseks avada.
         Märkus: Saate uue parooli tellida vaid korra %tokenLifetime% tunni jooksul.
-        
+
         Kui te ei e-maili ei saanud, kontrollige oma spämmikausta või proovige uuesti.
     request:
         username: Kasutajanimi või e-mail

@@ -40,7 +40,7 @@ registration:
             ¡Hola %username%!
 
             Para completar la validación de tu cuenta, por favor visita %confirmationUrl%
-            
+
             Este enlace sólo puede utilizarse una vez para validar tu cuenta.
 
             Atentamente,

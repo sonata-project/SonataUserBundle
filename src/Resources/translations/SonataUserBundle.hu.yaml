@@ -51,7 +51,7 @@ registration:
             a Csapat.
 
 resetting:
-    check_email:  |
+    check_email: |
         Elfelejtett jelszava lecseréléséhez, kérjük, kattintson az e-mailben található linkre.
         Felhívjuk figyelmát rá, hogy a link érvényessége %tokenLifetime% óra múlva lejár.
 
