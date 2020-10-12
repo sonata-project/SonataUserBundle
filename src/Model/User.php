@@ -815,7 +815,7 @@ abstract class User implements UserInterface
      */
     public function getPlainPassword()
     {
-        return $this->plainPassword;
+        return $this->plainPassword ?? '';
     }
 
     /**

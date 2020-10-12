@@ -42,7 +42,7 @@ class ResettingPasswordType extends AbstractType
         $builder->add('plainPassword', RepeatedType::class, [
             'type' => PasswordType::class,
             'options' => [
-                'translation_domain' => 'FOSUserBundle',
+                'translation_domain' => 'SonataUserBundle',
                 'attr' => [
                     'autocomplete' => 'new-password',
                 ],

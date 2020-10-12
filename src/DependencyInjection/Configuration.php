@@ -180,7 +180,7 @@ class Configuration implements ConfigurationInterface
                         ->arrayNode('email')
                             ->addDefaultsIfNotSet()
                             ->children()
-                                ->scalarNode('template')->defaultValue('@FOSUser/Resetting/email.txt.twig')->end()
+                                ->scalarNode('template')->defaultValue('@SonataUser/Resetting/email.txt.twig')->end()
                                 ->arrayNode('from_email')
                                     ->canBeUnset()
                                         ->children()
