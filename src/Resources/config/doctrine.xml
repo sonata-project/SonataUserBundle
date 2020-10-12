@@ -4,12 +4,8 @@
         <service id="sonata.user.user_manager.default" class="Sonata\UserBundle\Doctrine\UserManager" public="false">
             <argument type="service" id="sonata.user.util.password_updater"/>
             <argument type="service" id="sonata.user.util.canonical_fields_updater"/>
-            <argument type="service" id="sonata.user.object_manager"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
             <argument>%sonata.user.model.user.class%</argument>
-        </service>
-        <!-- The factory is configured in the DI extension class to support more Symfony versions -->
-        <service id="sonata.user.object_manager" class="Doctrine\Persistence\ObjectManager" public="false">
-            <argument>%sonata.user.model_manager_name%</argument>
         </service>
         <service id="sonata.user.user_listener" class="Sonata\UserBundle\Doctrine\UserListener" public="false">
             <argument type="service" id="sonata.user.util.password_updater"/>

@@ -44,7 +44,6 @@ class ConfigurationTest extends TestCase
         ], [
             'security_acl' => false,
             'firewall_name' => 'admin',
-            'model_manager_name' => null,
             'table' => [
                 'user_group' => 'sonata_user_user_group',
             ],

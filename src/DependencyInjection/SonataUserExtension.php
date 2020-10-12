@@ -137,7 +137,6 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         $this->remapParametersNamespaces($config, $container, [
             '' => [
                 'firewall_name' => 'sonata.user.firewall_name',
-                'model_manager_name' => 'sonata.user.model_manager_name',
             ],
         ]);
     }

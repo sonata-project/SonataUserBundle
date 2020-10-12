@@ -49,7 +49,6 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('firewall_name')->defaultValue('admin')->cannotBeEmpty()->end()
-                ->scalarNode('model_manager_name')->defaultNull()->end()
                 ->booleanNode('security_acl')->defaultFalse()->end()
                 ->arrayNode('table')
                     ->addDefaultsIfNotSet()

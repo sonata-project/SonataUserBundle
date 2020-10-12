@@ -8,7 +8,7 @@
             <argument>%sonata.user.admin.user.document%</argument>
         </service>
         <service id="sonata.user.mongodb.group_manager" class="Sonata\UserBundle\Document\GroupManager" public="false">
-            <argument type="service" id="sonata.user.object_manager"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
             <argument>%sonata.user.admin.group.document%</argument>
         </service>
     </services>
