@@ -89,7 +89,7 @@ class ConfigurationTest extends TestCase
                 'retry_ttl' => 7200,
                 'token_ttl' => 86400,
                 'email' => [
-                    'template' => '@FOSUser/Resetting/email.txt.twig',
+                    'template' => '@SonataUser/Resetting/email.txt.twig',
                 ],
                 'form' => [
                     'type' => ResettingPasswordType::class,
