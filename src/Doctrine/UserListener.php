@@ -14,10 +14,10 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Doctrine;
 
 use Doctrine\Common\EventSubscriber;
-use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ORM\EntityManager;
+use Doctrine\Persistence\Event\LifecycleEventArgs;
+use Doctrine\Persistence\ObjectManager;
 use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Util\CanonicalFieldsUpdater;
 use Sonata\UserBundle\Util\PasswordUpdaterInterface;

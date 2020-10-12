@@ -8,7 +8,7 @@
             <argument>%sonata.user.model.user.class%</argument>
         </service>
         <!-- The factory is configured in the DI extension class to support more Symfony versions -->
-        <service id="sonata.user.object_manager" class="Doctrine\Common\Persistence\ObjectManager" public="false">
+        <service id="sonata.user.object_manager" class="Doctrine\Persistence\ObjectManager" public="false">
             <argument>%sonata.user.model_manager_name%</argument>
         </service>
         <service id="sonata.user.user_listener" class="Sonata\UserBundle\Doctrine\UserListener" public="false">

@@ -30,7 +30,7 @@ class UserManagerTest extends TestCase
 
     protected function setUp(): void
     {
-        if (!interface_exists('Doctrine\Common\Persistence\ObjectManager')) {
+        if (!interface_exists('Doctrine\Persistence\ObjectManager')) {
             $this->markTestSkipped('Doctrine Common has to be installed for this test to run.');
         }
 
@@ -38,9 +38,9 @@ class UserManagerTest extends TestCase
         $fieldsUpdater = $this->getMockBuilder('Sonata\UserBundle\Util\CanonicalFieldsUpdater')
             ->disableOriginalConstructor()
             ->getMock();
-        $class = $this->getMockBuilder('Doctrine\Common\Persistence\Mapping\ClassMetadata')->getMock();
-        $this->om = $this->getMockBuilder('Doctrine\Common\Persistence\ObjectManager')->getMock();
-        $this->repository = $this->getMockBuilder('Doctrine\Common\Persistence\ObjectRepository')->getMock();
+        $class = $this->getMockBuilder('Doctrine\Persistence\Mapping\ClassMetadata')->getMock();
+        $this->om = $this->getMockBuilder('Doctrine\Persistence\ObjectManager')->getMock();
+        $this->repository = $this->getMockBuilder('Doctrine\Persistence\ObjectRepository')->getMock();
 
         $this->om->expects($this->any())
             ->method('getRepository')
