@@ -14,7 +14,8 @@
             <argument type="service" id="security.user_checker"/>
             <argument type="service" id="security.authentication.session_strategy"/>
             <argument type="service" id="request_stack"/>
-            <argument>null</argument> <!-- remember_me service -->
+            <!-- remember_me service -->
+            <argument>null</argument>
         </service>
         <service id="Sonata\UserBundle\Security\LoginManagerInterface" alias="sonata.user.security.login_manager" public="false"/>
         <service id="sonata.user.user_provider.username" class="Sonata\UserBundle\Security\UserProvider" public="false">
