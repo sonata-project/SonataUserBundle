@@ -215,6 +215,9 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
 
         $container->setParameter(sprintf('sonata.user.admin.user.%s', $modelType), $config['class']['user']);
         $container->setParameter(sprintf('sonata.user.admin.group.%s', $modelType), $config['class']['group']);
+
+        $container->setParameter('sonata.user.model.user', $config['class']['user']);
+        $container->setParameter('sonata.user.model.group', $config['class']['group']);
     }
 
     /**
