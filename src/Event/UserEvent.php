@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Event;
 
 use Sonata\UserBundle\Model\UserInterface;
+use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Contracts\EventDispatcher\Event;
 
 class UserEvent extends Event
 {
