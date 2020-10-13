@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle;
 
+use Sonata\UserBundle\DependencyInjection\Compiler\CheckForMailerPass;
 use Sonata\UserBundle\DependencyInjection\Compiler\GlobalVariablesCompilerPass;
 use Sonata\UserBundle\DependencyInjection\Compiler\RolesMatrixCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -22,6 +23,7 @@ class SonataUserBundle extends Bundle
 {
     public function build(ContainerBuilder $container): void
     {
+        $container->addCompilerPass(new CheckForMailerPass());
         $container->addCompilerPass(new GlobalVariablesCompilerPass());
         $container->addCompilerPass(new RolesMatrixCompilerPass());
     }

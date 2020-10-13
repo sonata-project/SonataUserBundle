@@ -11,5 +11,22 @@
             <argument>%sonata.user.resetting.email.from_email%</argument>
             <argument>%sonata.user.resetting.email.template%</argument>
         </service>
+        <service id="sonata.user.mailer.twig_swift" class="Sonata\UserBundle\Mailer\TwigSwiftMailer" public="false">
+            <argument type="service" id="mailer"/>
+            <argument type="service" id="router"/>
+            <argument type="service" id="twig"/>
+            <argument type="collection">
+                <argument key="template" type="collection">
+                    <argument key="confirmation">%sonata.user.registration.confirmation.template%</argument>
+                    <argument key="resetting">%sonata.user.resetting.email.template%</argument>
+                </argument>
+                <argument key="from_email" type="collection">
+                    <argument key="confirmation">%sonata.user.registration.confirmation.from_email%</argument>
+                    <argument key="resetting">%sonata.user.resetting.email.from_email%</argument>
+                </argument>
+            </argument>
+            <tag name="sonata.user.requires_swift"/>
+        </service>
+        <service id="sonata.user.mailer.noop" class="Sonata\UserBundle\Mailer\NoopMailer" public="false"/>
     </services>
 </container>
