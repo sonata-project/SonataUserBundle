@@ -22,7 +22,7 @@ use Symfony\Component\Console\Question\Question;
 
 class ChangePasswordCommand extends Command
 {
-    protected static $defaultName = 'fos:user:change-password';
+    protected static $defaultName = 'sonata:user:change-password';
 
     private $userManipulator;
 
@@ -39,7 +39,7 @@ class ChangePasswordCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('fos:user:change-password')
+            ->setName('sonata:user:change-password')
             ->setDescription('Change the password of a user.')
             ->setDefinition([
                 new InputArgument('username', InputArgument::REQUIRED, 'The username'),
@@ -47,7 +47,7 @@ class ChangePasswordCommand extends Command
             ])
             ->setHelp(
                 <<<'EOT'
-The <info>fos:user:change-password</info> command changes the password of a user:
+The <info>sonata:user:change-password</info> command changes the password of a user:
 
   <info>php %command.full_name% matthieu</info>
 

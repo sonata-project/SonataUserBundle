@@ -25,7 +25,7 @@ use Symfony\Component\Console\Question\Question;
  */
 class DeactivateUserCommand extends Command
 {
-    protected static $defaultName = 'fos:user:deactivate';
+    protected static $defaultName = 'sonata:user:deactivate';
 
     private $userManipulator;
 
@@ -42,14 +42,14 @@ class DeactivateUserCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('fos:user:deactivate')
+            ->setName('sonata:user:deactivate')
             ->setDescription('Deactivate a user')
             ->setDefinition([
                 new InputArgument('username', InputArgument::REQUIRED, 'The username'),
             ])
             ->setHelp(
                 <<<'EOT'
-The <info>fos:user:deactivate</info> command deactivates a user (will not be able to log in)
+The <info>sonata:user:deactivate</info> command deactivates a user (will not be able to log in)
 
   <info>php %command.full_name% matthieu</info>
 EOT

@@ -7,27 +7,27 @@
             <argument type="service" id="sonata.user.user_manager" on-invalid="null"/>
             <tag name="console.command"/>
         </service>
-        <service id="fos_user.command.activate_user" class="Sonata\UserBundle\Command\ActivateUserCommand">
+        <service id="sonata.user.command.activate_user" class="Sonata\UserBundle\Command\ActivateUserCommand">
             <argument type="service" id="sonata.user.util.user_manipulator"/>
             <tag name="console.command" command="sonata:user:activate"/>
         </service>
-        <service id="fos_user.command.change_password" class="Sonata\UserBundle\Command\ChangePasswordCommand">
+        <service id="sonata.user.command.change_password" class="Sonata\UserBundle\Command\ChangePasswordCommand">
             <argument type="service" id="sonata.user.util.user_manipulator"/>
             <tag name="console.command" command="sonata:user:change-password"/>
         </service>
-        <service id="fos_user.command.create_user" class="Sonata\UserBundle\Command\CreateUserCommand">
+        <service id="sonata.user.command.create_user" class="Sonata\UserBundle\Command\CreateUserCommand">
             <argument type="service" id="sonata.user.util.user_manipulator"/>
             <tag name="console.command" command="sonata:user:create"/>
         </service>
-        <service id="fos_user.command.deactivate_user" class="Sonata\UserBundle\Command\DeactivateUserCommand">
+        <service id="sonata.user.command.deactivate_user" class="Sonata\UserBundle\Command\DeactivateUserCommand">
             <argument type="service" id="sonata.user.util.user_manipulator"/>
             <tag name="console.command" command="sonata:user:deactivate"/>
         </service>
-        <service id="fos_user.command.demote_user" class="Sonata\UserBundle\Command\DemoteUserCommand">
+        <service id="sonata.user.command.demote_user" class="Sonata\UserBundle\Command\DemoteUserCommand">
             <argument type="service" id="sonata.user.util.user_manipulator"/>
             <tag name="console.command" command="sonata:user:demote"/>
         </service>
-        <service id="fos_user.command.promote_user" class="Sonata\UserBundle\Command\PromoteUserCommand">
+        <service id="sonata.user.command.promote_user" class="Sonata\UserBundle\Command\PromoteUserCommand">
             <argument type="service" id="sonata.user.util.user_manipulator"/>
             <tag name="console.command" command="sonata:user:promote"/>
         </service>

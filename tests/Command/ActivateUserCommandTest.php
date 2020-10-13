@@ -74,7 +74,7 @@ class ActivateUserCommandTest extends TestCase
 
         $application->add($command);
 
-        return new CommandTester($application->find('fos:user:activate'));
+        return new CommandTester($application->find('sonata:user:activate'));
     }
 
     /**
@@ -84,7 +84,7 @@ class ActivateUserCommandTest extends TestCase
      */
     private function getManipulator($username)
     {
-        $manipulator = $this->getMockBuilder('FOS\UserBundle\Util\UserManipulator')
+        $manipulator = $this->getMockBuilder('Sonata\UserBundle\Util\UserManipulator')
             ->disableOriginalConstructor()
             ->getMock();
 

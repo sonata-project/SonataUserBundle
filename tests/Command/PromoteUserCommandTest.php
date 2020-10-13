@@ -78,7 +78,7 @@ class PromoteUserCommandTest extends TestCase
 
         $application->add($command);
 
-        return new CommandTester($application->find('fos:user:promote'));
+        return new CommandTester($application->find('sonata:user:promote'));
     }
 
     /**
@@ -90,7 +90,7 @@ class PromoteUserCommandTest extends TestCase
      */
     private function getManipulator($username, $role, $super)
     {
-        $manipulator = $this->getMockBuilder('FOS\UserBundle\Util\UserManipulator')
+        $manipulator = $this->getMockBuilder('Sonata\UserBundle\Util\UserManipulator')
             ->disableOriginalConstructor()
             ->getMock();
 

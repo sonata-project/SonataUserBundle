@@ -22,7 +22,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class DemoteUserCommand extends RoleCommand
 {
-    protected static $defaultName = 'fos:user:demote';
+    protected static $defaultName = 'sonata:user:demote';
 
     /**
      * {@inheritdoc}
@@ -32,11 +32,11 @@ class DemoteUserCommand extends RoleCommand
         parent::configure();
 
         $this
-            ->setName('fos:user:demote')
+            ->setName('sonata:user:demote')
             ->setDescription('Demote a user by removing a role')
             ->setHelp(
                 <<<'EOT'
-The <info>fos:user:demote</info> command demotes a user by removing a role
+The <info>sonata:user:demote</info> command demotes a user by removing a role
 
   <info>php %command.full_name% matthieu ROLE_CUSTOM</info>
   <info>php %command.full_name% --super matthieu</info>

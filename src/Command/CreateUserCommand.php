@@ -28,7 +28,7 @@ use Symfony\Component\Console\Question\Question;
  */
 class CreateUserCommand extends Command
 {
-    protected static $defaultName = 'fos:user:create';
+    protected static $defaultName = 'sonata:user:create';
 
     private $userManipulator;
 
@@ -45,7 +45,7 @@ class CreateUserCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('fos:user:create')
+            ->setName('sonata:user:create')
             ->setDescription('Create a user.')
             ->setDefinition([
                 new InputArgument('username', InputArgument::REQUIRED, 'The username'),
@@ -56,7 +56,7 @@ class CreateUserCommand extends Command
             ])
             ->setHelp(
                 <<<'EOT'
-The <info>fos:user:create</info> command creates a user:
+The <info>sonata:user:create</info> command creates a user:
 
   <info>php %command.full_name% matthieu</info>
 

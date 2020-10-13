@@ -25,7 +25,7 @@ use Symfony\Component\Console\Question\Question;
  */
 class ActivateUserCommand extends Command
 {
-    protected static $defaultName = 'fos:user:activate';
+    protected static $defaultName = 'sonata:user:activate';
 
     private $userManipulator;
 
@@ -42,14 +42,14 @@ class ActivateUserCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('fos:user:activate')
+            ->setName('sonata:user:activate')
             ->setDescription('Activate a user')
             ->setDefinition([
                 new InputArgument('username', InputArgument::REQUIRED, 'The username'),
             ])
             ->setHelp(
                 <<<'EOT'
-The <info>fos:user:activate</info> command activates a user (so they will be able to log in):
+The <info>sonata:user:activate</info> command activates a user (so they will be able to log in):
 
   <info>php %command.full_name% matthieu</info>
 EOT

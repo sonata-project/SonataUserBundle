@@ -78,7 +78,7 @@ class ChangePasswordCommandTest extends TestCase
 
         $application->add($command);
 
-        return new CommandTester($application->find('fos:user:change-password'));
+        return new CommandTester($application->find('sonata:user:change-password'));
     }
 
     /**
@@ -89,7 +89,7 @@ class ChangePasswordCommandTest extends TestCase
      */
     private function getManipulator($username, $password)
     {
-        $manipulator = $this->getMockBuilder('FOS\UserBundle\Util\UserManipulator')
+        $manipulator = $this->getMockBuilder('Sonata\UserBundle\Util\UserManipulator')
             ->disableOriginalConstructor()
             ->getMock();
 

@@ -24,7 +24,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class PromoteUserCommand extends RoleCommand
 {
-    protected static $defaultName = 'fos:user:promote';
+    protected static $defaultName = 'sonata:user:promote';
 
     /**
      * {@inheritdoc}
@@ -34,11 +34,11 @@ class PromoteUserCommand extends RoleCommand
         parent::configure();
 
         $this
-            ->setName('fos:user:promote')
+            ->setName('sonata:user:promote')
             ->setDescription('Promotes a user by adding a role')
             ->setHelp(
                 <<<'EOT'
-The <info>fos:user:promote</info> command promotes a user by adding a role
+The <info>sonata:user:promote</info> command promotes a user by adding a role
 
   <info>php %command.full_name% matthieu ROLE_CUSTOM</info>
   <info>php %command.full_name% --super matthieu</info>
