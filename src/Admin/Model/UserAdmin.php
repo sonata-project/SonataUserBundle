@@ -59,17 +59,6 @@ class UserAdmin extends AbstractAdmin
     /**
      * {@inheritdoc}
      */
-    public function getExportFields()
-    {
-        // avoid security field to be exported
-        return array_filter(parent::getExportFields(), static function ($v) {
-            return !\in_array($v, ['password', 'salt'], true);
-        });
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function preUpdate($user): void
     {
         $this->getUserManager()->updateCanonicalFields($user);
@@ -248,5 +237,13 @@ class UserAdmin extends AbstractAdmin
                 ->end()
             ->end()
         ;
+    }
+
+    protected function configureExportFields(): array
+    {
+        // Avoid sensitive properties to be exported.
+        return array_filter(parent::configureExportFields(), static function (string $v): bool {
+            return !\in_array($v, ['password', 'salt'], true);
+        });
     }
 }
