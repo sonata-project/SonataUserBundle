@@ -40,9 +40,7 @@ Add ``SonataUserBundle`` via composer::
 
     composer require sonata-project/user-bundle
 
-.. note::
 
-    This will install the FOSUserBundle_, too.
 
 If you want to use the REST API, you also need ``friendsofsymfony/rest-bundle`` and ``nelmio/api-doc-bundle``::
 
@@ -55,7 +53,6 @@ are not already enabled::
 
     return [
         // ...
-        FOS\UserBundle\FOSUserBundle::class => ['all' => true],
         Sonata\UserBundle\SonataUserBundle::class => ['all' => true],
     ];
 
@@ -71,28 +68,14 @@ SonataUserBundle Configuration
 
     sonata_user:
         class:
-            user: App\Entity\SonataUserUser
-            group: App\Entity\SonataUserGroup
+            user: 'App\Entity\SonataUserUser'
+            group: 'App\Entity\SonataUserGroup'
 
-FOSUserBundle Configuration
----------------------------
-
-.. code-block:: yaml
-
-    # config/packages/fos_user.yaml
-
-    fos_user:
-        db_driver: orm
-        firewall_name: main
-        user_class: App\Entity\SonataUserUser
-        group:
-            group_class: App\Entity\SonataUserGroup
-            group_manager: sonata.user.orm.group_manager
-        service:
-            user_manager: sonata.user.orm.user_manager
-        from_email:
-            address: "%mailer_user%"
-            sender_name: "%mailer_user%"
+        resetting:
+            email:
+                from_email:
+                    address: 'sonatauser@example.com'
+                    sender_name: 'SonataUserBundle'
 
 Doctrine ORM Configuration
 --------------------------
@@ -107,7 +90,6 @@ And these in the config mapping definition (or enable `auto_mapping`_)::
                 default:
                     mappings:
                         SonataUserBundle: ~
-                        FOSUserBundle: ~
 
 And then create the corresponding entities, ``src/Entity/SonataUserUser``::
 
@@ -199,20 +181,10 @@ Then configure ``SonataUserBundle`` to use the newly generated classes::
     # config/packages/sonata_user.yaml
 
     sonata_user:
-        manager_type: mongodb
+        manager_type: 'mongodb'
         class:
-            user: App\Document\SonataUserUser
-            group: App\Document\SonataUserGroup
-
-And configure ``FOSUserBundle``::
-
-    # config/packages/fos_user.yaml
-
-    fos_user:
-        db_driver: mongodb
-        user_class: App\Document\SonataUserUser
-        group:
-            group_class: App\Document\SonataUserGroup
+            user: 'App\Document\SonataUserUser'
+            group: 'App\Document\SonataUserGroup'
 
 ACL Configuration
 -----------------
@@ -234,7 +206,7 @@ settings of `super-admin` users, to enable this use the following configuration:
 
     security:
         encoders:
-            FOS\UserBundle\Model\UserInterface: sha512
+            Sonata\UserBundle\Model\UserInterface: sha512
 
         acl:
             connection: default
@@ -243,7 +215,7 @@ Mailer Configuration
 --------------------
 
 You can define a custom mailer to send reset password emails.
-Your mailer will have to implement ``FOS\UserBundle\Mailer\MailerInterface``.
+Your mailer will have to implement ``Sonata\UserBundle\Mailer\MailerInterface``.
 
 .. code-block:: yaml
 
@@ -284,10 +256,10 @@ Then, add a new custom firewall handlers for the admin:
 
             # -> custom firewall for the admin area of the URL
             admin:
-                pattern:            /admin(.*)
-                context:            user
+                pattern: /admin(.*)
+                context: user
                 form_login:
-                    provider:       fos_userbundle
+                    provider:       sonata_userbundle
                     login_path:     /admin/login
                     use_forward:    false
                     check_path:     /admin/login_check
@@ -300,20 +272,6 @@ Then, add a new custom firewall handlers for the admin:
             # -> end custom configuration
 
             # default login area for standard users
-
-            # This firewall is used to handle the public login area
-            # This part is handled by the FOS User Bundle
-            main:
-                pattern:             .*
-                context:             user
-                form_login:
-                    provider:       fos_userbundle
-                    login_path:     /login
-                    use_forward:    false
-                    check_path:     /login_check
-                    failure_path:   null
-                logout:             true
-                anonymous:          true
 
 Add role hierarchy and provider, if you are not using ACL also add the encoder:
 
@@ -329,10 +287,10 @@ Add role hierarchy and provider, if you are not using ACL also add the encoder:
                 - ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT  # if you are using acl then this line must be commented
 
         encoders:
-            FOS\UserBundle\Model\UserInterface: bcrypt
+            Sonata\UserBundle\Model\UserInterface: bcrypt
 
         providers:
-            fos_userbundle:
+            sonata_userbundle:
                 id: fos_user.user_provider.username
 
 The last part is to define 4 new access control rules:

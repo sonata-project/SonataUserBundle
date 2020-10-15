@@ -62,7 +62,7 @@ in your firewall to ``sonata.user.google.authenticator.success_handler``, exampl
                 pattern:             /admin(.*)
                 context:             user
                 form_login:
-                    provider:        fos_userbundle
+                    provider:        sonata_userbundle
                     login_path:      /admin/login
                     use_forward:     false
                     check_path:      /admin/login_check

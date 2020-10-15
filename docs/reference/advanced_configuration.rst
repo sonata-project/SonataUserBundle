@@ -9,59 +9,61 @@ Full configuration options:
 
 .. code-block:: yaml
 
-    fos_user:
-        db_driver:        orm # can be orm or mongodb (support is also available within FOSUser for couchdb, propel but none is given for SonataUserBundle)
-        firewall_name:    main
-        user_class:       Application\Sonata\UserBundle\Entity\User
-
-        group:
-            group_class:  Application\Sonata\UserBundle\Entity\Group
-
-        profile:
-            # Authentication Form
-            form:
-                type:               fos_user_profile
-                name:               fos_user_profile_form
-                validation_groups:  [Authentication] # Please note : this is not the default value
-
     sonata_user:
         security_acl: false
-        manager_type: orm      # can be orm or mongodb
+        firewall_name: 'admin'
+        manager_type: 'orm' # can be orm or mongodb
 
         table:
-            user_group: "my_custom_user_group_association_table_name"
+            user_group: 'my_custom_user_group_association_table_name'
 
         impersonating:
-            route:                page_slug
-            parameters:           { path: / }
+            route: page_slug
+            parameters: { path: / }
 
-        class:                  # Entity Classes
-            user:               Application\Sonata\UserBundle\Entity\User
-            group:              Application\Sonata\UserBundle\Entity\Group
+        class: # Entity Classes
+            user: 'App\Entity\SonataUserUser'
+            group: 'App\Entity\SonataUserGroup'
 
-        admin:                  # Admin Classes
+        admin: # Admin Classes
             user:
-                class:          Sonata\UserBundle\Admin\Entity\UserAdmin
-                controller:     Sonata\AdminBundle\Controller\CRUDController
-                translation:    SonataUserBundle
+                class: 'Sonata\UserBundle\Admin\Entity\UserAdmin'
+                controller: 'Sonata\AdminBundle\Controller\CRUDController'
+                translation: 'SonataUserBundle'
 
             group:
-                class:          Sonata\UserBundle\Admin\Entity\GroupAdmin
-                controller:     Sonata\AdminBundle\Controller\CRUDController
-                translation:    SonataUserBundle
+                class: 'Sonata\UserBundle\Admin\Entity\GroupAdmin'
+                controller: 'Sonata\AdminBundle\Controller\CRUDController'
+                translation: 'SonataUserBundle'
 
         profile:
             default_avatar: 'bundles/sonatauser/default_avatar.png' # Default avatar displayed if the user doesn't have one
 
         mailer: sonata.user.mailer.default # Service used to send emails
 
-    # override FOSUser default serialization
+        service:
+            mailer: 'sonata.user.mailer.default'
+            email_canonicalizer': 'sonata.user.util.canonicalizer.default'
+            token_generator: 'sonata.user.util.token_generator.default'
+            username_canonicalizer: 'sonata.user.util.canonicalizer.default'
+            user_manager: 'sonata.user.user_manager.default'
+
+        resetting:
+            retry_ttl: 7200
+            token_ttl: 86400
+            email:
+                template: '@SonataUser/Resetting/email.txt.twig'
+                from_email:
+                    address: 'sonatauser@example.com'
+                    sender_name: 'SonataUserBundle'
+
+    # add SonataUser serialization
     jms_serializer:
         metadata:
             directories:
                 App:
-                    path: "%kernel.root_dir%/../vendor/sonata-project/user-bundle/Sonata/UserBundle/Resources/config/serializer/FOSUserBundle"
-                    namespace_prefix: 'FOS\UserBundle'
+                    path: "%kernel.root_dir%/../vendor/sonata-project/user-bundle/Sonata/UserBundle/Resources/config/serializer"
+                    namespace_prefix: 'Sonata\UserBundle'
 
     # Enable Doctrine to map the provided entities
     doctrine:
@@ -69,6 +71,4 @@ Full configuration options:
             entity_managers:
                 default:
                     mappings:
-                        FOSUserBundle: ~
-                        ApplicationSonataUserBundle: ~
                         SonataUserBundle: ~
