@@ -26,17 +26,6 @@ class ResettingPasswordType extends AbstractType
      */
     private $class;
 
-    /**
-     * @param string $class The User class name
-     */
-    public function __construct($class)
-    {
-        $this->class = $class;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('plainPassword', RepeatedType::class, [
@@ -49,34 +38,17 @@ class ResettingPasswordType extends AbstractType
             ],
             'first_options' => ['label' => 'form.new_password'],
             'second_options' => ['label' => 'form.new_password_confirmation'],
-            'invalid_message' => 'fos_user.password.mismatch',
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => $this->class,
             'csrf_token_id' => 'resetting',
+            'validation_groups' => ['Registration', 'Default'],
         ]);
     }
 
-    // BC for SF < 3.0
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return $this->getBlockPrefix();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getBlockPrefix()
     {
         return 'sonata_user_resetting';

@@ -141,7 +141,9 @@ final class ResetAction
             return new RedirectResponse($this->urlGenerator->generate('sonata_user_admin_resetting_request'));
         }
 
-        $form = $this->formFactory->create(ResettingPasswordType::class, $user);
+        $form = $this->formFactory->create(ResettingPasswordType::class, $user, [
+            'data_class' => $this->userManager->getClass(),
+        ]);
 
         $form->handleRequest($request);
 
