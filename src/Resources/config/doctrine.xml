@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="sonata.user.mongodb.user_manager" class="Sonata\UserBundle\Document\UserManager" public="false">
+        <service id="sonata.user.user_manager.default" class="Sonata\UserBundle\Doctrine\UserManager" public="false">
             <argument type="service" id="sonata.user.util.password_updater"/>
             <argument type="service" id="sonata.user.util.canonical_fields_updater"/>
-            <argument type="service" id="sonata.object_manager"/>
-            <argument>%sonata.user.admin.user.document%</argument>
-        </service>
-        <service id="sonata.user.mongodb.group_manager" class="Sonata\UserBundle\Document\GroupManager" public="false">
             <argument type="service" id="doctrine.orm.entity_manager"/>
-            <argument>%sonata.user.admin.group.document%</argument>
+            <argument>%sonata.user.model.user.class%</argument>
+        </service>
+        <service id="sonata.user.user_listener" class="Sonata\UserBundle\Doctrine\UserListener" public="false">
+            <argument type="service" id="sonata.user.util.password_updater"/>
+            <argument type="service" id="sonata.user.util.canonical_fields_updater"/>
         </service>
     </services>
 </container>

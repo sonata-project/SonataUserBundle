@@ -18,6 +18,8 @@ use Sonata\UserBundle\DependencyInjection\Configuration;
 use Sonata\UserBundle\DependencyInjection\SonataUserExtension;
 use Sonata\UserBundle\Document\BaseUser;
 use Sonata\UserBundle\Entity\BaseGroup;
+use Sonata\UserBundle\Model\GroupInterface;
+use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Tests\Admin\Document\GroupAdmin;
 use Sonata\UserBundle\Tests\Admin\Document\UserAdmin;
 use Sonata\UserBundle\Tests\Document\Group;
@@ -248,7 +250,18 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
      */
     protected function getMinimalConfiguration(): array
     {
-        return (new Processor())->process((new Configuration())->getConfigTreeBuilder()->buildTree(), []);
+        return (new Processor())->process((new Configuration())->getConfigTreeBuilder()->buildTree(), [
+            [
+                'resetting' => [
+                    'email' => [
+                        'from_email' => [
+                            'address' => 'sonatauser@example.com',
+                            'sender_name' => 'SonataUserBundle',
+                        ],
+                    ],
+                ],
+            ],
+        ]);
     }
 
     /**

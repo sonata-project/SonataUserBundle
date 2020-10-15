@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="sonata.user.resetting.form.type" class="Sonata\UserBundle\Form\Type\ResettingPasswordType">
+            <tag name="form.type" alias="sonata_user_resetting"/>
+            <argument>%sonata.user.model.user.class%</argument>
+        </service>
+        <service id="Sonata\UserBundle\Form\Type\ResettingPasswordType" alias="sonata.user.resetting.form.type" public="true"/>
+    </services>
+</container>

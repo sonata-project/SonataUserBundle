@@ -48,14 +48,10 @@ doctrine:
                         is_bundle: false
                         prefix: Sonata\UserBundle\Tests\App\Entity
 
-fos_user:
-    user_class: 'Sonata\UserBundle\Tests\Entity\User'
-    group:
-        group_class: 'Sonata\UserBundle\Entity\BaseGroup'
-    db_driver: 'orm'
-    firewall_name: 'api'
-    from_email:
-        address: 'sonatauser@example.com'
-        sender_name: 'SonataUserBundle'
-    service:
-        mailer: 'fos_user.mailer.noop'
+sonata_user:
+    firewall_name: 'admin'
+    resetting:
+        email:
+            from_email:
+                address: 'sonatauser@example.com'
+                sender_name: 'SonataUserBundle'

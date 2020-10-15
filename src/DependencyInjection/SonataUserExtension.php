@@ -24,6 +24,7 @@ use Sonata\UserBundle\Entity\BaseGroup as EntityGroup;
 use Sonata\UserBundle\Entity\BaseUser as EntityUser;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
@@ -73,9 +74,14 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         }
 
         $loader->load('twig.xml');
+        $loader->load('doctrine.xml');
+        $loader->load('doctrine_group.xml');
         $loader->load('command.xml');
         $loader->load('actions.xml');
         $loader->load('mailer.xml');
+        $loader->load('security.xml');
+        $loader->load('util.xml');
+        $loader->load('validator.xml');
 
         if ('orm' === $config['manager_type'] && isset(
             $bundles['FOSRestBundle'],
@@ -117,6 +123,17 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         $container->setParameter('sonata.user.impersonating', $config['impersonating']);
 
         $this->configureGoogleAuthenticator($config, $container);
+
+        $container->setAlias('sonata.user.util.email_canonicalizer', $config['service']['email_canonicalizer']);
+        $container->setAlias('sonata.user.util.username_canonicalizer', $config['service']['username_canonicalizer']);
+        $container->setAlias('sonata.user.util.token_generator', $config['service']['token_generator']);
+        //$container->setAlias('sonata.user.user_manager', new Alias($config['service']['user_manager'], true));
+
+        if (!empty($config['resetting'])) {
+            $this->loadResetting($config['resetting'], $container);
+        }
+
+        $container->setParameter('sonata.user.firewall_name', $config['firewall_name']);
 
         $this->createDoctrineCommonBackwardCompatibilityAliases();
     }
@@ -207,6 +224,9 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
 
         $container->setParameter(sprintf('sonata.user.admin.user.%s', $modelType), $config['class']['user']);
         $container->setParameter(sprintf('sonata.user.admin.group.%s', $modelType), $config['class']['group']);
+
+        $container->setParameter('sonata.user.model.user.class', $config['class']['user']);
+        $container->setParameter('sonata.user.model.group.class', $config['class']['group']);
     }
 
     /**
@@ -360,6 +380,15 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
                     'onDelete' => 'CASCADE',
                 ]])
         );
+    }
+
+    private function loadResetting(array $config, ContainerBuilder $container)
+    {
+        $fromEmail = $config['email']['from_email'];
+        $container->setParameter('sonata.user.resetting.retry_ttl', $config['retry_ttl']);
+        $container->setParameter('sonata.user.resetting.token_ttl', $config['token_ttl']);
+        $container->setParameter('sonata.user.resetting.email.template', $config['email']['template']);
+        $container->setParameter('sonata.user.resetting.email.from_email', [$fromEmail['address'] => $fromEmail['sender_name']]);
     }
 
     /**

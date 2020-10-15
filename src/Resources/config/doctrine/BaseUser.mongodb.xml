@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<doctrine-mongo-mapping xmlns="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping                         http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
-    <mapped-superclass name="Sonata\UserBundle\Document\BaseUser">
+<doctrine-mongo-mapping xmlns="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
+    <mapped-superclass name="Sonata\UserBundle\Document\BaseUser" collection="sonata_user_user">
         <field name="createdAt" type="date"/>
         <field name="updatedAt" type="date"/>
+        <!-- Account fields -->
+        <field name="username" fieldName="username" type="string"/>
+        <field name="usernameCanonical" fieldName="usernameCanonical" type="string"/>
+        <field name="email" fieldName="email" type="string"/>
+        <field name="emailCanonical" fieldName="emailCanonical" type="string"/>
+        <field name="enabled" fieldName="enabled" type="boolean"/>
+        <field name="salt" fieldName="salt" type="string"/>
+        <field name="password" fieldName="password" type="string"/>
+        <field name="lastLogin" fieldName="lastLogin" type="date"/>
+        <field name="confirmationToken" fieldName="confirmationToken" type="string"/>
+        <field name="passwordRequestedAt" fieldName="passwordRequestedAt" type="date"/>
+        <field name="roles" fieldName="roles" type="collection"/>
         <!-- Profile fields -->
         <field name="dateOfBirth" type="date"/>
         <field name="firstname" type="string"/>
@@ -26,6 +38,24 @@
         <!-- extra security fields -->
         <field name="token" type="string"/>
         <field name="twoStepVerificationCode" type="string"/>
+        <indexes>
+            <index>
+                <key name="usernameCanonical" order="asc"/>
+                <option name="safe" value="true"/>
+                <option name="unique" value="true"/>
+            </index>
+            <index>
+                <key name="emailCanonical" order="asc"/>
+                <option name="safe" value="true"/>
+                <option name="unique" value="true"/>
+            </index>
+            <index>
+                <key name="confirmationToken" order="asc"/>
+                <option name="safe" value="true"/>
+                <option name="sparse" value="true"/>
+                <option name="unique" value="true"/>
+            </index>
+        </indexes>
         <lifecycle-callbacks>
             <lifecycle-callback type="prePersist" method="prePersist"/>
             <lifecycle-callback type="preUpdate" method="preUpdate"/>

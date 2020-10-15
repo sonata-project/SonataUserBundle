@@ -34,11 +34,21 @@ class ConfigurationTest extends TestCase
     public function testDefault(): void
     {
         $this->assertProcessedConfigurationEquals([
-            [],
+            [
+                'resetting' => [
+                    'email' => [
+                        'from_email' => [
+                            'address' => 'sonatauser@example.com',
+                            'sender_name' => 'SonataUserBundle',
+                        ],
+                    ],
+                ],
+            ],
         ], [
             'security_acl' => false,
+            'firewall_name' => 'admin',
             'table' => [
-                'user_group' => 'fos_user_user_group',
+                'user_group' => 'sonata_user_user_group',
             ],
             'google_authenticator' => [
                 'enabled' => false,
@@ -67,6 +77,24 @@ class ConfigurationTest extends TestCase
                 'default_avatar' => 'bundles/sonatauser/default_avatar.png',
             ],
             'mailer' => 'sonata.user.mailer.default',
+            'service' => [
+                'mailer' => 'sonata.user.mailer.default',
+                'email_canonicalizer' => 'sonata.user.util.canonicalizer.default',
+                'token_generator' => 'sonata.user.util.token_generator.default',
+                'username_canonicalizer' => 'sonata.user.util.canonicalizer.default',
+                'user_manager' => 'sonata.user.user_manager.default',
+            ],
+            'resetting' => [
+                'retry_ttl' => 7200,
+                'token_ttl' => 86400,
+                'email' => [
+                    'template' => '@SonataUser/Resetting/email.txt.twig',
+                    'from_email' => [
+                        'address' => 'sonatauser@example.com',
+                        'sender_name' => 'SonataUserBundle',
+                    ],
+                ],
+            ],
         ]);
     }
 }

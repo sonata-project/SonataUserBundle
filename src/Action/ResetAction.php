@@ -13,13 +13,14 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Action;
 
-use FOS\UserBundle\Form\Factory\FactoryInterface;
-use FOS\UserBundle\Model\UserManagerInterface;
-use FOS\UserBundle\Security\LoginManagerInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
+use Sonata\UserBundle\Form\Type\ResettingPasswordType;
+use Sonata\UserBundle\Model\UserManagerInterface;
+use Sonata\UserBundle\Security\LoginManagerInterface;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,7 +62,7 @@ final class ResetAction
     private $templateRegistry;
 
     /**
-     * @var FactoryInterface
+     * @var FormFactoryInterface
      */
     private $formFactory;
 
@@ -101,7 +102,7 @@ final class ResetAction
         AuthorizationCheckerInterface $authorizationChecker,
         Pool $adminPool,
         TemplateRegistryInterface $templateRegistry,
-        FactoryInterface $formFactory,
+        FormFactoryInterface $formFactory,
         UserManagerInterface $userManager,
         LoginManagerInterface $loginManager,
         TranslatorInterface $translator,
@@ -140,8 +141,7 @@ final class ResetAction
             return new RedirectResponse($this->urlGenerator->generate('sonata_user_admin_resetting_request'));
         }
 
-        $form = $this->formFactory->createForm();
-        $form->setData($user);
+        $form = $this->formFactory->create(ResettingPasswordType::class, $user);
 
         $form->handleRequest($request);
 
@@ -150,7 +150,7 @@ final class ResetAction
             $user->setPasswordRequestedAt(null);
             $user->setEnabled(true);
 
-            $message = $this->translator->trans('resetting.flash.success', [], 'FOSUserBundle');
+            $message = $this->translator->trans('resetting.flash.success', [], 'SonataUserBundle');
             $this->session->getFlashBag()->add('success', $message);
 
             $response = new RedirectResponse($this->urlGenerator->generate('sonata_admin_dashboard'));
