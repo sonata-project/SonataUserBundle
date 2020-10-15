@@ -1,0 +1,34 @@
+security:
+    login:
+        remember_me: 'Nie wylogowuj mnie'
+        submit: Zaloguj
+
+resetting:
+    check_email: |
+        E-mail został wysłany. Zawiera on link do formularza zmiany hasła.
+        Uwaga: Możesz zresetować hasło tylko jeden raz w ciągu %tokenLifetime% godzin.
+
+        Sprawdź swoją skrzynkę pocztową, jeśli jednak nie widzisz wiadomości od nas, sprawdź folder spam lub spróbuj ponownie później.
+
+    request:
+        username: 'Nazwa użytkownika lub e-mail'
+        submit: 'Resetuj hasło'
+    reset:
+        submit: 'Zmień hasło'
+    flash:
+        success: 'Hasło zostało zresetowane.'
+    email:
+        subject: 'Resetowanie hasła'
+        message: |
+            Cześć %username%!
+
+            Aby zresetować hasło - proszę przejść do %confirmationUrl%
+
+            Pozdrawiamy,
+            Zespół.
+
+form:
+    group_name: 'Nazwa grupy'
+    current_password: 'Obecne hasło'
+    new_password: 'Nowe hasło'
+    new_password_confirmation: 'Powtórz hasło'

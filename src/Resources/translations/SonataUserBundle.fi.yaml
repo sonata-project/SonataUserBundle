@@ -1,0 +1,28 @@
+security:
+    login:
+        remember_me: 'Muista minut'
+        submit: Kirjaudu
+
+resetting:
+#    check_email: 'Sähköposti on lähetetty osoitteeseen %email%. Se sisältää linkin, jota klikkaamalla salasana alustetaan.'
+    request:
+        username: 'Käyttäjätunnus tai sähköpostiosoite'
+        submit: 'Alusta salasana'
+    reset:
+        submit: 'Vaihda salasana'
+    flash:
+        success: 'Salasana on alustettu onnistuneesti.'
+    email:
+        subject: 'Alusta salasana'
+        message: |
+            Hei %username%!
+
+            Alustaaksesi salasanasi, ole hyvä ja klikkaa %confirmationUrl%
+
+            Terveisin ylläpito
+
+form:
+    group_name: 'Ryhmän nimi'
+    current_password: 'Nykyinen salasana'
+    new_password: 'Uusi salasana'
+    new_password_confirmation: 'Salasana uudestaan'

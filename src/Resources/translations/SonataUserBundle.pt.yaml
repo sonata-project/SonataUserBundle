@@ -1,0 +1,33 @@
+security:
+    login:
+        remember_me: 'Lembrar-me'
+        submit: 'Entrar'
+
+resetting:
+    check_email: |
+        Foi enviado um email. Este contém um link que terá de visitar para recuperar a sua password.
+        Nota: Só poderá voltar a pedir para recuperar a sua password dentro de %tokenLifetime% horas.
+
+        Se não receber o email verifique a pasta de spam do seu cliente de email ou tente novamente.
+    request:
+        username: 'Utilizador ou endereço de email'
+        submit: 'Recuperar password'
+    reset:
+        submit: 'Alterar password'
+    flash:
+        success: 'A password foi recuperada com sucesso'
+    email:
+        subject: 'Recuperar password'
+        message: |
+            Olá %username%!
+
+            Para recuperar a password, por favor aceda a %confirmationUrl%
+
+            Cumprimentos,
+            A equipa.
+
+form:
+    group_name: 'Nome do Grupo'
+    current_password: 'Password atual'
+    new_password: 'Nova password'
+    new_password_confirmation: 'Verificar a nova password'

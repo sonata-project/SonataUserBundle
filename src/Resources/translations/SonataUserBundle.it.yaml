@@ -1,0 +1,33 @@
+security:
+    login:
+        remember_me: Ricordami
+        submit: Login
+
+resetting:
+    check_email: |
+        È stata inviata un'email con il link d'attivazione che devi utilizzare per il reset della password.
+        Nota: è possibile richiedere una password entro %tokenLifetime% ore.
+
+        Se non ricevi un'email verifica la cartella di spam o riprova.
+    request:
+        username: 'Username o indirizzo email'
+        submit: 'Password reset'
+    reset:
+        submit: 'Cambia password'
+    flash:
+        success: 'La password è stata resettata.'
+    email:
+        subject: 'Password reset'
+        message: |
+            Ciao %username%!
+
+            Per resettare la password visita %confirmationUrl%
+
+            Saluti,
+            il Team.
+
+form:
+    group_name: 'Nome gruppo'
+    current_password: 'Password corrente'
+    new_password: 'Nuova password'
+    new_password_confirmation: 'Ripeti password'

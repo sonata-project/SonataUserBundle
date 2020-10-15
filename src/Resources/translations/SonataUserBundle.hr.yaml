@@ -1,0 +1,29 @@
+security:
+    login:
+        remember_me: 'Zapamti me'
+        submit: Prijava
+
+resetting:
+#    check_email: 'Na %email%  smo vam poslali poruku s poveznicom za promjenu lozinke. Lozinku resetirajte klikom na tu poveznicu.'
+    request:
+        username: 'Korisničko ime'
+        submit: 'Izmijeni lozinku'
+    reset:
+        submit: 'Spremi lozinku'
+    flash:
+        success: 'Lozinka je uspješno spremljena.'
+    email:
+        subject: 'Promjena lozinke'
+        message: |
+            Pozdrav %username%!
+
+            Za promjenu lozinke molimo kliknite na %confirmationUrl%
+
+            Pozdrav,
+            Autori stranice
+
+form:
+    group_name: 'Ime grupe'
+    current_password: 'Trenutna lozinka'
+    new_password: 'Nova lozinka'
+    new_password_confirmation: 'Potvrda lozinke'

@@ -1,0 +1,29 @@
+security:
+    login:
+        remember_me: Atsiminti
+        submit: Prisijungti
+
+resetting:
+#    check_email: 'El. pašto pranešimas išsiųstas adresu %email%. Jame rasite nuorodą, kurią paspaudę, galėsite pakeisti savo slaptažodį.'
+    request:
+        username: 'Naudotojo vardas arba el. paštas'
+        submit: Tęsti
+    reset:
+        submit: 'Pakeisti slaptažodį'
+    flash:
+        success: 'Slaptažodis pakeistas.'
+    email:
+        subject: 'Slaptažodžio keitimas'
+        message: |
+            Sveiki %username%!
+
+            Norėdami pakeisti savo slaptažodį, apsilankykite adresu %confirmationUrl%
+
+            Pagarbiai,
+            Komanda.
+
+form:
+    group_name: 'Grupės vardas'
+    current_password: 'Dabartinis slaptažodis'
+    new_password: 'Naujas slaptažodis'
+    new_password_confirmation: 'Naujas slaptažodis (pakartoti)'

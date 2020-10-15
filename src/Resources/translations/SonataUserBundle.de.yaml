@@ -1,0 +1,34 @@
+security:
+    login:
+        remember_me: 'An mich erinnern'
+        submit: Anmelden
+
+resetting:
+    check_email: |
+        Eine E-Mail wurde verschickt. Sie beinhaltet einen Link zum Zurücksetzen des Passwortes.
+        Hinweis: Ein neues Passwort kann nur alle %tokenLifetime% Stunden beantragt werden.
+
+        Eventuell wurde diese E-Mail als Spam markiert, wenn sie nicht angekommen ist.
+
+    request:
+        username: 'Benutzername oder E-Mail-Adresse'
+        submit: 'Passwort zurücksetzen'
+    reset:
+        submit: 'Passwort ändern'
+    flash:
+        success: 'Das Passwort wurde erfolgreich zurückgesetzt.'
+    email:
+        subject: 'Passwort zurücksetzen'
+        message: |
+            Hallo %username%!
+
+            Besuchen Sie bitte folgende Seite, um Ihr Passwort zurückzusetzen: %confirmationUrl%
+
+            Mit besten Grüßen,
+            das Team.
+
+form:
+    group_name: Gruppenname
+    current_password: 'Derzeitiges Passwort'
+    new_password: 'Neues Passwort'
+    new_password_confirmation: 'Neues Passwort bestätigen'

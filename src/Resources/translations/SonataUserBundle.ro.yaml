@@ -1,0 +1,33 @@
+security:
+    login:
+        remember_me: 'Ține-mă minte'
+        submit: Autentificare
+
+resetting:
+    check_email: |
+        Un email a fost trimis. Conține un link pe care trebuie să îl accesezi pentru a-ți reseta parola.
+        Notă: Poți cere o nouă parolă numai în următoarele %tokenLifetime% ore.
+
+        Daca nu primești email-ul verifica in spam sau mai incearca o dată.
+    request:
+        username: 'Numele de utilizator sau adresa de email'
+        submit: 'Resetează parola'
+    reset:
+        submit: 'Schimbă parola'
+    flash:
+        success: 'Parola a fost resetată cu succes.'
+    email:
+        subject: 'Resetare parolă'
+        message: |
+            Salut %username%!
+
+            Pentru a-ți reseta parola - accesează %confirmationUrl%
+
+            Toate cele bune,
+            Echipa
+
+form:
+    group_name: 'Numele grupului'
+    current_password: 'Parola curentă'
+    new_password: 'Parola nouă'
+    new_password_confirmation: 'Verificare parolă nouă'

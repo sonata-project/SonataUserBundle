@@ -1,0 +1,33 @@
+security:
+    login:
+        remember_me: 'Remember me'
+        submit: 'Log in'
+
+resetting:
+    check_email: |
+        An email has been sent. It contains a link you must click to reset your password.
+        Note: You can only request a new password once within %tokenLifetime% hours.
+
+        If you don't get an email check your spam folder or try again.
+    request:
+        username: 'Username or email address'
+        submit: 'Reset password'
+    reset:
+        submit: 'Change password'
+    flash:
+        success: 'The password has been reset successfully.'
+    email:
+        subject: 'Reset Password'
+        message: |
+            Hello %username%!
+
+            To reset your password - please visit %confirmationUrl%
+
+            Regards,
+            the Team.
+
+form:
+    group_name: 'Group name'
+    current_password: 'Current password'
+    new_password: 'New password'
+    new_password_confirmation: 'Repeat new password'
