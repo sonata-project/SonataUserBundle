@@ -41,15 +41,16 @@ final class SecurityRolesBuilderTest extends TestCase
 
     public function testGetRoles(): void
     {
-        $this->pool->expects($this->at(0))
+        $this->pool
             ->method('getOption')
-            ->with('role_super_admin')
-            ->willReturn('ROLE_SUPER_ADMIN');
-
-        $this->pool->expects($this->at(1))
-            ->method('getOption')
-            ->with('role_admin')
-            ->willReturn('ROLE_SONATA_ADMIN');
+            ->withConsecutive(
+                ['role_super_admin'],
+                ['role_admin']
+            )
+            ->willReturnOnConsecutiveCalls(
+                'ROLE_SUPER_ADMIN',
+                'ROLE_SONATA_ADMIN'
+            );
 
         $securityRolesBuilder = new SecurityRolesBuilder(
             $this->authorizationChecker,
@@ -94,15 +95,16 @@ final class SecurityRolesBuilderTest extends TestCase
 
     public function testGetRolesNotExpanded(): void
     {
-        $this->pool->expects($this->at(0))
+        $this->pool
             ->method('getOption')
-            ->with('role_super_admin')
-            ->willReturn('ROLE_SUPER_ADMIN');
-
-        $this->pool->expects($this->at(1))
-            ->method('getOption')
-            ->with('role_admin')
-            ->willReturn('ROLE_SONATA_ADMIN');
+            ->withConsecutive(
+                ['role_super_admin'],
+                ['role_admin']
+            )
+            ->willReturnOnConsecutiveCalls(
+                'ROLE_SUPER_ADMIN',
+                'ROLE_SONATA_ADMIN'
+            );
 
         $securityRolesBuilder = new SecurityRolesBuilder(
             $this->authorizationChecker,
@@ -147,15 +149,16 @@ final class SecurityRolesBuilderTest extends TestCase
 
     public function testGetRolesWithExistingRole(): void
     {
-        $this->pool->expects($this->at(0))
+        $this->pool
             ->method('getOption')
-            ->with('role_super_admin')
-            ->willReturn('ROLE_SUPER_ADMIN');
-
-        $this->pool->expects($this->at(1))
-            ->method('getOption')
-            ->with('role_admin')
-            ->willReturn('ROLE_SONATA_ADMIN');
+            ->withConsecutive(
+                ['role_super_admin'],
+                ['role_admin']
+            )
+            ->willReturnOnConsecutiveCalls(
+                'ROLE_SUPER_ADMIN',
+                'ROLE_SONATA_ADMIN'
+            );
 
         $this->rolesHierarchy['ROLE_STAFF'] = ['ROLE_SUPER_ADMIN', 'ROLE_SUPER_ADMIN'];
 
