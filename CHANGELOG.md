@@ -2,6 +2,20 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.9.0](https://github.com/sonata-project/SonataUserBundle/compare/4.8.0...4.9.0) - 2020-10-26
+### Added
+- [[#1225](https://github.com/sonata-project/SonataUserBundle/pull/1225)] Support for `nelmio/api-doc-bundle` >= 3.6 ([@wbloszyk](https://github.com/wbloszyk))
+- [[#1230](https://github.com/sonata-project/SonataUserBundle/pull/1230)] Support for sonata-project/datagrid-bundle to version ^3.0 ([@wbloszyk](https://github.com/wbloszyk))
+
+### Fixed
+- [[#1247](https://github.com/sonata-project/SonataUserBundle/pull/1247)] Fixed Asserts validation for Default group. ([@eerison](https://github.com/eerison))
+- [[#1254](https://github.com/sonata-project/SonataUserBundle/pull/1254)] Deprecation about the extension of `AbstractAdmin::getExportFields()` method in `UserAdmin`. ([@phansys](https://github.com/phansys))
+- [[#1235](https://github.com/sonata-project/SonataUserBundle/pull/1235)] API routing paths after move routing type from 'REST' to 'XML' in v4.6.0 ([@wbloszyk](https://github.com/wbloszyk))
+- [[#1212](https://github.com/sonata-project/SonataUserBundle/pull/1212)] Removed sonata.templating argument from google_authenticator.xml ([@Jean-ita](https://github.com/Jean-ita))
+
+### Removed
+- [[#1230](https://github.com/sonata-project/SonataUserBundle/pull/1230)] Support for sonata-project/datagrid-bundle to version < 3.0 ([@wbloszyk](https://github.com/wbloszyk))
+
 ## [4.8.0](https://github.com/sonata-project/SonataUserBundle/compare/4.7.0...4.8.0) - 2020-09-07
 ### Added
 - [[#1210](https://github.com/sonata-project/SonataUserBundle/pull/1210)] Added support for symfony/options-resolver:^5.1 ([@phansys](https://github.com/phansys))
