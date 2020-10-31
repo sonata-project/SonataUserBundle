@@ -30,6 +30,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 use Twig\Environment;
 
 class LoginActionTest extends TestCase
@@ -74,6 +75,11 @@ class LoginActionTest extends TestCase
      */
     protected $csrfTokenManager;
 
+    /**
+     * @var TranslatorInterface|MockObject
+     */
+    private $translator;
+
     protected function setUp(): void
     {
         $this->templating = $this->createMock(Environment::class);
@@ -83,6 +89,7 @@ class LoginActionTest extends TestCase
         $this->templateRegistry = $this->createMock(TemplateRegistryInterface::class);
         $this->tokenStorage = $this->createMock(TokenStorageInterface::class);
         $this->session = $this->createMock(Session::class);
+        $this->translator = $this->createMock(TranslatorInterface::class);
         $this->csrfTokenManager = $this->createMock(CsrfTokenManagerInterface::class);
     }
 
@@ -101,10 +108,15 @@ class LoginActionTest extends TestCase
             ->method('getToken')
             ->willReturn($token);
 
+        $this->translator->expects($this->once())
+            ->method('trans')
+            ->with('sonata_user_already_authenticated')
+            ->willReturn('Already Authenticated');
+
         $bag = $this->createMock(FlashBag::class);
         $bag->expects($this->once())
             ->method('add')
-            ->with('sonata_user_error', 'sonata_user_already_authenticated');
+            ->with('sonata_user_error', 'Already Authenticated');
 
         $this->session
             ->method('getFlashBag')
@@ -253,7 +265,8 @@ class LoginActionTest extends TestCase
             $this->pool,
             $this->templateRegistry,
             $this->tokenStorage,
-            $this->session
+            $this->session,
+            $this->translator
         );
         $action->setCsrfTokenManager($this->csrfTokenManager);
 
