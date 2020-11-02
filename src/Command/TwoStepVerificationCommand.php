@@ -22,17 +22,24 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class TwoStepVerificationCommand extends Command
+final class TwoStepVerificationCommand extends Command
 {
     protected static $defaultName = 'sonata:user:two-step-verification';
 
+    /**
+     * @var Helper
+     */
     private $helper;
+
+    /**
+     * @var UserManagerInterface
+     */
     private $userManager;
 
     public function __construct(
-        string $name = null,
-        Helper $helper = null,
-        UserManagerInterface $userManager = null
+        ?string $name,
+        Helper $helper,
+        UserManagerInterface $userManager
     ) {
         parent::__construct($name);
 
