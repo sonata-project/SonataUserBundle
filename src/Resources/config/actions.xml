@@ -51,6 +51,7 @@
             <argument type="service" id="sonata.admin.global_template_registry"/>
             <argument type="service" id="security.token_storage"/>
             <argument type="service" id="session"/>
+            <argument type="service" id="translator"/>
             <call method="setCsrfTokenManager">
                 <argument type="service" id="security.csrf.token_manager" on-invalid="ignore"/>
             </call>
