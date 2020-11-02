@@ -26,14 +26,7 @@ class TwoStepVerificationCommand extends Command
 {
     protected static $defaultName = 'sonata:user:two-step-verification';
 
-    /**
-     * @var ?Helper
-     */
     private $helper;
-
-    /**
-     * @var ?UserManagerInterface
-     */
     private $userManager;
 
     public function __construct(
@@ -68,35 +61,9 @@ class TwoStepVerificationCommand extends Command
      */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        //todo maybe need to remove container ....
-        if (null === $this->helper && !$this->getContainer()->has('sonata.user.google.authenticator.provider')) {
-            throw new \RuntimeException('Two Step Verification process is not enabled');
-        }
-
-        if (null === $this->helper) {
-            @trigger_error(sprintf(
-                'Not providing the $helper argument of "%s::__construct()" is deprecated since 4.3.0 and will no longer be possible in 5.0',
-                __CLASS__
-            ), E_USER_DEPRECATED);
-            $helper = $this->getContainer()->get('sonata.user.google.authenticator.provider');
-            \assert($helper instanceof Helper);
-            $this->helper = $helper;
-        }
-
-        if (null === $this->userManager) {
-            @trigger_error(sprintf(
-                'Not providing the $userManager argument of "%s::__construct()" is deprecated since 4.3.0 and will no longer be possible in 5.0',
-                __CLASS__
-            ), E_USER_DEPRECATED);
-            $manager = $this->getContainer()->get('fos_user.user_manager');
-            \assert($manager instanceof UserManagerInterface);
-            $this->userManager = $manager;
-        }
-
         $user = $this->userManager->findUserByUsernameOrEmail($input->getArgument('username'));
-        \assert($user instanceof UserInterface);
 
-        if (!$user) {
+        if (false === $user instanceof UserInterface) {
             throw new \RuntimeException(sprintf('Unable to find the username : %s', $input->getArgument('username')));
         }
 
