@@ -16,17 +16,16 @@ namespace Sonata\UserBundle\Command;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Sonata\UserBundle\GoogleAuthenticator\Helper;
 use Sonata\UserBundle\Model\UserInterface;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-/**
- * NEXT_MAJOR: stop extending ContainerAwareCommand.
- */
-class TwoStepVerificationCommand extends ContainerAwareCommand
+class TwoStepVerificationCommand extends Command
 {
+    protected static $defaultName = 'sonata:user:two-step-verification';
+
     /**
      * @var ?Helper
      */
@@ -37,13 +36,10 @@ class TwoStepVerificationCommand extends ContainerAwareCommand
      */
     private $userManager;
 
-    /**
-     * NEXT_MAJOR: make $helper and $userManager mandatory (but still nullable).
-     */
     public function __construct(
-        ?string $name,
-        ?Helper $helper = null,
-        ?UserManagerInterface $userManager = null
+        string $name = null,
+        Helper $helper = null,
+        UserManagerInterface $userManager = null
     ) {
         parent::__construct($name);
 
@@ -56,7 +52,6 @@ class TwoStepVerificationCommand extends ContainerAwareCommand
      */
     public function configure(): void
     {
-        $this->setName('sonata:user:two-step-verification');
         $this->addArgument(
             'username',
             InputArgument::REQUIRED,
@@ -71,8 +66,9 @@ class TwoStepVerificationCommand extends ContainerAwareCommand
     /**
      * {@inheritdoc}
      */
-    public function execute(InputInterface $input, OutputInterface $output): void
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
+        //todo maybe need to remove container ....
         if (null === $this->helper && !$this->getContainer()->has('sonata.user.google.authenticator.provider')) {
             throw new \RuntimeException('Two Step Verification process is not enabled');
         }
@@ -114,5 +110,7 @@ class TwoStepVerificationCommand extends ContainerAwareCommand
             sprintf('<info>Secret</info> : %s', $user->getTwoStepVerificationCode()),
             sprintf('<info>Url</info> : %s', $this->helper->getUrl($user)),
         ]);
+
+        return 0;
     }
 }
