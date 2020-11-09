@@ -27,7 +27,7 @@ final class TwoStepVerificationCommand extends Command
     protected static $defaultName = 'sonata:user:two-step-verification';
 
     /**
-     * @var ?Helper
+     * @var Helper|null
      */
     private $helper;
 
