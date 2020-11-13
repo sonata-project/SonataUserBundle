@@ -21,7 +21,7 @@
         }
     ],
     "require": {
-        "php": "^7.2",
+        "php": "^7.3",
         "doctrine/common": "^2.0",
         "friendsofsymfony/user-bundle": "^2.0",
         "sonata-project/admin-bundle": "^3.76",
