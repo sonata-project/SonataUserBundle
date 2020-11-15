@@ -27,7 +27,7 @@ final class TwoStepVerificationCommand extends Command
     protected static $defaultName = 'sonata:user:two-step-verification';
 
     /**
-     * @var Helper
+     * @var Helper|null
      */
     private $helper;
 
@@ -38,7 +38,7 @@ final class TwoStepVerificationCommand extends Command
 
     public function __construct(
         ?string $name,
-        Helper $helper,
+        ?Helper $helper,
         UserManagerInterface $userManager
     ) {
         parent::__construct($name);
@@ -68,6 +68,10 @@ final class TwoStepVerificationCommand extends Command
      */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
+        if (null === $this->helper) {
+            throw new \RuntimeException('Two Step Verification process is not enabled');
+        }
+
         $user = $this->userManager->findUserByUsernameOrEmail($input->getArgument('username'));
 
         if (false === $user instanceof UserInterface) {
