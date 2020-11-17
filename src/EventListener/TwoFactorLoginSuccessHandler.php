@@ -72,7 +72,7 @@ final class TwoFactorLoginSuccessHandler implements AuthenticationSuccessHandler
         $user = $token->getUser();
         $needToHave2FA = $this->googleAuthenticator->needToHaveGoogle2FACode($request);
 
-        if ($needToHave2FA && !$user->getTwoStepVerificationCode()) {
+        if ($needToHave2FA && method_exists($user, 'getTwoStepVerificationCode') && !$user->getTwoStepVerificationCode()) {
             $secret = $this->googleAuthenticator->generateSecret();
             $user->setTwoStepVerificationCode($secret);
 
@@ -88,7 +88,7 @@ final class TwoFactorLoginSuccessHandler implements AuthenticationSuccessHandler
                     'error' => [],
                 ]
             ));
-        } elseif ($needToHave2FA && $user->getTwoStepVerificationCode()) {
+        } elseif ($needToHave2FA && method_exists($user, 'getTwoStepVerificationCode') && $user->getTwoStepVerificationCode()) {
             $request->getSession()->set($this->googleAuthenticator->getSessionKey($token), null);
         }
 
