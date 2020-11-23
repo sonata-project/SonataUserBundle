@@ -2,6 +2,19 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.10.0](https://github.com/sonata-project/SonataUserBundle/compare/4.9.0...4.10.0) - 2020-11-24
+### Added
+- [[#1263](https://github.com/sonata-project/SonataUserBundle/pull/1263)] Support for "symfony/mailer" in `Sonata\UserBundle\Mailer\Mailer` ([@phansys](https://github.com/phansys))
+
+### Changed
+- [[#1271](https://github.com/sonata-project/SonataUserBundle/pull/1271)] Updates dutch translations ([@zghosts](https://github.com/zghosts))
+
+### Deprecated
+- [[#1263](https://github.com/sonata-project/SonataUserBundle/pull/1263)] Support for "swiftmailer/swiftmailer" in `Sonata\UserBundle\Mailer\Mailer` ([@phansys](https://github.com/phansys))
+
+### Fixed
+- [[#1266](https://github.com/sonata-project/SonataUserBundle/pull/1266)] Fixed the problem of the message "sonata_user_already_authenticated" not being translated ([@BitScout](https://github.com/BitScout))
+
 ## [4.9.0](https://github.com/sonata-project/SonataUserBundle/compare/4.8.0...4.9.0) - 2020-10-26
 ### Added
 - [[#1225](https://github.com/sonata-project/SonataUserBundle/pull/1225)] Support for `nelmio/api-doc-bundle` >= 3.6 ([@wbloszyk](https://github.com/wbloszyk))

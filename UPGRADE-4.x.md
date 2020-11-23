@@ -4,6 +4,9 @@ UPGRADE 4.x
 UPGRADE FROM 4.x to 4.x
 =======================
 
+UPGRADE FROM 4.9 to 4.10
+========================
+
 ### Sonata\UserBundle\Mailer\Mailer
 
 Passing an instance of `\Swift_Mailer` as argument 3  for `Sonata\UserBundle\Mailer\Mailer::__construct()`

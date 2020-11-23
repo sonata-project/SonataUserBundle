@@ -64,8 +64,8 @@ final class Mailer implements MailerInterface
 
         if (!$mailer instanceof SymfonyMailerInterface) {
             @trigger_error(sprintf(
-                'Passing other type than "%s" as argument 3 for "%s()" is deprecated since sonata-project/user-bundle 4.x'
-                .' and will be not supported in version 5.x.',
+                'Passing other type than "%s" as argument 3 for "%s()" is deprecated since sonata-project/user-bundle 4.10'
+                .' and will be not supported in version 5.0.',
                 SymfonyMailerInterface::class,
                 __METHOD__
             ), E_USER_DEPRECATED);

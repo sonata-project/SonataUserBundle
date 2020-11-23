@@ -99,7 +99,7 @@ final class LoginAction
         if (null === $translator) {
             @trigger_error(sprintf(
                 'Not passing an instance of "%s" as argument 6 to "%s()" is deprecated since'
-                .' sonata-project/user-bundle 4.x and will be not possible in version 5.0.',
+                .' sonata-project/user-bundle 4.10 and will be not possible in version 5.0.',
                 TranslatorInterface::class,
                 __METHOD__
             ), E_USER_DEPRECATED);
