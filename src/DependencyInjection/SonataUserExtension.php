@@ -297,13 +297,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         string $managerType
     ): void {
         if (is_a($actualModelClass, $prohibitedModelClass, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    'Model class "%s" does not correspond to manager type "%s".',
-                    $actualModelClass,
-                    $managerType
-                )
-            );
+            throw new \InvalidArgumentException(sprintf('Model class "%s" does not correspond to manager type "%s".', $actualModelClass, $managerType));
         }
     }
 
