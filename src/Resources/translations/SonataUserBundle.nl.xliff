@@ -6,10 +6,6 @@
                 <source>title_user_registration</source>
                 <target>Gebruiker registratie</target>
             </trans-unit>
-            <trans-unit id="sonata_user">
-                <source>sonata_user</source>
-                <target>Gebruikersbeheer</target>
-            </trans-unit>
             <trans-unit id="title_user_account">
                 <source>title_user_account</source>
                 <target>Gebruikers profiel</target>
