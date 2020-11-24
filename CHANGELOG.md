@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.10.1](https://github.com/sonata-project/SonataUserBundle/compare/4.10.0...4.10.1) - 2020-11-24
+### Fixed
+- [[#1288](https://github.com/sonata-project/SonataUserBundle/pull/1288)] Duplicate translation in `src/Resources/translations/SonataUserBundle.nl.xliff` ([@elyanory](https://github.com/elyanory))
+
 ## [4.10.0](https://github.com/sonata-project/SonataUserBundle/compare/4.9.0...4.10.0) - 2020-11-24
 ### Added
 - [[#1263](https://github.com/sonata-project/SonataUserBundle/pull/1263)] Support for "symfony/mailer" in `Sonata\UserBundle\Mailer\Mailer` ([@phansys](https://github.com/phansys))
