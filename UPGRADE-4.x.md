@@ -4,6 +4,14 @@ UPGRADE 4.x
 UPGRADE FROM 4.x to 4.x
 =======================
 
+UPGRADE FROM 4.9 to 4.10
+========================
+
+### Sonata\UserBundle\Mailer\Mailer
+
+Passing an instance of `\Swift_Mailer` as argument 3  for `Sonata\UserBundle\Mailer\Mailer::__construct()`
+is deprecated. Pass an instance of `Symfony\Component\Mailer\MailerInterface` instead.
+
 ### Dependencies
 
 - "sonata-project/datagrid-bundle" is bumped from ^2.4 to ^3.0.

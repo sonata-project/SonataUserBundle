@@ -6,10 +6,6 @@
                 <source>title_user_registration</source>
                 <target>Gebruiker registratie</target>
             </trans-unit>
-            <trans-unit id="sonata_user">
-                <source>sonata_user</source>
-                <target>Gebruikersbeheer</target>
-            </trans-unit>
             <trans-unit id="title_user_account">
                 <source>title_user_account</source>
                 <target>Gebruikers profiel</target>
@@ -70,13 +66,13 @@
                 <source>switch_user</source>
                 <target>Als gebruiker voordoen</target>
             </trans-unit>
-            <trans-unit id="user_block_profile">
-                <source>user_block_profile</source>
-                <target>Profiel</target>
-            </trans-unit>
             <trans-unit id="user_block_logout">
                 <source>user_block_logout</source>
                 <target>Uitloggen</target>
+            </trans-unit>
+            <trans-unit id="user_block_profile">
+                <source>user_block_profile</source>
+                <target>Profiel</target>
             </trans-unit>
             <trans-unit id="user_form.label_username">
                 <source>form.label_username</source>
@@ -146,6 +142,10 @@
                 <source>filter.label_id</source>
                 <target>ID</target>
             </trans-unit>
+            <trans-unit id="filter.label_enabled">
+                <source>filter.label_enabled</source>
+                <target>Actief</target>
+            </trans-unit>
             <trans-unit id="filter.label_groups">
                 <source>filter.label_groups</source>
                 <target>Groepen</target>
@@ -165,6 +165,10 @@
             <trans-unit id="filter.label_lastname">
                 <source>filter.label_lastname</source>
                 <target>Achternaam</target>
+            </trans-unit>
+            <trans-unit id="filter.label_roles">
+                <source>filter.label_roles</source>
+                <target>Rollen</target>
             </trans-unit>
             <trans-unit id="list.label_username">
                 <source>list.label_username</source>
@@ -226,6 +230,10 @@
                 <source>label_two_step_code_error</source>
                 <target>De verificatie code is niet correct</target>
             </trans-unit>
+            <trans-unit id="sonata_user">
+                <source>sonata_user</source>
+                <target>Gebruikers</target>
+            </trans-unit>
             <trans-unit id="form_general">
                 <source>General</source>
                 <target>Algemeen</target>
@@ -237,6 +245,10 @@
             <trans-unit id="form_management">
                 <source>Management</source>
                 <target>Beheer</target>
+            </trans-unit>
+            <trans-unit id="form_status">
+                <source>Status</source>
+                <target>Status</target>
             </trans-unit>
             <trans-unit id="field.label_roles_editable">
                 <source>field.label_roles_editable</source>
@@ -569,6 +581,14 @@
             <trans-unit id="title_user_resetting_reset">
                 <source>title_user_resetting_reset</source>
                 <target>Wachtwoord herstellen</target>
+            </trans-unit>
+            <trans-unit id="qr_code_secret">
+                <source>qr_code_secret</source>
+                <target>QR-code secret</target>
+            </trans-unit>
+            <trans-unit id="qr_go_next">
+                <source>qr_go_next</source>
+                <target>Ik heb het gescanned. Ga verder.</target>
             </trans-unit>
         </body>
     </file>
