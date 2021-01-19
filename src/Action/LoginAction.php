@@ -102,7 +102,7 @@ final class LoginAction
                 .' sonata-project/user-bundle 4.10 and will be not possible in version 5.0.',
                 TranslatorInterface::class,
                 __METHOD__
-            ), E_USER_DEPRECATED);
+            ), \E_USER_DEPRECATED);
             $translator = new IdentityTranslator();
         }
 

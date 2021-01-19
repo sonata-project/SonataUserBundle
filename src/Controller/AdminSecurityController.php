@@ -24,7 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
 @trigger_error(
     'The '.__NAMESPACE__.'\AdminSecurityController class is deprecated since version 4.3.0 and will be removed in 5.0.'
     .' Use '.CheckLoginAction::class.', '.LoginAction::class.' or '.LogoutAction::class.' instead.',
-    E_USER_DEPRECATED
+    \E_USER_DEPRECATED
 );
 
 class AdminSecurityController extends Controller
