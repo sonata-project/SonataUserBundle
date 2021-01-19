@@ -18,7 +18,7 @@ use Sonata\Form\Type\BaseStatusType;
 @trigger_error(
     'The '.__NAMESPACE__.'\UserGenderListType class is deprecated since version 4.1 and will be removed in 5.0.'
     .' Use Symfony\Component\Form\Extension\Core\Type\ChoiceType instead.',
-    E_USER_DEPRECATED
+    \E_USER_DEPRECATED
 );
 
 /**

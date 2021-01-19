@@ -65,7 +65,7 @@ class RequestListener
                 EngineInterface::class,
                 __METHOD__,
                 Environment::class
-            ), E_USER_DEPRECATED);
+            ), \E_USER_DEPRECATED);
         } elseif ($templating instanceof Environment) {
             $this->twig = $templating;
         } else {
