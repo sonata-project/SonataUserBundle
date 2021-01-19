@@ -25,7 +25,7 @@ use Symfony\Component\HttpFoundation\Response;
 @trigger_error(
     'The '.__NAMESPACE__.'\AdminResettingController class is deprecated since version 4.3.0 and will be removed in 5.0.'
     .' Use '.RequestAction::class.', '.CheckEmailAction::class.', '.ResetAction::class.' or '.SendEmailAction::class.' instead.',
-    E_USER_DEPRECATED
+    \E_USER_DEPRECATED
 );
 
 class AdminResettingController extends Controller

@@ -68,7 +68,7 @@ final class Mailer implements MailerInterface
                 .' and will be not supported in version 5.0.',
                 SymfonyMailerInterface::class,
                 __METHOD__
-            ), E_USER_DEPRECATED);
+            ), \E_USER_DEPRECATED);
         }
 
         $this->urlGenerator = $urlGenerator;
@@ -90,7 +90,7 @@ final class Mailer implements MailerInterface
         ]);
 
         // Render the email, use the first line as the subject, and the rest as the body
-        $renderedLines = preg_split('/\R/', trim($rendered), 2, PREG_SPLIT_NO_EMPTY);
+        $renderedLines = preg_split('/\R/', trim($rendered), 2, \PREG_SPLIT_NO_EMPTY);
         $subject = array_shift($renderedLines);
         $body = implode('', $renderedLines);
 
