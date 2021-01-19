@@ -72,7 +72,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         if (class_exists('Google\Authenticator\GoogleAuthenticator')) {
             @trigger_error(
                 'The \'Google\Authenticator\' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.',
-                E_USER_DEPRECATED
+                \E_USER_DEPRECATED
             );
         }
 
@@ -251,7 +251,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     {
         @trigger_error(
             'Using this method is deprecated since sonata-project/user-bundle 4.7. You should instead register SonataDoctrineBundle and use `registerSonataDoctrineMapping()`',
-            E_USER_DEPRECATED
+            \E_USER_DEPRECATED
         );
 
         foreach ($config['class'] as $type => $class) {

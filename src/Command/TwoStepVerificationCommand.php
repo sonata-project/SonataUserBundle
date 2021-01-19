@@ -81,7 +81,7 @@ class TwoStepVerificationCommand extends ContainerAwareCommand
             @trigger_error(sprintf(
                 'Not providing the $helper argument of "%s::__construct()" is deprecated since 4.3.0 and will no longer be possible in 5.0',
                 __CLASS__
-            ), E_USER_DEPRECATED);
+            ), \E_USER_DEPRECATED);
             $helper = $this->getContainer()->get('sonata.user.google.authenticator.provider');
             \assert($helper instanceof Helper);
             $this->helper = $helper;
@@ -91,7 +91,7 @@ class TwoStepVerificationCommand extends ContainerAwareCommand
             @trigger_error(sprintf(
                 'Not providing the $userManager argument of "%s::__construct()" is deprecated since 4.3.0 and will no longer be possible in 5.0',
                 __CLASS__
-            ), E_USER_DEPRECATED);
+            ), \E_USER_DEPRECATED);
             $manager = $this->getContainer()->get('fos_user.user_manager');
             \assert($manager instanceof UserManagerInterface);
             $this->userManager = $manager;
