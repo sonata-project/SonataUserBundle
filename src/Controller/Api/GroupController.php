@@ -19,9 +19,11 @@ use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\View\View as FOSRestView;
 use FOS\UserBundle\Model\GroupInterface;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Operation;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\UserBundle\Model\GroupManagerInterface;
+use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -55,15 +57,48 @@ class GroupController
     /**
      * Returns a paginated list of groups.
      *
-     * @ApiDoc(
-     *  resource=true,
-     *  output={"class"="Sonata\DatagridBundle\Pager\PagerInterface", "groups"={"sonata_api_read"}}
+     * @Operation(
+     *     tags={"/api/user/groups"},
+     *     summary="Returns a paginated list of groups.",
+     *     @SWG\Parameter(
+     *         name="page",
+     *         in="query",
+     *         description="Page for groups list pagination (1-indexed)",
+     *         required=false,
+     *         type="string"
+     *     ),
+     *     @SWG\Parameter(
+     *         name="count",
+     *         in="query",
+     *         description="Number of groups per page",
+     *         required=false,
+     *         type="string"
+     *     ),
+     *     @SWG\Parameter(
+     *         name="orderBy",
+     *         in="query",
+     *         description="Query groups order by clause (key is field, value is direction)",
+     *         required=false,
+     *         type="string"
+     *     ),
+     *     @SWG\Parameter(
+     *         name="enabled",
+     *         in="query",
+     *         description="Enables or disables the groups only?",
+     *         required=false,
+     *         type="string"
+     *     ),
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Returned when successful",
+     *         @SWG\Schema(ref=@Model(type="Sonata\DatagridBundle\Pager\PagerInterface"))
+     *     )
      * )
      *
      * @QueryParam(name="page", requirements="\d+", default="1", description="Page for groups list pagination (1-indexed)")
-     * @QueryParam(name="count", requirements="\d+", default="10", description="Number of groups by page")
-     * @QueryParam(name="orderBy", map=true, requirements="ASC|DESC", nullable=true, strict=true, description="Query groups order by clause (key is field, value is direction")
-     * @QueryParam(name="enabled", requirements="0|1", nullable=true, strict=true, description="Enabled/disabled groups only?")
+     * @QueryParam(name="count", requirements="\d+", default="10", description="Number of groups per page")
+     * @QueryParam(name="orderBy", map=true, requirements="ASC|DESC", nullable=true, strict=true, description="Query groups order by clause (key is field, value is direction)")
+     * @QueryParam(name="enabled", requirements="0|1", nullable=true, strict=true, description="Enables or disables the groups only?")
      *
      * @View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
      *
@@ -80,11 +115,9 @@ class GroupController
         $sort = $paramFetcher->get('orderBy');
         $criteria = array_intersect_key($paramFetcher->all(), $supportedFilters);
 
-        foreach ($criteria as $key => $value) {
-            if (null === $value) {
-                unset($criteria[$key]);
-            }
-        }
+        $criteria = array_filter($criteria, static function ($value): bool {
+            return null !== $value;
+        });
 
         if (!$sort) {
             $sort = [];
@@ -98,20 +131,23 @@ class GroupController
     /**
      * Retrieves a specific group.
      *
-     * @ApiDoc(
-     *  requirements={
-     *      {"name"="id", "dataType"="integer", "requirement"="\d+", "description"="group id"}
-     *  },
-     *  output={"class"="FOS\UserBundle\Model\GroupInterface", "groups"={"sonata_api_read"}},
-     *  statusCodes={
-     *      200="Returned when successful",
-     *      404="Returned when group is not found"
-     *  }
+     * @Operation(
+     *     tags={"/api/user/groups"},
+     *     summary="Retrieves a specific group.",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Returned when successful",
+     *         @SWG\Schema(ref=@Model(type="FOS\UserBundle\Model\GroupInterface"))
+     *     ),
+     *     @SWG\Response(
+     *         response="404",
+     *         description="Returned when group is not found"
+     *     )
      * )
      *
      * @View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
      *
-     * @param $id
+     * @param string $id
      *
      * @return GroupInterface
      */
@@ -123,13 +159,18 @@ class GroupController
     /**
      * Adds a group.
      *
-     * @ApiDoc(
-     *  input={"class"="sonata_user_api_form_group", "name"="", "groups"={"sonata_api_write"}},
-     *  output={"class"="Sonata\UserBundle\Model\Group", "groups"={"sonata_api_read"}},
-     *  statusCodes={
-     *      200="Returned when successful",
-     *      400="Returned when an error has occurred while group creation",
-     *  }
+     * @Operation(
+     *     tags={"/api/user/groups"},
+     *     summary="Adds a group.",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Returned when successful",
+     *         @SWG\Schema(ref=@Model(type="Sonata\UserBundle\Model\Group"))
+     *     ),
+     *     @SWG\Response(
+     *         response="400",
+     *         description="Returned when an error has occurred during the group creation"
+     *     )
      * )
      *
      * @param Request $request A Symfony request
@@ -146,20 +187,25 @@ class GroupController
     /**
      * Updates a group.
      *
-     * @ApiDoc(
-     *  requirements={
-     *      {"name"="id", "dataType"="integer", "requirement"="\d+", "description"="group identifier"}
-     *  },
-     *  input={"class"="sonata_user_api_form_group", "name"="", "groups"={"sonata_api_write"}},
-     *  output={"class"="Sonata\UserBundle\Model\Group", "groups"={"sonata_api_read"}},
-     *  statusCodes={
-     *      200="Returned when successful",
-     *      400="Returned when an error has occurred while group creation",
-     *      404="Returned when unable to find group"
-     *  }
+     * @Operation(
+     *     tags={"/api/user/groups"},
+     *     summary="Updates a group.",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Returned when successful",
+     *         @SWG\Schema(ref=@Model(type="Sonata\UserBundle\Model\Group"))
+     *     ),
+     *     @SWG\Response(
+     *         response="400",
+     *         description="Returned when an error has occurred during the group creation"
+     *     ),
+     *     @SWG\Response(
+     *         response="404",
+     *         description="Returned when unable to find group"
+     *     )
      * )
      *
-     * @param int     $id      Group identifier
+     * @param string  $id      Group identifier
      * @param Request $request A Symfony request
      *
      * @throws NotFoundHttpException
@@ -174,18 +220,24 @@ class GroupController
     /**
      * Deletes a group.
      *
-     * @ApiDoc(
-     *  requirements={
-     *      {"name"="id", "dataType"="integer", "requirement"="\d+", "description"="group identifier"}
-     *  },
-     *  statusCodes={
-     *      200="Returned when group is successfully deleted",
-     *      400="Returned when an error has occurred while group deletion",
-     *      404="Returned when unable to find group"
-     *  }
+     * @Operation(
+     *     tags={"/api/user/groups"},
+     *     summary="Deletes a group.",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Returned when group is successfully deleted"
+     *     ),
+     *     @SWG\Response(
+     *         response="400",
+     *         description="Returned when an error has occurred during the group deletion"
+     *     ),
+     *     @SWG\Response(
+     *         response="404",
+     *         description="Returned when unable to find group"
+     *     )
      * )
      *
-     * @param int $id A Group identifier
+     * @param string $id A Group identifier
      *
      * @throws NotFoundHttpException
      *
@@ -203,8 +255,8 @@ class GroupController
     /**
      * Write a Group, this method is used by both POST and PUT action methods.
      *
-     * @param Request  $request Symfony request
-     * @param int|null $id      A Group identifier
+     * @param Request     $request Symfony request
+     * @param string|null $id      A Group identifier
      *
      * @return FormInterface
      */
@@ -239,7 +291,7 @@ class GroupController
     /**
      * Retrieves group with id $id or throws an exception if it doesn't exist.
      *
-     * @param $id
+     * @param string $id
      *
      * @throws NotFoundHttpException
      *
@@ -250,7 +302,7 @@ class GroupController
         $group = $this->groupManager->findGroupBy(['id' => $id]);
 
         if (null === $group) {
-            throw new NotFoundHttpException(sprintf('Group (%d) not found', $id));
+            throw new NotFoundHttpException(sprintf('Group not found for identifier %s.', var_export($id, true)));
         }
 
         return $group;

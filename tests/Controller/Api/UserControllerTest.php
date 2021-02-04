@@ -18,6 +18,7 @@ use FOS\RestBundle\View\View;
 use FOS\UserBundle\Model\GroupInterface;
 use FOS\UserBundle\Model\UserInterface;
 use PHPUnit\Framework\TestCase;
+use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\UserBundle\Controller\Api\UserController;
 use Sonata\UserBundle\Entity\BaseUser;
 use Sonata\UserBundle\Model\GroupManagerInterface;
@@ -35,28 +36,47 @@ class UserControllerTest extends TestCase
 {
     public function testGetUsersAction(): void
     {
+        $user = $this->createMock(UserInterface::class);
         $userManager = $this->createMock(UserManagerInterface::class);
-        $userManager->expects($this->once())->method('getPager')->willReturn([]);
+        $pager = $this->createStub(PagerInterface::class);
+        $pager->method('getResults')->willReturn([$user]);
+        $userManager->expects($this->once())->method('getPager')->willReturn($pager);
 
         $paramFetcher = $this->createMock(ParamFetcherInterface::class);
-        $paramFetcher->expects($this->exactly(3))->method('get');
+        $paramFetcher->expects($this->exactly(3))->method('get')->willReturn(1, 10, null);
         $paramFetcher->expects($this->once())->method('all')->willReturn([]);
 
-        $this->assertSame([], $this->createUserController(null, $userManager)->getUsersAction($paramFetcher));
+        $this->assertSame([$user], $this->createUserController(null, $userManager)->getUsersAction($paramFetcher)->getResults());
     }
 
     public function testGetUserAction(): void
     {
-        $user = $this->createMock(\Sonata\UserBundle\Model\UserInterface::class);
+        $user = $this->createStub(UserInterface::class);
         $this->assertSame($user, $this->createUserController($user)->getUserAction(1));
     }
 
-    public function testGetUserActionNotFoundException(): void
+    /**
+     * @dataProvider getIdsForNotFound
+     */
+    public function testGetUserActionNotFoundException($identifier, string $message): void
     {
-        $this->expectException(\Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class);
-        $this->expectExceptionMessage('User (42) not found');
+        $this->expectException(NotFoundHttpException::class);
+        $this->expectExceptionMessage($message);
 
-        $this->createUserController()->getUserAction(42);
+        $this->createUserController()->getUserAction($identifier);
+    }
+
+    /**
+     * @phpstan-return list<array{mixed, string}>
+     */
+    public function getIdsForNotFound(): array
+    {
+        return [
+            [42, 'User not found for identifier 42.'],
+            ['42', 'User not found for identifier \'42\'.'],
+            [null, 'User not found for identifier NULL.'],
+            ['', 'User not found for identifier \'\'.'],
+        ];
     }
 
     public function testPostUserAction(): void

@@ -2,6 +2,50 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.10.1](https://github.com/sonata-project/SonataUserBundle/compare/4.10.0...4.10.1) - 2020-11-24
+### Fixed
+- [[#1288](https://github.com/sonata-project/SonataUserBundle/pull/1288)] Duplicate translation in `src/Resources/translations/SonataUserBundle.nl.xliff` ([@elyanory](https://github.com/elyanory))
+
+## [4.10.0](https://github.com/sonata-project/SonataUserBundle/compare/4.9.0...4.10.0) - 2020-11-24
+### Added
+- [[#1263](https://github.com/sonata-project/SonataUserBundle/pull/1263)] Support for "symfony/mailer" in `Sonata\UserBundle\Mailer\Mailer` ([@phansys](https://github.com/phansys))
+
+### Changed
+- [[#1271](https://github.com/sonata-project/SonataUserBundle/pull/1271)] Updates dutch translations ([@zghosts](https://github.com/zghosts))
+
+### Deprecated
+- [[#1263](https://github.com/sonata-project/SonataUserBundle/pull/1263)] Support for "swiftmailer/swiftmailer" in `Sonata\UserBundle\Mailer\Mailer` ([@phansys](https://github.com/phansys))
+
+### Fixed
+- [[#1266](https://github.com/sonata-project/SonataUserBundle/pull/1266)] Fixed the problem of the message "sonata_user_already_authenticated" not being translated ([@BitScout](https://github.com/BitScout))
+
+## [4.9.0](https://github.com/sonata-project/SonataUserBundle/compare/4.8.0...4.9.0) - 2020-10-26
+### Added
+- [[#1225](https://github.com/sonata-project/SonataUserBundle/pull/1225)] Support for `nelmio/api-doc-bundle` >= 3.6 ([@wbloszyk](https://github.com/wbloszyk))
+- [[#1230](https://github.com/sonata-project/SonataUserBundle/pull/1230)] Support for sonata-project/datagrid-bundle to version ^3.0 ([@wbloszyk](https://github.com/wbloszyk))
+
+### Fixed
+- [[#1247](https://github.com/sonata-project/SonataUserBundle/pull/1247)] Fixed Asserts validation for Default group. ([@eerison](https://github.com/eerison))
+- [[#1254](https://github.com/sonata-project/SonataUserBundle/pull/1254)] Deprecation about the extension of `AbstractAdmin::getExportFields()` method in `UserAdmin`. ([@phansys](https://github.com/phansys))
+- [[#1235](https://github.com/sonata-project/SonataUserBundle/pull/1235)] API routing paths after move routing type from 'REST' to 'XML' in v4.6.0 ([@wbloszyk](https://github.com/wbloszyk))
+- [[#1212](https://github.com/sonata-project/SonataUserBundle/pull/1212)] Removed sonata.templating argument from google_authenticator.xml ([@Jean-ita](https://github.com/Jean-ita))
+
+### Removed
+- [[#1230](https://github.com/sonata-project/SonataUserBundle/pull/1230)] Support for sonata-project/datagrid-bundle to version < 3.0 ([@wbloszyk](https://github.com/wbloszyk))
+
+## [4.8.0](https://github.com/sonata-project/SonataUserBundle/compare/4.7.0...4.8.0) - 2020-09-07
+### Added
+- [[#1210](https://github.com/sonata-project/SonataUserBundle/pull/1210)] Added support for symfony/options-resolver:^5.1 ([@phansys](https://github.com/phansys))
+
+### Changed
+- [[#1205](https://github.com/sonata-project/SonataUserBundle/pull/1205)] Replace `ip_white_list` by `trusted_ip_list` configuration key ([@davidromani](https://github.com/davidromani))
+
+### Fixed
+- [[#1198](https://github.com/sonata-project/SonataUserBundle/pull/1198)] Fixed support for string model identifiers at Open API definitions ([@phansys](https://github.com/phansys))
+
+### Removed
+- [[#1198](https://github.com/sonata-project/SonataUserBundle/pull/1198)] Removed requirements that were only allowing integers for model identifiers at Open API definitions ([@phansys](https://github.com/phansys))
+
 ## [4.7.0](https://github.com/sonata-project/SonataUserBundle/compare/4.6.0...4.7.0) - 2020-07-30
 ### Changed
 - [[#1183](https://github.com/sonata-project/SonataUserBundle/pull/1183)]

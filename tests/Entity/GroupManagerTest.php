@@ -13,17 +13,18 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Entity;
 
+use Doctrine\Common\Persistence\Mapping\ClassMetadata;
+use Doctrine\ORM\AbstractQuery;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-
-use Sonata\Doctrine\Test\EntityManagerMockFactoryTrait;
 use Sonata\UserBundle\Entity\BaseGroup;
 use Sonata\UserBundle\Entity\GroupManager;
 
-class GroupManagerTest extends TestCase
+final class GroupManagerTest extends TestCase
 {
-    use EntityManagerMockFactoryTrait;
-
     public function testGetPager(): void
     {
         $self = $this;
@@ -87,12 +88,35 @@ class GroupManagerTest extends TestCase
             ->getPager(['enabled' => false], 1);
     }
 
-    protected function getUserManager(\Closure $qbCallback): GroupManager
+    private function getUserManager(\Closure $qbCallback): GroupManager
     {
-        $em = $this->createEntityManagerMock($qbCallback, [
+        $query = $this->createMock(AbstractQuery::class);
+        $query->method('execute')->willReturn(true);
+
+        $qb = $this->createMock(QueryBuilder::class);
+
+        $qb->method('select')->willReturn($qb);
+        $qb->method('getQuery')->willReturn($query);
+        $qb->method('where')->willReturn($qb);
+        $qb->method('orderBy')->willReturn($qb);
+        $qb->method('andWhere')->willReturn($qb);
+        $qb->method('leftJoin')->willReturn($qb);
+
+        $qbCallback($qb);
+
+        $repository = $this->createMock(EntityRepository::class);
+        $repository->method('createQueryBuilder')->willReturn($qb);
+
+        $metadata = $this->createMock(ClassMetadata::class);
+        $metadata->method('getFieldNames')->willReturn([
             'name',
             'roles',
         ]);
+        $metadata->method('getName')->willReturn('className');
+
+        $em = $this->createMock(EntityManager::class);
+        $em->method('getRepository')->willReturn($repository);
+        $em->method('getClassMetadata')->willReturn($metadata);
 
         return new GroupManager($em, BaseGroup::class);
     }

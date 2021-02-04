@@ -15,6 +15,8 @@ namespace Sonata\UserBundle\Mailer;
 
 use FOS\UserBundle\Mailer\MailerInterface;
 use FOS\UserBundle\Model\UserInterface;
+use Symfony\Component\Mailer\MailerInterface as SymfonyMailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 
@@ -31,7 +33,9 @@ final class Mailer implements MailerInterface
     private $twig;
 
     /**
-     * @var \Swift_Mailer
+     * NEXT_MAJOR: Remove the support for `\Swift_Mailer` in this property.
+     *
+     * @var SymfonyMailerInterface|\Swift_Mailer
      */
     private $mailer;
 
@@ -45,8 +49,28 @@ final class Mailer implements MailerInterface
      */
     private $emailTemplate;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator, Environment $twig, \Swift_Mailer $mailer, array $fromEmail, string $emailTemplate)
+    public function __construct(UrlGeneratorInterface $urlGenerator, Environment $twig, object $mailer, array $fromEmail, string $emailTemplate)
     {
+        // NEXT_MAJOR: Remove the following 2 conditions and use `Symfony\Component\Mailer\MailerInterface` as argument declaration for `$mailer`.
+        if (!$mailer instanceof SymfonyMailerInterface && !$mailer instanceof \Swift_Mailer) {
+            throw new \TypeError(sprintf(
+                'Argument 3 passed to "%s()" must be an instance of "%s" or "%s", instance of "%s" given.',
+                __METHOD__,
+                SymfonyMailerInterface::class,
+                \Swift_Mailer::class,
+                \get_class($mailer)
+            ));
+        }
+
+        if (!$mailer instanceof SymfonyMailerInterface) {
+            @trigger_error(sprintf(
+                'Passing other type than "%s" as argument 3 for "%s()" is deprecated since sonata-project/user-bundle 4.10'
+                .' and will be not supported in version 5.0.',
+                SymfonyMailerInterface::class,
+                __METHOD__
+            ), \E_USER_DEPRECATED);
+        }
+
         $this->urlGenerator = $urlGenerator;
         $this->twig = $twig;
         $this->mailer = $mailer;
@@ -66,20 +90,45 @@ final class Mailer implements MailerInterface
         ]);
 
         // Render the email, use the first line as the subject, and the rest as the body
-        $renderedLines = preg_split('/\R/', trim($rendered), 2, PREG_SPLIT_NO_EMPTY);
+        $renderedLines = preg_split('/\R/', trim($rendered), 2, \PREG_SPLIT_NO_EMPTY);
         $subject = array_shift($renderedLines);
         $body = implode('', $renderedLines);
-        $message = (new \Swift_Message())
-            ->setSubject($subject)
-            ->setFrom($this->fromEmail)
-            ->setTo((string) $user->getEmail())
-            ->setBody($body);
 
-        $this->mailer->send($message);
+        // NEXT_MAJOR: Remove this condition.
+        if ($this->mailer instanceof \Swift_Mailer) {
+            $this->sendResettingEmailMessageWithSwiftMailer($user, $subject, $body);
+
+            return;
+        }
+
+        $fromName = current($this->fromEmail);
+        $fromAddress = current(array_keys($this->fromEmail));
+
+        $this->mailer->send(
+            (new Email())
+                ->from(sprintf('%s <%s>', $fromName, $fromAddress))
+                ->to((string) $user->getEmail())
+                ->subject($subject)
+                ->html($body)
+        );
     }
 
     public function sendConfirmationEmailMessage(UserInterface $user): void
     {
         throw new \LogicException('This method is not implemented.');
+    }
+
+    /**
+     * NEXT_MAJOR: Remove this method.
+     */
+    private function sendResettingEmailMessageWithSwiftMailer(UserInterface $user, string $subject, string $body): void
+    {
+        $this->mailer->send(
+            (new \Swift_Message())
+                ->setSubject($subject)
+                ->setFrom($this->fromEmail)
+                ->setTo((string) $user->getEmail())
+                ->setBody($body)
+        );
     }
 }

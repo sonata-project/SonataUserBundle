@@ -12,8 +12,8 @@ declare(strict_types=1);
  */
 
 use FOS\UserBundle\Model\UserManagerInterface;
-use Google\Authenticator\GoogleAuthenticator;
 use PHPUnit\Framework\TestCase;
+use Sonata\GoogleAuthenticator\GoogleAuthenticator;
 use Sonata\UserBundle\Entity\BaseUser;
 use Sonata\UserBundle\EventListener\TwoFactorLoginSuccessHandler;
 use Sonata\UserBundle\GoogleAuthenticator\Helper;
@@ -86,7 +86,7 @@ class TwoFactorLoginSuccessHandlerTest extends TestCase
 
     private function createTestClass(?string $secret, string $userRole, ?string $remoteAddr, bool $needSession): void
     {
-        $this->user = new BaseUser();
+        $this->user = (new BaseUser())->setUsername('username');
         if (null !== $secret) {
             $this->user->setTwoStepVerificationCode($secret);
         }
@@ -105,8 +105,8 @@ class TwoFactorLoginSuccessHandlerTest extends TestCase
         $routerMock = $this->createMock(UrlGeneratorInterface::class);
         $routerMock->method('generate')->willReturn('/admin/dashboard');
         $forcedRoles = ['ROLE_ADMIN'];
-        $ipWhiteList = ['127.0.0.1'];
-        $helper = new Helper('site.tld', new GoogleAuthenticator(), $authChecker, $forcedRoles, $ipWhiteList);
+        $trustedIpList = ['127.0.0.1'];
+        $helper = new Helper('site.tld', new GoogleAuthenticator(), $authChecker, $forcedRoles, $trustedIpList);
         $this->testClass = new TwoFactorLoginSuccessHandler(
             $templateEngineMock,
             $helper,

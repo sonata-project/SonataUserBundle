@@ -1,0 +1,61 @@
+framework:
+    test: true
+    secret: secret
+    form:
+        enabled: true
+    translator:
+        enabled: true
+    templating:
+        engines: ['twig']
+    session:
+        handler_id: session.handler.native_file
+        storage_id: session.storage.mock_file
+        name: 'MOCKSESSID'
+
+twig:
+    exception_controller: null
+    paths:
+        - '%kernel.project_dir%/Resources/views'
+    strict_variables: '%kernel.debug%'
+
+fos_rest:
+    param_fetcher_listener: true
+    body_listener: true
+    format_listener:
+        enabled: true
+        rules:
+            priorities: 'json'
+            fallback_format: 'json'
+            prefer_extension: false
+    view:
+        view_response_listener: true
+    body_converter:
+        enabled: false
+        validate: true
+
+doctrine:
+    dbal:
+        driver: pdo_sqlite
+        path: '%app.base_dir%/sonata_user_test.db3'
+    orm:
+        entity_managers:
+            default:
+                mappings:
+                    SonataUserBundle: null
+                    SonataUserTest:
+                        type: annotation
+                        dir: '%kernel.project_dir%/Entity'
+                        is_bundle: false
+                        prefix: Sonata\UserBundle\Tests\App\Entity
+
+fos_user:
+    user_class: 'Sonata\UserBundle\Tests\Entity\User'
+    group:
+        group_class: 'Sonata\UserBundle\Entity\BaseGroup'
+    db_driver: 'orm'
+    firewall_name: 'api'
+    from_email:
+        address: 'sonatauser@example.com'
+        sender_name: 'SonataUserBundle'
+    service:
+        mailer: 'fos_user.mailer.noop'

@@ -1,0 +1,13 @@
+security:
+    role_hierarchy: null
+
+    providers:
+        in_memory:
+            memory:
+                users: null
+
+    firewalls:
+        api:
+            anonymous: true
+
+    access_control: null

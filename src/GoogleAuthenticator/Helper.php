@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\GoogleAuthenticator;
 
-use Google\Authenticator\GoogleAuthenticator as BaseGoogleAuthenticator;
+use Sonata\GoogleAuthenticator\GoogleAuthenticator as BaseGoogleAuthenticator;
 use Sonata\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -39,7 +39,7 @@ class Helper
     /**
      * @var string[]
      */
-    private $ipWhiteList;
+    private $trustedIpList;
 
     /**
      * @var AuthorizationCheckerInterface
@@ -47,20 +47,20 @@ class Helper
     private $authorizationChecker;
 
     /**
-     * @param string[] $ipWhiteList IPs that will bypass 2FA authorization
+     * @param string[] $trustedIpList IPs that will bypass 2FA authorization
      */
     public function __construct(
         $server,
         BaseGoogleAuthenticator $authenticator,
         AuthorizationCheckerInterface $authorizationChecker,
         array $forcedForRoles = [],
-        array $ipWhiteList = []
+        array $trustedIpList = []
     ) {
         $this->server = $server;
         $this->authenticator = $authenticator;
         $this->authorizationChecker = $authorizationChecker;
         $this->forcedForRoles = $forcedForRoles;
-        $this->ipWhiteList = $ipWhiteList;
+        $this->trustedIpList = $trustedIpList;
     }
 
     /**
@@ -99,7 +99,7 @@ class Helper
 
     public function needToHaveGoogle2FACode(Request $request): bool
     {
-        if (\in_array($request->getClientIp(), $this->ipWhiteList, true)) {
+        if (\in_array($request->getClientIp(), $this->trustedIpList, true)) {
             return false;
         }
 

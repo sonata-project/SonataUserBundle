@@ -132,7 +132,7 @@ class RestoreRolesTransformerTest extends TestCase
         $transformer->setOriginalRoles($userRoles);
 
         // add a new role
-        array_push($userRoles, 'ROLE_SONATA_ADMIN');
+        $userRoles[] = 'ROLE_SONATA_ADMIN';
         // remove existing user role that is not availableRoles
         unset($userRoles[array_search('ROLE_SUPER_ADMIN', $userRoles, true)]);
         $processedRoles = $transformer->reverseTransform($userRoles);

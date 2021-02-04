@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns="http://symfony.com/schema/routing" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/routing https://symfony.com/schema/routing/routing-1.0.xsd">
+    <import type="xml" resource="./api_nelmio3/group.xml" name-prefix="sonata_api_user_group_"/>
+    <import type="xml" resource="./api_nelmio3/user.xml" name-prefix="sonata_api_user_user_"/>
+    <!-- NEXT_MAJOR: Remove these wrong routes introduced in version 4.6.0 -->
+    <route id="sonata_api_user_group_delete_group_2" path="/group/{id}.{_format}" methods="DELETE" controller="Sonata\UserBundle\Controller\Api\GroupController::deleteGroupAction" format="json">
+        <requirement key="_format">json|xml|html</requirement>
+    </route>
+    <route id="sonata_api_user_group_get_group_2" path="/group/{id}.{_format}" methods="GET" controller="Sonata\UserBundle\Controller\Api\GroupController::getGroupAction" format="json">
+        <requirement key="_format">json|xml|html</requirement>
+    </route>
+    <route id="sonata_api_user_group_post_group_2" path="/group.{_format}" methods="POST" controller="Sonata\UserBundle\Controller\Api\GroupController::postGroupAction" format="json">
+        <requirement key="_format">json|xml|html</requirement>
+    </route>
+    <route id="sonata_api_user_group_put_group_2" path="/group/{id}.{_format}" methods="PUT" controller="Sonata\UserBundle\Controller\Api\GroupController::putGroupAction" format="json">
+        <requirement key="_format">json|xml|html</requirement>
+    </route>
+    <route id="sonata_api_user_user_delete_user_2" path="/user/{id}.{_format}" methods="DELETE" controller="Sonata\UserBundle\Controller\Api\UserController::deleteUserAction" format="json">
+        <requirement key="_format">json|xml|html</requirement>
+    </route>
+    <route id="sonata_api_user_user_delete_user_group_2" path="/user/{userId}/{groupId}.{_format}" methods="DELETE" controller="Sonata\UserBundle\Controller\Api\UserController::deleteUserGroupAction" format="json">
+        <requirement key="_format">json|xml|html</requirement>
+    </route>
+    <route id="sonata_api_user_user_get_user_2" path="/user/{id}.{_format}" methods="GET" controller="Sonata\UserBundle\Controller\Api\UserController::getUserAction" format="json">
+        <requirement key="_format">json|xml|html</requirement>
+    </route>
+    <route id="sonata_api_user_user_post_user_2" path="/user.{_format}" methods="POST" controller="Sonata\UserBundle\Controller\Api\UserController::postUserAction" format="json">
+        <requirement key="_format">json|xml|html</requirement>
+    </route>
+    <route id="sonata_api_user_user_post_user_group_2" path="/user/{userId}/{groupId}.{_format}" methods="POST" controller="Sonata\UserBundle\Controller\Api\UserController::postUserGroupAction" format="json">
+        <requirement key="_format">json|xml|html</requirement>
+    </route>
+    <route id="sonata_api_user_user_put_user_2" path="/user/{id}.{_format}" methods="PUT" controller="Sonata\UserBundle\Controller\Api\UserController::putUserAction" format="json">
+        <requirement key="_format">json|xml|html</requirement>
+    </route>
+</routes>
