@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Document;
 
 use FOS\UserBundle\Doctrine\GroupManager as BaseGroupManager;
-use Sonata\UserBundle\Model\GroupManagerInterface;
 use Sonata\DatagridBundle\Pager\PagerInterface;
+use Sonata\UserBundle\Model\GroupManagerInterface;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
