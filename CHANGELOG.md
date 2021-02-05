@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.10.2](https://github.com/sonata-project/SonataUserBundle/compare/4.10.1...4.10.2) - 2021-02-05
+### Changed
+- [[#1323](https://github.com/sonata-project/SonataUserBundle/pull/1323)] `GroupManager::getPager()` return type is `Sonata\DatagridBundle\Pager\PagerInterface`. ([@Jean-ita](https://github.com/Jean-ita))
+- [[#1323](https://github.com/sonata-project/SonataUserBundle/pull/1323)] `UserManager::getPager()` return type is `Sonata\DatagridBundle\Pager\PagerInterface`. ([@Jean-ita](https://github.com/Jean-ita))
+
 ## [4.10.1](https://github.com/sonata-project/SonataUserBundle/compare/4.10.0...4.10.1) - 2020-11-24
 ### Fixed
 - [[#1288](https://github.com/sonata-project/SonataUserBundle/pull/1288)] Duplicate translation in `src/Resources/translations/SonataUserBundle.nl.xliff` ([@elyanory](https://github.com/elyanory))
