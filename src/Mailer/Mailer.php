@@ -13,8 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Mailer;
 
-use FOS\UserBundle\Mailer\MailerInterface;
-use Sonata\UserBundle\Model\UserInterface;;
+use Sonata\UserBundle\Model\UserInterface;
 use Symfony\Component\Mailer\MailerInterface as SymfonyMailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;

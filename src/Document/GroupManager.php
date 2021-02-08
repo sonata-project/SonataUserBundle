@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Document;
 
-use Sonata\UserBundle\Model\GroupManager as BaseGroupManager;
 use Sonata\DatagridBundle\Pager\PagerInterface;
+use Sonata\UserBundle\Model\GroupManager as BaseGroupManager;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
