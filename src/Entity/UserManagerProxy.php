@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Entity;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Sonata\Doctrine\Entity\BaseEntityManager;
 
 /**
@@ -30,8 +30,6 @@ class UserManagerProxy extends BaseEntityManager
     protected $userManager;
 
     /**
-     * UserManagerProxy constructor.
-     *
      * @param string $class
      */
     public function __construct($class, ManagerRegistry $registry, UserManager $userManager)
