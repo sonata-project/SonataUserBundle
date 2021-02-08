@@ -255,7 +255,7 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
                 'resetting' => [
                     'email' => [
                         'from_email' => [
-                            'address' => 'sonatauser@example.com',
+                            'address' => 'sonata-user@example.com',
                             'sender_name' => 'SonataUserBundle',
                         ],
                     ],

@@ -53,5 +53,5 @@ sonata_user:
     resetting:
         email:
             from_email:
-                address: 'sonatauser@example.com'
+                address: 'sonata-user@example.com'
                 sender_name: 'SonataUserBundle'

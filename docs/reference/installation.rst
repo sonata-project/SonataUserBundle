@@ -74,7 +74,7 @@ SonataUserBundle Configuration
         resetting:
             email:
                 from_email:
-                    address: 'sonatauser@example.com'
+                    address: 'sonata-user@example.com'
                     sender_name: 'SonataUserBundle'
 
 Doctrine ORM Configuration
@@ -259,7 +259,7 @@ Then, add a new custom firewall handlers for the admin:
                 pattern: /admin(.*)
                 context: user
                 form_login:
-                    provider:       sonata_userbundle
+                    provider:       sonata_user_bundle
                     login_path:     /admin/login
                     use_forward:    false
                     check_path:     /admin/login_check
@@ -290,7 +290,7 @@ Add role hierarchy and provider, if you are not using ACL also add the encoder:
             Sonata\UserBundle\Model\UserInterface: bcrypt
 
         providers:
-            sonata_userbundle:
+            sonata_user_bundle:
                 id: fos_user.user_provider.username
 
 The last part is to define 4 new access control rules:

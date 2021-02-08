@@ -54,7 +54,7 @@ Full configuration options:
             email:
                 template: '@SonataUser/Resetting/email.txt.twig'
                 from_email:
-                    address: 'sonatauser@example.com'
+                    address: 'sonata-user@example.com'
                     sender_name: 'SonataUserBundle'
 
     # add SonataUser serialization
