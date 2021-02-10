@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Entity;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Entity\UserManager;
 use Sonata\UserBundle\Entity\UserManagerProxy;
@@ -22,7 +22,7 @@ class UserManagerProxyTest extends TestCase
 {
     public function testProxy(): void
     {
-        $doctrine = $this->getMockBuilder(ManagerRegistry::class)->disableOriginalConstructor()->getMock();
+        $doctrine = $this->createStub(ManagerRegistry::class);
 
         $userManager = $this->getMockBuilder(UserManager::class)->disableOriginalConstructor()->getMock();
 
