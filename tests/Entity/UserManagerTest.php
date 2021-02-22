@@ -27,14 +27,13 @@ class UserManagerTest extends TestCase
 
     public function testGetPager(): void
     {
-        $self = $this;
         $this
-            ->getUserManager(static function (MockObject $qb) use ($self): void {
-                $qb->expects($self->once())->method('getRootAliases')->willReturn(['u']);
-                $qb->expects($self->never())->method('andWhere');
-                $qb->expects($self->once())->method('orderBy')->with(
-                    $self->equalTo('u.username'),
-                    $self->equalTo('ASC')
+            ->getUserManager(function (MockObject $qb): void {
+                $qb->expects($this->once())->method('getRootAliases')->willReturn(['u']);
+                $qb->expects($this->never())->method('andWhere');
+                $qb->expects($this->once())->method('orderBy')->with(
+                    $this->equalTo('u.username'),
+                    $this->equalTo('ASC')
                 );
             })
             ->getPager([], 1);
@@ -45,30 +44,28 @@ class UserManagerTest extends TestCase
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Invalid sort field \'invalid\' in \'Sonata\UserBundle\Entity\BaseUser\' class');
 
-        $self = $this;
         $this
-            ->getUserManager(static function (MockObject $qb) use ($self): void {
-                $qb->expects($self->never())->method('andWhere');
-                $qb->expects($self->never())->method('orderBy');
-                $qb->expects($self->never())->method('setParameters');
+            ->getUserManager(function (MockObject $qb): void {
+                $qb->expects($this->never())->method('andWhere');
+                $qb->expects($this->never())->method('orderBy');
+                $qb->expects($this->never())->method('setParameters');
             })
             ->getPager([], 1, 10, ['invalid' => 'ASC']);
     }
 
     public function testGetPagerWithValidSortDesc(): void
     {
-        $self = $this;
         $this
-            ->getUserManager(static function (MockObject $qb) use ($self): void {
-                $qb->expects($self->once())->method('getRootAliases')->willReturn(['u']);
-                $qb->expects($self->once())->method('andWhere')->with($self->equalTo('u.enabled = :enabled'));
-                $qb->expects($self->once())->method('setParameter')->with(
-                    $self->equalTo('enabled'),
-                    $self->equalTo(true)
+            ->getUserManager(function (MockObject $qb): void {
+                $qb->expects($this->once())->method('getRootAliases')->willReturn(['u']);
+                $qb->expects($this->once())->method('andWhere')->with($this->equalTo('u.enabled = :enabled'));
+                $qb->expects($this->once())->method('setParameter')->with(
+                    $this->equalTo('enabled'),
+                    $this->equalTo(true)
                 );
-                $qb->expects($self->once())->method('orderBy')->with(
-                    $self->equalTo('u.email'),
-                    $self->equalTo('DESC')
+                $qb->expects($this->once())->method('orderBy')->with(
+                    $this->equalTo('u.email'),
+                    $this->equalTo('DESC')
                 );
             })
             ->getPager(['enabled' => true], 1, 10, ['email' => 'DESC']);
@@ -76,18 +73,17 @@ class UserManagerTest extends TestCase
 
     public function testGetPagerWithEnabledUsers(): void
     {
-        $self = $this;
         $this
-            ->getUserManager(static function (MockObject $qb) use ($self): void {
-                $qb->expects($self->once())->method('getRootAliases')->willReturn(['u']);
-                $qb->expects($self->once())->method('andWhere')->with($self->equalTo('u.enabled = :enabled'));
-                $qb->expects($self->once())->method('setParameter')->with(
-                    $self->equalTo('enabled'),
-                    $self->equalTo(true)
+            ->getUserManager(function (MockObject $qb): void {
+                $qb->expects($this->once())->method('getRootAliases')->willReturn(['u']);
+                $qb->expects($this->once())->method('andWhere')->with($this->equalTo('u.enabled = :enabled'));
+                $qb->expects($this->once())->method('setParameter')->with(
+                    $this->equalTo('enabled'),
+                    $this->equalTo(true)
                 );
-                $qb->expects($self->once())->method('orderBy')->with(
-                    $self->equalTo('u.username'),
-                    $self->equalTo('ASC')
+                $qb->expects($this->once())->method('orderBy')->with(
+                    $this->equalTo('u.username'),
+                    $this->equalTo('ASC')
                 );
             })
             ->getPager(['enabled' => true], 1);
@@ -95,18 +91,17 @@ class UserManagerTest extends TestCase
 
     public function testGetPagerWithDisabledUsers(): void
     {
-        $self = $this;
         $this
-            ->getUserManager(static function (MockObject $qb) use ($self): void {
-                $qb->expects($self->once())->method('getRootAliases')->willReturn(['u']);
-                $qb->expects($self->once())->method('andWhere')->with($self->equalTo('u.enabled = :enabled'));
-                $qb->expects($self->once())->method('setParameter')->with(
-                    $self->equalTo('enabled'),
-                    $self->equalTo(false)
+            ->getUserManager(function (MockObject $qb): void {
+                $qb->expects($this->once())->method('getRootAliases')->willReturn(['u']);
+                $qb->expects($this->once())->method('andWhere')->with($this->equalTo('u.enabled = :enabled'));
+                $qb->expects($this->once())->method('setParameter')->with(
+                    $this->equalTo('enabled'),
+                    $this->equalTo(false)
                 );
-                $qb->expects($self->once())->method('orderBy')->with(
-                    $self->equalTo('u.username'),
-                    $self->equalTo('ASC')
+                $qb->expects($this->once())->method('orderBy')->with(
+                    $this->equalTo('u.username'),
+                    $this->equalTo('ASC')
                 );
             })
             ->getPager(['enabled' => false], 1);
