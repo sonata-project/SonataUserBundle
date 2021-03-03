@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.11.1](https://github.com/sonata-project/SonataUserBundle/compare/4.11.0...4.11.1) - 2021-03-03
+### Fixed
+- [[#1332](https://github.com/sonata-project/SonataUserBundle/pull/1332)] Fix compatibility with doctrine/persistence 2.0 ([@jordisala1991](https://github.com/jordisala1991))
+
 ## [4.11.0](https://github.com/sonata-project/SonataUserBundle/compare/4.10.2...4.11.0) - 2021-02-15
 ### Added
 - [[#1325](https://github.com/sonata-project/SonataUserBundle/pull/1325)] Support for "doctrine/common:^3". ([@phansys](https://github.com/phansys))
