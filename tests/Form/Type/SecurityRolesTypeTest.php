@@ -55,7 +55,7 @@ class SecurityRolesTypeTest extends TypeTestCase
 
         $form->submit([0 => 'ROLE_FOO']);
 
-        $this->assertTrue($form->isSynchronized());
+        $this->assertTrue($form->isValid());
         $this->assertCount(1, $form->getData());
         $this->assertContains('ROLE_FOO', $form->getData());
     }
@@ -70,8 +70,8 @@ class SecurityRolesTypeTest extends TypeTestCase
 
         $form->submit([0 => 'ROLE_NOT_EXISTS']);
 
-        $this->assertFalse($form->isSynchronized());
-        $this->assertNull($form->getData());
+        $this->assertFalse($form->isValid());
+        $this->assertSame([], $form->getData());
     }
 
     public function testSubmitWithHiddenRoleData(): void
@@ -88,7 +88,7 @@ class SecurityRolesTypeTest extends TypeTestCase
         $form->submit([0 => 'ROLE_USER']);
 
         $this->assertNull($form->getTransformationFailure());
-        $this->assertTrue($form->isSynchronized());
+        $this->assertTrue($form->isValid());
         $this->assertCount(2, $form->getData());
         $this->assertContains('ROLE_SUPER_ADMIN', $form->getData());
     }

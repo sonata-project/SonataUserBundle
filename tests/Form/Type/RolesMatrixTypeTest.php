@@ -55,7 +55,7 @@ final class RolesMatrixTypeTest extends TypeTestCase
 
         $form->submit([0 => 'ROLE_FOO']);
 
-        $this->assertTrue($form->isSynchronized());
+        $this->assertTrue($form->isValid());
         $this->assertCount(1, $form->getData());
         $this->assertContains('ROLE_FOO', $form->getData());
     }
@@ -70,8 +70,8 @@ final class RolesMatrixTypeTest extends TypeTestCase
 
         $form->submit([0 => 'ROLE_NOT_EXISTS']);
 
-        $this->assertFalse($form->isSynchronized());
-        $this->assertNull($form->getData());
+        $this->assertFalse($form->isValid());
+        $this->assertSame([], $form->getData());
     }
 
     protected function getExtensions(): array
