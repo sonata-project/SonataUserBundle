@@ -25,4 +25,24 @@ class SonataUserBundle extends Bundle
         $container->addCompilerPass(new GlobalVariablesCompilerPass());
         $container->addCompilerPass(new RolesMatrixCompilerPass());
     }
+
+    public function boot(): void
+    {
+        $this->createDoctrineCommonBackwardCompatibilityAliases();
+    }
+
+    /**
+     * We MUST remove this method when support for "friendsofsymfony/user-bundle" is dropped
+     * or adapted to work with "doctrine/common:^3".
+     */
+    private function createDoctrineCommonBackwardCompatibilityAliases(): void
+    {
+        if (!interface_exists(\Doctrine\Common\Persistence\ObjectManager::class)) {
+            class_alias(\Doctrine\Persistence\ObjectManager::class, \Doctrine\Common\Persistence\ObjectManager::class);
+        }
+
+        if (!class_exists(\Doctrine\Common\Persistence\Event\LifecycleEventArgs::class)) {
+            class_alias(\Doctrine\Persistence\Event\LifecycleEventArgs::class, \Doctrine\Common\Persistence\Event\LifecycleEventArgs::class);
+        }
+    }
 }
