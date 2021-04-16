@@ -95,8 +95,7 @@ final class TwoFactorLoginSuccessHandler implements AuthenticationSuccessHandler
         // NEXT_MAJOR: remove hardcoded url.
         $url = $this->urlGenerator
             ? $this->urlGenerator->generate('sonata_admin_dashboard')
-            : '/admin'
-        ;
+            : '/admin';
 
         return new RedirectResponse($url);
     }

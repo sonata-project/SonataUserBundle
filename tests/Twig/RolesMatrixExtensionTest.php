@@ -61,8 +61,7 @@ final class RolesMatrixExtensionTest extends TestCase
             ->expects($this->once())
             ->method('render')
             ->with('@SonataUser/Form/roles_matrix_list.html.twig', ['roles' => []])
-            ->willReturn('')
-        ;
+            ->willReturn('');
 
         $rolesMatrixExtension = new RolesMatrixExtension($this->rolesBuilder);
         $rolesMatrixExtension->renderRolesList($this->environment, $this->formView);
