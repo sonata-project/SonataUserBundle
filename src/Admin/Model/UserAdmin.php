@@ -88,13 +88,11 @@ class UserAdmin extends AbstractAdmin
             ->add('email')
             ->add('groups')
             ->add('enabled', null, ['editable' => true])
-            ->add('createdAt')
-        ;
+            ->add('createdAt');
 
         if ($this->isGranted('ROLE_ALLOWED_TO_SWITCH')) {
             $listMapper
-                ->add('impersonating', 'string', ['template' => '@SonataUser/Admin/Field/impersonating.html.twig'])
-            ;
+                ->add('impersonating', 'string', ['template' => '@SonataUser/Admin/Field/impersonating.html.twig']);
         }
     }
 
@@ -107,8 +105,7 @@ class UserAdmin extends AbstractAdmin
             ->add('id')
             ->add('username')
             ->add('email')
-            ->add('groups')
-        ;
+            ->add('groups');
     }
 
     /**
@@ -146,8 +143,7 @@ class UserAdmin extends AbstractAdmin
             ->with('Security')
                 ->add('token')
                 ->add('twoStepVerificationCode')
-            ->end()
-        ;
+            ->end();
     }
 
     /**
@@ -167,8 +163,7 @@ class UserAdmin extends AbstractAdmin
                 ->with('Groups', ['class' => 'col-md-4'])->end()
                 ->with('Keys', ['class' => 'col-md-4'])->end()
                 ->with('Roles', ['class' => 'col-md-12'])->end()
-            ->end()
-        ;
+            ->end();
 
         $now = new \DateTime();
 
@@ -235,8 +230,7 @@ class UserAdmin extends AbstractAdmin
                     ->add('token', null, ['required' => false])
                     ->add('twoStepVerificationCode', null, ['required' => false])
                 ->end()
-            ->end()
-        ;
+            ->end();
     }
 
     protected function configureExportFields(): array

@@ -32,7 +32,7 @@
         "symfony/config": "^4.4",
         "symfony/console": "^4.4",
         "symfony/dependency-injection": "^4.4",
-        "symfony/form": "^4.4",
+        "symfony/form": "^4.4.20",
         "symfony/framework-bundle": "^4.4",
         "symfony/http-foundation": "^4.4",
         "symfony/http-kernel": "^4.4",
@@ -74,7 +74,7 @@
         "friendsofsymfony/rest-bundle": "For using the public API methods.",
         "jms/serializer": "For using the public API methods.",
         "nelmio/api-doc-bundle": "For using the public API methods.",
-        "sonata-project/doctrine-orm-admin-bundle": "^3.0",
+        "sonata-project/doctrine-orm-admin-bundle": "For persisting entities",
         "sonata-project/google-authenticator": "For google auth user login"
     },
     "config": {
