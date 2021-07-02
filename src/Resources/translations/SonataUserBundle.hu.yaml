@@ -1,0 +1,33 @@
+security:
+    login:
+        remember_me: Megjegyzés
+        submit: Belépés
+
+resetting:
+    check_email: |
+        Elfelejtett jelszava lecseréléséhez, kérjük, kattintson az e-mailben található linkre.
+        Felhívjuk figyelmát rá, hogy a link érvényessége %tokenLifetime% óra múlva lejár.
+
+        Amennyiben nem találja az e-mailt a postafiókjában, ellenőrizze a levélszemét mappát vagy kérje újra a kiküldést!
+    request:
+        username: 'Felhasználónév vagy e-mail cím'
+        submit: 'Jelszó lecserélése'
+    reset:
+        submit: 'Jelszó megváltoztatása'
+    flash:
+        success: 'A jelszó sikeresen lecserélve.'
+    email:
+        subject: 'Jelszó lecserélése'
+        message: |
+            Hello %username%!
+
+            A jelszó a következő oldalon cserélhető le: %confirmationUrl%
+
+            Üdvözlettel,
+            a Csapat.
+
+form:
+    group_name: 'Csoport név'
+    current_password: 'Jelenlegi jelszó'
+    new_password: 'Új jelszó'
+    new_password_confirmation: 'Új jelszó megerősítése'

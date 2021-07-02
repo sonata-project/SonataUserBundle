@@ -12,7 +12,7 @@
             <argument>%sonata.user.admin.user.entity%</argument>
             <argument>%sonata.user.admin.user.controller%</argument>
             <call method="setUserManager">
-                <argument type="service" id="fos_user.user_manager"/>
+                <argument type="service" id="sonata.user.user_manager"/>
             </call>
             <call method="setTranslationDomain">
                 <argument>%sonata.user.admin.user.translation_domain%</argument>

@@ -1,0 +1,29 @@
+security:
+    login:
+        remember_me: 'Recorda''m'
+        submit: Entra
+
+resetting:
+#    check_email: 'S''ha enviat un correu electrònic a %email%. Conté un enllaç que heu de clicar per restablir la contrasenya.'
+    request:
+        username: 'Nom d''usuari o correu electrònic'
+        submit: 'Restableix la contrasenya'
+    reset:
+        submit: 'Canvia la contrasenya'
+    flash:
+        success: 'S''ha restablert la contrasenya correctament.'
+    email:
+        subject: 'Restablir la contrasenya'
+        message: |
+            Hola %username%!
+
+            Per restablir la contrasenya - si us plau visiteu %confirmationUrl%
+
+            Atentament,
+            L'equip.
+
+form:
+    group_name: 'Nom del grup'
+    current_password: 'Contrasenya actual'
+    new_password: 'Nova contrasenya'
+    new_password_confirmation: Verificació

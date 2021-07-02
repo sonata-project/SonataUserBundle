@@ -1,0 +1,34 @@
+security:
+    login:
+        remember_me: 'Onthoud mijn gegevens'
+        submit: Inloggen
+
+resetting:
+    check_email: |
+        Er werd een email gestuurd. De email bevat een link om je wachtwoord te resetten.
+        Opgelet: Je kan pas na %tokenLifetime% uur een nieuw wachtwoord aanvragen.
+
+        Indien je geen email ontvangen hebt, controleer dan zeker je spam folder of probeer opnieuw.
+
+    request:
+        username: 'Gebruikersnaam of e-mailadres'
+        submit: 'Reset wachtwoord'
+    reset:
+        submit: 'Wijzig wachtwoord'
+    flash:
+        success: 'Het wachtwoord is succesvol gereset.'
+    email:
+        subject: 'Reset wachtwoord'
+        message: |
+            Hallo %username%!
+
+            Om uw wachtwoord te resetten, klikt u op de volgende link %confirmationUrl%
+
+            Met vriendelijke groet,
+            het Team.
+
+form:
+    group_name: 'Groep naam'
+    current_password: 'Huidig wachtwoord'
+    new_password: 'Nieuw wachtwoord'
+    new_password_confirmation: 'Wachtwoord controle'

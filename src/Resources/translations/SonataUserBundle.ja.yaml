@@ -1,0 +1,33 @@
+security:
+    login:
+        remember_me: ログイン状態を記憶する
+        submit: ログイン
+
+resetting:
+    check_email: |
+        メールが送信されました。送信されたリンクをクリックしてパスワードをリセットして下さい。
+        注意：パスワードのリセットは %tokenLifetime% 時間のあいだに一度しか要求できません。
+
+        もしメールが届かない場合は、迷惑メールフォルダをご確認いただき、その上で再度やり直して下さい。
+    request:
+        username: ユーザー名またはメールアドレス
+        submit: パスワードのリセット
+    reset:
+        submit: パスワードの変更
+    flash:
+        success: パスワードのリセットが完了しました
+    email:
+        subject: パスワードのリセット
+        message: |
+            こんにちは %username% さん!
+
+            パスワードをリセットするには、次のリセット URL へアクセスしてください %confirmationUrl%
+
+
+            開発チーム
+
+form:
+    group_name: グループ名
+    current_password: 現在のパスワード
+    new_password: 新しいパスワード
+    new_password_confirmation: 確認

@@ -41,18 +41,18 @@ file that was distributed with this source code.
         {% endblock %}
         <div class="login-box-body">
             {% block sonata_user_reset_request_form %}
-                <p class="login-box-msg">{{ 'resetting.request.submit'|trans({}, 'FOSUserBundle') }}</p>
+                <p class="login-box-msg">{{ 'resetting.request.submit'|trans({}, 'SonataUserBundle') }}</p>
                 <form action="{{ path('sonata_user_admin_resetting_send_email') }}" method="post" role="form">
                     <div class="form-group has-feedback">
                         <input type="text" class="form-control" id="username"  name="username" required="required"
-                            placeholder="{{ 'resetting.request.username'|trans({}, 'FOSUserBundle')|replace({':': ''}) }}"/>
+                            placeholder="{{ 'resetting.request.username'|trans({}, 'SonataUserBundle')|replace({':': ''}) }}"/>
                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
                     </div>
 
                     <div class="row">
                         <div class="col-xs-12">
                             <button type="submit" class="btn btn-primary btn-block btn-flat">
-                                {{ 'resetting.request.submit'|trans({}, 'FOSUserBundle') }}
+                                {{ 'resetting.request.submit'|trans({}, 'SonataUserBundle') }}
                             </button>
                         </div>
                     </div>

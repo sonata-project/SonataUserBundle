@@ -1,0 +1,34 @@
+security:
+    login:
+        remember_me: 'Se souvenir de moi'
+        submit: Connexion
+
+resetting:
+    check_email: |
+        Un e-mail a été envoyé. Il contient un lien sur lequel il vous faudra cliquer pour réinitialiser votre mot de passe.
+        Remarque: Vous ne pouvez demander un nouveau mot de passe que toutes les %tokenLifetime% heures.
+
+        Si vous ne recevez pas un email, vérifiez votre dossier spam ou essayez à nouveau.
+
+    request:
+        username: 'Nom d''utilisateur ou adresse e-mail'
+        submit: 'Réinitialiser le mot de passe'
+    reset:
+        submit: 'Modifier le mot de passe'
+    flash:
+        success: 'Le mot de passe a été réinitialisé avec succès.'
+    email:
+        subject: 'Réinitialisation de votre mot de passe'
+        message: |
+            Bonjour %username% !
+
+            Pour réinitialiser votre mot de passe, merci de vous rendre sur %confirmationUrl%
+
+            Cordialement,
+            L'équipe
+
+form:
+    group_name: 'Nom du groupe'
+    current_password: 'Mot de passe actuel'
+    new_password: 'Nouveau mot de passe'
+    new_password_confirmation: 'Répéter le nouveau mot de passe'

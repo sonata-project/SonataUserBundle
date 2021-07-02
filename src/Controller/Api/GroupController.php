@@ -18,10 +18,10 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\View\View as FOSRestView;
-use FOS\UserBundle\Model\GroupInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Operation;
 use Sonata\DatagridBundle\Pager\PagerInterface;
+use Sonata\UserBundle\Model\GroupInterface;
 use Sonata\UserBundle\Model\GroupManagerInterface;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -137,7 +137,7 @@ class GroupController
      *     @SWG\Response(
      *         response="200",
      *         description="Returned when successful",
-     *         @SWG\Schema(ref=@Model(type="FOS\UserBundle\Model\GroupInterface"))
+     *         @SWG\Schema(ref=@Model(type="Sonata\UserBundle\Model\GroupInterface"))
      *     ),
      *     @SWG\Response(
      *         response="404",

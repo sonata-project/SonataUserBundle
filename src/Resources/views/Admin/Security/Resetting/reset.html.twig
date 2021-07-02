@@ -41,26 +41,26 @@ file that was distributed with this source code.
         {% endblock %}
         <div class="login-box-body">
             {% block sonata_user_reset_form %}
-                <p class="login-box-msg">{{ 'resetting.reset.submit'|trans({}, 'FOSUserBundle') }}</p>
+                <p class="login-box-msg">{{ 'resetting.reset.submit'|trans({}, 'SonataUserBundle') }}</p>
                 {{ form_start(form, { 'action': path('sonata_user_admin_resetting_reset', {'token': token}) }) }}
                     <div class="form-group">
                         {{ form_widget(form.plainPassword.first, {'attr': {
                             'class': 'form-control',
-                            'placeholder': 'form.new_password'|trans({}, 'FOSUserBundle')
+                            'placeholder': 'form.new_password'|trans({}, 'SonataUserBundle')
                         }}) }}
                         {{ form_errors(form.plainPassword.first) }}
                     </div>
                     <div class="form-group">
                         {{ form_widget(form.plainPassword.second, {'attr': {
                             'class': 'form-control',
-                            'placeholder': 'form.new_password_confirmation'|trans({}, 'FOSUserBundle')
+                            'placeholder': 'form.new_password_confirmation'|trans({}, 'SonataUserBundle')
                         }}) }}
                         {{ form_errors(form.plainPassword.second) }}
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
                             <button type="submit" class="btn btn-primary btn-block btn-flat">
-                                {{ 'resetting.reset.submit'|trans({}, 'FOSUserBundle') }}
+                                {{ 'resetting.reset.submit'|trans({}, 'SonataUserBundle') }}
                             </button>
                         </div>
                     </div>

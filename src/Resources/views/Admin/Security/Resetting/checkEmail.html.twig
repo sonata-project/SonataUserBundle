@@ -40,7 +40,7 @@ file that was distributed with this source code.
             </div>
         {% endblock %}
         <div class="login-box-body">
-            <p>{{ 'resetting.check_email'|trans({'%tokenLifetime%': tokenLifetime}, 'FOSUserBundle')|nl2br }}</p>
+            <p>{{ 'resetting.check_email'|trans({'%tokenLifetime%': tokenLifetime}, 'SonataUserBundle')|nl2br }}</p>
             <a href="{{ path('sonata_user_admin_security_login') }}">
                 {{ 'title_user_authentication'|trans({}, 'SonataUserBundle') }}
             </a>

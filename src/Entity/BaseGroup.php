@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Entity;
 
-use FOS\UserBundle\Model\Group as AbstractedGroup;
+use Sonata\UserBundle\Model\Group as AbstractedGroup;
 
 /**
  * Represents a Base Group Entity.

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="sonata.user.validator.initializer" class="Sonata\UserBundle\Validator\Initializer" public="false">
+            <tag name="validator.initializer"/>
+            <argument type="service" id="sonata.user.util.canonical_fields_updater"/>
+        </service>
+    </services>
+</container>

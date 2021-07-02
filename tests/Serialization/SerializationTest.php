@@ -33,7 +33,14 @@ class SerializationTest extends TestCase
         $user = new User();
 
         $user->setUsername($userData['username']);
+        $user->setUsernameCanonical($userData['username_canonical']);
+        $user->setEmail($userData['email']);
+        $user->setEmailCanonical($userData['email_canonical']);
         $user->setEnabled($userData['enabled']);
+        $user->setPlainPassword($userData['plain_password']);
+        $user->setLastLogin($userData['last_login']);
+        $user->setConfirmationToken($userData['confirmation_token']);
+        $user->setPasswordRequestedAt($userData['password_requested_at']);
         $user->setRoles($userData['roles']);
         $user->setDateOfBirth($userData['date_of_birth']);
         $user->setFirstname($userData['firstname']);
@@ -84,6 +91,16 @@ class SerializationTest extends TestCase
         return [
             'with_group_sonata_api_read' => [
                 'expected' => [
+                    'username' => 'johndoe',
+                    'username_canonical' => 'username_canonical_for_tests',
+                    'email' => 'test@sonata.pl',
+                    'email_canonical' => 'email_canonical_for_tests',
+                    'enabled' => true,
+                    'last_login' => '2020-06-21T20:19:18+00:00',
+                    //'locked' => false,
+                    'confirmation_token' => 'confirmation_token_for_tests',
+                    'password_requested_at' => '2020-05-21T20:19:18+00:00',
+                    'roles' => ['ROLE_LAZY'],
                     'date_of_birth' => '1986-03-22T18:45:00-03:00',
                     'firstname' => 'Incog',
                     'lastname' => 'Nito',
@@ -108,36 +125,17 @@ class SerializationTest extends TestCase
                     'updated_at' => '2019-06-21T20:19:18+00:00',
                 ],
                 'serialization_group' => 'sonata_api_read',
-                'user_data' => [
-                    'username' => 'johndoe',
-                    'enabled' => true,
-                    'roles' => ['ROLE_LAZY'],
-                    'date_of_birth' => new \DateTime('1986-03-22 18:45:00 GMT-3'),
-                    'firstname' => 'Incog',
-                    'lastname' => 'Nito',
-                    'website' => 'https://en.wikipedia.org/wiki/Incognito',
-                    'biography' => 'Once upon a time ...',
-                    'gender' => User::GENDER_UNKNOWN,
-                    'locale' => 'es_AR',
-                    'timezone' => 'America/Argentina/Buenos_Aires',
-                    'phone' => '0054 9 11 12345678',
-                    'facebook_uid' => '0123456789a',
-                    'facebook_name' => 'LifeInvader',
-                    'facebook_data' => ['motto' => 'I\'m a teapot'],
-                    'twitter_uid' => '0123456789b',
-                    'twitter_name' => 'Birdy',
-                    'twitter_data' => ['ancestor' => 'Dinosaur'],
-                    'gplus_uid' => '0123456789c',
-                    'gplus_name' => 'EmptyResultSet',
-                    'gplus_data' => ['users_count' => '-'],
-                    'token' => 'some_secure_token',
-                    'two_step_verification_code' => 'baby/steps',
-                    'created_at' => new \DateTime('2012-11-10 00:00:00 UTC'),
-                    'updated_at' => new \DateTime('2019-06-21 20:19:18 UTC'),
-                ],
+                'user_data' => $this->getUser(),
             ],
             'with_group_sonata_api_write' => [
                 'expected' => [
+                    'username' => 'johndoe',
+                    'email' => 'test@sonata.pl',
+                    'enabled' => true,
+                    'plain_password' => 'some_plain_password',
+                    //'locked' => false,
+                    'password_requested_at' => '2020-05-21T20:19:18+00:00',
+                    'roles' => ['ROLE_LAZY'],
                     'date_of_birth' => '1986-03-22T18:45:00-03:00',
                     'firstname' => 'Incog',
                     'lastname' => 'Nito',
@@ -160,11 +158,21 @@ class SerializationTest extends TestCase
                     'two_step_verification_code' => 'baby/steps',
                 ],
                 'serialization_group' => 'sonata_api_write',
-                'user_data' => [
+                'user_data' => $this->getUser(),
+            ],
+            'with_group_sonata_search' => [
+                'expected' => [
                     'username' => 'johndoe',
+                    'username_canonical' => 'username_canonical_for_tests',
+                    'email' => 'test@sonata.pl',
+                    'email_canonical' => 'email_canonical_for_tests',
                     'enabled' => true,
+                    'last_login' => '2020-06-21T20:19:18+00:00',
+                    //'locked' => false,
+                    'confirmation_token' => 'confirmation_token_for_tests',
+                    'password_requested_at' => '2020-05-21T20:19:18+00:00',
                     'roles' => ['ROLE_LAZY'],
-                    'date_of_birth' => new \DateTime('1986-03-22 18:45:00 GMT-3'),
+                    'date_of_birth' => '1986-03-22T18:45:00-03:00',
                     'firstname' => 'Incog',
                     'lastname' => 'Nito',
                     'website' => 'https://en.wikipedia.org/wiki/Incognito',
@@ -184,14 +192,24 @@ class SerializationTest extends TestCase
                     'gplus_data' => ['users_count' => '-'],
                     'token' => 'some_secure_token',
                     'two_step_verification_code' => 'baby/steps',
-                    'created_at' => new \DateTime('2012-11-10 00:00:00 UTC'),
-                    'updated_at' => new \DateTime('2019-06-21 20:19:18 UTC'),
+                    'created_at' => '2012-11-10T00:00:00+00:00',
+                    'updated_at' => '2019-06-21T20:19:18+00:00',
                 ],
+                'serialization_group' => 'sonata_search',
+                'user_data' => $this->getUser(),
             ],
             'without_group' => [
                 'expected' => [
                     'username' => 'johndoe',
+                    'username_canonical' => 'username_canonical_for_tests',
+                    'email' => 'test@sonata.pl',
+                    'email_canonical' => 'email_canonical_for_tests',
                     'enabled' => true,
+                    'plain_password' => 'some_plain_password',
+                    'last_login' => '2020-06-21T20:19:18+00:00',
+                    //'locked' => false,
+                    'confirmation_token' => 'confirmation_token_for_tests',
+                    'password_requested_at' => '2020-05-21T20:19:18+00:00',
                     'roles' => ['ROLE_LAZY'],
                     'date_of_birth' => '1986-03-22T18:45:00-03:00',
                     'firstname' => 'Incog',
@@ -217,34 +235,47 @@ class SerializationTest extends TestCase
                     'updated_at' => '2019-06-21T20:19:18+00:00',
                 ],
                 'serialization_group' => null,
-                'user_data' => [
-                    'username' => 'johndoe',
-                    'enabled' => true,
-                    'roles' => ['ROLE_LAZY'],
-                    'date_of_birth' => new \DateTime('1986-03-22 18:45:00 GMT-3'),
-                    'firstname' => 'Incog',
-                    'lastname' => 'Nito',
-                    'website' => 'https://en.wikipedia.org/wiki/Incognito',
-                    'biography' => 'Once upon a time ...',
-                    'gender' => User::GENDER_UNKNOWN,
-                    'locale' => 'es_AR',
-                    'timezone' => 'America/Argentina/Buenos_Aires',
-                    'phone' => '0054 9 11 12345678',
-                    'facebook_uid' => '0123456789a',
-                    'facebook_name' => 'LifeInvader',
-                    'facebook_data' => ['motto' => 'I\'m a teapot'],
-                    'twitter_uid' => '0123456789b',
-                    'twitter_name' => 'Birdy',
-                    'twitter_data' => ['ancestor' => 'Dinosaur'],
-                    'gplus_uid' => '0123456789c',
-                    'gplus_name' => 'EmptyResultSet',
-                    'gplus_data' => ['users_count' => '-'],
-                    'token' => 'some_secure_token',
-                    'two_step_verification_code' => 'baby/steps',
-                    'created_at' => new \DateTime('2012-11-10 00:00:00 UTC'),
-                    'updated_at' => new \DateTime('2019-06-21 20:19:18 UTC'),
-                ],
+                'user_data' => $this->getUser(),
             ],
+        ];
+    }
+
+    protected function getUser()
+    {
+        return [
+            'username' => 'johndoe',
+            'username_canonical' => 'username_canonical_for_tests',
+            'email' => 'test@sonata.pl',
+            'email_canonical' => 'email_canonical_for_tests',
+            'enabled' => true,
+            'plain_password' => 'some_plain_password',
+            'last_login' => new \DateTime('2020-06-21 20:19:18 UTC'),
+            //'locked' => false,
+            'confirmation_token' => 'confirmation_token_for_tests',
+            'password_requested_at' => new \DateTime('2020-05-21 20:19:18 UTC'),
+            'roles' => ['ROLE_LAZY'],
+            'date_of_birth' => new \DateTime('1986-03-22 18:45:00 GMT-3'),
+            'firstname' => 'Incog',
+            'lastname' => 'Nito',
+            'website' => 'https://en.wikipedia.org/wiki/Incognito',
+            'biography' => 'Once upon a time ...',
+            'gender' => User::GENDER_UNKNOWN,
+            'locale' => 'es_AR',
+            'timezone' => 'America/Argentina/Buenos_Aires',
+            'phone' => '0054 9 11 12345678',
+            'facebook_uid' => '0123456789a',
+            'facebook_name' => 'LifeInvader',
+            'facebook_data' => ['motto' => 'I\'m a teapot'],
+            'twitter_uid' => '0123456789b',
+            'twitter_name' => 'Birdy',
+            'twitter_data' => ['ancestor' => 'Dinosaur'],
+            'gplus_uid' => '0123456789c',
+            'gplus_name' => 'EmptyResultSet',
+            'gplus_data' => ['users_count' => '-'],
+            'token' => 'some_secure_token',
+            'two_step_verification_code' => 'baby/steps',
+            'created_at' => new \DateTime('2012-11-10 00:00:00 UTC'),
+            'updated_at' => new \DateTime('2019-06-21 20:19:18 UTC'),
         ];
     }
 }

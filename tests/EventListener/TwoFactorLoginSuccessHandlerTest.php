@@ -11,12 +11,12 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-use FOS\UserBundle\Model\UserManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Sonata\GoogleAuthenticator\GoogleAuthenticator;
 use Sonata\UserBundle\Entity\BaseUser;
 use Sonata\UserBundle\EventListener\TwoFactorLoginSuccessHandler;
 use Sonata\UserBundle\GoogleAuthenticator\Helper;
+use Sonata\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

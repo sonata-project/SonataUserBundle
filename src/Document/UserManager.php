@@ -13,14 +13,13 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Document;
 
-use FOS\UserBundle\Doctrine\UserManager as BaseUserManager;
 use Sonata\DatagridBundle\Pager\PagerInterface;
-use Sonata\UserBundle\Model\UserManagerInterface;
+use Sonata\UserBundle\Model\UserManager as BaseUserManager;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
  */
-class UserManager extends BaseUserManager implements UserManagerInterface
+class UserManager extends BaseUserManager
 {
     /**
      * {@inheritdoc}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="sonata.user.util.canonicalizer.default" class="Sonata\UserBundle\Util\Canonicalizer" public="false"/>
+        <service id="sonata.user.util.token_generator.default" class="Sonata\UserBundle\Util\TokenGenerator" public="false"/>
+        <service id="Sonata\UserBundle\Util\TokenGeneratorInterface" alias="sonata.user.util.token_generator" public="false"/>
+        <service id="sonata.user.util.password_updater" class="Sonata\UserBundle\Util\PasswordUpdater" public="false">
+            <argument type="service" id="security.encoder_factory"/>
+        </service>
+        <service id="Sonata\UserBundle\Util\PasswordUpdaterInterface" alias="sonata.user.util.password_updater" public="false"/>
+        <service id="sonata.user.util.canonical_fields_updater" class="Sonata\UserBundle\Util\CanonicalFieldsUpdater" public="false">
+            <argument type="service" id="sonata.user.util.username_canonicalizer"/>
+            <argument type="service" id="sonata.user.util.email_canonicalizer"/>
+        </service>
+        <service id="Sonata\UserBundle\Util\CanonicalFieldsUpdater" alias="sonata.user.util.canonical_fields_updater" public="false"/>
+    </services>
+</container>

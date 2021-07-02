@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\EventListener;
 
-use FOS\UserBundle\Model\UserManagerInterface;
 use Sonata\GoogleAuthenticator\GoogleQrUrl;
 use Sonata\UserBundle\GoogleAuthenticator\Helper;
 use Sonata\UserBundle\Model\User;
+use Sonata\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

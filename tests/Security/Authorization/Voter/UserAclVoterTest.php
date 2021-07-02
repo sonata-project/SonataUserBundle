@@ -28,10 +28,10 @@ class UserAclVoterTest extends TestCase
     public function testVoteWillAbstainWhenAUserIsLoggedInAndASuperAdmin(): void
     {
         // Given
-        $user = $this->createMock(\FOS\UserBundle\Model\UserInterface::class);
+        $user = $this->createMock(\Sonata\UserBundle\Model\UserInterface::class);
         $user->method('isSuperAdmin')->willReturn(true);
 
-        $loggedInUser = $this->createMock(\FOS\UserBundle\Model\UserInterface::class);
+        $loggedInUser = $this->createMock(\Sonata\UserBundle\Model\UserInterface::class);
         $loggedInUser->method('isSuperAdmin')->willReturn(true);
 
         $token = $this->createMock(TokenInterface::class);
@@ -54,10 +54,10 @@ class UserAclVoterTest extends TestCase
     public function testVoteWillDenyAccessWhenAUserIsLoggedInAndNotASuperAdmin(): void
     {
         // Given
-        $user = $this->createMock(\FOS\UserBundle\Model\UserInterface::class);
+        $user = $this->createMock(\Sonata\UserBundle\Model\UserInterface::class);
         $user->method('isSuperAdmin')->willReturn(true);
 
-        $loggedInUser = $this->createMock(\FOS\UserBundle\Model\UserInterface::class);
+        $loggedInUser = $this->createMock(\Sonata\UserBundle\Model\UserInterface::class);
         $loggedInUser->method('isSuperAdmin')->willReturn(false);
 
         $token = $this->createMock(TokenInterface::class);
@@ -80,7 +80,7 @@ class UserAclVoterTest extends TestCase
     public function testVoteWillAbstainWhenAUserIsNotAvailable(): void
     {
         // Given
-        $user = $this->createMock(\FOS\UserBundle\Model\UserInterface::class);
+        $user = $this->createMock(\Sonata\UserBundle\Model\UserInterface::class);
         $user->method('isSuperAdmin')->willReturn(true);
 
         $loggedInUser = null;
@@ -105,7 +105,7 @@ class UserAclVoterTest extends TestCase
     public function testVoteWillAbstainWhenAUserIsLoggedInButIsNotAFOSUser(): void
     {
         // Given
-        $user = $this->createMock(\FOS\UserBundle\Model\UserInterface::class);
+        $user = $this->createMock(\Sonata\UserBundle\Model\UserInterface::class);
         $user->method('isSuperAdmin')->willReturn(true);
 
         $loggedInUser = $this->createMock(UserInterface::class);

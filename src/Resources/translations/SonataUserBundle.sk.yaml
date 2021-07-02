@@ -1,0 +1,29 @@
+security:
+    login:
+        remember_me: 'Zapamätať si'
+        submit: Prihlásenie
+
+resetting:
+#    check_email: 'Postup pre zmenu hesla bol zaslaný na adresu %email%. Správa obsahuje link, na ktorú treba kliknúť pre úspešné dokončenie zmeny hesla.'
+    request:
+        username: 'Používateľské meno alebo emailová adresa'
+        submit: 'Obnova hesla'
+    reset:
+        submit: 'Zmeniť heslo'
+    flash:
+        success: 'Heslo bolo úspešne zmenené.'
+    email:
+        subject: 'Vynulovanie hesla'
+        message: |
+            Ahoj %username%!
+
+            Pre zmenu hesla, klikni prosím na nasledovný link: %confirmationUrl%
+
+            S pozdravom,
+            Realizačný tím
+
+form:
+    group_name: 'Názov skupiny'
+    current_password: 'Súčasné heslo'
+    new_password: 'Nové heslo'
+    new_password_confirmation: 'Potvrdenie hesla'

@@ -1,0 +1,34 @@
+security:
+    login:
+        remember_me: 'Zapamatovat si'
+        submit: 'Přihlásit se'
+
+resetting:
+    check_email: |
+        Byl Vám zaslán e-mail s návodem na nastavení nového hesla. E-mail obsahuje odkaz, na který je nutné kliknout pro nastavení nového hesla.
+        O nastavení nového hesla můžete žádat pouze každých %tokenLifetime% hodin.
+
+        Pokud jste e-mail neobdrželi, zkontrolujte prosím složku se spamem nebo zkuste obnovování hesla zopakovat.
+
+    request:
+        username: 'Uživatelské jméno nebo e-mail'
+        submit: 'Nastavit nové heslo'
+    reset:
+        submit: 'Změnit heslo'
+    flash:
+        success: 'Heslo bylo úspěšně změněno.'
+    email:
+        subject: 'Nastavení nového hesla'
+        message: |
+            Dobrý den, %username%!
+
+            Pro nastavení nového hesla prosím klikněte na tento odkaz: %confirmationUrl%
+
+            S pozdravem,
+            realizační tým.
+
+form:
+    group_name: 'Název skupiny'
+    current_password: 'Současné heslo'
+    new_password: 'Nové heslo'
+    new_password_confirmation: 'Potvrzení nového hesla'
