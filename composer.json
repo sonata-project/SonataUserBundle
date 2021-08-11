@@ -41,7 +41,7 @@
         "symfony/mime": "^4.4.10 || ^5.1",
         "symfony/options-resolver": "^4.4 || ^5.1",
         "symfony/security-acl": "^3.0",
-        "symfony/security-core": "^4.4",
+        "symfony/security-core": "^4.4.23",
         "symfony/translation": "^4.4",
         "twig/twig": "^2.9"
     },
@@ -65,8 +65,8 @@
         "nelmio/api-doc-bundle": "^2.13.4 || ^3.6",
         "sonata-project/doctrine-orm-admin-bundle": "^3.18",
         "sonata-project/google-authenticator": "^2.1",
-        "symfony/browser-kit": "^4.4 || ^5.1",
-        "symfony/phpunit-bridge": "^5.1.8",
+        "symfony/browser-kit": "^4.4 || ^5.3",
+        "symfony/phpunit-bridge": "^5.3",
         "symfony/swiftmailer-bundle": "^3.4"
     },
     "suggest": {
