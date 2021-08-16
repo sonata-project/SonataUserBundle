@@ -13,7 +13,7 @@ also some Sonata dependencies that need to be installed and configured beforehan
 
 Required dependencies:
 
-* `SonataAdminBundle <https://docs.sonata-project.org/projects/SonataAdminBundle/en/3.x>`_
+* `SonataAdminBundle <https://docs.sonata-project.org/projects/SonataAdminBundle/en/3.x/>`_
 
 Optional dependencies:
 
