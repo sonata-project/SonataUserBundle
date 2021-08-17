@@ -13,7 +13,7 @@ also some Sonata dependencies that need to be installed and configured beforehan
 
 Required dependencies:
 
-* `SonataAdminBundle <https://sonata-project.org/bundles/admin>`_
+* `SonataAdminBundle <https://docs.sonata-project.org/projects/SonataAdminBundle/en/3.x/>`_
 
 Optional dependencies:
 
@@ -21,9 +21,9 @@ Optional dependencies:
 
 And the persistence bundle (choose one):
 
-* `SonataDoctrineOrmAdminBundle <https://sonata-project.org/bundles/doctrine-orm-admin>`_
-* `SonataDoctrinePHPCRAdminBundle <https://sonata-project.org/bundles/doctrine-phpcr-admin>`_
-* `SonataDoctrineMongoDBAdminBundle <https://sonata-project.org/bundles/mongo-admin>`_
+* `SonataDoctrineOrmAdminBundle <https://docs.sonata-project.org/projects/SonataDoctrineORMAdminBundle/en/3.x/>`_
+* `SonataDoctrinePHPCRAdminBundle <https://docs.sonata-project.org/projects/SonataDoctrinePhpcrAdminBundle/en/2.x/>`_
+* `SonataDoctrineMongoDBAdminBundle <https://docs.sonata-project.org/projects/SonataDoctrineMongoDBAdminBundle/en/3.x/>`_
 
 Follow also their configuration step; you will find everything you need in
 their own installation chapter.
