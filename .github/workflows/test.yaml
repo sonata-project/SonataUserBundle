@@ -37,15 +37,15 @@ jobs:
                       dependencies: lowest
                       allowed-to-fail: false
                       variant: normal
-                    - php-version: '7.4'
+                    - php-version: '8.0'
                       dependencies: highest
                       allowed-to-fail: false
                       variant: 'friendsofsymfony/user-bundle:"2.*"'
-                    - php-version: '7.4'
+                    - php-version: '8.0'
                       dependencies: highest
                       allowed-to-fail: false
                       variant: 'sonata-project/admin-bundle:"3.*"'
-                    - php-version: '7.4'
+                    - php-version: '8.0'
                       dependencies: highest
                       allowed-to-fail: false
                       symfony-require: 4.4.*
