@@ -9,3 +9,11 @@ parameters:
 			message: "#^Call to static method getInstance\\(\\) on an unknown class Sonata\\\\EasyExtendsBundle\\\\Mapper\\\\DoctrineCollector\\.$#"
 			count: 1
 			path: src/DependencyInjection/SonataUserExtension.php
+
+		- # We're using a BC-layer for "doctrine/common:^3"
+			message: "#^Class Doctrine\\\\Common\\\\Persistence\\\\Event\\\\LifecycleEventArgs not found\\.$#"
+			path: ./
+
+		- # We're using a BC-layer for "doctrine/common:^3"
+			message: "#^Class Doctrine\\\\Common\\\\Persistence\\\\ObjectManager not found\\.$#"
+			path: ./
