@@ -64,7 +64,7 @@ class RequestActionTest extends TestCase
     {
         $request = new Request();
 
-        $this->authorizationChecker->expects($this->once())
+        $this->authorizationChecker->expects(static::once())
             ->method('isGranted')
             ->willReturn(true);
 
@@ -76,8 +76,8 @@ class RequestActionTest extends TestCase
         $action = $this->getAction();
         $result = $action($request);
 
-        $this->assertInstanceOf(RedirectResponse::class, $result);
-        $this->assertSame('/foo', $result->getTargetUrl());
+        static::assertInstanceOf(RedirectResponse::class, $result);
+        static::assertSame('/foo', $result->getTargetUrl());
     }
 
     public function testUnauthenticated(): void
@@ -89,11 +89,11 @@ class RequestActionTest extends TestCase
             'admin_pool' => $this->pool,
         ];
 
-        $this->authorizationChecker->expects($this->once())
+        $this->authorizationChecker->expects(static::once())
             ->method('isGranted')
             ->willReturn(false);
 
-        $this->templating->expects($this->once())
+        $this->templating->expects(static::once())
             ->method('render')
             ->with('@SonataUser/Admin/Security/Resetting/request.html.twig', $parameters)
             ->willReturn('template content');
@@ -106,7 +106,7 @@ class RequestActionTest extends TestCase
         $action = $this->getAction();
         $result = $action($request);
 
-        $this->assertSame('template content', $result->getContent());
+        static::assertSame('template content', $result->getContent());
     }
 
     private function getAction(): RequestAction

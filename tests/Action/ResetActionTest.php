@@ -116,7 +116,7 @@ class ResetActionTest extends TestCase
     {
         $request = new Request();
 
-        $this->authorizationChecker->expects($this->once())
+        $this->authorizationChecker->expects(static::once())
             ->method('isGranted')
             ->willReturn(true);
 
@@ -128,8 +128,8 @@ class ResetActionTest extends TestCase
         $action = $this->getAction();
         $result = $action($request, 'token');
 
-        $this->assertInstanceOf(RedirectResponse::class, $result);
-        $this->assertSame('/foo', $result->getTargetUrl());
+        static::assertInstanceOf(RedirectResponse::class, $result);
+        static::assertSame('/foo', $result->getTargetUrl());
     }
 
     public function testUnknownToken(): void
@@ -170,8 +170,8 @@ class ResetActionTest extends TestCase
         $action = $this->getAction();
         $result = $action($request, 'token');
 
-        $this->assertInstanceOf(RedirectResponse::class, $result);
-        $this->assertSame('/foo', $result->getTargetUrl());
+        static::assertInstanceOf(RedirectResponse::class, $result);
+        static::assertSame('/foo', $result->getTargetUrl());
     }
 
     public function testReset(): void
@@ -197,7 +197,7 @@ class ResetActionTest extends TestCase
         $form
             ->method('isSubmitted')
             ->willReturn(false);
-        $form->expects($this->once())
+        $form->expects(static::once())
             ->method('createView')
             ->willReturn('Form View');
 
@@ -206,7 +206,7 @@ class ResetActionTest extends TestCase
             ->with('user-token')
             ->willReturn($user);
 
-        $this->formFactory->expects($this->once())
+        $this->formFactory->expects(static::once())
             ->method('createForm')
             ->willReturn($form);
 
@@ -228,7 +228,7 @@ class ResetActionTest extends TestCase
         $action = $this->getAction();
         $result = $action($request, 'user-token');
 
-        $this->assertSame('template content', $result->getContent());
+        static::assertSame('template content', $result->getContent());
     }
 
     public function testPostedReset(): void
@@ -239,15 +239,15 @@ class ResetActionTest extends TestCase
         $user
             ->method('isPasswordRequestNonExpired')
             ->willReturn(true);
-        $user->expects($this->once())
+        $user->expects(static::once())
             ->method('setLastLogin');
-        $user->expects($this->once())
+        $user->expects(static::once())
             ->method('setConfirmationToken')
             ->with(null);
-        $user->expects($this->once())
+        $user->expects(static::once())
             ->method('setPasswordRequestedAt')
             ->with(null);
-        $user->expects($this->once())
+        $user->expects(static::once())
             ->method('setEnabled')
             ->with(true);
 
@@ -269,15 +269,15 @@ class ResetActionTest extends TestCase
             ->method('findUserByConfirmationToken')
             ->with('token')
             ->willReturn($user);
-        $this->userManager->expects($this->once())
+        $this->userManager->expects(static::once())
             ->method('updateUser')
             ->with($user);
 
-        $this->loginManager->expects($this->once())
+        $this->loginManager->expects(static::once())
             ->method('logInUser')
-            ->with('default', $user, $this->isInstanceOf(Response::class));
+            ->with('default', $user, static::isInstanceOf(Response::class));
 
-        $this->formFactory->expects($this->once())
+        $this->formFactory->expects(static::once())
             ->method('createForm')
             ->willReturn($form);
 
@@ -289,9 +289,9 @@ class ResetActionTest extends TestCase
         $action = $this->getAction();
         $result = $action($request, 'token');
 
-        $this->assertInstanceOf(RedirectResponse::class, $result);
-        $this->assertSame('/foo', $result->getTargetUrl());
-        $this->assertSame([
+        static::assertInstanceOf(RedirectResponse::class, $result);
+        static::assertSame('/foo', $result->getTargetUrl());
+        static::assertSame([
             'success' => ['resetting.flash.success'],
         ], $this->session->getFlashBag()->all());
     }

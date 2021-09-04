@@ -115,7 +115,7 @@ class SendEmailActionTest extends TestCase
             ->with('bar')
             ->willReturn(null);
 
-        $this->mailer->expects($this->never())
+        $this->mailer->expects(static::never())
             ->method('sendResettingEmailMessage');
 
         $this->urlGenerator
@@ -126,8 +126,8 @@ class SendEmailActionTest extends TestCase
         $action = $this->getAction();
         $result = $action($request);
 
-        $this->assertInstanceOf(RedirectResponse::class, $result);
-        $this->assertSame('/foo', $result->getTargetUrl());
+        static::assertInstanceOf(RedirectResponse::class, $result);
+        static::assertSame('/foo', $result->getTargetUrl());
     }
 
     public function testPasswordRequestNonExpired(): void
@@ -144,7 +144,7 @@ class SendEmailActionTest extends TestCase
             ->with('bar')
             ->willReturn($user);
 
-        $this->mailer->expects($this->never())
+        $this->mailer->expects(static::never())
             ->method('sendResettingEmailMessage');
 
         $this->urlGenerator
@@ -155,8 +155,8 @@ class SendEmailActionTest extends TestCase
         $action = $this->getAction();
         $result = $action($request);
 
-        $this->assertInstanceOf(RedirectResponse::class, $result);
-        $this->assertSame('/foo', $result->getTargetUrl());
+        static::assertInstanceOf(RedirectResponse::class, $result);
+        static::assertSame('/foo', $result->getTargetUrl());
     }
 
     public function testAccountLocked(): void
@@ -176,7 +176,7 @@ class SendEmailActionTest extends TestCase
             ->with('bar')
             ->willReturn($user);
 
-        $this->mailer->expects($this->never())
+        $this->mailer->expects(static::never())
             ->method('sendResettingEmailMessage');
 
         $this->urlGenerator
@@ -187,8 +187,8 @@ class SendEmailActionTest extends TestCase
         $action = $this->getAction();
         $result = $action($request);
 
-        $this->assertInstanceOf(RedirectResponse::class, $result);
-        $this->assertSame('/foo', $result->getTargetUrl());
+        static::assertInstanceOf(RedirectResponse::class, $result);
+        static::assertSame('/foo', $result->getTargetUrl());
     }
 
     public function testEmailSent(): void
@@ -223,11 +223,11 @@ class SendEmailActionTest extends TestCase
             ->with('bar')
             ->willReturn($user);
 
-        $this->tokenGenerator->expects($this->once())
+        $this->tokenGenerator->expects(static::once())
             ->method('generateToken')
             ->willReturn('user-token');
 
-        $this->mailer->expects($this->once())
+        $this->mailer->expects(static::once())
             ->method('sendResettingEmailMessage');
 
         $this->urlGenerator
@@ -242,8 +242,8 @@ class SendEmailActionTest extends TestCase
         $action = $this->getAction();
         $result = $action($request);
 
-        $this->assertInstanceOf(RedirectResponse::class, $result);
-        $this->assertSame('/check-email', $result->getTargetUrl());
+        static::assertInstanceOf(RedirectResponse::class, $result);
+        static::assertSame('/check-email', $result->getTargetUrl());
     }
 
     private function getAction(): SendEmailAction

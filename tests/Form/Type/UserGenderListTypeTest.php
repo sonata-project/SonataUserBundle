@@ -33,6 +33,6 @@ final class UserGenderListTypeTest extends TestCase
             UserGenderListType::class
         );
 
-        $this->assertNotNull($userGenderListType);
+        static::assertNotNull($userGenderListType);
     }
 }
