@@ -22,6 +22,7 @@ use FOS\UserBundle\Model\GroupInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Operation;
 use Sonata\DatagridBundle\Pager\PagerInterface;
+use Sonata\UserBundle\Form\Type\ApiUserType;
 use Sonata\UserBundle\Model\GroupManagerInterface;
 use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
@@ -400,7 +401,7 @@ class UserController
     {
         $user = $id ? $this->getUser($id) : null;
 
-        $form = $this->formFactory->createNamed(null, 'sonata_user_api_form_user', $user, [
+        $form = $this->formFactory->createNamed(null, ApiUserType::class, $user, [
             'csrf_protection' => false,
         ]);
 

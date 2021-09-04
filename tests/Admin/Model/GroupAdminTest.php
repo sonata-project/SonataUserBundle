@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Admin\Model;
 
+use FOS\UserBundle\Model\Group;
 use PHPUnit\Framework\TestCase;
 use Sonata\AdminBundle\Controller\CRUDController;
 use Sonata\UserBundle\Admin\Model\GroupAdmin;
@@ -24,7 +25,7 @@ final class GroupAdminTest extends TestCase
 {
     public function testInstance(): void
     {
-        $admin = new GroupAdmin('admin.group', 'Sonata\UserBundle\Model\Group', CRUDController::class);
+        $admin = new GroupAdmin('admin.group', Group::class, CRUDController::class);
 
         static::assertNotEmpty($admin);
     }

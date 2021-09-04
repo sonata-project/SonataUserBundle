@@ -90,11 +90,11 @@ final class AppKernel extends Kernel
         }
     }
 
-    protected function configureContainer(ContainerBuilder $containerBuilder, LoaderInterface $loader): void
+    protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
     {
         $loader->load(__DIR__.'/Resources/config/config.yml');
         $loader->load(__DIR__.'/Resources/config/security.yml');
-        $containerBuilder->setParameter('app.base_dir', $this->getBaseDir());
+        $container->setParameter('app.base_dir', $this->getBaseDir());
     }
 
     private function getBaseDir(): string
