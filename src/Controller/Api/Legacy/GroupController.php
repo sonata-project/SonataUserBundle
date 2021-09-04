@@ -21,6 +21,7 @@ use FOS\RestBundle\View\View as FOSRestView;
 use FOS\UserBundle\Model\GroupInterface;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sonata\DatagridBundle\Pager\PagerInterface;
+use Sonata\UserBundle\Form\Type\ApiGroupType;
 use Sonata\UserBundle\Model\GroupManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
@@ -211,7 +212,7 @@ class GroupController
         $groupClassName = $this->groupManager->getClass();
         $group = $id ? $this->getGroup($id) : new $groupClassName('');
 
-        $form = $this->formFactory->createNamed(null, 'sonata_user_api_form_group', $group, [
+        $form = $this->formFactory->createNamed(null, ApiGroupType::class, $group, [
             'csrf_protection' => false,
         ]);
 
