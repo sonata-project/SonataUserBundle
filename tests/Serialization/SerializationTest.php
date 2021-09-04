@@ -76,7 +76,7 @@ class SerializationTest extends TestCase
         ksort($expected);
         ksort($jsonDecoded);
 
-        $this->assertSame($expected, $jsonDecoded);
+        static::assertSame($expected, $jsonDecoded);
     }
 
     public function getUserData(): iterable

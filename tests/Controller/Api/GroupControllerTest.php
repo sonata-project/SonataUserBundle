@@ -38,20 +38,20 @@ class GroupControllerTest extends TestCase
         $groupManager = $this->createMock(GroupManagerInterface::class);
         $pager = $this->createStub(PagerInterface::class);
         $pager->method('getResults')->willReturn([$group]);
-        $groupManager->expects($this->once())->method('getPager')->willReturn($pager);
+        $groupManager->expects(static::once())->method('getPager')->willReturn($pager);
 
         $paramFetcher = $this->createMock(ParamFetcherInterface::class);
 
-        $paramFetcher->expects($this->exactly(3))->method('get')->willReturn(1, 10, null);
-        $paramFetcher->expects($this->once())->method('all')->willReturn([]);
+        $paramFetcher->expects(static::exactly(3))->method('get')->willReturn(1, 10, null);
+        $paramFetcher->expects(static::once())->method('all')->willReturn([]);
 
-        $this->assertSame([$group], $this->createGroupController(null, $groupManager)->getGroupsAction($paramFetcher)->getResults());
+        static::assertSame([$group], $this->createGroupController(null, $groupManager)->getGroupsAction($paramFetcher)->getResults());
     }
 
     public function testGetGroupAction(): void
     {
         $group = $this->createMock(GroupInterface::class);
-        $this->assertSame($group, $this->createGroupController($group)->getGroupAction(1));
+        static::assertSame($group, $this->createGroupController($group)->getGroupAction(1));
     }
 
     /**
@@ -83,37 +83,37 @@ class GroupControllerTest extends TestCase
         $group = $this->createMock(GroupInterface::class);
 
         $groupManager = $this->createMock(GroupManagerInterface::class);
-        $groupManager->expects($this->once())->method('getClass')->willReturn(BaseGroup::class);
-        $groupManager->expects($this->once())->method('updateGroup')->willReturn($group);
+        $groupManager->expects(static::once())->method('getClass')->willReturn(BaseGroup::class);
+        $groupManager->expects(static::once())->method('updateGroup')->willReturn($group);
 
         $form = $this->getMockBuilder(Form::class)->disableOriginalConstructor()->getMock();
-        $form->expects($this->once())->method('handleRequest');
-        $form->expects($this->once())->method('isValid')->willReturn(true);
-        $form->expects($this->once())->method('getData')->willReturn($group);
+        $form->expects(static::once())->method('handleRequest');
+        $form->expects(static::once())->method('isValid')->willReturn(true);
+        $form->expects(static::once())->method('getData')->willReturn($group);
 
         $formFactory = $this->createMock(FormFactoryInterface::class);
-        $formFactory->expects($this->once())->method('createNamed')->willReturn($form);
+        $formFactory->expects(static::once())->method('createNamed')->willReturn($form);
 
         $view = $this->createGroupController(null, $groupManager, $formFactory)->postGroupAction(new Request());
 
-        $this->assertInstanceOf(View::class, $view);
+        static::assertInstanceOf(View::class, $view);
     }
 
     public function testPostGroupInvalidAction(): void
     {
         $groupManager = $this->createMock(GroupManagerInterface::class);
-        $groupManager->expects($this->once())->method('getClass')->willReturn(BaseGroup::class);
+        $groupManager->expects(static::once())->method('getClass')->willReturn(BaseGroup::class);
 
         $form = $this->getMockBuilder(Form::class)->disableOriginalConstructor()->getMock();
-        $form->expects($this->once())->method('handleRequest');
-        $form->expects($this->once())->method('isValid')->willReturn(false);
+        $form->expects(static::once())->method('handleRequest');
+        $form->expects(static::once())->method('isValid')->willReturn(false);
 
         $formFactory = $this->createMock(FormFactoryInterface::class);
-        $formFactory->expects($this->once())->method('createNamed')->willReturn($form);
+        $formFactory->expects(static::once())->method('createNamed')->willReturn($form);
 
         $view = $this->createGroupController(null, $groupManager, $formFactory)->postGroupAction(new Request());
 
-        $this->assertInstanceOf(FormInterface::class, $view);
+        static::assertInstanceOf(FormInterface::class, $view);
     }
 
     public function testPutGroupAction(): void
@@ -121,21 +121,21 @@ class GroupControllerTest extends TestCase
         $group = $this->createMock(GroupInterface::class);
 
         $groupManager = $this->createMock(GroupManagerInterface::class);
-        $groupManager->expects($this->once())->method('getClass')->willReturn(BaseGroup::class);
-        $groupManager->expects($this->once())->method('findGroupBy')->willReturn($group);
-        $groupManager->expects($this->once())->method('updateGroup')->willReturn($group);
+        $groupManager->expects(static::once())->method('getClass')->willReturn(BaseGroup::class);
+        $groupManager->expects(static::once())->method('findGroupBy')->willReturn($group);
+        $groupManager->expects(static::once())->method('updateGroup')->willReturn($group);
 
         $form = $this->getMockBuilder(Form::class)->disableOriginalConstructor()->getMock();
-        $form->expects($this->once())->method('handleRequest');
-        $form->expects($this->once())->method('isValid')->willReturn(true);
-        $form->expects($this->once())->method('getData')->willReturn($group);
+        $form->expects(static::once())->method('handleRequest');
+        $form->expects(static::once())->method('isValid')->willReturn(true);
+        $form->expects(static::once())->method('getData')->willReturn($group);
 
         $formFactory = $this->createMock(FormFactoryInterface::class);
-        $formFactory->expects($this->once())->method('createNamed')->willReturn($form);
+        $formFactory->expects(static::once())->method('createNamed')->willReturn($form);
 
         $view = $this->createGroupController($group, $groupManager, $formFactory)->putGroupAction(1, new Request());
 
-        $this->assertInstanceOf(View::class, $view);
+        static::assertInstanceOf(View::class, $view);
     }
 
     public function testPutGroupInvalidAction(): void
@@ -143,19 +143,19 @@ class GroupControllerTest extends TestCase
         $group = $this->createMock(GroupInterface::class);
 
         $groupManager = $this->createMock(GroupManagerInterface::class);
-        $groupManager->expects($this->once())->method('getClass')->willReturn(BaseGroup::class);
-        $groupManager->expects($this->once())->method('findGroupBy')->willReturn($group);
+        $groupManager->expects(static::once())->method('getClass')->willReturn(BaseGroup::class);
+        $groupManager->expects(static::once())->method('findGroupBy')->willReturn($group);
 
         $form = $this->getMockBuilder(Form::class)->disableOriginalConstructor()->getMock();
-        $form->expects($this->once())->method('handleRequest');
-        $form->expects($this->once())->method('isValid')->willReturn(false);
+        $form->expects(static::once())->method('handleRequest');
+        $form->expects(static::once())->method('isValid')->willReturn(false);
 
         $formFactory = $this->createMock(FormFactoryInterface::class);
-        $formFactory->expects($this->once())->method('createNamed')->willReturn($form);
+        $formFactory->expects(static::once())->method('createNamed')->willReturn($form);
 
         $view = $this->createGroupController($group, $groupManager, $formFactory)->putGroupAction(1, new Request());
 
-        $this->assertInstanceOf(FormInterface::class, $view);
+        static::assertInstanceOf(FormInterface::class, $view);
     }
 
     public function testDeleteGroupAction(): void
@@ -163,12 +163,12 @@ class GroupControllerTest extends TestCase
         $group = $this->createMock(GroupInterface::class);
 
         $groupManager = $this->createMock(GroupManagerInterface::class);
-        $groupManager->expects($this->once())->method('findGroupBy')->willReturn($group);
-        $groupManager->expects($this->once())->method('deleteGroup')->willReturn($group);
+        $groupManager->expects(static::once())->method('findGroupBy')->willReturn($group);
+        $groupManager->expects(static::once())->method('deleteGroup')->willReturn($group);
 
         $view = $this->createGroupController($group, $groupManager)->deleteGroupAction(1);
 
-        $this->assertSame(['deleted' => true], $view);
+        static::assertSame(['deleted' => true], $view);
     }
 
     public function testDeleteGroupInvalidAction(): void
@@ -176,8 +176,8 @@ class GroupControllerTest extends TestCase
         $this->expectException(NotFoundHttpException::class);
 
         $groupManager = $this->createMock(GroupManagerInterface::class);
-        $groupManager->expects($this->once())->method('findGroupBy')->willReturn(null);
-        $groupManager->expects($this->never())->method('deleteGroup');
+        $groupManager->expects(static::once())->method('findGroupBy')->willReturn(null);
+        $groupManager->expects(static::never())->method('deleteGroup');
 
         $this->createGroupController(null, $groupManager)->deleteGroupAction(1);
     }
@@ -191,7 +191,7 @@ class GroupControllerTest extends TestCase
             $groupManager = $this->createMock(GroupManagerInterface::class);
         }
         if (null !== $group) {
-            $groupManager->expects($this->once())->method('findGroupBy')->willReturn($group);
+            $groupManager->expects(static::once())->method('findGroupBy')->willReturn($group);
         }
         if (null === $formFactory) {
             $formFactory = $this->createMock(FormFactoryInterface::class);

@@ -70,11 +70,11 @@ final class AdminRolesBuilderTest extends TestCase
         $this->admin->method('getSecurityInformation')
             ->willReturn($this->securityInformation);
 
-        $this->pool->expects($this->once())
+        $this->pool->expects(static::once())
             ->method('getAdminServiceIds')
             ->willReturn(['sonata.admin.bar']);
 
-        $this->pool->expects($this->once())
+        $this->pool->expects(static::once())
             ->method('getInstance')
             ->with('sonata.admin.bar')
             ->willReturn($this->admin);
@@ -92,7 +92,7 @@ final class AdminRolesBuilderTest extends TestCase
             'ADMIN' => 'ADMIN',
         ];
 
-        $this->assertSame($expected, $rolesBuilder->getPermissionLabels());
+        static::assertSame($expected, $rolesBuilder->getPermissionLabels());
     }
 
     public function testGetRoles(): void
@@ -115,11 +115,11 @@ final class AdminRolesBuilderTest extends TestCase
         $this->admin->method('getLabel')
             ->willReturn('Foo');
 
-        $this->pool->expects($this->once())
+        $this->pool->expects(static::once())
             ->method('getAdminServiceIds')
             ->willReturn(['sonata.admin.bar']);
 
-        $this->pool->expects($this->once())
+        $this->pool->expects(static::once())
             ->method('getInstance')
             ->with('sonata.admin.bar')
             ->willReturn($this->admin);
@@ -161,7 +161,7 @@ final class AdminRolesBuilderTest extends TestCase
             ],
         ];
 
-        $this->assertSame($expected, $rolesBuilder->getRoles());
+        static::assertSame($expected, $rolesBuilder->getRoles());
     }
 
     public function testGetAddExcludeAdmins(): void
@@ -173,6 +173,6 @@ final class AdminRolesBuilderTest extends TestCase
         );
         $rolesBuilder->addExcludeAdmin('sonata.admin.bar');
 
-        $this->assertSame(['sonata.admin.bar'], $rolesBuilder->getExcludeAdmins());
+        static::assertSame(['sonata.admin.bar'], $rolesBuilder->getExcludeAdmins());
     }
 }

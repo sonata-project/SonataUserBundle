@@ -40,19 +40,19 @@ class UserControllerTest extends TestCase
         $userManager = $this->createMock(UserManagerInterface::class);
         $pager = $this->createStub(PagerInterface::class);
         $pager->method('getResults')->willReturn([$user]);
-        $userManager->expects($this->once())->method('getPager')->willReturn($pager);
+        $userManager->expects(static::once())->method('getPager')->willReturn($pager);
 
         $paramFetcher = $this->createMock(ParamFetcherInterface::class);
-        $paramFetcher->expects($this->exactly(3))->method('get')->willReturn(1, 10, null);
-        $paramFetcher->expects($this->once())->method('all')->willReturn([]);
+        $paramFetcher->expects(static::exactly(3))->method('get')->willReturn(1, 10, null);
+        $paramFetcher->expects(static::once())->method('all')->willReturn([]);
 
-        $this->assertSame([$user], $this->createUserController(null, $userManager)->getUsersAction($paramFetcher)->getResults());
+        static::assertSame([$user], $this->createUserController(null, $userManager)->getUsersAction($paramFetcher)->getResults());
     }
 
     public function testGetUserAction(): void
     {
         $user = $this->createStub(UserInterface::class);
-        $this->assertSame($user, $this->createUserController($user)->getUserAction(1));
+        static::assertSame($user, $this->createUserController($user)->getUserAction(1));
     }
 
     /**
@@ -84,19 +84,19 @@ class UserControllerTest extends TestCase
         $user = $this->createMock(UserInterface::class);
 
         $userManager = $this->createMock(UserManagerInterface::class);
-        $userManager->expects($this->once())->method('updateUser')->willReturn($user);
+        $userManager->expects(static::once())->method('updateUser')->willReturn($user);
 
         $form = $this->getMockBuilder(Form::class)->disableOriginalConstructor()->getMock();
-        $form->expects($this->once())->method('handleRequest');
-        $form->expects($this->once())->method('isValid')->willReturn(true);
-        $form->expects($this->once())->method('getData')->willReturn($user);
+        $form->expects(static::once())->method('handleRequest');
+        $form->expects(static::once())->method('isValid')->willReturn(true);
+        $form->expects(static::once())->method('getData')->willReturn($user);
 
         $formFactory = $this->createMock(FormFactoryInterface::class);
-        $formFactory->expects($this->once())->method('createNamed')->willReturn($form);
+        $formFactory->expects(static::once())->method('createNamed')->willReturn($form);
 
         $view = $this->createUserController(null, $userManager, null, $formFactory)->postUserAction(new Request());
 
-        $this->assertInstanceOf(View::class, $view);
+        static::assertInstanceOf(View::class, $view);
     }
 
     public function testPostUserInvalidAction(): void
@@ -104,15 +104,15 @@ class UserControllerTest extends TestCase
         $userManager = $this->createMock(UserManagerInterface::class);
 
         $form = $this->getMockBuilder(Form::class)->disableOriginalConstructor()->getMock();
-        $form->expects($this->once())->method('handleRequest');
-        $form->expects($this->once())->method('isValid')->willReturn(false);
+        $form->expects(static::once())->method('handleRequest');
+        $form->expects(static::once())->method('isValid')->willReturn(false);
 
         $formFactory = $this->createMock(FormFactoryInterface::class);
-        $formFactory->expects($this->once())->method('createNamed')->willReturn($form);
+        $formFactory->expects(static::once())->method('createNamed')->willReturn($form);
 
         $view = $this->createUserController(null, $userManager, null, $formFactory)->postUserAction(new Request());
 
-        $this->assertInstanceOf(FormInterface::class, $view);
+        static::assertInstanceOf(FormInterface::class, $view);
     }
 
     public function testPutUserAction(): void
@@ -120,20 +120,20 @@ class UserControllerTest extends TestCase
         $user = $this->createMock(UserInterface::class);
 
         $userManager = $this->createMock(UserManagerInterface::class);
-        $userManager->expects($this->once())->method('findUserBy')->willReturn($user);
-        $userManager->expects($this->once())->method('updateUser')->willReturn($user);
+        $userManager->expects(static::once())->method('findUserBy')->willReturn($user);
+        $userManager->expects(static::once())->method('updateUser')->willReturn($user);
 
         $form = $this->getMockBuilder(Form::class)->disableOriginalConstructor()->getMock();
-        $form->expects($this->once())->method('handleRequest');
-        $form->expects($this->once())->method('isValid')->willReturn(true);
-        $form->expects($this->once())->method('getData')->willReturn($user);
+        $form->expects(static::once())->method('handleRequest');
+        $form->expects(static::once())->method('isValid')->willReturn(true);
+        $form->expects(static::once())->method('getData')->willReturn($user);
 
         $formFactory = $this->createMock(FormFactoryInterface::class);
-        $formFactory->expects($this->once())->method('createNamed')->willReturn($form);
+        $formFactory->expects(static::once())->method('createNamed')->willReturn($form);
 
         $view = $this->createUserController($user, $userManager, null, $formFactory)->putUserAction(1, new Request());
 
-        $this->assertInstanceOf(View::class, $view);
+        static::assertInstanceOf(View::class, $view);
     }
 
     public function testPutUserInvalidAction(): void
@@ -141,102 +141,102 @@ class UserControllerTest extends TestCase
         $user = $this->createMock(UserInterface::class);
 
         $userManager = $this->createMock(UserManagerInterface::class);
-        $userManager->expects($this->once())->method('findUserBy')->willReturn($user);
+        $userManager->expects(static::once())->method('findUserBy')->willReturn($user);
 
         $form = $this->getMockBuilder(Form::class)->disableOriginalConstructor()->getMock();
-        $form->expects($this->once())->method('handleRequest');
-        $form->expects($this->once())->method('isValid')->willReturn(false);
+        $form->expects(static::once())->method('handleRequest');
+        $form->expects(static::once())->method('isValid')->willReturn(false);
 
         $formFactory = $this->createMock(FormFactoryInterface::class);
-        $formFactory->expects($this->once())->method('createNamed')->willReturn($form);
+        $formFactory->expects(static::once())->method('createNamed')->willReturn($form);
 
         $view = $this->createUserController($user, $userManager, null, $formFactory)->putUserAction(1, new Request());
 
-        $this->assertInstanceOf(FormInterface::class, $view);
+        static::assertInstanceOf(FormInterface::class, $view);
     }
 
     public function testPostUserGroupAction(): void
     {
         $user = $this->createMock(BaseUser::class);
-        $user->expects($this->once())->method('hasGroup')->willReturn(false);
+        $user->expects(static::once())->method('hasGroup')->willReturn(false);
 
         $group = $this->createMock(GroupInterface::class);
 
         $userManager = $this->createMock(UserManagerInterface::class);
-        $userManager->expects($this->once())->method('findUserBy')->willReturn($user);
-        $userManager->expects($this->once())->method('updateUser')->willReturn($user);
+        $userManager->expects(static::once())->method('findUserBy')->willReturn($user);
+        $userManager->expects(static::once())->method('updateUser')->willReturn($user);
 
         $groupManager = $this->createMock(GroupManagerInterface::class);
-        $groupManager->expects($this->once())->method('findGroupBy')->willReturn($group);
+        $groupManager->expects(static::once())->method('findGroupBy')->willReturn($group);
 
         $view = $this->createUserController($user, $userManager, $groupManager)->postUserGroupAction(1, 1);
 
-        $this->assertSame(['added' => true], $view);
+        static::assertSame(['added' => true], $view);
     }
 
     public function testPostUserGroupInvalidAction(): void
     {
         $user = $this->createMock(BaseUser::class);
-        $user->expects($this->once())->method('hasGroup')->willReturn(true);
+        $user->expects(static::once())->method('hasGroup')->willReturn(true);
 
         $group = $this->createMock(GroupInterface::class);
 
         $userManager = $this->createMock(UserManagerInterface::class);
-        $userManager->expects($this->once())->method('findUserBy')->willReturn($user);
+        $userManager->expects(static::once())->method('findUserBy')->willReturn($user);
 
         $groupManager = $this->createMock(GroupManagerInterface::class);
-        $groupManager->expects($this->once())->method('findGroupBy')->willReturn($group);
+        $groupManager->expects(static::once())->method('findGroupBy')->willReturn($group);
 
         $view = $this->createUserController($user, $userManager, $groupManager)->postUserGroupAction(1, 1);
 
-        $this->assertInstanceOf(View::class, $view);
-        $this->assertSame(400, $view->getStatusCode(), 'Should return 400');
+        static::assertInstanceOf(View::class, $view);
+        static::assertSame(400, $view->getStatusCode(), 'Should return 400');
 
         $data = $view->getData();
 
-        $this->assertSame(['error' => 'User "1" already has group "1"'], $data);
+        static::assertSame(['error' => 'User "1" already has group "1"'], $data);
     }
 
     public function testDeleteUserGroupAction(): void
     {
         $user = $this->createMock(BaseUser::class);
-        $user->expects($this->once())->method('hasGroup')->willReturn(true);
+        $user->expects(static::once())->method('hasGroup')->willReturn(true);
 
         $group = $this->createMock(GroupInterface::class);
 
         $userManager = $this->createMock(UserManagerInterface::class);
-        $userManager->expects($this->once())->method('findUserBy')->willReturn($user);
-        $userManager->expects($this->once())->method('updateUser')->willReturn($user);
+        $userManager->expects(static::once())->method('findUserBy')->willReturn($user);
+        $userManager->expects(static::once())->method('updateUser')->willReturn($user);
 
         $groupManager = $this->createMock(GroupManagerInterface::class);
-        $groupManager->expects($this->once())->method('findGroupBy')->willReturn($group);
+        $groupManager->expects(static::once())->method('findGroupBy')->willReturn($group);
 
         $view = $this->createUserController($user, $userManager, $groupManager)->deleteUserGroupAction(1, 1);
 
-        $this->assertSame(['removed' => true], $view);
+        static::assertSame(['removed' => true], $view);
     }
 
     public function testDeleteUserGroupInvalidAction(): void
     {
         $user = $this->createMock(BaseUser::class);
-        $user->expects($this->once())->method('hasGroup')->willReturn(false);
+        $user->expects(static::once())->method('hasGroup')->willReturn(false);
 
         $group = $this->createMock(GroupInterface::class);
 
         $userManager = $this->createMock(UserManagerInterface::class);
-        $userManager->expects($this->once())->method('findUserBy')->willReturn($user);
+        $userManager->expects(static::once())->method('findUserBy')->willReturn($user);
 
         $groupManager = $this->createMock(GroupManagerInterface::class);
-        $groupManager->expects($this->once())->method('findGroupBy')->willReturn($group);
+        $groupManager->expects(static::once())->method('findGroupBy')->willReturn($group);
 
         $view = $this->createUserController($user, $userManager, $groupManager)->deleteUserGroupAction(1, 1);
 
-        $this->assertInstanceOf(View::class, $view);
-        $this->assertSame(400, $view->getStatusCode(), 'Should return 400');
+        static::assertInstanceOf(View::class, $view);
+        static::assertSame(400, $view->getStatusCode(), 'Should return 400');
 
         $data = $view->getData();
 
-        $this->assertSame(['error' => 'User "1" has not group "1"'], $data);
+        static::assertSame(['error' => 'User "1" has not group "1"'], $data);
     }
 
     public function testDeleteUserAction(): void
@@ -244,12 +244,12 @@ class UserControllerTest extends TestCase
         $user = $this->createMock(UserInterface::class);
 
         $userManager = $this->createMock(UserManagerInterface::class);
-        $userManager->expects($this->once())->method('findUserBy')->willReturn($user);
-        $userManager->expects($this->once())->method('deleteUser')->willReturn($user);
+        $userManager->expects(static::once())->method('findUserBy')->willReturn($user);
+        $userManager->expects(static::once())->method('deleteUser')->willReturn($user);
 
         $view = $this->createUserController($user, $userManager)->deleteUserAction(1);
 
-        $this->assertSame(['deleted' => true], $view);
+        static::assertSame(['deleted' => true], $view);
     }
 
     public function testDeleteUserInvalidAction(): void
@@ -257,8 +257,8 @@ class UserControllerTest extends TestCase
         $this->expectException(NotFoundHttpException::class);
 
         $userManager = $this->createMock(UserManagerInterface::class);
-        $userManager->expects($this->once())->method('findUserBy')->willReturn(null);
-        $userManager->expects($this->never())->method('deleteUser');
+        $userManager->expects(static::once())->method('findUserBy')->willReturn(null);
+        $userManager->expects(static::never())->method('deleteUser');
 
         $this->createUserController(null, $userManager)->deleteUserAction(1);
     }
@@ -282,7 +282,7 @@ class UserControllerTest extends TestCase
             $groupManager = $this->createMock(GroupManagerInterface::class);
         }
         if (null !== $user) {
-            $userManager->expects($this->once())->method('findUserBy')->willReturn($user);
+            $userManager->expects(static::once())->method('findUserBy')->willReturn($user);
         }
         if (null === $formFactory) {
             $formFactory = $this->createMock(FormFactoryInterface::class);

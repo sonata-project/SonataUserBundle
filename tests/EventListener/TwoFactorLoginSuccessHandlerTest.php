@@ -71,7 +71,7 @@ class TwoFactorLoginSuccessHandlerTest extends TestCase
     {
         $this->createTestClass($secret, $role, $ip, $needSession);
         $response = $this->testClass->onAuthenticationSuccess($this->request, $this->token);
-        $this->assertInstanceOf($expected, $response);
+        static::assertInstanceOf($expected, $response);
     }
 
     public function data(): array

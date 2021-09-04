@@ -48,21 +48,21 @@ class RestoreRolesTransformerTest extends TestCase
 
         $data = ['ROLE_FOO'];
 
-        $this->assertSame($data, $transformer->transform($data));
+        static::assertSame($data, $transformer->transform($data));
     }
 
     public function testValidReverseTransform(): void
     {
         $roleBuilder = $this->createMock(EditableRolesBuilder::class);
 
-        $roleBuilder->expects($this->once())->method('getRoles')->willReturn([]);
+        $roleBuilder->expects(static::once())->method('getRoles')->willReturn([]);
 
         $transformer = new RestoreRolesTransformer($roleBuilder);
         $transformer->setOriginalRoles(['ROLE_HIDDEN']);
 
         $data = ['ROLE_FOO'];
 
-        $this->assertSame(['ROLE_FOO', 'ROLE_HIDDEN'], $transformer->reverseTransform($data));
+        static::assertSame(['ROLE_FOO', 'ROLE_HIDDEN'], $transformer->reverseTransform($data));
     }
 
     public function testTransformAllowEmptyOriginalRoles(): void
@@ -74,21 +74,21 @@ class RestoreRolesTransformerTest extends TestCase
 
         $data = ['ROLE_FOO'];
 
-        $this->assertSame($data, $transformer->transform($data));
+        static::assertSame($data, $transformer->transform($data));
     }
 
     public function testReverseTransformAllowEmptyOriginalRoles(): void
     {
         $roleBuilder = $this->createMock(EditableRolesBuilder::class);
 
-        $roleBuilder->expects($this->once())->method('getRoles')->willReturn([]);
+        $roleBuilder->expects(static::once())->method('getRoles')->willReturn([]);
 
         $transformer = new RestoreRolesTransformer($roleBuilder);
         $transformer->setOriginalRoles(null);
 
         $data = ['ROLE_FOO'];
 
-        $this->assertSame(['ROLE_FOO'], $transformer->reverseTransform($data));
+        static::assertSame(['ROLE_FOO'], $transformer->reverseTransform($data));
     }
 
     public function testReverseTransformRevokedHierarchicalRole(): void
@@ -102,7 +102,7 @@ class RestoreRolesTransformerTest extends TestCase
             'ROLE_COMPANY_BOOKKEEPER' => 'ROLE_COMPANY_BOOKKEEPER: ROLE_COMPANY_USER',
             'ROLE_USER' => 'ROLE_USER',
         ];
-        $roleBuilder->expects($this->once())->method('getRoles')->willReturn($availableRoles);
+        $roleBuilder->expects(static::once())->method('getRoles')->willReturn($availableRoles);
 
         // user roles
         $userRoles = ['ROLE_COMPANY_PERSONAL_MODERATOR', 'ROLE_COMPANY_NEWS_MODERATOR', 'ROLE_COMPANY_BOOKKEEPER'];
@@ -113,7 +113,7 @@ class RestoreRolesTransformerTest extends TestCase
         $revokedRole = array_shift($userRoles);
         $processedRoles = $transformer->reverseTransform($userRoles);
 
-        $this->assertNotContains($revokedRole, $processedRoles);
+        static::assertNotContains($revokedRole, $processedRoles);
     }
 
     public function testReverseTransformHiddenRole(): void
@@ -124,7 +124,7 @@ class RestoreRolesTransformerTest extends TestCase
             'ROLE_SONATA_ADMIN' => 'ROLE_SONATA_ADMIN',
             'ROLE_ADMIN' => 'ROLE_ADMIN: ROLE_USER ROLE_COMPANY_ADMIN',
         ];
-        $roleBuilder->expects($this->once())->method('getRoles')->willReturn($availableRoles);
+        $roleBuilder->expects(static::once())->method('getRoles')->willReturn($availableRoles);
 
         // user roles
         $userRoles = ['ROLE_USER', 'ROLE_SUPER_ADMIN'];
@@ -137,6 +137,6 @@ class RestoreRolesTransformerTest extends TestCase
         unset($userRoles[array_search('ROLE_SUPER_ADMIN', $userRoles, true)]);
         $processedRoles = $transformer->reverseTransform($userRoles);
 
-        $this->assertContains('ROLE_SUPER_ADMIN', $processedRoles);
+        static::assertContains('ROLE_SUPER_ADMIN', $processedRoles);
     }
 }

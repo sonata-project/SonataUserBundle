@@ -28,34 +28,34 @@ class UserManagerProxyTest extends TestCase
 
         $userManagerProxy = new UserManagerProxy('stClass', $doctrine, $userManager);
 
-        $userManager->expects($this->once())->method('getClass');
+        $userManager->expects(static::once())->method('getClass');
         $userManagerProxy->getClass();
 
-        $userManager->expects($this->once())->method('findAll');
+        $userManager->expects(static::once())->method('findAll');
         $userManagerProxy->findAll();
 
-        $userManager->expects($this->once())->method('findBy');
+        $userManager->expects(static::once())->method('findBy');
         $userManagerProxy->findBy([]);
 
-        $userManager->expects($this->once())->method('findOneBy');
+        $userManager->expects(static::once())->method('findOneBy');
         $userManagerProxy->findOneBy([]);
 
-        $userManager->expects($this->once())->method('find');
+        $userManager->expects(static::once())->method('find');
         $userManagerProxy->find(10);
 
-        $userManager->expects($this->once())->method('create');
+        $userManager->expects(static::once())->method('create');
         $userManagerProxy->create();
 
-        $userManager->expects($this->once())->method('save');
+        $userManager->expects(static::once())->method('save');
         $userManagerProxy->save('grou');
 
-        $userManager->expects($this->once())->method('delete');
+        $userManager->expects(static::once())->method('delete');
         $userManagerProxy->delete('grou');
 
-        $userManager->expects($this->once())->method('getTableName');
+        $userManager->expects(static::once())->method('getTableName');
         $userManagerProxy->getTableName();
 
-        $userManager->expects($this->once())->method('getConnection');
+        $userManager->expects(static::once())->method('getConnection');
         $userManagerProxy->getConnection();
     }
 }

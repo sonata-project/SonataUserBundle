@@ -97,7 +97,7 @@ class AdminResettingControllerTest extends TestCase
 
         $result = $controller->checkEmailAction($request);
 
-        $this->assertSame('ok', $result);
+        static::assertSame('ok', $result);
     }
 
     public function testRequestAction(): void
@@ -111,7 +111,7 @@ class AdminResettingControllerTest extends TestCase
         $controller = $this->getController();
         $result = $controller->requestAction();
 
-        $this->assertSame('ok', $result);
+        static::assertSame('ok', $result);
     }
 
     public function testResetAction(): void
@@ -125,7 +125,7 @@ class AdminResettingControllerTest extends TestCase
         $controller = $this->getController();
         $result = $controller->resetAction($request, 'foo');
 
-        $this->assertSame('ok', $result);
+        static::assertSame('ok', $result);
     }
 
     public function testSendEmailAction(): void
@@ -139,7 +139,7 @@ class AdminResettingControllerTest extends TestCase
         $controller = $this->getController();
         $result = $controller->sendEmailAction($request);
 
-        $this->assertSame('ok', $result);
+        static::assertSame('ok', $result);
     }
 }
 
