@@ -8,7 +8,7 @@ Installation
 Prerequisites
 -------------
 
-PHP ^7.2 and Symfony ^4.4 are needed to make this bundle work, there are
+PHP ^7.3 and Symfony ^4.4 are needed to make this bundle work, there are
 also some Sonata dependencies that need to be installed and configured beforehand.
 
 Required dependencies:

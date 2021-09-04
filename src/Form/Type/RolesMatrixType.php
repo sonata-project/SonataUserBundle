@@ -34,9 +34,6 @@ final class RolesMatrixType extends AbstractType
         $this->rolesBuilder = $rolesBuilder;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

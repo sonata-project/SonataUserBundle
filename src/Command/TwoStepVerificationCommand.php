@@ -51,9 +51,6 @@ class TwoStepVerificationCommand extends ContainerAwareCommand
         $this->userManager = $userManager;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configure(): void
     {
         $this->setName('sonata:user:two-step-verification');
@@ -68,9 +65,6 @@ class TwoStepVerificationCommand extends ContainerAwareCommand
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function execute(InputInterface $input, OutputInterface $output): void
     {
         if (null === $this->helper && !$this->getContainer()->has('sonata.user.google.authenticator.provider')) {
