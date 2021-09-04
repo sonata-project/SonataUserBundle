@@ -26,6 +26,6 @@ final class GroupAdminTest extends TestCase
     {
         $admin = new GroupAdmin('admin.group', 'Sonata\UserBundle\Model\Group', CRUDController::class);
 
-        $this->assertNotEmpty($admin);
+        static::assertNotEmpty($admin);
     }
 }

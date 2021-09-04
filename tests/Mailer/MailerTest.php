@@ -83,12 +83,12 @@ class MailerTest extends TestCase
             ->method('getEmail')
             ->willReturn('user@sonata-project.org');
 
-        $this->router->expects($this->once())
+        $this->router->expects(static::once())
             ->method('generate')
             ->with('sonata_user_admin_resetting_reset', ['token' => 'user-token'])
             ->willReturn('/foo');
 
-        $this->templating->expects($this->once())
+        $this->templating->expects(static::once())
             ->method('render')
             ->with('foo', ['user' => $user, 'confirmationUrl' => '/foo'])
             ->willReturn($template);
@@ -102,9 +102,9 @@ class MailerTest extends TestCase
             ->subject($subject)
             ->html($body);
 
-        $this->mailer->expects($this->once())
+        $this->mailer->expects(static::once())
             ->method('send')
-            ->with($this->equalTo($email));
+            ->with(static::equalTo($email));
 
         $this->getMailer()->sendResettingEmailMessage($user);
     }
@@ -126,21 +126,21 @@ class MailerTest extends TestCase
             ->method('getEmail')
             ->willReturn('user@sonata-project.org');
 
-        $this->router->expects($this->once())
+        $this->router->expects(static::once())
             ->method('generate')
             ->with('sonata_user_admin_resetting_reset', ['token' => 'user-token'])
             ->willReturn('/foo');
 
-        $this->templating->expects($this->once())
+        $this->templating->expects(static::once())
             ->method('render')
             ->with('foo', ['user' => $user, 'confirmationUrl' => '/foo'])
             ->willReturn($template);
 
         $swiftMailer = $this->createMock(\Swift_Mailer::class);
 
-        $swiftMailer->expects($this->once())
+        $swiftMailer->expects(static::once())
             ->method('send')
-            ->with($this->callback(function (\Swift_Message $message) use ($subject, $body, $user): bool {
+            ->with(static::callback(function (\Swift_Message $message) use ($subject, $body, $user): bool {
                 return $subject === $message->getSubject()
                     && $body === $message->getBody()
                     && $this->emailFrom === $message->getFrom()

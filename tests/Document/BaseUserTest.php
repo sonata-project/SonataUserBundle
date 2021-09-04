@@ -30,11 +30,11 @@ class BaseUserTest extends TestCase
         $user->setUpdatedAt($today);
 
         // Then
-        $this->assertInstanceOf(\DateTime::class, $user->getCreatedAt(), 'Should return a DateTime object');
-        $this->assertSame($today->format('U'), $user->getCreatedAt()->format('U'), 'Should contain today\'s date');
+        static::assertInstanceOf(\DateTime::class, $user->getCreatedAt(), 'Should return a DateTime object');
+        static::assertSame($today->format('U'), $user->getCreatedAt()->format('U'), 'Should contain today\'s date');
 
-        $this->assertInstanceOf(\DateTime::class, $user->getUpdatedAt(), 'Should return a DateTime object');
-        $this->assertSame($today->format('U'), $user->getUpdatedAt()->format('U'), 'Should contain today\'s date');
+        static::assertInstanceOf(\DateTime::class, $user->getUpdatedAt(), 'Should return a DateTime object');
+        static::assertSame($today->format('U'), $user->getUpdatedAt()->format('U'), 'Should contain today\'s date');
     }
 
     public function testDateWithPrePersist(): void
@@ -47,11 +47,11 @@ class BaseUserTest extends TestCase
         $user->prePersist();
 
         // Then
-        $this->assertInstanceOf(\DateTime::class, $user->getCreatedAt(), 'Should contain a DateTime object');
-        $this->assertSame($today->format('Y-m-d'), $user->getUpdatedAt()->format('Y-m-d'), 'Should be created today');
+        static::assertInstanceOf(\DateTime::class, $user->getCreatedAt(), 'Should contain a DateTime object');
+        static::assertSame($today->format('Y-m-d'), $user->getUpdatedAt()->format('Y-m-d'), 'Should be created today');
 
-        $this->assertInstanceOf(\DateTime::class, $user->getUpdatedAt(), 'Should contain a DateTime object');
-        $this->assertSame($today->format('Y-m-d'), $user->getUpdatedAt()->format('Y-m-d'), 'Should be updated today');
+        static::assertInstanceOf(\DateTime::class, $user->getUpdatedAt(), 'Should contain a DateTime object');
+        static::assertSame($today->format('Y-m-d'), $user->getUpdatedAt()->format('Y-m-d'), 'Should be updated today');
     }
 
     public function testDateWithPreUpdate(): void
@@ -65,11 +65,11 @@ class BaseUserTest extends TestCase
         $user->preUpdate();
 
         // Then
-        $this->assertInstanceOf(\DateTime::class, $user->getCreatedAt(), 'Should contain a DateTime object');
-        $this->assertSame('2012-01-01', $user->getCreatedAt()->format('Y-m-d'), 'Should be created at 2012-01-01.');
+        static::assertInstanceOf(\DateTime::class, $user->getCreatedAt(), 'Should contain a DateTime object');
+        static::assertSame('2012-01-01', $user->getCreatedAt()->format('Y-m-d'), 'Should be created at 2012-01-01.');
 
-        $this->assertInstanceOf(\DateTime::class, $user->getUpdatedAt(), 'Should contain a DateTime object');
-        $this->assertSame($today->format('Y-m-d'), $user->getUpdatedAt()->format('Y-m-d'), 'Should be updated today');
+        static::assertInstanceOf(\DateTime::class, $user->getUpdatedAt(), 'Should contain a DateTime object');
+        static::assertSame($today->format('Y-m-d'), $user->getUpdatedAt()->format('Y-m-d'), 'Should be updated today');
     }
 
     public function testSettingMultipleGroups(): void
@@ -85,9 +85,9 @@ class BaseUserTest extends TestCase
         $user->setGroups([$group1, $group2]);
 
         // Then
-        $this->assertCount(2, $user->getGroups(), 'Should have 2 groups');
-        $this->assertTrue($user->hasGroup('Group 1'), 'Should have a group named "Group 1"');
-        $this->assertTrue($user->hasGroup('Group 2'), 'Should have a group named "Group 2"');
+        static::assertCount(2, $user->getGroups(), 'Should have 2 groups');
+        static::assertTrue($user->hasGroup('Group 1'), 'Should have a group named "Group 1"');
+        static::assertTrue($user->hasGroup('Group 2'), 'Should have a group named "Group 2"');
     }
 
     public function testTwoStepVerificationCode(): void
@@ -99,7 +99,7 @@ class BaseUserTest extends TestCase
         $user->setTwoStepVerificationCode('123456');
 
         // Then
-        $this->assertSame('123456', $user->getTwoStepVerificationCode(), 'Should return the two step verification code');
+        static::assertSame('123456', $user->getTwoStepVerificationCode(), 'Should return the two step verification code');
     }
 
     public function testToStringWithName(): void
@@ -112,7 +112,7 @@ class BaseUserTest extends TestCase
         $string = (string) $user;
 
         // Then
-        $this->assertSame('John', $string, 'Should return the username as string representation');
+        static::assertSame('John', $string, 'Should return the username as string representation');
     }
 
     public function testToStringWithoutName(): void
@@ -124,6 +124,6 @@ class BaseUserTest extends TestCase
         $string = (string) $user;
 
         // Then
-        $this->assertSame('-', $string, 'Should return a string representation');
+        static::assertSame('-', $string, 'Should return a string representation');
     }
 }

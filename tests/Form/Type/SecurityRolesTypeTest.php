@@ -35,14 +35,14 @@ class SecurityRolesTypeTest extends TypeTestCase
         $type->configureOptions($optionResolver);
 
         $options = $optionResolver->resolve();
-        $this->assertCount(3, $options['choices']);
+        static::assertCount(3, $options['choices']);
     }
 
     public function testGetParent(): void
     {
         $type = new SecurityRolesType($this->roleBuilder);
 
-        $this->assertSame(ChoiceType::class, $type->getParent());
+        static::assertSame(ChoiceType::class, $type->getParent());
     }
 
     public function testSubmitValidData(): void
@@ -55,9 +55,9 @@ class SecurityRolesTypeTest extends TypeTestCase
 
         $form->submit([0 => 'ROLE_FOO']);
 
-        $this->assertTrue($form->isValid());
-        $this->assertCount(1, $form->getData());
-        $this->assertContains('ROLE_FOO', $form->getData());
+        static::assertTrue($form->isValid());
+        static::assertCount(1, $form->getData());
+        static::assertContains('ROLE_FOO', $form->getData());
     }
 
     public function testSubmitInvalidData(): void
@@ -70,8 +70,8 @@ class SecurityRolesTypeTest extends TypeTestCase
 
         $form->submit([0 => 'ROLE_NOT_EXISTS']);
 
-        $this->assertFalse($form->isValid());
-        $this->assertSame([], $form->getData());
+        static::assertFalse($form->isValid());
+        static::assertSame([], $form->getData());
     }
 
     public function testSubmitWithHiddenRoleData(): void
@@ -87,10 +87,10 @@ class SecurityRolesTypeTest extends TypeTestCase
         // we keep hidden ROLE_SUPER_ADMIN and delete available ROLE_USER
         $form->submit([0 => 'ROLE_USER']);
 
-        $this->assertNull($form->getTransformationFailure());
-        $this->assertTrue($form->isValid());
-        $this->assertCount(2, $form->getData());
-        $this->assertContains('ROLE_SUPER_ADMIN', $form->getData());
+        static::assertNull($form->getTransformationFailure());
+        static::assertTrue($form->isValid());
+        static::assertCount(2, $form->getData());
+        static::assertContains('ROLE_SUPER_ADMIN', $form->getData());
     }
 
     protected function getExtensions(): array

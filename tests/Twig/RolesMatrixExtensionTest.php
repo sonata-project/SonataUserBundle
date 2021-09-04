@@ -49,16 +49,16 @@ final class RolesMatrixExtensionTest extends TestCase
             ],
         ];
         $this->rolesBuilder
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('getRoles')
             ->willReturn($roles);
 
         $this->formView
-            ->expects($this->never())
+            ->expects(static::never())
             ->method('getIterator');
 
         $this->environment
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('render')
             ->with('@SonataUser/Form/roles_matrix_list.html.twig', ['roles' => []])
             ->willReturn('');
@@ -77,7 +77,7 @@ final class RolesMatrixExtensionTest extends TestCase
             ],
         ];
         $this->rolesBuilder
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('getRoles')
             ->willReturn($roles);
 
@@ -89,7 +89,7 @@ final class RolesMatrixExtensionTest extends TestCase
             ->willReturn([$form]);
 
         $this->environment
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('render')
             ->with('@SonataUser/Form/roles_matrix_list.html.twig', [
                 'roles' => [
@@ -117,7 +117,7 @@ final class RolesMatrixExtensionTest extends TestCase
             ],
         ];
         $this->rolesBuilder
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('getRoles')
             ->willReturn($roles);
 
@@ -129,7 +129,7 @@ final class RolesMatrixExtensionTest extends TestCase
             ->willReturn([$form]);
 
         $this->environment
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('render')
             ->with('@SonataUser/Form/roles_matrix_list.html.twig', [
                 'roles' => [
@@ -157,21 +157,21 @@ final class RolesMatrixExtensionTest extends TestCase
             ],
         ];
         $this->rolesBuilder
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('getRoles')
             ->willReturn($roles);
 
         $this->rolesBuilder
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('getPermissionLabels')
             ->willReturn(['EDIT', 'CREATE']);
 
         $this->formView
-            ->expects($this->never())
+            ->expects(static::never())
             ->method('getIterator');
 
         $this->environment
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('render')
             ->with('@SonataUser/Form/roles_matrix.html.twig', [
                 'grouped_roles' => [],
@@ -195,12 +195,12 @@ final class RolesMatrixExtensionTest extends TestCase
             ],
         ];
         $this->rolesBuilder
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('getRoles')
             ->willReturn($roles);
 
         $this->rolesBuilder
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('getPermissionLabels')
             ->willReturn(['EDIT', 'CREATE']);
 
@@ -208,12 +208,12 @@ final class RolesMatrixExtensionTest extends TestCase
         $form->vars['value'] = 'BASE_ROLE_FOO_EDIT';
 
         $this->formView
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('getIterator')
             ->willReturn([$form]);
 
         $this->environment
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('render')
             ->with('@SonataUser/Form/roles_matrix.html.twig', [
                 'grouped_roles' => [
@@ -248,12 +248,12 @@ final class RolesMatrixExtensionTest extends TestCase
             ],
         ];
         $this->rolesBuilder
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('getRoles')
             ->willReturn($roles);
 
         $this->rolesBuilder
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('getPermissionLabels')
             ->willReturn(['EDIT', 'CREATE']);
 
@@ -261,12 +261,12 @@ final class RolesMatrixExtensionTest extends TestCase
         $form->vars['value'] = 'WRONG_VALUE';
 
         $this->formView
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('getIterator')
             ->willReturn([$form]);
 
         $this->environment
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('render')
             ->with('@SonataUser/Form/roles_matrix.html.twig', [
                 'grouped_roles' => [

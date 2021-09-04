@@ -76,12 +76,12 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
             ->setMethods(['hasExtension', 'prependExtensionConfig'])
             ->getMock();
 
-        $fakeContainer->expects($this->once())
+        $fakeContainer->expects(static::once())
             ->method('hasExtension')
-            ->with($this->equalTo('twig'))
+            ->with(static::equalTo('twig'))
             ->willReturn(true);
 
-        $fakeContainer->expects($this->once())
+        $fakeContainer->expects(static::once())
             ->method('prependExtensionConfig')
             ->with('twig', ['form_themes' => ['@SonataUser/Form/form_admin_fields.html.twig']]);
 
@@ -113,9 +113,9 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
 
         $twigConfigurations = $this->container->getExtensionConfig('twig');
 
-        $this->assertArrayHasKey(0, $twigConfigurations);
-        $this->assertArrayHasKey('form_themes', $twigConfigurations[0]);
-        $this->assertSame(
+        static::assertArrayHasKey(0, $twigConfigurations);
+        static::assertArrayHasKey('form_themes', $twigConfigurations[0]);
+        static::assertSame(
             ['@SonataUser/Form/form_admin_fields.html.twig'],
             $twigConfigurations[0]['form_themes']
         );
@@ -132,7 +132,7 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
 
         $twigConfigurations = $this->container->getExtensionConfig('twig');
 
-        $this->assertArrayNotHasKey(0, $twigConfigurations);
+        static::assertArrayNotHasKey(0, $twigConfigurations);
     }
 
     /**

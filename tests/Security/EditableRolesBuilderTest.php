@@ -41,7 +41,7 @@ class EditableRolesBuilderTest extends TestCase
                 ->disableOriginalConstructor()
                 ->getMock();
 
-        $pool->expects($this->exactly(2))->method('getAdminServiceIds')->willReturn([]);
+        $pool->expects(static::exactly(2))->method('getAdminServiceIds')->willReturn([]);
 
         $rolesHierarchy = [
             'ROLE_ADMIN' => [
@@ -73,19 +73,19 @@ class EditableRolesBuilderTest extends TestCase
         $roles = $builder->getRoles();
         $rolesReadOnly = $builder->getRolesReadOnly();
 
-        $this->assertEmpty($rolesReadOnly);
-        $this->assertSame($expected, $roles);
+        static::assertEmpty($rolesReadOnly);
+        static::assertSame($expected, $roles);
     }
 
     public function testRolesFromAdminWithMasterAdmin(): void
     {
         $securityHandler = $this->createMock(SecurityHandlerInterface::class);
-        $securityHandler->expects($this->exactly(2))->method('getBaseRole')->willReturn('ROLE_FOO_%s');
+        $securityHandler->expects(static::exactly(2))->method('getBaseRole')->willReturn('ROLE_FOO_%s');
 
         $admin = $this->createMock(AdminInterface::class);
-        $admin->expects($this->exactly(2))->method('isGranted')->willReturn(true);
-        $admin->expects($this->exactly(2))->method('getSecurityInformation')->willReturn(['GUEST' => [0 => 'VIEW', 1 => 'LIST'], 'STAFF' => [0 => 'EDIT', 1 => 'LIST', 2 => 'CREATE'], 'EDITOR' => [0 => 'OPERATOR', 1 => 'EXPORT'], 'ADMIN' => [0 => 'MASTER']]);
-        $admin->expects($this->exactly(2))->method('getSecurityHandler')->willReturn($securityHandler);
+        $admin->expects(static::exactly(2))->method('isGranted')->willReturn(true);
+        $admin->expects(static::exactly(2))->method('getSecurityInformation')->willReturn(['GUEST' => [0 => 'VIEW', 1 => 'LIST'], 'STAFF' => [0 => 'EDIT', 1 => 'LIST', 2 => 'CREATE'], 'EDITOR' => [0 => 'OPERATOR', 1 => 'EXPORT'], 'ADMIN' => [0 => 'MASTER']]);
+        $admin->expects(static::exactly(2))->method('getSecurityHandler')->willReturn($securityHandler);
 
         $token = $this->createMock(TokenInterface::class);
 
@@ -99,8 +99,8 @@ class EditableRolesBuilderTest extends TestCase
                 ->disableOriginalConstructor()
                 ->getMock();
 
-        $pool->expects($this->exactly(2))->method('getInstance')->willReturn($admin);
-        $pool->expects($this->exactly(2))->method('getAdminServiceIds')->willReturn(['myadmin']);
+        $pool->expects(static::exactly(2))->method('getInstance')->willReturn($admin);
+        $pool->expects(static::exactly(2))->method('getAdminServiceIds')->willReturn(['myadmin']);
 
         $builder = new EditableRolesBuilder($tokenStorage, $authorizationChecker, $pool, []);
 
@@ -113,8 +113,8 @@ class EditableRolesBuilderTest extends TestCase
 
         $roles = $builder->getRoles();
         $rolesReadOnly = $builder->getRolesReadOnly();
-        $this->assertEmpty($rolesReadOnly);
-        $this->assertSame($expected, $roles);
+        static::assertEmpty($rolesReadOnly);
+        static::assertSame($expected, $roles);
     }
 
     public function testWithNoSecurityToken(): void
@@ -134,7 +134,7 @@ class EditableRolesBuilderTest extends TestCase
         $roles = $builder->getRoles();
         $rolesReadOnly = $builder->getRolesReadOnly();
 
-        $this->assertEmpty($roles);
-        $this->assertEmpty($rolesReadOnly);
+        static::assertEmpty($roles);
+        static::assertEmpty($rolesReadOnly);
     }
 }

@@ -34,9 +34,9 @@ final class RoutingTest extends WebTestCase
 
         $route = $router->getRouteCollection()->get($name);
 
-        $this->assertNotNull($route);
-        $this->assertSame($path, $route->getPath());
-        $this->assertEmpty(array_diff($methods, $route->getMethods()));
+        static::assertNotNull($route);
+        static::assertSame($path, $route->getPath());
+        static::assertEmpty(array_diff($methods, $route->getMethods()));
 
         $matchingPath = $path;
         $matchingFormat = '';
@@ -54,10 +54,10 @@ final class RoutingTest extends WebTestCase
             // Check paths like "/api/user/users.json".
             $match = $matcher->match($matchingPath);
 
-            $this->assertSame($name, $match['_route']);
+            static::assertSame($name, $match['_route']);
 
             if ($matchingFormat) {
-                $this->assertSame(ltrim($matchingFormat, '.'), $match['_format']);
+                static::assertSame(ltrim($matchingFormat, '.'), $match['_format']);
             }
 
             $matchingPathWithStrippedFormat = str_replace('.{_format}', '', $path);
@@ -65,10 +65,10 @@ final class RoutingTest extends WebTestCase
             // Check paths like "/api/user/users".
             $match = $matcher->match($matchingPathWithStrippedFormat);
 
-            $this->assertSame($name, $match['_route']);
+            static::assertSame($name, $match['_route']);
 
             if ($matchingFormat) {
-                $this->assertSame(ltrim($matchingFormat, '.'), $match['_format']);
+                static::assertSame(ltrim($matchingFormat, '.'), $match['_format']);
             }
         }
     }

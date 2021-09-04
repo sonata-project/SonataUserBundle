@@ -63,7 +63,7 @@ class CheckEmailActionTest extends TestCase
     {
         $request = new Request();
 
-        $this->urlGenerator->expects($this->once())
+        $this->urlGenerator->expects(static::once())
             ->method('generate')
             ->with('sonata_user_admin_resetting_request')
             ->willReturn('/foo');
@@ -71,8 +71,8 @@ class CheckEmailActionTest extends TestCase
         $action = $this->getAction();
         $result = $action($request);
 
-        $this->assertInstanceOf(RedirectResponse::class, $result);
-        $this->assertSame('/foo', $result->getTargetUrl());
+        static::assertInstanceOf(RedirectResponse::class, $result);
+        static::assertSame('/foo', $result->getTargetUrl());
     }
 
     public function testWithUsername(): void
@@ -85,7 +85,7 @@ class CheckEmailActionTest extends TestCase
             'tokenLifetime' => 1,
         ];
 
-        $this->templating->expects($this->once())
+        $this->templating->expects(static::once())
             ->method('render')
             ->with('@SonataUser/Admin/Security/Resetting/checkEmail.html.twig', $parameters)
             ->willReturn('template content');
@@ -98,7 +98,7 @@ class CheckEmailActionTest extends TestCase
         $action = $this->getAction();
         $result = $action($request);
 
-        $this->assertSame('template content', $result->getContent());
+        static::assertSame('template content', $result->getContent());
     }
 
     private function getAction(): CheckEmailAction

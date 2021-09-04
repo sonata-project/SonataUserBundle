@@ -108,13 +108,13 @@ class LoginActionTest extends TestCase
             ->method('getToken')
             ->willReturn($token);
 
-        $this->translator->expects($this->once())
+        $this->translator->expects(static::once())
             ->method('trans')
             ->with('sonata_user_already_authenticated')
             ->willReturn('Already Authenticated');
 
         $bag = $this->createMock(FlashBag::class);
-        $bag->expects($this->once())
+        $bag->expects(static::once())
             ->method('add')
             ->with('sonata_user_error', 'Already Authenticated');
 
@@ -130,8 +130,8 @@ class LoginActionTest extends TestCase
         $action = $this->getAction();
         $result = $action($request);
 
-        $this->assertInstanceOf(RedirectResponse::class, $result);
-        $this->assertSame('/foo', $result->getTargetUrl());
+        static::assertInstanceOf(RedirectResponse::class, $result);
+        static::assertSame('/foo', $result->getTargetUrl());
     }
 
     /**
@@ -153,7 +153,7 @@ class LoginActionTest extends TestCase
             ->with('sonata_admin_dashboard')
             ->willReturn('/foo');
 
-        $this->authorizationChecker->expects($this->once())
+        $this->authorizationChecker->expects(static::once())
             ->method('isGranted')
             ->with('ROLE_ADMIN')
             ->willReturn(true);
@@ -161,8 +161,8 @@ class LoginActionTest extends TestCase
         $action = $this->getAction();
         $result = $action($request);
 
-        $this->assertInstanceOf(RedirectResponse::class, $result);
-        $this->assertSame($expectedRedirectUrl, $result->getTargetUrl());
+        static::assertInstanceOf(RedirectResponse::class, $result);
+        static::assertSame($expectedRedirectUrl, $result->getTargetUrl());
     }
 
     public function userGrantedAdminProvider(): array
@@ -220,7 +220,7 @@ class LoginActionTest extends TestCase
             ->with('sonata_user_admin_resetting_request')
             ->willReturn('/foo');
 
-        $this->authorizationChecker->expects($this->once())
+        $this->authorizationChecker->expects(static::once())
             ->method('isGranted')
             ->with('ROLE_ADMIN')
             ->willReturn(false);
@@ -243,7 +243,7 @@ class LoginActionTest extends TestCase
         $action = $this->getAction();
         $result = $action($request);
 
-        $this->assertSame('template content', $result->getContent());
+        static::assertSame('template content', $result->getContent());
     }
 
     public function unauthenticatedProvider(): array

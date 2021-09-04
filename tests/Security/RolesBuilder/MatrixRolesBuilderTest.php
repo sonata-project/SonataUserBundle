@@ -51,7 +51,7 @@ final class MatrixRolesBuilderTest extends TestCase
             $this->securityRolesBuilder
         );
 
-        $this->assertSame($expected, $matrixRolesBuilder->getPermissionLabels());
+        static::assertSame($expected, $matrixRolesBuilder->getPermissionLabels());
     }
 
     public function testGetRoles(): void
@@ -91,7 +91,7 @@ final class MatrixRolesBuilderTest extends TestCase
 
         $expected = array_merge($securityRoles, $adminRoles);
 
-        $this->assertSame($expected, $matrixRolesBuilder->getRoles());
+        static::assertSame($expected, $matrixRolesBuilder->getRoles());
     }
 
     public function testGetRolesNoToken(): void
@@ -105,6 +105,6 @@ final class MatrixRolesBuilderTest extends TestCase
             $this->securityRolesBuilder
         );
 
-        $this->assertEmpty($matrixRolesBuilder->getRoles());
+        static::assertEmpty($matrixRolesBuilder->getRoles());
     }
 }
