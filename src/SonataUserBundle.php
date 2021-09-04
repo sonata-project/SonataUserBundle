@@ -32,7 +32,6 @@ class SonataUserBundle extends Bundle
     public function boot(): void
     {
         $this->registerFormMapping();
-        $this->createDoctrineCommonBackwardCompatibilityAliases();
     }
 
     /**
@@ -57,21 +56,6 @@ class SonataUserBundle extends Bundle
                 'sonata_user_api_form_group' => 'Sonata\UserBundle\Form\Type\ApiGroupType',
                 'sonata_user_api_form_user' => 'Sonata\UserBundle\Form\Type\ApiUserType',
             ]);
-        }
-    }
-
-    /**
-     * We MUST remove this method when support for "friendsofsymfony/user-bundle" is dropped
-     * or adapted to work with "doctrine/common:^3".
-     */
-    private function createDoctrineCommonBackwardCompatibilityAliases(): void
-    {
-        if (!interface_exists(\Doctrine\Common\Persistence\ObjectManager::class)) {
-            class_alias(\Doctrine\Persistence\ObjectManager::class, \Doctrine\Common\Persistence\ObjectManager::class);
-        }
-
-        if (!class_exists(\Doctrine\Common\Persistence\Event\LifecycleEventArgs::class)) {
-            class_alias(\Doctrine\Persistence\Event\LifecycleEventArgs::class, \Doctrine\Common\Persistence\Event\LifecycleEventArgs::class);
         }
     }
 }
