@@ -23,17 +23,11 @@ use Sonata\UserBundle\Model\GroupManagerInterface;
  */
 class GroupManager extends BaseGroupManager implements GroupManagerInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function findGroupsBy(?array $criteria = null, ?array $orderBy = null, $limit = null, $offset = null)
     {
         return $this->repository->findBy($criteria, $orderBy, $limit, $offset);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getPager(array $criteria, int $page, int $limit = 10, array $sort = []): PagerInterface
     {
         $query = $this->repository

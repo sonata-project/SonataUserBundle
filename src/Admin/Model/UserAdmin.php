@@ -35,9 +35,6 @@ class UserAdmin extends AbstractAdmin
      */
     protected $userManager;
 
-    /**
-     * {@inheritdoc}
-     */
     public function getFormBuilder()
     {
         $this->formOptions['data_class'] = $this->getClass();
@@ -56,9 +53,6 @@ class UserAdmin extends AbstractAdmin
         return $formBuilder;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function preUpdate($user): void
     {
         $this->getUserManager()->updateCanonicalFields($user);
@@ -78,9 +72,6 @@ class UserAdmin extends AbstractAdmin
         return $this->userManager;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configureListFields(ListMapper $listMapper): void
     {
         $listMapper
@@ -96,9 +87,6 @@ class UserAdmin extends AbstractAdmin
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configureDatagridFilters(DatagridMapper $filterMapper): void
     {
         $filterMapper
@@ -108,9 +96,6 @@ class UserAdmin extends AbstractAdmin
             ->add('groups');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configureShowFields(ShowMapper $showMapper): void
     {
         $showMapper
@@ -146,9 +131,6 @@ class UserAdmin extends AbstractAdmin
             ->end();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configureFormFields(FormMapper $formMapper): void
     {
         // define group zoning

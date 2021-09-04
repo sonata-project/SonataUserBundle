@@ -37,9 +37,6 @@ class SecurityRolesType extends AbstractType
         $this->rolesBuilder = $rolesBuilder;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $formBuilder, array $options): void
     {
         /*
@@ -64,9 +61,6 @@ class SecurityRolesType extends AbstractType
         $formBuilder->addModelTransformer($transformer);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $attr = $view->vars['attr'];
@@ -81,9 +75,6 @@ class SecurityRolesType extends AbstractType
         $view->vars['read_only_choices'] = $options['read_only_choices'];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -133,17 +124,11 @@ class SecurityRolesType extends AbstractType
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getParent()
     {
         return ChoiceType::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBlockPrefix()
     {
         return 'sonata_security_roles';

@@ -20,9 +20,6 @@ use Sonata\Form\Serializer\BaseSerializerHandler;
  */
 class UserSerializerHandler extends BaseSerializerHandler
 {
-    /**
-     * {@inheritdoc}
-     */
     public static function getType()
     {
         return 'sonata_user_user_id';

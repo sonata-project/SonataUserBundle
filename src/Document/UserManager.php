@@ -22,19 +22,13 @@ use Sonata\UserBundle\Model\UserManagerInterface;
  */
 class UserManager extends BaseUserManager implements UserManagerInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function findUsersBy(?array $criteria = null, ?array $orderBy = null, $limit = null, $offset = null)
     {
         return $this->getRepository()->findBy($criteria, $orderBy, $limit, $offset);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getPager(array $criteria, int $page, int $limit = 10, array $sort = []): PagerInterface
     {
-        new \RuntimeException('method not implemented');
+        throw new \RuntimeException('method not implemented');
     }
 }

@@ -29,13 +29,10 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
- * @author     Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */
 class SonataUserExtension extends Extension implements PrependExtensionInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function prepend(ContainerBuilder $container): void
     {
         if ($container->hasExtension('twig')) {
@@ -44,9 +41,6 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $processor = new Processor();

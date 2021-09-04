@@ -38,9 +38,6 @@ class RestoreRolesTransformer implements DataTransformerInterface
         $this->originalRoles = $originalRoles ?: [];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function transform($value)
     {
         if (null === $value) {
@@ -54,9 +51,6 @@ class RestoreRolesTransformer implements DataTransformerInterface
         return $value;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function reverseTransform($selectedRoles)
     {
         if (null === $this->originalRoles) {
