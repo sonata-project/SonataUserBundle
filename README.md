@@ -10,6 +10,7 @@ Symfony SonataUserBundle
 
 [![Latest Stable Version](https://poser.pugx.org/sonata-project/user-bundle/v/stable)](https://packagist.org/packages/sonata-project/user-bundle)
 [![Latest Unstable Version](https://poser.pugx.org/sonata-project/user-bundle/v/unstable)](https://packagist.org/packages/sonata-project/user-bundle)
+[![Psalm Type Coverage][shepherd_stable_badge]][shepherd_stable_link]
 [![License](https://poser.pugx.org/sonata-project/user-bundle/license)](https://packagist.org/packages/sonata-project/user-bundle)
 
 [![Total Downloads](https://poser.pugx.org/sonata-project/user-bundle/downloads)](https://packagist.org/packages/sonata-project/user-bundle)
@@ -45,6 +46,8 @@ This package is available under the [MIT license](LICENSE).
 [coverage_stable_link]: https://codecov.io/gh/sonata-project/SonataUserBundle/branch/4.x
 [coverage_unstable_badge]: https://codecov.io/gh/sonata-project/SonataUserBundle/branch/master/graph/badge.svg
 [coverage_unstable_link]: https://codecov.io/gh/sonata-project/SonataUserBundle/branch/master
+[shepherd_stable_badge]: https://shepherd.dev/github/sonata-project/SonataUserBundle/coverage.svg
+[shepherd_stable_link]: https://shepherd.dev/github/sonata-project/SonataUserBundle
 
 [documentation_stable_badge]: https://readthedocs.org/projects/sonatauserbundle/badge/?version=4.x
 [documentation_stable_link]: https://docs.sonata-project.org/projects/SonataUserBundle/en/4.x/?badge=4.x
