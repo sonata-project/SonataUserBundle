@@ -2,6 +2,15 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.12.0](https://github.com/sonata-project/SonataUserBundle/compare/4.11.1...4.12.0) - 2021-09-08
+### Added
+- [[#1396](https://github.com/sonata-project/SonataUserBundle/pull/1396)] Added support for PHP 8.0 ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1396](https://github.com/sonata-project/SonataUserBundle/pull/1396)] Added support for Twig 3 ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1396](https://github.com/sonata-project/SonataUserBundle/pull/1396)] Added support for Symfony `http-foundation` 5.3 ([@jordisala1991](https://github.com/jordisala1991))
+
+### Removed
+- [[#1396](https://github.com/sonata-project/SonataUserBundle/pull/1396)] Removed support for Symfony 5.1 and 5.2 ([@jordisala1991](https://github.com/jordisala1991))
+
 ## [4.11.1](https://github.com/sonata-project/SonataUserBundle/compare/4.11.0...4.11.1) - 2021-03-03
 ### Fixed
 - [[#1332](https://github.com/sonata-project/SonataUserBundle/pull/1332)] Fix compatibility with doctrine/persistence 2.0 ([@jordisala1991](https://github.com/jordisala1991))
