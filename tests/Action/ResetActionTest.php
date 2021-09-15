@@ -21,6 +21,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Sonata\AdminBundle\Admin\Pool;
+use Sonata\AdminBundle\SonataConfiguration;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Action\ResetAction;
 use Symfony\Component\Form\Form;
@@ -97,6 +98,11 @@ class ResetActionTest extends TestCase
      */
     protected $firewallName;
 
+    /**
+     * @var SonataConfiguration
+     */
+    private $config;
+
     protected function setUp(): void
     {
         $this->templating = $this->createMock(Environment::class);
@@ -114,6 +120,7 @@ class ResetActionTest extends TestCase
         /** @var ContainerInterface|MockObject $container */
         $container = $this->createMock(ContainerInterface::class);
         $this->pool = new Pool($container);
+        $this->config = new SonataConfiguration('title', 'logo', []);
     }
 
     public function testAuthenticated(): void
@@ -187,6 +194,7 @@ class ResetActionTest extends TestCase
             'form' => 'Form View',
             'base_template' => 'base.html.twig',
             'admin_pool' => $this->pool,
+            'config' => $this->config,
         ];
 
         $user = $this->createMock(User::class);
@@ -307,6 +315,7 @@ class ResetActionTest extends TestCase
             $this->urlGenerator,
             $this->authorizationChecker,
             $this->pool,
+            $this->config,
             $this->templateRegistry,
             $this->formFactory,
             $this->userManager,

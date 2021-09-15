@@ -17,6 +17,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Sonata\AdminBundle\Admin\Pool;
+use Sonata\AdminBundle\SonataConfiguration;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Action\RequestAction;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -52,6 +53,11 @@ class RequestActionTest extends TestCase
      */
     protected $templateRegistry;
 
+    /**
+     * @var SonataConfiguration
+     */
+    private $config;
+
     protected function setUp(): void
     {
         $this->templating = $this->createMock(Environment::class);
@@ -62,6 +68,7 @@ class RequestActionTest extends TestCase
         /** @var ContainerInterface|MockObject $container */
         $container = $this->createMock(ContainerInterface::class);
         $this->pool = new Pool($container);
+        $this->config = new SonataConfiguration('title', 'logo', []);
     }
 
     public function testAuthenticated(): void
@@ -91,6 +98,7 @@ class RequestActionTest extends TestCase
         $parameters = [
             'base_template' => 'base.html.twig',
             'admin_pool' => $this->pool,
+            'config' => $this->config,
         ];
 
         $this->authorizationChecker->expects(static::once())
@@ -120,6 +128,7 @@ class RequestActionTest extends TestCase
             $this->urlGenerator,
             $this->authorizationChecker,
             $this->pool,
+            $this->config,
             $this->templateRegistry
         );
     }

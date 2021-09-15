@@ -17,6 +17,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Sonata\AdminBundle\Admin\Pool;
+use Sonata\AdminBundle\SonataConfiguration;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Action\CheckEmailAction;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -51,6 +52,11 @@ class CheckEmailActionTest extends TestCase
      */
     protected $resetTtl;
 
+    /**
+     * @var SonataConfiguration
+     */
+    private $config;
+
     protected function setUp(): void
     {
         $this->templating = $this->createMock(Environment::class);
@@ -61,6 +67,7 @@ class CheckEmailActionTest extends TestCase
         /** @var ContainerInterface|MockObject $container */
         $container = $this->createMock(ContainerInterface::class);
         $this->pool = new Pool($container);
+        $this->config = new SonataConfiguration('title', 'logo', []);
     }
 
     public function testWithoutUsername(): void
@@ -86,6 +93,7 @@ class CheckEmailActionTest extends TestCase
         $parameters = [
             'base_template' => 'base.html.twig',
             'admin_pool' => $this->pool,
+            'config' => $this->config,
             'tokenLifetime' => 1,
         ];
 
@@ -111,6 +119,7 @@ class CheckEmailActionTest extends TestCase
             $this->templating,
             $this->urlGenerator,
             $this->pool,
+            $this->config,
             $this->templateRegistry,
             $this->resetTtl
         );

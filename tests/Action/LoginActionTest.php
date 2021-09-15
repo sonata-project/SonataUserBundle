@@ -17,6 +17,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Sonata\AdminBundle\Admin\Pool;
+use Sonata\AdminBundle\SonataConfiguration;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Action\LoginAction;
 use Sonata\UserBundle\Model\UserInterface;
@@ -81,6 +82,11 @@ class LoginActionTest extends TestCase
      */
     private $translator;
 
+    /**
+     * @var SonataConfiguration
+     */
+    private $config;
+
     protected function setUp(): void
     {
         $this->templating = $this->createMock(Environment::class);
@@ -95,6 +101,7 @@ class LoginActionTest extends TestCase
         /** @var ContainerInterface|MockObject $container */
         $container = $this->createMock(ContainerInterface::class);
         $this->pool = new Pool($container);
+        $this->config = new SonataConfiguration('title', 'list', []);
     }
 
     public function testAlreadyAuthenticated(): void
@@ -203,6 +210,7 @@ class LoginActionTest extends TestCase
 
         $parameters = [
             'admin_pool' => $this->pool,
+            'config' => $this->config,
             'base_template' => 'base.html.twig',
             'csrf_token' => 'csrf-token',
             'error' => $errorMessage,
@@ -267,6 +275,7 @@ class LoginActionTest extends TestCase
             $this->urlGenerator,
             $this->authorizationChecker,
             $this->pool,
+            $this->config,
             $this->templateRegistry,
             $this->tokenStorage,
             $this->session,
