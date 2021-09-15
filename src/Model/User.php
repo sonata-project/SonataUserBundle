@@ -135,7 +135,7 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * @var array<int, GroupInterface>|Collection
      */
-    private $groups;
+    protected $groups;
 
     public function __construct()
     {
