@@ -152,8 +152,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
             return;
         }
 
-        if (!class_exists('Google\Authenticator\GoogleAuthenticator')
-            && !class_exists('Sonata\GoogleAuthenticator\GoogleAuthenticator')) {
+        if (!class_exists('Sonata\GoogleAuthenticator\GoogleAuthenticator')) {
             throw new \RuntimeException('Please add "sonata-project/google-authenticator" package');
         }
 
