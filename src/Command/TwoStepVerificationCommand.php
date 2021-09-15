@@ -36,7 +36,7 @@ class TwoStepVerificationCommand extends Command
 
     public function __construct(
         ?string $name,
-        Helper $helper,
+        ?Helper $helper,
         UserManagerInterface $userManager
     ) {
         parent::__construct($name);
@@ -61,6 +61,10 @@ class TwoStepVerificationCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output): void
     {
+        if (null === $this->helper) {
+            throw new \RuntimeException('Two Step Verification process is not enabled');
+        }
+
         $user = $this->userManager->findUserByUsernameOrEmail($input->getArgument('username'));
         if (!$user) {
             throw new \RuntimeException(sprintf('Unable to find the username : %s', $input->getArgument('username')));
