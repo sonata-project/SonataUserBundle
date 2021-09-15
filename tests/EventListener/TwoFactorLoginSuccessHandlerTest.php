@@ -11,6 +11,8 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
+namespace Sonata\UserBundle\Tests\EventListener;
+
 use FOS\UserBundle\Model\UserManagerInterface;
 use Google\Authenticator\GoogleAuthenticator;
 use PHPUnit\Framework\TestCase;
@@ -67,9 +69,15 @@ class TwoFactorLoginSuccessHandlerTest extends TestCase
     /**
      * @dataProvider data
      */
-    public function testDifferentCases(?string $secret, string $role, ?string $ip, bool $needSession, string $expected): void
-    {
-        $this->createTestClass($secret, $role, $ip, $needSession);
+    public function testDifferentCases(
+        ?string $secret,
+        string $role,
+        string $uesrname,
+        ?string $ip,
+        bool $needSession,
+        string $expected
+    ): void {
+        $this->createTestClass($secret, $role, $uesrname, $ip, $needSession);
         $response = $this->testClass->onAuthenticationSuccess($this->request, $this->token);
         static::assertInstanceOf($expected, $response);
     }
@@ -77,16 +85,22 @@ class TwoFactorLoginSuccessHandlerTest extends TestCase
     public function data(): array
     {
         return [
-            [null, 'ROLE_USER', '192.168.1.1', false, Response::class],
-            [null, 'ROLE_ADMIN', null, false, RedirectResponse::class],
-            ['AQAOXT322JDYRKVJ', 'ROLE_ADMIN', '192.168.1.1', true, RedirectResponse::class],
-            [null, 'ROLE_ADMIN', '192.168.1.1', false, Response::class],
+            [null, 'ROLE_USER', 'user_1', '192.168.1.1', false, Response::class],
+            [null, 'ROLE_ADMIN', 'admin_1', null, false, RedirectResponse::class],
+            ['AQAOXT322JDYRKVJ', 'ROLE_ADMIN', 'admin_2', '192.168.1.1', true, RedirectResponse::class],
+            [null, 'ROLE_ADMIN', 'admin_3', '192.168.1.1', false, Response::class],
         ];
     }
 
-    private function createTestClass(?string $secret, string $userRole, ?string $remoteAddr, bool $needSession): void
-    {
+    private function createTestClass(
+        ?string $secret,
+        string $userRole,
+        string $uesrname,
+        ?string $remoteAddr,
+        bool $needSession
+    ): void {
         $this->user = new BaseUser();
+        $this->user->setUsername($uesrname);
         if (null !== $secret) {
             $this->user->setTwoStepVerificationCode($secret);
         }
@@ -98,7 +112,11 @@ class TwoFactorLoginSuccessHandlerTest extends TestCase
             'ROLE_ADMIN' => ['ROLE_USER'],
             'ROLE_USER' => [''],
         ]);
-        $authChecker = new AuthorizationChecker($tokenStorage, $authManagerMock, new AccessDecisionManager([new RoleHierarchyVoter($roleHierarchy)]));
+        $authChecker = new AuthorizationChecker(
+            $tokenStorage,
+            $authManagerMock,
+            new AccessDecisionManager([new RoleHierarchyVoter($roleHierarchy)])
+        );
         $templateEngineMock = $this->createMock(Environment::class);
         $templateEngineMock->method('render')->willReturn('Rendered view');
         $userManagerMock = $this->createMock(UserManagerInterface::class);

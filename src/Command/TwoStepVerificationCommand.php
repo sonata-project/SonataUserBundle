@@ -16,34 +16,28 @@ namespace Sonata\UserBundle\Command;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Sonata\UserBundle\GoogleAuthenticator\Helper;
 use Sonata\UserBundle\Model\UserInterface;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-/**
- * NEXT_MAJOR: stop extending ContainerAwareCommand.
- */
-class TwoStepVerificationCommand extends ContainerAwareCommand
+class TwoStepVerificationCommand extends Command
 {
     /**
-     * @var ?Helper
+     * @var Helper
      */
     private $helper;
 
     /**
-     * @var ?UserManagerInterface
+     * @var UserManagerInterface
      */
     private $userManager;
 
-    /**
-     * NEXT_MAJOR: make $helper and $userManager mandatory (but still nullable).
-     */
     public function __construct(
-        ?string $name,
-        ?Helper $helper = null,
-        ?UserManagerInterface $userManager = null
+        string $name,
+        Helper $helper,
+        UserManagerInterface $userManager
     ) {
         parent::__construct($name);
 
@@ -67,36 +61,11 @@ class TwoStepVerificationCommand extends ContainerAwareCommand
 
     public function execute(InputInterface $input, OutputInterface $output): void
     {
-        if (null === $this->helper && !$this->getContainer()->has('sonata.user.google.authenticator.provider')) {
-            throw new \RuntimeException('Two Step Verification process is not enabled');
-        }
-
-        if (null === $this->helper) {
-            @trigger_error(sprintf(
-                'Not providing the $helper argument of "%s::__construct()" is deprecated since 4.3.0 and will no longer be possible in 5.0',
-                __CLASS__
-            ), \E_USER_DEPRECATED);
-            $helper = $this->getContainer()->get('sonata.user.google.authenticator.provider');
-            \assert($helper instanceof Helper);
-            $this->helper = $helper;
-        }
-
-        if (null === $this->userManager) {
-            @trigger_error(sprintf(
-                'Not providing the $userManager argument of "%s::__construct()" is deprecated since 4.3.0 and will no longer be possible in 5.0',
-                __CLASS__
-            ), \E_USER_DEPRECATED);
-            $manager = $this->getContainer()->get('fos_user.user_manager');
-            \assert($manager instanceof UserManagerInterface);
-            $this->userManager = $manager;
-        }
-
         $user = $this->userManager->findUserByUsernameOrEmail($input->getArgument('username'));
-        \assert($user instanceof UserInterface);
-
         if (!$user) {
             throw new \RuntimeException(sprintf('Unable to find the username : %s', $input->getArgument('username')));
         }
+        \assert($user instanceof UserInterface);
 
         if (!$user->getTwoStepVerificationCode() || $input->getOption('reset')) {
             $user->setTwoStepVerificationCode($this->helper->generateSecret());

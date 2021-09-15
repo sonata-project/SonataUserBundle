@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Model;
 
+use Doctrine\Common\Collections\Collection;
+
 interface UserInterface extends \FOS\UserBundle\Model\UserInterface
 {
     public const GENDER_FEMALE = 'f';
@@ -22,296 +24,206 @@ interface UserInterface extends \FOS\UserBundle\Model\UserInterface
     /**
      * Sets the creation date.
      *
-     * @return UserInterface
+     * @return static
      */
-    public function setCreatedAt(?\DateTime $createdAt = null);
+    public function setCreatedAt(?\DateTime $createdAt = null): UserInterface;
 
     /**
      * Returns the creation date.
-     *
-     * @return \DateTime|null
      */
-    public function getCreatedAt();
+    public function getCreatedAt(): ?\DateTime;
 
     /**
      * Sets the last update date.
      *
-     * @return UserInterface
+     * @return static
      */
-    public function setUpdatedAt(?\DateTime $updatedAt = null);
+    public function setUpdatedAt(?\DateTime $updatedAt = null): UserInterface;
 
     /**
      * Returns the last update date.
-     *
-     * @return \DateTime|null
      */
-    public function getUpdatedAt();
+    public function getUpdatedAt(): ?\DateTime;
 
     /**
      * Sets the user groups.
      *
-     * @param array $groups
+     * @param array<int, GroupInterface> $groups
      *
-     * @return UserInterface
+     * @return static
      */
-    public function setGroups($groups);
+    public function setGroups(array $groups): UserInterface;
 
     /**
      * Sets the two-step verification code.
      *
-     * @param string $twoStepVerificationCode
-     *
-     * @return UserInterface
+     * @return static
      */
-    public function setTwoStepVerificationCode($twoStepVerificationCode);
+    public function setTwoStepVerificationCode(string $twoStepVerificationCode): UserInterface;
 
     /**
      * Returns the two-step verification code.
+     */
+    public function getTwoStepVerificationCode(): ?string;
+
+    /**
+     * @return static
+     */
+    public function setBiography(string $biography): UserInterface;
+
+    public function getBiography(): ?string;
+
+    /**
+     * @return static
+     */
+    public function setDateOfBirth(\DateTime $dateOfBirth): UserInterface;
+
+    public function getDateOfBirth(): ?\DateTime;
+
+    /**
+     * @return static
+     */
+    public function setFacebookData(array $facebookData = []): UserInterface;
+
+    public function getFacebookData(): array;
+
+    /**
+     * @return static
+     */
+    public function setFacebookName(?string $facebookName): UserInterface;
+
+    public function getFacebookName(): ?string;
+
+    /**
+     * @return static
+     */
+    public function setFacebookUid(?string $facebookUid): UserInterface;
+
+    public function getFacebookUid(): ?string;
+
+    /**
+     * @return static
+     */
+    public function setFirstname(?string $firstname): UserInterface;
+
+    public function getFirstname(): ?string;
+
+    /**
+     * @return static
+     */
+    public function setGender(?string $gender): UserInterface;
+
+    public function getGender(): ?string;
+
+    /**
+     * @return static
+     */
+    public function setGplusData(array $gplusData = []): UserInterface;
+
+    public function getGplusData(): array;
+
+    /**
+     * @return static
+     */
+    public function setGplusName(?string $gplusName): UserInterface;
+
+    public function getGplusName(): ?string;
+
+    /**
+     * @return static
+     */
+    public function setGplusUid(?string $gplusUid): UserInterface;
+
+    public function getGplusUid(): ?string;
+
+    /**
+     * @return static
+     */
+    public function setLastname(?string $lastname): UserInterface;
+
+    public function getLastname(): ?string;
+
+    /**
+     * @return static
+     */
+    public function setLocale(?string $locale): UserInterface;
+
+    public function getLocale(): ?string;
+
+    /**
+     * @return static
+     */
+    public function setPhone(?string $phone): UserInterface;
+
+    public function getPhone(): ?string;
+
+    /**
+     * @return static
+     */
+    public function setTimezone(?string $timezone): UserInterface;
+
+    public function getTimezone(): ?string;
+
+    /**
+     * @return static
+     */
+    public function setTwitterData(array $twitterData = []): UserInterface;
+
+    public function getTwitterData(): array;
+
+    /**
+     * @return static
+     */
+    public function setTwitterName(?string $twitterName): UserInterface;
+
+    public function getTwitterName(): ?string;
+
+    /**
+     * @return static
+     */
+    public function setTwitterUid(?string $twitterUid): UserInterface;
+
+    public function getTwitterUid(): ?string;
+
+    /**
+     * @return static
+     */
+    public function setWebsite(?string $website): UserInterface;
+
+    public function getWebsite(): ?string;
+
+    /**
+     * @return static
+     */
+    public function setToken(?string $token): UserInterface;
+
+    public function getToken(): ?string;
+
+    public function getFullname(): ?string;
+
+    /**
+     * @return array<int, string>
+     */
+    public function getRealRoles(): array;
+
+    /**
+     * @param array<int, string> $roles
      *
-     * @return string
+     * @return static
      */
-    public function getTwoStepVerificationCode();
+    public function setRealRoles(array $roles): UserInterface;
 
-    /**
-     * @param string $biography
-     *
-     * @return UserInterface
-     */
-    public function setBiography($biography);
+    public function getGroups(): Collection;
 
-    /**
-     * @return string
-     */
-    public function getBiography();
+    public function getGroupNames(): array;
 
-    /**
-     * @param \DateTime $dateOfBirth
-     *
-     * @return UserInterface
-     */
-    public function setDateOfBirth($dateOfBirth);
+    public function hasGroup(string $name): bool;
 
-    /**
-     * @return \DateTime|null
-     */
-    public function getDateOfBirth();
+    public function addGroup(GroupInterface $group): UserInterface;
 
-    /**
-     * @param string $facebookData
-     *
-     * @return UserInterface
-     */
-    public function setFacebookData($facebookData);
+    public function removeGroup(GroupInterface $group): UserInterface;
 
-    /**
-     * @return string
-     */
-    public function getFacebookData();
+    public function isAccountNonLocked(): bool;
 
-    /**
-     * @param string $facebookName
-     *
-     * @return UserInterface
-     */
-    public function setFacebookName($facebookName);
-
-    /**
-     * @return string
-     */
-    public function getFacebookName();
-
-    /**
-     * @param string $facebookUid
-     *
-     * @return UserInterface
-     */
-    public function setFacebookUid($facebookUid);
-
-    /**
-     * @return string
-     */
-    public function getFacebookUid();
-
-    /**
-     * @param string $firstname
-     *
-     * @return UserInterface
-     */
-    public function setFirstname($firstname);
-
-    /**
-     * @return string
-     */
-    public function getFirstname();
-
-    /**
-     * @param string $gender
-     *
-     * @return UserInterface
-     */
-    public function setGender($gender);
-
-    /**
-     * @return string
-     */
-    public function getGender();
-
-    /**
-     * @param string $gplusData
-     *
-     * @return UserInterface
-     */
-    public function setGplusData($gplusData);
-
-    /**
-     * @return string
-     */
-    public function getGplusData();
-
-    /**
-     * @param string $gplusName
-     *
-     * @return UserInterface
-     */
-    public function setGplusName($gplusName);
-
-    /**
-     * @return string
-     */
-    public function getGplusName();
-
-    /**
-     * @param string $gplusUid
-     *
-     * @return UserInterface
-     */
-    public function setGplusUid($gplusUid);
-
-    /**
-     * @return string
-     */
-    public function getGplusUid();
-
-    /**
-     * @param string $lastname
-     *
-     * @return UserInterface
-     */
-    public function setLastname($lastname);
-
-    /**
-     * @return string
-     */
-    public function getLastname();
-
-    /**
-     * @param string $locale
-     *
-     * @return UserInterface
-     */
-    public function setLocale($locale);
-
-    /**
-     * @return string
-     */
-    public function getLocale();
-
-    /**
-     * @param string $phone
-     *
-     * @return UserInterface
-     */
-    public function setPhone($phone);
-
-    /**
-     * @return string
-     */
-    public function getPhone();
-
-    /**
-     * @param string $timezone
-     *
-     * @return UserInterface
-     */
-    public function setTimezone($timezone);
-
-    /**
-     * @return string
-     */
-    public function getTimezone();
-
-    /**
-     * @param string $twitterData
-     *
-     * @return UserInterface
-     */
-    public function setTwitterData($twitterData);
-
-    /**
-     * @return string
-     */
-    public function getTwitterData();
-
-    /**
-     * @param string $twitterName
-     *
-     * @return UserInterface
-     */
-    public function setTwitterName($twitterName);
-
-    /**
-     * @return string
-     */
-    public function getTwitterName();
-
-    /**
-     * @param string $twitterUid
-     *
-     * @return UserInterface
-     */
-    public function setTwitterUid($twitterUid);
-
-    /**
-     * @return string
-     */
-    public function getTwitterUid();
-
-    /**
-     * @param string $website
-     *
-     * @return UserInterface
-     */
-    public function setWebsite($website);
-
-    /**
-     * @return string
-     */
-    public function getWebsite();
-
-    /**
-     * @param string $token
-     *
-     * @return UserInterface
-     */
-    public function setToken($token);
-
-    /**
-     * @return string
-     */
-    public function getToken();
-
-    /**
-     * @return string
-     */
-    public function getFullname();
-
-    /**
-     * @return array
-     */
-    public function getRealRoles();
-
-    /**
-     * @return UserInterface
-     */
-    public function setRealRoles(array $roles);
+    public function getUserIdentifier(): ?string;
 }

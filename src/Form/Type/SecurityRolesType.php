@@ -49,14 +49,20 @@ class SecurityRolesType extends AbstractType
         $transformer = new RestoreRolesTransformer($this->rolesBuilder);
 
         // GET METHOD
-        $formBuilder->addEventListener(FormEvents::PRE_SET_DATA, static function (FormEvent $event) use ($transformer): void {
-            $transformer->setOriginalRoles($event->getData());
-        });
+        $formBuilder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            static function (FormEvent $event) use ($transformer): void {
+                $transformer->setOriginalRoles($event->getData());
+            }
+        );
 
         // POST METHOD
-        $formBuilder->addEventListener(FormEvents::PRE_SUBMIT, static function (FormEvent $event) use ($transformer): void {
-            $transformer->setOriginalRoles($event->getForm()->getData());
-        });
+        $formBuilder->addEventListener(
+            FormEvents::PRE_SUBMIT,
+            static function (FormEvent $event) use ($transformer): void {
+                $transformer->setOriginalRoles($event->getForm()->getData());
+            }
+        );
 
         $formBuilder->addModelTransformer($transformer);
     }
@@ -124,12 +130,12 @@ class SecurityRolesType extends AbstractType
         ]);
     }
 
-    public function getParent()
+    public function getParent(): string
     {
         return ChoiceType::class;
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'sonata_security_roles';
     }

@@ -19,25 +19,35 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class UserAclVoter extends AclVoter
 {
-    public function supportsClass($class)
+    /**
+     * @param string $class
+     */
+    public function supportsClass($class): bool
     {
         // support the Object-Scope ACL
         return is_subclass_of($class, 'FOS\UserBundle\Model\UserInterface');
     }
 
-    public function supportsAttribute($attribute)
+    /**
+     * @param string $attribute
+     */
+    public function supportsAttribute($attribute): bool
     {
         return 'EDIT' === $attribute || 'DELETE' === $attribute;
     }
 
-    public function vote(TokenInterface $token, $subject, array $attributes)
+    public function vote(TokenInterface $token, $subject, array $attributes): int
     {
         if (!\is_object($subject) || !$this->supportsClass(\get_class($subject))) {
             return self::ACCESS_ABSTAIN;
         }
 
         foreach ($attributes as $attribute) {
-            if ($this->supportsAttribute($attribute) && $subject instanceof UserInterface && $token->getUser() instanceof UserInterface) {
+            if (
+                $this->supportsAttribute($attribute)
+                && $subject instanceof UserInterface
+                && $token->getUser() instanceof UserInterface
+            ) {
                 if ($subject->isSuperAdmin() && !$token->getUser()->isSuperAdmin()) {
                     // deny a non super admin user to edit or delete a super admin user
                     return self::ACCESS_DENIED;

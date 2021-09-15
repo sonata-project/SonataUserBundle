@@ -19,6 +19,7 @@ use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Security\LoginManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Action\ResetAction;
@@ -31,7 +32,7 @@ use Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
 class ResetActionTest extends TestCase
@@ -52,7 +53,7 @@ class ResetActionTest extends TestCase
     protected $authorizationChecker;
 
     /**
-     * @var Pool|MockObject
+     * @var Pool
      */
     protected $pool;
 
@@ -101,7 +102,6 @@ class ResetActionTest extends TestCase
         $this->templating = $this->createMock(Environment::class);
         $this->urlGenerator = $this->createMock(UrlGeneratorInterface::class);
         $this->authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
-        $this->pool = $this->createMock(Pool::class);
         $this->templateRegistry = $this->createMock(TemplateRegistryInterface::class);
         $this->formFactory = $this->createMock(FactoryInterface::class);
         $this->userManager = $this->createMock(UserManagerInterface::class);
@@ -110,6 +110,10 @@ class ResetActionTest extends TestCase
         $this->session = new Session(new MockFileSessionStorage());
         $this->resetTtl = 60;
         $this->firewallName = 'default';
+
+        /** @var ContainerInterface|MockObject $container */
+        $container = $this->createMock(ContainerInterface::class);
+        $this->pool = new Pool($container);
     }
 
     public function testAuthenticated(): void

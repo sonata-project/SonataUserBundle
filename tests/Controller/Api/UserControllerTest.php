@@ -15,13 +15,13 @@ namespace Sonata\UserBundle\Tests\Controller\Api;
 
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\View\View;
-use FOS\UserBundle\Model\GroupInterface;
-use FOS\UserBundle\Model\UserInterface;
 use PHPUnit\Framework\TestCase;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\UserBundle\Controller\Api\UserController;
 use Sonata\UserBundle\Entity\BaseUser;
+use Sonata\UserBundle\Model\GroupInterface;
 use Sonata\UserBundle\Model\GroupManagerInterface;
+use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -55,28 +55,11 @@ class UserControllerTest extends TestCase
         static::assertSame($user, $this->createUserController($user)->getUserAction(1));
     }
 
-    /**
-     * @dataProvider getIdsForNotFound
-     */
-    public function testGetUserActionNotFoundException($identifier, string $message): void
+    public function testGetUserActionNotFoundException(): void
     {
         $this->expectException(NotFoundHttpException::class);
-        $this->expectExceptionMessage($message);
 
-        $this->createUserController()->getUserAction($identifier);
-    }
-
-    /**
-     * @phpstan-return list<array{mixed, string}>
-     */
-    public function getIdsForNotFound(): array
-    {
-        return [
-            [42, 'User not found for identifier 42.'],
-            ['42', 'User not found for identifier \'42\'.'],
-            [null, 'User not found for identifier NULL.'],
-            ['', 'User not found for identifier \'\'.'],
-        ];
+        $this->createUserController()->getUserAction(42);
     }
 
     public function testPostUserAction(): void
@@ -112,7 +95,7 @@ class UserControllerTest extends TestCase
 
         $view = $this->createUserController(null, $userManager, null, $formFactory)->postUserAction(new Request());
 
-        static::assertInstanceOf(FormInterface::class, $view);
+        static::assertInstanceOf(FormInterface::class, $view->getData());
     }
 
     public function testPutUserAction(): void
@@ -152,7 +135,7 @@ class UserControllerTest extends TestCase
 
         $view = $this->createUserController($user, $userManager, null, $formFactory)->putUserAction(1, new Request());
 
-        static::assertInstanceOf(FormInterface::class, $view);
+        static::assertInstanceOf(FormInterface::class, $view->getData());
     }
 
     public function testPostUserGroupAction(): void
@@ -171,7 +154,7 @@ class UserControllerTest extends TestCase
 
         $view = $this->createUserController($user, $userManager, $groupManager)->postUserGroupAction(1, 1);
 
-        static::assertSame(['added' => true], $view);
+        static::assertSame(['added' => true], $view->getData());
     }
 
     public function testPostUserGroupInvalidAction(): void
@@ -213,7 +196,7 @@ class UserControllerTest extends TestCase
 
         $view = $this->createUserController($user, $userManager, $groupManager)->deleteUserGroupAction(1, 1);
 
-        static::assertSame(['removed' => true], $view);
+        static::assertSame(['removed' => true], $view->getData());
     }
 
     public function testDeleteUserGroupInvalidAction(): void
@@ -249,7 +232,7 @@ class UserControllerTest extends TestCase
 
         $view = $this->createUserController($user, $userManager)->deleteUserAction(1);
 
-        static::assertSame(['deleted' => true], $view);
+        static::assertSame(['deleted' => true], $view->getData());
     }
 
     public function testDeleteUserInvalidAction(): void

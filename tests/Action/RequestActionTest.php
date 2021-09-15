@@ -15,6 +15,7 @@ namespace Sonata\UserBundle\Tests\Action;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Action\RequestAction;
@@ -42,7 +43,7 @@ class RequestActionTest extends TestCase
     protected $authorizationChecker;
 
     /**
-     * @var Pool|MockObject
+     * @var Pool
      */
     protected $pool;
 
@@ -56,8 +57,11 @@ class RequestActionTest extends TestCase
         $this->templating = $this->createMock(Environment::class);
         $this->urlGenerator = $this->createMock(UrlGeneratorInterface::class);
         $this->authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
-        $this->pool = $this->createMock(Pool::class);
         $this->templateRegistry = $this->createMock(TemplateRegistryInterface::class);
+
+        /** @var ContainerInterface|MockObject $container */
+        $container = $this->createMock(ContainerInterface::class);
+        $this->pool = new Pool($container);
     }
 
     public function testAuthenticated(): void

@@ -15,11 +15,11 @@ namespace Sonata\UserBundle\Tests\Controller\Api;
 
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\View\View;
-use FOS\UserBundle\Model\GroupInterface;
 use PHPUnit\Framework\TestCase;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\UserBundle\Controller\Api\GroupController;
 use Sonata\UserBundle\Entity\BaseGroup;
+use Sonata\UserBundle\Model\GroupInterface;
 use Sonata\UserBundle\Model\GroupManagerInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -54,28 +54,11 @@ class GroupControllerTest extends TestCase
         static::assertSame($group, $this->createGroupController($group)->getGroupAction(1));
     }
 
-    /**
-     * @dataProvider getIdsForNotFound
-     */
-    public function testGetGroupActionNotFoundException($identifier, string $message): void
+    public function testGetGroupActionNotFoundException(): void
     {
         $this->expectException(NotFoundHttpException::class);
-        $this->expectExceptionMessage($message);
 
-        $this->createGroupController()->getGroupAction($identifier);
-    }
-
-    /**
-     * @phpstan-return list<array{mixed, string}>
-     */
-    public function getIdsForNotFound(): array
-    {
-        return [
-            [42, 'Group not found for identifier 42.'],
-            ['42', 'Group not found for identifier \'42\'.'],
-            [null, 'Group not found for identifier NULL.'],
-            ['', 'Group not found for identifier \'\'.'],
-        ];
+        $this->createGroupController()->getGroupAction(42);
     }
 
     public function testPostGroupAction(): void
@@ -84,7 +67,6 @@ class GroupControllerTest extends TestCase
 
         $groupManager = $this->createMock(GroupManagerInterface::class);
         $groupManager->expects(static::once())->method('getClass')->willReturn(BaseGroup::class);
-        $groupManager->expects(static::once())->method('updateGroup')->willReturn($group);
 
         $form = $this->getMockBuilder(Form::class)->disableOriginalConstructor()->getMock();
         $form->expects(static::once())->method('handleRequest');
@@ -113,7 +95,7 @@ class GroupControllerTest extends TestCase
 
         $view = $this->createGroupController(null, $groupManager, $formFactory)->postGroupAction(new Request());
 
-        static::assertInstanceOf(FormInterface::class, $view);
+        static::assertInstanceOf(View::class, $view);
     }
 
     public function testPutGroupAction(): void
@@ -123,7 +105,6 @@ class GroupControllerTest extends TestCase
         $groupManager = $this->createMock(GroupManagerInterface::class);
         $groupManager->expects(static::once())->method('getClass')->willReturn(BaseGroup::class);
         $groupManager->expects(static::once())->method('findGroupBy')->willReturn($group);
-        $groupManager->expects(static::once())->method('updateGroup')->willReturn($group);
 
         $form = $this->getMockBuilder(Form::class)->disableOriginalConstructor()->getMock();
         $form->expects(static::once())->method('handleRequest');
@@ -155,7 +136,7 @@ class GroupControllerTest extends TestCase
 
         $view = $this->createGroupController($group, $groupManager, $formFactory)->putGroupAction(1, new Request());
 
-        static::assertInstanceOf(FormInterface::class, $view);
+        static::assertInstanceOf(FormInterface::class, $view->getData());
     }
 
     public function testDeleteGroupAction(): void
@@ -164,11 +145,10 @@ class GroupControllerTest extends TestCase
 
         $groupManager = $this->createMock(GroupManagerInterface::class);
         $groupManager->expects(static::once())->method('findGroupBy')->willReturn($group);
-        $groupManager->expects(static::once())->method('deleteGroup')->willReturn($group);
 
         $view = $this->createGroupController($group, $groupManager)->deleteGroupAction(1);
 
-        static::assertSame(['deleted' => true], $view);
+        static::assertSame(['deleted' => true], $view->getData());
     }
 
     public function testDeleteGroupInvalidAction(): void

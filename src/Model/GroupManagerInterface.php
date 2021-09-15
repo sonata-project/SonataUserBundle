@@ -13,22 +13,57 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Model;
 
-use FOS\UserBundle\Model\GroupInterface;
-use FOS\UserBundle\Model\GroupManagerInterface as BaseInterface;
 use Sonata\DatagridBundle\Pager\PageableInterface;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
  */
-interface GroupManagerInterface extends BaseInterface, PageableInterface
+interface GroupManagerInterface extends PageableInterface
 {
     /**
-     * Alias for the repository method.
-     *
-     * @param int|null $limit
-     * @param int|null $offset
-     *
-     * @return GroupInterface[]
+     * @return array<int, GroupInterface>
      */
-    public function findGroupsBy(?array $criteria = null, ?array $orderBy = null, $limit = null, $offset = null);
+    public function findGroupsBy(
+        ?array $criteria = null,
+        ?array $orderBy = null,
+        ?int $limit = null,
+        ?int $offset = null
+    ): array;
+
+    /**
+     * Returns an empty group instance.
+     */
+    public function createGroup(string $name): GroupInterface;
+
+    /**
+     * Deletes a group.
+     */
+    public function deleteGroup(GroupInterface $group): void;
+
+    /**
+     * Finds one group by the given criteria.
+     */
+    public function findGroupBy(array $criteria): ?GroupInterface;
+
+    /**
+     * Finds a group by name.
+     */
+    public function findGroupByName(string $name): ?GroupInterface;
+
+    /**
+     * Returns a collection with all group instances.
+     *
+     * @return array<int, GroupInterface>
+     */
+    public function findGroups(): array;
+
+    /**
+     * Returns the group's fully qualified class name.
+     */
+    public function getClass(): string;
+
+    /**
+     * Updates a group.
+     */
+    public function updateGroup(GroupInterface $group, bool $andFlush = true): void;
 }

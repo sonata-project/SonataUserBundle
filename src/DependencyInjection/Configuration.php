@@ -28,16 +28,11 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('sonata_user');
 
-        // Keep compatibility with symfony/config < 4.2
-        if (!method_exists($treeBuilder, 'getRootNode')) {
-            $rootNode = $treeBuilder->root('sonata_user');
-        } else {
-            $rootNode = $treeBuilder->getRootNode();
-        }
+        $rootNode = $treeBuilder->getRootNode();
 
         $supportedManagerTypes = ['orm', 'mongodb'];
 
@@ -65,11 +60,6 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->scalarNode('server')->cannotBeEmpty()->end()
                         ->scalarNode('enabled')->defaultFalse()->end()
-                        ->arrayNode('ip_white_list')
-                            ->prototype('scalar')->end()
-                            ->info('IPs for which 2FA will be skipped.')
-                            ->setDeprecated('The "%node%" option is deprecated. Use "trusted_ip_list" instead with the same values.')
-                        ->end()
                         ->arrayNode('trusted_ip_list')
                             ->prototype('scalar')->end()
                             ->defaultValue(['127.0.0.1'])

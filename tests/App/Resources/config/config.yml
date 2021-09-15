@@ -5,8 +5,6 @@ framework:
         enabled: true
     translator:
         enabled: true
-    templating:
-        engines: ['twig']
     session:
         handler_id: session.handler.native_file
         storage_id: session.storage.mock_file
@@ -50,8 +48,6 @@ doctrine:
 
 fos_user:
     user_class: 'Sonata\UserBundle\Tests\Entity\User'
-    group:
-        group_class: 'Sonata\UserBundle\Entity\BaseGroup'
     db_driver: 'orm'
     firewall_name: 'api'
     from_email:

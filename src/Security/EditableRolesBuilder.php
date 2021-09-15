@@ -14,9 +14,10 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Security;
 
 use Sonata\AdminBundle\Admin\Pool;
+use Sonata\AdminBundle\SonataConfiguration;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class EditableRolesBuilder
 {
@@ -36,6 +37,11 @@ class EditableRolesBuilder
     protected $pool;
 
     /**
+     * @var SonataConfiguration
+     */
+    private $config;
+
+    /**
      * @var TranslatorInterface
      */
     protected $translator;
@@ -45,11 +51,17 @@ class EditableRolesBuilder
      */
     protected $rolesHierarchy;
 
-    public function __construct(TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authorizationChecker, Pool $pool, array $rolesHierarchy = [])
-    {
+    public function __construct(
+        TokenStorageInterface $tokenStorage,
+        AuthorizationCheckerInterface $authorizationChecker,
+        Pool $pool,
+        SonataConfiguration $config,
+        array $rolesHierarchy = []
+    ) {
         $this->tokenStorage = $tokenStorage;
         $this->authorizationChecker = $authorizationChecker;
         $this->pool = $pool;
+        $this->config = $config;
         $this->rolesHierarchy = $rolesHierarchy;
     }
 
@@ -63,11 +75,8 @@ class EditableRolesBuilder
 
     /**
      * @param string|bool|null $domain
-     * @param bool             $expanded
-     *
-     * @return array
      */
-    public function getRoles($domain = false, $expanded = true)
+    public function getRoles($domain = false, bool $expanded = true): array
     {
         $roles = [];
 
@@ -83,7 +92,7 @@ class EditableRolesBuilder
         });
 
         $isMaster = $this->authorizationChecker->isGranted(
-            $this->pool->getOption('role_super_admin', 'ROLE_SUPER_ADMIN')
+            $this->config->getOption('role_super_admin', 'ROLE_SUPER_ADMIN')
         );
 
         // get roles from the service container
@@ -91,7 +100,11 @@ class EditableRolesBuilder
             if ($this->authorizationChecker->isGranted($name) || $isMaster) {
                 $roles[$name] = $this->translateRole($name, $domain);
                 if ($expanded) {
-                    $result = array_map([$this, 'translateRole'], $rolesHierarchy, array_fill(0, \count($rolesHierarchy), $domain));
+                    $result = array_map(
+                        [$this, 'translateRole'],
+                        $rolesHierarchy,
+                        array_fill(0, \count($rolesHierarchy), $domain)
+                    );
                     $roles[$name] .= ': '.implode(', ', $result);
                 }
                 foreach ($rolesHierarchy as $role) {
@@ -107,10 +120,8 @@ class EditableRolesBuilder
 
     /**
      * @param string|bool|null $domain
-     *
-     * @return array
      */
-    public function getRolesReadOnly($domain = false)
+    public function getRolesReadOnly($domain = false): array
     {
         $rolesReadOnly = [];
 
@@ -155,12 +166,9 @@ class EditableRolesBuilder
     }
 
     /*
-     * @param string $role
      * @param string|bool|null $domain
-     *
-     * @return string
      */
-    private function translateRole($role, $domain)
+    private function translateRole(string $role, $domain): string
     {
         // translation domain is false, do not translate it,
         // null is fallback to message domain

@@ -15,6 +15,7 @@ namespace Sonata\UserBundle\Tests\Action;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Action\LoginAction;
@@ -30,7 +31,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
 class LoginActionTest extends TestCase
@@ -51,7 +52,7 @@ class LoginActionTest extends TestCase
     protected $authorizationChecker;
 
     /**
-     * @var Pool|MockObject
+     * @var Pool
      */
     protected $pool;
 
@@ -85,12 +86,15 @@ class LoginActionTest extends TestCase
         $this->templating = $this->createMock(Environment::class);
         $this->urlGenerator = $this->createMock(UrlGeneratorInterface::class);
         $this->authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
-        $this->pool = $this->createMock(Pool::class);
         $this->templateRegistry = $this->createMock(TemplateRegistryInterface::class);
         $this->tokenStorage = $this->createMock(TokenStorageInterface::class);
         $this->session = $this->createMock(Session::class);
         $this->translator = $this->createMock(TranslatorInterface::class);
         $this->csrfTokenManager = $this->createMock(CsrfTokenManagerInterface::class);
+
+        /** @var ContainerInterface|MockObject $container */
+        $container = $this->createMock(ContainerInterface::class);
+        $this->pool = new Pool($container);
     }
 
     public function testAlreadyAuthenticated(): void

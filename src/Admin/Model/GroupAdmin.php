@@ -25,13 +25,6 @@ class GroupAdmin extends AbstractAdmin
         'validation_groups' => 'Registration',
     ];
 
-    public function getNewInstance()
-    {
-        $class = $this->getClass();
-
-        return new $class('', []);
-    }
-
     protected function configureListFields(ListMapper $list): void
     {
         $list

@@ -18,15 +18,15 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\View\View as FOSRestView;
-use FOS\UserBundle\Model\GroupInterface;
+use FOS\UserBundle\Model\UserInterface as FOSUserInterface;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\UserBundle\Form\Type\ApiUserType;
+use Sonata\UserBundle\Model\GroupInterface;
 use Sonata\UserBundle\Model\GroupManagerInterface;
 use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -71,10 +71,8 @@ class UserController
      * @QueryParam(name="enabled", requirements="0|1", nullable=true, strict=true, description="Enables or disables the users only?")
      *
      * @View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
-     *
-     * @return PagerInterface
      */
-    public function getUsersAction(ParamFetcherInterface $paramFetcher)
+    public function getUsersAction(ParamFetcherInterface $paramFetcher): PagerInterface
     {
         $supporedCriteria = [
             'enabled' => '',
@@ -113,12 +111,8 @@ class UserController
      * )
      *
      * @View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
-     *
-     * @param string $id
-     *
-     * @return UserInterface
      */
-    public function getUserAction($id)
+    public function getUserAction(int $id): UserInterface
     {
         return $this->getUser($id);
     }
@@ -135,13 +129,9 @@ class UserController
      *  }
      * )
      *
-     * @param Request $request A Symfony request
-     *
      * @throws NotFoundHttpException
-     *
-     * @return UserInterface
      */
-    public function postUserAction(Request $request)
+    public function postUserAction(Request $request): FOSRestView
     {
         return $this->handleWriteUser($request);
     }
@@ -162,14 +152,9 @@ class UserController
      *  }
      * )
      *
-     * @param string  $id      User id
-     * @param Request $request A Symfony request
-     *
      * @throws NotFoundHttpException
-     *
-     * @return UserInterface
      */
-    public function putUserAction($id, Request $request)
+    public function putUserAction(int $id, Request $request): FOSRestView
     {
         return $this->handleWriteUser($request, $id);
     }
@@ -188,19 +173,15 @@ class UserController
      *  }
      * )
      *
-     * @param string $id An User identifier
-     *
      * @throws NotFoundHttpException
-     *
-     * @return \FOS\RestBundle\View\View
      */
-    public function deleteUserAction($id)
+    public function deleteUserAction(int $id): FOSRestView
     {
         $user = $this->getUser($id);
 
         $this->userManager->deleteUser($user);
 
-        return ['deleted' => true];
+        return FOSRestView::create(['deleted' => true]);
     }
 
     /**
@@ -219,15 +200,10 @@ class UserController
      *  }
      * )
      *
-     * @param string $userId  A User identifier
-     * @param string $groupId A Group identifier
-     *
      * @throws NotFoundHttpException
      * @throws \RuntimeException
-     *
-     * @return UserInterface
      */
-    public function postUserGroupAction($userId, $groupId)
+    public function postUserGroupAction(int $userId, int $groupId): FOSRestView
     {
         $user = $this->getUser($userId);
         $group = $this->getGroup($groupId);
@@ -241,7 +217,7 @@ class UserController
         $user->addGroup($group);
         $this->userManager->updateUser($user);
 
-        return ['added' => true];
+        return FOSRestView::create(['added' => true]);
     }
 
     /**
@@ -260,15 +236,10 @@ class UserController
      *  }
      * )
      *
-     * @param string $userId  A User identifier
-     * @param string $groupId A Group identifier
-     *
      * @throws NotFoundHttpException
      * @throws \RuntimeException
-     *
-     * @return UserInterface
      */
-    public function deleteUserGroupAction($userId, $groupId)
+    public function deleteUserGroupAction(int $userId, int $groupId): FOSRestView
     {
         $user = $this->getUser($userId);
         $group = $this->getGroup($groupId);
@@ -282,19 +253,17 @@ class UserController
         $user->removeGroup($group);
         $this->userManager->updateUser($user);
 
-        return ['removed' => true];
+        return FOSRestView::create(['removed' => true]);
     }
 
     /**
      * Retrieves user with id $id or throws an exception if it doesn't exist.
      *
-     * @param string $id
-     *
      * @throws NotFoundHttpException
      *
-     * @return UserInterface
+     * @return UserInterface|FOSUserInterface
      */
-    protected function getUser($id)
+    protected function getUser(int $id): FOSUserInterface
     {
         $user = $this->userManager->findUserBy(['id' => $id]);
 
@@ -308,13 +277,9 @@ class UserController
     /**
      * Retrieves user with id $id or throws an exception if it doesn't exist.
      *
-     * @param string $id
-     *
      * @throws NotFoundHttpException
-     *
-     * @return GroupInterface
      */
-    protected function getGroup($id)
+    protected function getGroup(int $id): GroupInterface
     {
         $group = $this->groupManager->findGroupBy(['id' => $id]);
 
@@ -327,36 +292,31 @@ class UserController
 
     /**
      * Write an User, this method is used by both POST and PUT action methods.
-     *
-     * @param Request     $request Symfony request
-     * @param string|null $id      An User identifier
-     *
-     * @return FormInterface
      */
-    protected function handleWriteUser($request, $id = null)
+    protected function handleWriteUser(Request $request, ?int $id = null): FOSRestView
     {
         $user = $id ? $this->getUser($id) : null;
 
-        $form = $this->formFactory->createNamed(null, ApiUserType::class, $user, [
+        $form = $this->formFactory->createNamed('', ApiUserType::class, $user, [
             'csrf_protection' => false,
         ]);
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $user = $form->getData();
-            $this->userManager->updateUser($user);
-
-            $context = new Context();
-            $context->setGroups(['sonata_api_read']);
-            $context->enableMaxDepth();
-
-            $view = FOSRestView::create($user);
-            $view->setContext($context);
-
-            return $view;
+        if (!$form->isValid()) {
+            return FOSRestView::create($form);
         }
 
-        return $form;
+        $user = $form->getData();
+        $this->userManager->updateUser($user);
+
+        $context = new Context();
+        $context->setGroups(['sonata_api_read']);
+        $context->enableMaxDepth();
+
+        $view = FOSRestView::create($user);
+        $view->setContext($context);
+
+        return $view;
     }
 }

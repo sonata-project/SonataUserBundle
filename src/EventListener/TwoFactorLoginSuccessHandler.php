@@ -21,8 +21,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 /**
  * Class TwoFactorLoginSuccessHandler is used for handling 2FA authorization for enabled roles and ips.
@@ -55,7 +59,7 @@ final class TwoFactorLoginSuccessHandler implements AuthenticationSuccessHandler
         Environment $engine,
         Helper $helper,
         UserManagerInterface $userManager,
-        ?UrlGeneratorInterface $urlGenerator = null // NEXT_MAJOR: make it mandatory.
+        UrlGeneratorInterface $urlGenerator
     ) {
         $this->engine = $engine;
         $this->googleAuthenticator = $helper;
@@ -64,7 +68,13 @@ final class TwoFactorLoginSuccessHandler implements AuthenticationSuccessHandler
     }
 
     /**
+     * @param UsernamePasswordToken|TokenInterface $token
+     *
      * @return RedirectResponse|Response
+     *
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token): Response
     {
@@ -92,10 +102,7 @@ final class TwoFactorLoginSuccessHandler implements AuthenticationSuccessHandler
             $request->getSession()->set($this->googleAuthenticator->getSessionKey($token), null);
         }
 
-        // NEXT_MAJOR: remove hardcoded url.
-        $url = $this->urlGenerator
-            ? $this->urlGenerator->generate('sonata_admin_dashboard')
-            : '/admin';
+        $url = $this->urlGenerator->generate('sonata_admin_dashboard');
 
         return new RedirectResponse($url);
     }

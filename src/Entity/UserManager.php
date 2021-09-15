@@ -13,11 +13,12 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Entity;
 
-use FOS\UserBundle\Doctrine\UserManager as BaseUserManager;
+use Doctrine\DBAL\Connection;
 use Sonata\DatagridBundle\Pager\Doctrine\Pager;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\Doctrine\Model\ManagerInterface;
 use Sonata\UserBundle\Model\UserInterface;
+use Sonata\UserBundle\Model\UserManager as BaseUserManager;
 use Sonata\UserBundle\Model\UserManagerInterface;
 
 /**
@@ -25,36 +26,46 @@ use Sonata\UserBundle\Model\UserManagerInterface;
  */
 class UserManager extends BaseUserManager implements UserManagerInterface, ManagerInterface
 {
-    public function findUsersBy(?array $criteria = null, ?array $orderBy = null, $limit = null, $offset = null)
-    {
-        return $this->getRepository()->findBy($criteria, $orderBy, $limit, $offset);
-    }
-
-    public function find($id)
+    /**
+     * @param int $id
+     */
+    public function find($id): ?UserInterface
     {
         return $this->getRepository()->find($id);
     }
 
-    public function findAll()
+    /**
+     * @return array<int, UserInterface>
+     */
+    public function findAll(): array
     {
         return $this->getRepository()->findAll();
     }
 
-    public function findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null)
+    /**
+     * @param int|null $limit
+     * @param int|null $offset
+     *
+     * @return array<int, UserInterface>
+     */
+    public function findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null): array
     {
         return $this->getRepository()->findBy($criteria, $orderBy, $limit, $offset);
     }
 
-    public function findOneBy(array $criteria, ?array $orderBy = null)
+    public function findOneBy(array $criteria, ?array $orderBy = null): UserInterface
     {
         return parent::findUserBy($criteria);
     }
 
-    public function create()
+    public function create(): UserInterface
     {
         return parent::createUser();
     }
 
+    /**
+     * @param bool $andFlush
+     */
     public function save($entity, $andFlush = true): void
     {
         if (!$entity instanceof UserInterface) {
@@ -64,6 +75,9 @@ class UserManager extends BaseUserManager implements UserManagerInterface, Manag
         parent::updateUser($entity, $andFlush);
     }
 
+    /**
+     * @param bool $andFlush
+     */
     public function delete($entity, $andFlush = true): void
     {
         if (!$entity instanceof UserInterface) {
@@ -73,12 +87,12 @@ class UserManager extends BaseUserManager implements UserManagerInterface, Manag
         parent::deleteUser($entity);
     }
 
-    public function getTableName()
+    public function getTableName(): string
     {
         return $this->objectManager->getClassMetadata($this->getClass())->table['name'];
     }
 
-    public function getConnection()
+    public function getConnection(): Connection
     {
         return $this->objectManager->getConnection();
     }
@@ -92,7 +106,9 @@ class UserManager extends BaseUserManager implements UserManagerInterface, Manag
         $fields = $this->objectManager->getClassMetadata($this->getClass())->getFieldNames();
         foreach ($sort as $field => $direction) {
             if (!\in_array($field, $fields, true)) {
-                throw new \RuntimeException(sprintf("Invalid sort field '%s' in '%s' class", $field, $this->getClass()));
+                throw new \RuntimeException(
+                    sprintf("Invalid sort field '%s' in '%s' class", $field, $this->getClass())
+                );
             }
         }
         if (0 === \count($sort)) {

@@ -70,7 +70,7 @@ class RestoreRolesTransformerTest extends TestCase
         $roleBuilder = $this->createMock(EditableRolesBuilder::class);
 
         $transformer = new RestoreRolesTransformer($roleBuilder);
-        $transformer->setOriginalRoles(null);
+        $transformer->setOriginalRoles();
 
         $data = ['ROLE_FOO'];
 
@@ -84,7 +84,7 @@ class RestoreRolesTransformerTest extends TestCase
         $roleBuilder->expects(static::once())->method('getRoles')->willReturn([]);
 
         $transformer = new RestoreRolesTransformer($roleBuilder);
-        $transformer->setOriginalRoles(null);
+        $transformer->setOriginalRoles();
 
         $data = ['ROLE_FOO'];
 

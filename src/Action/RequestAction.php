@@ -21,6 +21,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 final class RequestAction
 {
@@ -63,6 +66,11 @@ final class RequestAction
         $this->templateRegistry = $templateRegistry;
     }
 
+    /**
+     * @throws RuntimeError
+     * @throws SyntaxError
+     * @throws LoaderError
+     */
     public function __invoke(Request $request): Response
     {
         if ($this->authorizationChecker->isGranted('IS_AUTHENTICATED_FULLY')) {

@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\GoogleAuthenticator;
 
 use Google\Authenticator\GoogleAuthenticator as BaseGoogleAuthenticator;
+use Sonata\GoogleAuthenticator\GoogleQrUrl;
 use Sonata\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -32,12 +33,12 @@ class Helper
     protected $authenticator;
 
     /**
-     * @var string[]
+     * @var array<int, string>
      */
     private $forcedForRoles;
 
     /**
-     * @var string[]
+     * @var array<int, string>
      */
     private $trustedIpList;
 
@@ -47,7 +48,7 @@ class Helper
     private $authorizationChecker;
 
     /**
-     * @param string[] $trustedIpList IPs that will bypass 2FA authorization
+     * @var array<int, string> $trustedIpList IPs that will bypass 2FA authorization
      */
     public function __construct(
         $server,
@@ -63,38 +64,28 @@ class Helper
         $this->trustedIpList = $trustedIpList;
     }
 
-    /**
-     * @param string $code
-     *
-     * @return bool
-     */
-    public function checkCode(UserInterface $user, $code)
+    public function checkCode(UserInterface $user, string $code): bool
     {
         return $this->authenticator->checkCode($user->getTwoStepVerificationCode(), $code);
     }
 
-    /**
-     * @return string
-     */
-    public function getUrl(UserInterface $user)
+    public function getUrl(UserInterface $user): string
     {
-        return $this->authenticator->getUrl($user->getUsername(), $this->server, $user->getTwoStepVerificationCode());
+        return GoogleQrUrl::generate($user->getUsername(), $user->getTwoStepVerificationCode(), $this->server);
     }
 
-    /**
-     * @return string
-     */
-    public function generateSecret()
+    public function generateSecret(): string
     {
         return $this->authenticator->generateSecret();
     }
 
-    /**
-     * @return string
-     */
-    public function getSessionKey(UsernamePasswordToken $token)
+    public function getSessionKey(UsernamePasswordToken $token): string
     {
-        return sprintf('sonata_user_google_authenticator_%s_%s', $token->getProviderKey(), $token->getUsername());
+        return sprintf(
+            'sonata_user_google_authenticator_%s_%s',
+            $token->getFirewallName(),
+            $token->getUserIdentifier()
+        );
     }
 
     public function needToHaveGoogle2FACode(Request $request): bool

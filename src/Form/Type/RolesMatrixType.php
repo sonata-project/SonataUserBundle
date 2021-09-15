@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Form\Type;
 
-use Sonata\UserBundle\Security\RolesBuilder\ExpandableRolesBuilderInterface;
+use Sonata\UserBundle\Security\RolesBuilder\MatrixRolesBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\Options;
@@ -25,11 +25,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class RolesMatrixType extends AbstractType
 {
     /**
-     * @var ExpandableRolesBuilderInterface
+     * @var MatrixRolesBuilderInterface
      */
     private $rolesBuilder;
 
-    public function __construct(ExpandableRolesBuilderInterface $rolesBuilder)
+    public function __construct(MatrixRolesBuilderInterface $rolesBuilder)
     {
         $this->rolesBuilder = $rolesBuilder;
     }
@@ -43,10 +43,11 @@ final class RolesMatrixType extends AbstractType
                     return [];
                 }
 
-                $roles = $this->rolesBuilder->getRoles(
-                    $options['choice_translation_domain'],
-                    $options['expanded']
-                );
+                $roles = $options['expanded']
+                    ? $this->rolesBuilder->getExpandedRoles($options['choice_translation_domain'])
+                    : $this->rolesBuilder->getRoles($options['choice_translation_domain']);
+                ;
+
                 $roles = array_keys($roles);
 
                 return array_combine($roles, $roles);

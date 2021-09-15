@@ -22,11 +22,12 @@
         <service id="sonata.user.admin_roles_builder" class="Sonata\UserBundle\Security\RolesBuilder\AdminRolesBuilder" public="false">
             <argument type="service" id="security.authorization_checker"/>
             <argument type="service" id="sonata.admin.pool"/>
+            <argument type="service" id="sonata.admin.configuration"/>
             <argument type="service" id="translator"/>
         </service>
         <service id="sonata.user.security_roles_builder" class="Sonata\UserBundle\Security\RolesBuilder\SecurityRolesBuilder" public="false">
             <argument type="service" id="security.authorization_checker"/>
-            <argument type="service" id="sonata.admin.pool"/>
+            <argument type="service" id="sonata.admin.configuration"/>
             <argument type="service" id="translator"/>
             <argument>%security.role_hierarchy.roles%</argument>
         </service>

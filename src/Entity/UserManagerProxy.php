@@ -13,8 +13,10 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Entity;
 
+use Doctrine\DBAL\Connection;
 use Doctrine\Persistence\ManagerRegistry;
 use Sonata\Doctrine\Entity\BaseEntityManager;
+use Sonata\UserBundle\Model\UserInterface;
 
 /**
  * This UserManageProxy class is used to keep UserManager compatible with Sonata ManagerInterface implementation
@@ -39,52 +41,72 @@ class UserManagerProxy extends BaseEntityManager
         $this->userManager = $userManager;
     }
 
-    public function getClass()
+    public function getClass(): ?string
     {
         return $this->userManager->getClass();
     }
 
-    public function findAll()
+    /**
+     * @return array<int, UserInterface>
+     */
+    public function findAll(): array
     {
         return $this->userManager->findAll();
     }
 
-    public function findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null)
+    /**
+     * @param int|null $limit
+     * @param int|null $offset
+     *
+     * @return array<int, UserInterface>
+     */
+    public function findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null): array
     {
         return $this->userManager->findBy($criteria, $orderBy, $limit, $offset);
     }
 
-    public function findOneBy(array $criteria, ?array $orderBy = null)
+    public function findOneBy(array $criteria, ?array $orderBy = null): UserInterface
     {
         return $this->userManager->findOneBy($criteria, $orderBy);
     }
 
-    public function find($id)
+    /**
+     * @param int $id
+     */
+    public function find($id): ?UserInterface
     {
         return $this->userManager->find($id);
     }
 
-    public function create()
+    public function create(): UserInterface
     {
         return $this->userManager->create();
     }
 
-    public function save($entity, $andFlush = true)
+    /**
+     * @param UserInterface $entity
+     * @param bool $andFlush
+     */
+    public function save($entity, $andFlush = true): void
     {
         $this->userManager->save($entity, $andFlush);
     }
 
-    public function delete($entity, $andFlush = true)
+    /**
+     * @param UserInterface $entity
+     * @param bool $andFlush
+     */
+    public function delete($entity, $andFlush = true): void
     {
         $this->userManager->delete($entity, $andFlush);
     }
 
-    public function getTableName()
+    public function getTableName(): string
     {
         return $this->userManager->getTableName();
     }
 
-    public function getConnection()
+    public function getConnection(): Connection
     {
         return $this->userManager->getConnection();
     }

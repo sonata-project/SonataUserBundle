@@ -42,7 +42,9 @@ class GroupManagerTest extends TestCase
     public function testGetPagerWithInvalidSort(): void
     {
         $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Invalid sort field \'invalid\' in \'className\' class');
+        $this->expectExceptionMessage(
+            sprintf('Invalid sort field \'invalid\' in \'%s\' class', BaseGroup::class)
+        );
 
         $this
             ->getUserManager(function (MockObject $qb): void {

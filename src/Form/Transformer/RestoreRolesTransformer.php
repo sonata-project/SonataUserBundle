@@ -38,10 +38,13 @@ class RestoreRolesTransformer implements DataTransformerInterface
         $this->originalRoles = $originalRoles ?: [];
     }
 
-    public function transform($value)
+    /**
+     * @param array|null $value
+     */
+    public function transform($value): ?array
     {
         if (null === $value) {
-            return $value;
+            return null;
         }
 
         if (null === $this->originalRoles) {
@@ -51,7 +54,10 @@ class RestoreRolesTransformer implements DataTransformerInterface
         return $value;
     }
 
-    public function reverseTransform($selectedRoles)
+    /**
+     * @param array|null $selectedRoles
+     */
+    public function reverseTransform($selectedRoles): array
     {
         if (null === $this->originalRoles) {
             throw new \RuntimeException('Invalid state, originalRoles array is not set');

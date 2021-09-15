@@ -18,6 +18,7 @@ use JMS\Serializer\Handler\HandlerRegistryInterface;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerBuilder;
 use PHPUnit\Framework\TestCase;
+use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Tests\Entity\User;
 
 /**
@@ -89,7 +90,7 @@ class SerializationTest extends TestCase
                     'lastname' => 'Nito',
                     'website' => 'https://en.wikipedia.org/wiki/Incognito',
                     'biography' => 'Once upon a time ...',
-                    'gender' => User::GENDER_UNKNOWN,
+                    'gender' => UserInterface::GENDER_UNKNOWN,
                     'locale' => 'es_AR',
                     'timezone' => 'America/Argentina/Buenos_Aires',
                     'phone' => '0054 9 11 12345678',
@@ -117,7 +118,7 @@ class SerializationTest extends TestCase
                     'lastname' => 'Nito',
                     'website' => 'https://en.wikipedia.org/wiki/Incognito',
                     'biography' => 'Once upon a time ...',
-                    'gender' => User::GENDER_UNKNOWN,
+                    'gender' => UserInterface::GENDER_UNKNOWN,
                     'locale' => 'es_AR',
                     'timezone' => 'America/Argentina/Buenos_Aires',
                     'phone' => '0054 9 11 12345678',
@@ -143,7 +144,7 @@ class SerializationTest extends TestCase
                     'lastname' => 'Nito',
                     'website' => 'https://en.wikipedia.org/wiki/Incognito',
                     'biography' => 'Once upon a time ...',
-                    'gender' => User::GENDER_UNKNOWN,
+                    'gender' => UserInterface::GENDER_UNKNOWN,
                     'locale' => 'es_AR',
                     'timezone' => 'America/Argentina/Buenos_Aires',
                     'phone' => '0054 9 11 12345678',
@@ -169,7 +170,7 @@ class SerializationTest extends TestCase
                     'lastname' => 'Nito',
                     'website' => 'https://en.wikipedia.org/wiki/Incognito',
                     'biography' => 'Once upon a time ...',
-                    'gender' => User::GENDER_UNKNOWN,
+                    'gender' => UserInterface::GENDER_UNKNOWN,
                     'locale' => 'es_AR',
                     'timezone' => 'America/Argentina/Buenos_Aires',
                     'phone' => '0054 9 11 12345678',
@@ -198,7 +199,7 @@ class SerializationTest extends TestCase
                     'lastname' => 'Nito',
                     'website' => 'https://en.wikipedia.org/wiki/Incognito',
                     'biography' => 'Once upon a time ...',
-                    'gender' => User::GENDER_UNKNOWN,
+                    'gender' => UserInterface::GENDER_UNKNOWN,
                     'locale' => 'es_AR',
                     'timezone' => 'America/Argentina/Buenos_Aires',
                     'phone' => '0054 9 11 12345678',
@@ -226,7 +227,7 @@ class SerializationTest extends TestCase
                     'lastname' => 'Nito',
                     'website' => 'https://en.wikipedia.org/wiki/Incognito',
                     'biography' => 'Once upon a time ...',
-                    'gender' => User::GENDER_UNKNOWN,
+                    'gender' => UserInterface::GENDER_UNKNOWN,
                     'locale' => 'es_AR',
                     'timezone' => 'America/Argentina/Buenos_Aires',
                     'phone' => '0054 9 11 12345678',

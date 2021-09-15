@@ -16,7 +16,6 @@ namespace Sonata\UserBundle\DependencyInjection;
 use Nelmio\ApiDocBundle\Annotation\Operation;
 use Sonata\Doctrine\Mapper\Builder\OptionsBuilder;
 use Sonata\Doctrine\Mapper\DoctrineCollector;
-use Sonata\EasyExtendsBundle\Mapper\DoctrineCollector as DeprecatedDoctrineCollector;
 use Sonata\UserBundle\Document\BaseGroup as DocumentGroup;
 use Sonata\UserBundle\Document\BaseUser as DocumentUser;
 use Sonata\UserBundle\Entity\BaseGroup as EntityGroup;
@@ -41,6 +40,9 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $processor = new Processor();
@@ -61,17 +63,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
 
         $this->aliasManagers($container, $config['manager_type']);
 
-        $loader->load('form.xml');
-
-        if (class_exists('Google\Authenticator\GoogleAuthenticator')) {
-            @trigger_error(
-                'The \'Google\Authenticator\' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.',
-                \E_USER_DEPRECATED
-            );
-        }
-
-        if (class_exists('Google\Authenticator\GoogleAuthenticator') ||
-            class_exists('Sonata\GoogleAuthenticator\GoogleAuthenticator')) {
+        if (class_exists('Sonata\GoogleAuthenticator\GoogleAuthenticator')) {
             $loader->load('google_authenticator.xml');
         }
 
@@ -101,12 +93,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
 
         $this->checkManagerTypeToModelTypesMapping($config);
 
-        if (isset($bundles['SonataDoctrineBundle'])) {
-            $this->registerSonataDoctrineMapping($config);
-        } else {
-            // NEXT MAJOR: Remove next line and throw error when not registering SonataDoctrineBundle
-            $this->registerDoctrineMapping($config);
-        }
+        $this->registerSonataDoctrineMapping($config);
 
         $this->configureAdminClass($config, $container);
         $this->configureClass($config, $container);
@@ -124,10 +111,8 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
 
     /**
      * @throws \RuntimeException
-     *
-     * @return array
      */
-    public function fixImpersonating(array $config)
+    public function fixImpersonating(array $config): array
     {
         if (isset($config['impersonating'], $config['impersonating_route'])) {
             throw new \RuntimeException('you can\'t have `impersonating` and `impersonating_route` keys defined at the same time');
@@ -152,13 +137,9 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     }
 
     /**
-     * @param array $config
-     *
      * @throws \RuntimeException
-     *
-     * @return mixed
      */
-    public function configureGoogleAuthenticator($config, ContainerBuilder $container)
+    public function configureGoogleAuthenticator(array $config, ContainerBuilder $container): void
     {
         $container->setParameter('sonata.user.google.authenticator.enabled', $config['google_authenticator']['enabled']);
 
@@ -178,26 +159,14 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
 
         $container->setParameter('sonata.user.google.authenticator.forced_for_role', $config['google_authenticator']['forced_for_role']);
 
-        // NEXT_MAJOR: Remove this checks and only set the `trusted_ip_list`.
-        if (\count($config['google_authenticator']['ip_white_list']) > 0 && $config['google_authenticator']['trusted_ip_list'] !== ['127.0.0.1']) {
-            throw new \LogicException('Please use only "trusted_ip_list" parameter, "ip_white_list" is deprecated.');
-        }
         $trustedIpList = $config['google_authenticator']['trusted_ip_list'];
-        if (\count($config['google_authenticator']['ip_white_list']) > 0) {
-            $trustedIpList = $config['google_authenticator']['ip_white_list'];
-        }
-        // NEXT_MAJOR: Remove `sonata.user.google.authenticator.ip_white_list` parameter.
-        $container->setParameter('sonata.user.google.authenticator.ip_white_list', $trustedIpList);
         $container->setParameter('sonata.user.google.authenticator.trusted_ip_list', $trustedIpList);
 
         $container->getDefinition('sonata.user.google.authenticator.provider')
             ->replaceArgument(0, $config['google_authenticator']['server']);
     }
 
-    /**
-     * @param array $config
-     */
-    public function configureClass($config, ContainerBuilder $container): void
+    public function configureClass(array $config, ContainerBuilder $container): void
     {
         if ('orm' === $config['manager_type']) {
             $modelType = 'entity';
@@ -211,79 +180,28 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         $container->setParameter(sprintf('sonata.user.admin.group.%s', $modelType), $config['class']['group']);
     }
 
-    /**
-     * @param array $config
-     */
-    public function configureAdminClass($config, ContainerBuilder $container): void
+    public function configureAdminClass(array $config, ContainerBuilder $container): void
     {
         $container->setParameter('sonata.user.admin.user.class', $config['admin']['user']['class']);
         $container->setParameter('sonata.user.admin.group.class', $config['admin']['group']['class']);
     }
 
-    /**
-     * @param array $config
-     */
-    public function configureTranslationDomain($config, ContainerBuilder $container): void
+    public function configureTranslationDomain(array $config, ContainerBuilder $container): void
     {
         $container->setParameter('sonata.user.admin.user.translation_domain', $config['admin']['user']['translation']);
         $container->setParameter('sonata.user.admin.group.translation_domain', $config['admin']['group']['translation']);
     }
 
-    /**
-     * @param array $config
-     */
-    public function configureController($config, ContainerBuilder $container): void
+    public function configureController(array $config, ContainerBuilder $container): void
     {
         $container->setParameter('sonata.user.admin.user.controller', $config['admin']['user']['controller']);
         $container->setParameter('sonata.user.admin.group.controller', $config['admin']['group']['controller']);
     }
 
     /**
-     * NEXT_MAJOR: Remove this method.
-     */
-    public function registerDoctrineMapping(array $config): void
-    {
-        @trigger_error(
-            'Using this method is deprecated since sonata-project/user-bundle 4.7. You should instead register SonataDoctrineBundle and use `registerSonataDoctrineMapping()`',
-            \E_USER_DEPRECATED
-        );
-
-        foreach ($config['class'] as $type => $class) {
-            if (!class_exists($class)) {
-                return;
-            }
-        }
-
-        $collector = DeprecatedDoctrineCollector::getInstance();
-
-        $collector->addAssociation($config['class']['user'], 'mapManyToMany', [
-            'fieldName' => 'groups',
-            'targetEntity' => $config['class']['group'],
-            'cascade' => [],
-            'joinTable' => [
-                'name' => $config['table']['user_group'],
-                'joinColumns' => [
-                    [
-                        'name' => 'user_id',
-                        'referencedColumnName' => 'id',
-                        'onDelete' => 'CASCADE',
-                    ],
-                ],
-                'inverseJoinColumns' => [[
-                    'name' => 'group_id',
-                    'referencedColumnName' => 'id',
-                    'onDelete' => 'CASCADE',
-                ]],
-            ],
-        ]);
-    }
-
-    /**
      * Adds aliases for user & group managers depending on $managerType.
-     *
-     * @param string $managerType
      */
-    protected function aliasManagers(ContainerBuilder $container, $managerType): void
+    protected function aliasManagers(ContainerBuilder $container, string $managerType): void
     {
         $container
             ->setAlias('sonata.user.user_manager', sprintf('sonata.user.%s.user_manager', $managerType))
@@ -340,7 +258,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
 
     private function registerSonataDoctrineMapping(array $config): void
     {
-        foreach ($config['class'] as $type => $class) {
+        foreach ($config['class'] as $class) {
             if (!class_exists($class)) {
                 return;
             }

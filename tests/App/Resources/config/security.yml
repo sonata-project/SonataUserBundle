@@ -4,7 +4,7 @@ security:
     providers:
         in_memory:
             memory:
-                users: null
+                users: []
 
     firewalls:
         api:

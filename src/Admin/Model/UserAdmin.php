@@ -35,22 +35,13 @@ class UserAdmin extends AbstractAdmin
      */
     protected $userManager;
 
-    public function getFormBuilder()
+    protected function configureFormOptions(array &$formOptions): void
     {
-        $this->formOptions['data_class'] = $this->getClass();
-
-        $options = $this->formOptions;
-        $options['validation_groups'] = ['Default', 'Profile'];
+        $formOptions['validation_groups'] = ['Default', 'Profile'];
 
         if (!$this->getSubject() || null === $this->getSubject()->getId()) {
-            $options['validation_groups'] = ['Default', 'Registration'];
+            $formOptions['validation_groups'] = ['Default', 'Registration'];
         }
-
-        $formBuilder = $this->getFormContractor()->getFormBuilder($this->getUniqid(), $options);
-
-        $this->defineFormBuilder($formBuilder);
-
-        return $formBuilder;
     }
 
     public function preUpdate($object): void
@@ -64,10 +55,7 @@ class UserAdmin extends AbstractAdmin
         $this->userManager = $userManager;
     }
 
-    /**
-     * @return UserManagerInterface
-     */
-    public function getUserManager()
+    public function getUserManager(): UserManagerInterface
     {
         return $this->userManager;
     }

@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\User as AbstractedUser;
 
 /**
@@ -91,9 +93,9 @@ abstract class User extends AbstractedUser implements UserInterface
     protected $facebookName;
 
     /**
-     * @var string
+     * @var array
      */
-    protected $facebookData;
+    protected $facebookData = [];
 
     /**
      * @var string
@@ -106,9 +108,9 @@ abstract class User extends AbstractedUser implements UserInterface
     protected $twitterName;
 
     /**
-     * @var string
+     * @var array
      */
-    protected $twitterData;
+    protected $twitterData = [];
 
     /**
      * @var string
@@ -121,9 +123,9 @@ abstract class User extends AbstractedUser implements UserInterface
     protected $gplusName;
 
     /**
-     * @var string
+     * @var array
      */
-    protected $gplusData;
+    protected $gplusData = [];
 
     /**
      * @var string
@@ -131,40 +133,61 @@ abstract class User extends AbstractedUser implements UserInterface
     protected $token;
 
     /**
-     * Returns a string representation.
-     *
-     * @return string
+     * @var array<int, GroupInterface>|Collection
      */
-    public function __toString()
+    private $groups;
+
+    public function __construct()
     {
-        return $this->getUsername() ?: '-';
+        parent::__construct();
+
+        $this->groups = new ArrayCollection();
     }
 
-    public function setCreatedAt(?\DateTime $createdAt = null)
+    /**
+     * Returns a string representation.
+     */
+    public function __toString(): string
+    {
+        return $this->getUserIdentifier() ?: '-';
+    }
+
+    /**
+     * @return static
+     */
+    public function setCreatedAt(?\DateTime $createdAt = null): UserInterface
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getCreatedAt()
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
 
-    public function setUpdatedAt(?\DateTime $updatedAt = null)
+    /**
+     * @return static
+     */
+    public function setUpdatedAt(?\DateTime $updatedAt = null): UserInterface
     {
         $this->updatedAt = $updatedAt;
 
         return $this;
     }
 
-    public function getUpdatedAt()
+    public function getUpdatedAt(): ?\DateTime
     {
         return $this->updatedAt;
     }
 
-    public function setGroups($groups)
+    /**
+     * @param array<int, GroupInterface> $groups
+     *
+     * @return static
+     */
+    public function setGroups(array $groups): UserInterface
     {
         foreach ($groups as $group) {
             $this->addGroup($group);
@@ -173,257 +196,325 @@ abstract class User extends AbstractedUser implements UserInterface
         return $this;
     }
 
-    public function setTwoStepVerificationCode($twoStepVerificationCode)
+    /**
+     * @return static
+     */
+    public function setTwoStepVerificationCode(?string $twoStepVerificationCode): UserInterface
     {
         $this->twoStepVerificationCode = $twoStepVerificationCode;
 
         return $this;
     }
 
-    public function getTwoStepVerificationCode()
+    public function getTwoStepVerificationCode(): ?string
     {
         return $this->twoStepVerificationCode;
     }
 
-    public function setBiography($biography)
+    /**
+     * @return static
+     */
+    public function setBiography(?string $biography): UserInterface
     {
         $this->biography = $biography;
 
         return $this;
     }
 
-    public function getBiography()
+    public function getBiography(): ?string
     {
         return $this->biography;
     }
 
-    public function setDateOfBirth($dateOfBirth)
+    /**
+     * @return static
+     */
+    public function setDateOfBirth(?\DateTime $dateOfBirth): UserInterface
     {
         $this->dateOfBirth = $dateOfBirth;
 
         return $this;
     }
 
-    public function getDateOfBirth()
+    public function getDateOfBirth(): ?\DateTime
     {
         return $this->dateOfBirth;
     }
 
-    public function setFacebookData($facebookData)
+    /**
+     * @return static
+     */
+    public function setFacebookData(array $facebookData = []): UserInterface
     {
         $this->facebookData = $facebookData;
 
         return $this;
     }
 
-    public function getFacebookData()
+    public function getFacebookData(): array
     {
         return $this->facebookData;
     }
 
-    public function setFacebookName($facebookName)
+    /**
+     * @return static
+     */
+    public function setFacebookName(?string $facebookName): UserInterface
     {
         $this->facebookName = $facebookName;
 
         return $this;
     }
 
-    public function getFacebookName()
+    public function getFacebookName(): ?string
     {
         return $this->facebookName;
     }
 
-    public function setFacebookUid($facebookUid)
+    /**
+     * @return static
+     */
+    public function setFacebookUid(?string $facebookUid): UserInterface
     {
         $this->facebookUid = $facebookUid;
 
         return $this;
     }
 
-    public function getFacebookUid()
+    public function getFacebookUid(): ?string
     {
         return $this->facebookUid;
     }
 
-    public function setFirstname($firstname)
+    /**
+     * @return static
+     */
+    public function setFirstname(?string $firstname): UserInterface
     {
         $this->firstname = $firstname;
 
         return $this;
     }
 
-    public function getFirstname()
+    public function getFirstname(): ?string
     {
         return $this->firstname;
     }
 
-    public function setGender($gender)
+    /**
+     * @return static
+     */
+    public function setGender(?string $gender): UserInterface
     {
         $this->gender = $gender;
 
         return $this;
     }
 
-    public function getGender()
+    public function getGender(): ?string
     {
         return $this->gender;
     }
 
-    public function setGplusData($gplusData)
+    /**
+     * @return static
+     */
+    public function setGplusData(array $gplusData = []): UserInterface
     {
         $this->gplusData = $gplusData;
 
         return $this;
     }
 
-    public function getGplusData()
+    public function getGplusData(): array
     {
         return $this->gplusData;
     }
 
-    public function setGplusName($gplusName)
+    /**
+     * @return static
+     */
+    public function setGplusName(?string $gplusName): UserInterface
     {
         $this->gplusName = $gplusName;
 
         return $this;
     }
 
-    public function getGplusName()
+    public function getGplusName(): ?string
     {
         return $this->gplusName;
     }
 
-    public function setGplusUid($gplusUid)
+    /**
+     * @return static
+     */
+    public function setGplusUid(?string $gplusUid): UserInterface
     {
         $this->gplusUid = $gplusUid;
 
         return $this;
     }
 
-    public function getGplusUid()
+    public function getGplusUid(): ?string
     {
         return $this->gplusUid;
     }
 
-    public function setLastname($lastname)
+    /**
+     * @return static
+     */
+    public function setLastname(?string $lastname): UserInterface
     {
         $this->lastname = $lastname;
 
         return $this;
     }
 
-    public function getLastname()
+    public function getLastname(): ?string
     {
         return $this->lastname;
     }
 
-    public function setLocale($locale)
+    /**
+     * @return static
+     */
+    public function setLocale(?string $locale): UserInterface
     {
         $this->locale = $locale;
 
         return $this;
     }
 
-    public function getLocale()
+    public function getLocale(): ?string
     {
         return $this->locale;
     }
 
-    public function setPhone($phone)
+    /**
+     * @return static
+     */
+    public function setPhone(?string $phone): UserInterface
     {
         $this->phone = $phone;
 
         return $this;
     }
 
-    public function getPhone()
+    public function getPhone(): ?string
     {
         return $this->phone;
     }
 
-    public function setTimezone($timezone)
+    /**
+     * @return static
+     */
+    public function setTimezone(?string $timezone): UserInterface
     {
         $this->timezone = $timezone;
 
         return $this;
     }
 
-    public function getTimezone()
+    public function getTimezone(): ?string
     {
         return $this->timezone;
     }
 
-    public function setTwitterData($twitterData)
+    /**
+     * @return static
+     */
+    public function setTwitterData(array $twitterData = []): UserInterface
     {
         $this->twitterData = $twitterData;
 
         return $this;
     }
 
-    public function getTwitterData()
+    public function getTwitterData(): array
     {
         return $this->twitterData;
     }
 
-    public function setTwitterName($twitterName)
+    /**
+     * @return static
+     */
+    public function setTwitterName(?string $twitterName): UserInterface
     {
         $this->twitterName = $twitterName;
 
         return $this;
     }
 
-    public function getTwitterName()
+    public function getTwitterName(): ?string
     {
         return $this->twitterName;
     }
 
-    public function setTwitterUid($twitterUid)
+    /**
+     * @return static
+     */
+    public function setTwitterUid(?string $twitterUid): UserInterface
     {
         $this->twitterUid = $twitterUid;
 
         return $this;
     }
 
-    public function getTwitterUid()
+    public function getTwitterUid(): ?string
     {
         return $this->twitterUid;
     }
 
-    public function setWebsite($website)
+    /**
+     * @return static
+     */
+    public function setWebsite(?string $website): UserInterface
     {
         $this->website = $website;
 
         return $this;
     }
 
-    public function getWebsite()
+    public function getWebsite(): ?string
     {
         return $this->website;
     }
 
-    public function setToken($token)
+    /**
+     * @return static
+     */
+    public function setToken(?string $token): UserInterface
     {
         $this->token = $token;
 
         return $this;
     }
 
-    public function getToken()
+    public function getToken(): ?string
     {
         return $this->token;
     }
 
-    public function getFullname()
+    public function getFullname(): ?string
     {
         return sprintf('%s %s', $this->getFirstname(), $this->getLastname());
     }
 
-    public function getRealRoles()
+    /**
+     * @return array<int, string>
+     */
+    public function getRealRoles(): array
     {
         return $this->roles;
     }
 
-    public function setRealRoles(array $roles)
+    /**
+     * @param array<int, string> $roles
+     *
+     * @return static
+     */
+    public function setRealRoles(array $roles): UserInterface
     {
         $this->setRoles($roles);
 
@@ -433,14 +524,88 @@ abstract class User extends AbstractedUser implements UserInterface
     /**
      * Returns the gender list.
      *
-     * @return array
+     * @return array<string, string>
      */
-    public static function getGenderList()
+    public static function getGenderList(): array
     {
         return [
             'gender_unknown' => UserInterface::GENDER_UNKNOWN,
             'gender_female' => UserInterface::GENDER_FEMALE,
             'gender_male' => UserInterface::GENDER_MALE,
         ];
+    }
+
+    /**
+     * @return array<int, GroupInterface>|Collection
+     */
+    public function getGroups(): Collection
+    {
+        return $this->groups;
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    public function getGroupNames(): array
+    {
+        $names = [];
+        foreach ($this->groups as $group) {
+            $names[] = $group->getName();
+        }
+
+        return $names;
+    }
+
+    public function hasGroup($name): bool
+    {
+        return in_array($name, $this->getGroupNames());
+    }
+
+    /**
+     * @return static
+     */
+    public function addGroup(GroupInterface $group): UserInterface
+    {
+        if (!$this->groups->contains($group)) {
+            $this->groups->add($group);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return static
+     */
+    public function removeGroup(GroupInterface $group): UserInterface
+    {
+        if ($this->groups->contains($group)) {
+            $this->groups->removeElement($group);
+        }
+
+        return $this;
+    }
+
+    public function isAccountNonLocked(): bool
+    {
+        return true;
+    }
+
+    public function getUserIdentifier(): ?string
+    {
+        return $this->username;
+    }
+
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+
+        foreach ($this->getGroups() as $group) {
+            $roles = array_merge($roles, $group->getRoles());
+        }
+
+        // we need to make sure to have at least one role
+        $roles[] = static::ROLE_DEFAULT;
+
+        return array_values(array_unique($roles));
     }
 }

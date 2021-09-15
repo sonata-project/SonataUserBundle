@@ -31,26 +31,20 @@ class GlobalVariables
         $this->container = $container;
     }
 
-    /**
-     * @return string
-     */
-    public function getImpersonating()
+    public function getImpersonating(): ?string
     {
         return $this->container->getParameter('sonata.user.impersonating');
     }
 
-    /**
-     * @return string
-     */
-    public function getDefaultAvatar()
+    public function getDefaultAvatar(): ?string
     {
         return $this->container->getParameter('sonata.user.default_avatar');
     }
 
     /**
-     * @return AdminInterface
+     * @return AdminInterface|object
      */
-    public function getUserAdmin()
+    public function getUserAdmin(): ?AdminInterface
     {
         return $this->container->get('sonata.user.admin.user');
     }

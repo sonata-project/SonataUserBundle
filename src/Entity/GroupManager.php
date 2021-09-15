@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Entity;
 
-use FOS\UserBundle\Doctrine\GroupManager as BaseGroupManager;
+use Sonata\UserBundle\Model\GroupManager as BaseGroupManager;
 use Sonata\DatagridBundle\Pager\Doctrine\Pager;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\UserBundle\Model\GroupManagerInterface;
@@ -23,21 +23,18 @@ use Sonata\UserBundle\Model\GroupManagerInterface;
  */
 class GroupManager extends BaseGroupManager implements GroupManagerInterface
 {
-    public function findGroupsBy(?array $criteria = null, ?array $orderBy = null, $limit = null, $offset = null)
-    {
-        return $this->repository->findBy($criteria, $orderBy, $limit, $offset);
-    }
-
     public function getPager(array $criteria, int $page, int $limit = 10, array $sort = []): PagerInterface
     {
-        $query = $this->repository
+        $query = $this->getRepository()
             ->createQueryBuilder('g')
             ->select('g');
 
         $fields = $this->objectManager->getClassMetadata($this->class)->getFieldNames();
         foreach ($sort as $field => $direction) {
             if (!\in_array($field, $fields, true)) {
-                throw new \RuntimeException(sprintf("Invalid sort field '%s' in '%s' class", $field, $this->class));
+                throw new \RuntimeException(
+                    sprintf("Invalid sort field '%s' in '%s' class", $field, $this->class)
+                );
             }
         }
 

@@ -28,8 +28,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AccountStatusException;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 final class ResetAction
 {
@@ -124,6 +127,11 @@ final class ResetAction
         $this->logger = new NullLogger();
     }
 
+    /**
+     * @throws SyntaxError
+     * @throws RuntimeError
+     * @throws LoaderError
+     */
     public function __invoke(Request $request, $token): Response
     {
         if ($this->authorizationChecker->isGranted('IS_AUTHENTICATED_FULLY')) {
@@ -147,7 +155,7 @@ final class ResetAction
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setConfirmationToken(null);
-            $user->setPasswordRequestedAt(null);
+            $user->setPasswordRequestedAt();
             $user->setEnabled(true);
 
             $message = $this->translator->trans('resetting.flash.success', [], 'FOSUserBundle');

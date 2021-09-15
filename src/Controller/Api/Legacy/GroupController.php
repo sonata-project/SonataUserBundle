@@ -18,13 +18,12 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\View\View as FOSRestView;
-use FOS\UserBundle\Model\GroupInterface;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\UserBundle\Form\Type\ApiGroupType;
+use Sonata\UserBundle\Model\GroupInterface;
 use Sonata\UserBundle\Model\GroupManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -67,10 +66,8 @@ class GroupController
      * @QueryParam(name="enabled", requirements="0|1", nullable=true, strict=true, description="Enables or disables the groups only?")
      *
      * @View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
-     *
-     * @return PagerInterface
      */
-    public function getGroupsAction(ParamFetcherInterface $paramFetcher)
+    public function getGroupsAction(ParamFetcherInterface $paramFetcher): PagerInterface
     {
         $supportedFilters = [
             'enabled' => '',
@@ -99,9 +96,9 @@ class GroupController
      *
      * @ApiDoc(
      *  requirements={
-     *      {"name"="id", "dataType"="string", "description"="Group identifier"}
+     *      {"name"="id", "dataType"="int", "description"="Group identifier"}
      *  },
-     *  output={"class"="FOS\UserBundle\Model\GroupInterface", "groups"={"sonata_api_read"}},
+     *  output={"class"="Sonata\UserBundle\Model\GroupInterface", "groups"={"sonata_api_read"}},
      *  statusCodes={
      *      200="Returned when successful",
      *      404="Returned when group is not found"
@@ -109,12 +106,8 @@ class GroupController
      * )
      *
      * @View(serializerGroups={"sonata_api_read"}, serializerEnableMaxDepthChecks=true)
-     *
-     * @param string $id
-     *
-     * @return GroupInterface
      */
-    public function getGroupAction($id)
+    public function getGroupAction(int $id): GroupInterface
     {
         return $this->getGroup($id);
     }
@@ -131,13 +124,9 @@ class GroupController
      *  }
      * )
      *
-     * @param Request $request A Symfony request
-     *
      * @throws NotFoundHttpException
-     *
-     * @return GroupInterface
      */
-    public function postGroupAction(Request $request)
+    public function postGroupAction(Request $request): FOSRestView
     {
         return $this->handleWriteGroup($request);
     }
@@ -158,14 +147,9 @@ class GroupController
      *  }
      * )
      *
-     * @param string  $id      Group identifier
-     * @param Request $request A Symfony request
-     *
      * @throws NotFoundHttpException
-     *
-     * @return GroupInterface
      */
-    public function putGroupAction($id, Request $request)
+    public function putGroupAction(int $id, Request $request): FOSRestView
     {
         return $this->handleWriteGroup($request, $id);
     }
@@ -184,67 +168,54 @@ class GroupController
      *  }
      * )
      *
-     * @param string $id A Group identifier
-     *
      * @throws NotFoundHttpException
-     *
-     * @return \FOS\RestBundle\View\View
      */
-    public function deleteGroupAction($id)
+    public function deleteGroupAction(int $id): FOSRestView
     {
         $group = $this->getGroup($id);
 
         $this->groupManager->deleteGroup($group);
 
-        return ['deleted' => true];
+        return FOSRestView::create(['deleted' => true]);
     }
 
     /**
      * Write a Group, this method is used by both POST and PUT action methods.
-     *
-     * @param Request     $request Symfony request
-     * @param string|null $id      A Group identifier
-     *
-     * @return FormInterface
      */
-    protected function handleWriteGroup($request, $id = null)
+    protected function handleWriteGroup(Request $request, ?int $id = null): FOSRestView
     {
         $groupClassName = $this->groupManager->getClass();
         $group = $id ? $this->getGroup($id) : new $groupClassName('');
 
-        $form = $this->formFactory->createNamed(null, ApiGroupType::class, $group, [
+        $form = $this->formFactory->createNamed('', ApiGroupType::class, $group, [
             'csrf_protection' => false,
         ]);
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $group = $form->getData();
-            $this->groupManager->updateGroup($group);
-
-            $context = new Context();
-            $context->setGroups(['sonata_api_read']);
-            $context->enableMaxDepth();
-
-            $view = FOSRestView::create($group);
-            $view->setContext($context);
-
-            return $view;
+        if (!$form->isValid()) {
+            return FOSRestView::create($form);
         }
 
-        return $form;
+        $group = $form->getData();
+        $this->groupManager->updateGroup($group);
+
+        $context = new Context();
+        $context->setGroups(['sonata_api_read']);
+        $context->enableMaxDepth();
+
+        $view = FOSRestView::create($group);
+        $view->setContext($context);
+
+        return $view;
     }
 
     /**
      * Retrieves group with id $id or throws an exception if it doesn't exist.
      *
-     * @param string $id
-     *
      * @throws NotFoundHttpException
-     *
-     * @return GroupInterface
      */
-    protected function getGroup($id)
+    protected function getGroup(int $id): GroupInterface
     {
         $group = $this->groupManager->findGroupBy(['id' => $id]);
 

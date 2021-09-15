@@ -16,6 +16,9 @@ namespace Sonata\UserBundle\Twig;
 use Sonata\UserBundle\Security\RolesBuilder\MatrixRolesBuilderInterface;
 use Symfony\Component\Form\FormView;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -36,6 +39,9 @@ final class RolesMatrixExtension extends AbstractExtension
         $this->rolesBuilder = $rolesBuilder;
     }
 
+    /**
+     * @return array<int, TwigFunction>
+     */
     public function getFunctions(): array
     {
         return [
@@ -48,6 +54,11 @@ final class RolesMatrixExtension extends AbstractExtension
         ];
     }
 
+    /**
+     * @throws SyntaxError
+     * @throws RuntimeError
+     * @throws LoaderError
+     */
     public function renderRolesList(Environment $environment, FormView $form): string
     {
         $roles = $this->rolesBuilder->getRoles();
@@ -70,6 +81,11 @@ final class RolesMatrixExtension extends AbstractExtension
         ]);
     }
 
+    /**
+     * @throws RuntimeError
+     * @throws SyntaxError
+     * @throws LoaderError
+     */
     public function renderMatrix(Environment $environment, FormView $form): string
     {
         $groupedRoles = [];

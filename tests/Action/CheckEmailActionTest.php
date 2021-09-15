@@ -15,6 +15,7 @@ namespace Sonata\UserBundle\Tests\Action;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Action\CheckEmailAction;
@@ -36,7 +37,7 @@ class CheckEmailActionTest extends TestCase
     protected $urlGenerator;
 
     /**
-     * @var Pool|MockObject
+     * @var Pool
      */
     protected $pool;
 
@@ -54,9 +55,12 @@ class CheckEmailActionTest extends TestCase
     {
         $this->templating = $this->createMock(Environment::class);
         $this->urlGenerator = $this->createMock(UrlGeneratorInterface::class);
-        $this->pool = $this->createMock(Pool::class);
         $this->templateRegistry = $this->createMock(TemplateRegistryInterface::class);
         $this->resetTtl = 60;
+
+        /** @var ContainerInterface|MockObject $container */
+        $container = $this->createMock(ContainerInterface::class);
+        $this->pool = new Pool($container);
     }
 
     public function testWithoutUsername(): void
@@ -103,6 +107,12 @@ class CheckEmailActionTest extends TestCase
 
     private function getAction(): CheckEmailAction
     {
-        return new CheckEmailAction($this->templating, $this->urlGenerator, $this->pool, $this->templateRegistry, $this->resetTtl);
+        return new CheckEmailAction(
+            $this->templating,
+            $this->urlGenerator,
+            $this->pool,
+            $this->templateRegistry,
+            $this->resetTtl
+        );
     }
 }

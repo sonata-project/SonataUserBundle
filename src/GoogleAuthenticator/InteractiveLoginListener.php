@@ -35,17 +35,17 @@ class InteractiveLoginListener
             return;
         }
 
-        if (!$event->getAuthenticationToken() instanceof UsernamePasswordToken) {
-            return;
-        }
-
         $token = $event->getAuthenticationToken();
-
-        if (!$token->getUser() instanceof UserInterface) {
+        if (!$token instanceof UsernamePasswordToken) {
             return;
         }
 
-        if (!$token->getUser()->getTwoStepVerificationCode()) {
+        $user = $token->getUser();
+        if (!$user instanceof UserInterface) {
+            return;
+        }
+
+        if (!$user->getTwoStepVerificationCode()) {
             return;
         }
 

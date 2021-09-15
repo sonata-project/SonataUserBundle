@@ -15,8 +15,9 @@ namespace Sonata\UserBundle\Security\RolesBuilder;
 
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Admin\Pool;
+use Sonata\AdminBundle\SonataConfiguration;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @author Silas Joisten <silasjoisten@hotmail.de>
@@ -34,22 +35,29 @@ final class AdminRolesBuilder implements AdminRolesBuilderInterface
     private $pool;
 
     /**
+     * @var SonataConfiguration
+     */
+    private $config;
+
+    /**
      * @var TranslatorInterface
      */
     private $translator;
 
     /**
-     * @var string []
+     * @var array<int, string>
      */
     private $excludeAdmins = [];
 
     public function __construct(
         AuthorizationCheckerInterface $authorizationChecker,
         Pool $pool,
+        SonataConfiguration $config,
         TranslatorInterface $translator
     ) {
         $this->authorizationChecker = $authorizationChecker;
         $this->pool = $pool;
+        $this->config = $config;
         $this->translator = $translator;
     }
 
@@ -104,7 +112,7 @@ final class AdminRolesBuilder implements AdminRolesBuilderInterface
     private function isMaster(AdminInterface $admin): bool
     {
         return $admin->isGranted('MASTER') || $admin->isGranted('OPERATOR')
-            || $this->authorizationChecker->isGranted($this->pool->getOption('role_super_admin'));
+            || $this->authorizationChecker->isGranted($this->config->getOption('role_super_admin'));
     }
 
     private function translateRole(string $role, $domain): string
