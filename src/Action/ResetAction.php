@@ -19,6 +19,7 @@ use FOS\UserBundle\Security\LoginManagerInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 use Sonata\AdminBundle\Admin\Pool;
+use Sonata\AdminBundle\SonataConfiguration;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,6 +58,11 @@ final class ResetAction
      * @var Pool
      */
     private $adminPool;
+
+    /**
+     * @var SonataConfiguration
+     */
+    private $config;
 
     /**
      * @var TemplateRegistryInterface
@@ -103,6 +109,7 @@ final class ResetAction
         UrlGeneratorInterface $urlGenerator,
         AuthorizationCheckerInterface $authorizationChecker,
         Pool $adminPool,
+        SonataConfiguration $config,
         TemplateRegistryInterface $templateRegistry,
         FactoryInterface $formFactory,
         UserManagerInterface $userManager,
@@ -116,6 +123,7 @@ final class ResetAction
         $this->urlGenerator = $urlGenerator;
         $this->authorizationChecker = $authorizationChecker;
         $this->adminPool = $adminPool;
+        $this->config = $config;
         $this->templateRegistry = $templateRegistry;
         $this->formFactory = $formFactory;
         $this->userManager = $userManager;
@@ -185,6 +193,7 @@ final class ResetAction
             'form' => $form->createView(),
             'base_template' => $this->templateRegistry->getTemplate('layout'),
             'admin_pool' => $this->adminPool,
+            'config' => $this->config,
         ]));
     }
 }

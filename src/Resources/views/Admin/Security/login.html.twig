@@ -28,13 +28,13 @@ file that was distributed with this source code.
         {% block login_box_header %}
             <div class="login-logo">
                 <a href="{{ path('sonata_admin_dashboard') }}">
-                    {% if sonata_admin.adminPool.getOption('title_mode') in ['single_image', 'both'] %}
+                    {% if config.getOption('title_mode') in ['single_image', 'both'] %}
                         <div>
-                            <img style="width:64px;" src="{{ asset(sonata_admin.adminPool.titlelogo) }}" alt="{{ sonata_admin.adminPool.title }}">
+                            <img style="width:64px;" src="{{ asset(admin_pool.titlelogo) }}" alt="{{ admin_pool.title }}">
                         </div>
                     {% endif %}
-                    {% if sonata_admin.adminPool.getOption('title_mode') in ['single_text', 'both'] %}
-                        <span>{{ sonata_admin.adminPool.title }}</span>
+                    {% if config.getOption('title_mode') in ['single_text', 'both'] %}
+                        <span>{{ admin_pool.title }}</span>
                     {% endif %}
                 </a>
             </div>

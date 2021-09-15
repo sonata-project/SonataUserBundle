@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Action;
 
 use Sonata\AdminBundle\Admin\Pool;
+use Sonata\AdminBundle\SonataConfiguration;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,6 +40,11 @@ final class CheckEmailAction
     private $adminPool;
 
     /**
+     * @var SonataConfiguration
+     */
+    private $config;
+
+    /**
      * @var TemplateRegistryInterface
      */
     private $templateRegistry;
@@ -52,12 +58,14 @@ final class CheckEmailAction
         Environment $twig,
         UrlGeneratorInterface $urlGenerator,
         Pool $adminPool,
+        SonataConfiguration $config,
         TemplateRegistryInterface $templateRegistry,
         int $resetTtl
     ) {
         $this->twig = $twig;
         $this->urlGenerator = $urlGenerator;
         $this->adminPool = $adminPool;
+        $this->config = $config;
         $this->templateRegistry = $templateRegistry;
         $this->resetTtl = $resetTtl;
     }
@@ -74,6 +82,7 @@ final class CheckEmailAction
         return new Response($this->twig->render('@SonataUser/Admin/Security/Resetting/checkEmail.html.twig', [
             'base_template' => $this->templateRegistry->getTemplate('layout'),
             'admin_pool' => $this->adminPool,
+            'config' => $this->config,
             'tokenLifetime' => ceil($this->resetTtl / 3600),
         ]));
     }

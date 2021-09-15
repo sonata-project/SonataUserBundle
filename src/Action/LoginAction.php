@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Action;
 
 use Sonata\AdminBundle\Admin\Pool;
+use Sonata\AdminBundle\SonataConfiguration;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -55,6 +56,11 @@ final class LoginAction
     private $adminPool;
 
     /**
+     * @var SonataConfiguration
+     */
+    private $config;
+
+    /**
      * @var TemplateRegistryInterface
      */
     private $templateRegistry;
@@ -84,6 +90,7 @@ final class LoginAction
         UrlGeneratorInterface $urlGenerator,
         AuthorizationCheckerInterface $authorizationChecker,
         Pool $adminPool,
+        SonataConfiguration $config,
         TemplateRegistryInterface $templateRegistry,
         TokenStorageInterface $tokenStorage,
         Session $session,
@@ -93,6 +100,7 @@ final class LoginAction
         $this->urlGenerator = $urlGenerator;
         $this->authorizationChecker = $authorizationChecker;
         $this->adminPool = $adminPool;
+        $this->config = $config;
         $this->templateRegistry = $templateRegistry;
         $this->tokenStorage = $tokenStorage;
         $this->session = $session;
@@ -147,6 +155,7 @@ final class LoginAction
 
         return new Response($this->twig->render('@SonataUser/Admin/Security/login.html.twig', [
             'admin_pool' => $this->adminPool,
+            'config' => $this->config,
             'base_template' => $this->templateRegistry->getTemplate('layout'),
             'csrf_token' => $csrfToken,
             'error' => $error,
