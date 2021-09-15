@@ -35,7 +35,7 @@ class TwoStepVerificationCommand extends Command
     private $userManager;
 
     public function __construct(
-        string $name,
+        ?string $name,
         Helper $helper,
         UserManagerInterface $userManager
     ) {
