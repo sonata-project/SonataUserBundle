@@ -263,27 +263,27 @@
         <target>Пользователи</target>
       </trans-unit>
       <trans-unit id="form_general">
-        <source>General</source>
+        <source>form_general</source>
         <target>Основные сведения</target>
       </trans-unit>
       <trans-unit id="form_groups">
-        <source>Groups</source>
+        <source>form_groups</source>
         <target>Группы</target>
       </trans-unit>
       <trans-unit id="form_management">
-        <source>Management</source>
+        <source>form_management</source>
         <target>Управление ролями</target>
       </trans-unit>
       <trans-unit id="form_profile">
-        <source>Profile</source>
+        <source>form_profile</source>
         <target>Профиль</target>
       </trans-unit>
       <trans-unit id="form_social">
-        <source>Social</source>
+        <source>form_social</source>
         <target>Социальные сети</target>
       </trans-unit>
       <trans-unit id="form_security">
-        <source>Security</source>
+        <source>form_security</source>
         <target>Безопасность</target>
       </trans-unit>
       <trans-unit id="form.label_website">
