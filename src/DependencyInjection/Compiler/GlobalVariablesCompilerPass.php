@@ -24,9 +24,6 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class GlobalVariablesCompilerPass implements CompilerPassInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container): void
     {
         $container->getDefinition('twig')

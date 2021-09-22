@@ -25,57 +25,36 @@ use Sonata\UserBundle\Model\UserManagerInterface;
  */
 class UserManager extends BaseUserManager implements UserManagerInterface, ManagerInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function findUsersBy(?array $criteria = null, ?array $orderBy = null, $limit = null, $offset = null)
     {
         return $this->getRepository()->findBy($criteria, $orderBy, $limit, $offset);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function find($id)
     {
         return $this->getRepository()->find($id);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findAll()
     {
         return $this->getRepository()->findAll();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null)
     {
         return $this->getRepository()->findBy($criteria, $orderBy, $limit, $offset);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findOneBy(array $criteria, ?array $orderBy = null)
     {
         return parent::findUserBy($criteria);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function create()
     {
         return parent::createUser();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function save($entity, $andFlush = true): void
     {
         if (!$entity instanceof UserInterface) {
@@ -85,9 +64,6 @@ class UserManager extends BaseUserManager implements UserManagerInterface, Manag
         parent::updateUser($entity, $andFlush);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function delete($entity, $andFlush = true): void
     {
         if (!$entity instanceof UserInterface) {
@@ -97,25 +73,16 @@ class UserManager extends BaseUserManager implements UserManagerInterface, Manag
         parent::deleteUser($entity);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTableName()
     {
         return $this->objectManager->getClassMetadata($this->getClass())->table['name'];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getConnection()
     {
         return $this->objectManager->getConnection();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getPager(array $criteria, int $page, int $limit = 10, array $sort = []): PagerInterface
     {
         $query = $this->getRepository()

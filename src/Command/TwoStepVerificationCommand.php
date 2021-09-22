@@ -47,9 +47,6 @@ final class TwoStepVerificationCommand extends Command
         $this->userManager = $userManager;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configure(): void
     {
         $this->addArgument(
@@ -63,9 +60,6 @@ final class TwoStepVerificationCommand extends Command
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         if (null === $this->helper) {

@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\DependencyInjection;
 
+use FOS\UserBundle\Model\GroupInterface;
+use FOS\UserBundle\Model\UserInterface;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Sonata\UserBundle\DependencyInjection\Configuration;
 use Sonata\UserBundle\DependencyInjection\SonataUserExtension;

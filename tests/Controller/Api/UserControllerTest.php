@@ -263,12 +263,6 @@ class UserControllerTest extends TestCase
         $this->createUserController(null, $userManager)->deleteUserAction(1);
     }
 
-    /**
-     * @param $user
-     * @param $userManager
-     * @param $groupManager
-     * @param $formFactory
-     */
     public function createUserController(
         ?UserInterface $user = null,
         ?UserManagerInterface $userManager = null,

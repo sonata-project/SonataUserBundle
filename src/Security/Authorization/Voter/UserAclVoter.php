@@ -19,26 +19,17 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class UserAclVoter extends AclVoter
 {
-    /**
-     * {@inheritdoc}
-     */
     public function supportsClass($class)
     {
         // support the Object-Scope ACL
         return is_subclass_of($class, 'FOS\UserBundle\Model\UserInterface');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supportsAttribute($attribute)
     {
         return 'EDIT' === $attribute || 'DELETE' === $attribute;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function vote(TokenInterface $token, $subject, array $attributes)
     {
         if (!\is_object($subject) || !$this->supportsClass(\get_class($subject))) {

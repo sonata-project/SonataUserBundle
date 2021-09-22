@@ -1,0 +1,11 @@
+parameters:
+	ignoreErrors:
+		- # Will be fixed in 5.0, currently BC-break
+			message: "#^Instantiated class Sonata\\\\UserBundle\\\\Action\\\\IdentityTranslator not found\\.$#"
+			count: 1
+			path: src/Action/LoginAction.php
+
+		- # Will be fixed in 5.0, currently BC-break
+			message: "#^Call to static method getInstance\\(\\) on an unknown class Sonata\\\\EasyExtendsBundle\\\\Mapper\\\\DoctrineCollector\\.$#"
+			count: 1
+			path: src/DependencyInjection/SonataUserExtension.php

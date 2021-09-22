@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="4.9.3@4c262932602b9bbab5020863d1eb22d49de0dbf4">
+    <!-- Will be fixed in 5.0, currently BC-break -->
+    <file src="src/Action/LoginAction.php">
+        <UndefinedClass occurrences="1">
+            <code>IdentityTranslator</code>
+        </UndefinedClass>
+    </file>
+    <!-- Will be fixed in 5.0, currently BC-break -->
+    <file src="src/DependencyInjection/SonataUserExtension.php">
+        <UndefinedClass occurrences="1">
+            <code>DeprecatedDoctrineCollector</code>
+        </UndefinedClass>
+    </file>
+</files>

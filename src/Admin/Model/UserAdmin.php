@@ -35,9 +35,6 @@ class UserAdmin extends AbstractAdmin
      */
     protected $userManager;
 
-    /**
-     * {@inheritdoc}
-     */
     public function getFormBuilder()
     {
         $this->formOptions['data_class'] = $this->getClass();
@@ -56,13 +53,10 @@ class UserAdmin extends AbstractAdmin
         return $formBuilder;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function preUpdate($user): void
+    public function preUpdate($object): void
     {
-        $this->getUserManager()->updateCanonicalFields($user);
-        $this->getUserManager()->updatePassword($user);
+        $this->getUserManager()->updateCanonicalFields($object);
+        $this->getUserManager()->updatePassword($object);
     }
 
     public function setUserManager(UserManagerInterface $userManager): void
@@ -78,12 +72,9 @@ class UserAdmin extends AbstractAdmin
         return $this->userManager;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function configureListFields(ListMapper $listMapper): void
+    protected function configureListFields(ListMapper $list): void
     {
-        $listMapper
+        $list
             ->addIdentifier('username')
             ->add('email')
             ->add('groups')
@@ -91,29 +82,23 @@ class UserAdmin extends AbstractAdmin
             ->add('createdAt');
 
         if ($this->isGranted('ROLE_ALLOWED_TO_SWITCH')) {
-            $listMapper
+            $list
                 ->add('impersonating', 'string', ['template' => '@SonataUser/Admin/Field/impersonating.html.twig']);
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function configureDatagridFilters(DatagridMapper $filterMapper): void
+    protected function configureDatagridFilters(DatagridMapper $filter): void
     {
-        $filterMapper
+        $filter
             ->add('id')
             ->add('username')
             ->add('email')
             ->add('groups');
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function configureShowFields(ShowMapper $showMapper): void
+    protected function configureShowFields(ShowMapper $show): void
     {
-        $showMapper
+        $show
             ->with('General')
                 ->add('username')
                 ->add('email')
@@ -146,13 +131,10 @@ class UserAdmin extends AbstractAdmin
             ->end();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function configureFormFields(FormMapper $formMapper): void
+    protected function configureFormFields(FormMapper $form): void
     {
         // define group zoning
-        $formMapper
+        $form
             ->tab('User')
                 ->with('Profile', ['class' => 'col-md-6'])->end()
                 ->with('General', ['class' => 'col-md-6'])->end()
@@ -173,7 +155,7 @@ class UserAdmin extends AbstractAdmin
             'translation_domain' => $this->getTranslationDomain(),
         ];
 
-        $formMapper
+        $form
             ->tab('User')
                 ->with('General')
                     ->add('username')

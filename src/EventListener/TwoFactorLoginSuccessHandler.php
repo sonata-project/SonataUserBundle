@@ -69,8 +69,8 @@ final class TwoFactorLoginSuccessHandler implements AuthenticationSuccessHandler
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token): Response
     {
-        /** @var $user User */
         $user = $token->getUser();
+        \assert($user instanceof User);
         $needToHave2FA = $this->googleAuthenticator->needToHaveGoogle2FACode($request);
 
         if ($needToHave2FA && !$user->getTwoStepVerificationCode()) {

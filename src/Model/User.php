@@ -140,9 +140,6 @@ abstract class User extends AbstractedUser implements UserInterface
         return $this->getUsername() ?: '-';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setCreatedAt(?\DateTime $createdAt = null)
     {
         $this->createdAt = $createdAt;
@@ -150,17 +147,11 @@ abstract class User extends AbstractedUser implements UserInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setUpdatedAt(?\DateTime $updatedAt = null)
     {
         $this->updatedAt = $updatedAt;
@@ -168,17 +159,11 @@ abstract class User extends AbstractedUser implements UserInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setGroups($groups)
     {
         foreach ($groups as $group) {
@@ -188,9 +173,6 @@ abstract class User extends AbstractedUser implements UserInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setTwoStepVerificationCode($twoStepVerificationCode)
     {
         $this->twoStepVerificationCode = $twoStepVerificationCode;
@@ -198,17 +180,11 @@ abstract class User extends AbstractedUser implements UserInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTwoStepVerificationCode()
     {
         return $this->twoStepVerificationCode;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setBiography($biography)
     {
         $this->biography = $biography;
@@ -216,17 +192,11 @@ abstract class User extends AbstractedUser implements UserInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBiography()
     {
         return $this->biography;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setDateOfBirth($dateOfBirth)
     {
         $this->dateOfBirth = $dateOfBirth;
@@ -234,17 +204,11 @@ abstract class User extends AbstractedUser implements UserInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDateOfBirth()
     {
         return $this->dateOfBirth;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setFacebookData($facebookData)
     {
         $this->facebookData = $facebookData;
@@ -252,17 +216,11 @@ abstract class User extends AbstractedUser implements UserInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getFacebookData()
     {
         return $this->facebookData;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setFacebookName($facebookName)
     {
         $this->facebookName = $facebookName;
@@ -270,17 +228,11 @@ abstract class User extends AbstractedUser implements UserInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getFacebookName()
     {
         return $this->facebookName;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setFacebookUid($facebookUid)
     {
         $this->facebookUid = $facebookUid;
@@ -288,17 +240,11 @@ abstract class User extends AbstractedUser implements UserInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getFacebookUid()
     {
         return $this->facebookUid;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setFirstname($firstname)
     {
         $this->firstname = $firstname;
@@ -306,17 +252,11 @@ abstract class User extends AbstractedUser implements UserInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getFirstname()
     {
         return $this->firstname;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setGender($gender)
     {
         $this->gender = $gender;
@@ -324,17 +264,11 @@ abstract class User extends AbstractedUser implements UserInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getGender()
     {
         return $this->gender;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setGplusData($gplusData)
     {
         $this->gplusData = $gplusData;
@@ -342,17 +276,11 @@ abstract class User extends AbstractedUser implements UserInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getGplusData()
     {
         return $this->gplusData;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setGplusName($gplusName)
     {
         $this->gplusName = $gplusName;
@@ -360,17 +288,11 @@ abstract class User extends AbstractedUser implements UserInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getGplusName()
     {
         return $this->gplusName;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setGplusUid($gplusUid)
     {
         $this->gplusUid = $gplusUid;
@@ -378,17 +300,11 @@ abstract class User extends AbstractedUser implements UserInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getGplusUid()
     {
         return $this->gplusUid;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setLastname($lastname)
     {
         $this->lastname = $lastname;
@@ -396,17 +312,11 @@ abstract class User extends AbstractedUser implements UserInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getLastname()
     {
         return $this->lastname;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setLocale($locale)
     {
         $this->locale = $locale;
@@ -414,17 +324,11 @@ abstract class User extends AbstractedUser implements UserInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getLocale()
     {
         return $this->locale;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setPhone($phone)
     {
         $this->phone = $phone;
@@ -432,17 +336,11 @@ abstract class User extends AbstractedUser implements UserInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getPhone()
     {
         return $this->phone;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setTimezone($timezone)
     {
         $this->timezone = $timezone;
@@ -450,17 +348,11 @@ abstract class User extends AbstractedUser implements UserInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTimezone()
     {
         return $this->timezone;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setTwitterData($twitterData)
     {
         $this->twitterData = $twitterData;
@@ -468,17 +360,11 @@ abstract class User extends AbstractedUser implements UserInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTwitterData()
     {
         return $this->twitterData;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setTwitterName($twitterName)
     {
         $this->twitterName = $twitterName;
@@ -486,17 +372,11 @@ abstract class User extends AbstractedUser implements UserInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTwitterName()
     {
         return $this->twitterName;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setTwitterUid($twitterUid)
     {
         $this->twitterUid = $twitterUid;
@@ -504,17 +384,11 @@ abstract class User extends AbstractedUser implements UserInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTwitterUid()
     {
         return $this->twitterUid;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setWebsite($website)
     {
         $this->website = $website;
@@ -522,17 +396,11 @@ abstract class User extends AbstractedUser implements UserInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getWebsite()
     {
         return $this->website;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setToken($token)
     {
         $this->token = $token;
@@ -540,33 +408,21 @@ abstract class User extends AbstractedUser implements UserInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getToken()
     {
         return $this->token;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getFullname()
     {
         return sprintf('%s %s', $this->getFirstname(), $this->getLastname());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getRealRoles()
     {
         return $this->roles;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setRealRoles(array $roles)
     {
         $this->setRoles($roles);

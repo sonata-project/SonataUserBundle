@@ -21,16 +21,10 @@ use Sonata\UserBundle\Form\Type\SecurityRolesType;
 
 class GroupAdmin extends AbstractAdmin
 {
-    /**
-     * {@inheritdoc}
-     */
     protected $formOptions = [
         'validation_groups' => 'Registration',
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNewInstance()
     {
         $class = $this->getClass();
@@ -38,31 +32,22 @@ class GroupAdmin extends AbstractAdmin
         return new $class('', []);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function configureListFields(ListMapper $listMapper): void
+    protected function configureListFields(ListMapper $list): void
     {
-        $listMapper
+        $list
             ->addIdentifier('name')
             ->add('roles');
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
+    protected function configureDatagridFilters(DatagridMapper $filter): void
     {
-        $datagridMapper
+        $filter
             ->add('name');
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function configureFormFields(FormMapper $formMapper): void
+    protected function configureFormFields(FormMapper $form): void
     {
-        $formMapper
+        $form
             ->tab('Group')
                 ->with('General', ['class' => 'col-md-6'])
                     ->add('name')

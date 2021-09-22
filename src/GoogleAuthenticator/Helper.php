@@ -64,7 +64,7 @@ class Helper
     }
 
     /**
-     * @param $code
+     * @param string $code
      *
      * @return bool
      */
