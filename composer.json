@@ -7,7 +7,7 @@
         "sonata",
         "google authenticator"
     ],
-    "homepage": "http://sonata-project.org/bundles/user",
+    "homepage": "https://docs.sonata-project.org/projects/SonataUserBundle",
     "license": "MIT",
     "authors": [
         {
