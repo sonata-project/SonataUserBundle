@@ -143,7 +143,7 @@ class EditableRolesBuilder
             // TODO get the base role from the admin or security handler
             $baseRole = $securityHandler->getBaseRole($admin);
 
-            if (0 === \strlen($baseRole)) { // the security handler related to the admin does not provide a valid string
+            if ('' === $baseRole) { // the security handler related to the admin does not provide a valid string
                 continue;
             }
 
