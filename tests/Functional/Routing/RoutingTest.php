@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\Functional\Routing;
 
 use Nelmio\ApiDocBundle\Annotation\Operation;
+use OpenApi\Annotations\Operation as OpenApiOperation;
 use Sonata\UserBundle\Tests\App\AppKernel;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -29,6 +30,12 @@ final class RoutingTest extends WebTestCase
      */
     public function testRoutes(string $name, string $path, array $methods): void
     {
+        if ([] === $this->getRoutes()) {
+            static::markTestSkipped('UserBundle does not provide API for nelmio v4. This code allow remove nelmio v4 from conflict.');
+
+            return;
+        }
+
         $client = static::createClient();
         $router = $client->getContainer()->get('router');
 
@@ -75,6 +82,10 @@ final class RoutingTest extends WebTestCase
 
     public function getRoutes(): iterable
     {
+        if (class_exists(Operation::class) && class_exists(OpenApiOperation::class)) {
+            return [];
+        }
+
         // API
         if (class_exists(Operation::class)) {
             yield ['app.swagger_ui', '/api/doc', ['GET']];
