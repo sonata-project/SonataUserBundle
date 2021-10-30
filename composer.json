@@ -80,7 +80,7 @@
     "suggest": {
         "friendsofsymfony/rest-bundle": "For using the public API methods.",
         "jms/serializer": "For using the public API methods.",
-        "nelmio/api-doc-bundle": "v2 or v3 - for using the public API methods. v4 does not provide API.",
+        "nelmio/api-doc-bundle": "Versions 2.x or 3.x for using the public ReST API methods. Version 4.x is allowed but not supported.",
         "sonata-project/doctrine-orm-admin-bundle": "For persisting entities",
         "sonata-project/google-authenticator": "For google auth user login"
     },
