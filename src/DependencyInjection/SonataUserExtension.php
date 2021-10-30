@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\DependencyInjection;
 
 use Nelmio\ApiDocBundle\Annotation\Operation;
+use OpenApi\Annotations\Operation as OpenApiOperation;
 use Sonata\Doctrine\Mapper\Builder\OptionsBuilder;
 use Sonata\Doctrine\Mapper\DoctrineCollector;
 use Sonata\EasyExtendsBundle\Mapper\DoctrineCollector as DeprecatedDoctrineCollector;
@@ -88,7 +89,9 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
             $loader->load('serializer.xml');
 
             $loader->load('api_form.xml');
-            if (class_exists(Operation::class)) {
+            if (class_exists(Operation::class) && class_exists(OpenApiOperation::class)) {
+                // UserBundle does not provide API for nelmio v4. This code allow remove nelmio v4 from conflict.
+            } elseif (class_exists(Operation::class)) {
                 $loader->load('api_controllers.xml');
             } else {
                 $loader->load('api_controllers_legacy.xml');
