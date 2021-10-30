@@ -86,46 +86,30 @@ final class RoutingTest extends WebTestCase
             return [];
         }
 
+
+        // API
         if (class_exists(Operation::class)) {
-            // API
             yield ['app.swagger_ui', '/api/doc', ['GET']];
             yield ['app.swagger', '/api/doc.json', ['GET']];
-
-            // API - User
-            yield ['sonata_api_user_user_get_users', '/api/user/users.{_format}', ['GET']];
-            yield ['sonata_api_user_user_get_user', '/api/user/users/{id}.{_format}', ['GET']];
-            yield ['sonata_api_user_user_post_user', '/api/user/users.{_format}', ['POST']];
-            yield ['sonata_api_user_user_put_user', '/api/user/users/{id}.{_format}', ['PUT']];
-            yield ['sonata_api_user_user_delete_user', '/api/user/users/{id}.{_format}', ['DELETE']];
-            yield ['sonata_api_user_user_post_user_group', '/api/user/users/{userId}/groups/{groupId}.{_format}', ['POST']];
-            yield ['sonata_api_user_user_delete_user_group', '/api/user/users/{userId}/groups/{groupId}.{_format}', ['DELETE']];
-
-            // API - Group
-            yield ['sonata_api_user_group_get_groups', '/api/user/groups.{_format}', ['GET']];
-            yield ['sonata_api_user_group_get_group', '/api/user/groups/{id}.{_format}', ['GET']];
-            yield ['sonata_api_user_group_post_group', '/api/user/groups.{_format}', ['POST']];
-            yield ['sonata_api_user_group_put_group', '/api/user/groups/{id}.{_format}', ['PUT']];
-            yield ['sonata_api_user_group_delete_group', '/api/user/groups/{id}.{_format}', ['DELETE']];
         } else {
-            // API
             yield ['nelmio_api_doc_index', '/api/doc/{view}', ['GET']];
-
-            // API - User
-            yield ['sonata_api_user_user_get_users', '/api/user/users.{_format}', ['GET']];
-            yield ['sonata_api_user_user_get_user', '/api/user/users/{id}.{_format}', ['GET']];
-            yield ['sonata_api_user_user_post_user', '/api/user/users.{_format}', ['POST']];
-            yield ['sonata_api_user_user_put_user', '/api/user/users/{id}.{_format}', ['PUT']];
-            yield ['sonata_api_user_user_delete_user', '/api/user/users/{id}.{_format}', ['DELETE']];
-            yield ['sonata_api_user_user_post_user_group', '/api/user/users/{userId}/groups/{groupId}.{_format}', ['POST']];
-            yield ['sonata_api_user_user_delete_user_group', '/api/user/users/{userId}/groups/{groupId}.{_format}', ['DELETE']];
-
-            // API - Group
-            yield ['sonata_api_user_group_get_groups', '/api/user/groups.{_format}', ['GET']];
-            yield ['sonata_api_user_group_get_group', '/api/user/groups/{id}.{_format}', ['GET']];
-            yield ['sonata_api_user_group_post_group', '/api/user/groups.{_format}', ['POST']];
-            yield ['sonata_api_user_group_put_group', '/api/user/groups/{id}.{_format}', ['PUT']];
-            yield ['sonata_api_user_group_delete_group', '/api/user/groups/{id}.{_format}', ['DELETE']];
         }
+
+        // API - User
+        yield ['sonata_api_user_user_get_users', '/api/user/users.{_format}', ['GET']];
+        yield ['sonata_api_user_user_get_user', '/api/user/users/{id}.{_format}', ['GET']];
+        yield ['sonata_api_user_user_post_user', '/api/user/users.{_format}', ['POST']];
+        yield ['sonata_api_user_user_put_user', '/api/user/users/{id}.{_format}', ['PUT']];
+        yield ['sonata_api_user_user_delete_user', '/api/user/users/{id}.{_format}', ['DELETE']];
+        yield ['sonata_api_user_user_post_user_group', '/api/user/users/{userId}/groups/{groupId}.{_format}', ['POST']];
+        yield ['sonata_api_user_user_delete_user_group', '/api/user/users/{userId}/groups/{groupId}.{_format}', ['DELETE']];
+
+        // API - Group
+        yield ['sonata_api_user_group_get_groups', '/api/user/groups.{_format}', ['GET']];
+        yield ['sonata_api_user_group_get_group', '/api/user/groups/{id}.{_format}', ['GET']];
+        yield ['sonata_api_user_group_post_group', '/api/user/groups.{_format}', ['POST']];
+        yield ['sonata_api_user_group_put_group', '/api/user/groups/{id}.{_format}', ['PUT']];
+        yield ['sonata_api_user_group_delete_group', '/api/user/groups/{id}.{_format}', ['DELETE']];
     }
 
     protected static function getKernelClass(): string
