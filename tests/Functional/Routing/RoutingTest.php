@@ -86,7 +86,6 @@ final class RoutingTest extends WebTestCase
             return [];
         }
 
-
         // API
         if (class_exists(Operation::class)) {
             yield ['app.swagger_ui', '/api/doc', ['GET']];
