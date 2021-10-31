@@ -20,6 +20,7 @@ use JMS\SerializerBundle\JMSSerializerBundle;
 use Knp\Bundle\MenuBundle\KnpMenuBundle;
 use Nelmio\ApiDocBundle\Annotation\Operation;
 use Nelmio\ApiDocBundle\NelmioApiDocBundle;
+use OpenApi\Annotations\Operation as OpenApiOperation;
 use Sonata\AdminBundle\SonataAdminBundle;
 use Sonata\Doctrine\Bridge\Symfony\SonataDoctrineBundle;
 use Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle;
@@ -83,7 +84,9 @@ final class AppKernel extends Kernel
 
     protected function configureRoutes(RouteCollectionBuilder $routes): void
     {
-        if (class_exists(Operation::class)) {
+        if (class_exists(Operation::class) && class_exists(OpenApiOperation::class)) {
+            // UserBundle does not provide API for nelmio v4. This code allow remove nelmio v4 from conflict.
+        } elseif (class_exists(Operation::class)) {
             $routes->import(__DIR__.'/Resources/config/routing/api_nelmio_v3.yml', '/', 'yaml');
         } else {
             $routes->import(__DIR__.'/Resources/config/routing/api_nelmio_v2.yml', '/', 'yaml');
