@@ -31,7 +31,10 @@ final class RoutingTest extends WebTestCase
     public function testRoutes(string $name, string $path, array $methods): void
     {
         if ([] === $this->getRoutes()) {
-            static::markTestSkipped('UserBundle does not provide API for nelmio v4. This code allow remove nelmio v4 from conflict.');
+            static::markTestSkipped(
+                'UserBundle does not support "nelmio/api-doc-bundle" 4.x and does not provide an API through this version.'
+                .' This condition allows to accept setups using "nelmio/api-doc-bundle" 4.x dependency without conflicts.'
+            );
 
             return;
         }
