@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.13.0](https://github.com/sonata-project/SonataUserBundle/compare/4.12.0...4.13.0) - 2021-11-04
+### Fixed
+- [[#1412](https://github.com/sonata-project/SonataUserBundle/pull/1412)] `en`, `lt`, and `ru` translation keys ([@ft-1408](https://github.com/ft-1408))
+
+### Removed
+- [[#1426](https://github.com/sonata-project/SonataUserBundle/pull/1426)] Conflict with `nelmio/api-doc-bundle` v4 ([@wbloszyk](https://github.com/wbloszyk))
+
 ## [4.12.0](https://github.com/sonata-project/SonataUserBundle/compare/4.11.1...4.12.0) - 2021-09-08
 ### Added
 - [[#1396](https://github.com/sonata-project/SonataUserBundle/pull/1396)] Added support for PHP 8.0 ([@jordisala1991](https://github.com/jordisala1991))
