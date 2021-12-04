@@ -4,6 +4,12 @@ UPGRADE 4.x
 UPGRADE FROM 4.x to 4.x
 =======================
 
+### Deprecate API
+
+Integration with FOSRest, JMS Serializer and Nelmio Api Docs is deprecated, the ReST API provided with this bundle will be removed on 5.0.
+
+If you are relying on this, consider moving to other solution like [API Platform](https://api-platform.com/) instead.
+
 UPGRADE FROM 4.9 to 4.10
 ========================
 

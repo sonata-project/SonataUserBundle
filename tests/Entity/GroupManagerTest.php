@@ -23,6 +23,11 @@ use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Entity\BaseGroup;
 use Sonata\UserBundle\Entity\GroupManager;
 
+/**
+ * NEXT_MAJOR: Remove this class.
+ *
+ * @group legacy
+ */
 final class GroupManagerTest extends TestCase
 {
     public function testGetPager(): void

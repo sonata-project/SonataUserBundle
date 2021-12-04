@@ -25,6 +25,11 @@ use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Entity\BaseUser;
 use Sonata\UserBundle\Entity\UserManager;
 
+/**
+ * NEXT_MAJOR: Remove this class.
+ *
+ * @group legacy
+ */
 final class UserManagerTest extends TestCase
 {
     public function testGetPager(): void
