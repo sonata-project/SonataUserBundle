@@ -20,6 +20,11 @@ use Sonata\Doctrine\Test\EntityManagerMockFactoryTrait;
 use Sonata\UserBundle\Entity\BaseGroup;
 use Sonata\UserBundle\Entity\GroupManager;
 
+/**
+ * NEXT_MAJOR: Remove this class.
+ *
+ * @group legacy
+ */
 class GroupManagerTest extends TestCase
 {
     use EntityManagerMockFactoryTrait;

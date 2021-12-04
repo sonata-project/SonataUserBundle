@@ -15,6 +15,11 @@ namespace Sonata\UserBundle\Form\Type;
 
 use Sonata\Form\Type\BaseDoctrineORMSerializationType;
 
+/**
+ * NEXT_MAJOR: remove this class.
+ *
+ * @deprecated since sonata-project/user-bundle 4.x, to be removed in 5.0.
+ */
 class ApiGroupType extends BaseDoctrineORMSerializationType
 {
 }
