@@ -21,6 +21,11 @@ use Sonata\Doctrine\Test\EntityManagerMockFactoryTrait;
 use Sonata\UserBundle\Entity\BaseUser;
 use Sonata\UserBundle\Entity\UserManager;
 
+/**
+ * NEXT_MAJOR: Remove this class.
+ *
+ * @group legacy
+ */
 class UserManagerTest extends TestCase
 {
     use EntityManagerMockFactoryTrait;

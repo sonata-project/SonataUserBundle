@@ -21,7 +21,11 @@ use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Tests\Entity\User;
 
 /**
+ * NEXT_MAJOR: Remove this class.
+ *
  * @author Javier Spagnoletti <phansys@gmail.com>
+ *
+ * @group legacy
  */
 class SerializationTest extends TestCase
 {

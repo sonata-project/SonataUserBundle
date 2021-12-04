@@ -81,6 +81,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         $loader->load('actions.xml');
         $loader->load('mailer.xml');
 
+        // NEXT_MAJOR: Remove this condition and remove all configuration files related to this.
         if ('orm' === $config['manager_type'] && isset(
             $bundles['FOSRestBundle'],
             $bundles['NelmioApiDocBundle'],

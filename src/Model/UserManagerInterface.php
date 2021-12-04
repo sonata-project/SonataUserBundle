@@ -17,6 +17,8 @@ use FOS\UserBundle\Model\UserManagerInterface as BaseInterface;
 use Sonata\DatagridBundle\Pager\PageableInterface;
 
 /**
+ * NEXT_MAJOR: Remove PageableInterface extension.
+ *
  * @author Hugo Briand <briand@ekino.com>
  */
 interface UserManagerInterface extends BaseInterface, PageableInterface
