@@ -14,13 +14,8 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\App;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
-use FOS\RestBundle\FOSRestBundle;
 use FOS\UserBundle\FOSUserBundle;
-use JMS\SerializerBundle\JMSSerializerBundle;
 use Knp\Bundle\MenuBundle\KnpMenuBundle;
-use Nelmio\ApiDocBundle\Annotation\Operation;
-use Nelmio\ApiDocBundle\NelmioApiDocBundle;
-use OpenApi\Annotations\Operation as OpenApiOperation;
 use Sonata\AdminBundle\SonataAdminBundle;
 use Sonata\Doctrine\Bridge\Symfony\SonataDoctrineBundle;
 use Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle;
@@ -28,7 +23,6 @@ use Sonata\UserBundle\SonataUserBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Bundle\SecurityBundle\SecurityBundle;
-use Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle;
 use Symfony\Bundle\TwigBundle\TwigBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -55,15 +49,11 @@ final class AppKernel extends Kernel
             new SecurityBundle(),
             new DoctrineBundle(),
             new FOSUserBundle(),
-            new FOSRestBundle(),
-            new JMSSerializerBundle(),
-            new NelmioApiDocBundle(),
             new SonataDoctrineORMAdminBundle(),
             new SonataDoctrineBundle(),
             new KnpMenuBundle(),
             new SonataAdminBundle(),
             new SonataUserBundle(),
-            new SwiftmailerBundle(),
         ];
     }
 
@@ -84,15 +74,6 @@ final class AppKernel extends Kernel
 
     protected function configureRoutes(RouteCollectionBuilder $routes): void
     {
-        if (class_exists(Operation::class) && class_exists(OpenApiOperation::class)) {
-            // UserBundle does not support "nelmio/api-doc-bundle" 4.x and does not provide an API through this version.
-            // This condition allows to accept setups using "nelmio/api-doc-bundle" 4.x dependency without conflicts.
-            // @no-op.
-        } elseif (class_exists(Operation::class)) {
-            $routes->import(__DIR__.'/Resources/config/routing/api_nelmio_v3.yml', '/', 'yaml');
-        } else {
-            $routes->import(__DIR__.'/Resources/config/routing/api_nelmio_v2.yml', '/', 'yaml');
-        }
     }
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void

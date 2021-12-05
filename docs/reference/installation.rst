@@ -22,7 +22,6 @@ Optional dependencies:
 And the persistence bundle (choose one):
 
 * `SonataDoctrineOrmAdminBundle <https://docs.sonata-project.org/projects/SonataDoctrineORMAdminBundle/en/3.x/>`_
-* `SonataDoctrinePHPCRAdminBundle <https://docs.sonata-project.org/projects/SonataDoctrinePhpcrAdminBundle/en/2.x/>`_
 * `SonataDoctrineMongoDBAdminBundle <https://docs.sonata-project.org/projects/SonataDoctrineMongoDBAdminBundle/en/3.x/>`_
 
 Follow also their configuration step; you will find everything you need in
@@ -43,10 +42,6 @@ Add ``SonataUserBundle`` via composer::
 .. note::
 
     This will install the FOSUserBundle_, too.
-
-If you want to use the REST API, you also need ``friendsofsymfony/rest-bundle`` and ``nelmio/api-doc-bundle``::
-
-    composer require friendsofsymfony/rest-bundle nelmio/api-doc-bundle
 
 Next, be sure to enable the bundles in your ``config/bundles.php`` file if they
 are not already enabled::

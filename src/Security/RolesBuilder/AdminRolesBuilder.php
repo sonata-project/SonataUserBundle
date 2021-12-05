@@ -16,7 +16,7 @@ namespace Sonata\UserBundle\Security\RolesBuilder;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Admin\Pool;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @author Silas Joisten <silasjoisten@hotmail.de>
@@ -39,7 +39,7 @@ final class AdminRolesBuilder implements AdminRolesBuilderInterface
     private $translator;
 
     /**
-     * @var string []
+     * @var string[]
      */
     private $excludeAdmins = [];
 
@@ -93,7 +93,7 @@ final class AdminRolesBuilder implements AdminRolesBuilderInterface
                     'label' => $key,
                     'role_translated' => $this->translateRole($role, $domain),
                     'is_granted' => $this->isMaster($admin) || $this->authorizationChecker->isGranted($role),
-                    'admin_label' => $admin->getTranslator()->trans($admin->getLabel()),
+                    'admin_label' => $admin->getTranslator()->trans($admin->getLabel() ?? ''),
                 ];
             }
         }

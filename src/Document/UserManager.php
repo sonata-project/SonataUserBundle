@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Document;
 
 use FOS\UserBundle\Doctrine\UserManager as BaseUserManager;
-use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
 
 /**
@@ -25,15 +24,5 @@ class UserManager extends BaseUserManager implements UserManagerInterface
     public function findUsersBy(?array $criteria = null, ?array $orderBy = null, $limit = null, $offset = null)
     {
         return $this->getRepository()->findBy($criteria, $orderBy, $limit, $offset);
-    }
-
-    /**
-     * NEXT_MAJOR: remove this method.
-     *
-     * @deprecated since sonata-project/user-bundle 4.x, to be removed in 5.0.
-     */
-    public function getPager(array $criteria, int $page, int $limit = 10, array $sort = []): PagerInterface
-    {
-        throw new \RuntimeException('method not implemented');
     }
 }

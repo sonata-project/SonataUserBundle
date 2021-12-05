@@ -142,21 +142,33 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
         static::assertArrayNotHasKey(0, $twigConfigurations);
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testCorrectModelClass(): void
     {
         $this->load(['class' => ['user' => \Sonata\UserBundle\Tests\Entity\User::class]]);
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testCorrectModelClassWithLeadingSlash(): void
     {
         $this->load(['class' => ['user' => \Sonata\UserBundle\Tests\Entity\User::class]]);
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testCorrectAdminClass(): void
     {
         $this->load(['admin' => ['user' => ['class' => \Sonata\UserBundle\Tests\Admin\Entity\UserAdmin::class]]]);
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testCorrectModelClassWithNotDefaultManagerType(): void
     {
         $this->load([
@@ -172,6 +184,9 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
         ]);
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testFosUserBundleModelClasses(): void
     {
         $this->load(['manager_type' => 'orm', 'class' => [

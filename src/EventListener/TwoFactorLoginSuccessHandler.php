@@ -56,7 +56,7 @@ final class TwoFactorLoginSuccessHandler implements AuthenticationSuccessHandler
         Environment $engine,
         Helper $helper,
         UserManagerInterface $userManager,
-        ?UrlGeneratorInterface $urlGenerator = null // NEXT_MAJOR: make it mandatory.
+        UrlGeneratorInterface $urlGenerator
     ) {
         $this->engine = $engine;
         $this->googleAuthenticator = $helper;
@@ -93,11 +93,6 @@ final class TwoFactorLoginSuccessHandler implements AuthenticationSuccessHandler
             $request->getSession()->set($this->googleAuthenticator->getSessionKey($token), null);
         }
 
-        // NEXT_MAJOR: remove hardcoded url.
-        $url = $this->urlGenerator
-            ? $this->urlGenerator->generate('sonata_admin_dashboard')
-            : '/admin';
-
-        return new RedirectResponse($url);
+        return new RedirectResponse($this->urlGenerator->generate('sonata_admin_dashboard'));
     }
 }
