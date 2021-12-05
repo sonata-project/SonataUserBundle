@@ -1,14 +1,13 @@
 {
     "name": "sonata-project/user-bundle",
-    "type": "symfony-bundle",
     "description": "Symfony SonataUserBundle",
+    "license": "MIT",
+    "type": "symfony-bundle",
     "keywords": [
         "user",
         "sonata",
         "google authenticator"
     ],
-    "homepage": "https://docs.sonata-project.org/projects/SonataUserBundle",
-    "license": "MIT",
     "authors": [
         {
             "name": "Thomas Rabaix",
@@ -20,6 +19,7 @@
             "homepage": "https://github.com/sonata-project/SonataUserBundle/contributors"
         }
     ],
+    "homepage": "https://docs.sonata-project.org/projects/SonataUserBundle",
     "require": {
         "php": "^7.3 || ^8.0",
         "doctrine/common": "^2.0 || ^3.1",
@@ -44,10 +44,6 @@
         "symfony/translation-contracts": "^1.1 || ^2.5",
         "twig/twig": "^2.9 || ^3.0"
     },
-    "conflict": {
-        "sonata-project/doctrine-orm-admin-bundle": "<3.0",
-        "sonata-project/google-authenticator": "<1.0"
-    },
     "require-dev": {
         "doctrine/annotations": "^1.10",
         "doctrine/doctrine-bundle": "^2.0",
@@ -68,12 +64,13 @@
         "symfony/phpunit-bridge": "^5.3",
         "vimeo/psalm": "^4.9.2"
     },
+    "conflict": {
+        "sonata-project/doctrine-orm-admin-bundle": "<3.0",
+        "sonata-project/google-authenticator": "<1.0"
+    },
     "suggest": {
         "sonata-project/doctrine-orm-admin-bundle": "For persisting entities",
         "sonata-project/google-authenticator": "For google auth user login"
-    },
-    "config": {
-        "sort-packages": true
     },
     "autoload": {
         "psr-4": {
@@ -84,5 +81,8 @@
         "psr-4": {
             "Sonata\\UserBundle\\Tests\\": "tests/"
         }
+    },
+    "config": {
+        "sort-packages": true
     }
 }
