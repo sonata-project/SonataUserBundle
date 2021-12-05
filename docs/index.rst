@@ -11,6 +11,5 @@ User Bundle
    reference/installation
    reference/advanced_configuration
    reference/two_step_validation
-   reference/api
    reference/user_impersonation
    reference/roles_matrix

@@ -109,47 +109,6 @@ class MailerTest extends TestCase
         $this->getMailer()->sendResettingEmailMessage($user);
     }
 
-    /**
-     * NEXT_MAJOR: Remove this method.
-     *
-     * @group legacy
-     *
-     * @dataProvider emailTemplateData
-     */
-    public function testSendResettingEmailMessageWithSwiftMailer(string $template, string $subject, string $body): void
-    {
-        $user = $this->createStub(UserInterface::class);
-        $user
-            ->method('getConfirmationToken')
-            ->willReturn('user-token');
-        $user
-            ->method('getEmail')
-            ->willReturn('user@sonata-project.org');
-
-        $this->router->expects(static::once())
-            ->method('generate')
-            ->with('sonata_user_admin_resetting_reset', ['token' => 'user-token'])
-            ->willReturn('/foo');
-
-        $this->templating->expects(static::once())
-            ->method('render')
-            ->with('foo', ['user' => $user, 'confirmationUrl' => '/foo'])
-            ->willReturn($template);
-
-        $swiftMailer = $this->createMock(\Swift_Mailer::class);
-
-        $swiftMailer->expects(static::once())
-            ->method('send')
-            ->with(static::callback(function (\Swift_Message $message) use ($subject, $body, $user): bool {
-                return $subject === $message->getSubject()
-                    && $body === $message->getBody()
-                    && $this->emailFrom === $message->getFrom()
-                    && \array_key_exists((string) $user->getEmail(), $message->getTo());
-            }));
-
-        (new Mailer($this->router, $this->templating, $swiftMailer, $this->emailFrom, $this->template))->sendResettingEmailMessage($user);
-    }
-
     public function emailTemplateData(): array
     {
         return [
