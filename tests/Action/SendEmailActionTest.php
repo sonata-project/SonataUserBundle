@@ -22,6 +22,7 @@ use PHPUnit\Framework\TestCase;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Action\SendEmailAction;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,7 +37,7 @@ class SendEmailActionTest extends TestCase
     protected $urlGenerator;
 
     /**
-     * @var Pool|MockObject
+     * @var Pool
      */
     protected $pool;
 
@@ -89,7 +90,7 @@ class SendEmailActionTest extends TestCase
     {
         $this->templating = $this->createMock(Environment::class);
         $this->urlGenerator = $this->createMock(UrlGeneratorInterface::class);
-        $this->pool = $this->createMock(Pool::class);
+        $this->pool = new Pool(new Container());
         $this->templateRegistry = $this->createMock(TemplateRegistryInterface::class);
         $this->userManager = $this->createMock(UserManagerInterface::class);
         $this->mailer = $this->createMock(MailerInterface::class);

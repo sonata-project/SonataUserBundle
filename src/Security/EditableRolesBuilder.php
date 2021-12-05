@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Security;
 
 use Sonata\AdminBundle\Admin\Pool;
+use Sonata\AdminBundle\SonataConfiguration;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -45,11 +46,17 @@ class EditableRolesBuilder
      */
     protected $rolesHierarchy;
 
-    public function __construct(TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authorizationChecker, Pool $pool, array $rolesHierarchy = [])
+    /**
+     * @var SonataConfiguration
+     */
+    private $configuration;
+
+    public function __construct(TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authorizationChecker, Pool $pool, SonataConfiguration $configuration, array $rolesHierarchy = [])
     {
         $this->tokenStorage = $tokenStorage;
         $this->authorizationChecker = $authorizationChecker;
         $this->pool = $pool;
+        $this->configuration = $configuration;
         $this->rolesHierarchy = $rolesHierarchy;
     }
 
@@ -83,7 +90,7 @@ class EditableRolesBuilder
         });
 
         $isMaster = $this->authorizationChecker->isGranted(
-            $this->pool->getOption('role_super_admin', 'ROLE_SUPER_ADMIN')
+            $this->configuration->getOption('role_super_admin', 'ROLE_SUPER_ADMIN')
         );
 
         // get roles from the service container

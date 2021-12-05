@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Security\RolesBuilder;
 
-use Sonata\AdminBundle\Admin\Pool;
+use Sonata\AdminBundle\SonataConfiguration;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -28,9 +28,9 @@ final class SecurityRolesBuilder implements ExpandableRolesBuilderInterface
     private $authorizationChecker;
 
     /**
-     * @var Pool
+     * @var SonataConfiguration
      */
-    private $pool;
+    private $configuration;
 
     /**
      * @var TranslatorInterface
@@ -44,12 +44,12 @@ final class SecurityRolesBuilder implements ExpandableRolesBuilderInterface
 
     public function __construct(
         AuthorizationCheckerInterface $authorizationChecker,
-        Pool $pool,
+        SonataConfiguration $configuration,
         TranslatorInterface $translator,
         array $rolesHierarchy = []
     ) {
         $this->authorizationChecker = $authorizationChecker;
-        $this->pool = $pool;
+        $this->configuration = $configuration;
         $this->translator = $translator;
         $this->rolesHierarchy = $rolesHierarchy;
     }
@@ -97,8 +97,8 @@ final class SecurityRolesBuilder implements ExpandableRolesBuilderInterface
     private function getHierarchy(): array
     {
         return array_merge([
-            $this->pool->getOption('role_super_admin') => [],
-            $this->pool->getOption('role_admin') => [],
+            $this->configuration->getOption('role_super_admin') => [],
+            $this->configuration->getOption('role_admin') => [],
         ], $this->rolesHierarchy);
     }
 

@@ -18,6 +18,7 @@ use PHPUnit\Framework\TestCase;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Action\RequestAction;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -42,7 +43,7 @@ class RequestActionTest extends TestCase
     protected $authorizationChecker;
 
     /**
-     * @var Pool|MockObject
+     * @var Pool
      */
     protected $pool;
 
@@ -56,7 +57,7 @@ class RequestActionTest extends TestCase
         $this->templating = $this->createMock(Environment::class);
         $this->urlGenerator = $this->createMock(UrlGeneratorInterface::class);
         $this->authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
-        $this->pool = $this->createMock(Pool::class);
+        $this->pool = new Pool(new Container());
         $this->templateRegistry = $this->createMock(TemplateRegistryInterface::class);
     }
 
