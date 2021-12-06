@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Sonata\UserBundle\Tests\Functional;
+namespace Sonata\UserBundle\Tests\Functional\Action;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Sonata\UserBundle\Tests\App\AppKernel;
