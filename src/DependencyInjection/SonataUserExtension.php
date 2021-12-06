@@ -64,6 +64,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
 
         $loader->load('form.xml');
 
+        // NEXT_MAJOR: Remove this condition.
         if (class_exists('Google\Authenticator\GoogleAuthenticator')) {
             @trigger_error(
                 'The \'Google\Authenticator\' namespace is deprecated in sonata-project/GoogleAuthenticator since version 2.1 and will be removed in 3.0.',
@@ -71,6 +72,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
             );
         }
 
+        // NEXT_MAJOR: Remove this condition and all the configuration related to this.
         if (class_exists('Google\Authenticator\GoogleAuthenticator') ||
             class_exists('Sonata\GoogleAuthenticator\GoogleAuthenticator')) {
             $loader->load('google_authenticator.xml');
@@ -157,6 +159,8 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     }
 
     /**
+     * NEXT_MAJOR: Remove this method.
+     *
      * @param array $config
      *
      * @throws \RuntimeException
@@ -176,10 +180,17 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
             return;
         }
 
-        if (!class_exists('Google\Authenticator\GoogleAuthenticator')
-            && !class_exists('Sonata\GoogleAuthenticator\GoogleAuthenticator')) {
+        if (
+            !class_exists('Google\Authenticator\GoogleAuthenticator')
+            && !class_exists('Sonata\GoogleAuthenticator\GoogleAuthenticator')
+        ) {
             throw new \RuntimeException('Please add "sonata-project/google-authenticator" package');
         }
+
+        @trigger_error(
+            'The Google Authenticator integration is deprecated since sonata-project/user-bundle 4.x and will be removed in 5.0.',
+            \E_USER_DEPRECATED
+        );
 
         $container->setParameter('sonata.user.google.authenticator.forced_for_role', $config['google_authenticator']['forced_for_role']);
 

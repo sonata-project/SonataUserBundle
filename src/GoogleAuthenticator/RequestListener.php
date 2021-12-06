@@ -21,6 +21,11 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Twig\Environment;
 
+/**
+ * NEXT_MAJOR: Remove this class.
+ *
+ * @deprecated since sonata-project/user-bundle 4.x, it will be removed on 5.0.
+ */
 class RequestListener
 {
     /**
