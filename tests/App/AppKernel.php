@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\App;
 
+use DAMA\DoctrineTestBundle\DAMADoctrineTestBundle;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use FOS\UserBundle\FOSUserBundle;
 use Knp\Bundle\MenuBundle\KnpMenuBundle;
@@ -20,6 +21,7 @@ use Sonata\AdminBundle\SonataAdminBundle;
 use Sonata\BlockBundle\SonataBlockBundle;
 use Sonata\Doctrine\Bridge\Symfony\SonataDoctrineBundle;
 use Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle;
+use Sonata\Form\Bridge\Symfony\SonataFormBundle;
 use Sonata\Twig\Bridge\Symfony\SonataTwigBundle;
 use Sonata\UserBundle\SonataUserBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
@@ -50,11 +52,13 @@ final class AppKernel extends Kernel
             new TwigBundle(),
             new SecurityBundle(),
             new DoctrineBundle(),
+            new DAMADoctrineTestBundle(),
             new FOSUserBundle(),
             new SonataBlockBundle(),
             new SonataDoctrineORMAdminBundle(),
             new SonataDoctrineBundle(),
             new SonataTwigBundle(),
+            new SonataFormBundle(),
             new KnpMenuBundle(),
             new SonataAdminBundle(),
             new SonataUserBundle(),
