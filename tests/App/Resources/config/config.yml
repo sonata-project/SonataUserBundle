@@ -33,10 +33,15 @@ doctrine:
                         is_bundle: false
                         prefix: Sonata\UserBundle\Tests\App\Entity
 
+sonata_user:
+    class:
+        user: Sonata\UserBundle\Tests\App\Entity\User
+        group: Sonata\UserBundle\Tests\App\Entity\Group
+
 fos_user:
-    user_class: 'Sonata\UserBundle\Tests\Entity\User'
+    user_class: Sonata\UserBundle\Tests\App\Entity\User
     group:
-        group_class: 'Sonata\UserBundle\Entity\BaseGroup'
+        group_class: Sonata\UserBundle\Tests\App\Entity\Group
     db_driver: 'orm'
     firewall_name: 'api'
     from_email:

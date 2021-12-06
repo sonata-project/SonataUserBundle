@@ -17,8 +17,10 @@ use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use FOS\UserBundle\FOSUserBundle;
 use Knp\Bundle\MenuBundle\KnpMenuBundle;
 use Sonata\AdminBundle\SonataAdminBundle;
+use Sonata\BlockBundle\SonataBlockBundle;
 use Sonata\Doctrine\Bridge\Symfony\SonataDoctrineBundle;
 use Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle;
+use Sonata\Twig\Bridge\Symfony\SonataTwigBundle;
 use Sonata\UserBundle\SonataUserBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
@@ -49,8 +51,10 @@ final class AppKernel extends Kernel
             new SecurityBundle(),
             new DoctrineBundle(),
             new FOSUserBundle(),
+            new SonataBlockBundle(),
             new SonataDoctrineORMAdminBundle(),
             new SonataDoctrineBundle(),
+            new SonataTwigBundle(),
             new KnpMenuBundle(),
             new SonataAdminBundle(),
             new SonataUserBundle(),
@@ -74,6 +78,7 @@ final class AppKernel extends Kernel
 
     protected function configureRoutes(RouteCollectionBuilder $routes): void
     {
+        $routes->import(__DIR__.'/Resources/config/routing/routes.yaml');
     }
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
