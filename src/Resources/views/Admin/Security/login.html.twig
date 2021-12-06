@@ -33,14 +33,14 @@ file that was distributed with this source code.
                         and ('single_image' == sonata_config.getOption('title_mode') or 'both' == sonata_config.getOption('title_mode'))
                     %}
                         <div>
-                            <img style="width:64px;" src="{{ asset(sonata_admin.adminPool.titlelogo) }}" alt="{{ sonata_admin.adminPool.title }}">
+                            <img style="width:64px;" src="{{ asset(sonata_config.titlelogo) }}" alt="{{ sonata_config.title }}">
                         </div>
                     {% endif %}
                     {% if 'text' == sonata_config.getOption('logo_content')
                         or 'all' == sonata_config.getOption('logo_content')
                         and ('single_text' == sonata_config.getOption('title_mode') or 'both' == sonata_config.getOption('title_mode'))
                     %}
-                        <span>{{ sonata_admin.adminPool.title }}</span>
+                        <span>{{ sonata_config.title }}</span>
                     {% endif %}
                 </a>
             </div>
