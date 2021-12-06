@@ -12,7 +12,7 @@ security:
             id: fos_user.user_provider.username
 
     encoders:
-        Sonata\UserBundle\Tests\App\Entity\User: plaintext
+        FOS\UserBundle\Model\UserInterface: plaintext
 
     firewalls:
         main:

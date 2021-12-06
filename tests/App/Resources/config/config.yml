@@ -46,7 +46,7 @@ fos_user:
     group:
         group_class: Sonata\UserBundle\Tests\App\Entity\Group
     db_driver: 'orm'
-    firewall_name: 'api'
+    firewall_name: 'main'
     from_email:
         address: 'sonatauser@example.com'
         sender_name: 'SonataUserBundle'
