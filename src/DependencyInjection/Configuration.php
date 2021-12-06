@@ -61,6 +61,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
                 ->arrayNode('google_authenticator')
+                    ->setDeprecated('The "%node%" option is deprecated.')
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('server')->cannotBeEmpty()->end()

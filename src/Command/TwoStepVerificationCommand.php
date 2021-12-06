@@ -23,7 +23,9 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * NEXT_MAJOR: stop extending ContainerAwareCommand.
+ * NEXT_MAJOR: Remove this command.
+ *
+ * @deprecated since sonata-project/user-bundle 4.x, it will be removed on 5.0.
  */
 class TwoStepVerificationCommand extends ContainerAwareCommand
 {
