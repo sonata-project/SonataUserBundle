@@ -18,50 +18,32 @@ use Sonata\UserBundle\Tests\App\AppKernel;
 use Sonata\UserBundle\Tests\App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class LoginActionTest extends WebTestCase
+final class UserAdminTest extends WebTestCase
 {
-    public function testItSubmitsLoginForm(): void
+    /**
+     * @dataProvider provideCrudUrlsCases
+     */
+    public function testCrudUrls(string $url): void
     {
-        $client = static::createClient();
+        $client = self::createClient();
 
         $this->prepareData();
 
-        $client->request('GET', '/login');
+        $client->request('GET', $url);
 
-        static::assertResponseIsSuccessful();
-
-        $client->submitForm('submit', [
-            '_username' => 'username',
-            '_password' => 'random_password',
-        ]);
-        $client->followRedirect();
-
-        static::assertRouteSame('sonata_admin_dashboard');
-
-        $client->request('GET', '/login');
-        $client->followRedirect();
-
-        static::assertRouteSame('sonata_admin_dashboard');
+        self::assertResponseIsSuccessful();
     }
 
-    /** @test */
-    public function testItSubmitsLoginFormWithDisabledUser(): void
+    /**
+     * @return iterable<string[]>
+     *
+     * @phpstan-return iterable<array{string}>
+     */
+    public static function provideCrudUrlsCases(): iterable
     {
-        $client = static::createClient();
-
-        $this->prepareData(false);
-
-        $client->request('GET', '/login');
-
-        static::assertResponseIsSuccessful();
-
-        $client->submitForm('submit', [
-            '_username' => 'email@localhost',
-            '_password' => 'random_password',
-        ]);
-        $client->followRedirect();
-
-        static::assertRouteSame('sonata_user_admin_security_login');
+        yield 'List User' => ['/admin/tests/app/user/list'];
+        yield 'Create User' => ['/admin/tests/app/user/create'];
+        yield 'Edit User' => ['/admin/tests/app/user/1/edit'];
     }
 
     /**
@@ -72,7 +54,7 @@ class LoginActionTest extends WebTestCase
         return AppKernel::class;
     }
 
-    private function prepareData(bool $enabled = true): void
+    private function prepareData(): void
     {
         $manager = self::$container->get('doctrine.orm.entity_manager');
         \assert($manager instanceof EntityManagerInterface);
@@ -83,7 +65,7 @@ class LoginActionTest extends WebTestCase
         $user->setEmailCanonical('email@localhost');
         $user->setPassword('random_password');
         $user->setSuperAdmin(true);
-        $user->setEnabled($enabled);
+        $user->setEnabled(true);
 
         $manager->persist($user);
         $manager->flush();
