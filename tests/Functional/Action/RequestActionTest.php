@@ -13,7 +13,9 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Functional\Action;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Sonata\UserBundle\Tests\App\AppKernel;
+use Sonata\UserBundle\Tests\App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class RequestActionTest extends WebTestCase
@@ -37,11 +39,52 @@ class RequestActionTest extends WebTestCase
         static::assertRouteSame('sonata_user_admin_resetting_check_email');
     }
 
+    /** @test */
+    public function itSubmitsResetPasswordRequest(): void
+    {
+        $client = static::createClient();
+
+        $this->prepareData();
+
+        $client->request('GET', '/request');
+
+        static::assertResponseIsSuccessful();
+
+        $client->submitForm('submit', [
+            'username' => 'email@localhost.com',
+        ]);
+
+        static::assertEmailCount(1);
+        static::assertRouteSame('sonata_user_admin_resetting_send_email');
+
+        $client->followRedirect();
+
+        static::assertResponseIsSuccessful();
+        static::assertRouteSame('sonata_user_admin_resetting_check_email');
+    }
+
     /**
      * @return class-string<\Symfony\Component\HttpKernel\KernelInterface>
      */
     protected static function getKernelClass(): string
     {
         return AppKernel::class;
+    }
+
+    private function prepareData(): void
+    {
+        $manager = self::$container->get('doctrine.orm.entity_manager');
+        \assert($manager instanceof EntityManagerInterface);
+
+        $user = new User();
+        $user->setUsername('username');
+        $user->setEmail('email@localhost.com');
+        $user->setEmailCanonical('email@localhost.com');
+        $user->setPassword('random_password');
+        $user->setSuperAdmin(true);
+        $user->setEnabled(true);
+
+        $manager->persist($user);
+        $manager->flush();
     }
 }

@@ -1,6 +1,9 @@
 framework:
     test: true
     secret: secret
+    mailer:
+        enabled: true
+        dsn: null://null
     form:
         enabled: true
     translator:
