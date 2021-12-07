@@ -127,6 +127,8 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     }
 
     /**
+     * NEXT_MAJOR: Remove this method.
+     *
      * @param array $config
      *
      * @throws \RuntimeException
@@ -149,6 +151,11 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         if (!class_exists(GoogleAuthenticator::class)) {
             throw new \RuntimeException('Please add "sonata-project/google-authenticator" package');
         }
+
+        @trigger_error(
+            'The Google Authenticator integration is deprecated since sonata-project/user-bundle 4.x and will be removed in 5.0.',
+            \E_USER_DEPRECATED
+        );
 
         $container->setParameter('sonata.user.google.authenticator.forced_for_role', $config['google_authenticator']['forced_for_role']);
 

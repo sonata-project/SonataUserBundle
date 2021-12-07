@@ -22,6 +22,11 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * NEXT_MAJOR: Remove this command.
+ *
+ * @deprecated since sonata-project/user-bundle 4.x, it will be removed on 5.0.
+ */
 final class TwoStepVerificationCommand extends Command
 {
     protected static $defaultName = 'sonata:user:two-step-verification';
