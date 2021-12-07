@@ -31,11 +31,6 @@ abstract class User extends AbstractedUser implements UserInterface
     protected $updatedAt;
 
     /**
-     * @var string
-     */
-    protected $twoStepVerificationCode;
-
-    /**
      * @var \DateTime|null
      */
     protected $dateOfBirth;
@@ -126,11 +121,6 @@ abstract class User extends AbstractedUser implements UserInterface
     protected $gplusData;
 
     /**
-     * @var string
-     */
-    protected $token;
-
-    /**
      * Returns a string representation.
      *
      * @return string
@@ -217,18 +207,6 @@ abstract class User extends AbstractedUser implements UserInterface
         }
 
         return $this;
-    }
-
-    public function setTwoStepVerificationCode($twoStepVerificationCode)
-    {
-        $this->twoStepVerificationCode = $twoStepVerificationCode;
-
-        return $this;
-    }
-
-    public function getTwoStepVerificationCode()
-    {
-        return $this->twoStepVerificationCode;
     }
 
     public function setBiography($biography)
@@ -445,18 +423,6 @@ abstract class User extends AbstractedUser implements UserInterface
     public function getWebsite()
     {
         return $this->website;
-    }
-
-    public function setToken($token)
-    {
-        $this->token = $token;
-
-        return $this;
-    }
-
-    public function getToken()
-    {
-        return $this->token;
     }
 
     public function getFullname()

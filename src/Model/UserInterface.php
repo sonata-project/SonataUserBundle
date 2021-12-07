@@ -57,22 +57,6 @@ interface UserInterface extends \FOS\UserBundle\Model\UserInterface
     public function setGroups($groups);
 
     /**
-     * Sets the two-step verification code.
-     *
-     * @param string $twoStepVerificationCode
-     *
-     * @return UserInterface
-     */
-    public function setTwoStepVerificationCode($twoStepVerificationCode);
-
-    /**
-     * Returns the two-step verification code.
-     *
-     * @return string
-     */
-    public function getTwoStepVerificationCode();
-
-    /**
      * @param string $biography
      *
      * @return UserInterface
@@ -287,18 +271,6 @@ interface UserInterface extends \FOS\UserBundle\Model\UserInterface
      * @return string
      */
     public function getWebsite();
-
-    /**
-     * @param string $token
-     *
-     * @return UserInterface
-     */
-    public function setToken($token);
-
-    /**
-     * @return string
-     */
-    public function getToken();
 
     /**
      * @return string

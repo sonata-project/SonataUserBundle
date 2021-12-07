@@ -40,11 +40,6 @@ class ConfigurationTest extends TestCase
             'table' => [
                 'user_group' => 'fos_user_user_group',
             ],
-            'google_authenticator' => [
-                'enabled' => false,
-                'trusted_ip_list' => ['127.0.0.1'],
-                'forced_for_role' => ['ROLE_ADMIN'],
-            ],
             'manager_type' => 'orm',
             'class' => [
                 'user' => BaseUser::class,

@@ -124,10 +124,6 @@ class UserAdmin extends AbstractAdmin
                 ->add('twitterName')
                 ->add('gplusUid')
                 ->add('gplusName')
-            ->end()
-            ->with('Security')
-                ->add('token')
-                ->add('twoStepVerificationCode')
             ->end();
     }
 
@@ -207,10 +203,6 @@ class UserAdmin extends AbstractAdmin
                         'multiple' => true,
                         'required' => false,
                     ])
-                ->end()
-                ->with('Keys')
-                    ->add('token', null, ['required' => false])
-                    ->add('twoStepVerificationCode', null, ['required' => false])
                 ->end()
             ->end();
     }

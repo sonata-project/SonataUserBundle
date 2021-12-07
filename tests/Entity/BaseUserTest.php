@@ -90,18 +90,6 @@ class BaseUserTest extends TestCase
         static::assertTrue($user->hasGroup('Group 2'), 'Should have a group named "Group 2"');
     }
 
-    public function testTwoStepVerificationCode(): void
-    {
-        // Given
-        $user = new BaseUser();
-
-        // When
-        $user->setTwoStepVerificationCode('123456');
-
-        // Then
-        static::assertSame('123456', $user->getTwoStepVerificationCode(), 'Should return the two step verification code');
-    }
-
     public function testToStringWithName(): void
     {
         // Given

@@ -23,9 +23,6 @@
         <field name="gplusUid" type="string" column="gplus_uid" length="255" nullable="true"/>
         <field name="gplusName" type="string" column="gplus_name" length="255" nullable="true"/>
         <field name="gplusData" type="json" column="gplus_data" nullable="true"/>
-        <!-- extra security fields -->
-        <field name="token" type="string" length="255" column="token" nullable="true"/>
-        <field name="twoStepVerificationCode" type="string" length="255" column="two_step_code" nullable="true"/>
         <lifecycle-callbacks>
             <lifecycle-callback type="prePersist" method="prePersist"/>
             <lifecycle-callback type="preUpdate" method="preUpdate"/>

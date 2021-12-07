@@ -23,9 +23,6 @@
         <field name="gplusUid" type="string"/>
         <field name="gplusName" type="string"/>
         <field name="gplusData" type="hash"/>
-        <!-- extra security fields -->
-        <field name="token" type="string"/>
-        <field name="twoStepVerificationCode" type="string"/>
         <lifecycle-callbacks>
             <lifecycle-callback type="prePersist" method="prePersist"/>
             <lifecycle-callback type="preUpdate" method="preUpdate"/>

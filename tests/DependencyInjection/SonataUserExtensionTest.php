@@ -220,32 +220,6 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
         ]]);
     }
 
-    public function testConfigureGoogleAuthenticatorDisabled(): void
-    {
-        $this->load(['google_authenticator' => ['enabled' => false]]);
-
-        $this->assertContainerBuilderHasParameter('sonata.user.google.authenticator.enabled', false);
-        $this->assertContainerBuilderNotHasService('sonata.user.google.authenticator');
-        $this->assertContainerBuilderNotHasService('sonata.user.google.authenticator.provider');
-        $this->assertContainerBuilderNotHasService('sonata.user.google.authenticator.interactive_login_listener');
-        $this->assertContainerBuilderNotHasService('sonata.user.google.authenticator.request_listener');
-    }
-
-    public function testConfigureGoogleAuthenticatorEnabled(): void
-    {
-        $this->load(['google_authenticator' => ['enabled' => true, 'forced_for_role' => ['ROLE_USER'], 'trusted_ip_list' => ['0.0.0.1'],
-                                                'server' => 'bar', ]]);
-
-        $this->assertContainerBuilderHasParameter('sonata.user.google.authenticator.enabled', true);
-        $this->assertContainerBuilderHasService('sonata.user.google.authenticator');
-        $this->assertContainerBuilderHasService('sonata.user.google.authenticator.provider');
-        $this->assertContainerBuilderHasService('sonata.user.google.authenticator.interactive_login_listener');
-        $this->assertContainerBuilderHasService('sonata.user.google.authenticator.request_listener');
-        $this->assertContainerBuilderHasParameter('sonata.user.google.authenticator.forced_for_role', ['ROLE_ADMIN', 'ROLE_USER']);
-        $this->assertContainerBuilderHasParameter('sonata.user.google.authenticator.trusted_ip_list', ['127.0.0.1', '0.0.0.1']);
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument('sonata.user.google.authenticator.provider', 0, 'bar');
-    }
-
     public function testMailerConfigParameterIfNotSet(): void
     {
         $this->load();

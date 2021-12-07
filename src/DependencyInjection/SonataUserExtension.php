@@ -15,7 +15,6 @@ namespace Sonata\UserBundle\DependencyInjection;
 
 use Sonata\Doctrine\Mapper\Builder\OptionsBuilder;
 use Sonata\Doctrine\Mapper\DoctrineCollector;
-use Sonata\GoogleAuthenticator\GoogleAuthenticator;
 use Sonata\UserBundle\Document\BaseGroup as DocumentGroup;
 use Sonata\UserBundle\Document\BaseUser as DocumentUser;
 use Sonata\UserBundle\Entity\BaseGroup as EntityGroup;
@@ -60,12 +59,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
 
         $this->aliasManagers($container, $config['manager_type']);
 
-        if (class_exists(GoogleAuthenticator::class)) {
-            $loader->load('google_authenticator.xml');
-        }
-
         $loader->load('twig.xml');
-        $loader->load('command.xml');
         $loader->load('actions.xml');
         $loader->load('mailer.xml');
 
@@ -93,8 +87,6 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         $container->setParameter('sonata.user.default_avatar', $config['profile']['default_avatar']);
 
         $container->setParameter('sonata.user.impersonating', $config['impersonating']);
-
-        $this->configureGoogleAuthenticator($config, $container);
     }
 
     /**
@@ -124,46 +116,6 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         }
 
         return $config;
-    }
-
-    /**
-     * NEXT_MAJOR: Remove this method.
-     *
-     * @param array $config
-     *
-     * @throws \RuntimeException
-     *
-     * @return mixed
-     */
-    public function configureGoogleAuthenticator($config, ContainerBuilder $container)
-    {
-        $container->setParameter('sonata.user.google.authenticator.enabled', $config['google_authenticator']['enabled']);
-
-        if (!$config['google_authenticator']['enabled']) {
-            $container->removeDefinition('sonata.user.google.authenticator');
-            $container->removeDefinition('sonata.user.google.authenticator.provider');
-            $container->removeDefinition('sonata.user.google.authenticator.interactive_login_listener');
-            $container->removeDefinition('sonata.user.google.authenticator.request_listener');
-
-            return;
-        }
-
-        if (!class_exists(GoogleAuthenticator::class)) {
-            throw new \RuntimeException('Please add "sonata-project/google-authenticator" package');
-        }
-
-        @trigger_error(
-            'The Google Authenticator integration is deprecated since sonata-project/user-bundle 4.x and will be removed in 5.0.',
-            \E_USER_DEPRECATED
-        );
-
-        $container->setParameter('sonata.user.google.authenticator.forced_for_role', $config['google_authenticator']['forced_for_role']);
-
-        $trustedIpList = $config['google_authenticator']['trusted_ip_list'];
-        $container->setParameter('sonata.user.google.authenticator.trusted_ip_list', $trustedIpList);
-
-        $container->getDefinition('sonata.user.google.authenticator.provider')
-            ->replaceArgument(0, $config['google_authenticator']['server']);
     }
 
     /**

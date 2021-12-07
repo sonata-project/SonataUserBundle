@@ -5,8 +5,7 @@
     "type": "symfony-bundle",
     "keywords": [
         "user",
-        "sonata",
-        "google authenticator"
+        "sonata"
     ],
     "authors": [
         {
@@ -29,7 +28,6 @@
         "sonata-project/doctrine-extensions": "^1.10.1",
         "sonata-project/form-extensions": "^1.4",
         "symfony/config": "^4.4",
-        "symfony/console": "^4.4",
         "symfony/dependency-injection": "^4.4",
         "symfony/form": "^4.4.20",
         "symfony/framework-bundle": "^4.4",
@@ -60,18 +58,15 @@
         "psalm/plugin-phpunit": "^0.16",
         "psalm/plugin-symfony": "^2.0",
         "sonata-project/doctrine-orm-admin-bundle": "^3.18",
-        "sonata-project/google-authenticator": "^2.1",
         "symfony/browser-kit": "^4.4 || ^5.3",
         "symfony/phpunit-bridge": "^5.3",
         "vimeo/psalm": "^4.9.2"
     },
     "conflict": {
-        "sonata-project/doctrine-orm-admin-bundle": "<3.0",
-        "sonata-project/google-authenticator": "<1.0"
+        "sonata-project/doctrine-orm-admin-bundle": "<3.0"
     },
     "suggest": {
-        "sonata-project/doctrine-orm-admin-bundle": "For persisting entities",
-        "sonata-project/google-authenticator": "For google auth user login"
+        "sonata-project/doctrine-orm-admin-bundle": "For persisting entities"
     },
     "autoload": {
         "psr-4": {
