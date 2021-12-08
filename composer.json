@@ -46,7 +46,7 @@
     "require-dev": {
         "dama/doctrine-test-bundle": "^6.7",
         "doctrine/annotations": "^1.10",
-        "doctrine/doctrine-bundle": "^2.0",
+        "doctrine/doctrine-bundle": "^2.3.2",
         "doctrine/orm": "^2.9",
         "egulias/email-validator": "^2.1.9",
         "matthiasnoback/symfony-config-test": "^4.2",
