@@ -23,7 +23,7 @@
         "php": "^7.3 || ^8.0",
         "doctrine/common": "^3.1",
         "doctrine/persistence": "^2.1",
-        "friendsofsymfony/user-bundle": "^2.0",
+        "friendsofsymfony/user-bundle": "^2.2",
         "sonata-project/admin-bundle": "^4.0",
         "sonata-project/doctrine-extensions": "^1.10.1",
         "sonata-project/form-extensions": "^1.4",
