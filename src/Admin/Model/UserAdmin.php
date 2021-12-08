@@ -75,6 +75,7 @@ class UserAdmin extends AbstractAdmin
         if ($this->isGranted('ROLE_ALLOWED_TO_SWITCH')) {
             $list
                 ->add('impersonating', FieldDescriptionInterface::TYPE_STRING, [
+                    'virtual_field' => true,
                     'template' => '@SonataUser/Admin/Field/impersonating.html.twig',
                 ]);
         }
