@@ -8,17 +8,17 @@ security:
         - {path: ^/admin/dashboard$, role: ROLE_USER}
 
     providers:
-        fos_userbundle:
-            id: fos_user.user_provider.username
+        sonata_user_bundle:
+            id: sonata.user.security.user_provider
 
     encoders:
-        FOS\UserBundle\Model\UserInterface: plaintext
+        Sonata\UserBundle\Model\UserInterface: plaintext
 
     firewalls:
         main:
             anonymous: true
             pattern: /(.*)
-            provider: fos_userbundle
+            provider: sonata_user_bundle
             context: user
             form_login:
                 login_path: sonata_user_admin_security_login

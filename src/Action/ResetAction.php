@@ -13,13 +13,14 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Action;
 
-use FOS\UserBundle\Form\Factory\FactoryInterface;
-use FOS\UserBundle\Model\UserManagerInterface;
-use FOS\UserBundle\Security\LoginManagerInterface;
+use Sonata\UserBundle\Model\UserManagerInterface;
+use Sonata\UserBundle\Security\LoginManagerInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
+use Sonata\UserBundle\Form\Type\ResettingFormType;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,7 +62,7 @@ final class ResetAction
     private $templateRegistry;
 
     /**
-     * @var FactoryInterface
+     * @var FormFactoryInterface
      */
     private $formFactory;
 
@@ -101,7 +102,7 @@ final class ResetAction
         AuthorizationCheckerInterface $authorizationChecker,
         Pool $adminPool,
         TemplateRegistryInterface $templateRegistry,
-        FactoryInterface $formFactory,
+        FormFactoryInterface $formFactory,
         UserManagerInterface $userManager,
         LoginManagerInterface $loginManager,
         TranslatorInterface $translator,
@@ -140,7 +141,7 @@ final class ResetAction
             return new RedirectResponse($this->urlGenerator->generate('sonata_user_admin_resetting_request'));
         }
 
-        $form = $this->formFactory->createForm();
+        $form = $this->formFactory->create(ResettingFormType::class);
         $form->setData($user);
 
         $form->handleRequest($request);
@@ -167,7 +168,7 @@ final class ResetAction
                 ), ['exception' => $ex]);
             }
 
-            $this->userManager->updateUser($user);
+            $this->userManager->save($user);
 
             return $response;
         }

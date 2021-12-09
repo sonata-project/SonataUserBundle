@@ -13,20 +13,39 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Model;
 
-use FOS\UserBundle\Model\UserManagerInterface as BaseInterface;
+use Sonata\Doctrine\Model\ManagerInterface;
 
 /**
- * @author Hugo Briand <briand@ekino.com>
+ * @phpstan-extends ManagerInterface<\Sonata\UserBundle\Model\UserInterface>
  */
-interface UserManagerInterface extends BaseInterface
+interface UserManagerInterface extends ManagerInterface
 {
-    /**
-     * Alias for the repository method.
-     *
-     * @param int|null $limit
-     * @param int|null $offset
-     *
-     * @return UserInterface[]
-     */
-    public function findUsersBy(?array $criteria = null, ?array $orderBy = null, $limit = null, $offset = null);
+    // public function createUser(): UserInterface;
+
+    // public function deleteUser(UserInterface $user): void;
+
+    // public function findUserBy(array $criteria): ?UserInterface;
+
+    public function findUserByUsername(string $username): ?UserInterface;
+
+    public function findUserByEmail(string $email): ?UserInterface;
+
+    public function findUserByUsernameOrEmail(string $usernameOrEmail): ?UserInterface;
+
+    public function findUserByConfirmationToken(string $token): ?UserInterface;
+
+    // public function findUsers(): iterable;
+
+    // /**
+    //  * @phpstan-return class-string<UserInterface>
+    //  */
+    // public function getClass(): string;
+
+    // public function reloadUser(UserInterface $user): void;
+
+    // public function updateUser(UserInterface $user): void;
+
+    // public function updateCanonicalFields(UserInterface $user): void;
+
+    // public function updatePassword(UserInterface $user): void;
 }

@@ -11,14 +11,12 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Sonata\UserBundle\Document;
+namespace Sonata\UserBundle\Util;
 
-use Sonata\Doctrine\Document\BaseDocumentManager;
-use Sonata\UserBundle\Model\GroupManagerInterface;
-
-/**
- * @author Hugo Briand <briand@ekino.com>
- */
-class GroupManager extends BaseDocumentManager implements GroupManagerInterface
+class TokenGenerator implements TokenGeneratorInterface
 {
+    public function generateToken(): string
+    {
+        return rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
+    }
 }

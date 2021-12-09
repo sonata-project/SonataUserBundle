@@ -8,8 +8,6 @@ framework:
         enabled: true
     translator:
         enabled: true
-    templating:
-        engines: ['twig']
     session:
         handler_id: session.handler.native_file
         storage_id: session.storage.mock_file
@@ -40,15 +38,3 @@ sonata_user:
     class:
         user: Sonata\UserBundle\Tests\App\Entity\User
         group: Sonata\UserBundle\Tests\App\Entity\Group
-
-fos_user:
-    user_class: Sonata\UserBundle\Tests\App\Entity\User
-    group:
-        group_class: Sonata\UserBundle\Tests\App\Entity\Group
-    db_driver: 'orm'
-    firewall_name: 'main'
-    from_email:
-        address: 'sonatauser@example.com'
-        sender_name: 'SonataUserBundle'
-    service:
-        mailer: 'fos_user.mailer.noop'

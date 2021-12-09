@@ -15,7 +15,6 @@ namespace Sonata\UserBundle\Tests\App;
 
 use DAMA\DoctrineTestBundle\DAMADoctrineTestBundle;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
-use FOS\UserBundle\FOSUserBundle;
 use Knp\Bundle\MenuBundle\KnpMenuBundle;
 use Sonata\AdminBundle\SonataAdminBundle;
 use Sonata\BlockBundle\SonataBlockBundle;
@@ -42,7 +41,7 @@ final class AppKernel extends Kernel
 
     public function __construct()
     {
-        parent::__construct('test', false);
+        parent::__construct('test', true);
     }
 
     public function registerBundles()
@@ -53,7 +52,6 @@ final class AppKernel extends Kernel
             new SecurityBundle(),
             new DoctrineBundle(),
             new DAMADoctrineTestBundle(),
-            new FOSUserBundle(),
             new SonataBlockBundle(),
             new SonataDoctrineORMAdminBundle(),
             new SonataDoctrineBundle(),
@@ -94,6 +92,6 @@ final class AppKernel extends Kernel
 
     private function getBaseDir(): string
     {
-        return sys_get_temp_dir().'/sonata-user-bundle/var/';
+        return sys_get_temp_dir().'/sonata-user-bundle/var2/';
     }
 }

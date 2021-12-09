@@ -13,21 +13,12 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Model;
 
-use FOS\UserBundle\Model\GroupInterface;
-use FOS\UserBundle\Model\GroupManagerInterface as BaseInterface;
+use Sonata\Doctrine\Model\ManagerInterface;
+use Sonata\UserBundle\Model\GroupInterface;
 
 /**
- * @author Hugo Briand <briand@ekino.com>
+ * @phpstan-extends ManagerInterface<\Sonata\UserBundle\Model\GroupInterface>
  */
-interface GroupManagerInterface extends BaseInterface
+interface GroupManagerInterface extends ManagerInterface
 {
-    /**
-     * Alias for the repository method.
-     *
-     * @param int|null $limit
-     * @param int|null $offset
-     *
-     * @return GroupInterface[]
-     */
-    public function findGroupsBy(?array $criteria = null, ?array $orderBy = null, $limit = null, $offset = null);
 }

@@ -11,14 +11,12 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Sonata\UserBundle\Document;
+namespace Sonata\UserBundle\Security;
 
-use Sonata\Doctrine\Document\BaseDocumentManager;
-use Sonata\UserBundle\Model\GroupManagerInterface;
+use Sonata\UserBundle\Model\UserInterface;
+use Symfony\Component\HttpFoundation\Response;
 
-/**
- * @author Hugo Briand <briand@ekino.com>
- */
-class GroupManager extends BaseDocumentManager implements GroupManagerInterface
+interface LoginManagerInterface
 {
+    public function logInUser(string $firewallName, UserInterface $user, ?Response $response = null): void;
 }

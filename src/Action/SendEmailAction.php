@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Action;
 
-use FOS\UserBundle\Mailer\MailerInterface;
-use FOS\UserBundle\Model\UserManagerInterface;
-use FOS\UserBundle\Util\TokenGeneratorInterface;
+use Sonata\UserBundle\Mailer\MailerInterface;
+use Sonata\UserBundle\Model\UserManagerInterface;
+use Sonata\UserBundle\Util\TokenGeneratorInterface;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -99,7 +99,7 @@ final class SendEmailAction
 
             $this->mailer->sendResettingEmailMessage($user);
             $user->setPasswordRequestedAt(new \DateTime());
-            $this->userManager->updateUser($user);
+            $this->userManager->save($user);
         }
 
         return new RedirectResponse($this->urlGenerator->generate('sonata_user_admin_resetting_check_email', [

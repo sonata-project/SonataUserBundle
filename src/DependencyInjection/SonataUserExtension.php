@@ -57,11 +57,12 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
 
         $loader->load(sprintf('%s.xml', $config['manager_type']));
 
-        $this->aliasManagers($container, $config['manager_type']);
-
         $loader->load('twig.xml');
         $loader->load('actions.xml');
         $loader->load('mailer.xml');
+        $loader->load('form.xml');
+        $loader->load('security.xml');
+        $loader->load('util.xml');
 
         if ($config['security_acl']) {
             $loader->load('security_acl.xml');
@@ -85,8 +86,12 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         $this->configureMailer($config, $container);
 
         $container->setParameter('sonata.user.default_avatar', $config['profile']['default_avatar']);
-
         $container->setParameter('sonata.user.impersonating', $config['impersonating']);
+
+        $container->setParameter('sonata.user.firewall_name', 'name');
+        $container->setParameter('sonata.user.resetting.retry_ttl', 3600);
+        $container->setParameter('sonata.user.resetting.email.from_email', ['from@localhost.com' => 'From']);
+        $container->setParameter('sonata.user.resetting.email.template', '@SonataUser/Admin/Security/Resetting/email.html.twig');
     }
 
     /**
@@ -123,16 +128,8 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
      */
     public function configureClass($config, ContainerBuilder $container): void
     {
-        if ('orm' === $config['manager_type']) {
-            $modelType = 'entity';
-        } elseif ('mongodb' === $config['manager_type']) {
-            $modelType = 'document';
-        } else {
-            throw new \InvalidArgumentException(sprintf('Invalid manager type "%s".', $config['manager_type']));
-        }
-
-        $container->setParameter(sprintf('sonata.user.admin.user.%s', $modelType), $config['class']['user']);
-        $container->setParameter(sprintf('sonata.user.admin.group.%s', $modelType), $config['class']['group']);
+        $container->setParameter('sonata.user.user.class', $config['class']['user']);
+        $container->setParameter('sonata.user.group.class', $config['class']['group']);
     }
 
     /**
@@ -160,21 +157,6 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     {
         $container->setParameter('sonata.user.admin.user.controller', $config['admin']['user']['controller']);
         $container->setParameter('sonata.user.admin.group.controller', $config['admin']['group']['controller']);
-    }
-
-    /**
-     * Adds aliases for user & group managers depending on $managerType.
-     *
-     * @param string $managerType
-     */
-    protected function aliasManagers(ContainerBuilder $container, $managerType): void
-    {
-        $container
-            ->setAlias('sonata.user.user_manager', sprintf('sonata.user.%s.user_manager', $managerType))
-            ->setPublic(true);
-        $container
-            ->setAlias('sonata.user.group_manager', sprintf('sonata.user.%s.group_manager', $managerType))
-            ->setPublic(true);
     }
 
     private function checkManagerTypeToModelTypesMapping(array $config): void

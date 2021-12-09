@@ -13,10 +13,9 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Action;
 
-use FOS\UserBundle\Form\Factory\FactoryInterface;
-use FOS\UserBundle\Model\User;
-use FOS\UserBundle\Model\UserManagerInterface;
-use FOS\UserBundle\Security\LoginManagerInterface;
+use Sonata\UserBundle\Model\User;
+use Sonata\UserBundle\Model\UserManagerInterface;
+use Sonata\UserBundle\Security\LoginManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\AdminBundle\Admin\Pool;
@@ -24,6 +23,7 @@ use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Action\ResetAction;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -63,7 +63,7 @@ class ResetActionTest extends TestCase
     protected $templateRegistry;
 
     /**
-     * @var FactoryInterface|MockObject
+     * @var FormFactoryInterface|MockObject
      */
     protected $formFactory;
 
@@ -104,7 +104,7 @@ class ResetActionTest extends TestCase
         $this->authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
         $this->pool = new Pool(new Container());
         $this->templateRegistry = $this->createMock(TemplateRegistryInterface::class);
-        $this->formFactory = $this->createMock(FactoryInterface::class);
+        $this->formFactory = $this->createMock(FormFactoryInterface::class);
         $this->userManager = $this->createMock(UserManagerInterface::class);
         $this->loginManager = $this->createMock(LoginManagerInterface::class);
         $this->translator = $this->createMock(TranslatorInterface::class);
@@ -208,7 +208,7 @@ class ResetActionTest extends TestCase
             ->willReturn($user);
 
         $this->formFactory->expects(static::once())
-            ->method('createForm')
+            ->method('create')
             ->willReturn($form);
 
         $this->urlGenerator
@@ -271,7 +271,7 @@ class ResetActionTest extends TestCase
             ->with('token')
             ->willReturn($user);
         $this->userManager->expects(static::once())
-            ->method('updateUser')
+            ->method('save')
             ->with($user);
 
         $this->loginManager->expects(static::once())
@@ -279,7 +279,7 @@ class ResetActionTest extends TestCase
             ->with('default', $user, static::isInstanceOf(Response::class));
 
         $this->formFactory->expects(static::once())
-            ->method('createForm')
+            ->method('create')
             ->willReturn($form);
 
         $this->urlGenerator

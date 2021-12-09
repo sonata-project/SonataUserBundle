@@ -78,6 +78,7 @@ class RequestActionTest extends WebTestCase
 
         $user = new User();
         $user->setUsername('username');
+        $user->setUsernameCanonical('username');
         $user->setEmail('email@localhost.com');
         $user->setEmailCanonical('email@localhost.com');
         $user->setPassword('random_password');

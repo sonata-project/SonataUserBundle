@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Document;
 
-use FOS\UserBundle\Model\GroupInterface;
+use Sonata\UserBundle\Model\GroupInterface;
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Document\BaseUser;
 

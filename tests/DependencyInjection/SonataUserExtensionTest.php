@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\DependencyInjection;
 
-use FOS\UserBundle\Model\GroupInterface;
-use FOS\UserBundle\Model\UserInterface;
+use Sonata\UserBundle\Model\GroupInterface;
+use Sonata\UserBundle\Model\UserInterface;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Sonata\UserBundle\DependencyInjection\Configuration;
 use Sonata\UserBundle\DependencyInjection\SonataUserExtension;
@@ -47,19 +47,12 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
         ]);
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testLoadDefault(): void
     {
         $this->load();
-
-        $this->assertContainerBuilderHasAlias(
-            'sonata.user.user_manager',
-            'sonata.user.orm.user_manager'
-        );
-
-        $this->assertContainerBuilderHasAlias(
-            'sonata.user.group_manager',
-            'sonata.user.orm.group_manager'
-        );
     }
 
     public function testFixImpersonatingWithWrongConfig(): void
@@ -187,7 +180,7 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
     /**
      * @doesNotPerformAssertions
      */
-    public function testFosUserBundleModelClasses(): void
+    public function testSonataUserBundleModelClasses(): void
     {
         $this->load(['manager_type' => 'orm', 'class' => [
             'user' => UserInterface::class,

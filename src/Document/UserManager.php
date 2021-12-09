@@ -13,16 +13,39 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Document;
 
-use FOS\UserBundle\Doctrine\UserManager as BaseUserManager;
+use Sonata\Doctrine\Document\BaseDocumentManager;
+use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
  */
-class UserManager extends BaseUserManager implements UserManagerInterface
+class UserManager extends BaseDocumentManager implements UserManagerInterface
 {
-    public function findUsersBy(?array $criteria = null, ?array $orderBy = null, $limit = null, $offset = null)
+    public function findUserByUsername(string $username): ?UserInterface
     {
-        return $this->getRepository()->findBy($criteria, $orderBy, $limit, $offset);
+        return $this->findOneBy(['usernameCanonical' => $username]);
+    }
+
+    public function findUserByEmail(string $email): ?UserInterface
+    {
+        return $this->findOneBy(['emailCanonical' => $email]);
+    }
+
+    public function findUserByUsernameOrEmail(string $usernameOrEmail): ?UserInterface
+    {
+        if (preg_match('/^.+\@\S+\.\S+$/', $usernameOrEmail)) {
+            $user = $this->findUserByEmail($usernameOrEmail);
+            if (null !== $user) {
+                return $user;
+            }
+        }
+
+        return $this->findUserByUsername($usernameOrEmail);
+    }
+
+    public function findUserByConfirmationToken(string $token): ?UserInterface
+    {
+        return $this->findOneBy(['confirmationToken' => $token]);
     }
 }
