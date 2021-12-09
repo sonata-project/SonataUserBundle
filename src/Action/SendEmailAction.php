@@ -92,7 +92,7 @@ final class SendEmailAction
 
         $user = $this->userManager->findUserByUsernameOrEmail($username);
 
-        if (null !== $user && !$user->isPasswordRequestNonExpired($this->resetTtl) && $user->isAccountNonLocked()) {
+        if (null !== $user && $user->isEnabled() && !$user->isPasswordRequestNonExpired($this->resetTtl) && $user->isAccountNonLocked()) {
             if (null === $user->getConfirmationToken()) {
                 $user->setConfirmationToken($this->tokenGenerator->generateToken());
             }

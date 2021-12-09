@@ -218,6 +218,9 @@ class SendEmailActionTest extends TestCase
             ->willReturnCallback(static function () use (&$storedToken): ?string {
                 return $storedToken;
             });
+        $user
+            ->method('isEnabled')
+            ->willReturn(true);
 
         $this->userManager
             ->method('findUserByUsernameOrEmail')

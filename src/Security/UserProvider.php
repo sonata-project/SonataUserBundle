@@ -36,7 +36,7 @@ class UserProvider implements UserProviderInterface
     {
         $user = $this->findUser($username);
 
-        if (!$user) {
+        if (null === $user || !$user->isEnabled()) {
             throw new UsernameNotFoundException(sprintf('Username "%s" does not exist.', $username));
         }
 
