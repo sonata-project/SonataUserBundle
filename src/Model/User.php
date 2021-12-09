@@ -130,6 +130,34 @@ abstract class User extends AbstractedUser implements UserInterface
         return $this->getUsername() ?: '-';
     }
 
+    public function __serialize(): array
+    {
+        return [
+            $this->password,
+            $this->salt,
+            $this->usernameCanonical,
+            $this->username,
+            $this->enabled,
+            $this->id,
+            $this->email,
+            $this->emailCanonical,
+        ];
+    }
+
+    public function __unserialize(array $data): void
+    {
+        [
+            $this->password,
+            $this->salt,
+            $this->usernameCanonical,
+            $this->username,
+            $this->enabled,
+            $this->id,
+            $this->email,
+            $this->emailCanonical
+        ] = $data;
+    }
+
     public function setCreatedAt(?\DateTime $createdAt = null)
     {
         $this->createdAt = $createdAt;
