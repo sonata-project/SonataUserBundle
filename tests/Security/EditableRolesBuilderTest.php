@@ -17,7 +17,9 @@ use PHPUnit\Framework\TestCase;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Security\Handler\SecurityHandlerInterface;
+use Sonata\AdminBundle\SonataConfiguration;
 use Sonata\UserBundle\Security\EditableRolesBuilder;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -37,11 +39,12 @@ class EditableRolesBuilderTest extends TestCase
         $authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
         $authorizationChecker->method('isGranted')->willReturn(true);
 
-        $pool = $this->getMockBuilder(Pool::class)
-                ->disableOriginalConstructor()
-                ->getMock();
+        $pool = new Pool(new Container());
 
-        $pool->expects(static::exactly(2))->method('getAdminServiceIds')->willReturn([]);
+        $configuration = new SonataConfiguration('title', 'logo', [
+            'role_admin' => 'ROLE_ADMIN',
+            'role_super_admin' => 'ROLE_SUPER_ADMIN',
+        ]);
 
         $rolesHierarchy = [
             'ROLE_ADMIN' => [
@@ -69,7 +72,7 @@ class EditableRolesBuilderTest extends TestCase
             'SONATA' => 'SONATA: ',
         ];
 
-        $builder = new EditableRolesBuilder($tokenStorage, $authorizationChecker, $pool, $rolesHierarchy);
+        $builder = new EditableRolesBuilder($tokenStorage, $authorizationChecker, $pool, $configuration, $rolesHierarchy);
         $roles = $builder->getRoles();
         $rolesReadOnly = $builder->getRolesReadOnly();
 
@@ -95,14 +98,17 @@ class EditableRolesBuilderTest extends TestCase
         $authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
         $authorizationChecker->method('isGranted')->willReturn(true);
 
-        $pool = $this->getMockBuilder(Pool::class)
-                ->disableOriginalConstructor()
-                ->getMock();
+        $container = new Container();
+        $container->set('myadmin', $admin);
 
-        $pool->expects(static::exactly(2))->method('getInstance')->willReturn($admin);
-        $pool->expects(static::exactly(2))->method('getAdminServiceIds')->willReturn(['myadmin']);
+        $pool = new Pool($container, ['myadmin']);
 
-        $builder = new EditableRolesBuilder($tokenStorage, $authorizationChecker, $pool, []);
+        $configuration = new SonataConfiguration('title', 'logo', [
+            'role_admin' => 'ROLE_ADMIN',
+            'role_super_admin' => 'ROLE_SUPER_ADMIN',
+        ]);
+
+        $builder = new EditableRolesBuilder($tokenStorage, $authorizationChecker, $pool, $configuration, []);
 
         $expected = [
           'ROLE_FOO_GUEST' => 'ROLE_FOO_GUEST',
@@ -125,11 +131,14 @@ class EditableRolesBuilderTest extends TestCase
         $authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
         $authorizationChecker->method('isGranted')->willReturn(false);
 
-        $pool = $this->getMockBuilder(Pool::class)
-                ->disableOriginalConstructor()
-                ->getMock();
+        $pool = new Pool(new Container());
 
-        $builder = new EditableRolesBuilder($tokenStorage, $authorizationChecker, $pool, []);
+        $configuration = new SonataConfiguration('title', 'logo', [
+            'role_admin' => 'ROLE_ADMIN',
+            'role_super_admin' => 'ROLE_SUPER_ADMIN',
+        ]);
+
+        $builder = new EditableRolesBuilder($tokenStorage, $authorizationChecker, $pool, $configuration, []);
 
         $roles = $builder->getRoles();
         $rolesReadOnly = $builder->getRolesReadOnly();

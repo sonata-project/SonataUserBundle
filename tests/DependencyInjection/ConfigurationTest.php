@@ -15,7 +15,6 @@ namespace Sonata\UserBundle\Tests\DependencyInjection;
 
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use PHPUnit\Framework\TestCase;
-use Sonata\AdminBundle\Controller\CRUDController;
 use Sonata\UserBundle\Admin\Entity\GroupAdmin;
 use Sonata\UserBundle\Admin\Entity\UserAdmin;
 use Sonata\UserBundle\DependencyInjection\Configuration;
@@ -48,12 +47,12 @@ class ConfigurationTest extends TestCase
             'admin' => [
                 'user' => [
                     'class' => UserAdmin::class,
-                    'controller' => CRUDController::class,
+                    'controller' => '%sonata.admin.configuration.default_controller%',
                     'translation' => 'SonataUserBundle',
                 ],
                 'group' => [
                     'class' => GroupAdmin::class,
-                    'controller' => CRUDController::class,
+                    'controller' => '%sonata.admin.configuration.default_controller%',
                     'translation' => 'SonataUserBundle',
                 ],
             ],

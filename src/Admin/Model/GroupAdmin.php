@@ -21,15 +21,16 @@ use Sonata\UserBundle\Form\Type\SecurityRolesType;
 
 class GroupAdmin extends AbstractAdmin
 {
-    protected $formOptions = [
-        'validation_groups' => 'Registration',
-    ];
-
-    public function getNewInstance()
+    protected function createNewInstance(): object
     {
         $class = $this->getClass();
 
         return new $class('', []);
+    }
+
+    protected function configureFormOptions(array &$formOptions): void
+    {
+        $formOptions['validation_groups'] = 'Registration';
     }
 
     protected function configureListFields(ListMapper $list): void
