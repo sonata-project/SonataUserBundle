@@ -13,9 +13,6 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Model;
 
-/**
- * @author Johannes M. Schmitt <schmittjoh@gmail.com>
- */
 abstract class Group implements GroupInterface
 {
     /**
