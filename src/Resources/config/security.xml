@@ -2,11 +2,11 @@
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="sonata.user.security.login_manager" class="Sonata\UserBundle\Security\LoginManager" public="false">
-            <argument type="service" id="security.token_storage" />
-            <argument type="service" id="security.user_checker" />
-            <argument type="service" id="security.authentication.session_strategy" />
-            <argument type="service" id="request_stack" />
-            <argument>null</argument> <!-- remember_me service -->
+            <argument type="service" id="security.token_storage"/>
+            <argument type="service" id="security.user_checker"/>
+            <argument type="service" id="security.authentication.session_strategy"/>
+            <argument type="service" id="request_stack"/>
+            <argument>null</argument>
         </service>
         <service id="sonata.user.security.user_provider" class="Sonata\UserBundle\Security\UserProvider" public="false">
             <argument type="service" id="sonata.user.manager.user"/>
