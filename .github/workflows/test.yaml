@@ -28,6 +28,7 @@ jobs:
                     - '7.3'
                     - '7.4'
                     - '8.0'
+                    - '8.1'
                 dependencies: [highest]
                 allowed-to-fail: [false]
                 symfony-require: ['']
@@ -37,7 +38,7 @@ jobs:
                       dependencies: lowest
                       allowed-to-fail: false
                       variant: normal
-                    - php-version: '8.0'
+                    - php-version: '8.1'
                       dependencies: highest
                       allowed-to-fail: false
                       symfony-require: 4.4.*
