@@ -26,251 +26,66 @@ interface UserInterface extends SymfonyUserInterface, EquatableInterface
     public const GENDER_UNKNOWN = 'u';
 
     /**
-     * Returns the user unique id.
-     *
      * @return mixed
      */
     public function getId();
 
-    /**
-     * Sets the username.
-     *
-     * @param string $username
-     *
-     * @return static
-     */
-    public function setUsername($username);
+    public function setUsername(string $username): void;
+
+    public function getUsernameCanonical(): ?string;
+
+    public function setUsernameCanonical(string $usernameCanonical): void;
+
+    public function setSalt(?string $salt): void;
+
+    public function getEmail(): ?string;
+
+    public function setEmail(?string $email): void;
+
+    public function getEmailCanonical(): ?string;
+
+    public function setEmailCanonical(?string $emailCanonical): void;
+
+    public function getPlainPassword(): ?string;
+
+    public function setPlainPassword(string $password): void;
+
+    public function setPassword(?string $password): void;
+
+    public function isSuperAdmin(): bool;
+
+    public function setEnabled(bool $enabled): void;
+
+    public function setSuperAdmin(bool $boolean): void;
+
+    public function getConfirmationToken(): ?string;
+
+    public function setConfirmationToken(?string $confirmationToken): void;
+
+    public function setPasswordRequestedAt(?\DateTimeInterface $date = null): void;
+
+    public function isPasswordRequestNonExpired(int $ttl): bool;
+
+    public function setLastLogin(?\DateTimeInterface $time = null): void;
+
+    public function hasRole(string $role): bool;
 
     /**
-     * Gets the canonical username in search and sort queries.
-     *
-     * @return string
+     * @param string[] $roles
      */
-    public function getUsernameCanonical();
+    public function setRoles(array $roles): void;
 
-    /**
-     * Sets the canonical username.
-     *
-     * @param string $usernameCanonical
-     *
-     * @return static
-     */
-    public function setUsernameCanonical($usernameCanonical);
+    public function addRole(string $role): void;
 
-    /**
-     * @param string|null $salt
-     *
-     * @return static
-     */
-    public function setSalt($salt);
+    public function removeRole(string $role): void;
 
-    /**
-     * Gets email.
-     *
-     * @return string
-     */
-    public function getEmail();
+    public function isAccountNonExpired(): bool;
 
-    /**
-     * Sets the email.
-     *
-     * @param string $email
-     *
-     * @return static
-     */
-    public function setEmail($email);
+    public function isAccountNonLocked(): bool;
 
-    /**
-     * Gets the canonical email in search and sort queries.
-     *
-     * @return string
-     */
-    public function getEmailCanonical();
+    public function isCredentialsNonExpired(): bool;
 
-    /**
-     * Sets the canonical email.
-     *
-     * @param string $emailCanonical
-     *
-     * @return static
-     */
-    public function setEmailCanonical($emailCanonical);
-
-    /**
-     * Gets the plain password.
-     *
-     * @return string
-     */
-    public function getPlainPassword();
-
-    /**
-     * Sets the plain password.
-     *
-     * @param string $password
-     *
-     * @return static
-     */
-    public function setPlainPassword($password);
-
-    /**
-     * Sets the hashed password.
-     *
-     * @param string $password
-     *
-     * @return static
-     */
-    public function setPassword($password);
-
-    /**
-     * Tells if the the given user has the super admin role.
-     *
-     * @return bool
-     */
-    public function isSuperAdmin();
-
-    /**
-     * @param bool $boolean
-     *
-     * @return static
-     */
-    public function setEnabled($boolean);
-
-    /**
-     * Sets the super admin status.
-     *
-     * @param bool $boolean
-     *
-     * @return static
-     */
-    public function setSuperAdmin($boolean);
-
-    /**
-     * Gets the confirmation token.
-     *
-     * @return string|null
-     */
-    public function getConfirmationToken();
-
-    /**
-     * Sets the confirmation token.
-     *
-     * @param string|null $confirmationToken
-     *
-     * @return static
-     */
-    public function setConfirmationToken($confirmationToken);
-
-    /**
-     * Sets the timestamp that the user requested a password reset.
-     *
-     * @return static
-     */
-    public function setPasswordRequestedAt(?\DateTime $date = null);
-
-    /**
-     * Checks whether the password reset request has expired.
-     *
-     * @param int $ttl Requests older than this many seconds will be considered expired
-     *
-     * @return bool
-     */
-    public function isPasswordRequestNonExpired($ttl);
-
-    /**
-     * Sets the last login time.
-     *
-     * @return static
-     */
-    public function setLastLogin(?\DateTime $time = null);
-
-    /**
-     * Never use this to check if this user has access to anything!
-     *
-     * Use the AuthorizationChecker, or an implementation of AccessDecisionManager
-     * instead, e.g.
-     *
-     *         $authorizationChecker->isGranted('ROLE_USER');
-     *
-     * @param string $role
-     *
-     * @return bool
-     */
-    public function hasRole($role);
-
-    /**
-     * Sets the roles of the user.
-     *
-     * This overwrites any previous roles.
-     *
-     * @return static
-     */
-    public function setRoles(array $roles);
-
-    /**
-     * Adds a role to the user.
-     *
-     * @param string $role
-     *
-     * @return static
-     */
-    public function addRole($role);
-
-    /**
-     * Removes a role to the user.
-     *
-     * @param string $role
-     *
-     * @return static
-     */
-    public function removeRole($role);
-
-    /**
-     * Checks whether the user's account has expired.
-     *
-     * Internally, if this method returns false, the authentication system
-     * will throw an AccountExpiredException and prevent login.
-     *
-     * @return bool true if the user's account is non expired, false otherwise
-     *
-     * @see AccountExpiredException
-     */
-    public function isAccountNonExpired();
-
-    /**
-     * Checks whether the user is locked.
-     *
-     * Internally, if this method returns false, the authentication system
-     * will throw a LockedException and prevent login.
-     *
-     * @return bool true if the user is not locked, false otherwise
-     *
-     * @see LockedException
-     */
-    public function isAccountNonLocked();
-
-    /**
-     * Checks whether the user's credentials (password) has expired.
-     *
-     * Internally, if this method returns false, the authentication system
-     * will throw a CredentialsExpiredException and prevent login.
-     *
-     * @return bool true if the user's credentials are non expired, false otherwise
-     *
-     * @see CredentialsExpiredException
-     */
-    public function isCredentialsNonExpired();
-
-    /**
-     * Checks whether the user is enabled.
-     *
-     * Internally, if this method returns false, the authentication system
-     * will throw a DisabledException and prevent login.
-     *
-     * @return bool true if the user is enabled, false otherwise
-     *
-     * @see DisabledException
-     */
-    public function isEnabled();
+    public function isEnabled(): bool;
 
     /**
      * Sets the creation date.

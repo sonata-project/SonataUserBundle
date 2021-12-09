@@ -28,77 +28,69 @@ abstract class User implements UserInterface
     protected $id;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $username;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $usernameCanonical;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $email;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $emailCanonical;
 
     /**
      * @var bool
      */
-    protected $enabled;
+    protected $enabled = false;
 
     /**
-     * The salt to use for hashing.
-     *
-     * @var string
+     * @var string|null
      */
     protected $salt;
 
     /**
-     * Encrypted password. Must be persisted.
-     *
-     * @var string
+     * @var string|null
      */
     protected $password;
 
     /**
-     * Plain password. Used for model validation. Must not be persisted.
-     *
-     * @var string
+     * @var string|null
      */
     protected $plainPassword;
 
     /**
-     * @var \DateTime|null
+     * @var \DateTimeInterface|null
      */
     protected $lastLogin;
 
     /**
-     * Random string sent to the user email address in order to verify it.
-     *
      * @var string|null
      */
     protected $confirmationToken;
 
     /**
-     * @var \DateTime|null
+     * @var \DateTimeInterface|null
      */
     protected $passwordRequestedAt;
 
     /**
-     * @var GroupInterface[]|Collection
+     * @var Collection<int, GroupInterface>
      */
     protected $groups;
 
     /**
-     * @var array
+     * @var string[]
      */
-    protected $roles;
+    protected $roles = [];
 
     /**
      * @var \DateTime|null
@@ -202,8 +194,7 @@ abstract class User implements UserInterface
 
     public function __construct()
     {
-        $this->enabled = false;
-        $this->roles = [];
+        $this->groups = new ArrayCollection();
     }
 
     /**
@@ -244,21 +235,20 @@ abstract class User implements UserInterface
         ] = $data;
     }
 
-    public function addRole($role)
+    public function addRole(string $role): void
     {
         $role = strtoupper($role);
+
         if ($role === static::ROLE_DEFAULT) {
-            return $this;
+            return;
         }
 
         if (!\in_array($role, $this->roles, true)) {
             $this->roles[] = $role;
         }
-
-        return $this;
     }
 
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         $this->plainPassword = null;
     }
@@ -268,57 +258,52 @@ abstract class User implements UserInterface
         return $this->id;
     }
 
-    public function getUsername()
+    public function getUsername(): ?string
     {
         return $this->username;
     }
 
-    public function getUsernameCanonical()
+    public function getUsernameCanonical(): ?string
     {
         return $this->usernameCanonical;
     }
 
-    public function getSalt()
+    public function getSalt(): ?string
     {
         return $this->salt;
     }
 
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function getEmailCanonical()
+    public function getEmailCanonical(): ?string
     {
         return $this->emailCanonical;
     }
 
-    public function getPassword()
+    public function getPassword(): ?string
     {
         return $this->password;
     }
 
-    public function getPlainPassword()
+    public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
     }
 
-    /**
-     * Gets the last login time.
-     *
-     * @return \DateTime|null
-     */
-    public function getLastLogin()
+    public function getLastLogin(): ?\DateTimeInterface
     {
         return $this->lastLogin;
     }
 
-    public function getConfirmationToken()
+    public function getConfirmationToken(): ?string
     {
         return $this->confirmationToken;
     }
 
-    public function getRoles()
+    public function getRoles(): array
     {
         $roles = $this->roles;
 
@@ -332,167 +317,134 @@ abstract class User implements UserInterface
         return array_values(array_unique($roles));
     }
 
-    public function hasRole($role)
+    public function hasRole(string $role): bool
     {
         return \in_array(strtoupper($role), $this->getRoles(), true);
     }
 
-    public function isAccountNonExpired()
+    public function isAccountNonExpired(): bool
     {
         return true;
     }
 
-    public function isAccountNonLocked()
+    public function isAccountNonLocked(): bool
     {
         return true;
     }
 
-    public function isCredentialsNonExpired()
+    public function isCredentialsNonExpired(): bool
     {
         return true;
     }
 
-    public function isEnabled()
+    public function isEnabled(): bool
     {
         return $this->enabled;
     }
 
-    public function isSuperAdmin()
+    public function isSuperAdmin(): bool
     {
         return $this->hasRole(static::ROLE_SUPER_ADMIN);
     }
 
-    public function removeRole($role)
+    public function removeRole(string $role): void
     {
         if (false !== $key = array_search(strtoupper($role), $this->roles, true)) {
             unset($this->roles[$key]);
             $this->roles = array_values($this->roles);
         }
-
-        return $this;
     }
 
-    public function setUsername($username)
+    public function setUsername(?string $username): void
     {
         $this->username = $username;
-
-        return $this;
     }
 
-    public function setUsernameCanonical($usernameCanonical)
+    public function setUsernameCanonical(?string $usernameCanonical): void
     {
         $this->usernameCanonical = $usernameCanonical;
-
-        return $this;
     }
 
-    public function setSalt($salt)
+    public function setSalt(?string $salt): void
     {
         $this->salt = $salt;
-
-        return $this;
     }
 
-    public function setEmail($email)
+    public function setEmail(?string $email): void
     {
         $this->email = $email;
-
-        return $this;
     }
 
-    public function setEmailCanonical($emailCanonical)
+    public function setEmailCanonical(?string $emailCanonical): void
     {
         $this->emailCanonical = $emailCanonical;
-
-        return $this;
     }
 
-    public function setEnabled($boolean)
+    public function setEnabled(bool $enabled): void
     {
-        $this->enabled = (bool) $boolean;
-
-        return $this;
+        $this->enabled = $enabled;
     }
 
-    public function setPassword($password)
+    public function setPassword(?string $password): void
     {
         $this->password = $password;
-
-        return $this;
     }
 
-    public function setSuperAdmin($boolean)
+    public function setSuperAdmin(bool $boolean): void
     {
         if (true === $boolean) {
             $this->addRole(static::ROLE_SUPER_ADMIN);
         } else {
             $this->removeRole(static::ROLE_SUPER_ADMIN);
         }
-
-        return $this;
     }
 
-    public function setPlainPassword($password)
+    public function setPlainPassword(?string $password): void
     {
         $this->plainPassword = $password;
-
-        return $this;
     }
 
-    public function setLastLogin(?\DateTime $time = null)
+    public function setLastLogin(?\DateTimeInterface $time = null): void
     {
         $this->lastLogin = $time;
-
-        return $this;
     }
 
-    public function setConfirmationToken($confirmationToken)
+    public function setConfirmationToken(?string $confirmationToken): void
     {
         $this->confirmationToken = $confirmationToken;
-
-        return $this;
     }
 
-    public function setPasswordRequestedAt(?\DateTime $date = null)
+    public function setPasswordRequestedAt(?\DateTimeInterface $date = null): void
     {
         $this->passwordRequestedAt = $date;
-
-        return $this;
     }
 
-    /**
-     * Gets the timestamp that the user requested a password reset.
-     *
-     * @return \DateTime|null
-     */
-    public function getPasswordRequestedAt()
+    public function getPasswordRequestedAt(): ?\DateTimeInterface
     {
         return $this->passwordRequestedAt;
     }
 
-    public function isPasswordRequestNonExpired($ttl)
+    public function isPasswordRequestNonExpired(int $ttl): bool
     {
         return $this->getPasswordRequestedAt() instanceof \DateTime &&
                $this->getPasswordRequestedAt()->getTimestamp() + $ttl > time();
     }
 
-    public function setRoles(array $roles)
+    public function setRoles(array $roles): void
     {
         $this->roles = [];
 
         foreach ($roles as $role) {
             $this->addRole($role);
         }
-
-        return $this;
     }
 
-    public function getGroups()
+    public function getGroups(): Collection
     {
-        return $this->groups ?: $this->groups = new ArrayCollection();
+        return $this->groups;
     }
 
-    public function getGroupNames()
+    public function getGroupNames(): array
     {
         $names = [];
         foreach ($this->getGroups() as $group) {
@@ -502,30 +454,26 @@ abstract class User implements UserInterface
         return $names;
     }
 
-    public function hasGroup($name)
+    public function hasGroup(string $name): bool
     {
         return \in_array($name, $this->getGroupNames(), true);
     }
 
-    public function addGroup(GroupInterface $group)
+    public function addGroup(GroupInterface $group): void
     {
         if (!$this->getGroups()->contains($group)) {
             $this->getGroups()->add($group);
         }
-
-        return $this;
     }
 
-    public function removeGroup(GroupInterface $group)
+    public function removeGroup(GroupInterface $group): void
     {
         if ($this->getGroups()->contains($group)) {
             $this->getGroups()->removeElement($group);
         }
-
-        return $this;
     }
 
-    public function isEqualTo(SymfonyUserInterface $user)
+    public function isEqualTo(SymfonyUserInterface $user): bool
     {
         if (!$user instanceof self) {
             return false;

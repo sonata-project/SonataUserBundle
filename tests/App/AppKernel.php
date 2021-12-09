@@ -41,7 +41,7 @@ final class AppKernel extends Kernel
 
     public function __construct()
     {
-        parent::__construct('test', true);
+        parent::__construct('test', false);
     }
 
     public function registerBundles()
@@ -92,6 +92,6 @@ final class AppKernel extends Kernel
 
     private function getBaseDir(): string
     {
-        return sys_get_temp_dir().'/sonata-user-bundle/var2/';
+        return sys_get_temp_dir().'/sonata-user-bundle/var/';
     }
 }

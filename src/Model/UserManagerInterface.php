@@ -20,12 +20,6 @@ use Sonata\Doctrine\Model\ManagerInterface;
  */
 interface UserManagerInterface extends ManagerInterface
 {
-    // public function createUser(): UserInterface;
-
-    // public function deleteUser(UserInterface $user): void;
-
-    // public function findUserBy(array $criteria): ?UserInterface;
-
     public function findUserByUsername(string $username): ?UserInterface;
 
     public function findUserByEmail(string $email): ?UserInterface;
@@ -33,19 +27,4 @@ interface UserManagerInterface extends ManagerInterface
     public function findUserByUsernameOrEmail(string $usernameOrEmail): ?UserInterface;
 
     public function findUserByConfirmationToken(string $token): ?UserInterface;
-
-    // public function findUsers(): iterable;
-
-    // /**
-    //  * @phpstan-return class-string<UserInterface>
-    //  */
-    // public function getClass(): string;
-
-    // public function reloadUser(UserInterface $user): void;
-
-    // public function updateUser(UserInterface $user): void;
-
-    // public function updateCanonicalFields(UserInterface $user): void;
-
-    // public function updatePassword(UserInterface $user): void;
 }

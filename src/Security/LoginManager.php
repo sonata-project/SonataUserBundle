@@ -22,9 +22,6 @@ use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Http\RememberMe\RememberMeServicesInterface;
 use Symfony\Component\Security\Http\Session\SessionAuthenticationStrategyInterface;
 
-/**
- * @author Johannes M. Schmitt <schmittjoh@gmail.com>
- */
 class LoginManager implements LoginManagerInterface
 {
     /**

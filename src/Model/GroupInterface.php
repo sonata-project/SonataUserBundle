@@ -13,57 +13,30 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Model;
 
-/**
- * @author Johannes M. Schmitt <schmittjoh@gmail.com>
- * @author Christophe Coevoet <stof@notk.org>
- */
 interface GroupInterface
 {
-    /**
-     * @param string $role
-     *
-     * @return static
-     */
-    public function addRole($role);
+    public function addRole(string $role): void;
 
     /**
      * @return mixed
      */
     public function getId();
 
-    /**
-     * @return string
-     */
-    public function getName();
+    public function getName(): string;
+
+    public function hasRole(string $role): bool;
 
     /**
-     * @param string $role
-     *
-     * @return bool
+     * @return string[]
      */
-    public function hasRole($role);
+    public function getRoles(): array;
+
+    public function removeRole(string $role): void;
+
+    public function setName(string $name): void;
 
     /**
-     * @return array
+     * @param string[] $roles
      */
-    public function getRoles();
-
-    /**
-     * @param string $role
-     *
-     * @return static
-     */
-    public function removeRole($role);
-
-    /**
-     * @param string $name
-     *
-     * @return static
-     */
-    public function setName($name);
-
-    /**
-     * @return static
-     */
-    public function setRoles(array $roles);
+    public function setRoles(array $roles): void;
 }

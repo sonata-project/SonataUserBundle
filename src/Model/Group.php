@@ -26,29 +26,24 @@ abstract class Group implements GroupInterface
     protected $name;
 
     /**
-     * @var array
+     * @var string[]
      */
     protected $roles;
 
     /**
-     * Group constructor.
-     *
-     * @param string $name
-     * @param array  $roles
+     * @param string[] $roles
      */
-    public function __construct($name, $roles = [])
+    public function __construct(string $name, array $roles = [])
     {
         $this->name = $name;
         $this->roles = $roles;
     }
 
-    public function addRole($role)
+    public function addRole(string $role): void
     {
         if (!$this->hasRole($role)) {
             $this->roles[] = strtoupper($role);
         }
-
-        return $this;
     }
 
     public function getId()
@@ -56,42 +51,36 @@ abstract class Group implements GroupInterface
         return $this->id;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function hasRole($role)
+    public function hasRole(string $role): bool
     {
         return \in_array(strtoupper($role), $this->roles, true);
     }
 
-    public function getRoles()
+    public function getRoles(): array
     {
         return $this->roles;
     }
 
-    public function removeRole($role)
+    public function removeRole(string $role): void
     {
         if (false !== $key = array_search(strtoupper($role), $this->roles, true)) {
             unset($this->roles[$key]);
             $this->roles = array_values($this->roles);
         }
-
-        return $this;
     }
 
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
-
-        return $this;
     }
 
-    public function setRoles(array $roles)
+    public function setRoles(array $roles): void
     {
         $this->roles = $roles;
-
-        return $this;
     }
 }
