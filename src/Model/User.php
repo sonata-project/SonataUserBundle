@@ -253,7 +253,7 @@ abstract class User implements UserInterface
             return $this;
         }
 
-        if (!in_array($role, $this->roles, true)) {
+        if (!\in_array($role, $this->roles, true)) {
             $this->roles[] = $role;
         }
 
@@ -372,7 +372,7 @@ abstract class User implements UserInterface
      */
     public function hasRole($role)
     {
-        return in_array(strtoupper($role), $this->getRoles(), true);
+        return \in_array(strtoupper($role), $this->getRoles(), true);
     }
 
     /**
@@ -522,7 +522,7 @@ abstract class User implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setLastLogin(\DateTime $time = null)
+    public function setLastLogin(?\DateTime $time = null)
     {
         $this->lastLogin = $time;
 
@@ -542,7 +542,7 @@ abstract class User implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setPasswordRequestedAt(\DateTime $date = null)
+    public function setPasswordRequestedAt(?\DateTime $date = null)
     {
         $this->passwordRequestedAt = $date;
 
@@ -608,7 +608,7 @@ abstract class User implements UserInterface
      */
     public function hasGroup($name)
     {
-        return in_array($name, $this->getGroupNames());
+        return \in_array($name, $this->getGroupNames(), true);
     }
 
     /**

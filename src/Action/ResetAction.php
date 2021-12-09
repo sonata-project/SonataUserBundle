@@ -13,13 +13,13 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Action;
 
-use Sonata\UserBundle\Model\UserManagerInterface;
-use Sonata\UserBundle\Security\LoginManagerInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Form\Type\ResettingFormType;
+use Sonata\UserBundle\Model\UserManagerInterface;
+use Sonata\UserBundle\Security\LoginManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

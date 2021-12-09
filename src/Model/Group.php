@@ -78,7 +78,7 @@ abstract class Group implements GroupInterface
      */
     public function hasRole($role)
     {
-        return in_array(strtoupper($role), $this->roles, true);
+        return \in_array(strtoupper($role), $this->roles, true);
     }
 
     /**

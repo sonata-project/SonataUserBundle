@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Admin\Model;
 
-use Sonata\UserBundle\Model\Group;
 use PHPUnit\Framework\TestCase;
 use Sonata\AdminBundle\Controller\CRUDController;
 use Sonata\UserBundle\Admin\Model\GroupAdmin;
+use Sonata\UserBundle\Model\Group;
 
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>

@@ -13,13 +13,13 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\DependencyInjection;
 
-use Sonata\UserBundle\Model\GroupInterface;
-use Sonata\UserBundle\Model\UserInterface;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Sonata\UserBundle\DependencyInjection\Configuration;
 use Sonata\UserBundle\DependencyInjection\SonataUserExtension;
 use Sonata\UserBundle\Document\BaseUser;
 use Sonata\UserBundle\Entity\BaseGroup;
+use Sonata\UserBundle\Model\GroupInterface;
+use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Tests\Admin\Document\GroupAdmin;
 use Sonata\UserBundle\Tests\Admin\Document\UserAdmin;
 use Sonata\UserBundle\Tests\Document\Group;

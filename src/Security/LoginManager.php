@@ -66,7 +66,7 @@ class LoginManager implements LoginManagerInterface
         $this->rememberMeService = $rememberMeService;
     }
 
-    final public function logInUser(string $firewallName, UserInterface $user, Response $response = null): void
+    final public function logInUser(string $firewallName, UserInterface $user, ?Response $response = null): void
     {
         $this->userChecker->checkPreAuth($user);
 

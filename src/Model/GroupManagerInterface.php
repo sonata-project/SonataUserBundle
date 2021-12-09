@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Model;
 
 use Sonata\Doctrine\Model\ManagerInterface;
-use Sonata\UserBundle\Model\GroupInterface;
 
 /**
  * @phpstan-extends ManagerInterface<\Sonata\UserBundle\Model\GroupInterface>
