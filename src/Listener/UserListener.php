@@ -19,6 +19,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Doctrine\Persistence\ObjectManager;
 use Sonata\UserBundle\Model\UserInterface;
+use Sonata\UserBundle\Util\CanonicalFieldsUpdaterInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -27,12 +28,20 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 final class UserListener implements EventSubscriber
 {
     /**
+     * @var CanonicalFieldsUpdaterInterface
+     */
+    private $canonicalFieldsUpdater;
+
+    /**
      * @var UserPasswordEncoderInterface
      */
     private $userPasswordEncoder;
 
-    public function __construct(UserPasswordEncoderInterface $userPasswordEncoder)
-    {
+    public function __construct(
+        CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater,
+        UserPasswordEncoderInterface $userPasswordEncoder
+    ) {
+        $this->canonicalFieldsUpdater = $canonicalFieldsUpdater;
         $this->userPasswordEncoder = $userPasswordEncoder;
     }
 
@@ -48,23 +57,29 @@ final class UserListener implements EventSubscriber
     {
         $object = $args->getObject();
 
-        if ($object instanceof UserInterface) {
-            $this->updatePassword($object);
+        if (!$object instanceof UserInterface) {
+            return;
         }
+
+        $this->updateUser($object);
     }
 
     public function preUpdate(LifecycleEventArgs $args): void
     {
         $object = $args->getObject();
 
-        if ($object instanceof UserInterface) {
-            $this->updatePassword($object);
-            $this->recomputeChangeSet($args->getObjectManager(), $object);
+        if (!$object instanceof UserInterface) {
+            return;
         }
+
+        $this->updateUser($object);
+        $this->recomputeChangeSet($args->getObjectManager(), $object);
     }
 
-    private function updatePassword(UserInterface $user): void
+    private function updateUser(UserInterface $user): void
     {
+        $this->canonicalFieldsUpdater->updateCanonicalFields($user);
+
         $plainPassword = $user->getPlainPassword();
 
         if (null === $plainPassword) {

@@ -4,6 +4,7 @@
         <service id="sonata.user.manager.user" class="Sonata\UserBundle\Document\UserManager" public="false">
             <argument>%sonata.user.user.class%</argument>
             <argument type="service" id="doctrine_mongodb"/>
+            <argument type="service" id="sonata.user.util.canonical_fields_updater"/>
         </service>
         <service id="sonata.user.manager.group" class="Sonata\UserBundle\Document\GroupManager" public="false">
             <argument>%sonata.user.group.class%</argument>

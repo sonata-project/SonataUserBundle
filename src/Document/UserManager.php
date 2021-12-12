@@ -13,23 +13,44 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Document;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Sonata\Doctrine\Document\BaseDocumentManager;
 use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
+use Sonata\UserBundle\Util\CanonicalFieldsUpdaterInterface;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
  */
 class UserManager extends BaseDocumentManager implements UserManagerInterface
 {
+    /**
+     * @var CanonicalFieldsUpdaterInterface
+     */
+    private $canonicalFieldsUpdater;
+
+    public function __construct(
+        string $class,
+        ManagerRegistry $registry,
+        CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater
+    ) {
+        parent::__construct($class, $registry);
+
+        $this->canonicalFieldsUpdater = $canonicalFieldsUpdater;
+    }
+
     public function findUserByUsername(string $username): ?UserInterface
     {
-        return $this->findOneBy(['usernameCanonical' => $username]);
+        return $this->findOneBy([
+            'usernameCanonical' => $this->canonicalFieldsUpdater->canonicalizeUsername($username),
+        ]);
     }
 
     public function findUserByEmail(string $email): ?UserInterface
     {
-        return $this->findOneBy(['emailCanonical' => $email]);
+        return $this->findOneBy([
+            'emailCanonical' => $this->canonicalFieldsUpdater->canonicalizeEmail($email),
+        ]);
     }
 
     public function findUserByUsernameOrEmail(string $usernameOrEmail): ?UserInterface

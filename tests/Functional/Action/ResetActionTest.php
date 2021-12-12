@@ -69,9 +69,7 @@ class ResetActionTest extends WebTestCase
 
         $user = new User();
         $user->setUsername('username');
-        $user->setUsernameCanonical('username');
         $user->setEmail('email@localhost.com');
-        $user->setEmailCanonical('email@localhost.com');
         $user->setPlainPassword('random_password');
         $user->setConfirmationToken('confirmation_token');
         $user->setPasswordRequestedAt(new \DateTime());

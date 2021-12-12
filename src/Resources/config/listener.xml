@@ -3,6 +3,7 @@
     <services>
         <service id="sonata.user.listener.user" class="Sonata\UserBundle\Listener\UserListener" public="false">
             <tag name="doctrine.event_subscriber"/>
+            <argument type="service" id="sonata.user.util.canonical_fields_updater"/>
             <argument type="service" id="security.password_encoder"/>
         </service>
     </services>
