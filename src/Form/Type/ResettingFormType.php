@@ -40,14 +40,14 @@ final class ResettingFormType extends AbstractType
         $builder->add('plainPassword', RepeatedType::class, [
             'type' => PasswordType::class,
             'options' => [
-                'translation_domain' => 'FOSUserBundle',
+                'translation_domain' => 'SonataUserBundle',
                 'attr' => [
                     'autocomplete' => 'new-password',
                 ],
             ],
             'first_options' => ['label' => 'form.new_password'],
             'second_options' => ['label' => 'form.new_password_confirmation'],
-            'invalid_message' => 'fos_user.password.mismatch',
+            'invalid_message' => 'password.mismatch',
         ]);
     }
 

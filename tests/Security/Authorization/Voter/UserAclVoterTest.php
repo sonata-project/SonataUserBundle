@@ -103,7 +103,7 @@ class UserAclVoterTest extends TestCase
         static::assertSame(VoterInterface::ACCESS_ABSTAIN, $decision, 'Should abstain from voting');
     }
 
-    public function testVoteWillAbstainWhenAUserIsLoggedInButIsNotAFOSUser(): void
+    public function testVoteWillAbstainWhenAUserIsLoggedInButIsNotASonataUser(): void
     {
         // Given
         $user = $this->createMock(UserInterface::class);

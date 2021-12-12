@@ -37,7 +37,7 @@ class ConfigurationTest extends TestCase
         ], [
             'security_acl' => false,
             'table' => [
-                'user_group' => 'fos_user_user_group',
+                'user_group' => 'sonata_user_user_group',
             ],
             'manager_type' => 'orm',
             'class' => [

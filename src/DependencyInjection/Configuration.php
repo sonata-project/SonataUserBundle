@@ -40,7 +40,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('table')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('user_group')->defaultValue('fos_user_user_group')->end()
+                        ->scalarNode('user_group')->defaultValue('sonata_user_user_group')->end()
                     ->end()
                 ->end()
                 ->scalarNode('impersonating_route')->end()

@@ -151,7 +151,7 @@ final class ResetAction
             $user->setPasswordRequestedAt(null);
             $user->setEnabled(true);
 
-            $message = $this->translator->trans('resetting.flash.success', [], 'FOSUserBundle');
+            $message = $this->translator->trans('resetting.flash.success', [], 'SonataUserBundle');
             $this->session->getFlashBag()->add('success', $message);
 
             $response = new RedirectResponse($this->urlGenerator->generate('sonata_admin_dashboard'));
