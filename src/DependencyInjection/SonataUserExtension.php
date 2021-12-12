@@ -89,7 +89,6 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         $container->setParameter('sonata.user.default_avatar', $config['profile']['default_avatar']);
         $container->setParameter('sonata.user.impersonating', $config['impersonating']);
 
-        $container->setParameter('sonata.user.firewall_name', 'name');
         $container->setParameter('sonata.user.resetting.retry_ttl', 3600);
         $container->setParameter('sonata.user.resetting.email.from_email', ['from@localhost.com' => 'From']);
         $container->setParameter('sonata.user.resetting.email.template', '@SonataUser/Admin/Security/Resetting/email.html.twig');

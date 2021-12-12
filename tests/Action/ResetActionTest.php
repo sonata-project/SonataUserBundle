@@ -20,13 +20,11 @@ use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Action\ResetAction;
 use Sonata\UserBundle\Model\User;
 use Sonata\UserBundle\Model\UserManagerInterface;
-use Sonata\UserBundle\Security\LoginManagerInterface;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -73,11 +71,6 @@ class ResetActionTest extends TestCase
     protected $userManager;
 
     /**
-     * @var LoginManagerInterface|MockObject
-     */
-    protected $loginManager;
-
-    /**
      * @var TranslatorInterface|MockObject
      */
     protected $translator;
@@ -92,11 +85,6 @@ class ResetActionTest extends TestCase
      */
     protected $resetTtl;
 
-    /**
-     * @var string
-     */
-    protected $firewallName;
-
     protected function setUp(): void
     {
         $this->templating = $this->createMock(Environment::class);
@@ -106,11 +94,9 @@ class ResetActionTest extends TestCase
         $this->templateRegistry = $this->createMock(TemplateRegistryInterface::class);
         $this->formFactory = $this->createMock(FormFactoryInterface::class);
         $this->userManager = $this->createMock(UserManagerInterface::class);
-        $this->loginManager = $this->createMock(LoginManagerInterface::class);
         $this->translator = $this->createMock(TranslatorInterface::class);
         $this->session = new Session(new MockFileSessionStorage());
         $this->resetTtl = 60;
-        $this->firewallName = 'default';
     }
 
     public function testAuthenticated(): void
@@ -241,8 +227,6 @@ class ResetActionTest extends TestCase
             ->method('isPasswordRequestNonExpired')
             ->willReturn(true);
         $user->expects(static::once())
-            ->method('setLastLogin');
-        $user->expects(static::once())
             ->method('setConfirmationToken')
             ->with(null);
         $user->expects(static::once())
@@ -274,10 +258,6 @@ class ResetActionTest extends TestCase
             ->method('save')
             ->with($user);
 
-        $this->loginManager->expects(static::once())
-            ->method('logInUser')
-            ->with('default', $user, static::isInstanceOf(Response::class));
-
         $this->formFactory->expects(static::once())
             ->method('create')
             ->willReturn($form);
@@ -307,11 +287,9 @@ class ResetActionTest extends TestCase
             $this->templateRegistry,
             $this->formFactory,
             $this->userManager,
-            $this->loginManager,
             $this->translator,
             $this->session,
-            $this->resetTtl,
-            $this->firewallName
+            $this->resetTtl
         );
     }
 }

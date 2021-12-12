@@ -13,13 +13,10 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Action;
 
-use Psr\Log\LoggerAwareTrait;
-use Psr\Log\NullLogger;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Form\Type\ResettingFormType;
 use Sonata\UserBundle\Model\UserManagerInterface;
-use Sonata\UserBundle\Security\LoginManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,14 +25,11 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Security\Core\Exception\AccountStatusException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
 final class ResetAction
 {
-    use LoggerAwareTrait;
-
     /**
      * @var Environment
      */
@@ -72,11 +66,6 @@ final class ResetAction
     private $userManager;
 
     /**
-     * @var LoginManagerInterface
-     */
-    private $loginManager;
-
-    /**
      * @var TranslatorInterface
      */
     private $translator;
@@ -91,11 +80,6 @@ final class ResetAction
      */
     private $resetTtl;
 
-    /**
-     * @var string
-     */
-    private $firewallName;
-
     public function __construct(
         Environment $twig,
         UrlGeneratorInterface $urlGenerator,
@@ -104,11 +88,9 @@ final class ResetAction
         TemplateRegistryInterface $templateRegistry,
         FormFactoryInterface $formFactory,
         UserManagerInterface $userManager,
-        LoginManagerInterface $loginManager,
         TranslatorInterface $translator,
         SessionInterface $session,
-        int $resetTtl,
-        string $firewallName
+        int $resetTtl
     ) {
         $this->twig = $twig;
         $this->urlGenerator = $urlGenerator;
@@ -117,12 +99,9 @@ final class ResetAction
         $this->templateRegistry = $templateRegistry;
         $this->formFactory = $formFactory;
         $this->userManager = $userManager;
-        $this->loginManager = $loginManager;
         $this->translator = $translator;
         $this->session = $session;
         $this->resetTtl = $resetTtl;
-        $this->firewallName = $firewallName;
-        $this->logger = new NullLogger();
     }
 
     public function __invoke(Request $request, $token): Response
@@ -155,18 +134,6 @@ final class ResetAction
             $this->session->getFlashBag()->add('success', $message);
 
             $response = new RedirectResponse($this->urlGenerator->generate('sonata_admin_dashboard'));
-
-            try {
-                $this->loginManager->logInUser($this->firewallName, $user, $response);
-                $user->setLastLogin(new \DateTime());
-            } catch (AccountStatusException $ex) {
-                // We simply do not authenticate users which do not pass the user
-                // checker (not enabled, expired, etc.).
-                $this->logger->warning(sprintf(
-                    'Unable to login user %d after password reset',
-                    $user->getId()
-                ), ['exception' => $ex]);
-            }
 
             $this->userManager->save($user);
 
