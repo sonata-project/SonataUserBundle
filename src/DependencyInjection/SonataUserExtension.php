@@ -59,11 +59,12 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
 
         $loader->load('twig.xml');
         $loader->load('actions.xml');
-        $loader->load('listener.xml');
+        $loader->load('event_listener.xml');
         $loader->load('mailer.xml');
         $loader->load('form.xml');
         $loader->load('security.xml');
         $loader->load('util.xml');
+        $loader->load('validator.xml');
 
         if ($config['security_acl']) {
             $loader->load('security_acl.xml');
