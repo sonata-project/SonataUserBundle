@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="sonata.user.event_listener.user" class="Sonata\UserBundle\EventListener\UserListener" public="false">
+        <service id="sonata.user.listener.user" class="Sonata\UserBundle\Listener\UserListener" public="false">
             <tag name="doctrine.event_subscriber"/>
             <argument type="service" id="sonata.user.util.canonical_fields_updater"/>
             <argument type="service" id="security.password_encoder"/>
         </service>
-        <service id="sonata.user.event_listener.last_login" class="Sonata\UserBundle\EventListener\LastLoginListener" public="false">
+        <service id="sonata.user.listener.last_login" class="Sonata\UserBundle\Listener\LastLoginListener" public="false">
             <tag name="kernel.event_subscriber"/>
             <argument type="service" id="sonata.user.manager.user"/>
         </service>
