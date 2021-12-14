@@ -64,7 +64,7 @@ final class SendEmailAction
     /**
      * @var int
      */
-    private $resetTtl;
+    private $retryTtl;
 
     public function __construct(
         Environment $twig,
@@ -74,7 +74,7 @@ final class SendEmailAction
         UserManagerInterface $userManager,
         MailerInterface $mailer,
         TokenGeneratorInterface $tokenGenerator,
-        int $resetTtl
+        int $retryTtl
     ) {
         $this->twig = $twig;
         $this->urlGenerator = $urlGenerator;
@@ -83,7 +83,7 @@ final class SendEmailAction
         $this->userManager = $userManager;
         $this->mailer = $mailer;
         $this->tokenGenerator = $tokenGenerator;
-        $this->resetTtl = $resetTtl;
+        $this->retryTtl = $retryTtl;
     }
 
     public function __invoke(Request $request): Response
@@ -92,7 +92,7 @@ final class SendEmailAction
 
         $user = $this->userManager->findUserByUsernameOrEmail($username);
 
-        if (null !== $user && $user->isEnabled() && !$user->isPasswordRequestNonExpired($this->resetTtl) && $user->isAccountNonLocked()) {
+        if (null !== $user && $user->isEnabled() && !$user->isPasswordRequestNonExpired($this->retryTtl) && $user->isAccountNonLocked()) {
             if (null === $user->getConfirmationToken()) {
                 $user->setConfirmationToken($this->tokenGenerator->generateToken());
             }

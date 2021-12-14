@@ -86,13 +86,10 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         $this->configureTranslationDomain($config, $container);
         $this->configureController($config, $container);
         $this->configureMailer($config, $container);
+        $this->configureResetting($container, $config);
 
         $container->setParameter('sonata.user.default_avatar', $config['profile']['default_avatar']);
         $container->setParameter('sonata.user.impersonating', $config['impersonating']);
-
-        $container->setParameter('sonata.user.resetting.retry_ttl', 3600);
-        $container->setParameter('sonata.user.resetting.email.from_email', ['from@localhost.com' => 'From']);
-        $container->setParameter('sonata.user.resetting.email.template', '@SonataUser/Admin/Security/Resetting/email.html.twig');
     }
 
     /**
@@ -158,6 +155,19 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     {
         $container->setParameter('sonata.user.admin.user.controller', $config['admin']['user']['controller']);
         $container->setParameter('sonata.user.admin.group.controller', $config['admin']['group']['controller']);
+    }
+
+    /**
+     * @param array<string, mixed> $config
+     */
+    private function configureResetting(ContainerBuilder $container, array $config): void
+    {
+        $container->setParameter('sonata.user.resetting.retry_ttl', $config['resetting']['retry_ttl']);
+        $container->setParameter('sonata.user.resetting.token_ttl', $config['resetting']['token_ttl']);
+        $container->setParameter('sonata.user.resetting.email.from_email', [
+            $config['resetting']['email']['address'] => $config['resetting']['email']['sender_name'],
+        ]);
+        $container->setParameter('sonata.user.resetting.email.template', $config['resetting']['email']['template']);
     }
 
     private function checkManagerTypeToModelTypesMapping(array $config): void

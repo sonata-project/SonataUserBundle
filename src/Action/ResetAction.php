@@ -78,7 +78,7 @@ final class ResetAction
     /**
      * @var int
      */
-    private $resetTtl;
+    private $tokenTtl;
 
     public function __construct(
         Environment $twig,
@@ -90,7 +90,7 @@ final class ResetAction
         UserManagerInterface $userManager,
         TranslatorInterface $translator,
         SessionInterface $session,
-        int $resetTtl
+        int $tokenTtl
     ) {
         $this->twig = $twig;
         $this->urlGenerator = $urlGenerator;
@@ -101,7 +101,7 @@ final class ResetAction
         $this->userManager = $userManager;
         $this->translator = $translator;
         $this->session = $session;
-        $this->resetTtl = $resetTtl;
+        $this->tokenTtl = $tokenTtl;
     }
 
     public function __invoke(Request $request, $token): Response
@@ -116,7 +116,7 @@ final class ResetAction
             throw new NotFoundHttpException(sprintf('The user with "confirmation token" does not exist for value "%s"', $token));
         }
 
-        if (!$user->isPasswordRequestNonExpired($this->resetTtl)) {
+        if (!$user->isPasswordRequestNonExpired($this->tokenTtl)) {
             return new RedirectResponse($this->urlGenerator->generate('sonata_user_admin_resetting_request'));
         }
 
