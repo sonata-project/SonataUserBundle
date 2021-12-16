@@ -1,13 +1,11 @@
-{% trans_default_domain 'SonataUserBundle' %}
 {% block subject %}
 {%- autoescape false -%}
-{{ 'resetting.email.subject'|trans({'%username%': user.username}) }}
+{{ 'resetting.email.subject'|trans({'%username%': user.username}, 'SonataUserBundle') }}
 {%- endautoescape -%}
 {% endblock %}
 
 {% block body_text %}
 {% autoescape false %}
-{{ 'resetting.email.message'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}) }}
+{{ 'resetting.email.message'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}, 'SonataUserBundle') }}
 {% endautoescape %}
 {% endblock %}
-{% block body_html %}{% endblock %}

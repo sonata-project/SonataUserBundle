@@ -566,6 +566,62 @@
         <source>qr_go_next</source>
         <target>I scanned it. Move on.</target>
       </trans-unit>
+      <trans-unit id="security.login.remember_me">
+        <source>security.login.remember_me</source>
+        <target>Remember me</target>
+      </trans-unit>
+      <trans-unit id="security.login.submit">
+        <source>security.login.submit</source>
+        <target>Log in</target>
+      </trans-unit>
+      <trans-unit id="resetting.request.username">
+        <source>resetting.request.username</source>
+        <target>Username or email address</target>
+      </trans-unit>
+      <trans-unit id="resetting.request.submit">
+        <source>resetting.request.submit</source>
+        <target>Reset password</target>
+      </trans-unit>
+      <trans-unit id="resetting.check_email">
+        <source>resetting.check_email</source>
+        <target>
+          An email has been sent. It contains a link you must click to reset your password.
+          Note: You can only request a new password once within %tokenLifetime% hours.
+
+          If you don't get an email check your spam folder or try again.
+        </target>
+      </trans-unit>
+      <trans-unit id="resetting.email.subject">
+        <source>resetting.email.subject</source>
+        <target>Reset Password</target>
+      </trans-unit>
+      <trans-unit id="resetting.email.message">
+        <source>resetting.email.message</source>
+        <target>
+          Hello %username%!
+
+          To reset your password - please visit %confirmationUrl%
+
+          Regards,
+          the Team.
+        </target>
+      </trans-unit>
+      <trans-unit id="esetting.reset.submit">
+        <source>esetting.reset.submit</source>
+        <target>Change password</target>
+      </trans-unit>
+      <trans-unit id="resetting.flash.success">
+        <source>resetting.flash.success</source>
+        <target>The password has been reset successfully.</target>
+      </trans-unit>
+      <trans-unit id="form.new_password">
+        <source>form.new_password</source>
+        <target>New password</target>
+      </trans-unit>
+      <trans-unit id="form.new_password_confirmation">
+        <source>form.new_password_confirmation</source>
+        <target>Repeat new password</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
