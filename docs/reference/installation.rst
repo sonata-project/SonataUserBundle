@@ -241,37 +241,19 @@ Then, add a new custom firewall handlers for the admin:
                 pattern:  ^/(_(profiler|wdt)|css|images|js)/
                 security: false
 
-            # -> custom firewall for the admin area of the URL
+            # Firewall for the admin area of the URL
             admin:
-                pattern:            /admin(.*)
-                context:            user
+                anonymous: true
+                pattern: /admin(.*)
+                provider: sonata_user_bundle
+                context: user
                 form_login:
-                    provider:       sonata_user_bundle
-                    login_path:     /admin/login
-                    use_forward:    false
-                    check_path:     /admin/login_check
-                    failure_path:   null
+                    login_path: sonata_user_admin_security_login
+                    check_path: sonata_user_admin_security_check
+                    default_target_path: sonata_admin_dashboard
                 logout:
-                    path:           /admin/logout
-                    target:         /admin/login
-                anonymous:          true
-
-            # -> end custom configuration
-
-            # default login area for standard users
-
-            # This firewall is used to handle the public login area
-            main:
-                pattern:             .*
-                context:             user
-                form_login:
-                    provider:       sonata_user_bundle
-                    login_path:     /login
-                    use_forward:    false
-                    check_path:     /login_check
-                    failure_path:   null
-                logout:             true
-                anonymous:          true
+                    path: sonata_user_admin_security_logout
+                    target: sonata_user_admin_security_login
 
 Add role hierarchy and provider, if you are not using ACL also add the encoder:
 
