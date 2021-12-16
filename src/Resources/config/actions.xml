@@ -35,7 +35,6 @@
             <argument type="service" id="form.factory"/>
             <argument type="service" id="sonata.user.manager.user"/>
             <argument type="service" id="translator"/>
-            <argument type="service" id="session"/>
             <argument>%sonata.user.resetting.token_ttl%</argument>
         </service>
         <service id="Sonata\UserBundle\Action\LoginAction" class="Sonata\UserBundle\Action\LoginAction" public="true">
@@ -45,7 +44,6 @@
             <argument type="service" id="sonata.admin.pool"/>
             <argument type="service" id="sonata.admin.global_template_registry"/>
             <argument type="service" id="security.token_storage"/>
-            <argument type="service" id="session"/>
             <argument type="service" id="translator"/>
             <call method="setCsrfTokenManager">
                 <argument type="service" id="security.csrf.token_manager" on-invalid="ignore"/>

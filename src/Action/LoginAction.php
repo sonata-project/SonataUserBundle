@@ -19,7 +19,6 @@ use Sonata\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -62,11 +61,6 @@ final class LoginAction
     private $tokenStorage;
 
     /**
-     * @var Session
-     */
-    private $session;
-
-    /**
      * @var TranslatorInterface
      */
     private $translator;
@@ -83,7 +77,6 @@ final class LoginAction
         Pool $adminPool,
         TemplateRegistryInterface $templateRegistry,
         TokenStorageInterface $tokenStorage,
-        Session $session,
         TranslatorInterface $translator
     ) {
         $this->twig = $twig;
@@ -92,14 +85,15 @@ final class LoginAction
         $this->adminPool = $adminPool;
         $this->templateRegistry = $templateRegistry;
         $this->tokenStorage = $tokenStorage;
-        $this->session = $session;
         $this->translator = $translator;
     }
 
     public function __invoke(Request $request): Response
     {
+        $session = $request->getSession();
+
         if ($this->isAuthenticated()) {
-            $this->session->getFlashBag()->add(
+            $session->getFlashBag()->add(
                 'sonata_user_error',
                 $this->translator->trans('sonata_user_already_authenticated', [], 'SonataUserBundle')
             );
@@ -107,14 +101,12 @@ final class LoginAction
             return new RedirectResponse($this->urlGenerator->generate('sonata_admin_dashboard'));
         }
 
-        $session = $request->getSession();
-
         $authErrorKey = Security::AUTHENTICATION_ERROR;
 
         // get the error if any (works with forward and redirect -- see below)
         if ($request->attributes->has($authErrorKey)) {
             $error = $request->attributes->get($authErrorKey);
-        } elseif (null !== $session && $session->has($authErrorKey)) {
+        } elseif ($session->has($authErrorKey)) {
             $error = $session->get($authErrorKey);
             $session->remove($authErrorKey);
         } else {
@@ -142,7 +134,7 @@ final class LoginAction
             'base_template' => $this->templateRegistry->getTemplate('layout'),
             'csrf_token' => $csrfToken,
             'error' => $error,
-            'last_username' => (null === $session) ? '' : $session->get(Security::LAST_USERNAME),
+            'last_username' => $session->get(Security::LAST_USERNAME),
             'reset_route' => $this->urlGenerator->generate('sonata_user_admin_resetting_request'),
         ]));
     }

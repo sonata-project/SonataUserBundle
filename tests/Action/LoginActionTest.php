@@ -97,6 +97,7 @@ class LoginActionTest extends TestCase
     public function testAlreadyAuthenticated(): void
     {
         $request = new Request();
+        $request->setSession($this->session);
 
         $user = $this->createMock(UserInterface::class);
 
@@ -266,7 +267,6 @@ class LoginActionTest extends TestCase
             $this->pool,
             $this->templateRegistry,
             $this->tokenStorage,
-            $this->session,
             $this->translator
         );
         $action->setCsrfTokenManager($this->csrfTokenManager);

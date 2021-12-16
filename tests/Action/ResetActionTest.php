@@ -23,6 +23,7 @@ use Sonata\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -164,10 +165,11 @@ class ResetActionTest extends TestCase
     public function testReset(): void
     {
         $request = new Request();
+        $formView = new FormView();
 
         $parameters = [
             'token' => 'user-token',
-            'form' => 'Form View',
+            'form' => $formView,
             'base_template' => 'base.html.twig',
             'admin_pool' => $this->pool,
         ];
@@ -186,7 +188,7 @@ class ResetActionTest extends TestCase
             ->willReturn(false);
         $form->expects(static::once())
             ->method('createView')
-            ->willReturn('Form View');
+            ->willReturn($formView);
 
         $this->userManager
             ->method('findUserByConfirmationToken')
@@ -221,6 +223,7 @@ class ResetActionTest extends TestCase
     public function testPostedReset(): void
     {
         $request = new Request();
+        $request->setSession($this->session);
 
         $user = $this->createMock(User::class);
         $user
@@ -288,7 +291,6 @@ class ResetActionTest extends TestCase
             $this->formFactory,
             $this->userManager,
             $this->translator,
-            $this->session,
             $this->resetTtl
         );
     }

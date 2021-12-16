@@ -25,6 +25,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\Security\Http\Authentication\AuthenticatorManager;
 
 /**
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
@@ -65,6 +66,12 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         $loader->load('security.xml');
         $loader->load('util.xml');
         $loader->load('validator.xml');
+
+        if (class_exists(AuthenticatorManager::class)) {
+            $loader->load('listener_sf5.xml');
+        } else {
+            $loader->load('listener_sf4.xml');
+        }
 
         if ($config['security_acl']) {
             $loader->load('security_acl.xml');

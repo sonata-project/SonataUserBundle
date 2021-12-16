@@ -64,7 +64,8 @@ class ResetActionTest extends WebTestCase
 
     private function prepareData(): User
     {
-        $manager = self::$container->get('doctrine.orm.entity_manager');
+        $container = method_exists(static::class, 'getContainer') ? static::getContainer() : static::$container;
+        $manager = $container->get('doctrine.orm.entity_manager');
         \assert($manager instanceof EntityManagerInterface);
 
         $user = new User();
@@ -84,7 +85,8 @@ class ResetActionTest extends WebTestCase
 
     private function refreshUser(User $user): User
     {
-        $manager = self::$container->get('doctrine.orm.entity_manager');
+        $container = method_exists(static::class, 'getContainer') ? static::getContainer() : static::$container;
+        $manager = $container->get('doctrine.orm.entity_manager');
         \assert($manager instanceof EntityManagerInterface);
 
         return $manager->find(User::class, $user->getId());

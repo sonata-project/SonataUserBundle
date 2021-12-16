@@ -38,6 +38,10 @@ class RestoreRolesTransformer implements DataTransformerInterface
         $this->originalRoles = $originalRoles ?: [];
     }
 
+    /**
+     * @return mixed
+     */
+    #[\ReturnTypeWillChange]
     public function transform($value)
     {
         if (null === $value) {
@@ -51,6 +55,10 @@ class RestoreRolesTransformer implements DataTransformerInterface
         return $value;
     }
 
+    /**
+     * @return mixed
+     */
+    #[\ReturnTypeWillChange]
     public function reverseTransform($selectedRoles)
     {
         if (null === $this->originalRoles) {

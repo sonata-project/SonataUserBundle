@@ -15,8 +15,10 @@ namespace Sonata\UserBundle\Security;
 
 use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
@@ -34,10 +36,15 @@ class UserProvider implements UserProviderInterface
 
     public function loadUserByUsername($username): SecurityUserInterface
     {
+        return $this->loadUserByIdentifier($username);
+    }
+
+    public function loadUserByIdentifier(string $username): SecurityUserInterface
+    {
         $user = $this->findUser($username);
 
         if (null === $user || !$user->isEnabled()) {
-            throw new UsernameNotFoundException(sprintf('Username "%s" does not exist.', $username));
+            throw $this->buildUserNotFoundException(sprintf('Username "%s" does not exist.', $username));
         }
 
         return $user;
@@ -54,7 +61,7 @@ class UserProvider implements UserProviderInterface
         }
 
         if (null === $reloadedUser = $this->userManager->findOneBy(['id' => $user->getId()])) {
-            throw new UsernameNotFoundException(sprintf('User with ID "%s" could not be reloaded.', $user->getId()));
+            throw $this->buildUserNotFoundException(sprintf('User with ID "%s" could not be reloaded.', $user->getId()));
         }
 
         return $reloadedUser;
@@ -73,5 +80,17 @@ class UserProvider implements UserProviderInterface
     protected function findUser(string $username): ?UserInterface
     {
         return $this->userManager->findUserByUsernameOrEmail($username);
+    }
+
+    /**
+     * TODO: Simplify when dropping support for Symfony 4
+     */
+    private function buildUserNotFoundException(string $message): AuthenticationException
+    {
+        if (!class_exists(UserNotFoundException::class)) {
+            return new UsernameNotFoundException($message);
+        }
+
+        return new UserNotFoundException($message);
     }
 }
