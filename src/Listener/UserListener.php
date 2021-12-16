@@ -39,6 +39,8 @@ final class UserListener implements EventSubscriber
     private $userPasswordHasher;
 
     /**
+     * TODO: Simplify this once support for Symfony 4.4 is dropped.
+     *
      * @param UserPasswordEncoderInterface|UserPasswordHasherInterface $userPasswordHasher
      */
     public function __construct(

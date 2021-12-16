@@ -92,7 +92,13 @@ final class AppKernel extends Kernel
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
     {
         $loader->load(__DIR__.'/Resources/config/config.yml');
-        $loader->load(__DIR__.'/Resources/config/security.yml');
+
+        if (class_exists(AuthenticatorManager::class)) {
+            $loader->load(__DIR__.'/Resources/config/config_sf5.yaml');
+        } else {
+            $loader->load(__DIR__.'/Resources/config/config_sf4.yaml');
+        }
+
         $container->setParameter('app.base_dir', $this->getBaseDir());
     }
 

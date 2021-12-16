@@ -57,7 +57,7 @@ final class UserAdminTest extends WebTestCase
     private function prepareData(): void
     {
         $container = method_exists(static::class, 'getContainer') ? static::getContainer() : static::$container;
-        $manager =  $container->get('doctrine.orm.entity_manager');
+        $manager = $container->get('doctrine.orm.entity_manager');
         \assert($manager instanceof EntityManagerInterface);
 
         $user = new User();
