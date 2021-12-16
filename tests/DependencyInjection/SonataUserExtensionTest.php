@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
-use Sonata\UserBundle\DependencyInjection\Configuration;
 use Sonata\UserBundle\DependencyInjection\SonataUserExtension;
 use Sonata\UserBundle\Document\BaseUser;
 use Sonata\UserBundle\Entity\BaseGroup;
@@ -25,7 +24,6 @@ use Sonata\UserBundle\Tests\Admin\Document\UserAdmin;
 use Sonata\UserBundle\Tests\Document\Group;
 use Sonata\UserBundle\Tests\Document\User;
 use Symfony\Bundle\TwigBundle\DependencyInjection\TwigExtension;
-use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 
@@ -232,7 +230,14 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
      */
     protected function getMinimalConfiguration(): array
     {
-        return (new Processor())->process((new Configuration())->getConfigTreeBuilder()->buildTree(), []);
+        return [
+            'resetting' => [
+                'email' => [
+                    'address' => 'sonata@localhost.com',
+                    'sender_name' => 'Sonata',
+                ],
+            ],
+        ];
     }
 
     /**

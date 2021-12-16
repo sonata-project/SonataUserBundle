@@ -39,6 +39,6 @@ sonata_user:
         user: Sonata\UserBundle\Tests\App\Entity\User
         group: Sonata\UserBundle\Tests\App\Entity\Group
     resetting:
-        from_email:
+        email:
             address: 'sonatauser@example.com'
             sender_name: 'SonataUserBundle'
