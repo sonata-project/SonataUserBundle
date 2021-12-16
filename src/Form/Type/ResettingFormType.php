@@ -55,7 +55,6 @@ final class ResettingFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => $this->class,
-            'csrf_token_id' => 'resetting',
         ]);
     }
 }

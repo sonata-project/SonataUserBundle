@@ -11,9 +11,6 @@
             <argument/>
             <argument>%sonata.user.user.class%</argument>
             <argument>%sonata.user.admin.user.controller%</argument>
-            <call method="setUserManager">
-                <argument type="service" id="sonata.user.manager.user"/>
-            </call>
             <call method="setTranslationDomain">
                 <argument>%sonata.user.admin.user.translation_domain%</argument>
             </call>
