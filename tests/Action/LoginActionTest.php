@@ -27,10 +27,10 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
@@ -47,9 +47,9 @@ class LoginActionTest extends TestCase
     protected $urlGenerator;
 
     /**
-     * @var AuthorizationCheckerInterface|MockObject
+     * @var MockObject&AuthenticationUtils
      */
-    protected $authorizationChecker;
+    protected $authenticationUtils;
 
     /**
      * @var Pool
@@ -85,7 +85,7 @@ class LoginActionTest extends TestCase
     {
         $this->templating = $this->createMock(Environment::class);
         $this->urlGenerator = $this->createMock(UrlGeneratorInterface::class);
-        $this->authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
+        $this->authenticationUtils = $this->createMock(AuthenticationUtils::class);
         $this->pool = new Pool(new Container());
         $this->templateRegistry = $this->createMock(TemplateRegistryInterface::class);
         $this->tokenStorage = $this->createMock(TokenStorageInterface::class);
@@ -137,46 +137,6 @@ class LoginActionTest extends TestCase
     }
 
     /**
-     * @dataProvider userGrantedAdminProvider
-     */
-    public function testUserGrantedAdmin(string $referer, string $expectedRedirectUrl): void
-    {
-        $session = $this->createMock(Session::class);
-        $request = Request::create('http://some.url.com/exact-request-uri');
-        $request->server->add(['HTTP_REFERER' => $referer]);
-        $request->setSession($session);
-
-        $this->tokenStorage
-            ->method('getToken')
-            ->willReturn(null);
-
-        $this->urlGenerator
-            ->method('generate')
-            ->with('sonata_admin_dashboard')
-            ->willReturn('/foo');
-
-        $this->authorizationChecker->expects(static::once())
-            ->method('isGranted')
-            ->with('ROLE_ADMIN')
-            ->willReturn(true);
-
-        $action = $this->getAction();
-        $result = $action($request);
-
-        static::assertInstanceOf(RedirectResponse::class, $result);
-        static::assertSame($expectedRedirectUrl, $result->getTargetUrl());
-    }
-
-    public function userGrantedAdminProvider(): array
-    {
-        return [
-            ['', '/foo'],
-            ['http://some.url.com/exact-request-uri', '/foo'],
-            ['http://some.url.com', 'http://some.url.com'],
-        ];
-    }
-
-    /**
      * @dataProvider unauthenticatedProvider
      */
     public function testUnauthenticated(string $lastUsername, ?AuthenticationException $errorMessage = null): void
@@ -222,10 +182,8 @@ class LoginActionTest extends TestCase
             ->with('sonata_user_admin_resetting_request')
             ->willReturn('/foo');
 
-        $this->authorizationChecker->expects(static::once())
-            ->method('isGranted')
-            ->with('ROLE_ADMIN')
-            ->willReturn(false);
+        $this->authenticationUtils->method('getLastUsername')->willReturn($lastUsername);
+        $this->authenticationUtils->method('getLastAuthenticationError')->willReturn($errorMessage);
 
         $this->csrfTokenManager
             ->method('getToken')
@@ -260,17 +218,15 @@ class LoginActionTest extends TestCase
 
     private function getAction(): LoginAction
     {
-        $action = new LoginAction(
+        return new LoginAction(
             $this->templating,
             $this->urlGenerator,
-            $this->authorizationChecker,
+            $this->authenticationUtils,
             $this->pool,
             $this->templateRegistry,
             $this->tokenStorage,
-            $this->translator
+            $this->translator,
+            $this->csrfTokenManager
         );
-        $action->setCsrfTokenManager($this->csrfTokenManager);
-
-        return $action;
     }
 }

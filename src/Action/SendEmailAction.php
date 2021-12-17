@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Action;
 
-use Sonata\AdminBundle\Admin\Pool;
-use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Mailer\MailerInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
 use Sonata\UserBundle\Util\TokenGeneratorInterface;
@@ -22,29 +20,13 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Twig\Environment;
 
 final class SendEmailAction
 {
     /**
-     * @var Environment
-     */
-    private $twig;
-
-    /**
      * @var UrlGeneratorInterface
      */
     private $urlGenerator;
-
-    /**
-     * @var Pool
-     */
-    private $adminPool;
-
-    /**
-     * @var TemplateRegistryInterface
-     */
-    private $templateRegistry;
 
     /**
      * @var UserManagerInterface
@@ -67,19 +49,13 @@ final class SendEmailAction
     private $retryTtl;
 
     public function __construct(
-        Environment $twig,
         UrlGeneratorInterface $urlGenerator,
-        Pool $adminPool,
-        TemplateRegistryInterface $templateRegistry,
         UserManagerInterface $userManager,
         MailerInterface $mailer,
         TokenGeneratorInterface $tokenGenerator,
         int $retryTtl
     ) {
-        $this->twig = $twig;
         $this->urlGenerator = $urlGenerator;
-        $this->adminPool = $adminPool;
-        $this->templateRegistry = $templateRegistry;
         $this->userManager = $userManager;
         $this->mailer = $mailer;
         $this->tokenGenerator = $tokenGenerator;
