@@ -74,7 +74,8 @@ class LoginActionTest extends WebTestCase
 
     private function prepareData(bool $enabled = true): void
     {
-        $manager = self::$container->get('doctrine.orm.entity_manager');
+        $container = method_exists(static::class, 'getContainer') ? static::getContainer() : static::$container;
+        $manager = $container->get('doctrine.orm.entity_manager');
         \assert($manager instanceof EntityManagerInterface);
 
         $user = new User();

@@ -20,6 +20,7 @@ use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Doctrine\Persistence\ObjectManager;
 use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Util\CanonicalFieldsUpdaterInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -33,16 +34,21 @@ final class UserListener implements EventSubscriber
     private $canonicalFieldsUpdater;
 
     /**
-     * @var UserPasswordEncoderInterface
+     * @var UserPasswordEncoderInterface|UserPasswordHasherInterface
      */
-    private $userPasswordEncoder;
+    private $userPasswordHasher;
 
+    /**
+     * TODO: Simplify this once support for Symfony 4.4 is dropped.
+     *
+     * @param UserPasswordEncoderInterface|UserPasswordHasherInterface $userPasswordHasher
+     */
     public function __construct(
         CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater,
-        UserPasswordEncoderInterface $userPasswordEncoder
+        object $userPasswordHasher
     ) {
         $this->canonicalFieldsUpdater = $canonicalFieldsUpdater;
-        $this->userPasswordEncoder = $userPasswordEncoder;
+        $this->userPasswordHasher = $userPasswordHasher;
     }
 
     public function getSubscribedEvents(): array
@@ -86,7 +92,11 @@ final class UserListener implements EventSubscriber
             return;
         }
 
-        $password = $this->userPasswordEncoder->encodePassword($user, $plainPassword);
+        if ($this->userPasswordHasher instanceof UserPasswordHasherInterface) {
+            $password = $this->userPasswordHasher->hashPassword($user, $plainPassword);
+        } else {
+            $password = $this->userPasswordHasher->encodePassword($user, $plainPassword);
+        }
 
         $user->setPassword($password);
         $user->eraseCredentials();

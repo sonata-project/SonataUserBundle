@@ -1,0 +1,14 @@
+framework:
+    session:
+        storage_factory_id: session.storage.factory.mock_file
+
+security:
+    enable_authenticator_manager: true
+
+    password_hashers:
+        Sonata\UserBundle\Model\UserInterface:
+            algorithm: plaintext
+
+    firewalls:
+        main:
+            lazy: true

@@ -1,0 +1,23 @@
+parameters:
+    ignoreErrors:
+        - # TODO: Remove this when dropping support for Symfony 4.4.
+            message: "#^Access to an undefined static property static\\(Sonata\\\\UserBundle\\\\Tests\\\\Functional\\\\Action\\\\LoginActionTest\\)\\:\\:\\$container\\.$#"
+            count: 1
+            path: tests/Functional/Action/LoginActionTest.php
+        - # TODO: Remove this when dropping support for Symfony 4.4.
+            message: "#^Access to an undefined static property static\\(Sonata\\\\UserBundle\\\\Tests\\\\Functional\\\\Action\\\\RequestActionTest\\)\\:\\:\\$container\\.$#"
+            count: 1
+            path: tests/Functional/Action/RequestActionTest.php
+        - # TODO: Remove this when dropping support for Symfony 4.4.
+            message: "#^Access to an undefined static property static\\(Sonata\\\\UserBundle\\\\Tests\\\\Functional\\\\Action\\\\ResetActionTest\\)\\:\\:\\$container\\.$#"
+            count: 2
+            path: tests/Functional/Action/ResetActionTest.php
+        - # TODO: Remove this when dropping support for Symfony 4.4.
+            message: "#^Access to an undefined static property static\\(Sonata\\\\UserBundle\\\\Tests\\\\Functional\\\\Admin\\\\GroupAdminTest\\)\\:\\:\\$container\\.$#"
+            count: 1
+            path: tests/Functional/Admin/GroupAdminTest.php
+        - # TODO: Remove this when dropping support for Symfony 4.4.
+            message: "#^Access to an undefined static property static\\(Sonata\\\\UserBundle\\\\Tests\\\\Functional\\\\Admin\\\\UserAdminTest\\)\\:\\:\\$container\\.$#"
+            count: 1
+            path: tests/Functional/Admin/UserAdminTest.php
+

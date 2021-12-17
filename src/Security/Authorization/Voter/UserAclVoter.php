@@ -19,7 +19,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class UserAclVoter extends AclVoter
 {
-    public function supportsClass($class)
+    public function supportsClass($class): bool
     {
         // support the Object-Scope ACL
         return is_subclass_of($class, UserInterface::class);
@@ -30,7 +30,7 @@ class UserAclVoter extends AclVoter
         return 'EDIT' === $attribute || 'DELETE' === $attribute;
     }
 
-    public function vote(TokenInterface $token, $subject, array $attributes)
+    public function vote(TokenInterface $token, $subject, array $attributes): int
     {
         if (!\is_object($subject) || !$this->supportsClass(\get_class($subject))) {
             return self::ACCESS_ABSTAIN;

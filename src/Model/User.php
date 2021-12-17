@@ -204,7 +204,7 @@ abstract class User implements UserInterface
      */
     public function __toString()
     {
-        return $this->getUsername() ?: '-';
+        return $this->getUsername();
     }
 
     public function __serialize(): array
@@ -258,9 +258,14 @@ abstract class User implements UserInterface
         return $this->id;
     }
 
-    public function getUsername(): ?string
+    public function getUsername(): string
     {
-        return $this->username;
+        return $this->getUserIdentifier();
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->username ?? '-';
     }
 
     public function getUsernameCanonical(): ?string

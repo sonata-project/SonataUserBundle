@@ -1,0 +1,11 @@
+framework:
+    session:
+        storage_id: session.storage.mock_file
+
+security:
+    encoders:
+        Sonata\UserBundle\Model\UserInterface: plaintext
+
+    firewalls:
+        main:
+            anonymous: true

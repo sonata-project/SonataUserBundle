@@ -86,7 +86,7 @@ final class RolesMatrixExtensionTest extends TestCase
 
         $this->formView
             ->method('getIterator')
-            ->willReturn([$form]);
+            ->willReturn(new \ArrayIterator([$form]));
 
         $this->environment
             ->expects(static::once())
@@ -126,7 +126,7 @@ final class RolesMatrixExtensionTest extends TestCase
 
         $this->formView
             ->method('getIterator')
-            ->willReturn([$form]);
+            ->willReturn(new \ArrayIterator([$form]));
 
         $this->environment
             ->expects(static::once())
@@ -210,7 +210,7 @@ final class RolesMatrixExtensionTest extends TestCase
         $this->formView
             ->expects(static::once())
             ->method('getIterator')
-            ->willReturn([$form]);
+            ->willReturn(new \ArrayIterator([$form]));
 
         $this->environment
             ->expects(static::once())
@@ -263,7 +263,7 @@ final class RolesMatrixExtensionTest extends TestCase
         $this->formView
             ->expects(static::once())
             ->method('getIterator')
-            ->willReturn([$form]);
+            ->willReturn(new \ArrayIterator([$form]));
 
         $this->environment
             ->expects(static::once())

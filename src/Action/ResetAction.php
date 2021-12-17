@@ -21,7 +21,6 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -71,11 +70,6 @@ final class ResetAction
     private $translator;
 
     /**
-     * @var SessionInterface
-     */
-    private $session;
-
-    /**
      * @var int
      */
     private $tokenTtl;
@@ -89,7 +83,6 @@ final class ResetAction
         FormFactoryInterface $formFactory,
         UserManagerInterface $userManager,
         TranslatorInterface $translator,
-        SessionInterface $session,
         int $tokenTtl
     ) {
         $this->twig = $twig;
@@ -100,7 +93,6 @@ final class ResetAction
         $this->formFactory = $formFactory;
         $this->userManager = $userManager;
         $this->translator = $translator;
-        $this->session = $session;
         $this->tokenTtl = $tokenTtl;
     }
 
@@ -131,7 +123,7 @@ final class ResetAction
             $user->setEnabled(true);
 
             $message = $this->translator->trans('resetting.flash.success', [], 'SonataUserBundle');
-            $this->session->getFlashBag()->add('success', $message);
+            $request->getSession()->getFlashBag()->add('success', $message);
 
             $response = new RedirectResponse($this->urlGenerator->generate('sonata_admin_dashboard'));
 
