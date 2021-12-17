@@ -17,6 +17,7 @@ use Sonata\UserBundle\Admin\Entity\GroupAdmin;
 use Sonata\UserBundle\Admin\Entity\UserAdmin;
 use Sonata\UserBundle\Entity\BaseGroup;
 use Sonata\UserBundle\Entity\BaseUser;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -40,7 +41,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('table')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('user_group')->defaultValue('fos_user_user_group')->end()
+                        ->scalarNode('user_group')->defaultValue('sonata_user_user_group')->end()
                     ->end()
                 ->end()
                 ->scalarNode('impersonating_route')->end()
@@ -98,6 +99,30 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('mailer')->defaultValue('sonata.user.mailer.default')->info('Custom mailer used to send reset password emails')->end()
             ->end();
 
+        $this->addResettingSection($rootNode);
+
         return $treeBuilder;
+    }
+
+    private function addResettingSection(ArrayNodeDefinition $node): void
+    {
+        $node
+            ->children()
+                ->arrayNode('resetting')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->integerNode('retry_ttl')->defaultValue(7200)->end()
+                        ->integerNode('token_ttl')->defaultValue(86400)->end()
+                        ->arrayNode('email')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('template')->cannotBeEmpty()->defaultValue('@SonataUser/Admin/Security/Resetting/email.html.twig')->end()
+                                ->scalarNode('address')->isRequired()->cannotBeEmpty()->end()
+                                ->scalarNode('sender_name')->isRequired()->cannotBeEmpty()->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
     }
 }

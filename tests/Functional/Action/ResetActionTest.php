@@ -40,8 +40,8 @@ class ResetActionTest extends WebTestCase
         $client->request('GET', sprintf('/reset/%s', $user->getConfirmationToken()));
 
         $client->submitForm('submit', [
-            'fos_user_resetting_form[plainPassword][first]' => 'new_password',
-            'fos_user_resetting_form[plainPassword][second]' => 'new_password',
+            'resetting_form[plainPassword][first]' => 'new_password',
+            'resetting_form[plainPassword][second]' => 'new_password',
         ]);
         $client->followRedirect();
 
@@ -51,7 +51,7 @@ class ResetActionTest extends WebTestCase
 
         static::assertNull($user->getPasswordRequestedAt());
         static::assertNull($user->getConfirmationToken());
-        static::assertSame($user->getPassword(), sprintf('new_password{%s}', $user->getSalt()));
+        static::assertSame($user->getPassword(), 'new_password');
     }
 
     /**
@@ -70,8 +70,7 @@ class ResetActionTest extends WebTestCase
         $user = new User();
         $user->setUsername('username');
         $user->setEmail('email@localhost.com');
-        $user->setEmailCanonical('email@localhost.com');
-        $user->setPassword('random_password');
+        $user->setPlainPassword('random_password');
         $user->setConfirmationToken('confirmation_token');
         $user->setPasswordRequestedAt(new \DateTime());
         $user->setSuperAdmin(true);

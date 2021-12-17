@@ -13,16 +13,60 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Document;
 
-use FOS\UserBundle\Doctrine\UserManager as BaseUserManager;
+use Doctrine\Persistence\ManagerRegistry;
+use Sonata\Doctrine\Document\BaseDocumentManager;
+use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
+use Sonata\UserBundle\Util\CanonicalFieldsUpdaterInterface;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
  */
-class UserManager extends BaseUserManager implements UserManagerInterface
+class UserManager extends BaseDocumentManager implements UserManagerInterface
 {
-    public function findUsersBy(?array $criteria = null, ?array $orderBy = null, $limit = null, $offset = null)
+    /**
+     * @var CanonicalFieldsUpdaterInterface
+     */
+    private $canonicalFieldsUpdater;
+
+    public function __construct(
+        string $class,
+        ManagerRegistry $registry,
+        CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater
+    ) {
+        parent::__construct($class, $registry);
+
+        $this->canonicalFieldsUpdater = $canonicalFieldsUpdater;
+    }
+
+    public function findUserByUsername(string $username): ?UserInterface
     {
-        return $this->getRepository()->findBy($criteria, $orderBy, $limit, $offset);
+        return $this->findOneBy([
+            'usernameCanonical' => $this->canonicalFieldsUpdater->canonicalizeUsername($username),
+        ]);
+    }
+
+    public function findUserByEmail(string $email): ?UserInterface
+    {
+        return $this->findOneBy([
+            'emailCanonical' => $this->canonicalFieldsUpdater->canonicalizeEmail($email),
+        ]);
+    }
+
+    public function findUserByUsernameOrEmail(string $usernameOrEmail): ?UserInterface
+    {
+        if (preg_match('/^.+\@\S+\.\S+$/', $usernameOrEmail)) {
+            $user = $this->findUserByEmail($usernameOrEmail);
+            if (null !== $user) {
+                return $user;
+            }
+        }
+
+        return $this->findUserByUsername($usernameOrEmail);
+    }
+
+    public function findUserByConfirmationToken(string $token): ?UserInterface
+    {
+        return $this->findOneBy(['confirmationToken' => $token]);
     }
 }

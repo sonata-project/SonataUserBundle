@@ -37,7 +37,7 @@ class ConfigurationTest extends TestCase
         ], [
             'security_acl' => false,
             'table' => [
-                'user_group' => 'fos_user_user_group',
+                'user_group' => 'sonata_user_user_group',
             ],
             'manager_type' => 'orm',
             'class' => [
@@ -60,6 +60,13 @@ class ConfigurationTest extends TestCase
                 'default_avatar' => 'bundles/sonatauser/default_avatar.png',
             ],
             'mailer' => 'sonata.user.mailer.default',
+            'resetting' => [
+                'retry_ttl' => 7200,
+                'token_ttl' => 86400,
+                'email' => [
+                    'template' => '@SonataUser/Admin/Security/Resetting/email.html.twig',
+                ],
+            ],
         ]);
     }
 }

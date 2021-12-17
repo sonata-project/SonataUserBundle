@@ -13,13 +13,11 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Action;
 
-use FOS\UserBundle\Form\Factory\FactoryInterface;
-use FOS\UserBundle\Model\UserManagerInterface;
-use FOS\UserBundle\Security\LoginManagerInterface;
-use Psr\Log\LoggerAwareTrait;
-use Psr\Log\NullLogger;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
+use Sonata\UserBundle\Form\Type\ResettingFormType;
+use Sonata\UserBundle\Model\UserManagerInterface;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,14 +25,11 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Security\Core\Exception\AccountStatusException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
 final class ResetAction
 {
-    use LoggerAwareTrait;
-
     /**
      * @var Environment
      */
@@ -61,7 +56,7 @@ final class ResetAction
     private $templateRegistry;
 
     /**
-     * @var FactoryInterface
+     * @var FormFactoryInterface
      */
     private $formFactory;
 
@@ -69,11 +64,6 @@ final class ResetAction
      * @var UserManagerInterface
      */
     private $userManager;
-
-    /**
-     * @var LoginManagerInterface
-     */
-    private $loginManager;
 
     /**
      * @var TranslatorInterface
@@ -88,12 +78,7 @@ final class ResetAction
     /**
      * @var int
      */
-    private $resetTtl;
-
-    /**
-     * @var string
-     */
-    private $firewallName;
+    private $tokenTtl;
 
     public function __construct(
         Environment $twig,
@@ -101,13 +86,11 @@ final class ResetAction
         AuthorizationCheckerInterface $authorizationChecker,
         Pool $adminPool,
         TemplateRegistryInterface $templateRegistry,
-        FactoryInterface $formFactory,
+        FormFactoryInterface $formFactory,
         UserManagerInterface $userManager,
-        LoginManagerInterface $loginManager,
         TranslatorInterface $translator,
         SessionInterface $session,
-        int $resetTtl,
-        string $firewallName
+        int $tokenTtl
     ) {
         $this->twig = $twig;
         $this->urlGenerator = $urlGenerator;
@@ -116,12 +99,9 @@ final class ResetAction
         $this->templateRegistry = $templateRegistry;
         $this->formFactory = $formFactory;
         $this->userManager = $userManager;
-        $this->loginManager = $loginManager;
         $this->translator = $translator;
         $this->session = $session;
-        $this->resetTtl = $resetTtl;
-        $this->firewallName = $firewallName;
-        $this->logger = new NullLogger();
+        $this->tokenTtl = $tokenTtl;
     }
 
     public function __invoke(Request $request, $token): Response
@@ -136,11 +116,11 @@ final class ResetAction
             throw new NotFoundHttpException(sprintf('The user with "confirmation token" does not exist for value "%s"', $token));
         }
 
-        if (!$user->isPasswordRequestNonExpired($this->resetTtl)) {
+        if (!$user->isPasswordRequestNonExpired($this->tokenTtl)) {
             return new RedirectResponse($this->urlGenerator->generate('sonata_user_admin_resetting_request'));
         }
 
-        $form = $this->formFactory->createForm();
+        $form = $this->formFactory->create(ResettingFormType::class);
         $form->setData($user);
 
         $form->handleRequest($request);
@@ -150,24 +130,12 @@ final class ResetAction
             $user->setPasswordRequestedAt(null);
             $user->setEnabled(true);
 
-            $message = $this->translator->trans('resetting.flash.success', [], 'FOSUserBundle');
+            $message = $this->translator->trans('resetting.flash.success', [], 'SonataUserBundle');
             $this->session->getFlashBag()->add('success', $message);
 
             $response = new RedirectResponse($this->urlGenerator->generate('sonata_admin_dashboard'));
 
-            try {
-                $this->loginManager->logInUser($this->firewallName, $user, $response);
-                $user->setLastLogin(new \DateTime());
-            } catch (AccountStatusException $ex) {
-                // We simply do not authenticate users which do not pass the user
-                // checker (not enabled, expired, etc.).
-                $this->logger->warning(sprintf(
-                    'Unable to login user %d after password reset',
-                    $user->getId()
-                ), ['exception' => $ex]);
-            }
-
-            $this->userManager->updateUser($user);
+            $this->userManager->save($user);
 
             return $response;
         }

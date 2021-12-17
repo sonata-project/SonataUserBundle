@@ -13,15 +13,15 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Action;
 
-use FOS\UserBundle\Mailer\MailerInterface;
-use FOS\UserBundle\Model\User;
-use FOS\UserBundle\Model\UserManagerInterface;
-use FOS\UserBundle\Util\TokenGeneratorInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Action\SendEmailAction;
+use Sonata\UserBundle\Mailer\MailerInterface;
+use Sonata\UserBundle\Model\User;
+use Sonata\UserBundle\Model\UserManagerInterface;
+use Sonata\UserBundle\Util\TokenGeneratorInterface;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -218,6 +218,9 @@ class SendEmailActionTest extends TestCase
             ->willReturnCallback(static function () use (&$storedToken): ?string {
                 return $storedToken;
             });
+        $user
+            ->method('isEnabled')
+            ->willReturn(true);
 
         $this->userManager
             ->method('findUserByUsernameOrEmail')

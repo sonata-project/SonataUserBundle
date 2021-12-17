@@ -13,16 +13,12 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Document;
 
-use FOS\UserBundle\Doctrine\GroupManager as BaseGroupManager;
+use Sonata\Doctrine\Document\BaseDocumentManager;
 use Sonata\UserBundle\Model\GroupManagerInterface;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
  */
-class GroupManager extends BaseGroupManager implements GroupManagerInterface
+class GroupManager extends BaseDocumentManager implements GroupManagerInterface
 {
-    public function findGroupsBy(?array $criteria = null, ?array $orderBy = null, $limit = null, $offset = null)
-    {
-        return $this->repository->findBy($criteria, $orderBy, $limit, $offset);
-    }
 }

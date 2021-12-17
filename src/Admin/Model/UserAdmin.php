@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Admin\Model;
 
-use FOS\UserBundle\Model\UserManagerInterface;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -23,6 +22,7 @@ use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\Form\Type\DatePickerType;
 use Sonata\UserBundle\Form\Type\SecurityRolesType;
+use Sonata\UserBundle\Model\User;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -31,27 +31,6 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
 class UserAdmin extends AbstractAdmin
 {
-    /**
-     * @var UserManagerInterface
-     */
-    protected $userManager;
-
-    public function setUserManager(UserManagerInterface $userManager): void
-    {
-        $this->userManager = $userManager;
-    }
-
-    public function getUserManager(): UserManagerInterface
-    {
-        return $this->userManager;
-    }
-
-    protected function preUpdate(object $object): void
-    {
-        $this->getUserManager()->updateCanonicalFields($object);
-        $this->getUserManager()->updatePassword($object);
-    }
-
     protected function configureFormOptions(array &$formOptions): void
     {
         $formOptions['validation_groups'] = ['Default'];
@@ -140,7 +119,7 @@ class UserAdmin extends AbstractAdmin
         $now = new \DateTime();
 
         $genderOptions = [
-            'choices' => \call_user_func([$this->getUserManager()->getClass(), 'getGenderList']),
+            'choices' => User::getGenderList(),
             'required' => true,
             'translation_domain' => $this->getTranslationDomain(),
         ];

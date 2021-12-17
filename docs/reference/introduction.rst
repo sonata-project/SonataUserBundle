@@ -5,11 +5,9 @@
 Introduction
 ============
 
-Integrates the ``FOS/UserBundle`` in the Sonata Admin Project and adds some features:
+Integrates user and security management in the Sonata Admin Project and adds some features:
 
  - ``AdminBundle``: add user and group management
- - ``EasyExtends``: allows to generate Application level model
- - ``Features``: User profile dashboard, user profile menu, Google Authenticator support (optional), ...
 
 The roles to be assigned to users are splitted in 2 parts:
 

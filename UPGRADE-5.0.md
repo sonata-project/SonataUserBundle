@@ -1,6 +1,12 @@
 UPGRADE FROM 4.x to 5.0
 =======================
 
+## FOSUserBundle removal
+
+FOSUserBundle dependency was removed. Main features of that bundle were migrated
+inside SonataUserBundle. Make sure you run your migrations and remove FOSUserBundle
+from your code and dependencies, unless you need it for other purposes.
+
 ## Deprecations
 
 All the deprecated code introduced on 4.x is removed on 5.0.

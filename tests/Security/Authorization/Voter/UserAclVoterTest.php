@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\Security\Authorization\Voter;
 
 use PHPUnit\Framework\TestCase;
+use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Security\Authorization\Voter\UserAclVoter;
 use Symfony\Component\Security\Acl\Model\AclProviderInterface;
 use Symfony\Component\Security\Acl\Model\ObjectIdentityRetrievalStrategyInterface;
@@ -21,17 +22,17 @@ use Symfony\Component\Security\Acl\Model\SecurityIdentityRetrievalStrategyInterf
 use Symfony\Component\Security\Acl\Permission\PermissionMapInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\UserInterface as SonataUserInterface;
 
 class UserAclVoterTest extends TestCase
 {
     public function testVoteWillAbstainWhenAUserIsLoggedInAndASuperAdmin(): void
     {
         // Given
-        $user = $this->createMock(\FOS\UserBundle\Model\UserInterface::class);
+        $user = $this->createMock(UserInterface::class);
         $user->method('isSuperAdmin')->willReturn(true);
 
-        $loggedInUser = $this->createMock(\FOS\UserBundle\Model\UserInterface::class);
+        $loggedInUser = $this->createMock(UserInterface::class);
         $loggedInUser->method('isSuperAdmin')->willReturn(true);
 
         $token = $this->createMock(TokenInterface::class);
@@ -54,10 +55,10 @@ class UserAclVoterTest extends TestCase
     public function testVoteWillDenyAccessWhenAUserIsLoggedInAndNotASuperAdmin(): void
     {
         // Given
-        $user = $this->createMock(\FOS\UserBundle\Model\UserInterface::class);
+        $user = $this->createMock(UserInterface::class);
         $user->method('isSuperAdmin')->willReturn(true);
 
-        $loggedInUser = $this->createMock(\FOS\UserBundle\Model\UserInterface::class);
+        $loggedInUser = $this->createMock(UserInterface::class);
         $loggedInUser->method('isSuperAdmin')->willReturn(false);
 
         $token = $this->createMock(TokenInterface::class);
@@ -80,7 +81,7 @@ class UserAclVoterTest extends TestCase
     public function testVoteWillAbstainWhenAUserIsNotAvailable(): void
     {
         // Given
-        $user = $this->createMock(\FOS\UserBundle\Model\UserInterface::class);
+        $user = $this->createMock(UserInterface::class);
         $user->method('isSuperAdmin')->willReturn(true);
 
         $loggedInUser = null;
@@ -102,13 +103,13 @@ class UserAclVoterTest extends TestCase
         static::assertSame(VoterInterface::ACCESS_ABSTAIN, $decision, 'Should abstain from voting');
     }
 
-    public function testVoteWillAbstainWhenAUserIsLoggedInButIsNotAFOSUser(): void
+    public function testVoteWillAbstainWhenAUserIsLoggedInButIsNotASonataUser(): void
     {
         // Given
-        $user = $this->createMock(\FOS\UserBundle\Model\UserInterface::class);
+        $user = $this->createMock(UserInterface::class);
         $user->method('isSuperAdmin')->willReturn(true);
 
-        $loggedInUser = $this->createMock(UserInterface::class);
+        $loggedInUser = $this->createMock(SonataUserInterface::class);
 
         $token = $this->createMock(TokenInterface::class);
         $token->method('getUser')->willReturn($loggedInUser);

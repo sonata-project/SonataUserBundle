@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <doctrine-mongo-mapping xmlns="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping                         http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
     <mapped-superclass name="Sonata\UserBundle\Document\BaseUser">
+        <field name="username" type="string"/>
+        <field name="usernameCanonical" type="string"/>
+        <field name="email" type="string"/>
+        <field name="emailCanonical" type="string"/>
+        <field name="enabled" type="boolean"/>
+        <field name="salt" type="string"/>
+        <field name="password" type="string"/>
+        <field name="lastLogin" type="date"/>
+        <field name="confirmationToken" type="string"/>
+        <field name="passwordRequestedAt" type="date"/>
+        <field name="roles" type="collection"/>
         <field name="createdAt" type="date"/>
         <field name="updatedAt" type="date"/>
         <!-- Profile fields -->
@@ -27,5 +38,20 @@
             <lifecycle-callback type="prePersist" method="prePersist"/>
             <lifecycle-callback type="preUpdate" method="preUpdate"/>
         </lifecycle-callbacks>
+        <indexes>
+            <index>
+                <key name="usernameCanonical" order="asc"/>
+                <option name="unique" value="true"/>
+            </index>
+            <index>
+                <key name="emailCanonical" order="asc"/>
+                <option name="unique" value="true"/>
+            </index>
+            <index>
+                <key name="confirmationToken" order="asc"/>
+                <option name="sparse" value="true"/>
+                <option name="unique" value="true"/>
+            </index>
+        </indexes>
     </mapped-superclass>
 </doctrine-mongo-mapping>

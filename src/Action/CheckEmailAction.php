@@ -46,20 +46,20 @@ final class CheckEmailAction
     /**
      * @var int
      */
-    private $resetTtl;
+    private $tokenTtl;
 
     public function __construct(
         Environment $twig,
         UrlGeneratorInterface $urlGenerator,
         Pool $adminPool,
         TemplateRegistryInterface $templateRegistry,
-        int $resetTtl
+        int $tokenTtl
     ) {
         $this->twig = $twig;
         $this->urlGenerator = $urlGenerator;
         $this->adminPool = $adminPool;
         $this->templateRegistry = $templateRegistry;
-        $this->resetTtl = $resetTtl;
+        $this->tokenTtl = $tokenTtl;
     }
 
     public function __invoke(Request $request): Response
@@ -74,7 +74,7 @@ final class CheckEmailAction
         return new Response($this->twig->render('@SonataUser/Admin/Security/Resetting/checkEmail.html.twig', [
             'base_template' => $this->templateRegistry->getTemplate('layout'),
             'admin_pool' => $this->adminPool,
-            'tokenLifetime' => ceil($this->resetTtl / 3600),
+            'tokenLifetime' => ceil($this->tokenTtl / 3600),
         ]));
     }
 }

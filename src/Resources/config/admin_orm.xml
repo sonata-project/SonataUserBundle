@@ -9,11 +9,8 @@
         <service id="sonata.user.admin.user" class="%sonata.user.admin.user.class%" public="true">
             <tag name="sonata.admin" manager_type="orm" group="%sonata.user.admin.groupname%" label="users" label_catalogue="%sonata.user.admin.label_catalogue%" label_translator_strategy="sonata.admin.label.strategy.underscore" icon="%sonata.user.admin.groupicon%"/>
             <argument/>
-            <argument>%sonata.user.admin.user.entity%</argument>
+            <argument>%sonata.user.user.class%</argument>
             <argument>%sonata.user.admin.user.controller%</argument>
-            <call method="setUserManager">
-                <argument type="service" id="fos_user.user_manager"/>
-            </call>
             <call method="setTranslationDomain">
                 <argument>%sonata.user.admin.user.translation_domain%</argument>
             </call>
@@ -21,7 +18,7 @@
         <service id="sonata.user.admin.group" class="%sonata.user.admin.group.class%" public="true">
             <tag name="sonata.admin" manager_type="orm" group="%sonata.user.admin.groupname%" label="groups" label_catalogue="%sonata.user.admin.label_catalogue%" label_translator_strategy="sonata.admin.label.strategy.underscore"/>
             <argument/>
-            <argument>%sonata.user.admin.group.entity%</argument>
+            <argument>%sonata.user.group.class%</argument>
             <argument>%sonata.user.admin.group.controller%</argument>
             <call method="setTranslationDomain">
                 <argument>%sonata.user.admin.group.translation_domain%</argument>

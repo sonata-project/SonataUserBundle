@@ -62,8 +62,7 @@ final class UserAdminTest extends WebTestCase
         $user = new User();
         $user->setUsername('username');
         $user->setEmail('email@localhost');
-        $user->setEmailCanonical('email@localhost');
-        $user->setPassword('random_password');
+        $user->setPlainPassword('random_password');
         $user->setSuperAdmin(true);
         $user->setEnabled(true);
 

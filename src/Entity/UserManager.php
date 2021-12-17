@@ -13,71 +13,60 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Entity;
 
-use FOS\UserBundle\Doctrine\UserManager as BaseUserManager;
-use Sonata\Doctrine\Model\ManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
+use Sonata\Doctrine\Entity\BaseEntityManager;
 use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
+use Sonata\UserBundle\Util\CanonicalFieldsUpdaterInterface;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
  */
-class UserManager extends BaseUserManager implements UserManagerInterface, ManagerInterface
+class UserManager extends BaseEntityManager implements UserManagerInterface
 {
-    public function findUsersBy(?array $criteria = null, ?array $orderBy = null, $limit = null, $offset = null)
-    {
-        return $this->getRepository()->findBy($criteria, $orderBy, $limit, $offset);
+    /**
+     * @var CanonicalFieldsUpdaterInterface
+     */
+    private $canonicalFieldsUpdater;
+
+    public function __construct(
+        string $class,
+        ManagerRegistry $registry,
+        CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater
+    ) {
+        parent::__construct($class, $registry);
+
+        $this->canonicalFieldsUpdater = $canonicalFieldsUpdater;
     }
 
-    public function find($id)
+    public function findUserByUsername(string $username): ?UserInterface
     {
-        return $this->getRepository()->find($id);
+        return $this->findOneBy([
+            'usernameCanonical' => $this->canonicalFieldsUpdater->canonicalizeUsername($username),
+        ]);
     }
 
-    public function findAll()
+    public function findUserByEmail(string $email): ?UserInterface
     {
-        return $this->getRepository()->findAll();
+        return $this->findOneBy([
+            'emailCanonical' => $this->canonicalFieldsUpdater->canonicalizeEmail($email),
+        ]);
     }
 
-    public function findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null)
+    public function findUserByUsernameOrEmail(string $usernameOrEmail): ?UserInterface
     {
-        return $this->getRepository()->findBy($criteria, $orderBy, $limit, $offset);
-    }
-
-    public function findOneBy(array $criteria, ?array $orderBy = null)
-    {
-        return parent::findUserBy($criteria);
-    }
-
-    public function create()
-    {
-        return parent::createUser();
-    }
-
-    public function save($entity, $andFlush = true): void
-    {
-        if (!$entity instanceof UserInterface) {
-            throw new \InvalidArgumentException('Save method expected entity of type UserInterface');
+        if (preg_match('/^.+\@\S+\.\S+$/', $usernameOrEmail)) {
+            $user = $this->findUserByEmail($usernameOrEmail);
+            if (null !== $user) {
+                return $user;
+            }
         }
 
-        parent::updateUser($entity, $andFlush);
+        return $this->findUserByUsername($usernameOrEmail);
     }
 
-    public function delete($entity, $andFlush = true): void
+    public function findUserByConfirmationToken(string $token): ?UserInterface
     {
-        if (!$entity instanceof UserInterface) {
-            throw new \InvalidArgumentException('Save method expected entity of type UserInterface');
-        }
-
-        parent::deleteUser($entity);
-    }
-
-    public function getTableName()
-    {
-        return $this->objectManager->getClassMetadata($this->getClass())->table['name'];
-    }
-
-    public function getConnection()
-    {
-        return $this->objectManager->getConnection();
+        return $this->findOneBy(['confirmationToken' => $token]);
     }
 }

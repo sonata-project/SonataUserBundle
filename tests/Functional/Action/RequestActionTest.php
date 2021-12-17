@@ -79,8 +79,7 @@ class RequestActionTest extends WebTestCase
         $user = new User();
         $user->setUsername('username');
         $user->setEmail('email@localhost.com');
-        $user->setEmailCanonical('email@localhost.com');
-        $user->setPassword('random_password');
+        $user->setPlainPassword('random_password');
         $user->setSuperAdmin(true);
         $user->setEnabled(true);
 
