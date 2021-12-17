@@ -16,7 +16,6 @@ namespace Sonata\UserBundle\Action;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -63,7 +62,7 @@ final class RequestAction
         $this->templateRegistry = $templateRegistry;
     }
 
-    public function __invoke(Request $request): Response
+    public function __invoke(): Response
     {
         if ($this->authorizationChecker->isGranted('IS_AUTHENTICATED_FULLY')) {
             return new RedirectResponse($this->urlGenerator->generate('sonata_admin_dashboard'));

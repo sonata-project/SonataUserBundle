@@ -39,10 +39,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->set('sonata.user.action.send_email', SendEmailAction::class)
             ->public()
             ->args([
-                new ReferenceConfigurator('twig'),
                 new ReferenceConfigurator('router'),
-                new ReferenceConfigurator('sonata.admin.pool'),
-                new ReferenceConfigurator('sonata.admin.global_template_registry'),
                 new ReferenceConfigurator('sonata.user.manager.user'),
                 new ReferenceConfigurator('sonata.user.mailer'),
                 new ReferenceConfigurator('sonata.user.util.token_generator'),
@@ -78,13 +75,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ->args([
                 new ReferenceConfigurator('twig'),
                 new ReferenceConfigurator('router'),
-                new ReferenceConfigurator('security.authorization_checker'),
+                new ReferenceConfigurator('security.authentication_utils'),
                 new ReferenceConfigurator('sonata.admin.pool'),
                 new ReferenceConfigurator('sonata.admin.global_template_registry'),
                 new ReferenceConfigurator('security.token_storage'),
                 new ReferenceConfigurator('translator'),
+                (new ReferenceConfigurator('security.csrf.token_manager'))->nullOnInvalid(),
             ])
-            ->call('setCsrfTokenManager', [(new ReferenceConfigurator('security.csrf.token_manager'))->nullOnInvalid()])
 
         ->set('sonata.user.action.check_login', CheckLoginAction::class)
             ->public()

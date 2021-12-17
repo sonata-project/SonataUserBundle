@@ -15,19 +15,15 @@ namespace Sonata\UserBundle\Tests\Action;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Sonata\AdminBundle\Admin\Pool;
-use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Action\SendEmailAction;
 use Sonata\UserBundle\Mailer\MailerInterface;
 use Sonata\UserBundle\Model\User;
 use Sonata\UserBundle\Model\UserManagerInterface;
 use Sonata\UserBundle\Util\TokenGeneratorInterface;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Twig\Environment;
 
 class SendEmailActionTest extends TestCase
 {
@@ -35,16 +31,6 @@ class SendEmailActionTest extends TestCase
      * @var UrlGeneratorInterface|MockObject
      */
     protected $urlGenerator;
-
-    /**
-     * @var Pool
-     */
-    protected $pool;
-
-    /**
-     * @var TemplateRegistryInterface|MockObject
-     */
-    protected $templateRegistry;
 
     /**
      * @var UserManagerInterface|MockObject
@@ -81,17 +67,9 @@ class SendEmailActionTest extends TestCase
      */
     protected $container;
 
-    /**
-     * @var Environment|MockObject
-     */
-    protected $templating;
-
     protected function setUp(): void
     {
-        $this->templating = $this->createMock(Environment::class);
         $this->urlGenerator = $this->createMock(UrlGeneratorInterface::class);
-        $this->pool = new Pool(new Container());
-        $this->templateRegistry = $this->createMock(TemplateRegistryInterface::class);
         $this->userManager = $this->createMock(UserManagerInterface::class);
         $this->mailer = $this->createMock(MailerInterface::class);
         $this->tokenGenerator = $this->createMock(TokenGeneratorInterface::class);
@@ -104,12 +82,6 @@ class SendEmailActionTest extends TestCase
     public function testUnknownUsername(): void
     {
         $request = new Request([], ['username' => 'bar']);
-
-        $parameters = [
-            'base_template' => 'base.html.twig',
-            'admin_pool' => $this->pool,
-            'invalid_username' => 'bar',
-        ];
 
         $this->userManager
             ->method('findUserByUsernameOrEmail')
@@ -253,10 +225,7 @@ class SendEmailActionTest extends TestCase
     private function getAction(): SendEmailAction
     {
         return new SendEmailAction(
-            $this->templating,
             $this->urlGenerator,
-            $this->pool,
-            $this->templateRegistry,
             $this->userManager,
             $this->mailer,
             $this->tokenGenerator,
