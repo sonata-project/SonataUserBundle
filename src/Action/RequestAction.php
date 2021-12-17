@@ -22,6 +22,12 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Twig\Environment;
 
+/**
+ * NEXT_MAJOR: remove this class.
+ *
+ * @deprecated since version 4.x, to be removed in 5.0.
+ * Use Sonata\UserBundle\Action\Resetting\RequestAction and install `symfonycasts/reset-password-bundle` instead
+ */
 final class RequestAction
 {
     /**
