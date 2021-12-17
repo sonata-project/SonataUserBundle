@@ -23,9 +23,8 @@ use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\Security\Http\Authentication\AuthenticatorManager;
 
 /**
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
@@ -49,32 +48,26 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
 
         $bundles = $container->getParameter('kernel.bundles');
 
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
         if (isset($bundles['SonataAdminBundle'])) {
-            $loader->load('admin.xml');
-            $loader->load(sprintf('admin_%s.xml', $config['manager_type']));
+            $loader->load('admin.php');
+            $loader->load(sprintf('admin_%s.php', $config['manager_type']));
         }
 
-        $loader->load(sprintf('%s.xml', $config['manager_type']));
+        $loader->load(sprintf('%s.php', $config['manager_type']));
 
-        $loader->load('twig.xml');
-        $loader->load('actions.xml');
-        $loader->load('listener.xml');
-        $loader->load('mailer.xml');
-        $loader->load('form.xml');
-        $loader->load('security.xml');
-        $loader->load('util.xml');
-        $loader->load('validator.xml');
-
-        if (class_exists(AuthenticatorManager::class)) {
-            $loader->load('listener_sf5.xml');
-        } else {
-            $loader->load('listener_sf4.xml');
-        }
+        $loader->load('twig.php');
+        $loader->load('actions.php');
+        $loader->load('listener.php');
+        $loader->load('mailer.php');
+        $loader->load('form.php');
+        $loader->load('security.php');
+        $loader->load('util.php');
+        $loader->load('validator.php');
 
         if ($config['security_acl']) {
-            $loader->load('security_acl.xml');
+            $loader->load('security_acl.php');
         }
 
         $this->checkManagerTypeToModelTypesMapping($config);
