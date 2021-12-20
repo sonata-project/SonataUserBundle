@@ -29,13 +29,16 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimezoneType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
+/**
+ * @phpstan-extends AbstractAdmin<\Sonata\UserBundle\Model\UserInterface>
+ */
 class UserAdmin extends AbstractAdmin
 {
     protected function configureFormOptions(array &$formOptions): void
     {
         $formOptions['validation_groups'] = ['Default'];
 
-        if (!$this->getSubject() || null === $this->getSubject()->getId()) {
+        if (!$this->hasSubject() || null === $this->getSubject()->getId()) {
             $formOptions['validation_groups'][] = 'Registration';
         } else {
             $formOptions['validation_groups'][] = 'Profile';
@@ -130,7 +133,7 @@ class UserAdmin extends AbstractAdmin
                     ->add('username')
                     ->add('email')
                     ->add('plainPassword', TextType::class, [
-                        'required' => (!$this->getSubject() || null === $this->getSubject()->getId()),
+                        'required' => (!$this->hasSubject() || null === $this->getSubject()->getId()),
                     ])
                 ->end()
                 ->with('Profile')

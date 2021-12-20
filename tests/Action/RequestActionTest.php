@@ -20,7 +20,6 @@ use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
 use Sonata\UserBundle\Action\RequestAction;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Twig\Environment;
@@ -63,8 +62,6 @@ class RequestActionTest extends TestCase
 
     public function testAuthenticated(): void
     {
-        $request = new Request();
-
         $this->authorizationChecker->expects(static::once())
             ->method('isGranted')
             ->willReturn(true);
@@ -75,7 +72,7 @@ class RequestActionTest extends TestCase
             ->willReturn('/foo');
 
         $action = $this->getAction();
-        $result = $action($request);
+        $result = $action();
 
         static::assertInstanceOf(RedirectResponse::class, $result);
         static::assertSame('/foo', $result->getTargetUrl());
@@ -83,8 +80,6 @@ class RequestActionTest extends TestCase
 
     public function testUnauthenticated(): void
     {
-        $request = new Request();
-
         $parameters = [
             'base_template' => 'base.html.twig',
             'admin_pool' => $this->pool,
@@ -105,7 +100,7 @@ class RequestActionTest extends TestCase
             ->willReturn('base.html.twig');
 
         $action = $this->getAction();
-        $result = $action($request);
+        $result = $action();
 
         static::assertSame('template content', $result->getContent());
     }

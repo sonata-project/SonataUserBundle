@@ -19,6 +19,7 @@ use Sonata\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
@@ -91,7 +92,10 @@ final class LoginAction
     public function __invoke(Request $request): Response
     {
         if ($this->isAuthenticated()) {
-            $request->getSession()->getFlashBag()->add(
+            $session = $request->getSession();
+            \assert($session instanceof Session);
+
+            $session->getFlashBag()->add(
                 'sonata_user_error',
                 $this->translator->trans('sonata_user_already_authenticated', [], 'SonataUserBundle')
             );
@@ -118,7 +122,7 @@ final class LoginAction
     {
         $token = $this->tokenStorage->getToken();
 
-        if (!$token) {
+        if (null === $token) {
             return false;
         }
 

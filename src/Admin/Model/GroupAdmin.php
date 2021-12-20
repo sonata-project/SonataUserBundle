@@ -19,6 +19,9 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\UserBundle\Form\Type\SecurityRolesType;
 
+/**
+ * @phpstan-extends AbstractAdmin<\Sonata\UserBundle\Model\GroupInterface>
+ */
 class GroupAdmin extends AbstractAdmin
 {
     protected function createNewInstance(): object

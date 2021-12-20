@@ -18,6 +18,8 @@ use Sonata\UserBundle\Model\GroupManagerInterface;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
+ *
+ * @phpstan-extends BaseDocumentManager<\Sonata\UserBundle\Model\GroupInterface>
  */
 class GroupManager extends BaseDocumentManager implements GroupManagerInterface
 {

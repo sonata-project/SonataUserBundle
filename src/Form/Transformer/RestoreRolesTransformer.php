@@ -16,6 +16,9 @@ namespace Sonata\UserBundle\Form\Transformer;
 use Sonata\UserBundle\Security\EditableRolesBuilder;
 use Symfony\Component\Form\DataTransformerInterface;
 
+/**
+ * @phpstan-implements DataTransformerInterface<array, array>
+ */
 class RestoreRolesTransformer implements DataTransformerInterface
 {
     /**
@@ -35,11 +38,11 @@ class RestoreRolesTransformer implements DataTransformerInterface
 
     public function setOriginalRoles(?array $originalRoles = null): void
     {
-        $this->originalRoles = $originalRoles ?: [];
+        $this->originalRoles = $originalRoles ?? [];
     }
 
     /**
-     * @return mixed
+     * @return array|null
      */
     #[\ReturnTypeWillChange]
     public function transform($value)
@@ -56,7 +59,7 @@ class RestoreRolesTransformer implements DataTransformerInterface
     }
 
     /**
-     * @return mixed
+     * @return array|null
      */
     #[\ReturnTypeWillChange]
     public function reverseTransform($selectedRoles)

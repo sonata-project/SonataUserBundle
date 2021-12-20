@@ -21,6 +21,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -122,8 +123,13 @@ final class ResetAction
             $user->setPasswordRequestedAt(null);
             $user->setEnabled(true);
 
-            $message = $this->translator->trans('resetting.flash.success', [], 'SonataUserBundle');
-            $request->getSession()->getFlashBag()->add('success', $message);
+            $session = $request->getSession();
+            \assert($session instanceof Session);
+
+            $session->getFlashBag()->add(
+                'success',
+                $this->translator->trans('resetting.flash.success', [], 'SonataUserBundle')
+            );
 
             $response = new RedirectResponse($this->urlGenerator->generate('sonata_admin_dashboard'));
 

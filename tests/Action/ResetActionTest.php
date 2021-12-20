@@ -77,7 +77,7 @@ class ResetActionTest extends TestCase
     protected $translator;
 
     /**
-     * @var Session|MockObject
+     * @var Session
      */
     protected $session;
 

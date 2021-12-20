@@ -19,7 +19,7 @@ final class CanonicalFieldsUpdater implements CanonicalFieldsUpdaterInterface
 {
     public function updateCanonicalFields(UserInterface $user): void
     {
-        $user->setUsernameCanonical($this->canonicalizeUsername($user->getUsername()));
+        $user->setUsernameCanonical($this->canonicalizeUsername($user->getUserIdentifier()));
         $user->setEmailCanonical($this->canonicalizeEmail($user->getEmail()));
     }
 
@@ -41,7 +41,7 @@ final class CanonicalFieldsUpdater implements CanonicalFieldsUpdaterInterface
 
         $encoding = mb_detect_encoding($string, mb_detect_order(), true);
 
-        return null !== $encoding
+        return false !== $encoding
             ? mb_convert_case($string, \MB_CASE_LOWER, $encoding)
             : mb_convert_case($string, \MB_CASE_LOWER);
     }

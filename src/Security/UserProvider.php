@@ -67,9 +67,6 @@ class UserProvider implements UserProviderInterface
         return $reloadedUser;
     }
 
-    /**
-     * @phpstan-param class-string<UserInterface> $class
-     */
     public function supportsClass($class): bool
     {
         $userClass = $this->userManager->getClass();

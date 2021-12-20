@@ -73,6 +73,8 @@ class RequestActionTest extends WebTestCase
 
     private function prepareData(): void
     {
+        // TODO: Simplify this when dropping support for Symfony 4.
+        // @phpstan-ignore-next-line
         $container = method_exists(static::class, 'getContainer') ? static::getContainer() : static::$container;
         $manager = $container->get('doctrine.orm.entity_manager');
         \assert($manager instanceof EntityManagerInterface);
