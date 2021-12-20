@@ -32,9 +32,6 @@ use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
  */
 final class SonataUserExtensionTest extends AbstractExtensionTestCase
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -62,6 +59,9 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
     }
 
     /**
+     * @param mixed[] $expectedConfig
+     * @param mixed[] $providedConfig
+     *
      * @dataProvider fixImpersonatingDataProvider
      */
     public function testFixImpersonatingWithImpersonatingConfig(array $expectedConfig, array $providedConfig): void
@@ -71,7 +71,12 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
         static::assertSame($expectedConfig, $extension->fixImpersonating($providedConfig));
     }
 
-    public function fixImpersonatingDataProvider(): \Generator
+    /**
+     * @return iterable<mixed[]>
+     *
+     * @phpstan-return iterable<array{mixed[], mixed[]}>
+     */
+    public function fixImpersonatingDataProvider(): iterable
     {
         yield 'with impersonating with route' => [['impersonating' => ['route' => 'foo', 'parameters' => []]], ['impersonating' => ['route' => 'foo', 'parameters' => []]]];
         yield 'with impersonating without route' => [['impersonating' => false], ['impersonating' => ['parameters' => []]]];
@@ -226,7 +231,7 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     protected function getMinimalConfiguration(): array
     {
@@ -240,9 +245,6 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getContainerExtensions(): array
     {
         return [

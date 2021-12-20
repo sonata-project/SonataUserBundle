@@ -42,7 +42,7 @@ class EditableRolesBuilder
     protected $translator;
 
     /**
-     * @var array
+     * @var array<string, string[]>
      */
     protected $rolesHierarchy;
 
@@ -51,6 +51,9 @@ class EditableRolesBuilder
      */
     private $configuration;
 
+    /**
+     * @param array<string, string[]> $rolesHierarchy
+     */
     public function __construct(TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authorizationChecker, Pool $pool, SonataConfiguration $configuration, array $rolesHierarchy = [])
     {
         $this->tokenStorage = $tokenStorage;
@@ -69,12 +72,12 @@ class EditableRolesBuilder
     }
 
     /**
-     * @param string|bool|null $domain
-     * @param bool             $expanded
+     * @param string|null $domain
+     * @param bool        $expanded
      *
-     * @return array
+     * @return string[]
      */
-    public function getRoles($domain = false, $expanded = true)
+    public function getRoles($domain = null, $expanded = true)
     {
         if (null === $this->tokenStorage->getToken()) {
             return [];
@@ -113,11 +116,11 @@ class EditableRolesBuilder
     }
 
     /**
-     * @param string|bool|null $domain
+     * @param string|null $domain
      *
-     * @return array
+     * @return string[]
      */
-    public function getRolesReadOnly($domain = false)
+    public function getRolesReadOnly($domain = null)
     {
         if (null === $this->tokenStorage->getToken()) {
             return [];
@@ -161,9 +164,9 @@ class EditableRolesBuilder
         }
     }
 
-    /*
-     * @param string $role
-     * @param string|bool|null $domain
+    /**
+     * @param string      $role
+     * @param string|null $domain
      *
      * @return string
      */
@@ -171,7 +174,7 @@ class EditableRolesBuilder
     {
         // translation domain is false, do not translate it,
         // null is fallback to message domain
-        if (false === $domain || !isset($this->translator)) {
+        if (null === $domain || !isset($this->translator)) {
             return $role;
         }
 

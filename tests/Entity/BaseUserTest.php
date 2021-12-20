@@ -48,7 +48,7 @@ class BaseUserTest extends TestCase
 
         // Then
         static::assertInstanceOf(\DateTime::class, $user->getCreatedAt(), 'Should contain a DateTime object');
-        static::assertSame($today->format('Y-m-d'), $user->getUpdatedAt()->format('Y-m-d'), 'Should be created today');
+        static::assertSame($today->format('Y-m-d'), $user->getCreatedAt()->format('Y-m-d'), 'Should be created today');
 
         static::assertInstanceOf(\DateTime::class, $user->getUpdatedAt(), 'Should contain a DateTime object');
         static::assertSame($today->format('Y-m-d'), $user->getUpdatedAt()->format('Y-m-d'), 'Should be updated today');
@@ -57,8 +57,11 @@ class BaseUserTest extends TestCase
     public function testDateWithPreUpdate(): void
     {
         // Given
+        $date = \DateTime::createFromFormat('Y-m-d', '2012-01-01');
+        \assert(false !== $date);
+
         $user = new BaseUser();
-        $user->setCreatedAt(\DateTime::createFromFormat('Y-m-d', '2012-01-01'));
+        $user->setCreatedAt($date);
         $today = new \DateTime();
 
         // When

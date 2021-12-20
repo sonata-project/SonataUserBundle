@@ -34,7 +34,7 @@ interface UserInterface extends SymfonyUserInterface, EquatableInterface, BCPass
 
     public function getUsernameCanonical(): ?string;
 
-    public function setUsernameCanonical(string $usernameCanonical): void;
+    public function setUsernameCanonical(?string $usernameCanonical): void;
 
     public function setSalt(?string $salt): void;
 
@@ -123,7 +123,7 @@ interface UserInterface extends SymfonyUserInterface, EquatableInterface, BCPass
     /**
      * Sets the user groups.
      *
-     * @param array $groups
+     * @param GroupInterface[] $groups
      *
      * @return UserInterface
      */
@@ -351,11 +351,13 @@ interface UserInterface extends SymfonyUserInterface, EquatableInterface, BCPass
     public function getFullname();
 
     /**
-     * @return array
+     * @return string[]
      */
     public function getRealRoles();
 
     /**
+     * @param string[] $roles
+     *
      * @return UserInterface
      */
     public function setRealRoles(array $roles);

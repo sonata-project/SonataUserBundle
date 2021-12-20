@@ -57,7 +57,7 @@ class UserManager extends BaseEntityManager implements UserManagerInterface
 
     public function findUserByUsernameOrEmail(string $usernameOrEmail): ?UserInterface
     {
-        if (preg_match('/^.+\@\S+\.\S+$/', $usernameOrEmail)) {
+        if (1 === preg_match('/^.+\@\S+\.\S+$/', $usernameOrEmail)) {
             $user = $this->findUserByEmail($usernameOrEmail);
             if (null !== $user) {
                 return $user;

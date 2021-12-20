@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Security\RolesBuilder;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Admin\Pool;
@@ -28,18 +29,44 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 final class AdminRolesBuilderTest extends TestCase
 {
+    /**
+     * @var MockObject&SecurityHandlerInterface
+     */
     private $securityHandler;
+
+    /**
+     * @var MockObject&AuthorizationCheckerInterface
+     */
     private $authorizationChecker;
+
+    /**
+     * @var MockObject&AdminInterface<object>
+     */
     private $admin;
+
+    /**
+     * @var Pool
+     */
     private $pool;
+
+    /**
+     * @var SonataConfiguration
+     */
     private $configuration;
+
+    /**
+     * @var MockObject&TranslatorInterface
+     */
     private $translator;
 
+    /**
+     * @var array<string, string[]>
+     */
     private $securityInformation = [
-        'GUEST' => [0 => 'VIEW', 1 => 'LIST'],
-        'STAFF' => [0 => 'EDIT', 1 => 'LIST', 2 => 'CREATE'],
-        'EDITOR' => [0 => 'OPERATOR', 1 => 'EXPORT'],
-        'ADMIN' => [0 => 'MASTER'],
+        'GUEST' => ['VIEW', 'LIST'],
+        'STAFF' => ['EDIT', 'LIST', 'CREATE'],
+        'EDITOR' => ['OPERATOR', 'EXPORT'],
+        'ADMIN' => ['MASTER'],
     ];
 
     protected function setUp(): void
@@ -52,7 +79,32 @@ final class AdminRolesBuilderTest extends TestCase
         $container->set('sonata.admin.bar', $this->admin);
 
         $this->pool = new Pool($container, ['sonata.admin.bar']);
-        $this->configuration = new SonataConfiguration('title', 'logo', []);
+        $this->configuration = new SonataConfiguration('title', 'logo', [
+            'confirm_exit' => true,
+            'default_group' => 'group',
+            'default_icon' => 'icon',
+            'default_label_catalogue' => 'label_catalogue',
+            'dropdown_number_groups_per_colums' => 1,
+            'form_type' => 'type',
+            'html5_validate' => true,
+            'javascripts' => [],
+            'js_debug' => true,
+            'list_action_button_content' => 'text',
+            'lock_protection' => true,
+            'logo_content' => 'text',
+            'mosaic_background' => 'background',
+            'pager_links' => 1,
+            'role_admin' => 'ROLE_ADMIN',
+            'role_super_admin' => 'ROLE_SUPER_ADMIN',
+            'search' => true,
+            'skin' => 'blue',
+            'sort_admins' => true,
+            'stylesheets' => [],
+            'use_bootlint' => true,
+            'use_icheck' => true,
+            'use_select2' => true,
+            'use_stickyforms' => true,
+        ]);
         $this->translator = $this->createMock(TranslatorInterface::class);
     }
 

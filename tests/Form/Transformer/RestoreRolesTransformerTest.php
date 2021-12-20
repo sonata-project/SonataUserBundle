@@ -113,6 +113,7 @@ class RestoreRolesTransformerTest extends TestCase
         $revokedRole = array_shift($userRoles);
         $processedRoles = $transformer->reverseTransform($userRoles);
 
+        static::assertIsArray($processedRoles);
         static::assertNotContains($revokedRole, $processedRoles);
     }
 
@@ -137,6 +138,7 @@ class RestoreRolesTransformerTest extends TestCase
         unset($userRoles[array_search('ROLE_SUPER_ADMIN', $userRoles, true)]);
         $processedRoles = $transformer->reverseTransform($userRoles);
 
+        static::assertIsArray($processedRoles);
         static::assertContains('ROLE_SUPER_ADMIN', $processedRoles);
     }
 }

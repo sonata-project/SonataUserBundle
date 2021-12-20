@@ -34,6 +34,9 @@ class UserProvider implements UserProviderInterface
         $this->userManager = $userManager;
     }
 
+    /**
+     * @param string $username
+     */
     public function loadUserByUsername($username): SecurityUserInterface
     {
         return $this->loadUserByIdentifier($username);
@@ -67,6 +70,9 @@ class UserProvider implements UserProviderInterface
         return $reloadedUser;
     }
 
+    /**
+     * @param string $class
+     */
     public function supportsClass($class): bool
     {
         $userClass = $this->userManager->getClass();

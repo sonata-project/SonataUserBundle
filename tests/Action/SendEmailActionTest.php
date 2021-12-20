@@ -28,22 +28,22 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 class SendEmailActionTest extends TestCase
 {
     /**
-     * @var UrlGeneratorInterface|MockObject
+     * @var MockObject&UrlGeneratorInterface
      */
     protected $urlGenerator;
 
     /**
-     * @var UserManagerInterface|MockObject
+     * @var MockObject&UserManagerInterface
      */
     protected $userManager;
 
     /**
-     * @var MailerInterface|MockObject
+     * @var MockObject&MailerInterface
      */
     protected $mailer;
 
     /**
-     * @var TokenGeneratorInterface|MockObject
+     * @var MockObject&TokenGeneratorInterface
      */
     protected $tokenGenerator;
 
@@ -63,7 +63,7 @@ class SendEmailActionTest extends TestCase
     protected $template;
 
     /**
-     * @var ContainerBuilder|MockObject
+     * @var MockObject&ContainerBuilder
      */
     protected $container;
 

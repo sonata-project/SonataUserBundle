@@ -27,6 +27,41 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 class EditableRolesBuilderTest extends TestCase
 {
     /**
+     * @var SonataConfiguration
+     */
+    private $configuration;
+
+    protected function setUp(): void
+    {
+        $this->configuration = new SonataConfiguration('title', 'logo', [
+            'confirm_exit' => true,
+            'default_group' => 'group',
+            'default_icon' => 'icon',
+            'default_label_catalogue' => 'label_catalogue',
+            'dropdown_number_groups_per_colums' => 1,
+            'form_type' => 'type',
+            'html5_validate' => true,
+            'javascripts' => [],
+            'js_debug' => true,
+            'list_action_button_content' => 'text',
+            'lock_protection' => true,
+            'logo_content' => 'text',
+            'mosaic_background' => 'background',
+            'pager_links' => 1,
+            'role_admin' => 'ROLE_ADMIN',
+            'role_super_admin' => 'ROLE_SUPER_ADMIN',
+            'search' => true,
+            'skin' => 'blue',
+            'sort_admins' => true,
+            'stylesheets' => [],
+            'use_bootlint' => true,
+            'use_icheck' => true,
+            'use_select2' => true,
+            'use_stickyforms' => true,
+        ]);
+    }
+
+    /**
      * @group legacy
      */
     public function testRolesFromHierarchy(): void
@@ -40,11 +75,6 @@ class EditableRolesBuilderTest extends TestCase
         $authorizationChecker->method('isGranted')->willReturn(true);
 
         $pool = new Pool(new Container());
-
-        $configuration = new SonataConfiguration('title', 'logo', [
-            'role_admin' => 'ROLE_ADMIN',
-            'role_super_admin' => 'ROLE_SUPER_ADMIN',
-        ]);
 
         $rolesHierarchy = [
             'ROLE_ADMIN' => [
@@ -72,7 +102,7 @@ class EditableRolesBuilderTest extends TestCase
             'SONATA' => 'SONATA: ',
         ];
 
-        $builder = new EditableRolesBuilder($tokenStorage, $authorizationChecker, $pool, $configuration, $rolesHierarchy);
+        $builder = new EditableRolesBuilder($tokenStorage, $authorizationChecker, $pool, $this->configuration, $rolesHierarchy);
         $roles = $builder->getRoles();
         $rolesReadOnly = $builder->getRolesReadOnly();
 
@@ -103,12 +133,7 @@ class EditableRolesBuilderTest extends TestCase
 
         $pool = new Pool($container, ['myadmin']);
 
-        $configuration = new SonataConfiguration('title', 'logo', [
-            'role_admin' => 'ROLE_ADMIN',
-            'role_super_admin' => 'ROLE_SUPER_ADMIN',
-        ]);
-
-        $builder = new EditableRolesBuilder($tokenStorage, $authorizationChecker, $pool, $configuration, []);
+        $builder = new EditableRolesBuilder($tokenStorage, $authorizationChecker, $pool, $this->configuration, []);
 
         $expected = [
           'ROLE_FOO_GUEST' => 'ROLE_FOO_GUEST',
@@ -133,12 +158,7 @@ class EditableRolesBuilderTest extends TestCase
 
         $pool = new Pool(new Container());
 
-        $configuration = new SonataConfiguration('title', 'logo', [
-            'role_admin' => 'ROLE_ADMIN',
-            'role_super_admin' => 'ROLE_SUPER_ADMIN',
-        ]);
-
-        $builder = new EditableRolesBuilder($tokenStorage, $authorizationChecker, $pool, $configuration, []);
+        $builder = new EditableRolesBuilder($tokenStorage, $authorizationChecker, $pool, $this->configuration, []);
 
         $roles = $builder->getRoles();
         $rolesReadOnly = $builder->getRolesReadOnly();

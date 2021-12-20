@@ -47,6 +47,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         $config = $this->fixImpersonating($config);
 
         $bundles = $container->getParameter('kernel.bundles');
+        \assert(\is_array($bundles));
 
         $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
@@ -66,7 +67,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         $loader->load('util.php');
         $loader->load('validator.php');
 
-        if ($config['security_acl']) {
+        if (true === $config['security_acl']) {
             $loader->load('security_acl.php');
         }
 
@@ -93,9 +94,11 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     }
 
     /**
+     * @param array<string, mixed> $config
+     *
      * @throws \RuntimeException
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function fixImpersonating(array $config)
     {
@@ -122,7 +125,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     }
 
     /**
-     * @param array $config
+     * @param array<string, mixed> $config
      */
     public function configureClass($config, ContainerBuilder $container): void
     {
@@ -131,7 +134,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     }
 
     /**
-     * @param array $config
+     * @param array<string, mixed> $config
      */
     public function configureAdminClass($config, ContainerBuilder $container): void
     {
@@ -140,7 +143,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     }
 
     /**
-     * @param array $config
+     * @param array<string, mixed> $config
      */
     public function configureTranslationDomain($config, ContainerBuilder $container): void
     {
@@ -149,7 +152,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     }
 
     /**
-     * @param array $config
+     * @param array<string, mixed> $config
      */
     public function configureController($config, ContainerBuilder $container): void
     {
@@ -170,6 +173,9 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         $container->setParameter('sonata.user.resetting.email.template', $config['resetting']['email']['template']);
     }
 
+    /**
+     * @param array<string, mixed> $config
+     */
     private function checkManagerTypeToModelTypesMapping(array $config): void
     {
         $managerType = $config['manager_type'];
@@ -210,11 +216,17 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         }
     }
 
+    /**
+     * @param array<string, mixed> $config
+     */
     private function configureMailer(array $config, ContainerBuilder $container): void
     {
         $container->setAlias('sonata.user.mailer', $config['mailer']);
     }
 
+    /**
+     * @param array<string, mixed> $config
+     */
     private function registerSonataDoctrineMapping(array $config): void
     {
         foreach ($config['class'] as $type => $class) {

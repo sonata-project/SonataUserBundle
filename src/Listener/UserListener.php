@@ -15,7 +15,9 @@ namespace Sonata\UserBundle\Listener;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Doctrine\ODM\MongoDB\Mapping\ClassMetadata as ODMClassMetadata;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\ClassMetadata as ORMClassMetadata;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Doctrine\Persistence\ObjectManager;
 use Sonata\UserBundle\Model\UserInterface;
@@ -107,8 +109,12 @@ final class UserListener implements EventSubscriber
         $meta = $om->getClassMetadata(\get_class($user));
 
         if ($om instanceof EntityManager) {
+            \assert($meta instanceof ORMClassMetadata);
+
             $om->getUnitOfWork()->recomputeSingleEntityChangeSet($meta, $user);
         } elseif ($om instanceof DocumentManager) {
+            \assert($meta instanceof ODMClassMetadata);
+
             $om->getUnitOfWork()->recomputeSingleDocumentChangeSet($meta, $user);
         }
     }

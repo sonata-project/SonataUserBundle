@@ -19,6 +19,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @author Silas Joisten <silasjoisten@hotmail.de>
+ *
+ * @phpstan-import-type Role from RolesBuilderInterface
  */
 final class SecurityRolesBuilder implements ExpandableRolesBuilderInterface
 {
@@ -38,10 +40,13 @@ final class SecurityRolesBuilder implements ExpandableRolesBuilderInterface
     private $translator;
 
     /**
-     * @var string []
+     * @var array<string, string[]>
      */
     private $rolesHierarchy;
 
+    /**
+     * @param array<string, string[]> $rolesHierarchy
+     */
     public function __construct(
         AuthorizationCheckerInterface $authorizationChecker,
         SonataConfiguration $configuration,
@@ -57,7 +62,9 @@ final class SecurityRolesBuilder implements ExpandableRolesBuilderInterface
     public function getExpandedRoles(?string $domain = null): array
     {
         $securityRoles = [];
-        foreach ($hierarchy = $this->getHierarchy() as $role => $childRoles) {
+        $hierarchy = $this->getHierarchy();
+
+        foreach ($hierarchy as $role => $childRoles) {
             $translatedRoles = array_map(
                 [$this, 'translateRole'],
                 $childRoles,
@@ -83,7 +90,9 @@ final class SecurityRolesBuilder implements ExpandableRolesBuilderInterface
     public function getRoles(?string $domain = null): array
     {
         $securityRoles = [];
-        foreach ($hierarchy = $this->getHierarchy() as $role => $childRoles) {
+        $hierarchy = $this->getHierarchy();
+
+        foreach ($hierarchy as $role => $childRoles) {
             $securityRoles[$role] = $this->getSecurityRole($role, $domain);
             $securityRoles = array_merge(
                 $securityRoles,
@@ -94,14 +103,28 @@ final class SecurityRolesBuilder implements ExpandableRolesBuilderInterface
         return $securityRoles;
     }
 
+    /**
+     * @return array<string, string[]>
+     */
     private function getHierarchy(): array
     {
+        $roleSuperAdmin = $this->configuration->getOption('role_super_admin');
+        \assert(\is_string($roleSuperAdmin));
+
+        $roleAdmin = $this->configuration->getOption('role_admin');
+        \assert(\is_string($roleAdmin));
+
         return array_merge([
-            $this->configuration->getOption('role_super_admin') => [],
-            $this->configuration->getOption('role_admin') => [],
+            $roleSuperAdmin => [],
+            $roleAdmin => [],
         ], $this->rolesHierarchy);
     }
 
+    /**
+     * @return array<string, string|bool>
+     *
+     * @phpstan-return Role
+     */
     private function getSecurityRole(string $role, ?string $domain): array
     {
         return [
@@ -111,6 +134,14 @@ final class SecurityRolesBuilder implements ExpandableRolesBuilderInterface
         ];
     }
 
+    /**
+     * @param string[][] $hierarchy
+     * @param string[]   $roles
+     *
+     * @return array<string, array<string, string|bool>>
+     *
+     * @phpstan-return Role[]
+     */
     private function getSecurityRoles(array $hierarchy, array $roles, ?string $domain): array
     {
         $securityRoles = [];
@@ -124,15 +155,23 @@ final class SecurityRolesBuilder implements ExpandableRolesBuilderInterface
         return $securityRoles;
     }
 
+    /**
+     * @param string|null $domain
+     */
     private function translateRole(string $role, $domain): string
     {
-        if ($domain) {
+        if (null !== $domain) {
             return $this->translator->trans($role, [], $domain);
         }
 
         return $role;
     }
 
+    /**
+     * @param array<string, array<string, string|bool>>|array<string, string|bool> $roles
+     *
+     * @phpstan-param Role[]|Role $roles
+     */
     private function recursiveArraySearch(string $role, array $roles): bool
     {
         foreach ($roles as $key => $value) {

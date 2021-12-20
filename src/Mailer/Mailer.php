@@ -37,7 +37,7 @@ final class Mailer implements MailerInterface
     private $mailer;
 
     /**
-     * @var array
+     * @var array<string, string>
      */
     private $fromEmail;
 
@@ -46,8 +46,16 @@ final class Mailer implements MailerInterface
      */
     private $emailTemplate;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator, Environment $twig, SymfonyMailerInterface $mailer, array $fromEmail, string $emailTemplate)
-    {
+    /**
+     * @param array<string, string> $fromEmail
+     */
+    public function __construct(
+        UrlGeneratorInterface $urlGenerator,
+        Environment $twig,
+        SymfonyMailerInterface $mailer,
+        array $fromEmail,
+        string $emailTemplate
+    ) {
         $this->urlGenerator = $urlGenerator;
         $this->twig = $twig;
         $this->mailer = $mailer;
@@ -68,6 +76,8 @@ final class Mailer implements MailerInterface
 
         // Render the email, use the first line as the subject, and the rest as the body
         $renderedLines = preg_split('/\R/', trim($rendered), 2, \PREG_SPLIT_NO_EMPTY);
+        \assert(false !== $renderedLines && [] !== $renderedLines);
+
         $subject = array_shift($renderedLines);
         $body = implode('', $renderedLines);
         $fromName = current($this->fromEmail);
