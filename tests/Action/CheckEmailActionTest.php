@@ -27,12 +27,12 @@ use Twig\Environment;
 class CheckEmailActionTest extends TestCase
 {
     /**
-     * @var Environment|MockObject
+     * @var MockObject&Environment
      */
     protected $templating;
 
     /**
-     * @var UrlGeneratorInterface|MockObject
+     * @var MockObject&UrlGeneratorInterface
      */
     protected $urlGenerator;
 
@@ -42,7 +42,7 @@ class CheckEmailActionTest extends TestCase
     protected $pool;
 
     /**
-     * @var TemplateRegistryInterface|MockObject
+     * @var MockObject&TemplateRegistryInterface
      */
     protected $templateRegistry;
 

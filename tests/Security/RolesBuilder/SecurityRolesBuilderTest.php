@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Security\RolesBuilder;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\AdminBundle\SonataConfiguration;
 use Sonata\UserBundle\Security\RolesBuilder\SecurityRolesBuilder;
@@ -24,17 +25,54 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 final class SecurityRolesBuilderTest extends TestCase
 {
+    /**
+     * @var MockObject&AuthorizationCheckerInterface
+     */
     private $authorizationChecker;
+
+    /**
+     * @var SonataConfiguration
+     */
     private $configuration;
+
+    /**
+     * @var MockObject&TranslatorInterface
+     */
     private $translator;
+
+    /**
+     * @var array<string, string[]>
+     */
     private $rolesHierarchy = ['ROLE_FOO' => ['ROLE_BAR', 'ROLE_ADMIN']];
 
     protected function setUp(): void
     {
         $this->authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
         $this->configuration = new SonataConfiguration('title', 'logo', [
+            'confirm_exit' => true,
+            'default_group' => 'group',
+            'default_icon' => 'icon',
+            'default_label_catalogue' => 'label_catalogue',
+            'dropdown_number_groups_per_colums' => 1,
+            'form_type' => 'type',
+            'html5_validate' => true,
+            'javascripts' => [],
+            'js_debug' => true,
+            'list_action_button_content' => 'text',
+            'lock_protection' => true,
+            'logo_content' => 'text',
+            'mosaic_background' => 'background',
+            'pager_links' => 1,
             'role_admin' => 'ROLE_SONATA_ADMIN',
             'role_super_admin' => 'ROLE_SUPER_ADMIN',
+            'search' => true,
+            'skin' => 'blue',
+            'sort_admins' => true,
+            'stylesheets' => [],
+            'use_bootlint' => true,
+            'use_icheck' => true,
+            'use_select2' => true,
+            'use_stickyforms' => true,
         ]);
         $this->translator = $this->createMock(TranslatorInterface::class);
     }

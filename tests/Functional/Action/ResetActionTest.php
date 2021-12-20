@@ -62,6 +62,9 @@ class ResetActionTest extends WebTestCase
         return AppKernel::class;
     }
 
+    /**
+     * @psalm-suppress UndefinedPropertyFetch
+     */
     private function prepareData(): User
     {
         // TODO: Simplify this when dropping support for Symfony 4.
@@ -85,6 +88,9 @@ class ResetActionTest extends WebTestCase
         return $user;
     }
 
+    /**
+     * @psalm-suppress UndefinedPropertyFetch
+     */
     private function refreshUser(User $user): User
     {
         // TODO: Simplify this when dropping support for Symfony 4.
@@ -93,6 +99,9 @@ class ResetActionTest extends WebTestCase
         $manager = $container->get('doctrine.orm.entity_manager');
         \assert($manager instanceof EntityManagerInterface);
 
-        return $manager->find(User::class, $user->getId());
+        $user = $manager->find(User::class, $user->getId());
+        \assert(null !== $user);
+
+        return $user;
     }
 }

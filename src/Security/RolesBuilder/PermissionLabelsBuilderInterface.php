@@ -19,7 +19,7 @@ namespace Sonata\UserBundle\Security\RolesBuilder;
 interface PermissionLabelsBuilderInterface
 {
     /**
-     * @return string[]
+     * @return array<string, string>
      */
     public function getPermissionLabels(): array;
 }

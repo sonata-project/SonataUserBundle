@@ -37,12 +37,12 @@ use Twig\Environment;
 class LoginActionTest extends TestCase
 {
     /**
-     * @var Environment|MockObject
+     * @var MockObject&Environment
      */
     protected $templating;
 
     /**
-     * @var UrlGeneratorInterface|MockObject
+     * @var MockObject&UrlGeneratorInterface
      */
     protected $urlGenerator;
 
@@ -57,27 +57,27 @@ class LoginActionTest extends TestCase
     protected $pool;
 
     /**
-     * @var TemplateRegistryInterface|MockObject
+     * @var MockObject&TemplateRegistryInterface
      */
     protected $templateRegistry;
 
     /**
-     * @var TokenStorageInterface|MockObject
+     * @var MockObject&TokenStorageInterface
      */
     protected $tokenStorage;
 
     /**
-     * @var Session|MockObject
+     * @var MockObject&Session
      */
     protected $session;
 
     /**
-     * @var CsrfTokenManagerInterface|MockObject
+     * @var MockObject&CsrfTokenManagerInterface
      */
     protected $csrfTokenManager;
 
     /**
-     * @var TranslatorInterface|MockObject
+     * @var MockObject&TranslatorInterface
      */
     private $translator;
 
@@ -206,7 +206,12 @@ class LoginActionTest extends TestCase
         static::assertSame('template content', $result->getContent());
     }
 
-    public function unauthenticatedProvider(): array
+    /**
+     * @return iterable<mixed[]>
+     *
+     * @phpstan-return iterable<array{string, AuthenticationException|null}>
+     */
+    public function unauthenticatedProvider(): iterable
     {
         $error = new AuthenticationException('An error');
 

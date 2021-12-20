@@ -27,17 +27,17 @@ use Twig\Environment;
 class RequestActionTest extends TestCase
 {
     /**
-     * @var Environment|MockObject
+     * @var MockObject&Environment
      */
     protected $templating;
 
     /**
-     * @var UrlGeneratorInterface|MockObject
+     * @var MockObject&UrlGeneratorInterface
      */
     protected $urlGenerator;
 
     /**
-     * @var AuthorizationCheckerInterface|MockObject
+     * @var MockObject&AuthorizationCheckerInterface
      */
     protected $authorizationChecker;
 
@@ -47,7 +47,7 @@ class RequestActionTest extends TestCase
     protected $pool;
 
     /**
-     * @var TemplateRegistryInterface|MockObject
+     * @var MockObject&TemplateRegistryInterface
      */
     protected $templateRegistry;
 

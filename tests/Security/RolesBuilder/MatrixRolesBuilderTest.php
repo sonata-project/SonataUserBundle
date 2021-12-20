@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Security\RolesBuilder;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Security\RolesBuilder\AdminRolesBuilderInterface;
 use Sonata\UserBundle\Security\RolesBuilder\ExpandableRolesBuilderInterface;
@@ -25,9 +26,24 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
  */
 final class MatrixRolesBuilderTest extends TestCase
 {
+    /**
+     * @var MockObject&TokenStorageInterface
+     */
     private $tokenStorage;
+
+    /**
+     * @var MockObject&TokenInterface
+     */
     private $token;
+
+    /**
+     * @var MockObject&AdminRolesBuilderInterface
+     */
     private $adminRolesBuilder;
+
+    /**
+     * @var MockObject&ExpandableRolesBuilderInterface
+     */
     private $securityRolesBuilder;
 
     protected function setUp(): void

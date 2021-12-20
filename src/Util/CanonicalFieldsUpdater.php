@@ -39,7 +39,10 @@ final class CanonicalFieldsUpdater implements CanonicalFieldsUpdaterInterface
             return null;
         }
 
-        $encoding = mb_detect_encoding($string, mb_detect_order(), true);
+        $detectedOrder = mb_detect_order();
+        \assert(\is_array($detectedOrder));
+
+        $encoding = mb_detect_encoding($string, $detectedOrder, true);
 
         return false !== $encoding
             ? mb_convert_case($string, \MB_CASE_LOWER, $encoding)

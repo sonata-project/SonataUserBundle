@@ -13,9 +13,11 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Form\Type;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use Sonata\UserBundle\Form\Type\RolesMatrixType;
 use Sonata\UserBundle\Security\RolesBuilder\ExpandableRolesBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\FormExtensionInterface;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -25,6 +27,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class RolesMatrixTypeTest extends TypeTestCase
 {
+    /**
+     * @var MockObject&ExpandableRolesBuilderInterface
+     */
     private $roleBuilder;
 
     public function testGetDefaultOptions(): void
@@ -74,6 +79,9 @@ final class RolesMatrixTypeTest extends TypeTestCase
         static::assertSame([], $form->getData());
     }
 
+    /**
+     * @return FormExtensionInterface[]
+     */
     protected function getExtensions(): array
     {
         $this->roleBuilder = $this->createMock(ExpandableRolesBuilderInterface::class);

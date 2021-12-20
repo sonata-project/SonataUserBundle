@@ -207,6 +207,9 @@ abstract class User implements UserInterface
         return $this->getUsername();
     }
 
+    /**
+     * @return mixed[]
+     */
     public function __serialize(): array
     {
         return [
@@ -221,6 +224,9 @@ abstract class User implements UserInterface
         ];
     }
 
+    /**
+     * @param mixed[] $data
+     */
     public function __unserialize(array $data): void
     {
         [
@@ -444,11 +450,17 @@ abstract class User implements UserInterface
         }
     }
 
+    /**
+     * @return Collection<int, GroupInterface>
+     */
     public function getGroups(): Collection
     {
         return $this->groups;
     }
 
+    /**
+     * @return string[]
+     */
     public function getGroupNames(): array
     {
         $names = [];
@@ -768,7 +780,7 @@ abstract class User implements UserInterface
     /**
      * Returns the gender list.
      *
-     * @return array
+     * @return array<string, string>
      */
     public static function getGenderList()
     {

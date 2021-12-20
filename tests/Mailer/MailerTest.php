@@ -25,22 +25,22 @@ use Twig\Environment;
 class MailerTest extends TestCase
 {
     /**
-     * @var RouterInterface|MockObject
+     * @var MockObject&RouterInterface
      */
     private $router;
 
     /**
-     * @var Environment|MockObject
+     * @var MockObject&Environment
      */
     private $templating;
 
     /**
-     * @var SymfonyMailerInterface|MockObject
+     * @var MockObject&SymfonyMailerInterface
      */
     private $mailer;
 
     /**
-     * @var array
+     * @var array<string, string>
      */
     private $emailFrom;
 
@@ -109,7 +109,12 @@ class MailerTest extends TestCase
         $this->getMailer()->sendResettingEmailMessage($user);
     }
 
-    public function emailTemplateData(): array
+    /**
+     * @return iterable<string[]>
+     *
+     * @phpstan-return iterable<array{string, string, string}>
+     */
+    public function emailTemplateData(): iterable
     {
         return [
             'CR' => ["Subject\rFirst line\rSecond line", 'Subject', "First line\rSecond line"],

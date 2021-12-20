@@ -73,6 +73,9 @@ final class AdminRolesBuilder implements AdminRolesBuilderInterface
         return $permissionLabels;
     }
 
+    /**
+     * @return string[]
+     */
     public function getExcludeAdmins(): array
     {
         return $this->excludeAdmins;
@@ -109,15 +112,21 @@ final class AdminRolesBuilder implements AdminRolesBuilderInterface
         return $adminRoles;
     }
 
+    /**
+     * @param AdminInterface<object> $admin
+     */
     private function isMaster(AdminInterface $admin): bool
     {
         return $admin->isGranted('MASTER') || $admin->isGranted('OPERATOR')
             || $this->authorizationChecker->isGranted($this->configuration->getOption('role_super_admin'));
     }
 
+    /**
+     * @param string|null $domain
+     */
     private function translateRole(string $role, $domain): string
     {
-        if ($domain) {
+        if (null !== $domain) {
             return $this->translator->trans($role, [], $domain);
         }
 

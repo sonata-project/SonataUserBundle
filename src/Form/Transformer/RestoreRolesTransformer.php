@@ -17,38 +17,41 @@ use Sonata\UserBundle\Security\EditableRolesBuilder;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**
- * @phpstan-implements DataTransformerInterface<array, array>
+ * @phpstan-implements DataTransformerInterface<string[], string[]>
  */
 class RestoreRolesTransformer implements DataTransformerInterface
 {
     /**
-     * @var array|null
+     * @var EditableRolesBuilder
      */
-    protected $originalRoles = null;
+    protected $rolesBuilder;
 
     /**
-     * @var EditableRolesBuilder|null
+     * @var string[]|null
      */
-    protected $rolesBuilder = null;
+    protected $originalRoles = null;
 
     public function __construct(EditableRolesBuilder $rolesBuilder)
     {
         $this->rolesBuilder = $rolesBuilder;
     }
 
+    /**
+     * @param string[]|null $originalRoles
+     */
     public function setOriginalRoles(?array $originalRoles = null): void
     {
         $this->originalRoles = $originalRoles ?? [];
     }
 
     /**
-     * @return array|null
+     * @return string[]|null
      */
     #[\ReturnTypeWillChange]
     public function transform($value)
     {
         if (null === $value) {
-            return $value;
+            return null;
         }
 
         if (null === $this->originalRoles) {
@@ -59,7 +62,7 @@ class RestoreRolesTransformer implements DataTransformerInterface
     }
 
     /**
-     * @return array|null
+     * @return string[]|null
      */
     #[\ReturnTypeWillChange]
     public function reverseTransform($selectedRoles)
@@ -72,6 +75,6 @@ class RestoreRolesTransformer implements DataTransformerInterface
 
         $hiddenRoles = array_diff($this->originalRoles, array_keys($availableRoles));
 
-        return array_merge($selectedRoles, $hiddenRoles);
+        return array_merge($selectedRoles ?? [], $hiddenRoles);
     }
 }

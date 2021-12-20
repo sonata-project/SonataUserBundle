@@ -37,17 +37,17 @@ use Twig\Environment;
 class ResetActionTest extends TestCase
 {
     /**
-     * @var Environment|MockObject
+     * @var MockObject&Environment
      */
     protected $templating;
 
     /**
-     * @var UrlGeneratorInterface|MockObject
+     * @var MockObject&UrlGeneratorInterface
      */
     protected $urlGenerator;
 
     /**
-     * @var AuthorizationCheckerInterface|MockObject
+     * @var MockObject&AuthorizationCheckerInterface
      */
     protected $authorizationChecker;
 
@@ -57,22 +57,22 @@ class ResetActionTest extends TestCase
     protected $pool;
 
     /**
-     * @var TemplateRegistryInterface|MockObject
+     * @var MockObject&TemplateRegistryInterface
      */
     protected $templateRegistry;
 
     /**
-     * @var FormFactoryInterface|MockObject
+     * @var MockObject&FormFactoryInterface
      */
     protected $formFactory;
 
     /**
-     * @var UserManagerInterface|MockObject
+     * @var MockObject&UserManagerInterface
      */
     protected $userManager;
 
     /**
-     * @var TranslatorInterface|MockObject
+     * @var MockObject&TranslatorInterface
      */
     protected $translator;
 

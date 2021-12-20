@@ -13,9 +13,11 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Form\Type;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use Sonata\UserBundle\Form\Type\SecurityRolesType;
 use Sonata\UserBundle\Security\EditableRolesBuilder;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\FormExtensionInterface;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -25,6 +27,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class SecurityRolesTypeTest extends TypeTestCase
 {
+    /**
+     * @var MockObject&EditableRolesBuilder
+     */
     protected $roleBuilder;
 
     public function testGetDefaultOptions(): void
@@ -93,6 +98,9 @@ class SecurityRolesTypeTest extends TypeTestCase
         static::assertContains('ROLE_SUPER_ADMIN', $form->getData());
     }
 
+    /**
+     * @return FormExtensionInterface[]
+     */
     protected function getExtensions(): array
     {
         $this->roleBuilder = $this->createMock(EditableRolesBuilder::class);

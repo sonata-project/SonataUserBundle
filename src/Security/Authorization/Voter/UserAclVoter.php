@@ -25,11 +25,19 @@ class UserAclVoter extends AclVoter
         return is_subclass_of($class, UserInterface::class);
     }
 
+    /**
+     * @param mixed $attribute
+     *
+     * @return bool
+     */
     public function supportsAttribute($attribute)
     {
         return 'EDIT' === $attribute || 'DELETE' === $attribute;
     }
 
+    /**
+     * @param mixed[] $attributes
+     */
     public function vote(TokenInterface $token, $subject, array $attributes): int
     {
         if (!\is_object($subject) || !$this->supportsClass(\get_class($subject))) {
@@ -37,8 +45,10 @@ class UserAclVoter extends AclVoter
         }
 
         foreach ($attributes as $attribute) {
-            if ($this->supportsAttribute($attribute) && $subject instanceof UserInterface && $token->getUser() instanceof UserInterface) {
-                if ($subject->isSuperAdmin() && !$token->getUser()->isSuperAdmin()) {
+            $tokenUser = $token->getUser();
+
+            if ($this->supportsAttribute($attribute) && $subject instanceof UserInterface && $tokenUser instanceof UserInterface) {
+                if ($subject->isSuperAdmin() && !$tokenUser->isSuperAdmin()) {
                     // deny a non super admin user to edit or delete a super admin user
                     return self::ACCESS_DENIED;
                 }

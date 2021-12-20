@@ -21,6 +21,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class GlobalVariables
 {
+    /**
+     * @var ContainerInterface
+     */
     protected $container;
 
     /**
@@ -36,7 +39,10 @@ class GlobalVariables
      */
     public function getImpersonating()
     {
-        return $this->container->getParameter('sonata.user.impersonating');
+        $impersonating = $this->container->getParameter('sonata.user.impersonating');
+        \assert(\is_string($impersonating));
+
+        return $impersonating;
     }
 
     /**
@@ -44,14 +50,20 @@ class GlobalVariables
      */
     public function getDefaultAvatar()
     {
-        return $this->container->getParameter('sonata.user.default_avatar');
+        $defaultAvatar = $this->container->getParameter('sonata.user.default_avatar');
+        \assert(\is_string($defaultAvatar));
+
+        return $defaultAvatar;
     }
 
     /**
-     * @return AdminInterface
+     * @return AdminInterface<\Sonata\UserBundle\Model\UserInterface>
      */
     public function getUserAdmin()
     {
-        return $this->container->get('sonata.user.admin.user');
+        $userAdmin = $this->container->get('sonata.user.admin.user');
+        \assert($userAdmin instanceof AdminInterface);
+
+        return $userAdmin;
     }
 }

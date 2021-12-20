@@ -97,6 +97,9 @@ final class ResetAction
         $this->tokenTtl = $tokenTtl;
     }
 
+    /**
+     * @param string $token
+     */
     public function __invoke(Request $request, $token): Response
     {
         if ($this->authorizationChecker->isGranted('IS_AUTHENTICATED_FULLY')) {
