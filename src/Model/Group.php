@@ -16,7 +16,7 @@ namespace Sonata\UserBundle\Model;
 abstract class Group implements GroupInterface
 {
     /**
-     * @var mixed
+     * @var int|string|null
      */
     protected $id;
 

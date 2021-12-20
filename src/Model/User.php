@@ -23,7 +23,7 @@ use Symfony\Component\Security\Core\User\UserInterface as SymfonyUserInterface;
 abstract class User implements UserInterface
 {
     /**
-     * @var mixed
+     * @var int|string|null
      */
     protected $id;
 

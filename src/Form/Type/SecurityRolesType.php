@@ -65,7 +65,7 @@ class SecurityRolesType extends AbstractType
     {
         $attr = $view->vars['attr'];
 
-        if (isset($attr['class']) && empty($attr['class'])) {
+        if (isset($attr['class']) && '' === $attr['class']) {
             $attr['class'] = 'sonata-medium';
         }
 
@@ -82,7 +82,7 @@ class SecurityRolesType extends AbstractType
             'expanded' => true,
 
             'choices' => function (Options $options, $parentChoices) {
-                if (!empty($parentChoices)) {
+                if (null !== $parentChoices && [] !== $parentChoices) {
                     return [];
                 }
                 $roles = $this->rolesBuilder->getRoles($options['choice_translation_domain'], $options['expanded']);
@@ -91,7 +91,7 @@ class SecurityRolesType extends AbstractType
             },
 
             'read_only_choices' => function (Options $options) {
-                if (!empty($options['choices'])) {
+                if ([] !== $options['choices']) {
                     return [];
                 }
 

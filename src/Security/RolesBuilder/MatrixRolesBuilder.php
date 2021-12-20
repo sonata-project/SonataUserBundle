@@ -47,7 +47,7 @@ final class MatrixRolesBuilder implements MatrixRolesBuilderInterface
 
     public function getRoles(?string $domain = null): array
     {
-        if (!$this->tokenStorage->getToken()) {
+        if (null === $this->tokenStorage->getToken()) {
             return [];
         }
 
@@ -59,7 +59,7 @@ final class MatrixRolesBuilder implements MatrixRolesBuilderInterface
 
     public function getExpandedRoles(?string $domain = null): array
     {
-        if (!$this->tokenStorage->getToken()) {
+        if (null === $this->tokenStorage->getToken()) {
             return [];
         }
 

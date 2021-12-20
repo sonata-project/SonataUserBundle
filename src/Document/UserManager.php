@@ -21,6 +21,8 @@ use Sonata\UserBundle\Util\CanonicalFieldsUpdaterInterface;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
+ *
+ * @phpstan-extends BaseDocumentManager<UserInterface>
  */
 class UserManager extends BaseDocumentManager implements UserManagerInterface
 {

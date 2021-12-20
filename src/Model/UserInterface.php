@@ -26,7 +26,7 @@ interface UserInterface extends SymfonyUserInterface, EquatableInterface, BCPass
     public const GENDER_UNKNOWN = 'u';
 
     /**
-     * @return mixed
+     * @return int|string|null
      */
     public function getId();
 

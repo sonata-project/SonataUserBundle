@@ -66,7 +66,7 @@ final class CheckEmailAction
     {
         $username = $request->query->get('username');
 
-        if (empty($username)) {
+        if (null === $username) {
             // the user does not come from the sendEmail action
             return new RedirectResponse($this->urlGenerator->generate('sonata_user_admin_resetting_request'));
         }

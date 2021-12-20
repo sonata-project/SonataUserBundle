@@ -37,7 +37,7 @@ class EditableRolesBuilder
     protected $pool;
 
     /**
-     * @var TranslatorInterface
+     * @var TranslatorInterface|null
      */
     protected $translator;
 
@@ -76,11 +76,11 @@ class EditableRolesBuilder
      */
     public function getRoles($domain = false, $expanded = true)
     {
-        $roles = [];
-
-        if (!$this->tokenStorage->getToken()) {
-            return $roles;
+        if (null === $this->tokenStorage->getToken()) {
+            return [];
         }
+
+        $roles = [];
 
         $this->iterateAdminRoles(function ($role, $isMaster) use ($domain, &$roles): void {
             if ($isMaster) {
@@ -119,11 +119,11 @@ class EditableRolesBuilder
      */
     public function getRolesReadOnly($domain = false)
     {
-        $rolesReadOnly = [];
-
-        if (!$this->tokenStorage->getToken()) {
-            return $rolesReadOnly;
+        if (null === $this->tokenStorage->getToken()) {
+            return [];
         }
+
+        $rolesReadOnly = [];
 
         $this->iterateAdminRoles(function ($role, $isMaster) use ($domain, &$rolesReadOnly): void {
             if (!$isMaster && $this->authorizationChecker->isGranted($role)) {
