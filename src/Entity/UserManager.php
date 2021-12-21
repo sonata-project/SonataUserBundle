@@ -26,10 +26,7 @@ use Sonata\UserBundle\Util\CanonicalFieldsUpdaterInterface;
  */
 class UserManager extends BaseEntityManager implements UserManagerInterface
 {
-    /**
-     * @var CanonicalFieldsUpdaterInterface
-     */
-    private $canonicalFieldsUpdater;
+    private CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater;
 
     public function __construct(
         string $class,

@@ -29,45 +29,21 @@ use Twig\Environment;
 
 final class LoginAction
 {
-    /**
-     * @var Environment
-     */
-    private $twig;
+    private Environment $twig;
 
-    /**
-     * @var UrlGeneratorInterface
-     */
-    private $urlGenerator;
+    private UrlGeneratorInterface $urlGenerator;
 
-    /**
-     * @var AuthenticationUtils
-     */
-    private $authenticationUtils;
+    private AuthenticationUtils $authenticationUtils;
 
-    /**
-     * @var Pool
-     */
-    private $adminPool;
+    private Pool $adminPool;
 
-    /**
-     * @var TemplateRegistryInterface
-     */
-    private $templateRegistry;
+    private TemplateRegistryInterface $templateRegistry;
 
-    /**
-     * @var TokenStorageInterface
-     */
-    private $tokenStorage;
+    private TokenStorageInterface $tokenStorage;
 
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
+    private TranslatorInterface $translator;
 
-    /**
-     * @var CsrfTokenManagerInterface|null
-     */
-    private $csrfTokenManager;
+    private ?CsrfTokenManagerInterface $csrfTokenManager;
 
     public function __construct(
         Environment $twig,

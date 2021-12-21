@@ -30,50 +30,23 @@ use Twig\Environment;
 
 final class ResetAction
 {
-    /**
-     * @var Environment
-     */
-    private $twig;
+    private Environment $twig;
 
-    /**
-     * @var UrlGeneratorInterface
-     */
-    private $urlGenerator;
+    private UrlGeneratorInterface $urlGenerator;
 
-    /**
-     * @var AuthorizationCheckerInterface
-     */
-    private $authorizationChecker;
+    private AuthorizationCheckerInterface $authorizationChecker;
 
-    /**
-     * @var Pool
-     */
-    private $adminPool;
+    private Pool $adminPool;
 
-    /**
-     * @var TemplateRegistryInterface
-     */
-    private $templateRegistry;
+    private TemplateRegistryInterface $templateRegistry;
 
-    /**
-     * @var FormFactoryInterface
-     */
-    private $formFactory;
+    private FormFactoryInterface $formFactory;
 
-    /**
-     * @var UserManagerInterface
-     */
-    private $userManager;
+    private UserManagerInterface $userManager;
 
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
+    private TranslatorInterface $translator;
 
-    /**
-     * @var int
-     */
-    private $tokenTtl;
+    private int $tokenTtl;
 
     public function __construct(
         Environment $twig,
@@ -97,10 +70,7 @@ final class ResetAction
         $this->tokenTtl = $tokenTtl;
     }
 
-    /**
-     * @param string $token
-     */
-    public function __invoke(Request $request, $token): Response
+    public function __invoke(Request $request, string $token): Response
     {
         if ($this->authorizationChecker->isGranted('IS_AUTHENTICATED_FULLY')) {
             return new RedirectResponse($this->urlGenerator->generate('sonata_admin_dashboard'));

@@ -27,27 +27,24 @@ class MailerTest extends TestCase
     /**
      * @var MockObject&RouterInterface
      */
-    private $router;
+    private MockObject $router;
 
     /**
      * @var MockObject&Environment
      */
-    private $templating;
+    private MockObject $templating;
 
     /**
      * @var MockObject&SymfonyMailerInterface
      */
-    private $mailer;
+    private MockObject $mailer;
 
     /**
      * @var array<string, string>
      */
-    private $emailFrom;
+    private array $emailFrom;
 
-    /**
-     * @var string
-     */
-    private $template;
+    private string $template;
 
     protected function setUp(): void
     {

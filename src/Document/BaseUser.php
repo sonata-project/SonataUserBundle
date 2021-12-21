@@ -14,9 +14,8 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Document;
 
 use Sonata\UserBundle\Model\User as AbstractedUser;
-use Sonata\UserBundle\Model\UserInterface;
 
-class BaseUser extends AbstractedUser implements UserInterface
+class BaseUser extends AbstractedUser
 {
     public function prePersist(): void
     {

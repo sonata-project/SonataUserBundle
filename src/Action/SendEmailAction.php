@@ -23,30 +23,15 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class SendEmailAction
 {
-    /**
-     * @var UrlGeneratorInterface
-     */
-    private $urlGenerator;
+    private UrlGeneratorInterface $urlGenerator;
 
-    /**
-     * @var UserManagerInterface
-     */
-    private $userManager;
+    private UserManagerInterface $userManager;
 
-    /**
-     * @var MailerInterface
-     */
-    private $mailer;
+    private MailerInterface $mailer;
 
-    /**
-     * @var TokenGeneratorInterface
-     */
-    private $tokenGenerator;
+    private TokenGeneratorInterface $tokenGenerator;
 
-    /**
-     * @var int
-     */
-    private $retryTtl;
+    private int $retryTtl;
 
     public function __construct(
         UrlGeneratorInterface $urlGenerator,

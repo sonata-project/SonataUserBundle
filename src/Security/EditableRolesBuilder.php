@@ -21,35 +21,20 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class EditableRolesBuilder
 {
-    /**
-     * @var TokenStorageInterface
-     */
-    protected $tokenStorage;
+    private TokenStorageInterface $tokenStorage;
+
+    private AuthorizationCheckerInterface $authorizationChecker;
+
+    private Pool $pool;
+
+    private SonataConfiguration $configuration;
 
     /**
-     * @var AuthorizationCheckerInterface
+     * @var array<string, array<string>>
      */
-    protected $authorizationChecker;
+    private array $rolesHierarchy;
 
-    /**
-     * @var Pool
-     */
-    protected $pool;
-
-    /**
-     * @var TranslatorInterface|null
-     */
-    protected $translator;
-
-    /**
-     * @var array<string, string[]>
-     */
-    protected $rolesHierarchy;
-
-    /**
-     * @var SonataConfiguration
-     */
-    private $configuration;
+    private ?TranslatorInterface $translator = null;
 
     /**
      * @param array<string, array<string>> $rolesHierarchy
@@ -63,21 +48,15 @@ class EditableRolesBuilder
         $this->rolesHierarchy = $rolesHierarchy;
     }
 
-    /*
-     * @param TranslatorInterface $translator
-     */
     public function setTranslator(TranslatorInterface $translator): void
     {
         $this->translator = $translator;
     }
 
     /**
-     * @param string|null $domain
-     * @param bool        $expanded
-     *
      * @return string[]
      */
-    public function getRoles($domain = null, $expanded = true)
+    public function getRoles(?string $domain = null, bool $expanded = true): array
     {
         if (null === $this->tokenStorage->getToken()) {
             return [];
@@ -116,11 +95,9 @@ class EditableRolesBuilder
     }
 
     /**
-     * @param string|null $domain
-     *
      * @return string[]
      */
-    public function getRolesReadOnly($domain = null)
+    public function getRolesReadOnly(?string $domain = null): array
     {
         if (null === $this->tokenStorage->getToken()) {
             return [];
@@ -164,13 +141,7 @@ class EditableRolesBuilder
         }
     }
 
-    /**
-     * @param string      $role
-     * @param string|null $domain
-     *
-     * @return string
-     */
-    private function translateRole($role, $domain)
+    private function translateRole(string $role, ?string $domain): string
     {
         // translation domain is false, do not translate it,
         // null is fallback to message domain

@@ -39,47 +39,44 @@ class LoginActionTest extends TestCase
     /**
      * @var MockObject&Environment
      */
-    protected $templating;
+    protected MockObject $templating;
 
     /**
      * @var MockObject&UrlGeneratorInterface
      */
-    protected $urlGenerator;
+    protected MockObject $urlGenerator;
 
     /**
      * @var MockObject&AuthenticationUtils
      */
-    protected $authenticationUtils;
+    protected MockObject $authenticationUtils;
 
-    /**
-     * @var Pool
-     */
-    protected $pool;
+    protected Pool $pool;
 
     /**
      * @var MockObject&TemplateRegistryInterface
      */
-    protected $templateRegistry;
+    protected MockObject $templateRegistry;
 
     /**
      * @var MockObject&TokenStorageInterface
      */
-    protected $tokenStorage;
+    protected MockObject $tokenStorage;
 
     /**
      * @var MockObject&Session
      */
-    protected $session;
+    protected MockObject $session;
 
     /**
      * @var MockObject&CsrfTokenManagerInterface
      */
-    protected $csrfTokenManager;
+    protected MockObject $csrfTokenManager;
 
     /**
      * @var MockObject&TranslatorInterface
      */
-    private $translator;
+    private MockObject $translator;
 
     protected function setUp(): void
     {

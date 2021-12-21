@@ -20,7 +20,7 @@
     ],
     "homepage": "https://docs.sonata-project.org/projects/SonataUserBundle",
     "require": {
-        "php": "^7.3 || ^8.0",
+        "php": "^7.4 || ^8.0",
         "doctrine/common": "^3.1",
         "doctrine/persistence": "^2.1",
         "sonata-project/admin-bundle": "^4.0",

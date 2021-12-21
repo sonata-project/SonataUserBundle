@@ -23,13 +23,15 @@ use Sonata\UserBundle\Entity\BaseGroup;
 class Group extends BaseGroup
 {
     /**
+     * @var int|null
+     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     protected $id;
 
-    public function setId(int $id): void
+    public function setId(?int $id): void
     {
         $this->id = $id;
     }

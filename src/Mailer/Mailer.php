@@ -21,30 +21,18 @@ use Twig\Environment;
 
 final class Mailer implements MailerInterface
 {
-    /**
-     * @var UrlGeneratorInterface
-     */
-    private $urlGenerator;
+    private UrlGeneratorInterface $urlGenerator;
 
-    /**
-     * @var Environment
-     */
-    private $twig;
+    private Environment $twig;
 
-    /**
-     * @var SymfonyMailerInterface
-     */
-    private $mailer;
+    private SymfonyMailerInterface $mailer;
 
     /**
      * @var array<string, string>
      */
-    private $fromEmail;
+    private array $fromEmail;
 
-    /**
-     * @var string
-     */
-    private $emailTemplate;
+    private string $emailTemplate;
 
     /**
      * @param array<string, string> $fromEmail

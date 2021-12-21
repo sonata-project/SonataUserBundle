@@ -32,37 +32,31 @@ final class AdminRolesBuilderTest extends TestCase
     /**
      * @var MockObject&SecurityHandlerInterface
      */
-    private $securityHandler;
+    private MockObject $securityHandler;
 
     /**
      * @var MockObject&AuthorizationCheckerInterface
      */
-    private $authorizationChecker;
+    private MockObject $authorizationChecker;
 
     /**
      * @var MockObject&AdminInterface<object>
      */
-    private $admin;
+    private MockObject $admin;
 
-    /**
-     * @var Pool
-     */
-    private $pool;
+    private Pool $pool;
 
-    /**
-     * @var SonataConfiguration
-     */
-    private $configuration;
+    private SonataConfiguration $configuration;
 
     /**
      * @var MockObject&TranslatorInterface
      */
-    private $translator;
+    private MockObject $translator;
 
     /**
      * @var array<string, string[]>
      */
-    private $securityInformation = [
+    private array $securityInformation = [
         'GUEST' => ['VIEW', 'LIST'],
         'STAFF' => ['EDIT', 'LIST', 'CREATE'],
         'EDITOR' => ['OPERATOR', 'EXPORT'],

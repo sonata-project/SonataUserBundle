@@ -29,22 +29,22 @@ final class MatrixRolesBuilderTest extends TestCase
     /**
      * @var MockObject&TokenStorageInterface
      */
-    private $tokenStorage;
+    private MockObject $tokenStorage;
 
     /**
      * @var MockObject&TokenInterface
      */
-    private $token;
+    private MockObject $token;
 
     /**
      * @var MockObject&AdminRolesBuilderInterface
      */
-    private $adminRolesBuilder;
+    private MockObject $adminRolesBuilder;
 
     /**
      * @var MockObject&ExpandableRolesBuilderInterface
      */
-    private $securityRolesBuilder;
+    private MockObject $securityRolesBuilder;
 
     protected function setUp(): void
     {

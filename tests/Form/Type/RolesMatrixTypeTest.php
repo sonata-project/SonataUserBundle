@@ -30,7 +30,7 @@ final class RolesMatrixTypeTest extends TypeTestCase
     /**
      * @var MockObject&ExpandableRolesBuilderInterface
      */
-    private $roleBuilder;
+    private MockObject $roleBuilder;
 
     public function testGetDefaultOptions(): void
     {

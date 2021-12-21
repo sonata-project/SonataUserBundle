@@ -20,15 +20,12 @@ abstract class Group implements GroupInterface
      */
     protected $id;
 
-    /**
-     * @var string
-     */
-    protected $name;
+    protected string $name;
 
     /**
      * @var string[]
      */
-    protected $roles;
+    protected array $roles;
 
     /**
      * @param string[] $roles

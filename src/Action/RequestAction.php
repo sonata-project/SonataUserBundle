@@ -23,30 +23,15 @@ use Twig\Environment;
 
 final class RequestAction
 {
-    /**
-     * @var Environment
-     */
-    private $twig;
+    private Environment $twig;
 
-    /**
-     * @var UrlGeneratorInterface
-     */
-    private $urlGenerator;
+    private UrlGeneratorInterface $urlGenerator;
 
-    /**
-     * @var AuthorizationCheckerInterface
-     */
-    private $authorizationChecker;
+    private AuthorizationCheckerInterface $authorizationChecker;
 
-    /**
-     * @var Pool
-     */
-    private $adminPool;
+    private Pool $adminPool;
 
-    /**
-     * @var TemplateRegistryInterface
-     */
-    private $templateRegistry;
+    private TemplateRegistryInterface $templateRegistry;
 
     public function __construct(
         Environment $twig,
