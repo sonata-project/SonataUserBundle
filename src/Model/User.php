@@ -24,90 +24,48 @@ abstract class User implements UserInterface
      */
     protected $id;
 
-    /**
-     * @var string|null
-     */
-    protected $username;
+    protected ?string $username = null;
 
-    /**
-     * @var string|null
-     */
-    protected $usernameCanonical;
+    protected ?string $usernameCanonical = null;
 
-    /**
-     * @var string|null
-     */
-    protected $email;
+    protected ?string $email = null;
 
-    /**
-     * @var string|null
-     */
-    protected $emailCanonical;
+    protected ?string $emailCanonical = null;
 
-    /**
-     * @var bool
-     */
-    protected $enabled = false;
+    protected bool $enabled = false;
 
-    /**
-     * @var string|null
-     */
-    protected $salt;
+    protected ?string $salt = null;
 
-    /**
-     * @var string|null
-     */
-    protected $password;
+    protected ?string $password = null;
 
-    /**
-     * @var string|null
-     */
-    protected $plainPassword;
+    protected ?string $plainPassword = null;
 
-    /**
-     * @var \DateTimeInterface|null
-     */
-    protected $lastLogin;
+    protected ?\DateTimeInterface $lastLogin = null;
 
-    /**
-     * @var string|null
-     */
-    protected $confirmationToken;
+    protected ?string $confirmationToken = null;
 
-    /**
-     * @var \DateTimeInterface|null
-     */
-    protected $passwordRequestedAt;
+    protected ?\DateTimeInterface $passwordRequestedAt = null;
 
     /**
      * @var Collection<int, GroupInterface>
      */
-    protected $groups;
+    protected Collection $groups;
 
     /**
      * @var string[]
      */
-    protected $roles = [];
+    protected array $roles = [];
 
-    /**
-     * @var \DateTime|null
-     */
-    protected $createdAt;
+    protected ?\DateTimeInterface $createdAt = null;
 
-    /**
-     * @var \DateTime|null
-     */
-    protected $updatedAt;
+    protected ?\DateTimeInterface $updatedAt = null;
 
     public function __construct()
     {
         $this->groups = new ArrayCollection();
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getUsername();
     }
@@ -416,48 +374,40 @@ abstract class User implements UserInterface
         return true;
     }
 
-    public function setCreatedAt(?\DateTime $createdAt = null)
+    public function setCreatedAt(?\DateTimeInterface $createdAt = null): void
     {
         $this->createdAt = $createdAt;
-
-        return $this;
     }
 
-    public function getCreatedAt()
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setUpdatedAt(?\DateTime $updatedAt = null)
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt = null): void
     {
         $this->updatedAt = $updatedAt;
-
-        return $this;
     }
 
-    public function getUpdatedAt()
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setGroups($groups)
+    public function setGroups(iterable $groups): void
     {
         foreach ($groups as $group) {
             $this->addGroup($group);
         }
-
-        return $this;
     }
 
-    public function getRealRoles()
+    public function getRealRoles(): array
     {
         return $this->roles;
     }
 
-    public function setRealRoles(array $roles)
+    public function setRealRoles(array $roles): void
     {
         $this->setRoles($roles);
-
-        return $this;
     }
 }

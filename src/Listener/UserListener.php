@@ -30,15 +30,12 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 final class UserListener implements EventSubscriber
 {
-    /**
-     * @var CanonicalFieldsUpdaterInterface
-     */
-    private $canonicalFieldsUpdater;
+    private CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater;
 
     /**
      * @var UserPasswordEncoderInterface|UserPasswordHasherInterface
      */
-    private $userPasswordHasher;
+    private object $userPasswordHasher;
 
     /**
      * TODO: Simplify this once support for Symfony 4.4 is dropped.

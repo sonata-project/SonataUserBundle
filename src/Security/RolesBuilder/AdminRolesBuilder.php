@@ -24,30 +24,18 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 final class AdminRolesBuilder implements AdminRolesBuilderInterface
 {
-    /**
-     * @var AuthorizationCheckerInterface
-     */
-    private $authorizationChecker;
+    private AuthorizationCheckerInterface $authorizationChecker;
 
-    /**
-     * @var Pool
-     */
-    private $pool;
+    private Pool $pool;
 
-    /**
-     * @var SonataConfiguration
-     */
-    private $configuration;
+    private SonataConfiguration $configuration;
 
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * @var string[]
      */
-    private $excludeAdmins = [];
+    private array $excludeAdmins = [];
 
     public function __construct(
         AuthorizationCheckerInterface $authorizationChecker,
@@ -121,10 +109,7 @@ final class AdminRolesBuilder implements AdminRolesBuilderInterface
             || $this->authorizationChecker->isGranted($this->configuration->getOption('role_super_admin'));
     }
 
-    /**
-     * @param string|null $domain
-     */
-    private function translateRole(string $role, $domain): string
+    private function translateRole(string $role, ?string $domain): string
     {
         if (null !== $domain) {
             return $this->translator->trans($role, [], $domain);

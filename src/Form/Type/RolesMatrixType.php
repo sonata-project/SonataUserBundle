@@ -24,10 +24,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class RolesMatrixType extends AbstractType
 {
-    /**
-     * @var ExpandableRolesBuilderInterface
-     */
-    private $rolesBuilder;
+    private ExpandableRolesBuilderInterface $rolesBuilder;
 
     public function __construct(ExpandableRolesBuilderInterface $rolesBuilder)
     {

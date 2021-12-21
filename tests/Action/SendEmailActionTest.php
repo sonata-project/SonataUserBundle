@@ -30,42 +30,33 @@ class SendEmailActionTest extends TestCase
     /**
      * @var MockObject&UrlGeneratorInterface
      */
-    protected $urlGenerator;
+    protected MockObject $urlGenerator;
 
     /**
      * @var MockObject&UserManagerInterface
      */
-    protected $userManager;
+    protected MockObject $userManager;
 
     /**
      * @var MockObject&MailerInterface
      */
-    protected $mailer;
+    protected MockObject $mailer;
 
     /**
      * @var MockObject&TokenGeneratorInterface
      */
-    protected $tokenGenerator;
+    protected MockObject $tokenGenerator;
 
-    /**
-     * @var int
-     */
-    protected $resetTtl;
+    protected int $resetTtl;
 
-    /**
-     * @var string
-     */
-    protected $fromEmail;
+    protected string $fromEmail;
 
-    /**
-     * @var string
-     */
-    protected $template;
+    protected string $template;
 
     /**
      * @var MockObject&ContainerBuilder
      */
-    protected $container;
+    protected MockObject $container;
 
     protected function setUp(): void
     {

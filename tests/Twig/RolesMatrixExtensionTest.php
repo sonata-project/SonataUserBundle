@@ -28,17 +28,17 @@ final class RolesMatrixExtensionTest extends TestCase
     /**
      * @var MockObject&MatrixRolesBuilderInterface
      */
-    private $rolesBuilder;
+    private MockObject $rolesBuilder;
 
     /**
      * @var MockObject&Environment
      */
-    private $environment;
+    private MockObject $environment;
 
     /**
      * @var MockObject&FormView
      */
-    private $formView;
+    private MockObject $formView;
 
     protected function setUp(): void
     {

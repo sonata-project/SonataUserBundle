@@ -44,7 +44,7 @@ interface UserInterface extends SymfonyUserInterface, EquatableInterface, BCPass
 
     public function getPlainPassword(): ?string;
 
-    public function setPlainPassword(string $password): void;
+    public function setPlainPassword(?string $password): void;
 
     public function setPassword(?string $password): void;
 
@@ -88,42 +88,23 @@ interface UserInterface extends SymfonyUserInterface, EquatableInterface, BCPass
 
     public function isEnabled(): bool;
 
-    /**
-     * @return UserInterface
-     */
-    public function setCreatedAt(?\DateTime $createdAt = null);
+    public function setCreatedAt(?\DateTimeInterface $createdAt = null): void;
 
-    /**
-     * @return \DateTime|null
-     */
-    public function getCreatedAt();
+    public function getCreatedAt(): ?\DateTimeInterface;
 
-    /**
-     * @return UserInterface
-     */
-    public function setUpdatedAt(?\DateTime $updatedAt = null);
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt = null): void;
 
-    /**
-     * @return \DateTime|null
-     */
-    public function getUpdatedAt();
+    public function getUpdatedAt(): ?\DateTimeInterface;
 
-    /**
-     * @param GroupInterface[] $groups
-     *
-     * @return UserInterface
-     */
-    public function setGroups($groups);
+    public function setGroups(iterable $groups): void;
 
     /**
      * @return string[]
      */
-    public function getRealRoles();
+    public function getRealRoles(): array;
 
     /**
      * @param string[] $roles
-     *
-     * @return UserInterface
      */
-    public function setRealRoles(array $roles);
+    public function setRealRoles(array $roles): void;
 }

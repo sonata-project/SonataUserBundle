@@ -29,27 +29,24 @@ class RequestActionTest extends TestCase
     /**
      * @var MockObject&Environment
      */
-    protected $templating;
+    protected MockObject $templating;
 
     /**
      * @var MockObject&UrlGeneratorInterface
      */
-    protected $urlGenerator;
+    protected MockObject $urlGenerator;
 
     /**
      * @var MockObject&AuthorizationCheckerInterface
      */
-    protected $authorizationChecker;
+    protected MockObject $authorizationChecker;
 
-    /**
-     * @var Pool
-     */
-    protected $pool;
+    protected Pool $pool;
 
     /**
      * @var MockObject&TemplateRegistryInterface
      */
-    protected $templateRegistry;
+    protected MockObject $templateRegistry;
 
     protected function setUp(): void
     {

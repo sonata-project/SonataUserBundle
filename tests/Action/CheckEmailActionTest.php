@@ -29,27 +29,21 @@ class CheckEmailActionTest extends TestCase
     /**
      * @var MockObject&Environment
      */
-    protected $templating;
+    protected MockObject $templating;
 
     /**
      * @var MockObject&UrlGeneratorInterface
      */
-    protected $urlGenerator;
+    protected MockObject $urlGenerator;
 
-    /**
-     * @var Pool
-     */
-    protected $pool;
+    protected Pool $pool;
 
     /**
      * @var MockObject&TemplateRegistryInterface
      */
-    protected $templateRegistry;
+    protected MockObject $templateRegistry;
 
-    /**
-     * @var int
-     */
-    protected $resetTtl;
+    protected int $resetTtl;
 
     protected function setUp(): void
     {

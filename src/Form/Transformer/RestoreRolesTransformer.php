@@ -21,15 +21,12 @@ use Symfony\Component\Form\DataTransformerInterface;
  */
 class RestoreRolesTransformer implements DataTransformerInterface
 {
-    /**
-     * @var EditableRolesBuilder
-     */
-    protected $rolesBuilder;
+    protected EditableRolesBuilder $rolesBuilder;
 
     /**
      * @var string[]|null
      */
-    protected $originalRoles = null;
+    protected ?array $originalRoles = null;
 
     public function __construct(EditableRolesBuilder $rolesBuilder)
     {
@@ -48,7 +45,7 @@ class RestoreRolesTransformer implements DataTransformerInterface
      * @return string[]|null
      */
     #[\ReturnTypeWillChange]
-    public function transform($value)
+    public function transform($value): ?array
     {
         if (null === $value) {
             return null;
@@ -65,7 +62,7 @@ class RestoreRolesTransformer implements DataTransformerInterface
      * @return string[]|null
      */
     #[\ReturnTypeWillChange]
-    public function reverseTransform($selectedRoles)
+    public function reverseTransform($selectedRoles): ?array
     {
         if (null === $this->originalRoles) {
             throw new \RuntimeException('Invalid state, originalRoles array is not set');

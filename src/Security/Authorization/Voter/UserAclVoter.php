@@ -27,10 +27,8 @@ class UserAclVoter extends AclVoter
 
     /**
      * @param mixed $attribute
-     *
-     * @return bool
      */
-    public function supportsAttribute($attribute)
+    public function supportsAttribute($attribute): bool
     {
         return 'EDIT' === $attribute || 'DELETE' === $attribute;
     }

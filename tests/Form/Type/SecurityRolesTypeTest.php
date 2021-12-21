@@ -30,7 +30,7 @@ class SecurityRolesTypeTest extends TypeTestCase
     /**
      * @var MockObject&EditableRolesBuilder
      */
-    protected $roleBuilder;
+    protected MockObject $roleBuilder;
 
     public function testGetDefaultOptions(): void
     {

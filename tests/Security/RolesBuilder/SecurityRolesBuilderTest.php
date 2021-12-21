@@ -28,22 +28,19 @@ final class SecurityRolesBuilderTest extends TestCase
     /**
      * @var MockObject&AuthorizationCheckerInterface
      */
-    private $authorizationChecker;
+    private MockObject $authorizationChecker;
 
-    /**
-     * @var SonataConfiguration
-     */
-    private $configuration;
+    private SonataConfiguration $configuration;
 
     /**
      * @var MockObject&TranslatorInterface
      */
-    private $translator;
+    private MockObject $translator;
 
     /**
      * @var array<string, string[]>
      */
-    private $rolesHierarchy = ['ROLE_FOO' => ['ROLE_BAR', 'ROLE_ADMIN']];
+    private array $rolesHierarchy = ['ROLE_FOO' => ['ROLE_BAR', 'ROLE_ADMIN']];
 
     protected function setUp(): void
     {

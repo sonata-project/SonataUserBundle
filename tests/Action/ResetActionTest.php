@@ -39,52 +39,43 @@ class ResetActionTest extends TestCase
     /**
      * @var MockObject&Environment
      */
-    protected $templating;
+    protected MockObject $templating;
 
     /**
      * @var MockObject&UrlGeneratorInterface
      */
-    protected $urlGenerator;
+    protected MockObject $urlGenerator;
 
     /**
      * @var MockObject&AuthorizationCheckerInterface
      */
-    protected $authorizationChecker;
+    protected MockObject $authorizationChecker;
 
-    /**
-     * @var Pool
-     */
-    protected $pool;
+    protected Pool $pool;
 
     /**
      * @var MockObject&TemplateRegistryInterface
      */
-    protected $templateRegistry;
+    protected MockObject $templateRegistry;
 
     /**
      * @var MockObject&FormFactoryInterface
      */
-    protected $formFactory;
+    protected MockObject $formFactory;
 
     /**
      * @var MockObject&UserManagerInterface
      */
-    protected $userManager;
+    protected MockObject $userManager;
 
     /**
      * @var MockObject&TranslatorInterface
      */
-    protected $translator;
+    protected MockObject $translator;
 
-    /**
-     * @var Session
-     */
-    protected $session;
+    protected Session $session;
 
-    /**
-     * @var int
-     */
-    protected $resetTtl;
+    protected int $resetTtl;
 
     protected function setUp(): void
     {

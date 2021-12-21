@@ -24,25 +24,16 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 final class SecurityRolesBuilder implements ExpandableRolesBuilderInterface
 {
-    /**
-     * @var AuthorizationCheckerInterface
-     */
-    private $authorizationChecker;
+    private AuthorizationCheckerInterface $authorizationChecker;
 
-    /**
-     * @var SonataConfiguration
-     */
-    private $configuration;
+    private SonataConfiguration $configuration;
 
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * @var array<string, array<string>>
      */
-    private $rolesHierarchy;
+    private array $rolesHierarchy;
 
     /**
      * @param array<string, array<string>> $rolesHierarchy
@@ -155,10 +146,7 @@ final class SecurityRolesBuilder implements ExpandableRolesBuilderInterface
         return $securityRoles;
     }
 
-    /**
-     * @param string|null $domain
-     */
-    private function translateRole(string $role, $domain): string
+    private function translateRole(string $role, ?string $domain): string
     {
         if (null !== $domain) {
             return $this->translator->trans($role, [], $domain);

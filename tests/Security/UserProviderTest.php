@@ -28,12 +28,9 @@ class UserProviderTest extends TestCase
     /**
      * @var MockObject&UserManagerInterface
      */
-    private $userManager;
+    private MockObject $userManager;
 
-    /**
-     * @var UserProvider
-     */
-    private $userProvider;
+    private UserProvider $userProvider;
 
     protected function setUp(): void
     {

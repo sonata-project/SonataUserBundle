@@ -23,30 +23,15 @@ use Twig\Environment;
 
 final class CheckEmailAction
 {
-    /**
-     * @var Environment
-     */
-    private $twig;
+    private Environment $twig;
 
-    /**
-     * @var UrlGeneratorInterface
-     */
-    private $urlGenerator;
+    private UrlGeneratorInterface $urlGenerator;
 
-    /**
-     * @var Pool
-     */
-    private $adminPool;
+    private Pool $adminPool;
 
-    /**
-     * @var TemplateRegistryInterface
-     */
-    private $templateRegistry;
+    private TemplateRegistryInterface $templateRegistry;
 
-    /**
-     * @var int
-     */
-    private $tokenTtl;
+    private int $tokenTtl;
 
     public function __construct(
         Environment $twig,

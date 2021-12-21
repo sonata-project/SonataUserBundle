@@ -27,10 +27,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SecurityRolesType extends AbstractType
 {
-    /**
-     * @var EditableRolesBuilder
-     */
-    protected $rolesBuilder;
+    protected EditableRolesBuilder $rolesBuilder;
 
     public function __construct(EditableRolesBuilder $rolesBuilder)
     {

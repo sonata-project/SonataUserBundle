@@ -91,7 +91,7 @@ final class AppKernel extends Kernel
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
     {
-        $loader->load(__DIR__.'/Resources/config/config.yml');
+        $loader->load(__DIR__.'/Resources/config/config.yaml');
 
         if (class_exists(AuthenticatorManager::class)) {
             $loader->load(__DIR__.'/Resources/config/config_sf5.yaml');

@@ -100,7 +100,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
      *
      * @return array<string, mixed>
      */
-    public function fixImpersonating(array $config)
+    public function fixImpersonating(array $config): array
     {
         if (isset($config['impersonating'], $config['impersonating_route'])) {
             throw new \RuntimeException('you can\'t have `impersonating` and `impersonating_route` keys defined at the same time');
@@ -127,7 +127,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     /**
      * @param array<string, mixed> $config
      */
-    public function configureClass($config, ContainerBuilder $container): void
+    public function configureClass(array $config, ContainerBuilder $container): void
     {
         $container->setParameter('sonata.user.user.class', $config['class']['user']);
         $container->setParameter('sonata.user.group.class', $config['class']['group']);
@@ -136,7 +136,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     /**
      * @param array<string, mixed> $config
      */
-    public function configureAdminClass($config, ContainerBuilder $container): void
+    public function configureAdminClass(array $config, ContainerBuilder $container): void
     {
         $container->setParameter('sonata.user.admin.user.class', $config['admin']['user']['class']);
         $container->setParameter('sonata.user.admin.group.class', $config['admin']['group']['class']);
@@ -145,7 +145,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     /**
      * @param array<string, mixed> $config
      */
-    public function configureTranslationDomain($config, ContainerBuilder $container): void
+    public function configureTranslationDomain(array $config, ContainerBuilder $container): void
     {
         $container->setParameter('sonata.user.admin.user.translation_domain', $config['admin']['user']['translation']);
         $container->setParameter('sonata.user.admin.group.translation_domain', $config['admin']['group']['translation']);
@@ -154,7 +154,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     /**
      * @param array<string, mixed> $config
      */
-    public function configureController($config, ContainerBuilder $container): void
+    public function configureController(array $config, ContainerBuilder $container): void
     {
         $container->setParameter('sonata.user.admin.user.controller', $config['admin']['user']['controller']);
         $container->setParameter('sonata.user.admin.group.controller', $config['admin']['group']['controller']);
