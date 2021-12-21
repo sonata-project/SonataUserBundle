@@ -52,7 +52,7 @@ class EditableRolesBuilder
     private $configuration;
 
     /**
-     * @param array<string, string[]> $rolesHierarchy
+     * @param array<string, array<string>> $rolesHierarchy
      */
     public function __construct(TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authorizationChecker, Pool $pool, SonataConfiguration $configuration, array $rolesHierarchy = [])
     {
