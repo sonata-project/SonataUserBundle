@@ -40,12 +40,12 @@ final class SecurityRolesBuilder implements ExpandableRolesBuilderInterface
     private $translator;
 
     /**
-     * @var array<string, string[]>
+     * @var array<string, array<string>>
      */
     private $rolesHierarchy;
 
     /**
-     * @param array<string, string[]> $rolesHierarchy
+     * @param array<string, array<string>> $rolesHierarchy
      */
     public function __construct(
         AuthorizationCheckerInterface $authorizationChecker,
@@ -104,7 +104,7 @@ final class SecurityRolesBuilder implements ExpandableRolesBuilderInterface
     }
 
     /**
-     * @return array<string, string[]>
+     * @return array<string, array<string>>
      */
     private function getHierarchy(): array
     {
