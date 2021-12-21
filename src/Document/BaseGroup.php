@@ -15,18 +15,6 @@ namespace Sonata\UserBundle\Document;
 
 use Sonata\UserBundle\Model\Group as AbstractedGroup;
 
-/**
- * Represents a Base Group Document.
- */
 class BaseGroup extends AbstractedGroup
 {
-    /**
-     * Returns a string representation.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->getName();
-    }
 }

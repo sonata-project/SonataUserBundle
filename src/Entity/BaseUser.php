@@ -15,23 +15,14 @@ namespace Sonata\UserBundle\Entity;
 
 use Sonata\UserBundle\Model\User as AbstractedUser;
 
-/**
- * Represents a Base User Entity.
- */
 class BaseUser extends AbstractedUser
 {
-    /**
-     * Hook on pre-persist operations.
-     */
     public function prePersist(): void
     {
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
     }
 
-    /**
-     * Hook on pre-update operations.
-     */
     public function preUpdate(): void
     {
         $this->updatedAt = new \DateTime();

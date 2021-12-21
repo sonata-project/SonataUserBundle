@@ -20,14 +20,8 @@ use Sonata\AdminBundle\FieldDescription\FieldDescriptionInterface;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\Form\Type\DatePickerType;
 use Sonata\UserBundle\Form\Type\SecurityRolesType;
-use Sonata\UserBundle\Model\User;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TimezoneType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
 /**
  * @phpstan-extends AbstractAdmin<\Sonata\UserBundle\Model\UserInterface>
@@ -81,25 +75,6 @@ class UserAdmin extends AbstractAdmin
             ->end()
             ->with('Groups')
                 ->add('groups')
-            ->end()
-            ->with('Profile')
-                ->add('dateOfBirth')
-                ->add('firstname')
-                ->add('lastname')
-                ->add('website')
-                ->add('biography')
-                ->add('gender')
-                ->add('locale')
-                ->add('timezone')
-                ->add('phone')
-            ->end()
-            ->with('Social')
-                ->add('facebookUid')
-                ->add('facebookName')
-                ->add('twitterUid')
-                ->add('twitterName')
-                ->add('gplusUid')
-                ->add('gplusName')
             ->end();
     }
 
@@ -108,9 +83,7 @@ class UserAdmin extends AbstractAdmin
         // define group zoning
         $form
             ->tab('User')
-                ->with('Profile', ['class' => 'col-md-6'])->end()
-                ->with('General', ['class' => 'col-md-6'])->end()
-                ->with('Social', ['class' => 'col-md-6'])->end()
+                ->with('General', ['class' => 'col-md-18'])->end()
             ->end()
             ->tab('Security')
                 ->with('Status', ['class' => 'col-md-4'])->end()
@@ -118,14 +91,6 @@ class UserAdmin extends AbstractAdmin
                 ->with('Keys', ['class' => 'col-md-4'])->end()
                 ->with('Roles', ['class' => 'col-md-12'])->end()
             ->end();
-
-        $now = new \DateTime();
-
-        $genderOptions = [
-            'choices' => User::getGenderList(),
-            'required' => true,
-            'translation_domain' => $this->getTranslationDomain(),
-        ];
 
         $form
             ->tab('User')
@@ -135,30 +100,6 @@ class UserAdmin extends AbstractAdmin
                     ->add('plainPassword', TextType::class, [
                         'required' => (!$this->hasSubject() || null === $this->getSubject()->getId()),
                     ])
-                ->end()
-                ->with('Profile')
-                    ->add('dateOfBirth', DatePickerType::class, [
-                        'years' => range(1900, $now->format('Y')),
-                        'dp_min_date' => '1-1-1900',
-                        'dp_max_date' => $now->format('c'),
-                        'required' => false,
-                    ])
-                    ->add('firstname', null, ['required' => false])
-                    ->add('lastname', null, ['required' => false])
-                    ->add('website', UrlType::class, ['required' => false])
-                    ->add('biography', TextType::class, ['required' => false])
-                    ->add('gender', ChoiceType::class, $genderOptions)
-                    ->add('locale', LocaleType::class, ['required' => false])
-                    ->add('timezone', TimezoneType::class, ['required' => false])
-                    ->add('phone', null, ['required' => false])
-                ->end()
-                ->with('Social')
-                    ->add('facebookUid', null, ['required' => false])
-                    ->add('facebookName', null, ['required' => false])
-                    ->add('twitterUid', null, ['required' => false])
-                    ->add('twitterName', null, ['required' => false])
-                    ->add('gplusUid', null, ['required' => false])
-                    ->add('gplusName', null, ['required' => false])
                 ->end()
             ->end()
             ->tab('Security')

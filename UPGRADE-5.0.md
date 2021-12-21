@@ -1,6 +1,12 @@
 UPGRADE FROM 4.x to 5.0
 =======================
 
+## User class simplified
+
+User class no longer has the Profile or Social fields. If you need them, please extend
+the User class and add them. Make sure you run your migrations to remove those fields from
+your database.
+
 ## FOSUserBundle removal
 
 FOSUserBundle dependency was removed. Main features of that bundle were migrated

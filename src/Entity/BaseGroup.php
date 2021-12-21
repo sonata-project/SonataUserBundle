@@ -15,18 +15,6 @@ namespace Sonata\UserBundle\Entity;
 
 use Sonata\UserBundle\Model\Group as AbstractedGroup;
 
-/**
- * Represents a Base Group Entity.
- */
 class BaseGroup extends AbstractedGroup
 {
-    /**
-     * Represents a string representation.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->getName();
-    }
 }
