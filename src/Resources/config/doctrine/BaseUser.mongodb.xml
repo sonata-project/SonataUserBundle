@@ -14,26 +14,6 @@
         <field name="roles" type="collection"/>
         <field name="createdAt" type="date"/>
         <field name="updatedAt" type="date"/>
-        <!-- Profile fields -->
-        <field name="dateOfBirth" type="date"/>
-        <field name="firstname" type="string"/>
-        <field name="lastname" type="string"/>
-        <field name="website" type="string"/>
-        <field name="biography" type="string"/>
-        <field name="gender" type="string"/>
-        <field name="locale" type="string"/>
-        <field name="timezone" type="string"/>
-        <field name="phone" type="string"/>
-        <!-- social fields -->
-        <field name="facebookUid" type="string"/>
-        <field name="facebookName" type="string"/>
-        <field name="facebookData" type="hash"/>
-        <field name="twitterUid" type="string"/>
-        <field name="twitterName" type="string"/>
-        <field name="twitterData" type="hash"/>
-        <field name="gplusUid" type="string"/>
-        <field name="gplusName" type="string"/>
-        <field name="gplusData" type="hash"/>
         <lifecycle-callbacks>
             <lifecycle-callback type="prePersist" method="prePersist"/>
             <lifecycle-callback type="preUpdate" method="preUpdate"/>

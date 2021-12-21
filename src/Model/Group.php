@@ -39,6 +39,11 @@ abstract class Group implements GroupInterface
         $this->roles = $roles;
     }
 
+    public function __toString(): string
+    {
+        return $this->getName();
+    }
+
     public function addRole(string $role): void
     {
         if (!$this->hasRole($role)) {
