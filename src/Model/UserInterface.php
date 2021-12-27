@@ -96,6 +96,9 @@ interface UserInterface extends SymfonyUserInterface, EquatableInterface, BCPass
 
     public function getUpdatedAt(): ?\DateTimeInterface;
 
+    /**
+     * @param iterable<GroupInterface> $groups
+     */
     public function setGroups(iterable $groups): void;
 
     /**

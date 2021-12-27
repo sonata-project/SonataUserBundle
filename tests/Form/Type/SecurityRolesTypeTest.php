@@ -32,6 +32,21 @@ class SecurityRolesTypeTest extends TypeTestCase
      */
     protected MockObject $roleBuilder;
 
+    protected function setUp(): void
+    {
+        $this->roleBuilder = $this->createMock(EditableRolesBuilder::class);
+
+        $this->roleBuilder->method('getRoles')->willReturn([
+          'ROLE_FOO' => 'ROLE_FOO',
+          'ROLE_USER' => 'ROLE_USER',
+          'ROLE_ADMIN' => 'ROLE_ADMIN: ROLE_USER',
+        ]);
+
+        $this->roleBuilder->method('getRolesReadOnly')->willReturn([]);
+
+        parent::setUp();
+    }
+
     public function testGetDefaultOptions(): void
     {
         $type = new SecurityRolesType($this->roleBuilder);
@@ -103,16 +118,6 @@ class SecurityRolesTypeTest extends TypeTestCase
      */
     protected function getExtensions(): array
     {
-        $this->roleBuilder = $this->createMock(EditableRolesBuilder::class);
-
-        $this->roleBuilder->method('getRoles')->willReturn([
-          'ROLE_FOO' => 'ROLE_FOO',
-          'ROLE_USER' => 'ROLE_USER',
-          'ROLE_ADMIN' => 'ROLE_ADMIN: ROLE_USER',
-        ]);
-
-        $this->roleBuilder->method('getRolesReadOnly')->willReturn([]);
-
         $childType = new SecurityRolesType($this->roleBuilder);
 
         return [new PreloadedExtension([
