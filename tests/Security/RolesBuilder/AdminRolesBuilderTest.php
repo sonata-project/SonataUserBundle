@@ -79,7 +79,7 @@ final class AdminRolesBuilderTest extends TestCase
             'default_icon' => 'icon',
             'default_label_catalogue' => 'label_catalogue',
             'dropdown_number_groups_per_colums' => 1,
-            'form_type' => 'type',
+            'form_type' => 'horizontal',
             'html5_validate' => true,
             'javascripts' => [],
             'js_debug' => true,
