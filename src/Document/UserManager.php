@@ -28,6 +28,9 @@ class UserManager extends BaseDocumentManager implements UserManagerInterface
 {
     private CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater;
 
+    /**
+     * @phpstan-param class-string<UserInterface> $class
+     */
     public function __construct(
         string $class,
         ManagerRegistry $registry,

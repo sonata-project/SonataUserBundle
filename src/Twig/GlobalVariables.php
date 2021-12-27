@@ -48,7 +48,7 @@ class GlobalVariables
     }
 
     /**
-     * @return AdminInterface<\Sonata\UserBundle\Model\UserInterface>
+     * @return AdminInterface<object>
      */
     public function getUserAdmin(): AdminInterface
     {

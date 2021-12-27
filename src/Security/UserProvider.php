@@ -61,7 +61,7 @@ class UserProvider implements UserProviderInterface
         }
 
         if (null === $reloadedUser = $this->userManager->findOneBy(['id' => $user->getId()])) {
-            throw $this->buildUserNotFoundException(sprintf('User with ID "%s" could not be reloaded.', $user->getId()));
+            throw $this->buildUserNotFoundException(sprintf('User with ID "%s" could not be reloaded.', $user->getId() ?? ''));
         }
 
         return $reloadedUser;
@@ -84,6 +84,8 @@ class UserProvider implements UserProviderInterface
 
     /**
      * TODO: Simplify when dropping support for Symfony 4.
+     *
+     * @psalm-suppress DeprecatedClass
      */
     private function buildUserNotFoundException(string $message): AuthenticationException
     {

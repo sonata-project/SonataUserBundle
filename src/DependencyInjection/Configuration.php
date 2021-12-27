@@ -28,6 +28,11 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
+    /**
+     * @psalm-suppress PossiblyNullReference, PossiblyUndefinedMethod
+     *
+     * @see https://github.com/psalm/psalm-plugin-symfony/issues/174
+     */
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('sonata_user');
@@ -104,6 +109,11 @@ class Configuration implements ConfigurationInterface
         return $treeBuilder;
     }
 
+    /**
+     * @psalm-suppress PossiblyNullReference, PossiblyUndefinedMethod
+     *
+     * @see https://github.com/psalm/psalm-plugin-symfony/issues/174
+     */
     private function addResettingSection(ArrayNodeDefinition $node): void
     {
         $node

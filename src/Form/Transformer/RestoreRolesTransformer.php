@@ -42,6 +42,8 @@ class RestoreRolesTransformer implements DataTransformerInterface
     }
 
     /**
+     * @param string[]|null $value
+     *
      * @return string[]|null
      */
     #[\ReturnTypeWillChange]
@@ -59,6 +61,8 @@ class RestoreRolesTransformer implements DataTransformerInterface
     }
 
     /**
+     * @param string[]|null $selectedRoles
+     *
      * @return string[]|null
      */
     #[\ReturnTypeWillChange]

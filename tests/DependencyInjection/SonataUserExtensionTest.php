@@ -14,15 +14,18 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
+use Sonata\UserBundle\Admin\Entity\UserAdmin as EntityUserAdmin;
 use Sonata\UserBundle\DependencyInjection\SonataUserExtension;
-use Sonata\UserBundle\Document\BaseUser;
-use Sonata\UserBundle\Entity\BaseGroup;
+use Sonata\UserBundle\Document\BaseUser as DocumentBaseUser;
+use Sonata\UserBundle\Entity\BaseGroup as EntityBaseGroup;
+use Sonata\UserBundle\Entity\BaseUser as EntityBaseUser;
 use Sonata\UserBundle\Model\GroupInterface;
 use Sonata\UserBundle\Model\UserInterface;
-use Sonata\UserBundle\Tests\Admin\Document\GroupAdmin;
-use Sonata\UserBundle\Tests\Admin\Document\UserAdmin;
-use Sonata\UserBundle\Tests\Document\Group;
-use Sonata\UserBundle\Tests\Document\User;
+use Sonata\UserBundle\Tests\Admin\Document\GroupAdmin as DocumentGroupAdmin;
+use Sonata\UserBundle\Tests\Admin\Document\UserAdmin as DocumentUserAdmin;
+use Sonata\UserBundle\Tests\Document\Group as DocumentGroup;
+use Sonata\UserBundle\Tests\Document\User as DocumentUser;
+use Sonata\UserBundle\Tests\Entity\User as EntityUser;
 use Symfony\Bundle\TwigBundle\DependencyInjection\TwigExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
@@ -85,9 +88,7 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
 
     public function testTwigConfigParameterIsSetting(): void
     {
-        $fakeContainer = $this->getMockBuilder(ContainerBuilder::class)
-            ->setMethods(['hasExtension', 'prependExtensionConfig'])
-            ->getMock();
+        $fakeContainer = $this->createMock(ContainerBuilder::class);
 
         $fakeContainer->expects(static::once())
             ->method('hasExtension')
@@ -107,9 +108,7 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
 
     public function testTwigConfigParameterIsSet(): void
     {
-        $fakeTwigExtension = $this->getMockBuilder(TwigExtension::class)
-            ->setMethods(['load', 'getAlias'])
-            ->getMock();
+        $fakeTwigExtension = $this->createStub(TwigExtension::class);
 
         $fakeTwigExtension
             ->method('getAlias')
@@ -143,15 +142,7 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
      */
     public function testCorrectModelClass(): void
     {
-        $this->load(['class' => ['user' => \Sonata\UserBundle\Tests\Entity\User::class]]);
-    }
-
-    /**
-     * @doesNotPerformAssertions
-     */
-    public function testCorrectModelClassWithLeadingSlash(): void
-    {
-        $this->load(['class' => ['user' => \Sonata\UserBundle\Tests\Entity\User::class]]);
+        $this->load(['class' => ['user' => EntityUser::class]]);
     }
 
     /**
@@ -159,7 +150,7 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
      */
     public function testCorrectAdminClass(): void
     {
-        $this->load(['admin' => ['user' => ['class' => \Sonata\UserBundle\Tests\Admin\Entity\UserAdmin::class]]]);
+        $this->load(['admin' => ['user' => ['class' => EntityUserAdmin::class]]]);
     }
 
     /**
@@ -170,12 +161,12 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
         $this->load([
             'manager_type' => 'mongodb',
             'class' => [
-                'user' => User::class,
-                'group' => Group::class,
+                'user' => DocumentUser::class,
+                'group' => DocumentGroup::class,
             ],
             'admin' => [
-                'user' => ['class' => UserAdmin::class],
-                'group' => ['class' => GroupAdmin::class],
+                'user' => ['class' => DocumentUserAdmin::class],
+                'group' => ['class' => DocumentGroupAdmin::class],
             ],
         ]);
     }
@@ -193,26 +184,26 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
 
     public function testNotCorrespondingUserClass(): void
     {
-        $this->expectException('InvalidArgumentException');
+        $this->expectException(\InvalidArgumentException::class);
 
         $this->expectExceptionMessage(
             'Model class "Sonata\UserBundle\Entity\BaseUser" does not correspond to manager type "mongodb".'
         );
 
-        $this->load(['manager_type' => 'mongodb', 'class' => ['user' => \Sonata\UserBundle\Entity\BaseUser::class]]);
+        $this->load(['manager_type' => 'mongodb', 'class' => ['user' => EntityBaseUser::class]]);
     }
 
     public function testNotCorrespondingGroupClass(): void
     {
-        $this->expectException('InvalidArgumentException');
+        $this->expectException(\InvalidArgumentException::class);
 
         $this->expectExceptionMessage(
             'Model class "Sonata\UserBundle\Entity\BaseGroup" does not correspond to manager type "mongodb".'
         );
 
         $this->load(['manager_type' => 'mongodb', 'class' => [
-            'user' => BaseUser::class,
-            'group' => BaseGroup::class,
+            'user' => DocumentBaseUser::class,
+            'group' => EntityBaseGroup::class,
         ]]);
     }
 

@@ -300,8 +300,9 @@ abstract class User implements UserInterface
 
     public function isPasswordRequestNonExpired(int $ttl): bool
     {
-        return $this->getPasswordRequestedAt() instanceof \DateTime &&
-               $this->getPasswordRequestedAt()->getTimestamp() + $ttl > time();
+        $passwordRequestedAt = $this->getPasswordRequestedAt();
+
+        return null !== $passwordRequestedAt && $passwordRequestedAt->getTimestamp() + $ttl > time();
     }
 
     public function setRoles(array $roles): void

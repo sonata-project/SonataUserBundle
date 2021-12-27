@@ -199,6 +199,9 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
 
     /**
      * Prohibit using wrong model type mapping.
+     *
+     * @phpstan-param class-string $actualModelClass
+     * @phpstan-param class-string $prohibitedModelClass
      */
     private function prohibitModelTypeMapping(
         string $actualModelClass,
