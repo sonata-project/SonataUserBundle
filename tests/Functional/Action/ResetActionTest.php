@@ -34,10 +34,12 @@ class ResetActionTest extends WebTestCase
         $client = static::createClient();
 
         $user = $this->prepareData();
+        $confirmationToken = $user->getConfirmationToken();
+        \assert(null !== $confirmationToken);
 
         static::assertSame($user->getPassword(), 'random_password');
 
-        $client->request('GET', sprintf('/reset/%s', $user->getConfirmationToken()));
+        $client->request('GET', sprintf('/reset/%s', $confirmationToken));
 
         $client->submitForm('submit', [
             'resetting_form[plainPassword][first]' => 'new_password',

@@ -34,6 +34,7 @@ class UserAclVoter extends AclVoter
     }
 
     /**
+     * @param mixed   $subject
      * @param mixed[] $attributes
      */
     public function vote(TokenInterface $token, $subject, array $attributes): int

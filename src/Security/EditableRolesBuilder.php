@@ -64,7 +64,7 @@ class EditableRolesBuilder
 
         $roles = [];
 
-        $this->iterateAdminRoles(function ($role, $isMaster) use ($domain, &$roles): void {
+        $this->iterateAdminRoles(function (string $role, bool $isMaster) use ($domain, &$roles): void {
             if ($isMaster) {
                 // if the user has the MASTER permission, allow to grant access the admin roles to other users
                 $roles[$role] = $this->translateRole($role, $domain);
@@ -105,7 +105,7 @@ class EditableRolesBuilder
 
         $rolesReadOnly = [];
 
-        $this->iterateAdminRoles(function ($role, $isMaster) use ($domain, &$rolesReadOnly): void {
+        $this->iterateAdminRoles(function (string $role, bool $isMaster) use ($domain, &$rolesReadOnly): void {
             if (!$isMaster && $this->authorizationChecker->isGranted($role)) {
                 // although the user has no MASTER permission, allow the currently logged in user to view the role
                 $rolesReadOnly[$role] = $this->translateRole($role, $domain);
@@ -135,8 +135,7 @@ class EditableRolesBuilder
             }
 
             foreach ($admin->getSecurityInformation() as $role => $permissions) {
-                $role = sprintf($baseRole, $role);
-                \call_user_func($func, $role, $isMaster, $permissions);
+                \call_user_func($func, sprintf($baseRole, $role), $isMaster);
             }
         }
     }

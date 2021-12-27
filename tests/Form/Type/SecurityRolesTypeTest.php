@@ -67,7 +67,7 @@ class SecurityRolesTypeTest extends TypeTestCase
 
     public function testSubmitValidData(): void
     {
-        $form = $this->factory->create($this->getSecurityRolesTypeName(), null, [
+        $form = $this->factory->create(SecurityRolesType::class, null, [
             'multiple' => true,
             'expanded' => true,
             'required' => false,
@@ -82,7 +82,7 @@ class SecurityRolesTypeTest extends TypeTestCase
 
     public function testSubmitInvalidData(): void
     {
-        $form = $this->factory->create($this->getSecurityRolesTypeName(), null, [
+        $form = $this->factory->create(SecurityRolesType::class, null, [
             'multiple' => true,
             'expanded' => true,
             'required' => false,
@@ -98,7 +98,7 @@ class SecurityRolesTypeTest extends TypeTestCase
     {
         $originalRoles = ['ROLE_SUPER_ADMIN', 'ROLE_USER'];
 
-        $form = $this->factory->create($this->getSecurityRolesTypeName(), $originalRoles, [
+        $form = $this->factory->create(SecurityRolesType::class, $originalRoles, [
             'multiple' => true,
             'expanded' => true,
             'required' => false,
@@ -123,10 +123,5 @@ class SecurityRolesTypeTest extends TypeTestCase
         return [new PreloadedExtension([
           $childType,
         ], [])];
-    }
-
-    private function getSecurityRolesTypeName(): string
-    {
-        return SecurityRolesType::class;
     }
 }

@@ -33,12 +33,16 @@ final class UserListener implements EventSubscriber
     private CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater;
 
     /**
+     * @psalm-suppress DeprecatedClass
+     *
      * @var UserPasswordEncoderInterface|UserPasswordHasherInterface
      */
     private object $userPasswordHasher;
 
     /**
      * TODO: Simplify this once support for Symfony 4.4 is dropped.
+     *
+     * @psalm-suppress DeprecatedClass
      *
      * @param UserPasswordEncoderInterface|UserPasswordHasherInterface $userPasswordHasher
      */
