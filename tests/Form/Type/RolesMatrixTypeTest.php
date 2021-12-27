@@ -32,6 +32,19 @@ final class RolesMatrixTypeTest extends TypeTestCase
      */
     private MockObject $roleBuilder;
 
+    protected function setUp(): void
+    {
+        $this->roleBuilder = $this->createMock(ExpandableRolesBuilderInterface::class);
+
+        $this->roleBuilder->method('getRoles')->willReturn([
+            'ROLE_FOO' => 'ROLE_FOO',
+            'ROLE_USER' => 'ROLE_USER',
+            'ROLE_ADMIN' => 'ROLE_ADMIN: ROLE_USER',
+        ]);
+
+        parent::setUp();
+    }
+
     public function testGetDefaultOptions(): void
     {
         $type = new RolesMatrixType($this->roleBuilder);
@@ -84,14 +97,6 @@ final class RolesMatrixTypeTest extends TypeTestCase
      */
     protected function getExtensions(): array
     {
-        $this->roleBuilder = $this->createMock(ExpandableRolesBuilderInterface::class);
-
-        $this->roleBuilder->method('getRoles')->willReturn([
-          'ROLE_FOO' => 'ROLE_FOO',
-          'ROLE_USER' => 'ROLE_USER',
-          'ROLE_ADMIN' => 'ROLE_ADMIN: ROLE_USER',
-        ]);
-
         $childType = new RolesMatrixType($this->roleBuilder);
 
         return [new PreloadedExtension([
