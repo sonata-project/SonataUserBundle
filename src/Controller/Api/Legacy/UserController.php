@@ -35,7 +35,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *
  * @author Hugo Briand <briand@ekino.com>
  *
- * @deprecated since sonata-project/user-bundle 4.x, to be removed in 5.0.
+ * @deprecated since sonata-project/user-bundle 4.14, to be removed in 5.0.
  */
 class UserController
 {
