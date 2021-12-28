@@ -30,7 +30,7 @@ class GroupManager extends BaseGroupManager implements GroupManagerInterface
     /**
      * NEXT_MAJOR: remove this method.
      *
-     * @deprecated since sonata-project/user-bundle 4.x, to be removed in 5.0.
+     * @deprecated since sonata-project/user-bundle 4.14, to be removed in 5.0.
      */
     public function getPager(array $criteria, int $page, int $limit = 10, array $sort = []): PagerInterface
     {

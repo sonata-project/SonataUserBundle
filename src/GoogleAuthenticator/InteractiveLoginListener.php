@@ -20,7 +20,7 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 /**
  * NEXT_MAJOR: Remove this class.
  *
- * @deprecated since sonata-project/user-bundle 4.x, it will be removed on 5.0.
+ * @deprecated since sonata-project/user-bundle 4.14, it will be removed on 5.0.
  */
 class InteractiveLoginListener
 {

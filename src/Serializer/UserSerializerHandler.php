@@ -20,7 +20,7 @@ use Sonata\Form\Serializer\BaseSerializerHandler;
  *
  * @author Sylvain Deloux <sylvain.deloux@ekino.com>
  *
- * @deprecated since sonata-project/user-bundle 4.x, to be removed in 5.0.
+ * @deprecated since sonata-project/user-bundle 4.14, to be removed in 5.0.
  */
 class UserSerializerHandler extends BaseSerializerHandler
 {

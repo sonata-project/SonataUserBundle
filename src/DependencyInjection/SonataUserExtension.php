@@ -188,7 +188,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         }
 
         @trigger_error(
-            'The Google Authenticator integration is deprecated since sonata-project/user-bundle 4.x and will be removed in 5.0.',
+            'The Google Authenticator integration is deprecated since sonata-project/user-bundle 4.14 and will be removed in 5.0.',
             \E_USER_DEPRECATED
         );
 
