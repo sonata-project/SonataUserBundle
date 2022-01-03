@@ -42,25 +42,9 @@
         <source>breadcrumb.link_user_show</source>
         <target>Показать</target>
       </trans-unit>
-      <trans-unit id="breadcrumb.link_group_list">
-        <source>breadcrumb.link_group_list</source>
-        <target>Группы</target>
-      </trans-unit>
-      <trans-unit id="breadcrumb.link_group_create">
-        <source>breadcrumb.link_group_create</source>
-        <target>Создать</target>
-      </trans-unit>
-      <trans-unit id="breadcrumb.link_group_edit">
-        <source>breadcrumb.link_group_edit</source>
-        <target>Редактировать</target>
-      </trans-unit>
       <trans-unit id="users">
         <source>users</source>
         <target>Пользователи</target>
-      </trans-unit>
-      <trans-unit id="groups">
-        <source>groups</source>
-        <target>Группы</target>
       </trans-unit>
       <trans-unit id="group_user">
         <source>User</source>
@@ -105,10 +89,6 @@
       <trans-unit id="form.label_plain_password">
         <source>form.label_plain_password</source>
         <target>Открытый пароль</target>
-      </trans-unit>
-      <trans-unit id="form.label_groups">
-        <source>form.label_groups</source>
-        <target>Группы</target>
       </trans-unit>
       <trans-unit id="form.label_roles">
         <source>form.label_roles</source>
@@ -162,10 +142,6 @@
         <source>filter.label_email</source>
         <target>E-Mail</target>
       </trans-unit>
-      <trans-unit id="filter.label_groups">
-        <source>filter.label_groups</source>
-        <target>Группы</target>
-      </trans-unit>
       <trans-unit id="filter.label_created_at">
         <source>filter.label_created_at</source>
         <target>Время создания</target>
@@ -209,10 +185,6 @@
       <trans-unit id="list.label_email">
         <source>list.label_email</source>
         <target>E-Mail</target>
-      </trans-unit>
-      <trans-unit id="list.label_groups">
-        <source>list.label_groups</source>
-        <target>Группы</target>
       </trans-unit>
       <trans-unit id="list.label_locked">
         <source>list.label_locked</source>
@@ -265,10 +237,6 @@
       <trans-unit id="form_general">
         <source>form_general</source>
         <target>Основные сведения</target>
-      </trans-unit>
-      <trans-unit id="form_groups">
-        <source>form_groups</source>
-        <target>Группы</target>
       </trans-unit>
       <trans-unit id="form_management">
         <source>form_management</source>
@@ -349,10 +317,6 @@
       <trans-unit id="show.label_email">
         <source>show.label_email</source>
         <target>E-Mail</target>
-      </trans-unit>
-      <trans-unit id="show.label_groups">
-        <source>show.label_groups</source>
-        <target>Группы</target>
       </trans-unit>
       <trans-unit id="show.label_date_of_birth">
         <source>show.label_date_of_birth</source>

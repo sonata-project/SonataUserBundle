@@ -68,19 +68,4 @@
             </constraint>
         </property>
     </class>
-    <class name="Sonata\UserBundle\Model\Group">
-        <property name="name">
-            <constraint name="NotBlank">
-                <option name="message">group.blank</option>
-                <option name="groups">Registration</option>
-            </constraint>
-            <constraint name="Length">
-                <option name="min">2</option>
-                <option name="minMessage">group.short</option>
-                <option name="max">180</option>
-                <option name="maxMessage">group.long</option>
-                <option name="groups">Registration</option>
-            </constraint>
-        </property>
-    </class>
 </constraint-mapping>

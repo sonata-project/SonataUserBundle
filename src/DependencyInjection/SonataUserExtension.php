@@ -13,11 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\DependencyInjection;
 
-use Sonata\Doctrine\Mapper\Builder\OptionsBuilder;
-use Sonata\Doctrine\Mapper\DoctrineCollector;
-use Sonata\UserBundle\Document\BaseGroup as DocumentGroup;
 use Sonata\UserBundle\Document\BaseUser as DocumentUser;
-use Sonata\UserBundle\Entity\BaseGroup as EntityGroup;
 use Sonata\UserBundle\Entity\BaseUser as EntityUser;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
@@ -73,14 +69,6 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
 
         $this->checkManagerTypeToModelTypesMapping($config);
 
-        if ('orm' === $config['manager_type']) {
-            if (!isset($bundles['SonataDoctrineBundle'])) {
-                throw new \RuntimeException('You must register SonataDoctrineBundle to use SonataUserBundle.');
-            }
-
-            $this->registerSonataDoctrineMapping($config);
-        }
-
         $this->configureAdminClass($config, $container);
         $this->configureClass($config, $container);
 
@@ -130,7 +118,6 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     public function configureClass(array $config, ContainerBuilder $container): void
     {
         $container->setParameter('sonata.user.user.class', $config['class']['user']);
-        $container->setParameter('sonata.user.group.class', $config['class']['group']);
     }
 
     /**
@@ -139,7 +126,6 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     public function configureAdminClass(array $config, ContainerBuilder $container): void
     {
         $container->setParameter('sonata.user.admin.user.class', $config['admin']['user']['class']);
-        $container->setParameter('sonata.user.admin.group.class', $config['admin']['group']['class']);
     }
 
     /**
@@ -148,7 +134,6 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     public function configureTranslationDomain(array $config, ContainerBuilder $container): void
     {
         $container->setParameter('sonata.user.admin.user.translation_domain', $config['admin']['user']['translation']);
-        $container->setParameter('sonata.user.admin.group.translation_domain', $config['admin']['group']['translation']);
     }
 
     /**
@@ -157,7 +142,6 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     public function configureController(array $config, ContainerBuilder $container): void
     {
         $container->setParameter('sonata.user.admin.user.controller', $config['admin']['user']['controller']);
-        $container->setParameter('sonata.user.admin.group.controller', $config['admin']['group']['controller']);
     }
 
     /**
@@ -187,12 +171,6 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
         $this->prohibitModelTypeMapping(
             $config['class']['user'],
             'orm' === $managerType ? DocumentUser::class : EntityUser::class,
-            $managerType
-        );
-
-        $this->prohibitModelTypeMapping(
-            $config['class']['group'],
-            'orm' === $managerType ? DocumentGroup::class : EntityGroup::class,
             $managerType
         );
     }
@@ -225,34 +203,5 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     private function configureMailer(array $config, ContainerBuilder $container): void
     {
         $container->setAlias('sonata.user.mailer', $config['mailer']);
-    }
-
-    /**
-     * @param array<string, mixed> $config
-     */
-    private function registerSonataDoctrineMapping(array $config): void
-    {
-        foreach ($config['class'] as $type => $class) {
-            if (!class_exists($class)) {
-                return;
-            }
-        }
-
-        $collector = DoctrineCollector::getInstance();
-
-        $collector->addAssociation(
-            $config['class']['user'],
-            'mapManyToMany',
-            OptionsBuilder::createManyToMany('groups', $config['class']['group'])
-                ->addJoinTable($config['table']['user_group'], [[
-                    'name' => 'user_id',
-                    'referencedColumnName' => 'id',
-                    'onDelete' => 'CASCADE',
-                ]], [[
-                    'name' => 'group_id',
-                    'referencedColumnName' => 'id',
-                    'onDelete' => 'CASCADE',
-                ]])
-        );
     }
 }

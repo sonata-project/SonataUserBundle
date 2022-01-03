@@ -13,9 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\DependencyInjection;
 
-use Sonata\UserBundle\Admin\Entity\GroupAdmin;
 use Sonata\UserBundle\Admin\Entity\UserAdmin;
-use Sonata\UserBundle\Entity\BaseGroup;
 use Sonata\UserBundle\Entity\BaseUser;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -43,12 +41,6 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->booleanNode('security_acl')->defaultFalse()->end()
-                ->arrayNode('table')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('user_group')->defaultValue('sonata_user_user_group')->end()
-                    ->end()
-                ->end()
                 ->scalarNode('impersonating_route')->end()
                 ->arrayNode('impersonating')
                     ->children()
@@ -69,21 +61,12 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('class')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('group')->cannotBeEmpty()->defaultValue(BaseGroup::class)->end()
                         ->scalarNode('user')->cannotBeEmpty()->defaultValue(BaseUser::class)->end()
                     ->end()
                 ->end()
                 ->arrayNode('admin')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->arrayNode('group')
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->scalarNode('class')->cannotBeEmpty()->defaultValue(GroupAdmin::class)->end()
-                                ->scalarNode('controller')->cannotBeEmpty()->defaultValue('%sonata.admin.configuration.default_controller%')->end()
-                                ->scalarNode('translation')->cannotBeEmpty()->defaultValue('SonataUserBundle')->end()
-                            ->end()
-                        ->end()
                         ->arrayNode('user')
                             ->addDefaultsIfNotSet()
                             ->children()

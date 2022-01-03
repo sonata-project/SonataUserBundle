@@ -18,7 +18,6 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\FieldDescription\FieldDescriptionInterface;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\UserBundle\Form\Type\SecurityRolesType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -44,7 +43,6 @@ class UserAdmin extends AbstractAdmin
         $list
             ->addIdentifier('username')
             ->add('email')
-            ->add('groups')
             ->add('enabled', null, ['editable' => true])
             ->add('createdAt');
 
@@ -62,8 +60,7 @@ class UserAdmin extends AbstractAdmin
         $filter
             ->add('id')
             ->add('username')
-            ->add('email')
-            ->add('groups');
+            ->add('email');
     }
 
     protected function configureShowFields(ShowMapper $show): void
@@ -72,9 +69,6 @@ class UserAdmin extends AbstractAdmin
             ->with('General')
                 ->add('username')
                 ->add('email')
-            ->end()
-            ->with('Groups')
-                ->add('groups')
             ->end();
     }
 
@@ -87,9 +81,8 @@ class UserAdmin extends AbstractAdmin
             ->end()
             ->tab('Security')
                 ->with('Status', ['class' => 'col-md-4'])->end()
-                ->with('Groups', ['class' => 'col-md-4'])->end()
                 ->with('Keys', ['class' => 'col-md-4'])->end()
-                ->with('Roles', ['class' => 'col-md-12'])->end()
+                ->with('Roles', ['class' => 'col-md-16'])->end()
             ->end();
 
         $form
@@ -105,13 +98,6 @@ class UserAdmin extends AbstractAdmin
             ->tab('Security')
                 ->with('Status')
                     ->add('enabled', null, ['required' => false])
-                ->end()
-                ->with('Groups')
-                    ->add('groups', ModelType::class, [
-                        'required' => false,
-                        'expanded' => true,
-                        'multiple' => true,
-                    ])
                 ->end()
                 ->with('Roles')
                     ->add('realRoles', SecurityRolesType::class, [

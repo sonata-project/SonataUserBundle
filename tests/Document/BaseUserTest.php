@@ -15,7 +15,6 @@ namespace Sonata\UserBundle\Tests\Document;
 
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Document\BaseUser;
-use Sonata\UserBundle\Model\GroupInterface;
 
 class BaseUserTest extends TestCase
 {
@@ -82,24 +81,6 @@ class BaseUserTest extends TestCase
 
         static::assertInstanceOf(\DateTime::class, $updatedAt, 'Should contain a DateTime object');
         static::assertSame($today->format('Y-m-d'), $updatedAt->format('Y-m-d'), 'Should be updated today');
-    }
-
-    public function testSettingMultipleGroups(): void
-    {
-        // Given
-        $user = new BaseUser();
-        $group1 = $this->createMock(GroupInterface::class);
-        $group1->method('getName')->willReturn('Group 1');
-        $group2 = $this->createMock(GroupInterface::class);
-        $group2->method('getName')->willReturn('Group 2');
-
-        // When
-        $user->setGroups([$group1, $group2]);
-
-        // Then
-        static::assertCount(2, $user->getGroups(), 'Should have 2 groups');
-        static::assertTrue($user->hasGroup('Group 1'), 'Should have a group named "Group 1"');
-        static::assertTrue($user->hasGroup('Group 2'), 'Should have a group named "Group 2"');
     }
 
     public function testToStringWithName(): void

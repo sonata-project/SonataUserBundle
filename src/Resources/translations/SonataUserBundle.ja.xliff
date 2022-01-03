@@ -30,25 +30,9 @@
         <source>breadcrumb.link_user_delete</source>
         <target>削除</target>
       </trans-unit>
-      <trans-unit id="breadcrumb.link_group_list">
-        <source>breadcrumb.link_group_list</source>
-        <target>グループ</target>
-      </trans-unit>
-      <trans-unit id="breadcrumb.link_group_create">
-        <source>breadcrumb.link_group_create</source>
-        <target>新規作成</target>
-      </trans-unit>
-      <trans-unit id="breadcrumb.link_group_edit">
-        <source>breadcrumb.link_group_edit</source>
-        <target>編集</target>
-      </trans-unit>
       <trans-unit id="users">
         <source>users</source>
         <target>ユーザ</target>
-      </trans-unit>
-      <trans-unit id="groups">
-        <source>groups</source>
-        <target>グループ</target>
       </trans-unit>
       <trans-unit id="switch_user_exit">
         <source>switch_user_exit</source>
@@ -73,10 +57,6 @@
       <trans-unit id="form.label_plain_password">
         <source>form.label_plain_password</source>
         <target>平文パスワード</target>
-      </trans-unit>
-      <trans-unit id="form.label_groups">
-        <source>form.label_groups</source>
-        <target>グループ</target>
       </trans-unit>
       <trans-unit id="form.label_roles">
         <source>form.label_roles</source>
@@ -130,10 +110,6 @@
         <source>filter.label_id</source>
         <target>ID</target>
       </trans-unit>
-      <trans-unit id="filter.label_groups">
-        <source>filter.label_groups</source>
-        <target>グループ</target>
-      </trans-unit>
       <trans-unit id="filter.label_created_at">
         <source>filter.label_created_at</source>
         <target>作成日時</target>
@@ -161,10 +137,6 @@
       <trans-unit id="list.label_email">
         <source>list.label_email</source>
         <target>Eメールアドレス</target>
-      </trans-unit>
-      <trans-unit id="list.label_groups">
-        <source>list.label_groups</source>
-        <target>グループ</target>
       </trans-unit>
       <trans-unit id="list.label_locked">
         <source>list.label_locked</source>
@@ -217,10 +189,6 @@
       <trans-unit id="form_general">
         <source>General</source>
         <target>一般</target>
-      </trans-unit>
-      <trans-unit id="form_groups">
-        <source>Groups</source>
-        <target>グループ</target>
       </trans-unit>
       <trans-unit id="form_management">
         <source>Management</source>
@@ -305,10 +273,6 @@
       <trans-unit id="show.label_email">
         <source>show.label_email</source>
         <target>Eメール</target>
-      </trans-unit>
-      <trans-unit id="show.label_groups">
-        <source>show.label_groups</source>
-        <target>グループ</target>
       </trans-unit>
       <trans-unit id="show.label_date_of_birth">
         <source>show.label_date_of_birth</source>

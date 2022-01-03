@@ -31,20 +31,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 '%sonata.user.user.class%',
                 '%sonata.user.admin.user.controller%',
             ])
-            ->call('setTranslationDomain', ['%sonata.user.admin.user.translation_domain%'])
-
-        ->set('sonata.user.admin.group', '%sonata.user.admin.group.class%')
-            ->tag('sonata.admin', [
-                'manager_type' => 'orm',
-                'group' => 'sonata_user',
-                'label' => 'groups',
-                'label_catalogue' => 'SonataUserBundle',
-                'label_translator_strategy' => 'sonata.admin.label.strategy.underscore',
-            ])
-            ->args([
-                '',
-                '%sonata.user.group.class%',
-                '%sonata.user.admin.group.controller%',
-            ])
-            ->call('setTranslationDomain', ['%sonata.user.admin.group.translation_domain%']);
+            ->call('setTranslationDomain', ['%sonata.user.admin.user.translation_domain%']);
 };

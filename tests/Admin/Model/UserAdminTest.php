@@ -25,7 +25,7 @@ final class UserAdminTest extends TestCase
 {
     public function testInstance(): void
     {
-        $admin = new UserAdmin('admin.group', User::class, CRUDController::class);
+        $admin = new UserAdmin('admin.user', User::class, CRUDController::class);
 
         static::assertNotEmpty($admin);
     }

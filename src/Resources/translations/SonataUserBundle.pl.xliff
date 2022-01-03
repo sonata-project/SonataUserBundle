@@ -38,25 +38,9 @@
         <source>breadcrumb.link_user_delete</source>
         <target equiv-trans="yes" state="final">Usuń</target>
       </trans-unit>
-      <trans-unit id="breadcrumb.link_group_list">
-        <source>breadcrumb.link_group_list</source>
-        <target equiv-trans="yes" state="final">Grupy</target>
-      </trans-unit>
-      <trans-unit id="breadcrumb.link_group_create">
-        <source>breadcrumb.link_group_create</source>
-        <target equiv-trans="yes" state="final">Utwórz</target>
-      </trans-unit>
-      <trans-unit id="breadcrumb.link_group_edit">
-        <source>breadcrumb.link_group_edit</source>
-        <target equiv-trans="yes" state="final">Edytuj</target>
-      </trans-unit>
       <trans-unit id="users">
         <source>users</source>
         <target equiv-trans="yes" state="final">Użytkownicy</target>
-      </trans-unit>
-      <trans-unit id="groups">
-        <source>groups</source>
-        <target equiv-trans="yes" state="final">Grupy</target>
       </trans-unit>
       <trans-unit id="switch_user_exit">
         <source>switch_user_exit</source>
@@ -85,10 +69,6 @@
       <trans-unit id="form.label_plain_password">
         <source>form.label_plain_password</source>
         <target equiv-trans="yes" state="final">Hasło (czysty tekst)</target>
-      </trans-unit>
-      <trans-unit id="form.label_groups">
-        <source>form.label_groups</source>
-        <target equiv-trans="yes" state="final">Grupy</target>
       </trans-unit>
       <trans-unit id="form.label_roles">
         <source>form.label_roles</source>
@@ -138,10 +118,6 @@
         <source>filter.label_enabled</source>
         <target>Aktywny</target>
       </trans-unit>
-      <trans-unit id="filter.label_groups">
-        <source>filter.label_groups</source>
-        <target equiv-trans="yes" state="final">Grupy</target>
-      </trans-unit>
       <trans-unit id="filter.label_firstname">
         <source>filter.label_firstname</source>
         <target>Imię</target>
@@ -161,10 +137,6 @@
       <trans-unit id="list.label_email">
         <source>list.label_email</source>
         <target equiv-trans="yes" state="final">Adres e-mail</target>
-      </trans-unit>
-      <trans-unit id="list.label_groups">
-        <source>list.label_groups</source>
-        <target>Grupy</target>
       </trans-unit>
       <trans-unit id="list.label_locked">
         <source>list.label_locked</source>
@@ -213,10 +185,6 @@
       <trans-unit id="form_general">
         <source>General</source>
         <target equiv-trans="yes" state="final">Ogólne</target>
-      </trans-unit>
-      <trans-unit id="form_groups">
-        <source>Groups</source>
-        <target equiv-trans="yes" state="final">Grupy</target>
       </trans-unit>
       <trans-unit id="form_management">
         <source>Management</source>
@@ -297,10 +265,6 @@
       <trans-unit id="show.label_email">
         <source>show.label_email</source>
         <target>Email</target>
-      </trans-unit>
-      <trans-unit id="show.label_groups">
-        <source>show.label_groups</source>
-        <target>Grupy</target>
       </trans-unit>
       <trans-unit id="show.label_date_of_birth">
         <source>show.label_date_of_birth</source>

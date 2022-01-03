@@ -11,7 +11,6 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-use Sonata\UserBundle\Document\GroupManager;
 use Sonata\UserBundle\Document\UserManager;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator;
@@ -26,11 +25,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 '%sonata.user.user.class%',
                 new ReferenceConfigurator('doctrine_mongodb'),
                 new ReferenceConfigurator('sonata.user.util.canonical_fields_updater'),
-            ])
-
-        ->set('sonata.user.manager.group', GroupManager::class)
-            ->args([
-                '%sonata.user.group.class%',
-                new ReferenceConfigurator('doctrine_mongodb'),
             ]);
 };
