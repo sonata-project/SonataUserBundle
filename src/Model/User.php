@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Model;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\UserInterface as SymfonyUserInterface;
 
 abstract class User implements UserInterface
@@ -47,11 +45,6 @@ abstract class User implements UserInterface
     protected ?\DateTimeInterface $passwordRequestedAt = null;
 
     /**
-     * @var Collection<int, GroupInterface>
-     */
-    protected Collection $groups;
-
-    /**
      * @var string[]
      */
     protected array $roles = [];
@@ -59,11 +52,6 @@ abstract class User implements UserInterface
     protected ?\DateTimeInterface $createdAt = null;
 
     protected ?\DateTimeInterface $updatedAt = null;
-
-    public function __construct()
-    {
-        $this->groups = new ArrayCollection();
-    }
 
     public function __toString(): string
     {
@@ -180,10 +168,6 @@ abstract class User implements UserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-
-        foreach ($this->getGroups() as $group) {
-            $roles = array_merge($roles, $group->getRoles());
-        }
 
         // we need to make sure to have at least one role
         $roles[] = static::ROLE_DEFAULT;
@@ -314,46 +298,6 @@ abstract class User implements UserInterface
         }
     }
 
-    /**
-     * @return Collection<int, GroupInterface>
-     */
-    public function getGroups(): Collection
-    {
-        return $this->groups;
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getGroupNames(): array
-    {
-        $names = [];
-        foreach ($this->getGroups() as $group) {
-            $names[] = $group->getName();
-        }
-
-        return $names;
-    }
-
-    public function hasGroup(string $name): bool
-    {
-        return \in_array($name, $this->getGroupNames(), true);
-    }
-
-    public function addGroup(GroupInterface $group): void
-    {
-        if (!$this->getGroups()->contains($group)) {
-            $this->getGroups()->add($group);
-        }
-    }
-
-    public function removeGroup(GroupInterface $group): void
-    {
-        if ($this->getGroups()->contains($group)) {
-            $this->getGroups()->removeElement($group);
-        }
-    }
-
     public function isEqualTo(SymfonyUserInterface $user): bool
     {
         if (!$user instanceof self) {
@@ -393,13 +337,6 @@ abstract class User implements UserInterface
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
-    }
-
-    public function setGroups(iterable $groups): void
-    {
-        foreach ($groups as $group) {
-            $this->addGroup($group);
-        }
     }
 
     public function getRealRoles(): array

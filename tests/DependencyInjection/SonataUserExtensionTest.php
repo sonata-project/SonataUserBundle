@@ -16,14 +16,9 @@ namespace Sonata\UserBundle\Tests\DependencyInjection;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Sonata\UserBundle\Admin\Entity\UserAdmin as EntityUserAdmin;
 use Sonata\UserBundle\DependencyInjection\SonataUserExtension;
-use Sonata\UserBundle\Document\BaseUser as DocumentBaseUser;
-use Sonata\UserBundle\Entity\BaseGroup as EntityBaseGroup;
 use Sonata\UserBundle\Entity\BaseUser as EntityBaseUser;
-use Sonata\UserBundle\Model\GroupInterface;
 use Sonata\UserBundle\Model\UserInterface;
-use Sonata\UserBundle\Tests\Admin\Document\GroupAdmin as DocumentGroupAdmin;
 use Sonata\UserBundle\Tests\Admin\Document\UserAdmin as DocumentUserAdmin;
-use Sonata\UserBundle\Tests\Document\Group as DocumentGroup;
 use Sonata\UserBundle\Tests\Document\User as DocumentUser;
 use Sonata\UserBundle\Tests\Entity\User as EntityUser;
 use Symfony\Bundle\TwigBundle\DependencyInjection\TwigExtension;
@@ -162,11 +157,9 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
             'manager_type' => 'mongodb',
             'class' => [
                 'user' => DocumentUser::class,
-                'group' => DocumentGroup::class,
             ],
             'admin' => [
                 'user' => ['class' => DocumentUserAdmin::class],
-                'group' => ['class' => DocumentGroupAdmin::class],
             ],
         ]);
     }
@@ -178,7 +171,6 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
     {
         $this->load(['manager_type' => 'orm', 'class' => [
             'user' => UserInterface::class,
-            'group' => GroupInterface::class,
         ]]);
     }
 
@@ -191,20 +183,6 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
         );
 
         $this->load(['manager_type' => 'mongodb', 'class' => ['user' => EntityBaseUser::class]]);
-    }
-
-    public function testNotCorrespondingGroupClass(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        $this->expectExceptionMessage(
-            'Model class "Sonata\UserBundle\Entity\BaseGroup" does not correspond to manager type "mongodb".'
-        );
-
-        $this->load(['manager_type' => 'mongodb', 'class' => [
-            'user' => DocumentBaseUser::class,
-            'group' => EntityBaseGroup::class,
-        ]]);
     }
 
     public function testMailerConfigParameterIfNotSet(): void

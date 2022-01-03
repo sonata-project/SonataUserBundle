@@ -30,25 +30,9 @@
         <source>breadcrumb.link_user_edit</source>
         <target>編輯</target>
       </trans-unit>
-      <trans-unit id="breadcrumb.link_group_list">
-        <source>breadcrumb.link_group_list</source>
-        <target>群組</target>
-      </trans-unit>
-      <trans-unit id="breadcrumb.link_group_create">
-        <source>breadcrumb.link_group_create</source>
-        <target>建立</target>
-      </trans-unit>
-      <trans-unit id="breadcrumb.link_group_edit">
-        <source>breadcrumb.link_group_edit</source>
-        <target>編輯</target>
-      </trans-unit>
       <trans-unit id="users">
         <source>users</source>
         <target>使用者</target>
-      </trans-unit>
-      <trans-unit id="groups">
-        <source>groups</source>
-        <target>群組</target>
       </trans-unit>
       <trans-unit id="switch_user_exit">
         <source>switch_user_exit</source>
@@ -133,10 +117,6 @@
       <trans-unit id="show.label_email">
         <source>show.label_email</source>
         <target>show.label_email</target>
-      </trans-unit>
-      <trans-unit id="show.label_groups">
-        <source>show.label_groups</source>
-        <target>show.label_groups</target>
       </trans-unit>
       <trans-unit id="show.label_date_of_birth">
         <source>show.label_date_of_birth</source>

@@ -1,6 +1,17 @@
 UPGRADE FROM 4.x to 5.0
 =======================
 
+## Groups removed
+
+User groups was a feature provided mainly by FOSUserBundle with an integration on the
+SonataUserBundle. This feature was already deprecated by the FOSUserBundle in its latest
+release.
+
+We removed it on SonataUserBundle 5.0 to avoid the extra complexity. Consider using roles
+hierarchy in order to group roles if you really need to.
+
+Make sure to remove your Group class and execute a migration to remove the groups table, also keep in mind to update your configuration to remove any reference to a group.
+
 ## User class simplified
 
 User class no longer has the Profile or Social fields. If you need them, please extend

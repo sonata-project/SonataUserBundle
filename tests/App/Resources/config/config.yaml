@@ -63,7 +63,6 @@ doctrine:
 sonata_user:
     class:
         user: Sonata\UserBundle\Tests\App\Entity\User
-        group: Sonata\UserBundle\Tests\App\Entity\Group
     resetting:
         email:
             address: 'sonatauser@example.com'

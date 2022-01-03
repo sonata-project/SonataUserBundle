@@ -38,25 +38,9 @@
         <source>breadcrumb.link_user_delete</source>
         <target>Изтрий</target>
       </trans-unit>
-      <trans-unit id="breadcrumb.link_group_list">
-        <source>breadcrumb.link_group_list</source>
-        <target>Групи</target>
-      </trans-unit>
-      <trans-unit id="breadcrumb.link_group_create">
-        <source>breadcrumb.link_group_create</source>
-        <target>Създай</target>
-      </trans-unit>
-      <trans-unit id="breadcrumb.link_group_edit">
-        <source>breadcrumb.link_group_edit</source>
-        <target>Редактирай</target>
-      </trans-unit>
       <trans-unit id="users">
         <source>users</source>
         <target>Потребители</target>
-      </trans-unit>
-      <trans-unit id="groups">
-        <source>groups</source>
-        <target>Групи</target>
       </trans-unit>
       <trans-unit id="switch_user_exit">
         <source>switch_user_exit</source>
@@ -85,10 +69,6 @@
       <trans-unit id="form.label_plain_password">
         <source>form.label_plain_password</source>
         <target>Парола (немаскирана):</target>
-      </trans-unit>
-      <trans-unit id="form.label_groups">
-        <source>form.label_groups</source>
-        <target>Групи:</target>
       </trans-unit>
       <trans-unit id="form.label_roles">
         <source>form.label_roles</source>
