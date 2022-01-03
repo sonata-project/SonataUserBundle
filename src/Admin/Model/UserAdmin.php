@@ -77,12 +77,12 @@ class UserAdmin extends AbstractAdmin
         // define group zoning
         $form
             ->tab('User')
-                ->with('General', ['class' => 'col-md-18'])->end()
+                ->with('General', ['class' => 'col-md-12'])->end()
             ->end()
             ->tab('Security')
-                ->with('Status', ['class' => 'col-md-4'])->end()
-                ->with('Keys', ['class' => 'col-md-4'])->end()
-                ->with('Roles', ['class' => 'col-md-16'])->end()
+                ->with('Status', ['class' => 'col-md-6'])->end()
+                ->with('Keys', ['class' => 'col-md-6'])->end()
+                ->with('Roles', ['class' => 'col-md-12'])->end()
             ->end();
 
         $form
