@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Admin\Document;
 
-use Sonata\UserBundle\Admin\Document\UserAdmin as BaseUserAdmin;
+use Sonata\UserBundle\Admin\Model\UserAdmin as BaseUserAdmin;
 
 /**
  * @author Anton Dyshkant <vyshkant@gmail.com>
