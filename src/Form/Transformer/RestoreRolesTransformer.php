@@ -16,6 +16,9 @@ namespace Sonata\UserBundle\Form\Transformer;
 use Sonata\UserBundle\Security\EditableRolesBuilder;
 use Symfony\Component\Form\DataTransformerInterface;
 
+/**
+ * @final since sonata-project/user-bundle 4.x
+ */
 class RestoreRolesTransformer implements DataTransformerInterface
 {
     /**

@@ -25,6 +25,9 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @final since sonata-project/user-bundle 4.x
+ */
 class SecurityRolesType extends AbstractType
 {
     /**

@@ -18,7 +18,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * GlobalVariablesCompilerPass.
+ * @final since sonata-project/user-bundle 4.x
  *
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */

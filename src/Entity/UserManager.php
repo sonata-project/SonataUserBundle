@@ -21,6 +21,8 @@ use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
 
 /**
+ * @final since sonata-project/user-bundle 4.x
+ *
  * @author Hugo Briand <briand@ekino.com>
  */
 class UserManager extends BaseUserManager implements UserManagerInterface, ManagerInterface
