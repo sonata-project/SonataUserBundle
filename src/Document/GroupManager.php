@@ -18,6 +18,8 @@ use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\UserBundle\Model\GroupManagerInterface;
 
 /**
+ * @final since sonata-project/user-bundle 4.x
+ *
  * @author Hugo Briand <briand@ekino.com>
  */
 class GroupManager extends BaseGroupManager implements GroupManagerInterface
