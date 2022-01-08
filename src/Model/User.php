@@ -145,7 +145,7 @@ abstract class User extends AbstractedUser implements UserInterface
      */
     public function __serialize()
     {
-        return serialize([
+        return [
             $this->password,
             $this->salt,
             $this->usernameCanonical,
@@ -154,16 +154,14 @@ abstract class User extends AbstractedUser implements UserInterface
             $this->id,
             $this->email,
             $this->emailCanonical,
-        ]);
+        ];
     }
 
     /**
      * @see AbstractedUser::unserialize()
      */
-    public function __unserialize($serialized)
+    public function __unserialize($data)
     {
-        $data = unserialize($serialized);
-
         if (13 === \count($data)) {
             // Unserializing a User object from 1.3.x
             unset($data[4], $data[5], $data[6], $data[9], $data[10]);
