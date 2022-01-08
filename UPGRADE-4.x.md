@@ -1,8 +1,8 @@
 UPGRADE 4.x
 ===========
 
-UPGRADE FROM 4.x to 4.x
-=======================
+UPGRADE FROM 4.14 to 4.15
+=========================
 
 ### Mark classes as final
 

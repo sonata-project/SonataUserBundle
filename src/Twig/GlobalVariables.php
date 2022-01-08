@@ -17,7 +17,7 @@ use Sonata\AdminBundle\Admin\AdminInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * @final since sonata-project/user-bundle 4.x
+ * @final since sonata-project/user-bundle 4.15
  *
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */
