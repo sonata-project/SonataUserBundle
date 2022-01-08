@@ -15,6 +15,9 @@ namespace Sonata\UserBundle\Admin\Entity;
 
 use Sonata\UserBundle\Admin\Model\UserAdmin as BaseUserAdmin;
 
+/**
+ * @final since sonata-project/user-bundle 4.15
+ */
 class UserAdmin extends BaseUserAdmin
 {
 }

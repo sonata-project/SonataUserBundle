@@ -1,6 +1,14 @@
 UPGRADE 4.x
 ===========
 
+UPGRADE FROM 4.14 to 4.15
+=========================
+
+### Mark classes as final
+
+A lot of classes were marked as final with the phpdoc annotation, make sure you avoid
+extending them because on next major they will become final.
+
 UPGRADE FROM 4.13 to 4.14
 =========================
 
