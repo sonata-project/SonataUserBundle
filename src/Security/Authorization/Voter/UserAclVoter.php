@@ -18,7 +18,7 @@ use Symfony\Component\Security\Acl\Voter\AclVoter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 /**
- * @final since sonata-project/user-bundle 4.x
+ * @final since sonata-project/user-bundle 4.15
  */
 class UserAclVoter extends AclVoter
 {

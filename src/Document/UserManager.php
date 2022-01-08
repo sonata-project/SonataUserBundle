@@ -18,7 +18,7 @@ use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
 
 /**
- * @final since sonata-project/user-bundle 4.x
+ * @final since sonata-project/user-bundle 4.15
  *
  * @author Hugo Briand <briand@ekino.com>
  */

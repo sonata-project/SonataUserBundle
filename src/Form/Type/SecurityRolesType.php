@@ -26,7 +26,7 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * @final since sonata-project/user-bundle 4.x
+ * @final since sonata-project/user-bundle 4.15
  */
 class SecurityRolesType extends AbstractType
 {

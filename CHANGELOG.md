@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.15.0](https://github.com/sonata-project/SonataUserBundle/compare/4.14.0...4.15.0) - 2022-01-08
+### Deprecated
+- [[#1471](https://github.com/sonata-project/SonataUserBundle/pull/1471)] Deprecated extending most of the classes of this bundle. ([@jordisala1991](https://github.com/jordisala1991))
+
+### Fixed
+- [[#1476](https://github.com/sonata-project/SonataUserBundle/pull/1476)] `User::__serialize()` and `User::__unserialize()` methods ([@VincentLanglet](https://github.com/VincentLanglet))
+
 ## [4.14.0](https://github.com/sonata-project/SonataUserBundle/compare/4.13.0...4.14.0) - 2021-12-28
 ### Deprecated
 - [[#1446](https://github.com/sonata-project/SonataUserBundle/pull/1446)] Deprecated the integration with `sonata-project/GoogleAuthenticator` ([@jordisala1991](https://github.com/jordisala1991))

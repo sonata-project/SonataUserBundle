@@ -30,7 +30,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
- * @final since sonata-project/user-bundle 4.x
+ * @final since sonata-project/user-bundle 4.15
  *
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */
