@@ -21,7 +21,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 final class GlobalVariables
 {
-    protected ContainerInterface $container;
+    private ContainerInterface $container;
 
     /**
      * @psalm-suppress ContainerDependency

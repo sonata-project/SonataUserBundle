@@ -24,7 +24,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 final class UserProvider implements UserProviderInterface
 {
-    protected UserManagerInterface $userManager;
+    private UserManagerInterface $userManager;
 
     public function __construct(UserManagerInterface $userManager)
     {
@@ -77,7 +77,7 @@ final class UserProvider implements UserProviderInterface
         return $userClass === $class || is_subclass_of($class, $userClass);
     }
 
-    protected function findUser(string $username): ?UserInterface
+    private function findUser(string $username): ?UserInterface
     {
         return $this->userManager->findUserByUsernameOrEmail($username);
     }

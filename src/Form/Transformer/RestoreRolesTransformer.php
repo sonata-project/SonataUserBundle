@@ -21,12 +21,12 @@ use Symfony\Component\Form\DataTransformerInterface;
  */
 final class RestoreRolesTransformer implements DataTransformerInterface
 {
-    protected EditableRolesBuilder $rolesBuilder;
+    private EditableRolesBuilder $rolesBuilder;
 
     /**
      * @var string[]|null
      */
-    protected ?array $originalRoles = null;
+    private ?array $originalRoles = null;
 
     public function __construct(EditableRolesBuilder $rolesBuilder)
     {
