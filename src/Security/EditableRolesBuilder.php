@@ -19,10 +19,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- * @final since sonata-project/user-bundle 4.15
- */
-class EditableRolesBuilder
+final class EditableRolesBuilder
 {
     private TokenStorageInterface $tokenStorage;
 

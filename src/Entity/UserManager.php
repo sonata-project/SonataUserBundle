@@ -20,13 +20,11 @@ use Sonata\UserBundle\Model\UserManagerInterface;
 use Sonata\UserBundle\Util\CanonicalFieldsUpdaterInterface;
 
 /**
- * @final since sonata-project/user-bundle 4.15
- *
  * @author Hugo Briand <briand@ekino.com>
  *
  * @phpstan-extends BaseEntityManager<UserInterface>
  */
-class UserManager extends BaseEntityManager implements UserManagerInterface
+final class UserManager extends BaseEntityManager implements UserManagerInterface
 {
     private CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater;
 

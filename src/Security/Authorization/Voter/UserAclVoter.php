@@ -17,10 +17,7 @@ use Sonata\UserBundle\Model\UserInterface;
 use Symfony\Component\Security\Acl\Voter\AclVoter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
-/**
- * @final since sonata-project/user-bundle 4.15
- */
-class UserAclVoter extends AclVoter
+final class UserAclVoter extends AclVoter
 {
     public function supportsClass($class): bool
     {

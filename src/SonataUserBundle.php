@@ -18,10 +18,7 @@ use Sonata\UserBundle\DependencyInjection\Compiler\RolesMatrixCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/**
- * @final since sonata-project/user-bundle 4.15
- */
-class SonataUserBundle extends Bundle
+final class SonataUserBundle extends Bundle
 {
     public function build(ContainerBuilder $container): void
     {

@@ -19,7 +19,7 @@ use Symfony\Component\Form\DataTransformerInterface;
 /**
  * @phpstan-implements DataTransformerInterface<string[], string[]>
  */
-class RestoreRolesTransformer implements DataTransformerInterface
+final class RestoreRolesTransformer implements DataTransformerInterface
 {
     protected EditableRolesBuilder $rolesBuilder;
 
