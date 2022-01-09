@@ -13,22 +13,22 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Form\Transformer;
 
-use Sonata\UserBundle\Security\EditableRolesBuilder;
+use Sonata\UserBundle\Security\EditableRolesBuilderInterface;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**
  * @phpstan-implements DataTransformerInterface<string[], string[]>
  */
-class RestoreRolesTransformer implements DataTransformerInterface
+final class RestoreRolesTransformer implements DataTransformerInterface
 {
-    protected EditableRolesBuilder $rolesBuilder;
+    private EditableRolesBuilderInterface $rolesBuilder;
 
     /**
      * @var string[]|null
      */
-    protected ?array $originalRoles = null;
+    private ?array $originalRoles = null;
 
-    public function __construct(EditableRolesBuilder $rolesBuilder)
+    public function __construct(EditableRolesBuilderInterface $rolesBuilder)
     {
         $this->rolesBuilder = $rolesBuilder;
     }
@@ -46,7 +46,6 @@ class RestoreRolesTransformer implements DataTransformerInterface
      *
      * @return string[]|null
      */
-    #[\ReturnTypeWillChange]
     public function transform($value): ?array
     {
         if (null === $value) {
@@ -65,7 +64,6 @@ class RestoreRolesTransformer implements DataTransformerInterface
      *
      * @return string[]|null
      */
-    #[\ReturnTypeWillChange]
     public function reverseTransform($selectedRoles): ?array
     {
         if (null === $this->originalRoles) {

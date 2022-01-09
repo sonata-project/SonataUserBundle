@@ -15,7 +15,7 @@ namespace Sonata\UserBundle\Tests\Form\Type;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use Sonata\UserBundle\Form\Type\SecurityRolesType;
-use Sonata\UserBundle\Security\EditableRolesBuilder;
+use Sonata\UserBundle\Security\EditableRolesBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormExtensionInterface;
 use Symfony\Component\Form\PreloadedExtension;
@@ -28,13 +28,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class SecurityRolesTypeTest extends TypeTestCase
 {
     /**
-     * @var MockObject&EditableRolesBuilder
+     * @var MockObject&EditableRolesBuilderInterface
      */
     protected MockObject $roleBuilder;
 
     protected function setUp(): void
     {
-        $this->roleBuilder = $this->createMock(EditableRolesBuilder::class);
+        $this->roleBuilder = $this->createMock(EditableRolesBuilderInterface::class);
 
         $this->roleBuilder->method('getRoles')->willReturn([
           'ROLE_FOO' => 'ROLE_FOO',

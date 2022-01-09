@@ -32,9 +32,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 new ReferenceConfigurator('security.authorization_checker'),
                 new ReferenceConfigurator('sonata.admin.pool'),
                 new ReferenceConfigurator('sonata.admin.configuration'),
+                new ReferenceConfigurator('translator'),
                 '%security.role_hierarchy.roles%',
             ])
-            ->call('setTranslator', [new ReferenceConfigurator('translator')])
 
         ->set('sonata.user.form.type.security_roles', SecurityRolesType::class)
             ->public()

@@ -23,11 +23,9 @@ use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
- * @final since sonata-project/user-bundle 4.15
- *
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */
-class SonataUserExtension extends Extension implements PrependExtensionInterface
+final class SonataUserExtension extends Extension implements PrependExtensionInterface
 {
     public function prepend(ContainerBuilder $container): void
     {
@@ -117,7 +115,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     /**
      * @param array<string, mixed> $config
      */
-    public function configureClass(array $config, ContainerBuilder $container): void
+    private function configureClass(array $config, ContainerBuilder $container): void
     {
         $container->setParameter('sonata.user.user.class', $config['class']['user']);
     }
@@ -125,7 +123,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     /**
      * @param array<string, mixed> $config
      */
-    public function configureAdminClass(array $config, ContainerBuilder $container): void
+    private function configureAdminClass(array $config, ContainerBuilder $container): void
     {
         $container->setParameter('sonata.user.admin.user.class', $config['admin']['user']['class']);
     }
@@ -133,7 +131,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     /**
      * @param array<string, mixed> $config
      */
-    public function configureTranslationDomain(array $config, ContainerBuilder $container): void
+    private function configureTranslationDomain(array $config, ContainerBuilder $container): void
     {
         $container->setParameter('sonata.user.admin.user.translation_domain', $config['admin']['user']['translation']);
     }
@@ -141,7 +139,7 @@ class SonataUserExtension extends Extension implements PrependExtensionInterface
     /**
      * @param array<string, mixed> $config
      */
-    public function configureController(array $config, ContainerBuilder $container): void
+    private function configureController(array $config, ContainerBuilder $container): void
     {
         $container->setParameter('sonata.user.admin.user.controller', $config['admin']['user']['controller']);
     }

@@ -17,13 +17,11 @@ use Sonata\AdminBundle\Admin\AdminInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * @final since sonata-project/user-bundle 4.15
- *
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */
-class GlobalVariables
+final class GlobalVariables
 {
-    protected ContainerInterface $container;
+    private ContainerInterface $container;
 
     /**
      * @psalm-suppress ContainerDependency
