@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 use Sonata\UserBundle\Twig\GlobalVariables;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     // Use "service" function for creating references to services when dropping support for Symfony 4
@@ -21,6 +21,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
         ->set('sonata.user.twig.global', GlobalVariables::class)
             ->args([
-                new Reference('service_container'),
+                new ReferenceConfigurator('sonata.admin.pool'),
+                '',
+                false,
+                '',
+                [],
             ]);
 };
