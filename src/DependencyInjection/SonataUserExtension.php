@@ -88,7 +88,7 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
      *
      * @return array<string, mixed>
      */
-    private function fixImpersonating(array $config): array
+    public function fixImpersonating(array $config): array
     {
         if (isset($config['impersonating'], $config['impersonating_route'])) {
             throw new \RuntimeException('you can\'t have `impersonating` and `impersonating_route` keys defined at the same time');

@@ -46,7 +46,6 @@ final class RestoreRolesTransformer implements DataTransformerInterface
      *
      * @return string[]|null
      */
-    #[\ReturnTypeWillChange]
     public function transform($value): ?array
     {
         if (null === $value) {
@@ -65,7 +64,6 @@ final class RestoreRolesTransformer implements DataTransformerInterface
      *
      * @return string[]|null
      */
-    #[\ReturnTypeWillChange]
     public function reverseTransform($selectedRoles): ?array
     {
         if (null === $this->originalRoles) {
