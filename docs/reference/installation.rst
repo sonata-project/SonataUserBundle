@@ -8,21 +8,16 @@ Installation
 Prerequisites
 -------------
 
-PHP ^7.3 and Symfony ^4.4 are needed to make this bundle work, there are
-also some Sonata dependencies that need to be installed and configured beforehand.
+There are some Sonata dependencies that need to be installed and configured beforehand.
 
 Required dependencies:
 
-* `SonataAdminBundle <https://docs.sonata-project.org/projects/SonataAdminBundle/en/3.x/>`_
-
-Optional dependencies:
-
-* `SonataGoogleAuthenticator <https://github.com/sonata-project/GoogleAuthenticator>`_
+* `SonataAdminBundle <https://docs.sonata-project.org/projects/SonataAdminBundle/en/4.x/>`_
 
 And the persistence bundle (choose one):
 
-* `SonataDoctrineOrmAdminBundle <https://docs.sonata-project.org/projects/SonataDoctrineORMAdminBundle/en/3.x/>`_
-* `SonataDoctrineMongoDBAdminBundle <https://docs.sonata-project.org/projects/SonataDoctrineMongoDBAdminBundle/en/3.x/>`_
+* `SonataDoctrineORMAdminBundle <https://docs.sonata-project.org/projects/SonataDoctrineORMAdminBundle/en/4.x/>`_
+* `SonataDoctrineMongoDBAdminBundle <https://docs.sonata-project.org/projects/SonataDoctrineMongoDBAdminBundle/en/4.x/>`_
 
 Follow also their configuration step; you will find everything you need in
 their own installation chapter.
@@ -62,7 +57,6 @@ SonataUserBundle Configuration
     sonata_user:
         class:
             user: App\Entity\SonataUserUser
-            group: App\Entity\SonataUserGroup
 
 Doctrine ORM Configuration
 --------------------------
@@ -78,7 +72,7 @@ And these in the config mapping definition (or enable `auto_mapping`_)::
                     mappings:
                         SonataUserBundle: ~
 
-And then create the corresponding entities, ``src/Entity/SonataUserUser``::
+And then create the corresponding entity, ``src/Entity/SonataUserUser``::
 
     // src/Entity/SonataUserUser.php
 
@@ -99,27 +93,6 @@ And then create the corresponding entities, ``src/Entity/SonataUserUser``::
         protected $id;
     }
 
-and ``src/Entity/SonataUserGroup``::
-
-    // src/Entity/SonataUserGroup.php
-
-    use Doctrine\ORM\Mapping as ORM;
-    use Sonata\UserBundle\Entity\BaseGroup;
-
-    /**
-     * @ORM\Entity
-     * @ORM\Table(name="sonata_user__group")
-     */
-    class SonataUserGroup extends BaseGroup
-    {
-        /**
-         * @ORM\Id
-         * @ORM\GeneratedValue
-         * @ORM\Column(type="integer")
-         */
-        protected $id;
-    }
-
 The only thing left is to update your schema::
 
     bin/console doctrine:schema:update --force
@@ -127,7 +100,7 @@ The only thing left is to update your schema::
 Doctrine MongoDB Configuration
 ------------------------------
 
-You have to create the corresponding documents, ``src/Document/SonataUserUser``::
+You have to create the corresponding document, ``src/Document/SonataUserUser``::
 
     // src/Document/SonataUserUser.php
 
@@ -145,24 +118,6 @@ You have to create the corresponding documents, ``src/Document/SonataUserUser``:
         protected $id;
     }
 
-and ``src/Document/SonataUserGroup``::
-
-    // src/Document/SonataUserGroup.php
-
-    use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
-    use Sonata\UserBundle\Document\BaseGroup;
-
-    /**
-     * @MongoDB\Document
-     */
-    class SonataUserGroup extends BaseGroup
-    {
-        /**
-         * @MongoDB\Id
-         */
-        protected $id;
-    }
-
 Then configure ``SonataUserBundle`` to use the newly generated classes::
 
     # config/packages/sonata_user.yaml
@@ -171,7 +126,6 @@ Then configure ``SonataUserBundle`` to use the newly generated classes::
         manager_type: mongodb
         class:
             user: App\Document\SonataUserUser
-            group: App\Document\SonataUserGroup
 
 ACL Configuration
 -----------------
@@ -263,7 +217,7 @@ Add role hierarchy and provider, if you are not using ACL also add the encoder:
 
     security:
         role_hierarchy:
-            ROLE_ADMIN:       [ROLE_USER, ROLE_SONATA_ADMIN]
+            ROLE_ADMIN: [ROLE_USER, ROLE_SONATA_ADMIN]
             ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
             SONATA:
                 - ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT  # if you are using acl then this line must be commented
