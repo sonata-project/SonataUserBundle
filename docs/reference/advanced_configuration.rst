@@ -11,32 +11,23 @@ Full configuration options:
 
     sonata_user:
         security_acl: false
-        manager_type: orm      # can be orm or mongodb
-
-        table:
-            user_group: "my_custom_user_group_association_table_name"
+        manager_type: orm # can be orm or mongodb
 
         impersonating:
-            route:                page_slug
-            parameters:           { path: / }
+            route: page_slug
+            parameters: { path: / }
 
-        class:                  # Entity Classes
-            user:               Application\Sonata\UserBundle\Entity\User
-            group:              Application\Sonata\UserBundle\Entity\Group
+        class: # Entity Classes
+            user: Application\Sonata\UserBundle\Entity\User
 
-        admin:                  # Admin Classes
+        admin: # Admin Classes
             user:
-                class:          Sonata\UserBundle\Admin\Entity\UserAdmin
-                controller:     Sonata\AdminBundle\Controller\CRUDController
-                translation:    SonataUserBundle
-
-            group:
-                class:          Sonata\UserBundle\Admin\Entity\GroupAdmin
-                controller:     Sonata\AdminBundle\Controller\CRUDController
-                translation:    SonataUserBundle
+                class: Sonata\UserBundle\Admin\Entity\UserAdmin
+                controller: Sonata\AdminBundle\Controller\CRUDController
+                translation: SonataUserBundle
 
         profile:
-            default_avatar: 'bundles/sonatauser/default_avatar.png' # Default avatar displayed if the user doesn't have one
+            default_avatar: bundles/sonatauser/default_avatar.png # Default avatar displayed if the user doesn't have one
 
         mailer: sonata.user.mailer.default # Service used to send emails
 
@@ -46,5 +37,4 @@ Full configuration options:
             entity_managers:
                 default:
                     mappings:
-                        ApplicationSonataUserBundle: ~
                         SonataUserBundle: ~
