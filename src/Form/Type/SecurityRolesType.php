@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Form\Type;
 
 use Sonata\UserBundle\Form\Transformer\RestoreRolesTransformer;
-use Sonata\UserBundle\Security\EditableRolesBuilder;
+use Sonata\UserBundle\Security\EditableRolesBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -27,9 +27,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class SecurityRolesType extends AbstractType
 {
-    private EditableRolesBuilder $rolesBuilder;
+    private EditableRolesBuilderInterface $rolesBuilder;
 
-    public function __construct(EditableRolesBuilder $rolesBuilder)
+    public function __construct(EditableRolesBuilderInterface $rolesBuilder)
     {
         $this->rolesBuilder = $rolesBuilder;
     }

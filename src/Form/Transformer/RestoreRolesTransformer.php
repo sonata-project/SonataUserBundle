@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Form\Transformer;
 
-use Sonata\UserBundle\Security\EditableRolesBuilder;
+use Sonata\UserBundle\Security\EditableRolesBuilderInterface;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**
@@ -21,14 +21,14 @@ use Symfony\Component\Form\DataTransformerInterface;
  */
 final class RestoreRolesTransformer implements DataTransformerInterface
 {
-    private EditableRolesBuilder $rolesBuilder;
+    private EditableRolesBuilderInterface $rolesBuilder;
 
     /**
      * @var string[]|null
      */
     private ?array $originalRoles = null;
 
-    public function __construct(EditableRolesBuilder $rolesBuilder)
+    public function __construct(EditableRolesBuilderInterface $rolesBuilder)
     {
         $this->rolesBuilder = $rolesBuilder;
     }

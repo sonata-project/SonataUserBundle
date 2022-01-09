@@ -19,7 +19,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class EditableRolesBuilder
+final class EditableRolesBuilder implements EditableRolesBuilderInterface
 {
     private TokenStorageInterface $tokenStorage;
 
@@ -29,33 +29,32 @@ final class EditableRolesBuilder
 
     private SonataConfiguration $configuration;
 
+    private TranslatorInterface $translator;
+
     /**
      * @var array<string, array<string>>
      */
     private array $rolesHierarchy;
 
-    private ?TranslatorInterface $translator = null;
-
     /**
      * @param array<string, array<string>> $rolesHierarchy
      */
-    public function __construct(TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authorizationChecker, Pool $pool, SonataConfiguration $configuration, array $rolesHierarchy = [])
-    {
+    public function __construct(
+        TokenStorageInterface $tokenStorage,
+        AuthorizationCheckerInterface $authorizationChecker,
+        Pool $pool,
+        SonataConfiguration $configuration,
+        TranslatorInterface $translator,
+        array $rolesHierarchy = []
+    ) {
         $this->tokenStorage = $tokenStorage;
         $this->authorizationChecker = $authorizationChecker;
         $this->pool = $pool;
         $this->configuration = $configuration;
+        $this->translator = $translator;
         $this->rolesHierarchy = $rolesHierarchy;
     }
 
-    public function setTranslator(TranslatorInterface $translator): void
-    {
-        $this->translator = $translator;
-    }
-
-    /**
-     * @return string[]
-     */
     public function getRoles(?string $domain = null, bool $expanded = true): array
     {
         if (null === $this->tokenStorage->getToken()) {
@@ -94,9 +93,6 @@ final class EditableRolesBuilder
         return $roles;
     }
 
-    /**
-     * @return string[]
-     */
     public function getRolesReadOnly(?string $domain = null): array
     {
         if (null === $this->tokenStorage->getToken()) {
@@ -144,7 +140,7 @@ final class EditableRolesBuilder
     {
         // translation domain is false, do not translate it,
         // null is fallback to message domain
-        if (null === $domain || !isset($this->translator)) {
+        if (null === $domain) {
             return $role;
         }
 

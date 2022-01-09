@@ -99,7 +99,7 @@ class EditableRolesBuilderTest extends TestCase
             'SONATA' => 'SONATA: ',
         ];
 
-        $builder = new EditableRolesBuilder($tokenStorage, $authorizationChecker, $pool, $this->configuration, $rolesHierarchy);
+        $builder = new EditableRolesBuilder($tokenStorage, $authorizationChecker, $pool, $this->configuration, null, $rolesHierarchy);
         $roles = $builder->getRoles();
         $rolesReadOnly = $builder->getRolesReadOnly();
 
@@ -130,13 +130,13 @@ class EditableRolesBuilderTest extends TestCase
 
         $pool = new Pool($container, ['myadmin']);
 
-        $builder = new EditableRolesBuilder($tokenStorage, $authorizationChecker, $pool, $this->configuration, []);
+        $builder = new EditableRolesBuilder($tokenStorage, $authorizationChecker, $pool, $this->configuration);
 
         $expected = [
-          'ROLE_FOO_GUEST' => 'ROLE_FOO_GUEST',
-          'ROLE_FOO_STAFF' => 'ROLE_FOO_STAFF',
-          'ROLE_FOO_EDITOR' => 'ROLE_FOO_EDITOR',
-          'ROLE_FOO_ADMIN' => 'ROLE_FOO_ADMIN',
+            'ROLE_FOO_GUEST' => 'ROLE_FOO_GUEST',
+            'ROLE_FOO_STAFF' => 'ROLE_FOO_STAFF',
+            'ROLE_FOO_EDITOR' => 'ROLE_FOO_EDITOR',
+            'ROLE_FOO_ADMIN' => 'ROLE_FOO_ADMIN',
         ];
 
         $roles = $builder->getRoles();
@@ -155,7 +155,7 @@ class EditableRolesBuilderTest extends TestCase
 
         $pool = new Pool(new Container());
 
-        $builder = new EditableRolesBuilder($tokenStorage, $authorizationChecker, $pool, $this->configuration, []);
+        $builder = new EditableRolesBuilder($tokenStorage, $authorizationChecker, $pool, $this->configuration);
 
         $roles = $builder->getRoles();
         $rolesReadOnly = $builder->getRolesReadOnly();

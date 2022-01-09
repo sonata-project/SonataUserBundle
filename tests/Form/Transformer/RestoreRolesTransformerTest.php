@@ -15,7 +15,7 @@ namespace Sonata\UserBundle\Tests\Form\Transformer;
 
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Form\Transformer\RestoreRolesTransformer;
-use Sonata\UserBundle\Security\EditableRolesBuilder;
+use Sonata\UserBundle\Security\EditableRolesBuilderInterface;
 
 class RestoreRolesTransformerTest extends TestCase
 {
@@ -23,7 +23,7 @@ class RestoreRolesTransformerTest extends TestCase
     {
         $this->expectException(\RuntimeException::class);
 
-        $roleBuilder = $this->createMock(EditableRolesBuilder::class);
+        $roleBuilder = $this->createMock(EditableRolesBuilderInterface::class);
 
         $transformer = new RestoreRolesTransformer($roleBuilder);
         $transformer->transform([]);
@@ -33,7 +33,7 @@ class RestoreRolesTransformerTest extends TestCase
     {
         $this->expectException(\RuntimeException::class);
 
-        $roleBuilder = $this->createMock(EditableRolesBuilder::class);
+        $roleBuilder = $this->createMock(EditableRolesBuilderInterface::class);
 
         $transformer = new RestoreRolesTransformer($roleBuilder);
         $transformer->reverseTransform([]);
@@ -41,7 +41,7 @@ class RestoreRolesTransformerTest extends TestCase
 
     public function testValidTransform(): void
     {
-        $roleBuilder = $this->createMock(EditableRolesBuilder::class);
+        $roleBuilder = $this->createMock(EditableRolesBuilderInterface::class);
 
         $transformer = new RestoreRolesTransformer($roleBuilder);
         $transformer->setOriginalRoles([]);
@@ -53,7 +53,7 @@ class RestoreRolesTransformerTest extends TestCase
 
     public function testValidReverseTransform(): void
     {
-        $roleBuilder = $this->createMock(EditableRolesBuilder::class);
+        $roleBuilder = $this->createMock(EditableRolesBuilderInterface::class);
 
         $roleBuilder->expects(static::once())->method('getRoles')->willReturn([]);
 
@@ -67,7 +67,7 @@ class RestoreRolesTransformerTest extends TestCase
 
     public function testTransformAllowEmptyOriginalRoles(): void
     {
-        $roleBuilder = $this->createMock(EditableRolesBuilder::class);
+        $roleBuilder = $this->createMock(EditableRolesBuilderInterface::class);
 
         $transformer = new RestoreRolesTransformer($roleBuilder);
         $transformer->setOriginalRoles(null);
@@ -79,7 +79,7 @@ class RestoreRolesTransformerTest extends TestCase
 
     public function testReverseTransformAllowEmptyOriginalRoles(): void
     {
-        $roleBuilder = $this->createMock(EditableRolesBuilder::class);
+        $roleBuilder = $this->createMock(EditableRolesBuilderInterface::class);
 
         $roleBuilder->expects(static::once())->method('getRoles')->willReturn([]);
 
@@ -93,7 +93,7 @@ class RestoreRolesTransformerTest extends TestCase
 
     public function testReverseTransformRevokedHierarchicalRole(): void
     {
-        $roleBuilder = $this->createMock(EditableRolesBuilder::class);
+        $roleBuilder = $this->createMock(EditableRolesBuilderInterface::class);
 
         $availableRoles = [
             'ROLE_SONATA_ADMIN' => 'ROLE_SONATA_ADMIN',
@@ -119,7 +119,7 @@ class RestoreRolesTransformerTest extends TestCase
 
     public function testReverseTransformHiddenRole(): void
     {
-        $roleBuilder = $this->createMock(EditableRolesBuilder::class);
+        $roleBuilder = $this->createMock(EditableRolesBuilderInterface::class);
 
         $availableRoles = [
             'ROLE_SONATA_ADMIN' => 'ROLE_SONATA_ADMIN',
