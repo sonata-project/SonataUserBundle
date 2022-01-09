@@ -48,37 +48,28 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
         $this->load();
     }
 
-    public function testFixImpersonatingWithWrongConfig(): void
+    public function testImpersonatingDisabled(): void
     {
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('you can\'t have `impersonating` and `impersonating_route` keys defined at the same time');
+        $this->load();
 
-        $this->load(['impersonating' => ['route' => 'foo'], 'impersonating_route' => 'bar']);
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument('sonata.user.twig.global', 2, false);
     }
 
-    /**
-     * @param mixed[] $expectedConfig
-     * @param mixed[] $providedConfig
-     *
-     * @dataProvider fixImpersonatingDataProvider
-     */
-    public function testFixImpersonatingWithImpersonatingConfig(array $expectedConfig, array $providedConfig): void
+    public function testImpersonatingEnabled(): void
     {
-        $extension = new SonataUserExtension();
+        $this->load([
+            'impersonating' => [
+                'enabled' => true,
+                'route' => 'sonata_admin_dashboard',
+                'parameters' => [
+                    'foo' => 'bar',
+                ],
+            ],
+        ]);
 
-        static::assertSame($expectedConfig, $extension->fixImpersonating($providedConfig));
-    }
-
-    /**
-     * @return iterable<mixed[]>
-     *
-     * @phpstan-return iterable<array{mixed[], mixed[]}>
-     */
-    public function fixImpersonatingDataProvider(): iterable
-    {
-        yield 'with impersonating with route' => [['impersonating' => ['route' => 'foo', 'parameters' => []]], ['impersonating' => ['route' => 'foo', 'parameters' => []]]];
-        yield 'with impersonating without route' => [['impersonating' => false], ['impersonating' => ['parameters' => []]]];
-        yield 'with impersonating_route' => [['impersonating_route' => 'foo', 'impersonating' => ['route' => 'foo', 'parameters' => []]], ['impersonating_route' => 'foo']];
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument('sonata.user.twig.global', 2, true);
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument('sonata.user.twig.global', 3, 'sonata_admin_dashboard');
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument('sonata.user.twig.global', 4, ['foo' => 'bar']);
     }
 
     public function testTwigConfigParameterIsSetting(): void

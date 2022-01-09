@@ -18,22 +18,44 @@ use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Admin\Entity\UserAdmin;
 use Sonata\UserBundle\DependencyInjection\Configuration;
 use Sonata\UserBundle\Entity\BaseUser;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class ConfigurationTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 
-    public function getConfiguration(): Configuration
+    public function testMinimalConfigurationRequired(): void
     {
-        return new Configuration();
+        $this->assertConfigurationIsInvalid([]);
+        $this->assertConfigurationIsValid([
+            'sonata_user' => [
+                'resetting' => [
+                    'email' => [
+                        'address' => 'sonata@localhost.com',
+                        'sender_name' => 'Sonata Admin',
+                    ],
+                ],
+            ],
+        ]);
     }
 
     public function testDefault(): void
     {
         $this->assertProcessedConfigurationEquals([
-            [],
+            [
+                'resetting' => [
+                    'email' => [
+                        'address' => 'sonata@localhost.com',
+                        'sender_name' => 'Sonata Admin',
+                    ],
+                ],
+            ],
         ], [
             'security_acl' => false,
+            'impersonating' => [
+                'enabled' => false,
+                'parameters' => [],
+            ],
             'manager_type' => 'orm',
             'class' => [
                 'user' => BaseUser::class,
@@ -53,9 +75,16 @@ class ConfigurationTest extends TestCase
                 'retry_ttl' => 7200,
                 'token_ttl' => 86400,
                 'email' => [
+                    'address' => 'sonata@localhost.com',
+                    'sender_name' => 'Sonata Admin',
                     'template' => '@SonataUser/Admin/Security/Resetting/email.html.twig',
                 ],
             ],
         ]);
+    }
+
+    protected function getConfiguration(): ConfigurationInterface
+    {
+        return new Configuration();
     }
 }

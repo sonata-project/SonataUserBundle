@@ -14,37 +14,41 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Twig;
 
 use Sonata\AdminBundle\Admin\AdminInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Sonata\AdminBundle\Admin\Pool;
 
 /**
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */
 final class GlobalVariables
 {
-    private ContainerInterface $container;
+    private Pool $pool;
+
+    private string $defaultAvatar;
+
+    private bool $impersonatingEnabled;
+
+    private string $impersonatingRoute;
 
     /**
-     * @psalm-suppress ContainerDependency
+     * @var array<string, mixed>
      */
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
-    }
+    private array $impersonatingRouteParameters;
 
-    public function getImpersonating(): string
-    {
-        $impersonating = $this->container->getParameter('sonata.user.impersonating');
-        \assert(\is_string($impersonating));
-
-        return $impersonating;
-    }
-
-    public function getDefaultAvatar(): string
-    {
-        $defaultAvatar = $this->container->getParameter('sonata.user.default_avatar');
-        \assert(\is_string($defaultAvatar));
-
-        return $defaultAvatar;
+    /**
+     * @param array<string, mixed> $impersonatingRouteParameters
+     */
+    public function __construct(
+        Pool $pool,
+        string $defaultAvatar,
+        bool $impersonatingEnabled,
+        string $impersonatingRoute,
+        array $impersonatingRouteParameters = []
+    ) {
+        $this->pool = $pool;
+        $this->defaultAvatar = $defaultAvatar;
+        $this->impersonatingEnabled = $impersonatingEnabled;
+        $this->impersonatingRoute = $impersonatingRoute;
+        $this->impersonatingRouteParameters = $impersonatingRouteParameters;
     }
 
     /**
@@ -52,9 +56,29 @@ final class GlobalVariables
      */
     public function getUserAdmin(): AdminInterface
     {
-        $userAdmin = $this->container->get('sonata.user.admin.user');
-        \assert($userAdmin instanceof AdminInterface);
+        return $this->pool->getAdminByAdminCode('sonata.user.admin.user');
+    }
 
-        return $userAdmin;
+    public function getDefaultAvatar(): string
+    {
+        return $this->defaultAvatar;
+    }
+
+    public function isImpersonatingEnabled(): bool
+    {
+        return $this->impersonatingEnabled;
+    }
+
+    public function getImpersonatingRoute(): string
+    {
+        return $this->impersonatingRoute;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function getImpersonatingRouteParameters(): array
+    {
+        return $this->impersonatingRouteParameters;
     }
 }

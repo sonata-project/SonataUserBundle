@@ -40,7 +40,6 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
         $processor = new Processor();
         $configuration = new Configuration();
         $config = $processor->processConfiguration($configuration, $configs);
-        $config = $this->fixImpersonating($config);
 
         $bundles = $container->getParameter('kernel.bundles');
         \assert(\is_array($bundles));
@@ -78,38 +77,10 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
         $this->configureResetting($container, $config);
 
         $container->setParameter('sonata.user.default_avatar', $config['profile']['default_avatar']);
-        $container->setParameter('sonata.user.impersonating', $config['impersonating']);
-    }
 
-    /**
-     * @param array<string, mixed> $config
-     *
-     * @throws \RuntimeException
-     *
-     * @return array<string, mixed>
-     */
-    public function fixImpersonating(array $config): array
-    {
-        if (isset($config['impersonating'], $config['impersonating_route'])) {
-            throw new \RuntimeException('you can\'t have `impersonating` and `impersonating_route` keys defined at the same time');
+        if ($this->isConfigEnabled($container, $config['impersonating'])) {
+            $this->configureImpersonation($config['impersonating'], $container);
         }
-
-        if (isset($config['impersonating_route'])) {
-            $config['impersonating'] = [
-                'route' => $config['impersonating_route'],
-                'parameters' => [],
-            ];
-        }
-
-        if (!isset($config['impersonating']['parameters'])) {
-            $config['impersonating']['parameters'] = [];
-        }
-
-        if (!isset($config['impersonating']['route'])) {
-            $config['impersonating'] = false;
-        }
-
-        return $config;
     }
 
     /**
@@ -203,5 +174,16 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
     private function configureMailer(array $config, ContainerBuilder $container): void
     {
         $container->setAlias('sonata.user.mailer', $config['mailer']);
+    }
+
+    /**
+     * @param array<string, mixed> $config
+     */
+    private function configureImpersonation(array $config, ContainerBuilder $container): void
+    {
+        $container->getDefinition('sonata.user.twig.global')
+            ->replaceArgument(2, $config['enabled'])
+            ->replaceArgument(3, $config['route'])
+            ->replaceArgument(4, $config['parameters']);
     }
 }
