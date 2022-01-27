@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\Functional\Action;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Tests\App\AppKernel;
 use Sonata\UserBundle\Tests\App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -67,7 +68,7 @@ class ResetActionTest extends WebTestCase
     /**
      * @psalm-suppress UndefinedPropertyFetch
      */
-    private function prepareData(): User
+    private function prepareData(): UserInterface
     {
         // TODO: Simplify this when dropping support for Symfony 4.
         // @phpstan-ignore-next-line
@@ -93,7 +94,7 @@ class ResetActionTest extends WebTestCase
     /**
      * @psalm-suppress UndefinedPropertyFetch
      */
-    private function refreshUser(User $user): User
+    private function refreshUser(UserInterface $user): UserInterface
     {
         // TODO: Simplify this when dropping support for Symfony 4.
         // @phpstan-ignore-next-line
