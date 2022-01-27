@@ -63,6 +63,8 @@ interface UserInterface extends SymfonyUserInterface, EquatableInterface, BCPass
 
     public function setConfirmationToken(?string $confirmationToken): void;
 
+    public function getPasswordRequestedAt(): ?\DateTimeInterface;
+
     public function setPasswordRequestedAt(?\DateTimeInterface $date = null): void;
 
     public function isPasswordRequestNonExpired(int $ttl): bool;

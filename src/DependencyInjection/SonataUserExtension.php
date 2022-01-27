@@ -55,6 +55,7 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
 
         $loader->load('twig.php');
         $loader->load('actions.php');
+        $loader->load('commands.php');
         $loader->load('listener.php');
         $loader->load('mailer.php');
         $loader->load('form.php');
