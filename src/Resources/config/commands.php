@@ -22,6 +22,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->set('sonata.user.command.activate_user', ActivateUserCommand::class)
             ->tag('console.command')
             ->args([
-                new ReferenceConfigurator('sonata.user.util.user_manipulator'),
+                new ReferenceConfigurator('sonata.user.manager.user'),
             ]);
 };
