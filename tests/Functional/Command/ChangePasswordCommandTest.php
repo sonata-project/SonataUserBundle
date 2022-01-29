@@ -3,15 +3,15 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Sonata Project package.
+ * This file is part of the Runroom package.
  *
- * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ * (c) Runroom <runroom@runroom.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Sonata\UserBundle\Tests\Functional\Command;
+namespace Runroom\UserBundle\Tests\Integration;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Sonata\UserBundle\Model\UserInterface;
@@ -21,7 +21,7 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
-class ActivateUserCommandTest extends KernelTestCase
+class ChangePasswordCommandTest extends KernelTestCase
 {
     private CommandTester $commandTester;
 
@@ -30,7 +30,7 @@ class ActivateUserCommandTest extends KernelTestCase
         static::bootKernel();
 
         $this->commandTester = new CommandTester(
-            (new Application(static::createKernel()))->find('sonata:user:activate')
+            (new Application(static::createKernel()))->find('sonata:user:change-password')
         );
     }
 
@@ -38,36 +38,32 @@ class ActivateUserCommandTest extends KernelTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        $this->commandTester->execute(['username' => 'sonata-user-test']);
+        $this->commandTester->execute([
+            'username' => 'username',
+            'password' => 'password',
+        ]);
     }
 
-    public function testDoesNothingToAnAlreadyActiveUser(): void
+    public function testChangesUserPassword(): void
     {
-        $user = $this->prepareData('sonata-user-test', true);
+        $user = $this->prepareData('username', 'old_password');
 
-        $this->commandTester->execute(['username' => 'sonata-user-test']);
+        static::assertSame($user->getPassword(), 'old_password');
+
+        $this->commandTester->execute([
+            'username' => 'username',
+            'password' => 'new_password',
+        ]);
 
         $user = $this->refreshUser($user);
 
-        static::assertTrue($user->isEnabled());
-    }
-
-    public function testActivatesUser(): void
-    {
-        $user = $this->prepareData('sonata-user-test', false);
-
-        $this->commandTester->execute(['username' => 'sonata-user-test']);
-
-        $user = $this->refreshUser($user);
-
-        static::assertTrue($user->isEnabled());
-        static::assertStringContainsString('User "sonata-user-test" has been activated.', $this->commandTester->getDisplay());
+        static::assertSame($user->getPassword(), 'new_password');
     }
 
     /**
      * @psalm-suppress UndefinedPropertyFetch
      */
-    private function prepareData(string $username, bool $enabled): UserInterface
+    private function prepareData(string $username, string $password): UserInterface
     {
         // TODO: Simplify this when dropping support for Symfony 4.
         // @phpstan-ignore-next-line
@@ -77,10 +73,10 @@ class ActivateUserCommandTest extends KernelTestCase
 
         $user = new User();
         $user->setUsername($username);
-        $user->setEmail('email@localhost');
-        $user->setPlainPassword('random_password');
+        $user->setEmail('username');
+        $user->setPlainPassword($password);
         $user->setSuperAdmin(true);
-        $user->setEnabled($enabled);
+        $user->setEnabled(true);
 
         $manager->persist($user);
 
