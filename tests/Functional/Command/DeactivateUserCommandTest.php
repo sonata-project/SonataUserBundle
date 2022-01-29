@@ -21,7 +21,7 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
-class ActivateUserCommandTest extends KernelTestCase
+class DeactivateUserCommandTest extends KernelTestCase
 {
     private CommandTester $commandTester;
 
@@ -30,7 +30,7 @@ class ActivateUserCommandTest extends KernelTestCase
         static::bootKernel();
 
         $this->commandTester = new CommandTester(
-            (new Application(static::createKernel()))->find('sonata:user:activate')
+            (new Application(static::createKernel()))->find('sonata:user:deactivate')
         );
     }
 
@@ -41,18 +41,7 @@ class ActivateUserCommandTest extends KernelTestCase
         $this->commandTester->execute(['username' => 'sonata-user-test']);
     }
 
-    public function testDoesNothingToAnAlreadyActiveUser(): void
-    {
-        $user = $this->prepareData('sonata-user-test', true);
-
-        $this->commandTester->execute(['username' => 'sonata-user-test']);
-
-        $user = $this->refreshUser($user);
-
-        static::assertTrue($user->isEnabled());
-    }
-
-    public function testActivatesUser(): void
+    public function testDoesNothingToAnAlreadyDeactiveUser(): void
     {
         $user = $this->prepareData('sonata-user-test', false);
 
@@ -60,7 +49,18 @@ class ActivateUserCommandTest extends KernelTestCase
 
         $user = $this->refreshUser($user);
 
-        static::assertTrue($user->isEnabled());
+        static::assertFalse($user->isEnabled());
+    }
+
+    public function testDeactivatesUser(): void
+    {
+        $user = $this->prepareData('sonata-user-test', true);
+
+        $this->commandTester->execute(['username' => 'sonata-user-test']);
+
+        $user = $this->refreshUser($user);
+
+        static::assertFalse($user->isEnabled());
         static::assertStringContainsString('User "sonata-user-test" has been activated.', $this->commandTester->getDisplay());
     }
 
