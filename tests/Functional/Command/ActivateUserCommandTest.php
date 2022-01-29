@@ -42,7 +42,6 @@ class ActivateUserCommandTest extends KernelTestCase
 
     public function testDoesNothingToAnAlreadyActiveUser(): void
     {
-        /** @phpstan-var Proxy<UserInterface> */
         $user = $this->prepareData('sonata-user-test', true);
 
         $this->commandTester->execute(['username' => 'sonata-user-test']);

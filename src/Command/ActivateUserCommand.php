@@ -37,7 +37,7 @@ final class ActivateUserCommand extends Command
         $this->userManager = $userManager;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         \assert(null !== static::$defaultDescription);
 
@@ -74,12 +74,14 @@ EOT
         return 0;
     }
 
-    protected function interact(InputInterface $input, OutputInterface $output)
+    protected function interact(InputInterface $input, OutputInterface $output): void
     {
-        if (!$input->getArgument('username')) {
+        $username = $input->getArgument('username');
+
+        if (null === $username) {
             $question = new Question('Please choose a username:');
             $question->setValidator(static function ($username) {
-                if (empty($username)) {
+                if (null === $username || '' === $username) {
                     throw new \Exception('Username can not be empty');
                 }
 
