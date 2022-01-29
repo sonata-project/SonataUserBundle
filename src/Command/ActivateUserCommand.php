@@ -44,7 +44,7 @@ final class ActivateUserCommand extends Command
         $this
             ->setDescription(static::$defaultDescription)
             ->setDefinition([
-                new InputArgument('username', InputArgument::REQUIRED, 'The username'),
+                new InputArgument('username', InputArgument::OPTIONAL, 'The username'),
             ])
             ->setHelp(
                 <<<'EOT'
@@ -58,6 +58,7 @@ EOT
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $username = $input->getArgument('username');
+        \assert(null !== $username);
 
         $user = $this->userManager->findUserByUsername($username);
 
@@ -78,11 +79,11 @@ EOT
     {
         $username = $input->getArgument('username');
 
-        if (null === $username) {
-            $question = new Question('Please choose a username:');
-            $question->setValidator(static function ($username) {
-                if (null === $username || '' === $username) {
-                    throw new \Exception('Username can not be empty');
+        if (null === $username || '' === $username) {
+            $question = new Question('Please choose a username: ');
+            $question->setValidator(static function (?string $username) {
+                if (null === $username) {
+                    throw new \InvalidArgumentException('Username can not be empty');
                 }
 
                 return $username;
