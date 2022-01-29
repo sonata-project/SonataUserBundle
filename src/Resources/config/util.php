@@ -13,20 +13,12 @@ declare(strict_types=1);
 
 use Sonata\UserBundle\Util\CanonicalFieldsUpdater;
 use Sonata\UserBundle\Util\TokenGenerator;
-use Sonata\UserBundle\Util\UserManipulator;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    // Use "service" function for creating references to services when dropping support for Symfony 4
     $containerConfigurator->services()
 
         ->set('sonata.user.util.canonical_fields_updater', CanonicalFieldsUpdater::class)
 
-        ->set('sonata.user.util.token_generator', TokenGenerator::class)
-
-        ->set('sonata.user.util.user_manipulator', UserManipulator::class)
-            ->args([
-                new ReferenceConfigurator('sonata.user.manager.user'),
-            ]);
+        ->set('sonata.user.util.token_generator', TokenGenerator::class);
 };

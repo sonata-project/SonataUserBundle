@@ -83,7 +83,9 @@ class ActivateUserCommandTest extends KernelTestCase
         $user->setEnabled($enabled);
 
         $manager->persist($user);
+
         $manager->flush();
+        $manager->clear();
 
         return $user;
     }

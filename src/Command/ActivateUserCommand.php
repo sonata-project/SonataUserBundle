@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Command;
 
-use Sonata\UserBundle\Util\UserManipulator;
+use Sonata\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -26,27 +26,29 @@ use Symfony\Component\Console\Question\Question;
 final class ActivateUserCommand extends Command
 {
     protected static $defaultName = 'sonata:user:activate';
+    protected static $defaultDescription = 'Activate a user';
 
-    private $userManipulator;
+    private UserManagerInterface $userManager;
 
-    public function __construct(UserManipulator $userManipulator)
+    public function __construct(UserManagerInterface $userManager)
     {
         parent::__construct();
 
-        $this->userManipulator = $userManipulator;
+        $this->userManager = $userManager;
     }
 
     protected function configure()
     {
+        \assert(null !== static::$defaultDescription);
+
         $this
-            ->setName('fos:user:activate')
-            ->setDescription('Activate a user')
+            ->setDescription(static::$defaultDescription)
             ->setDefinition([
                 new InputArgument('username', InputArgument::REQUIRED, 'The username'),
             ])
             ->setHelp(
                 <<<'EOT'
-The <info>fos:user:activate</info> command activates a user (so they will be able to log in):
+The <info>%command.full_name%</info> command activates a user (so they will be able to log in):
 
   <info>php %command.full_name% matthieu</info>
 EOT
@@ -57,7 +59,15 @@ EOT
     {
         $username = $input->getArgument('username');
 
-        $this->userManipulator->activate($username);
+        $user = $this->userManager->findUserByUsername($username);
+
+        if (null === $user) {
+            throw new \InvalidArgumentException(sprintf('User identified by "%s" username does not exist.', $username));
+        }
+
+        $user->setEnabled(true);
+
+        $this->userManager->save($user);
 
         $output->writeln(sprintf('User "%s" has been activated.', $username));
 
