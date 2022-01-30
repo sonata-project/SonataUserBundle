@@ -11,12 +11,12 @@ file that was distributed with this source code.
 
 {% block user_block %}
     {% if app.user %}
-        {% set _bg_class = "bg-light-blue" %}
+        {% set _bg_class = 'bg-light-blue' %}
         {% set _logout_uri = url('sonata_user_admin_security_logout') %}
         {% set _logout_text = 'user_block_logout'|trans({}, 'SonataUserBundle') %}
 
         {% if is_granted('ROLE_PREVIOUS_ADMIN') and sonata_user.isImpersonatingEnabled %}
-            {% set _bg_class = "bg-light-green" %}
+            {% set _bg_class = 'bg-light-green' %}
             {% set _logout_uri = url(sonata_user.impersonatingRoute, sonata_user.impersonatingRouteParameters|merge({'_switch_user': '_exit'})) %}
             {% set _logout_text = 'switch_user_exit'|trans({}, 'SonataUserBundle') %}
         {% endif %}
@@ -33,14 +33,14 @@ file that was distributed with this source code.
                         sonata_user.userAdmin.generateUrl('edit', {id: app.user.id}) :
                         sonata_user.userAdmin.generateUrl('show', {id: app.user.id})
                 }}" class="btn btn-default btn-flat">
-                    <i class="fa fa-user"></i>
+                    <i class="fas fa-user"></i>
                     {{ 'user_block_profile'|trans({}, 'SonataUserBundle') }}
                 </a>
             </div>
 
             <div class="pull-right">
                 <a href="{{ _logout_uri }}" class="btn btn-default btn-flat">
-                    <i class="fa fa-sign-out fa-fw"></i>
+                    <i class="fas fa-sign-out-alt fa-fw"></i>
                     {{ _logout_text }}
                 </a>
             </div>
