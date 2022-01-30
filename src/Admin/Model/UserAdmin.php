@@ -20,6 +20,7 @@ use Sonata\AdminBundle\FieldDescription\FieldDescriptionInterface;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\UserBundle\Form\Type\SecurityRolesType;
+use Sonata\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**
@@ -27,6 +28,22 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
  */
 class UserAdmin extends AbstractAdmin
 {
+    private ?UserManagerInterface $userManager;
+
+    public function setUserManager(UserManagerInterface $userManager): void
+    {
+        $this->userManager = $userManager;
+    }
+
+    protected function preUpdate(object $object): void
+    {
+        if (null === $this->userManager) {
+            return;
+        }
+
+        $this->userManager->updatePassword($object);
+    }
+
     protected function configureFormOptions(array &$formOptions): void
     {
         $formOptions['validation_groups'] = ['Default'];

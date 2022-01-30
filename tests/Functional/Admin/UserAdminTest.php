@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\Functional\Admin;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Tests\App\AppKernel;
 use Sonata\UserBundle\Tests\App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -87,6 +88,28 @@ final class UserAdminTest extends WebTestCase
         yield 'Remove User' => ['/admin/tests/app/user/1/delete', [], 'btn_delete'];
     }
 
+    public function testUpdatePassword(): void
+    {
+        $client = self::createClient();
+
+        $user = $this->prepareData();
+
+        static::assertSame('random_password', $user->getPassword());
+
+        $client->request('GET', '/admin/tests/app/user/1/edit', [
+            'uniqid' => 'user',
+        ]);
+        $client->submitForm('btn_update_and_list', [
+            'user[plainPassword]' => 'new_password',
+        ]);
+        $client->followRedirect();
+
+        $user = $this->refreshUser($user);
+
+        self::assertResponseIsSuccessful();
+        static::assertSame('new_password', $user->getPassword());
+    }
+
     /**
      * @return class-string<\Symfony\Component\HttpKernel\KernelInterface>
      */
@@ -98,7 +121,7 @@ final class UserAdminTest extends WebTestCase
     /**
      * @psalm-suppress UndefinedPropertyFetch
      */
-    private function prepareData(): void
+    private function prepareData(): UserInterface
     {
         // TODO: Simplify this when dropping support for Symfony 4.
         // @phpstan-ignore-next-line
@@ -114,6 +137,27 @@ final class UserAdminTest extends WebTestCase
         $user->setEnabled(true);
 
         $manager->persist($user);
+
         $manager->flush();
+        $manager->clear();
+
+        return $user;
+    }
+
+    /**
+     * @psalm-suppress UndefinedPropertyFetch
+     */
+    private function refreshUser(UserInterface $user): UserInterface
+    {
+        // TODO: Simplify this when dropping support for Symfony 4.
+        // @phpstan-ignore-next-line
+        $container = method_exists(static::class, 'getContainer') ? static::getContainer() : static::$container;
+        $manager = $container->get('doctrine.orm.entity_manager');
+        \assert($manager instanceof EntityManagerInterface);
+
+        $user = $manager->find(User::class, $user->getId());
+        \assert(null !== $user);
+
+        return $user;
     }
 }
