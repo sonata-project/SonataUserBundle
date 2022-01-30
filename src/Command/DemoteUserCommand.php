@@ -50,7 +50,7 @@ final class DemoteUserCommand extends Command
             ])
             ->setHelp(
                 <<<'EOT'
-The <info>fos:user:promote</info> command demotes a user by removing a role
+The <info>%command.full_name%</info> command demotes a user by removing a role
 
   <info>php %command.full_name% matthieu ROLE_CUSTOM</info>
   <info>php %command.full_name% --super-admin matthieu</info>

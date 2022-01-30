@@ -50,7 +50,7 @@ final class PromoteUserCommand extends Command
             ])
             ->setHelp(
                 <<<'EOT'
-The <info>fos:user:promote</info> command promotes a user by adding a role
+The <info>%command.full_name%</info> command promotes a user by adding a role
 
   <info>php %command.full_name% matthieu ROLE_CUSTOM</info>
   <info>php %command.full_name% --super-admin matthieu</info>
