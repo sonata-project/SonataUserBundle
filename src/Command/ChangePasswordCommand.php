@@ -35,10 +35,7 @@ final class ChangePasswordCommand extends Command
         $this->userManager = $userManager;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function configure()
+    protected function configure(): void
     {
         \assert(null !== static::$defaultDescription);
 
@@ -52,21 +49,12 @@ final class ChangePasswordCommand extends Command
                 <<<'EOT'
 The <info>%command.full_name%</info> command changes the password of a user:
 
-  <info>php %command.full_name% matthieu</info>
-
-This interactive shell will first ask you for a password.
-
-You can alternatively specify the password as a second argument:
-
   <info>php %command.full_name% matthieu mypassword</info>
 
 EOT
             );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $username = $input->getArgument('username');
@@ -85,43 +73,5 @@ EOT
         $output->writeln(sprintf('Changed password for user <comment>%s</comment>', $username));
 
         return 0;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function interact(InputInterface $input, OutputInterface $output)
-    {
-        $questions = [];
-
-        if (!$input->getArgument('username')) {
-            $question = new Question('Please give the username:');
-            $question->setValidator(function ($username) {
-                if (empty($username)) {
-                    throw new \Exception('Username can not be empty');
-                }
-
-                return $username;
-            });
-            $questions['username'] = $question;
-        }
-
-        if (!$input->getArgument('password')) {
-            $question = new Question('Please enter the new password:');
-            $question->setValidator(function ($password) {
-                if (empty($password)) {
-                    throw new \Exception('Password can not be empty');
-                }
-
-                return $password;
-            });
-            $question->setHidden(true);
-            $questions['password'] = $question;
-        }
-
-        foreach ($questions as $name => $question) {
-            $answer = $this->getHelper('question')->ask($input, $output, $question);
-            $input->setArgument($name, $answer);
-        }
     }
 }
