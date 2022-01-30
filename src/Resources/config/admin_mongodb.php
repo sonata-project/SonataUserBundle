@@ -20,6 +20,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
         ->set('sonata.user.admin.user', '%sonata.user.admin.user.class%')
             ->tag('sonata.admin', [
+                'model_class' => '%sonata.user.user.class%',
+                'controller' => '%sonata.user.admin.user.controller%',
                 'label_catalogue' => 'SonataUserBundle',
                 'manager_type' => 'doctrine_mongodb',
                 'group' => 'sonata_user',
@@ -28,10 +30,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'icon' => '<i class=\'fa fa-users\'></i>',
             ])
             ->args([
-                '',
-                '%sonata.user.user.class%',
-                '%sonata.user.admin.user.controller%',
+                new ReferenceConfigurator('sonata.user.manager.user')
             ])
-            ->call('setTranslationDomain', ['%sonata.user.admin.user.translation_domain%'])
-            ->call('setUserManager', [new ReferenceConfigurator('sonata.user.manager.user')]);
+            ->call('setTranslationDomain', ['%sonata.user.admin.user.translation_domain%']);
 };
