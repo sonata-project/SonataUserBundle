@@ -18,6 +18,8 @@ use Sonata\Doctrine\Entity\BaseEntityManager;
 use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
 use Sonata\UserBundle\Util\CanonicalFieldsUpdaterInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
@@ -29,16 +31,49 @@ final class UserManager extends BaseEntityManager implements UserManagerInterfac
     private CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater;
 
     /**
+     * @psalm-suppress DeprecatedClass
+     *
+     * @var UserPasswordEncoderInterface|UserPasswordHasherInterface
+     */
+    private object $userPasswordHasher;
+
+    /**
+     * TODO: Simplify this once support for Symfony 4.4 is dropped.
+     *
+     * @psalm-suppress DeprecatedClass
+     *
      * @phpstan-param class-string<UserInterface> $class
+     *
+     * @param UserPasswordEncoderInterface|UserPasswordHasherInterface $userPasswordHasher
      */
     public function __construct(
         string $class,
         ManagerRegistry $registry,
-        CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater
+        CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater,
+        object $userPasswordHasher
     ) {
         parent::__construct($class, $registry);
 
         $this->canonicalFieldsUpdater = $canonicalFieldsUpdater;
+        $this->userPasswordHasher = $userPasswordHasher;
+    }
+
+    public function updatePassword(UserInterface $user): void
+    {
+        $plainPassword = $user->getPlainPassword();
+
+        if (null === $plainPassword) {
+            return;
+        }
+
+        if ($this->userPasswordHasher instanceof UserPasswordHasherInterface) {
+            $password = $this->userPasswordHasher->hashPassword($user, $plainPassword);
+        } else {
+            $password = $this->userPasswordHasher->encodePassword($user, $plainPassword);
+        }
+
+        $user->setPassword($password);
+        $user->eraseCredentials();
     }
 
     public function findUserByUsername(string $username): ?UserInterface

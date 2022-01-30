@@ -20,6 +20,8 @@ use Sonata\Doctrine\Model\ManagerInterface;
  */
 interface UserManagerInterface extends ManagerInterface
 {
+    public function updatePassword(UserInterface $user): void;
+
     public function findUserByUsername(string $username): ?UserInterface;
 
     public function findUserByEmail(string $email): ?UserInterface;
