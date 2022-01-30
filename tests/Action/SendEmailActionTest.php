@@ -20,43 +20,33 @@ use Sonata\UserBundle\Mailer\MailerInterface;
 use Sonata\UserBundle\Model\User;
 use Sonata\UserBundle\Model\UserManagerInterface;
 use Sonata\UserBundle\Util\TokenGeneratorInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class SendEmailActionTest extends TestCase
+final class SendEmailActionTest extends TestCase
 {
     /**
      * @var MockObject&UrlGeneratorInterface
      */
-    protected MockObject $urlGenerator;
+    private MockObject $urlGenerator;
 
     /**
      * @var MockObject&UserManagerInterface
      */
-    protected MockObject $userManager;
+    private MockObject $userManager;
 
     /**
      * @var MockObject&MailerInterface
      */
-    protected MockObject $mailer;
+    private MockObject $mailer;
 
     /**
      * @var MockObject&TokenGeneratorInterface
      */
-    protected MockObject $tokenGenerator;
+    private MockObject $tokenGenerator;
 
-    protected int $resetTtl;
-
-    protected string $fromEmail;
-
-    protected string $template;
-
-    /**
-     * @var MockObject&ContainerBuilder
-     */
-    protected MockObject $container;
+    private int $resetTtl;
 
     protected function setUp(): void
     {
@@ -65,9 +55,6 @@ class SendEmailActionTest extends TestCase
         $this->mailer = $this->createMock(MailerInterface::class);
         $this->tokenGenerator = $this->createMock(TokenGeneratorInterface::class);
         $this->resetTtl = 60;
-        $this->fromEmail = 'noreply@sonata-project.org';
-        $this->template = 'email.txt.twig';
-        $this->container = $this->createMock(ContainerBuilder::class);
     }
 
     public function testUnknownUsername(): void

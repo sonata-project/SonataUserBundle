@@ -16,7 +16,7 @@ namespace Sonata\UserBundle\Tests\Entity;
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Entity\BaseUser;
 
-class BaseUserTest extends TestCase
+final class BaseUserTest extends TestCase
 {
     public function testDateSetters(): void
     {

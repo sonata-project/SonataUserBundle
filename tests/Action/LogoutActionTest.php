@@ -16,7 +16,7 @@ namespace Sonata\UserBundle\Tests\Action;
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Action\LogoutAction;
 
-class LogoutActionTest extends TestCase
+final class LogoutActionTest extends TestCase
 {
     public function testAction(): void
     {

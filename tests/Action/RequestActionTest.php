@@ -24,29 +24,29 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Twig\Environment;
 
-class RequestActionTest extends TestCase
+final class RequestActionTest extends TestCase
 {
     /**
      * @var MockObject&Environment
      */
-    protected MockObject $templating;
+    private MockObject $templating;
 
     /**
      * @var MockObject&UrlGeneratorInterface
      */
-    protected MockObject $urlGenerator;
+    private MockObject $urlGenerator;
 
     /**
      * @var MockObject&AuthorizationCheckerInterface
      */
-    protected MockObject $authorizationChecker;
+    private MockObject $authorizationChecker;
 
-    protected Pool $pool;
+    private Pool $pool;
 
     /**
      * @var MockObject&TemplateRegistryInterface
      */
-    protected MockObject $templateRegistry;
+    private MockObject $templateRegistry;
 
     protected function setUp(): void
     {

@@ -19,7 +19,7 @@ use Sonata\UserBundle\Tests\App\AppKernel;
 use Sonata\UserBundle\Tests\App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class ResetActionTest extends WebTestCase
+final class ResetActionTest extends WebTestCase
 {
     public function testItRedirectsToResetPasswordRequestOnInvalidToken(): void
     {

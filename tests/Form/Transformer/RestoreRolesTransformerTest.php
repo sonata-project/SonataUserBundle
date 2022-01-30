@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Form\Transformer\RestoreRolesTransformer;
 use Sonata\UserBundle\Security\EditableRolesBuilderInterface;
 
-class RestoreRolesTransformerTest extends TestCase
+final class RestoreRolesTransformerTest extends TestCase
 {
     public function testInvalidStateTransform(): void
     {

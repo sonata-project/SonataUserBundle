@@ -28,7 +28,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class EditableRolesBuilderTest extends TestCase
+final class EditableRolesBuilderTest extends TestCase
 {
     /**
      * @var MockObject&TokenStorageInterface

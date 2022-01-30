@@ -24,26 +24,26 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 
-class CheckEmailActionTest extends TestCase
+final class CheckEmailActionTest extends TestCase
 {
     /**
      * @var MockObject&Environment
      */
-    protected MockObject $templating;
+    private MockObject $templating;
 
     /**
      * @var MockObject&UrlGeneratorInterface
      */
-    protected MockObject $urlGenerator;
+    private MockObject $urlGenerator;
 
-    protected Pool $pool;
+    private Pool $pool;
 
     /**
      * @var MockObject&TemplateRegistryInterface
      */
-    protected MockObject $templateRegistry;
+    private MockObject $templateRegistry;
 
-    protected int $resetTtl;
+    private int $resetTtl;
 
     protected function setUp(): void
     {

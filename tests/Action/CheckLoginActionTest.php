@@ -16,7 +16,7 @@ namespace Sonata\UserBundle\Tests\Action;
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Action\CheckLoginAction;
 
-class CheckLoginActionTest extends TestCase
+final class CheckLoginActionTest extends TestCase
 {
     public function testAction(): void
     {

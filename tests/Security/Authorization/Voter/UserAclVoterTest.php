@@ -24,7 +24,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\User\UserInterface as SonataUserInterface;
 
-class UserAclVoterTest extends TestCase
+final class UserAclVoterTest extends TestCase
 {
     public function testVoteWillAbstainWhenAUserIsLoggedInAndASuperAdmin(): void
     {

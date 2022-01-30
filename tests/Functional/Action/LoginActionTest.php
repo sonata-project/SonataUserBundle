@@ -18,7 +18,7 @@ use Sonata\UserBundle\Tests\App\AppKernel;
 use Sonata\UserBundle\Tests\App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class LoginActionTest extends WebTestCase
+final class LoginActionTest extends WebTestCase
 {
     public function testItSubmitsLoginForm(): void
     {
