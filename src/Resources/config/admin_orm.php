@@ -12,6 +12,7 @@ declare(strict_types=1);
  */
 
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     // Use "param" function for creating references to parameters when dropping support for Symfony 5.1
@@ -31,5 +32,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 '%sonata.user.user.class%',
                 '%sonata.user.admin.user.controller%',
             ])
-            ->call('setTranslationDomain', ['%sonata.user.admin.user.translation_domain%']);
+            ->call('setTranslationDomain', ['%sonata.user.admin.user.translation_domain%'])
+            ->call('setUserManager', [new ReferenceConfigurator('sonata.user.manager.user')]);
 };
