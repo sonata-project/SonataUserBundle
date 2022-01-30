@@ -44,6 +44,47 @@ final class UserAdminTest extends WebTestCase
         yield 'List User' => ['/admin/tests/app/user/list'];
         yield 'Create User' => ['/admin/tests/app/user/create'];
         yield 'Edit User' => ['/admin/tests/app/user/1/edit'];
+        yield 'Delete User' => ['/admin/tests/app/user/1/delete'];
+    }
+
+
+    /**
+     * @dataProvider provideFormUrlsCases
+     *
+     * @param array<string, mixed> $parameters
+     * @param array<string, mixed> $fieldValues
+     */
+    public function testFormsUrls(string $url, array $parameters, string $button, array $fieldValues = []): void
+    {
+        $client = self::createClient();
+
+        $this->prepareData();
+
+        $client->request('GET', $url, $parameters);
+        $client->submitForm($button, $fieldValues);
+        $client->followRedirect();
+
+        self::assertResponseIsSuccessful();
+    }
+
+    /**
+     * @return iterable<array<string|array<string, mixed>>>
+     *
+     * @phpstan-return iterable<array{0: string, 1: array<string, mixed>, 2: string, 3?: array<string, mixed>}>
+     */
+    public static function provideFormUrlsCases(): iterable
+    {
+        yield 'Create User' => ['/admin/tests/app/user/create', [
+            'uniqid' => 'user',
+        ], 'btn_create_and_list', [
+            'user[username]' => 'another-user',
+            'user[email]' => 'another-email@localhost.com',
+            'user[plainPassword]' => 'password',
+            'user[enabled]' => true,
+        ]];
+
+        yield 'Edit User' => ['/admin/tests/app/user/1/edit', [], 'btn_update_and_list'];
+        yield 'Remove User' => ['/admin/tests/app/user/1/delete', [], 'btn_delete'];
     }
 
     /**
@@ -67,7 +108,7 @@ final class UserAdminTest extends WebTestCase
 
         $user = new User();
         $user->setUsername('username');
-        $user->setEmail('email@localhost');
+        $user->setEmail('email@localhost.com');
         $user->setPlainPassword('random_password');
         $user->setSuperAdmin(true);
         $user->setEnabled(true);
