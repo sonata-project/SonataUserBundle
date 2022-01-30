@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Runroom package.
+ * This file is part of the Sonata Project package.
  *
- * (c) Runroom <runroom@runroom.com>
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -61,6 +61,14 @@ class ChangePasswordCommandTest extends KernelTestCase
     }
 
     /**
+     * @return class-string<\Symfony\Component\HttpKernel\KernelInterface>
+     */
+    protected static function getKernelClass(): string
+    {
+        return AppKernel::class;
+    }
+
+    /**
      * @psalm-suppress UndefinedPropertyFetch
      */
     private function prepareData(string $username, string $password): UserInterface
@@ -101,13 +109,5 @@ class ChangePasswordCommandTest extends KernelTestCase
         \assert(null !== $user);
 
         return $user;
-    }
-
-    /**
-     * @return class-string<\Symfony\Component\HttpKernel\KernelInterface>
-     */
-    protected static function getKernelClass(): string
-    {
-        return AppKernel::class;
     }
 }
