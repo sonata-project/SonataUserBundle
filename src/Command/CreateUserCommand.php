@@ -85,7 +85,7 @@ EOT
 
         $this->userManager->save($user);
 
-        $output->writeln(sprintf('Created user <comment>%s</comment>', $username));
+        $output->writeln(sprintf('Created user "%s".', $username));
 
         return 0;
     }
