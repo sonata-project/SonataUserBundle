@@ -48,7 +48,6 @@ final class UserAdminTest extends WebTestCase
         yield 'Delete User' => ['/admin/tests/app/user/1/delete'];
     }
 
-
     /**
      * @dataProvider provideFormUrlsCases
      *

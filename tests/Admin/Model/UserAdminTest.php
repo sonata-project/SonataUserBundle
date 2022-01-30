@@ -14,9 +14,8 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\Admin\Model;
 
 use PHPUnit\Framework\TestCase;
-use Sonata\AdminBundle\Controller\CRUDController;
 use Sonata\UserBundle\Admin\Model\UserAdmin;
-use Sonata\UserBundle\Model\User;
+use Sonata\UserBundle\Model\UserManagerInterface;
 
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
@@ -25,7 +24,7 @@ final class UserAdminTest extends TestCase
 {
     public function testInstance(): void
     {
-        $admin = new UserAdmin('admin.user', User::class, CRUDController::class);
+        $admin = new UserAdmin($this->createStub(UserManagerInterface::class));
 
         static::assertNotEmpty($admin);
     }
