@@ -57,7 +57,6 @@ EOT
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $username = $input->getArgument('username');
-        \assert(null !== $username);
 
         $user = $this->userManager->findUserByUsername($username);
 
