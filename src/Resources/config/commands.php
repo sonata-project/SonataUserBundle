@@ -15,6 +15,8 @@ use Sonata\UserBundle\Command\ActivateUserCommand;
 use Sonata\UserBundle\Command\ChangePasswordCommand;
 use Sonata\UserBundle\Command\CreateUserCommand;
 use Sonata\UserBundle\Command\DeactivateUserCommand;
+use Sonata\UserBundle\Command\DemoteUserCommand;
+use Sonata\UserBundle\Command\PromoteUserCommand;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator;
 
@@ -41,6 +43,18 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ])
 
         ->set('sonata.user.command.deactivate_user', DeactivateUserCommand::class)
+            ->tag('console.command')
+            ->args([
+                new ReferenceConfigurator('sonata.user.manager.user'),
+            ])
+
+        ->set('sonata.user.command.promote_user', PromoteUserCommand::class)
+            ->tag('console.command')
+            ->args([
+                new ReferenceConfigurator('sonata.user.manager.user'),
+            ])
+
+        ->set('sonata.user.command.demote_user', DemoteUserCommand::class)
             ->tag('console.command')
             ->args([
                 new ReferenceConfigurator('sonata.user.manager.user'),
