@@ -71,7 +71,7 @@ EOT
 
         $this->userManager->save($user);
 
-        $output->writeln(sprintf('Changed password for user <comment>%s</comment>', $username));
+        $output->writeln(sprintf('Changed password for user "%s".', $username));
 
         return 0;
     }
