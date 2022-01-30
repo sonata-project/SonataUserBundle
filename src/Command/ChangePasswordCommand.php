@@ -69,6 +69,7 @@ EOT
 
         $user->setPlainPassword($password);
 
+        $this->userManager->updatePassword($user);
         $this->userManager->save($user);
 
         $output->writeln(sprintf('Changed password for user "%s".', $username));

@@ -21,9 +21,8 @@ use Doctrine\ORM\Mapping\ClassMetadata as ORMClassMetadata;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Doctrine\Persistence\ObjectManager;
 use Sonata\UserBundle\Model\UserInterface;
+use Sonata\UserBundle\Model\UserManagerInterface;
 use Sonata\UserBundle\Util\CanonicalFieldsUpdaterInterface;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @internal
@@ -32,26 +31,14 @@ final class UserListener implements EventSubscriber
 {
     private CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater;
 
-    /**
-     * @psalm-suppress DeprecatedClass
-     *
-     * @var UserPasswordEncoderInterface|UserPasswordHasherInterface
-     */
-    private object $userPasswordHasher;
+    private UserManagerInterface $userManager;
 
-    /**
-     * TODO: Simplify this once support for Symfony 4.4 is dropped.
-     *
-     * @psalm-suppress DeprecatedClass
-     *
-     * @param UserPasswordEncoderInterface|UserPasswordHasherInterface $userPasswordHasher
-     */
     public function __construct(
         CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater,
-        object $userPasswordHasher
+        UserManagerInterface $userManager
     ) {
         $this->canonicalFieldsUpdater = $canonicalFieldsUpdater;
-        $this->userPasswordHasher = $userPasswordHasher;
+        $this->userManager = $userManager;
     }
 
     public function getSubscribedEvents(): array
@@ -88,21 +75,7 @@ final class UserListener implements EventSubscriber
     private function updateUser(UserInterface $user): void
     {
         $this->canonicalFieldsUpdater->updateCanonicalFields($user);
-
-        $plainPassword = $user->getPlainPassword();
-
-        if (null === $plainPassword) {
-            return;
-        }
-
-        if ($this->userPasswordHasher instanceof UserPasswordHasherInterface) {
-            $password = $this->userPasswordHasher->hashPassword($user, $plainPassword);
-        } else {
-            $password = $this->userPasswordHasher->encodePassword($user, $plainPassword);
-        }
-
-        $user->setPassword($password);
-        $user->eraseCredentials();
+        $this->userManager->updatePassword($user);
     }
 
     private function recomputeChangeSet(ObjectManager $om, UserInterface $user): void
