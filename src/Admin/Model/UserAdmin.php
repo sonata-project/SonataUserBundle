@@ -28,19 +28,15 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
  */
 class UserAdmin extends AbstractAdmin
 {
-    private ?UserManagerInterface $userManager;
+    protected UserManagerInterface $userManager;
 
-    public function setUserManager(UserManagerInterface $userManager): void
+    public function __construct(UserManagerInterface $userManager)
     {
         $this->userManager = $userManager;
     }
 
     protected function preUpdate(object $object): void
     {
-        if (null === $this->userManager) {
-            return;
-        }
-
         $this->userManager->updatePassword($object);
     }
 
