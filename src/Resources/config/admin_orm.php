@@ -30,7 +30,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'icon' => '<i class=\'fa fa-users\'></i>',
             ])
             ->args([
-                new ReferenceConfigurator('sonata.user.manager.user')
+                new ReferenceConfigurator('sonata.user.manager.user'),
             ])
             ->call('setTranslationDomain', ['%sonata.user.admin.user.translation_domain%']);
 };
