@@ -65,6 +65,14 @@ class ActivateUserCommandTest extends KernelTestCase
     }
 
     /**
+     * @return class-string<\Symfony\Component\HttpKernel\KernelInterface>
+     */
+    protected static function getKernelClass(): string
+    {
+        return AppKernel::class;
+    }
+
+    /**
      * @psalm-suppress UndefinedPropertyFetch
      */
     private function prepareData(string $username, bool $enabled): UserInterface
@@ -105,13 +113,5 @@ class ActivateUserCommandTest extends KernelTestCase
         \assert(null !== $user);
 
         return $user;
-    }
-
-    /**
-     * @return class-string<\Symfony\Component\HttpKernel\KernelInterface>
-     */
-    protected static function getKernelClass(): string
-    {
-        return AppKernel::class;
     }
 }
