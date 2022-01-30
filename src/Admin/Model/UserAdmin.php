@@ -33,7 +33,6 @@ class UserAdmin extends AbstractAdmin
     public function __construct(UserManagerInterface $userManager)
     {
         parent::__construct();
-        
         $this->userManager = $userManager;
     }
 
