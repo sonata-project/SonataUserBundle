@@ -18,7 +18,7 @@ use Sonata\UserBundle\Tests\App\AppKernel;
 use Sonata\UserBundle\Tests\App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class RequestActionTest extends WebTestCase
+final class RequestActionTest extends WebTestCase
 {
     public function testItSubmitsResetPasswordRequestWithNonExistentUser(): void
     {

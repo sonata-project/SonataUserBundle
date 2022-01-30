@@ -18,6 +18,6 @@ use Sonata\UserBundle\Document\BaseUser;
 /**
  * @author Anton Dyshkant <vyshkant@gmail.com>
  */
-class User extends BaseUser
+final class User extends BaseUser
 {
 }

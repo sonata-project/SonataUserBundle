@@ -25,12 +25,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * @author Quentin Fahrner <quentfahrner@gmail.com>
  */
-class SecurityRolesTypeTest extends TypeTestCase
+final class SecurityRolesTypeTest extends TypeTestCase
 {
     /**
      * @var MockObject&EditableRolesBuilderInterface
      */
-    protected MockObject $roleBuilder;
+    private MockObject $roleBuilder;
 
     protected function setUp(): void
     {

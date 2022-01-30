@@ -34,44 +34,44 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
-class LoginActionTest extends TestCase
+final class LoginActionTest extends TestCase
 {
     /**
      * @var MockObject&Environment
      */
-    protected MockObject $templating;
+    private MockObject $templating;
 
     /**
      * @var MockObject&UrlGeneratorInterface
      */
-    protected MockObject $urlGenerator;
+    private MockObject $urlGenerator;
 
     /**
      * @var MockObject&AuthenticationUtils
      */
-    protected MockObject $authenticationUtils;
+    private MockObject $authenticationUtils;
 
-    protected Pool $pool;
+    private Pool $pool;
 
     /**
      * @var MockObject&TemplateRegistryInterface
      */
-    protected MockObject $templateRegistry;
+    private MockObject $templateRegistry;
 
     /**
      * @var MockObject&TokenStorageInterface
      */
-    protected MockObject $tokenStorage;
+    private MockObject $tokenStorage;
 
     /**
      * @var MockObject&Session
      */
-    protected MockObject $session;
+    private MockObject $session;
 
     /**
      * @var MockObject&CsrfTokenManagerInterface
      */
-    protected MockObject $csrfTokenManager;
+    private MockObject $csrfTokenManager;
 
     /**
      * @var MockObject&TranslatorInterface

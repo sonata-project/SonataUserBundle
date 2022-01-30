@@ -16,7 +16,7 @@ namespace Sonata\UserBundle\Tests\Functional\Action;
 use Sonata\UserBundle\Tests\App\AppKernel;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class LogoutActionTest extends WebTestCase
+final class LogoutActionTest extends WebTestCase
 {
     public function testItLogouts(): void
     {

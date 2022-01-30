@@ -24,7 +24,7 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class UserProviderTest extends TestCase
+final class UserProviderTest extends TestCase
 {
     /**
      * @var MockObject&UserManagerInterface

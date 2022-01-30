@@ -22,7 +22,7 @@ use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
 
-class MailerTest extends TestCase
+final class MailerTest extends TestCase
 {
     /**
      * @var MockObject&RouterInterface

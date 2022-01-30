@@ -20,7 +20,7 @@ use Sonata\UserBundle\DependencyInjection\Configuration;
 use Sonata\UserBundle\Entity\BaseUser;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-class ConfigurationTest extends TestCase
+final class ConfigurationTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 

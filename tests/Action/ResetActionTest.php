@@ -34,48 +34,48 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
-class ResetActionTest extends TestCase
+final class ResetActionTest extends TestCase
 {
     /**
      * @var MockObject&Environment
      */
-    protected MockObject $templating;
+    private MockObject $templating;
 
     /**
      * @var MockObject&UrlGeneratorInterface
      */
-    protected MockObject $urlGenerator;
+    private MockObject $urlGenerator;
 
     /**
      * @var MockObject&AuthorizationCheckerInterface
      */
-    protected MockObject $authorizationChecker;
+    private MockObject $authorizationChecker;
 
-    protected Pool $pool;
+    private Pool $pool;
 
     /**
      * @var MockObject&TemplateRegistryInterface
      */
-    protected MockObject $templateRegistry;
+    private MockObject $templateRegistry;
 
     /**
      * @var MockObject&FormFactoryInterface
      */
-    protected MockObject $formFactory;
+    private MockObject $formFactory;
 
     /**
      * @var MockObject&UserManagerInterface
      */
-    protected MockObject $userManager;
+    private MockObject $userManager;
 
     /**
      * @var MockObject&TranslatorInterface
      */
-    protected MockObject $translator;
+    private MockObject $translator;
 
-    protected Session $session;
+    private Session $session;
 
-    protected int $resetTtl;
+    private int $resetTtl;
 
     protected function setUp(): void
     {

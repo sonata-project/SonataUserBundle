@@ -18,6 +18,6 @@ use Sonata\UserBundle\Admin\Model\UserAdmin as BaseUserAdmin;
 /**
  * @author Anton Dyshkant <vyshkant@gmail.com>
  */
-class UserAdmin extends BaseUserAdmin
+final class UserAdmin extends BaseUserAdmin
 {
 }
