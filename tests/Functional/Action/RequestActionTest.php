@@ -28,7 +28,7 @@ final class RequestActionTest extends WebTestCase
         static::assertResponseIsSuccessful();
 
         $client->submitForm('submit', [
-            'username' => 'email@localhost.com',
+            'reset_password_request_form[username]' => 'email@localhost.com',
         ]);
 
         static::assertEmailCount(0);
@@ -51,7 +51,7 @@ final class RequestActionTest extends WebTestCase
         static::assertResponseIsSuccessful();
 
         $client->submitForm('submit', [
-            'username' => 'email@localhost.com',
+            'reset_password_request_form[username]' => 'email@localhost.com',
         ]);
 
         static::assertEmailCount(1);

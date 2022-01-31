@@ -11,6 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
+use Sonata\UserBundle\Form\Type\ResetPasswordRequestFormType;
 use Sonata\UserBundle\Form\Type\ResettingFormType;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
@@ -23,5 +24,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ->tag('form.type', ['alias' => 'sonata_user_resetting'])
             ->args([
                 '%sonata.user.user.class%',
-            ]);
+            ])
+
+        ->set('sonata.user.form.type.reset_password_request', ResetPasswordRequestFormType::class)
+            ->tag('form.type', ['alias' => 'sonata_user_reset_password_request']);
 };

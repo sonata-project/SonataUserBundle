@@ -42,13 +42,16 @@ file that was distributed with this source code.
         <div class="login-box-body">
             {% block sonata_user_reset_request_form %}
                 <p class="login-box-msg">{{ 'resetting.request.submit'|trans({}, 'SonataUserBundle') }}</p>
-                <form action="{{ path('sonata_user_admin_resetting_send_email') }}" method="post" role="form">
-                    <div class="form-group has-feedback">
-                        <input type="text" class="form-control" id="username"  name="username" required="required"
-                            placeholder="{{ 'resetting.request.username'|trans({}, 'SonataUserBundle')|replace({':': ''}) }}"/>
-                        <span class="fas fa-user form-control-feedback"></span>
-                    </div>
 
+                {{ form_start(form, { 'action': path('sonata_user_admin_resetting_send_email') }) }}
+                    <div class="form-group has-feedback">
+                        {{ form_widget(form.username, {'attr': {
+                            'class': 'form-control',
+                            'placeholder': 'resetting.request.username'|trans({}, 'SonataUserBundle')|replace({':': ''})
+                        }}) }}
+                        <span class="fas fa-user form-control-feedback"></span>
+                        {{ form_errors(form.username) }}
+                    </div>
                     <div class="row">
                         <div class="col-xs-12">
                             <button type="submit" name="submit" class="btn btn-primary btn-block btn-flat">
@@ -56,7 +59,7 @@ file that was distributed with this source code.
                             </button>
                         </div>
                     </div>
-                </form>
+                {{ form_end(form) }}
 
                 <a href="{{ path('sonata_user_admin_security_login') }}">
                     {{ 'title_user_authentication'|trans({}, 'SonataUserBundle') }}
