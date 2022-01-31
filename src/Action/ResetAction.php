@@ -87,7 +87,6 @@ final class ResetAction
 
         $form = $this->formFactory->create(ResettingFormType::class);
         $form->setData($user);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

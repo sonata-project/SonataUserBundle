@@ -13,9 +13,11 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Action;
 
+use Sonata\UserBundle\Form\Type\ResetPasswordRequestFormType;
 use Sonata\UserBundle\Mailer\MailerInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
 use Sonata\UserBundle\Util\TokenGeneratorInterface;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,6 +33,8 @@ final class SendEmailAction
 
     private TokenGeneratorInterface $tokenGenerator;
 
+    private FormFactoryInterface $formFactory;
+
     private int $retryTtl;
 
     public function __construct(
@@ -38,20 +42,25 @@ final class SendEmailAction
         UserManagerInterface $userManager,
         MailerInterface $mailer,
         TokenGeneratorInterface $tokenGenerator,
+        FormFactoryInterface $formFactory,
         int $retryTtl
     ) {
         $this->urlGenerator = $urlGenerator;
         $this->userManager = $userManager;
         $this->mailer = $mailer;
         $this->tokenGenerator = $tokenGenerator;
+        $this->formFactory = $formFactory;
         $this->retryTtl = $retryTtl;
     }
 
     public function __invoke(Request $request): Response
     {
-        $username = $request->request->get('username');
+        $form = $this->formFactory->create(ResetPasswordRequestFormType::class);
+        $form->handleRequest($request);
 
-        if (\is_string($username)) {
+        if ($form->isSubmitted() && $form->isValid()) {
+            $username = $form->get('username')->getData();
+
             $user = $this->userManager->findUserByUsernameOrEmail($username);
 
             if (null !== $user && $user->isEnabled() && !$user->isPasswordRequestNonExpired($this->retryTtl) && $user->isAccountNonLocked()) {
