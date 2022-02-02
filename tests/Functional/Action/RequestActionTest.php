@@ -62,8 +62,6 @@ final class RequestActionTest extends WebTestCase
         static::assertEmailHtmlBodyContains($mail, 'To reset your password - please visit');
         static::assertEmailAddressContains($mail, 'to', 'email@localhost.com');
 
-        static::assertRouteSame('sonata_user_admin_resetting_send_email');
-
         $client->followRedirect();
 
         static::assertResponseIsSuccessful();

@@ -43,7 +43,7 @@ file that was distributed with this source code.
             {% block sonata_user_reset_request_form %}
                 <p class="login-box-msg">{{ 'resetting.request.submit'|trans({}, 'SonataUserBundle') }}</p>
 
-                {{ form_start(form, { 'action': path('sonata_user_admin_resetting_send_email') }) }}
+                {{ form_start(form) }}
                     <div class="form-group has-feedback">
                         {{ form_widget(form.username, {'attr': {
                             'class': 'form-control',
