@@ -17,7 +17,6 @@ use Sonata\UserBundle\Action\LoginAction;
 use Sonata\UserBundle\Action\LogoutAction;
 use Sonata\UserBundle\Action\RequestAction;
 use Sonata\UserBundle\Action\ResetAction;
-use Sonata\UserBundle\Action\SendEmailAction;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator;
 
@@ -35,16 +34,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 new ReferenceConfigurator('sonata.admin.pool'),
                 new ReferenceConfigurator('sonata.admin.global_template_registry'),
                 new ReferenceConfigurator('form.factory'),
-            ])
-
-        ->set('sonata.user.action.send_email', SendEmailAction::class)
-            ->public()
-            ->args([
-                new ReferenceConfigurator('router'),
                 new ReferenceConfigurator('sonata.user.manager.user'),
                 new ReferenceConfigurator('sonata.user.mailer'),
                 new ReferenceConfigurator('sonata.user.util.token_generator'),
-                new ReferenceConfigurator('form.factory'),
                 '%sonata.user.resetting.retry_ttl%',
             ])
 
