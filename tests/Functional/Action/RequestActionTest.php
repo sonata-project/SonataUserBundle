@@ -20,6 +20,19 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 final class RequestActionTest extends WebTestCase
 {
+    public function testItSubmitsResetPasswordRequestWithNonValidData(): void
+    {
+        $client = static::createClient();
+        $client->request('GET', '/request');
+
+        static::assertResponseIsSuccessful();
+
+        $client->submitForm('submit');
+
+        static::assertResponseIsSuccessful();
+        static::assertRouteSame('sonata_user_admin_resetting_request');
+    }
+
     public function testItSubmitsResetPasswordRequestWithNonExistentUser(): void
     {
         $client = static::createClient();

@@ -30,6 +30,29 @@ final class ResetActionTest extends WebTestCase
         static::assertResponseStatusCodeSame(404);
     }
 
+    public function testItSubmitsResetPasswordFormWithNonValidData(): void
+    {
+        $client = static::createClient();
+
+        $user = $this->prepareData();
+        $confirmationToken = $user->getConfirmationToken();
+        \assert(null !== $confirmationToken);
+
+        static::assertSame($user->getPassword(), 'random_password');
+
+        $client->request('GET', sprintf('/reset/%s', $confirmationToken));
+
+        static::assertResponseIsSuccessful();
+
+        $client->submitForm('submit', [
+            'resetting_form[plainPassword][first]' => 'new_password',
+            'resetting_form[plainPassword][second]' => 'not_matching_password',
+        ]);
+
+        static::assertResponseIsSuccessful();
+        static::assertRouteSame('sonata_user_admin_resetting_reset');
+    }
+
     public function testItResetsPassword(): void
     {
         $client = static::createClient();
