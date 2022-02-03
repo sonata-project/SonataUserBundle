@@ -69,15 +69,11 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
 
         $this->checkManagerTypeToModelTypesMapping($config);
 
-        $this->configureAdminClass($config, $container);
         $this->configureClass($config, $container);
-
-        $this->configureTranslationDomain($config, $container);
-        $this->configureController($config, $container);
+        $this->configureAdmin($config['admin'], $container);
         $this->configureMailer($config, $container);
-        $this->configureResetting($container, $config);
-
-        $container->setParameter('sonata.user.default_avatar', $config['profile']['default_avatar']);
+        $this->configureResetting($config['resetting'], $container);
+        $this->configureDefaultAvatar($config['profile'], $container);
 
         if ($this->isConfigEnabled($container, $config['impersonating'])) {
             $this->configureImpersonation($config['impersonating'], $container);
@@ -95,38 +91,32 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
     /**
      * @param array<string, mixed> $config
      */
-    private function configureAdminClass(array $config, ContainerBuilder $container): void
+    private function configureAdmin(array $config, ContainerBuilder $container): void
     {
-        $container->setParameter('sonata.user.admin.user.class', $config['admin']['user']['class']);
+        $container->setParameter('sonata.user.admin.user.controller', $config['user']['controller']);
+
+        $container->getDefinition('sonata.user.admin.user')
+            ->setClass($config['user']['class'])
+            ->addMethodCall('setTranslationDomain', [$config['user']['translation']]);
     }
 
     /**
      * @param array<string, mixed> $config
      */
-    private function configureTranslationDomain(array $config, ContainerBuilder $container): void
+    private function configureResetting(array $config, ContainerBuilder $container): void
     {
-        $container->setParameter('sonata.user.admin.user.translation_domain', $config['admin']['user']['translation']);
-    }
+        $container->getDefinition('sonata.user.action.request')
+            ->replaceArgument(9, $config['retry_ttl']);
 
-    /**
-     * @param array<string, mixed> $config
-     */
-    private function configureController(array $config, ContainerBuilder $container): void
-    {
-        $container->setParameter('sonata.user.admin.user.controller', $config['admin']['user']['controller']);
-    }
+        $container->getDefinition('sonata.user.action.check_email')
+            ->replaceArgument(4, $config['token_ttl']);
 
-    /**
-     * @param array<string, mixed> $config
-     */
-    private function configureResetting(ContainerBuilder $container, array $config): void
-    {
-        $container->setParameter('sonata.user.resetting.retry_ttl', $config['resetting']['retry_ttl']);
-        $container->setParameter('sonata.user.resetting.token_ttl', $config['resetting']['token_ttl']);
-        $container->setParameter('sonata.user.resetting.email.from_email', [
-            $config['resetting']['email']['address'] => $config['resetting']['email']['sender_name'],
-        ]);
-        $container->setParameter('sonata.user.resetting.email.template', $config['resetting']['email']['template']);
+        $container->getDefinition('sonata.user.action.reset')
+            ->replaceArgument(8, $config['token_ttl']);
+
+        $container->getDefinition('sonata.user.mailer.default')
+            ->replaceArgument(3, [$config['email']['address'] => $config['email']['sender_name']])
+            ->replaceArgument(4, $config['email']['template']);
     }
 
     /**
@@ -175,6 +165,15 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
     private function configureMailer(array $config, ContainerBuilder $container): void
     {
         $container->setAlias('sonata.user.mailer', $config['mailer']);
+    }
+
+    /**
+     * @param array<string, mixed> $config
+     */
+    private function configureDefaultAvatar(array $config, ContainerBuilder $container): void
+    {
+        $container->getDefinition('sonata.user.twig.global')
+            ->replaceArgument(1, $config['default_avatar']);
     }
 
     /**

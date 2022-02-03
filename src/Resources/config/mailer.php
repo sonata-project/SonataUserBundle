@@ -25,7 +25,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 new ReferenceConfigurator('router'),
                 new ReferenceConfigurator('twig'),
                 new ReferenceConfigurator('mailer'),
-                '%sonata.user.resetting.email.from_email%',
-                '%sonata.user.resetting.email.template%',
+                [],
+                '',
             ]);
 };
