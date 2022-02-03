@@ -18,7 +18,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     // Use "param" function for creating references to parameters when dropping support for Symfony 5.1
     $containerConfigurator->services()
 
-        ->set('sonata.user.admin.user', '%sonata.user.admin.user.class%')
+        ->set('sonata.user.admin.user')
             ->tag('sonata.admin', [
                 'model_class' => '%sonata.user.user.class%',
                 'controller' => '%sonata.user.admin.user.controller%',
@@ -31,6 +31,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ])
             ->args([
                 new ReferenceConfigurator('sonata.user.manager.user'),
-            ])
-            ->call('setTranslationDomain', ['%sonata.user.admin.user.translation_domain%']);
+            ]);
 };

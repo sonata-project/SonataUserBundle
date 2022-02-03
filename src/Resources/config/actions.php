@@ -37,7 +37,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 new ReferenceConfigurator('sonata.user.manager.user'),
                 new ReferenceConfigurator('sonata.user.mailer'),
                 new ReferenceConfigurator('sonata.user.util.token_generator'),
-                '%sonata.user.resetting.retry_ttl%',
+                0,
             ])
 
         ->set('sonata.user.action.check_email', CheckEmailAction::class)
@@ -47,7 +47,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 new ReferenceConfigurator('router'),
                 new ReferenceConfigurator('sonata.admin.pool'),
                 new ReferenceConfigurator('sonata.admin.global_template_registry'),
-                '%sonata.user.resetting.token_ttl%',
+                0,
             ])
 
         ->set('sonata.user.action.reset', ResetAction::class)
@@ -61,7 +61,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 new ReferenceConfigurator('form.factory'),
                 new ReferenceConfigurator('sonata.user.manager.user'),
                 new ReferenceConfigurator('translator'),
-                '%sonata.user.resetting.token_ttl%',
+                0,
             ])
 
         ->set('sonata.user.action.login', LoginAction::class)
