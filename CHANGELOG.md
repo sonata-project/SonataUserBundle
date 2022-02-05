@@ -2,6 +2,34 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [5.0.0-alpha-1](https://github.com/sonata-project/SonataUserBundle/compare/4.x...5.0.0-alpha-1) - 2022-02-05
+### Added
+- [[#1489](https://github.com/sonata-project/SonataUserBundle/pull/1489)] Added `ResetPasswordRequestFormType` form type. ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1484](https://github.com/sonata-project/SonataUserBundle/pull/1484)] Added `sonata:user:create` command from FOSUserBundle ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1484](https://github.com/sonata-project/SonataUserBundle/pull/1484)] Added `sonata:user:promote` command from FOSUserBundle ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1484](https://github.com/sonata-project/SonataUserBundle/pull/1484)] Added `sonata:user:demote` command from FOSUserBundle ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1484](https://github.com/sonata-project/SonataUserBundle/pull/1484)] Added `sonata:user:change-password` command from FOSUserBundle ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1484](https://github.com/sonata-project/SonataUserBundle/pull/1484)] Added `sonata:user:activate` command from FOSUserBundle ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1484](https://github.com/sonata-project/SonataUserBundle/pull/1484)] Added `sonata:user:deactivate` command from FOSUserBundle ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1479](https://github.com/sonata-project/SonataUserBundle/pull/1479)] Added `EditableRolesBuilderInterface`. ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1454](https://github.com/sonata-project/SonataUserBundle/pull/1454)] Added support for Symfony 5. ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1454](https://github.com/sonata-project/SonataUserBundle/pull/1454)] Added support for Symfony 6. ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1444](https://github.com/sonata-project/SonataUserBundle/pull/1444)] Added support for Sonata 4. ([@jordisala1991](https://github.com/jordisala1991))
+
+### Changed
+- [[#1479](https://github.com/sonata-project/SonataUserBundle/pull/1479)] Changed `__construct()` of `EditableRolesBuilder` to provide `TranslatorInterface` ([@jordisala1991](https://github.com/jordisala1991))
+
+### Fixed
+- [[#1485](https://github.com/sonata-project/SonataUserBundle/pull/1485)] Fixed icons usage for Font Awesome 5. ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1481](https://github.com/sonata-project/SonataUserBundle/pull/1481)] Improve bundle configuration for default and required parameters. ([@jordisala1991](https://github.com/jordisala1991))
+
+### Removed
+- [[#1490](https://github.com/sonata-project/SonataUserBundle/pull/1490)] Removed usage of container parameters for most of the bundle configuration. ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1468](https://github.com/sonata-project/SonataUserBundle/pull/1468)] Removed user groups feature. ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1463](https://github.com/sonata-project/SonataUserBundle/pull/1463)] Removed support for PHP 7.3 ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1462](https://github.com/sonata-project/SonataUserBundle/pull/1462)] Removed social and profile fields from User. ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1449](https://github.com/sonata-project/SonataUserBundle/pull/1449)] Removed FOSUserBundle dependency. ([@jordisala1991](https://github.com/jordisala1991))
+
 ## [4.15.0](https://github.com/sonata-project/SonataUserBundle/compare/4.14.0...4.15.0) - 2022-01-08
 ### Deprecated
 - [[#1471](https://github.com/sonata-project/SonataUserBundle/pull/1471)] Deprecated extending most of the classes of this bundle. ([@jordisala1991](https://github.com/jordisala1991))
