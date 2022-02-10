@@ -31,7 +31,10 @@ final class UserManager extends BaseDocumentManager implements UserManagerInterf
     private CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater;
 
     /**
-     * @psalm-suppress DeprecatedClass
+     * TODO: Simplify this once support for Symfony 4.4 is dropped.
+     *
+     * @psalm-suppress UndefinedDocblockClass
+     * @phpstan-ignore-next-line
      *
      * @var UserPasswordEncoderInterface|UserPasswordHasherInterface
      */
@@ -40,7 +43,7 @@ final class UserManager extends BaseDocumentManager implements UserManagerInterf
     /**
      * TODO: Simplify this once support for Symfony 4.4 is dropped.
      *
-     * @psalm-suppress DeprecatedClass
+     * @psalm-suppress UndefinedDocblockClass
      *
      * @phpstan-param class-string<UserInterface> $class
      *
@@ -50,6 +53,7 @@ final class UserManager extends BaseDocumentManager implements UserManagerInterf
         string $class,
         ManagerRegistry $registry,
         CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater,
+        // @phpstan-ignore-next-line
         object $userPasswordHasher
     ) {
         parent::__construct($class, $registry);
@@ -58,6 +62,9 @@ final class UserManager extends BaseDocumentManager implements UserManagerInterf
         $this->userPasswordHasher = $userPasswordHasher;
     }
 
+    /**
+     * @psalm-suppress UndefinedDocblockClass
+     */
     public function updatePassword(UserInterface $user): void
     {
         $plainPassword = $user->getPlainPassword();
@@ -69,6 +76,7 @@ final class UserManager extends BaseDocumentManager implements UserManagerInterf
         if ($this->userPasswordHasher instanceof UserPasswordHasherInterface) {
             $password = $this->userPasswordHasher->hashPassword($user, $plainPassword);
         } else {
+            // @phpstan-ignore-next-line
             $password = $this->userPasswordHasher->encodePassword($user, $plainPassword);
         }
 
