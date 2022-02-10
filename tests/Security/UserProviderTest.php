@@ -55,13 +55,12 @@ final class UserProviderTest extends TestCase
 
     /**
      * TODO: Simplify exception expectation when dropping support for Symfony 4.4.
-     *
-     * @psalm-suppress DeprecatedClass
      */
     public function testLoadUserByInvalidUsername(): void
     {
         $this->userManager->expects(static::once())->method('findUserByUsernameOrEmail');
 
+        // @phpstan-ignore-next-line
         $this->expectException(class_exists(UserNotFoundException::class) ? UserNotFoundException::class : UsernameNotFoundException::class);
 
         $this->userProvider->loadUserByUsername('foobar');
@@ -87,8 +86,6 @@ final class UserProviderTest extends TestCase
 
     /**
      * TODO: Simplify exception expectation when dropping support for Symfony 4.4.
-     *
-     * @psalm-suppress DeprecatedClass
      */
     public function testRefreshDeleted(): void
     {
@@ -99,6 +96,7 @@ final class UserProviderTest extends TestCase
             ->method('getClass')
             ->willReturn(\get_class($user));
 
+        // @phpstan-ignore-next-line
         $this->expectException(class_exists(UserNotFoundException::class) ? UserNotFoundException::class : UsernameNotFoundException::class);
 
         $this->userProvider->refreshUser($user);

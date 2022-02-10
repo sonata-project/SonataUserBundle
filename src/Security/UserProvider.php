@@ -39,12 +39,12 @@ final class UserProvider implements UserProviderInterface
         return $this->loadUserByIdentifier($username);
     }
 
-    public function loadUserByIdentifier(string $username): SecurityUserInterface
+    public function loadUserByIdentifier(string $identifier): SecurityUserInterface
     {
-        $user = $this->findUser($username);
+        $user = $this->findUser($identifier);
 
         if (null === $user || !$user->isEnabled()) {
-            throw $this->buildUserNotFoundException(sprintf('Username "%s" does not exist.', $username));
+            throw $this->buildUserNotFoundException(sprintf('Username "%s" does not exist.', $identifier));
         }
 
         return $user;
@@ -84,12 +84,11 @@ final class UserProvider implements UserProviderInterface
 
     /**
      * TODO: Simplify when dropping support for Symfony 4.
-     *
-     * @psalm-suppress DeprecatedClass
      */
     private function buildUserNotFoundException(string $message): AuthenticationException
     {
         if (!class_exists(UserNotFoundException::class)) {
+            // @phpstan-ignore-next-line
             return new UsernameNotFoundException($message);
         }
 
