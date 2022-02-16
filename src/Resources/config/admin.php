@@ -12,8 +12,6 @@ declare(strict_types=1);
  */
 
 use Sonata\UserBundle\Form\Type\RolesMatrixType;
-use Sonata\UserBundle\Form\Type\SecurityRolesType;
-use Sonata\UserBundle\Security\EditableRolesBuilder;
 use Sonata\UserBundle\Security\RolesBuilder\AdminRolesBuilder;
 use Sonata\UserBundle\Security\RolesBuilder\MatrixRolesBuilder;
 use Sonata\UserBundle\Security\RolesBuilder\SecurityRolesBuilder;
@@ -25,23 +23,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     // Use "service" function for creating references to services when dropping support for Symfony 4.4
     // Use "param" function for creating references to parameters when dropping support for Symfony 5.1
     $containerConfigurator->services()
-
-        ->set('sonata.user.editable_role_builder', EditableRolesBuilder::class)
-            ->args([
-                new ReferenceConfigurator('security.token_storage'),
-                new ReferenceConfigurator('security.authorization_checker'),
-                new ReferenceConfigurator('sonata.admin.pool'),
-                new ReferenceConfigurator('sonata.admin.configuration'),
-                new ReferenceConfigurator('translator'),
-                '%security.role_hierarchy.roles%',
-            ])
-
-        ->set('sonata.user.form.type.security_roles', SecurityRolesType::class)
-            ->public()
-            ->tag('form.type', ['alias' => 'sonata_security_roles'])
-            ->args([
-                new ReferenceConfigurator('sonata.user.editable_role_builder'),
-            ])
 
         ->set('sonata.user.matrix_roles_builder', MatrixRolesBuilder::class)
             ->args([
