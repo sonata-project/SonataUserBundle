@@ -15,7 +15,8 @@ namespace Sonata\UserBundle\Tests\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Sonata\UserBundle\DependencyInjection\SonataUserExtension;
-use Sonata\UserBundle\Twig\GlobalVariables;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * @author Alexandr Zolotukhin <alex@alexandrz.com>
@@ -42,14 +43,12 @@ final class SonataUserExtensionNoAdminTest extends AbstractExtensionTestCase
     public function testGetGlobalVariablesService(): void
     {
         $this->load();
-        // Prevent unused service from being removed by making it public
-        $this->container->getDefinition('sonata.user.twig.global')->setPublic(true);
-        $this->compile();
 
-        // Make sure there's no exceptions thrown, as the service has a dependency on Admin
-        // which must be optional
-        $globals = $this->container->get('sonata.user.twig.global');
-        static::assertInstanceOf(GlobalVariables::class, $globals);
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+            'sonata.user.twig.global',
+            0,
+            new Reference('sonata.admin.pool', ContainerInterface::NULL_ON_INVALID_REFERENCE)
+        );
     }
 
     /**
