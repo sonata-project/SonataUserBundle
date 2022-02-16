@@ -21,7 +21,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
         ->set('sonata.user.twig.global', GlobalVariables::class)
             ->args([
-                new ReferenceConfigurator('sonata.admin.pool'),
+                (new ReferenceConfigurator('sonata.admin.pool'))->nullOnInvalid(),
                 '',
                 false,
                 '',

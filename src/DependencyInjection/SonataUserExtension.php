@@ -49,12 +49,14 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
         if (isset($bundles['SonataAdminBundle'])) {
             $loader->load('admin.php');
             $loader->load(sprintf('admin_%s.php', $config['manager_type']));
+            $this->configureAdmin($config['admin'], $container);
+            $loader->load('actions.php');
+            $this->configureResetting($config['resetting'], $container);
         }
 
         $loader->load(sprintf('%s.php', $config['manager_type']));
 
         $loader->load('twig.php');
-        $loader->load('actions.php');
         $loader->load('commands.php');
         $loader->load('listener.php');
         $loader->load('mailer.php');
@@ -70,9 +72,7 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
         $this->checkManagerTypeToModelTypesMapping($config);
 
         $this->configureClass($config, $container);
-        $this->configureAdmin($config['admin'], $container);
         $this->configureMailer($config, $container);
-        $this->configureResetting($config['resetting'], $container);
         $this->configureDefaultAvatar($config['profile'], $container);
 
         if ($this->isConfigEnabled($container, $config['impersonating'])) {

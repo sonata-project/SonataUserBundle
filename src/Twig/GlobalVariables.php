@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Twig;
 
+use LogicException;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Admin\Pool;
 
@@ -21,7 +22,7 @@ use Sonata\AdminBundle\Admin\Pool;
  */
 final class GlobalVariables
 {
-    private Pool $pool;
+    private ?Pool $pool;
 
     private string $defaultAvatar;
 
@@ -38,7 +39,7 @@ final class GlobalVariables
      * @param array<string, mixed> $impersonatingRouteParameters
      */
     public function __construct(
-        Pool $pool,
+        ?Pool $pool,
         string $defaultAvatar,
         bool $impersonatingEnabled,
         string $impersonatingRoute,
@@ -56,6 +57,9 @@ final class GlobalVariables
      */
     public function getUserAdmin(): AdminInterface
     {
+        if (null === $this->pool) {
+            throw new LogicException('Unable to get the UserAdmin, admin pool is not configured. You should install SonataAdminBundle in order to use admin-related features.');
+        }
         return $this->pool->getAdminByAdminCode('sonata.user.admin.user');
     }
 
