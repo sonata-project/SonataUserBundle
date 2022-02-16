@@ -170,8 +170,8 @@
         <source>list.label_impersonating</source>
         <target>Changer d'identité</target>
       </trans-unit>
-      <trans-unit id="list.label_roles">
-        <source>list.label_roles</source>
+      <trans-unit id="form.group_roles">
+        <source>form.group_roles</source>
         <target>Rôles</target>
       </trans-unit>
       <trans-unit id="list.label_firstname">
@@ -198,8 +198,8 @@
         <source>sonata_user</source>
         <target>Utilisateurs</target>
       </trans-unit>
-      <trans-unit id="form_general">
-        <source>General</source>
+      <trans-unit id="form.group_general">
+        <source>form.group_general</source>
         <target>Général</target>
       </trans-unit>
       <trans-unit id="form_management">

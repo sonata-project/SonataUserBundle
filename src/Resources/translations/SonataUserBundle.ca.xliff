@@ -154,8 +154,8 @@
         <source>list.label_impersonating</source>
         <target>Suplantar usuari</target>
       </trans-unit>
-      <trans-unit id="list.label_roles">
-        <source>list.label_roles</source>
+      <trans-unit id="form.group_roles">
+        <source>form.group_roles</source>
         <target>Perfils</target>
       </trans-unit>
       <trans-unit id="list.label_firstname">
@@ -182,8 +182,8 @@
         <source>sonata_user</source>
         <target>Usuari</target>
       </trans-unit>
-      <trans-unit id="form_general">
-        <source>General</source>
+      <trans-unit id="form.group_general">
+        <source>form.group_general</source>
         <target>General</target>
       </trans-unit>
       <trans-unit id="form_management">

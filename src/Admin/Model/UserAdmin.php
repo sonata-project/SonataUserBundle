@@ -19,7 +19,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\FieldDescription\FieldDescriptionInterface;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\UserBundle\Form\Type\SecurityRolesType;
+use Sonata\UserBundle\Form\Type\RolesMatrixType;
 use Sonata\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
@@ -80,46 +80,27 @@ class UserAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $show): void
     {
         $show
-            ->with('General')
-                ->add('username')
-                ->add('email')
-            ->end();
+            ->add('username')
+            ->add('email');
     }
 
     protected function configureFormFields(FormMapper $form): void
     {
-        // define group zoning
         $form
-            ->tab('User')
-                ->with('General', ['class' => 'col-md-12'])->end()
+            ->with('general', ['class' => 'col-md-4'])
+                ->add('username')
+                ->add('email')
+                ->add('plainPassword', TextType::class, [
+                    'required' => (!$this->hasSubject() || null === $this->getSubject()->getId()),
+                ])
+                ->add('enabled', null)
             ->end()
-            ->tab('Security')
-                ->with('Status', ['class' => 'col-md-12'])->end()
-                ->with('Roles', ['class' => 'col-md-12'])->end()
-            ->end();
-
-        $form
-            ->tab('User')
-                ->with('General')
-                    ->add('username')
-                    ->add('email')
-                    ->add('plainPassword', TextType::class, [
-                        'required' => (!$this->hasSubject() || null === $this->getSubject()->getId()),
-                    ])
-                ->end()
-            ->end()
-            ->tab('Security')
-                ->with('Status')
-                    ->add('enabled', null, ['required' => false])
-                ->end()
-                ->with('Roles')
-                    ->add('realRoles', SecurityRolesType::class, [
-                        'label' => 'form.label_roles',
-                        'expanded' => true,
-                        'multiple' => true,
-                        'required' => false,
-                    ])
-                ->end()
+            ->with('roles', ['class' => 'col-md-8'])
+                ->add('realRoles', RolesMatrixType::class, [
+                    'label' => false,
+                    'multiple' => true,
+                    'required' => false,
+                ])
             ->end();
     }
 

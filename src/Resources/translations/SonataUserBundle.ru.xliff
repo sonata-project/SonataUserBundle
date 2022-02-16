@@ -206,8 +206,8 @@
         <source>list.label_impersonating</source>
         <target>Воплотиться в пользователя</target>
       </trans-unit>
-      <trans-unit id="list.label_roles">
-        <source>list.label_roles</source>
+      <trans-unit id="form.group_roles">
+        <source>form.group_roles</source>
         <target>Роли</target>
       </trans-unit>
       <trans-unit id="list.label_firstname">
@@ -234,8 +234,8 @@
         <source>sonata_user</source>
         <target>Пользователи</target>
       </trans-unit>
-      <trans-unit id="form_general">
-        <source>form_general</source>
+      <trans-unit id="form.group_general">
+        <source>form.group_general</source>
         <target>Основные сведения</target>
       </trans-unit>
       <trans-unit id="form_management">

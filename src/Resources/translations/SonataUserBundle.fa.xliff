@@ -150,8 +150,8 @@
         <source>list.label_impersonating</source>
         <target>جایگزین کردن کاربر</target>
       </trans-unit>
-      <trans-unit id="list.label_roles">
-        <source>list.label_roles</source>
+      <trans-unit id="form.group_roles">
+        <source>form.group_roles</source>
         <target>نقش ها</target>
       </trans-unit>
       <trans-unit id="list.label_firstname">
@@ -178,8 +178,8 @@
         <source>sonata_user</source>
         <target>کاربران</target>
       </trans-unit>
-      <trans-unit id="form_general">
-        <source>General</source>
+      <trans-unit id="form.group_general">
+        <source>form.group_general</source>
         <target>عمومی</target>
       </trans-unit>
       <trans-unit id="form_management">

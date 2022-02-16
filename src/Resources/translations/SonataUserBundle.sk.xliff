@@ -142,8 +142,8 @@
         <source>list.label_impersonating</source>
         <target>Prepnúť používateľa</target>
       </trans-unit>
-      <trans-unit id="list.label_roles">
-        <source>list.label_roles</source>
+      <trans-unit id="form.group_roles">
+        <source>form.group_roles</source>
         <target>Role</target>
       </trans-unit>
       <trans-unit id="label_two_step_code">
