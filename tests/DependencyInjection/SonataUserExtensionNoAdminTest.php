@@ -49,7 +49,7 @@ final class SonataUserExtensionNoAdminTest extends AbstractExtensionTestCase
         // Make sure there's no exceptions thrown, as the service has a dependency on Admin
         // which must be optional
         $globals = $this->container->get('sonata.user.twig.global');
-        $this->assertInstanceOf(GlobalVariables::class, $globals);
+        static::assertInstanceOf(GlobalVariables::class, $globals);
     }
 
     /**
