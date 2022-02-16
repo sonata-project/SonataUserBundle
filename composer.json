@@ -78,8 +78,8 @@
         "sonata-project/doctrine-orm-admin-bundle": "<4.0"
     },
     "suggest": {
-        "sonata-project/doctrine-orm-admin-bundle": "For persisting entities",
-        "sonata-project/admin-bundle": "For admin dashboard to manage users and other entities"
+        "sonata-project/admin-bundle": "For admin dashboard to manage users and other entities",
+        "sonata-project/doctrine-orm-admin-bundle": "For persisting entities"
     },
     "autoload": {
         "psr-4": {
@@ -92,9 +92,6 @@
         }
     },
     "config": {
-        "sort-packages": true,
-        "allow-plugins": {
-            "phpstan/extension-installer": true
-        }
+        "sort-packages": true
     }
 }
