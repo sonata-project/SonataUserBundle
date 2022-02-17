@@ -42,6 +42,10 @@
         <source>users</source>
         <target>Používatelia</target>
       </trans-unit>
+      <trans-unit id="show.group_users">
+        <source>show.group_users</source>
+        <target>Používatelia</target>
+      </trans-unit>
       <trans-unit id="switch_user_exit">
         <source>switch_user_exit</source>
         <target>Opustiť prepnutie používateľa</target>

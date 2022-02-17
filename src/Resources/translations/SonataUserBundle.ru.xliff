@@ -46,6 +46,10 @@
         <source>users</source>
         <target>Пользователи</target>
       </trans-unit>
+      <trans-unit id="show.group_users">
+        <source>show.group_users</source>
+        <target>Пользователи</target>
+      </trans-unit>
       <trans-unit id="group_user">
         <source>User</source>
         <target>Пользователь</target>
