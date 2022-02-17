@@ -74,6 +74,7 @@
         "vimeo/psalm": "^4.9.2"
     },
     "conflict": {
+        "sonata-project/admin-bundle": "<4.8",
         "sonata-project/block-bundle": "<4.0",
         "sonata-project/doctrine-orm-admin-bundle": "<4.0"
     },
