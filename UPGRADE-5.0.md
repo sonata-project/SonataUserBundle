@@ -31,6 +31,12 @@ FOSUserBundle dependency was removed. Main features of that bundle were migrated
 inside SonataUserBundle. Make sure you run your migrations and remove FOSUserBundle
 from your code and dependencies, unless you need it for other purposes.
 
+## SonataAdminBundle is optional
+
+SonataAdminBundle (sonata-project/admin-bundle) dependency has become optional. If you're using
+that bundle, we recommend requiring it explicitly in your composer.json. Note that attempt to use
+`sonata_user.userAdmin` Twig variable will throw a `\LogicException` if SonataAdminBundle is not installed.
+
 ## Deprecations
 
 All the deprecated code introduced on 4.x is removed on 5.0.

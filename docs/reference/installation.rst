@@ -8,13 +8,12 @@ Installation
 Prerequisites
 -------------
 
-There are some Sonata dependencies that need to be installed and configured beforehand.
-
-Required dependencies:
+If you're planning on using this bundle with SonataAdminBundle, you may want to install
+and configure that bundle first.
 
 * `SonataAdminBundle <https://docs.sonata-project.org/projects/SonataAdminBundle/en/4.x/>`_
 
-And the persistence bundle (choose one):
+and the persistence bundle (choose one):
 
 * `SonataDoctrineORMAdminBundle <https://docs.sonata-project.org/projects/SonataDoctrineORMAdminBundle/en/4.x/>`_
 * `SonataDoctrineMongoDBAdminBundle <https://docs.sonata-project.org/projects/SonataDoctrineMongoDBAdminBundle/en/4.x/>`_
@@ -167,6 +166,11 @@ Your mailer will have to implement ``Sonata\UserBundle\Mailer\MailerInterface``.
 
 Integrating the bundle into the Sonata Admin Bundle
 ---------------------------------------------------
+
+.. note::
+
+    If you're using this bundle without the optional Sonata Admin Bundle,
+    please, ignore this section.
 
 Add the related security routing information:
 
