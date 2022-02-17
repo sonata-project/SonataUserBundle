@@ -170,8 +170,8 @@
         <source>list.label_impersonating</source>
         <target>Apsimesti naudotoju</target>
       </trans-unit>
-      <trans-unit id="list.label_roles">
-        <source>list.label_roles</source>
+      <trans-unit id="form.group_roles">
+        <source>form.group_roles</source>
         <target>Rolės</target>
       </trans-unit>
       <trans-unit id="list.label_firstname">
@@ -198,8 +198,8 @@
         <source>sonata_user</source>
         <target>Naudotojai</target>
       </trans-unit>
-      <trans-unit id="form_general">
-        <source>form_general</source>
+      <trans-unit id="form.group_general">
+        <source>form.group_general</source>
         <target>Pagrindinis</target>
       </trans-unit>
       <trans-unit id="form_management">
