@@ -54,10 +54,6 @@
         <source>user_block_logout</source>
         <target>Изход</target>
       </trans-unit>
-      <trans-unit id="user_block_profile">
-        <source>user_block_profile</source>
-        <target>user_block_profile</target>
-      </trans-unit>
       <trans-unit id="user_form.label_username">
         <source>form.label_username</source>
         <target>Потребителско име: </target>
@@ -206,10 +202,6 @@
         <source>label_profile_website</source>
         <target>Уебсайт</target>
       </trans-unit>
-      <trans-unit id="label_profile_dob">
-        <source>label_profile_dob</source>
-        <target>label_profile_dob</target>
-      </trans-unit>
       <trans-unit id="label_profile_biography">
         <source>label_profile_biography</source>
         <target>Биография</target>
@@ -253,14 +245,6 @@
       <trans-unit id="forgotten_password">
         <source>forgotten_password</source>
         <target>Забравена парола</target>
-      </trans-unit>
-      <trans-unit id="sonata_user_profile_breadcrumb_index">
-        <source>sonata_user_profile_breadcrumb_index</source>
-        <target>sonata_user_profile_breadcrumb_index</target>
-      </trans-unit>
-      <trans-unit id="sonata_user_profile_breadcrumb_edit">
-        <source>sonata_user_profile_breadcrumb_edit</source>
-        <target>sonata_user_profile_breadcrumb_edit</target>
       </trans-unit>
       <trans-unit id="sonata_user_already_authenticated">
         <source>sonata_user_already_authenticated</source>
@@ -329,18 +313,6 @@
       <trans-unit id="sonata_user">
         <source>sonata_user</source>
         <target>Потребители</target>
-      </trans-unit>
-      <trans-unit id="title_user_edit_password">
-        <source>title_user_edit_password</source>
-        <target>title_user_edit_password</target>
-      </trans-unit>
-      <trans-unit id="title_user_resetting">
-        <source>title_user_resetting</source>
-        <target>title_user_resetting</target>
-      </trans-unit>
-      <trans-unit id="title_user_resetting_reset">
-        <source>title_user_resetting_reset</source>
-        <target>title_user_resetting_reset</target>
       </trans-unit>
     </body>
   </file>
