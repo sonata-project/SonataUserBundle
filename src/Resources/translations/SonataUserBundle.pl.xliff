@@ -24,23 +24,23 @@
       </trans-unit>
       <trans-unit id="breadcrumb.link_user_list">
         <source>breadcrumb.link_user_list</source>
-        <target equiv-trans="yes" state="final">Użytkownicy</target>
+        <target>Użytkownicy</target>
       </trans-unit>
       <trans-unit id="breadcrumb.link_user_create">
         <source>breadcrumb.link_user_create</source>
-        <target equiv-trans="yes" state="final">Utwórz</target>
+        <target>Utwórz</target>
       </trans-unit>
       <trans-unit id="breadcrumb.link_user_edit">
         <source>breadcrumb.link_user_edit</source>
-        <target equiv-trans="yes" state="final">Edytuj</target>
+        <target>Edytuj</target>
       </trans-unit>
       <trans-unit id="breadcrumb.link_user_delete">
         <source>breadcrumb.link_user_delete</source>
-        <target equiv-trans="yes" state="final">Usuń</target>
+        <target>Usuń</target>
       </trans-unit>
       <trans-unit id="users">
         <source>users</source>
-        <target equiv-trans="yes" state="final">Użytkownicy</target>
+        <target>Użytkownicy</target>
       </trans-unit>
       <trans-unit id="show.group_users">
         <source>show.group_users</source>
@@ -48,15 +48,15 @@
       </trans-unit>
       <trans-unit id="switch_user_exit">
         <source>switch_user_exit</source>
-        <target equiv-trans="yes" state="final">Zakończ tryb impersonacji</target>
+        <target>Zakończ tryb impersonacji</target>
       </trans-unit>
       <trans-unit id="switch_user">
         <source>switch_user</source>
-        <target equiv-trans="yes" state="final">Impersonacja konta</target>
+        <target>Impersonacja konta</target>
       </trans-unit>
       <trans-unit id="user_block_logout">
         <source>user_block_logout</source>
-        <target equiv-trans="yes" state="final">Wyloguj</target>
+        <target>Wyloguj</target>
       </trans-unit>
       <trans-unit id="user_block_profile">
         <source>user_block_profile</source>
@@ -64,59 +64,59 @@
       </trans-unit>
       <trans-unit id="user_form.label_username">
         <source>form.label_username</source>
-        <target equiv-trans="yes" state="final">Nazwa konta</target>
+        <target>Nazwa konta</target>
       </trans-unit>
       <trans-unit id="form.label_email">
         <source>form.label_email</source>
-        <target equiv-trans="yes" state="final">Adres e-mail</target>
+        <target>Adres e-mail</target>
       </trans-unit>
       <trans-unit id="form.label_plain_password">
         <source>form.label_plain_password</source>
-        <target equiv-trans="yes" state="final">Hasło (czysty tekst)</target>
+        <target>Hasło (czysty tekst)</target>
       </trans-unit>
       <trans-unit id="form.label_roles">
         <source>form.label_roles</source>
-        <target equiv-trans="yes" state="final">Role</target>
+        <target>Role</target>
       </trans-unit>
       <trans-unit id="form.label_locked">
         <source>form.label_locked</source>
-        <target equiv-trans="yes" state="final">Zablokowane</target>
+        <target>Zablokowane</target>
       </trans-unit>
       <trans-unit id="form.label_expired">
         <source>form.label_expired</source>
-        <target equiv-trans="yes" state="final">Wygasło</target>
+        <target>Wygasło</target>
       </trans-unit>
       <trans-unit id="form.label_enabled">
         <source>form.label_enabled</source>
-        <target equiv-trans="yes" state="final">Aktywne</target>
+        <target>Aktywne</target>
       </trans-unit>
       <trans-unit id="form.label_credentials_expired">
         <source>form.label_credentials_expired</source>
-        <target equiv-trans="yes" state="final">Uprawnienia wygasły</target>
+        <target>Uprawnienia wygasły</target>
       </trans-unit>
       <trans-unit id="user_form.label_name">
         <source>form.label_name</source>
-        <target equiv-trans="yes" state="final">Nazwa</target>
+        <target>Nazwa</target>
       </trans-unit>
       <trans-unit id="filter.label_username">
         <source>filter.label_username</source>
-        <target equiv-trans="yes" state="final">Nazwa konta</target>
+        <target>Nazwa konta</target>
       </trans-unit>
       <trans-unit id="filter.label_name">
         <source>filter.label_name</source>
-        <target equiv-trans="yes" state="final">Nazwa</target>
+        <target>Nazwa</target>
       </trans-unit>
       <trans-unit id="filter.label_email">
         <source>filter.label_email</source>
-        <target equiv-trans="yes" state="final">Adres e-mail</target>
+        <target>Adres e-mail</target>
       </trans-unit>
       <trans-unit id="filter.label_locked">
         <source>filter.label_locked</source>
-        <target equiv-trans="yes" state="final">Zablokowane</target>
+        <target>Zablokowane</target>
       </trans-unit>
       <trans-unit id="filter.label_id">
         <source>filter.label_id</source>
-        <target equiv-trans="yes" state="final">ID</target>
+        <target>ID</target>
       </trans-unit>
       <trans-unit id="filter.label_enabled">
         <source>filter.label_enabled</source>
@@ -132,35 +132,35 @@
       </trans-unit>
       <trans-unit id="list.label_username">
         <source>list.label_username</source>
-        <target equiv-trans="yes" state="final">Nazwa konta</target>
+        <target>Nazwa konta</target>
       </trans-unit>
       <trans-unit id="list.label_name">
         <source>list.label_name</source>
-        <target equiv-trans="yes" state="final">Nazwa</target>
+        <target>Nazwa</target>
       </trans-unit>
       <trans-unit id="list.label_email">
         <source>list.label_email</source>
-        <target equiv-trans="yes" state="final">Adres e-mail</target>
+        <target>Adres e-mail</target>
       </trans-unit>
       <trans-unit id="list.label_locked">
         <source>list.label_locked</source>
-        <target equiv-trans="yes" state="final">Zablokowane</target>
+        <target>Zablokowane</target>
       </trans-unit>
       <trans-unit id="list.label_enabled">
         <source>list.label_enabled</source>
-        <target equiv-trans="yes" state="final">Aktywne</target>
+        <target>Aktywne</target>
       </trans-unit>
       <trans-unit id="list.label_created_at">
         <source>list.label_created_at</source>
-        <target equiv-trans="yes" state="final">Data utworzenia</target>
+        <target>Data utworzenia</target>
       </trans-unit>
       <trans-unit id="list.label_impersonating">
         <source>list.label_impersonating</source>
-        <target equiv-trans="yes" state="final">Impersonacja konta</target>
+        <target>Impersonacja konta</target>
       </trans-unit>
       <trans-unit id="form.group_roles">
         <source>form.group_roles</source>
-        <target equiv-trans="yes" state="final">Role</target>
+        <target>Role</target>
       </trans-unit>
       <trans-unit id="list.label_firstname">
         <source>list.label_firstname</source>
@@ -172,31 +172,31 @@
       </trans-unit>
       <trans-unit id="label_two_step_code">
         <source>label_two_step_code</source>
-        <target equiv-trans="yes" state="final">Dwustopniowa weryfikacja</target>
+        <target>Dwustopniowa weryfikacja</target>
       </trans-unit>
       <trans-unit id="message_two_step_code_help">
         <source>message_two_step_code_help</source>
-        <target equiv-trans="yes" state="final">Wprowadź kod weryfikacyjny wygenerowany przez aplikację.</target>
+        <target>Wprowadź kod weryfikacyjny wygenerowany przez aplikację.</target>
       </trans-unit>
       <trans-unit id="label_two_step_code_error">
         <source>label_two_step_code_error</source>
-        <target equiv-trans="yes" state="final">Kod weryfikacyjny jest błędny</target>
+        <target>Kod weryfikacyjny jest błędny</target>
       </trans-unit>
       <trans-unit id="sonata_user">
         <source>sonata_user</source>
-        <target equiv-trans="yes" state="final">Użytkownicy</target>
+        <target>Użytkownicy</target>
       </trans-unit>
       <trans-unit id="form.group_general">
         <source>form.group_general</source>
-        <target equiv-trans="yes" state="final">Ogólne</target>
+        <target>Ogólne</target>
       </trans-unit>
       <trans-unit id="form_management">
         <source>Management</source>
-        <target equiv-trans="yes" state="final">Uprawnienia</target>
+        <target>Uprawnienia</target>
       </trans-unit>
       <trans-unit id="field.label_roles_editable">
         <source>field.label_roles_editable</source>
-        <target equiv-trans="yes" state="final">Zaznacz uprawnienia użytkownika</target>
+        <target>Zaznacz uprawnienia użytkownika</target>
       </trans-unit>
       <trans-unit id="form.label_firstname">
         <source>form.label_firstname</source>
