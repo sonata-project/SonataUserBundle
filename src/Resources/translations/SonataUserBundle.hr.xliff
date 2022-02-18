@@ -18,10 +18,6 @@
         <source>title_user_authentication</source>
         <target>Prijava</target>
       </trans-unit>
-      <trans-unit id="sonata_user_submit">
-        <source>sonata_user_submit</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="breadcrumb.link_user_list">
         <source>breadcrumb.link_user_list</source>
         <target>Korisnici</target>
@@ -70,10 +66,6 @@
         <source>form.label_plain_password</source>
         <target>Lozinka</target>
       </trans-unit>
-      <trans-unit id="form.label_roles">
-        <source>form.label_roles</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="form.label_locked">
         <source>form.label_locked</source>
         <target>Zaključan</target>
@@ -85,10 +77,6 @@
       <trans-unit id="form.label_enabled">
         <source>form.label_enabled</source>
         <target>Omogućen</target>
-      </trans-unit>
-      <trans-unit id="form.label_credentials_expired">
-        <source>form.label_credentials_expired</source>
-        <target/>
       </trans-unit>
       <trans-unit id="form.label_created_at">
         <source>form.label_created_at</source>
