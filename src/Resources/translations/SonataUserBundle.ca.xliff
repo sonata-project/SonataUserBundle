@@ -394,6 +394,53 @@
         <source>form.password</source>
         <target>Contrasenya</target>
       </trans-unit>
+      <trans-unit id="security.login.remember_me">
+        <source>security.login.remember_me</source>
+        <target>Recorda'm</target>
+      </trans-unit>
+      <trans-unit id="security.login.submit">
+        <source>security.login.submit</source>
+        <target>Entra</target>
+      </trans-unit>
+      <trans-unit id="resetting.request.username">
+        <source>resetting.request.username</source>
+        <target>Nom d'usuari o correu electrònic</target>
+      </trans-unit>
+      <trans-unit id="resetting.request.submit">
+        <source>resetting.request.submit</source>
+        <target>Restableix la contrasenya</target>
+      </trans-unit>
+      <trans-unit id="resetting.email.subject">
+        <source>resetting.email.subject</source>
+        <target>Restablir la contrasenya</target>
+      </trans-unit>
+      <trans-unit id="resetting.email.message">
+        <source>resetting.email.message</source>
+        <target>
+          Hola %username%!
+
+          Per restablir la contrasenya - si us plau visiteu %confirmationUrl%
+
+          Atentament,
+          L'equip.
+        </target>
+      </trans-unit>
+      <trans-unit id="resetting.reset.submit">
+        <source>resetting.reset.submit</source>
+        <target>Canvia la contrasenya</target>
+      </trans-unit>
+      <trans-unit id="resetting.flash.success">
+        <source>resetting.flash.success</source>
+        <target>S'ha restablert la contrasenya correctament.</target>
+      </trans-unit>
+      <trans-unit id="form.new_password">
+        <source>form.new_password</source>
+        <target>Nova contrasenya</target>
+      </trans-unit>
+      <trans-unit id="form.new_password_confirmation">
+        <source>form.new_password_confirmation</source>
+        <target>Verificació</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
