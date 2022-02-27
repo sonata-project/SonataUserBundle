@@ -477,14 +477,14 @@
       </trans-unit>
       <trans-unit id="resetting.email.message">
         <source>resetting.email.message</source>
-        <target>
+        <target><![CDATA[
           Dobr<ý den, %username%!
 
           Pro nastavení nového hesla prosím klikněte na tento odkaz: %confirmationUrl%
 
           S pozdravem,
           realizačn>í tým.
-        </target>
+        ]]></target>
       </trans-unit>
       <trans-unit id="resetting.reset.submit">
         <source>resetting.reset.submit</source>
