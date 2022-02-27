@@ -489,6 +489,7 @@
           لطفا توجه کنید که در هر %tokenLifetime% ساعت تنها یک بار می توانید درخواست کلمه عبور جدید ارسال کنید.
 
           اگر ایمیلی با این مشخصات در باکس خود دریافت نکردید، لطفا پوشه اسپم خود را چک کرده و یا مجددا تلاش کنید.        </target>
+        </target>
       </trans-unit>
       <trans-unit id="resetting.email.subject">
         <source>resetting.email.subject</source>

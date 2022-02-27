@@ -558,6 +558,62 @@
         <source>qr_go_next</source>
         <target>Ik heb het gescanned. Ga verder.</target>
       </trans-unit>
+      <trans-unit id="security.login.remember_me">
+        <source>security.login.remember_me</source>
+        <target>Onthoud mijn gegevens</target>
+      </trans-unit>
+      <trans-unit id="security.login.submit">
+        <source>security.login.submit</source>
+        <target>Inloggen</target>
+      </trans-unit>
+      <trans-unit id="resetting.request.username">
+        <source>resetting.request.username</source>
+        <target>Gebruikersnaam of e-mailadres</target>
+      </trans-unit>
+      <trans-unit id="resetting.request.submit">
+        <source>resetting.request.submit</source>
+        <target>Reset wachtwoord</target>
+      </trans-unit>
+      <trans-unit id="resetting.check_email">
+        <source>resetting.check_email</source>
+        <target>
+          Er werd een email gestuurd. De email bevat een link om je wachtwoord te resetten.
+          Opgelet: Je kan pas na %tokenLifetime% uur een nieuw wachtwoord aanvragen.
+
+          Indien je geen email ontvangen hebt, controleer dan zeker je spam folder of probeer opnieuw.
+        </target>
+      </trans-unit>
+      <trans-unit id="resetting.email.subject">
+        <source>resetting.email.subject</source>
+        <target>Reset wachtwoord</target>
+      </trans-unit>
+      <trans-unit id="resetting.email.message">
+        <source>resetting.email.message</source>
+        <target>
+          Hallo %username%!
+
+          Om uw wachtwoord te resetten, klikt u op de volgende link %confirmationUrl%
+
+          Met vriendelijke groet,
+          het Team.
+        </target>
+      </trans-unit>
+      <trans-unit id="resetting.reset.submit">
+        <source>resetting.reset.submit</source>
+        <target>Wijzig wachtwoord</target>
+      </trans-unit>
+      <trans-unit id="resetting.flash.success">
+        <source>resetting.flash.success</source>
+        <target>Het wachtwoord is succesvol gereset.</target>
+      </trans-unit>
+      <trans-unit id="form.new_password">
+        <source>form.new_password</source>
+        <target>Nieuw wachtwoord</target>
+      </trans-unit>
+      <trans-unit id="form.new_password_confirmation">
+        <source>form.new_password_confirmation</source>
+        <target>Wachtwoord controle</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -498,6 +498,62 @@
         <source>form.password_confirmation</source>
         <target>Parola repetat</target>
       </trans-unit>
+      <trans-unit id="security.login.remember_me">
+        <source>security.login.remember_me</source>
+        <target>Ține-mă minte</target>
+      </trans-unit>
+      <trans-unit id="security.login.submit">
+        <source>security.login.submit</source>
+        <target>Autentificare</target>
+      </trans-unit>
+      <trans-unit id="resetting.request.username">
+        <source>resetting.request.username</source>
+        <target>Numele de utilizator sau adresa de email</target>
+      </trans-unit>
+      <trans-unit id="resetting.request.submit">
+        <source>resetting.request.submit</source>
+        <target>Resetează parola</target>
+      </trans-unit>
+      <trans-unit id="resetting.check_email">
+        <source>resetting.check_email</source>
+        <target>
+          Un email a fost trimis. Conține un link pe care trebuie să îl accesezi pentru a-ți reseta parola.
+          Notă: Poți cere o nouă parolă numai în următoarele %tokenLifetime% ore.
+
+          Daca nu primești email-ul verifica in spam sau mai incearca o dată.
+        </target>
+      </trans-unit>
+      <trans-unit id="resetting.email.subject">
+        <source>resetting.email.subject</source>
+        <target>Resetare parolă</target>
+      </trans-unit>
+      <trans-unit id="resetting.email.message">
+        <source>resetting.email.message</source>
+        <target>
+          Salut %username%!
+
+          Pentru a-ți reseta parola - accesează %confirmationUrl%
+
+          Toate cele bune,
+          Echipa
+        </target>
+      </trans-unit>
+      <trans-unit id="resetting.reset.submit">
+        <source>resetting.reset.submit</source>
+        <target>Schimbă parola</target>
+      </trans-unit>
+      <trans-unit id="resetting.flash.success">
+        <source>resetting.flash.success</source>
+        <target>Parola a fost resetată cu succes.</target>
+      </trans-unit>
+      <trans-unit id="form.new_password">
+        <source>form.new_password</source>
+        <target>Parola nouă</target>
+      </trans-unit>
+      <trans-unit id="form.new_password_confirmation">
+        <source>form.new_password_confirmation</source>
+        <target>Verificare parolă nouă</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

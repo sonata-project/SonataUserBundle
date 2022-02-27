@@ -454,6 +454,61 @@
         <source>forgotten_password</source>
         <target>パスワードをお忘れですか？</target>
       </trans-unit>
+      <trans-unit id="security.login.remember_me">
+        <source>security.login.remember_me</source>
+        <target>ログイン状態を記憶する</target>
+      </trans-unit>
+      <trans-unit id="security.login.submit">
+        <source>security.login.submit</source>
+        <target>ログイン</target>
+      </trans-unit>
+      <trans-unit id="resetting.request.username">
+        <source>resetting.request.username</source>
+        <target>ユーザー名またはメールアドレス</target>
+      </trans-unit>
+      <trans-unit id="resetting.request.submit">
+        <source>resetting.request.submit</source>
+        <target>パスワードのリセット</target>
+      </trans-unit>
+      <trans-unit id="resetting.check_email">
+        <source>resetting.check_email</source>
+        <target>
+          メールが送信されました。送信されたリンクをクリックしてパスワードをリセットして下さい。
+          注意：パスワードのリセットは %tokenLifetime% 時間のあいだに一度しか要求できません。
+
+          もしメールが届かない場合は、迷惑メールフォルダをご確認いただき、その上で再度やり直して下さい。
+        </target>
+      </trans-unit>
+      <trans-unit id="resetting.email.subject">
+        <source>resetting.email.subject</source>
+        <target>パスワードのリセット</target>
+      </trans-unit>
+      <trans-unit id="resetting.email.message">
+        <source>resetting.email.message</source>
+        <target>
+          こんにちは %username% さん!
+
+          パスワードをリセットするには、次のリセット URL へアクセスしてください %confirmationUrl%
+
+          開発チーム
+        </target>
+      </trans-unit>
+      <trans-unit id="resetting.reset.submit">
+        <source>resetting.reset.submit</source>
+        <target>パスワードの変更</target>
+      </trans-unit>
+      <trans-unit id="resetting.flash.success">
+        <source>resetting.flash.success</source>
+        <target>パスワードのリセットが完了しました</target>
+      </trans-unit>
+      <trans-unit id="form.new_password">
+        <source>form.new_password</source>
+        <target>新しいパスワード</target>
+      </trans-unit>
+      <trans-unit id="form.new_password_confirmation">
+        <source>form.new_password_confirmation</source>
+        <target>確認</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

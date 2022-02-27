@@ -558,6 +558,62 @@
         <source>qr_go_next</source>
         <target>Я отсканировал. Далее.</target>
       </trans-unit>
+      <trans-unit id="security.login.remember_me">
+        <source>security.login.remember_me</source>
+        <target>Запомнить меня</target>
+      </trans-unit>
+      <trans-unit id="security.login.submit">
+        <source>security.login.submit</source>
+        <target>Войти</target>
+      </trans-unit>
+      <trans-unit id="resetting.request.username">
+        <source>resetting.request.username</source>
+        <target>Имя пользователя или электронная почта</target>
+      </trans-unit>
+      <trans-unit id="resetting.request.submit">
+        <source>resetting.request.submit</source>
+        <target>Сбросить пароль</target>
+      </trans-unit>
+      <trans-unit id="resetting.check_email">
+        <source>resetting.check_email</source>
+        <target>
+          Письмо отправлено. Оно содержит ссылку, при переходе по которой ваш пароль будет сброшен.
+          Заметьте, вы сможете запросить новый пароль только через %tokenLifetime% часов.
+
+          Если вы не получили письмо, проверьте папку Спам или попробуйте снова.
+        </target>
+      </trans-unit>
+      <trans-unit id="resetting.email.subject">
+        <source>resetting.email.subject</source>
+        <target>Сброс пароля</target>
+      </trans-unit>
+      <trans-unit id="resetting.email.message">
+        <source>resetting.email.message</source>
+        <target>
+          Приветствуем, %username%!
+
+          Для сброса пароля, пожалуйста, пройдите по ссылке %confirmationUrl%
+
+          С наилучшими пожеланиями,
+          команда сайта.
+        </target>
+      </trans-unit>
+      <trans-unit id="resetting.reset.submit">
+        <source>resetting.reset.submit</source>
+        <target>Изменить пароль</target>
+      </trans-unit>
+      <trans-unit id="resetting.flash.success">
+        <source>resetting.flash.success</source>
+        <target>Пароль успешно сброшен.</target>
+      </trans-unit>
+      <trans-unit id="form.new_password">
+        <source>form.new_password</source>
+        <target>Новый пароль</target>
+      </trans-unit>
+      <trans-unit id="form.new_password_confirmation">
+        <source>form.new_password_confirmation</source>
+        <target>Подтвердите пароль</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
