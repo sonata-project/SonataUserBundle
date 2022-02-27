@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="en" datatype="plaintext" original="file.ext">
+  <file source-language="en" target-language="uk" datatype="plaintext" original="file.ext">
     <body>
       <trans-unit id="title_user_registration">
         <source>title_user_registration</source>
@@ -517,6 +517,62 @@
       <trans-unit id="qr_go_next">
         <source>qr_go_next</source>
         <target>Я відсканував. Далі.</target>
+      </trans-unit>
+      <trans-unit id="security.login.remember_me">
+        <source>security.login.remember_me</source>
+        <target>Запам'ятати мене</target>
+      </trans-unit>
+      <trans-unit id="security.login.submit">
+        <source>security.login.submit</source>
+        <target>Увійти</target>
+      </trans-unit>
+      <trans-unit id="resetting.request.username">
+        <source>resetting.request.username</source>
+        <target>Ім'я користувача</target>
+      </trans-unit>
+      <trans-unit id="resetting.request.submit">
+        <source>resetting.request.submit</source>
+        <target>Скинути пароль</target>
+      </trans-unit>
+      <trans-unit id="resetting.check_email">
+        <source>resetting.check_email</source>
+        <target>
+          Лист відправлено. Він містить посилання, при переході за яким Ваш пароль буде скинуто.
+          Примітка: Ви можете змінити пароль тільки протягом %tokenLifetime% годин.
+
+          Якщо Ви не отримали лист то перевірте будь-ласка папку зі спамом.
+        </target>
+      </trans-unit>
+      <trans-unit id="resetting.email.subject">
+        <source>resetting.email.subject</source>
+        <target>Скидання пароля</target>
+      </trans-unit>
+      <trans-unit id="resetting.email.message">
+        <source>resetting.email.message</source>
+        <target>
+          Вітаємо %username%!
+
+          Для скидання пароля - будь ласка, перейдіть за посиланням %confirmationUrl%
+
+          З найкращими побажаннями,
+          команда сайту.
+        </target>
+      </trans-unit>
+      <trans-unit id="resetting.reset.submit">
+        <source>resetting.reset.submit</source>
+        <target>Змінити пароль</target>
+      </trans-unit>
+      <trans-unit id="resetting.flash.success">
+        <source>resetting.flash.success</source>
+        <target>Пароль успішно скинуто.</target>
+      </trans-unit>
+      <trans-unit id="form.new_password">
+        <source>form.new_password</source>
+        <target>Новий пароль</target>
+      </trans-unit>
+      <trans-unit id="form.new_password_confirmation">
+        <source>form.new_password_confirmation</source>
+        <target>Підтвердіть пароль</target>
       </trans-unit>
     </body>
   </file>

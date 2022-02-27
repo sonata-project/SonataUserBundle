@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="en" datatype="plaintext" original="file.ext">
+  <file source-language="en" target-language="bg" datatype="plaintext" original="file.ext">
     <body>
       <trans-unit id="title_user_registration">
         <source>title_user_registration</source>
@@ -317,6 +317,62 @@
       <trans-unit id="sonata_user">
         <source>sonata_user</source>
         <target>Потребители</target>
+      </trans-unit>
+      <trans-unit id="security.login.remember_me">
+        <source>security.login.remember_me</source>
+        <target>Запомни ме</target>
+      </trans-unit>
+      <trans-unit id="security.login.submit">
+        <source>security.login.submit</source>
+        <target>Вход</target>
+      </trans-unit>
+      <trans-unit id="resetting.request.username">
+        <source>resetting.request.username</source>
+        <target>Потребителско име или имейл</target>
+      </trans-unit>
+      <trans-unit id="resetting.request.submit">
+        <source>resetting.request.submit</source>
+        <target>Промени паролата</target>
+      </trans-unit>
+      <trans-unit id="resetting.check_email">
+        <source>resetting.check_email</source>
+        <target>
+          Изпратихме писмо с линк за активация на посочения имейл адрес: %email%.
+          Забележка: Заявка за нова парола може да направите в рамките на %tokenLifetime% час(а).
+
+          Ако не откривате писмото проверете в папка СПАМ или опитайте отново.
+        </target>
+      </trans-unit>
+      <trans-unit id="resetting.email.subject">
+        <source>resetting.email.subject</source>
+        <target>Забравена парола</target>
+      </trans-unit>
+      <trans-unit id="resetting.email.message">
+        <source>resetting.email.message</source>
+        <target>
+          Здравейте, %username%!
+
+          За да промените своята парола, моля отворете %confirmationUrl%
+
+          Поздрави,
+          от екипа.
+        </target>
+      </trans-unit>
+      <trans-unit id="resetting.reset.submit">
+        <source>resetting.reset.submit</source>
+        <target>Промени паролата</target>
+      </trans-unit>
+      <trans-unit id="resetting.flash.success">
+        <source>resetting.flash.success</source>
+        <target>Паролата беше успешно променена.</target>
+      </trans-unit>
+      <trans-unit id="form.new_password">
+        <source>form.new_password</source>
+        <target>Нова парола</target>
+      </trans-unit>
+      <trans-unit id="form.new_password_confirmation">
+        <source>form.new_password_confirmation</source>
+        <target>Нова парола (отново)</target>
       </trans-unit>
     </body>
   </file>

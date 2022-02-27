@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="en" datatype="plaintext" original="file.ext">
+  <file source-language="en" target-language="fa" datatype="plaintext" original="file.ext">
     <body>
       <trans-unit id="title_user_registration">
         <source>title_user_registration</source>
@@ -465,6 +465,62 @@
       <trans-unit id="form.password_confirmation">
         <source>form.password_confirmation</source>
         <target>تایید کلمه عبور</target>
+      </trans-unit>
+      <trans-unit id="security.login.remember_me">
+        <source>security.login.remember_me</source>
+        <target>مشخصات ورود من را به خاطر بسپار</target>
+      </trans-unit>
+      <trans-unit id="security.login.submit">
+        <source>security.login.submit</source>
+        <target>ورود</target>
+      </trans-unit>
+      <trans-unit id="resetting.request.username">
+        <source>resetting.request.username</source>
+        <target>نام کاربری یا ایمیل</target>
+      </trans-unit>
+      <trans-unit id="resetting.request.submit">
+        <source>resetting.request.submit</source>
+        <target>بازنشانی کلمه عبور</target>
+      </trans-unit>
+      <trans-unit id="resetting.check_email">
+        <source>resetting.check_email</source>
+        <target>
+          ایمیلی به نشانی شما فرستاده شده است. این ایمیل حاوی لینکی است که برای فعال سازی باید روی آن کلیک کنید.
+          لطفا توجه کنید که در هر %tokenLifetime% ساعت تنها یک بار می توانید درخواست کلمه عبور جدید ارسال کنید.
+
+          اگر ایمیلی با این مشخصات در باکس خود دریافت نکردید، لطفا پوشه اسپم خود را چک کرده و یا مجددا تلاش کنید.
+        </target>
+      </trans-unit>
+      <trans-unit id="resetting.email.subject">
+        <source>resetting.email.subject</source>
+        <target>بازنشانی کلمه عبور</target>
+      </trans-unit>
+      <trans-unit id="resetting.email.message">
+        <source>resetting.email.message</source>
+        <target>
+          %username% سلام!
+
+          برای بازنشانی کلمه عبور خود لطفا %confirmationUrl% را مشاهده کنید
+          با احترام،
+
+          گروه پشتیبانی
+        </target>
+      </trans-unit>
+      <trans-unit id="resetting.reset.submit">
+        <source>resetting.reset.submit</source>
+        <target>تغییر کلمه عبور</target>
+      </trans-unit>
+      <trans-unit id="resetting.flash.success">
+        <source>resetting.flash.success</source>
+        <target>کلمه عبور با موفقیت بازنشانی شد</target>
+      </trans-unit>
+      <trans-unit id="form.new_password">
+        <source>form.new_password</source>
+        <target>کلمه عبور جدید</target>
+      </trans-unit>
+      <trans-unit id="form.new_password_confirmation">
+        <source>form.new_password_confirmation</source>
+        <target>تکرار کلمه عبور جدید</target>
       </trans-unit>
     </body>
   </file>

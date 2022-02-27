@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="pt" datatype="plaintext" original="file.ext">
+  <file source-language="en" target-language="pt" datatype="plaintext" original="file.ext">
     <body>
       <trans-unit id="title_user_registration">
         <source>title_user_registration</source>
@@ -509,6 +509,62 @@
       <trans-unit id="form.password_confirmation">
         <source>form.password_confirmation</source>
         <target>Confirmação</target>
+      </trans-unit>
+      <trans-unit id="security.login.remember_me">
+        <source>security.login.remember_me</source>
+        <target>Lembrar-me</target>
+      </trans-unit>
+      <trans-unit id="security.login.submit">
+        <source>security.login.submit</source>
+        <target>Entrar</target>
+      </trans-unit>
+      <trans-unit id="resetting.request.username">
+        <source>resetting.request.username</source>
+        <target>Utilizador ou endereço de email</target>
+      </trans-unit>
+      <trans-unit id="resetting.request.submit">
+        <source>resetting.request.submit</source>
+        <target>Recuperar password</target>
+      </trans-unit>
+      <trans-unit id="resetting.check_email">
+        <source>resetting.check_email</source>
+        <target>
+          Foi enviado um email. Este contém um link que terá de visitar para recuperar a sua password.
+          Nota: Só poderá voltar a pedir para recuperar a sua password dentro de %tokenLifetime% horas.
+
+          Se não receber o email verifique a pasta de spam do seu cliente de email ou tente novamente.
+        </target>
+      </trans-unit>
+      <trans-unit id="resetting.email.subject">
+        <source>resetting.email.subject</source>
+        <target>Recuperar password</target>
+      </trans-unit>
+      <trans-unit id="resetting.email.message">
+        <source>resetting.email.message</source>
+        <target>
+          Olá %username%!
+
+          Para recuperar a password, por favor aceda a %confirmationUrl%
+
+          Cumprimentos,
+          A equipa.
+        </target>
+      </trans-unit>
+      <trans-unit id="resetting.reset.submit">
+        <source>resetting.reset.submit</source>
+        <target>Alterar password</target>
+      </trans-unit>
+      <trans-unit id="resetting.flash.success">
+        <source>resetting.flash.success</source>
+        <target>A password foi recuperada com sucesso</target>
+      </trans-unit>
+      <trans-unit id="form.new_password">
+        <source>form.new_password</source>
+        <target>Nova password</target>
+      </trans-unit>
+      <trans-unit id="form.new_password_confirmation">
+        <source>form.new_password_confirmation</source>
+        <target>Verificar a nova password</target>
       </trans-unit>
     </body>
   </file>
