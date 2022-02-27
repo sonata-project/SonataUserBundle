@@ -47,9 +47,10 @@ final class SecurityRolesBuilderTest extends TestCase
         $this->authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
         $this->configuration = new SonataConfiguration('title', 'logo', [
             'confirm_exit' => true,
+            'default_admin_route' => 'show',
             'default_group' => 'group',
             'default_icon' => 'icon',
-            'default_label_catalogue' => 'label_catalogue',
+            'default_translation_domain' => 'label_catalogue',
             'dropdown_number_groups_per_colums' => 1,
             'form_type' => 'horizontal',
             'html5_validate' => true,
@@ -63,7 +64,7 @@ final class SecurityRolesBuilderTest extends TestCase
             'role_admin' => 'ROLE_SONATA_ADMIN',
             'role_super_admin' => 'ROLE_SUPER_ADMIN',
             'search' => true,
-            'skin' => 'blue',
+            'skin' => 'skin-blue',
             'sort_admins' => true,
             'stylesheets' => [],
             'use_bootlint' => true,

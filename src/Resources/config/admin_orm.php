@@ -25,7 +25,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'manager_type' => 'orm',
                 'group' => 'sonata_user',
                 'label' => 'users',
-                'label_catalogue' => 'SonataUserBundle',
+                'translation_domain' => 'SonataUserBundle',
                 'label_translator_strategy' => 'sonata.admin.label.strategy.underscore',
                 'icon' => '<i class=\'fa fa-users\'></i>',
             ])
