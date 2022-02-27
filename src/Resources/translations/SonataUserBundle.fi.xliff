@@ -540,7 +540,7 @@
           Viesti on lähetetty. Se sisältää linkin jota klikkaamalla voit palauttaa salasanasi.
           Huom! Et voi palauttaa salasanaasi useammin kuin %tokenLifetime% tunnin välein.
 
-          Jos et saanut viestiä, ole hyvä ja tarkasta roskapostilaatikkosi tai yritä uudelleen.        </target>
+          Jos et saanut viestiä, ole hyvä ja tarkasta roskapostilaatikkosi tai yritä uudelleen.
         </target>
       </trans-unit>
       <trans-unit id="resetting.email.subject">
