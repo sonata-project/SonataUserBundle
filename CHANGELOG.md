@@ -2,6 +2,21 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [5.0.0-rc-1](https://github.com/sonata-project/SonataUserBundle/compare/5.0.0-alpha-1...5.0.0-rc-1) - 2022-03-01
+### Added
+- [[#1495](https://github.com/sonata-project/SonataUserBundle/pull/1495)] Added support for `symfony/translation-contracts` ^3.0. ([@jordisala1991](https://github.com/jordisala1991))
+
+### Changed
+- [[#1503](https://github.com/sonata-project/SonataUserBundle/pull/1503)] SonataAdminBundle dependency is now optional. Trying to access `sonata_user.userAdmin` variable in Twig templates will throw a `\LogicException` if SonataAdminBundle is not installed. ([@supersmile2009](https://github.com/supersmile2009))
+
+### Fixed
+- [[#1508](https://github.com/sonata-project/SonataUserBundle/pull/1508)] Fixed show translations on User admin ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1500](https://github.com/sonata-project/SonataUserBundle/pull/1500)] Simplified User admin to show all fields in a single page. ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1500](https://github.com/sonata-project/SonataUserBundle/pull/1500)] Fixed User admin translation for group fields. ([@jordisala1991](https://github.com/jordisala1991))
+
+### Removed
+- [[#1500](https://github.com/sonata-project/SonataUserBundle/pull/1500)] Removed `SecurityRolesType` to render roles on the User edit form. ([@jordisala1991](https://github.com/jordisala1991))
+
 ## [5.0.0-alpha-1](https://github.com/sonata-project/SonataUserBundle/compare/4.x...5.0.0-alpha-1) - 2022-02-05
 ### Added
 - [[#1489](https://github.com/sonata-project/SonataUserBundle/pull/1489)] Added `ResetPasswordRequestFormType` form type. ([@jordisala1991](https://github.com/jordisala1991))
