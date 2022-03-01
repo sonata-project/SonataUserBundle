@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [5.0.0-rc-1](https://github.com/sonata-project/SonataUserBundle/compare/5.0.0-alpha-1...5.0.0-rc-1) - 2022-02-28
+## [5.0.0-rc-1](https://github.com/sonata-project/SonataUserBundle/compare/5.0.0-alpha-1...5.0.0-rc-1) - 2022-03-01
 ### Added
 - [[#1495](https://github.com/sonata-project/SonataUserBundle/pull/1495)] Added support for `symfony/translation-contracts` ^3.0. ([@jordisala1991](https://github.com/jordisala1991))
 
