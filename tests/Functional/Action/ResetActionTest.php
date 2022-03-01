@@ -57,6 +57,9 @@ final class ResetActionTest extends WebTestCase
     {
         $client = static::createClient();
 
+        // TODO: Remove this line when the issue gets solved: https://github.com/symfony/symfony/issues/45580
+        $client->disableReboot();
+
         $user = $this->prepareData();
         $confirmationToken = $user->getConfirmationToken();
         \assert(null !== $confirmationToken);
