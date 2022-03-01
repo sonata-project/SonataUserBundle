@@ -91,6 +91,9 @@ final class UserAdminTest extends WebTestCase
     {
         $client = self::createClient();
 
+        // TODO: Remove this line when the issue gets solved: https://github.com/symfony/symfony/issues/45580
+        $client->disableReboot();
+
         $user = $this->prepareData();
 
         static::assertSame('random_password', $user->getPassword());

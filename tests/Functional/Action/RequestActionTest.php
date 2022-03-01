@@ -36,6 +36,10 @@ final class RequestActionTest extends WebTestCase
     public function testItSubmitsResetPasswordRequestWithNonExistentUser(): void
     {
         $client = static::createClient();
+
+        // TODO: Remove this line when the issue gets solved: https://github.com/symfony/symfony/issues/45580
+        $client->disableReboot();
+
         $client->request('GET', '/request');
 
         static::assertResponseIsSuccessful();
@@ -56,6 +60,9 @@ final class RequestActionTest extends WebTestCase
     public function itSubmitsResetPasswordRequest(): void
     {
         $client = static::createClient();
+
+        // TODO: Remove this line when the issue gets solved: https://github.com/symfony/symfony/issues/45580
+        $client->disableReboot();
 
         $this->prepareData();
 
