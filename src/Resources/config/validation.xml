@@ -3,7 +3,6 @@
     <class name="Sonata\UserBundle\Model\User">
         <property name="username">
             <constraint name="NotBlank">
-                <option name="message">username.blank</option>
                 <option name="groups">
                     <value>Registration</value>
                     <value>Profile</value>
@@ -11,9 +10,7 @@
             </constraint>
             <constraint name="Length">
                 <option name="min">2</option>
-                <option name="minMessage">username.short</option>
                 <option name="max">180</option>
-                <option name="maxMessage">username.long</option>
                 <option name="groups">
                     <value>Registration</value>
                     <value>Profile</value>
@@ -22,7 +19,6 @@
         </property>
         <property name="email">
             <constraint name="NotBlank">
-                <option name="message">email.blank</option>
                 <option name="groups">
                     <value>Registration</value>
                     <value>Profile</value>
@@ -30,16 +26,13 @@
             </constraint>
             <constraint name="Length">
                 <option name="min">2</option>
-                <option name="minMessage">email.short</option>
                 <option name="max">180</option>
-                <option name="maxMessage">email.long</option>
                 <option name="groups">
                     <value>Registration</value>
                     <value>Profile</value>
                 </option>
             </constraint>
             <constraint name="Email">
-                <option name="message">email.invalid</option>
                 <option name="groups">
                     <value>Registration</value>
                     <value>Profile</value>
@@ -48,7 +41,6 @@
         </property>
         <property name="plainPassword">
             <constraint name="NotBlank">
-                <option name="message">password.blank</option>
                 <option name="groups">
                     <value>Registration</value>
                     <value>ResetPassword</value>
@@ -58,7 +50,6 @@
             <constraint name="Length">
                 <option name="min">2</option>
                 <option name="max">4096</option>
-                <option name="minMessage">password.short</option>
                 <option name="groups">
                     <value>Registration</value>
                     <value>Profile</value>
