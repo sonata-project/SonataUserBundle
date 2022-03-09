@@ -56,6 +56,10 @@ SonataUserBundle Configuration
     sonata_user:
         class:
             user: App\Entity\SonataUserUser
+        resetting:
+            email:
+                address: sonata@localhost
+                sender_name: Sonata Admin
 
 Doctrine ORM Configuration
 --------------------------
@@ -126,44 +130,6 @@ Then configure ``SonataUserBundle`` to use the newly generated classes::
         class:
             user: App\Document\SonataUserUser
 
-ACL Configuration
------------------
-
-When using ACL, the ``UserBundle`` can prevent `normal` users to change
-settings of `super-admin` users, to enable this use the following configuration:
-
-.. code-block:: yaml
-
-    # config/packages/sonata_user.yaml
-
-    sonata_user:
-        security_acl: true
-        manager_type: orm # can be orm or mongodb
-
-.. code-block:: yaml
-
-    # config/packages/security.yaml
-
-    security:
-        encoders:
-            Sonata\UserBundle\Model\UserInterface: sha512
-
-        acl:
-            connection: default
-
-Mailer Configuration
---------------------
-
-You can define a custom mailer to send reset password emails.
-Your mailer will have to implement ``Sonata\UserBundle\Mailer\MailerInterface``.
-
-.. code-block:: yaml
-
-    # config/packages/sonata_user.yaml
-
-    sonata_user:
-        mailer: custom.mailer.service.id
-
 Integrating the bundle into the Sonata Admin Bundle
 ---------------------------------------------------
 
@@ -184,7 +150,7 @@ Add the related security routing information:
 
     sonata_user_admin_resetting:
         resource: '@SonataUserBundle/Resources/config/routing/admin_resetting.xml'
-        prefix: /admin/resetting
+        prefix: /admin
 
 Then, add a new custom firewall handlers for the admin:
 
@@ -193,15 +159,10 @@ Then, add a new custom firewall handlers for the admin:
     # config/packages/security.yaml
 
     security:
+        enable_authenticator_manager: true
         firewalls:
-            # Disabling the security for the web debug toolbar, the profiler and Assetic.
-            dev:
-                pattern:  ^/(_(profiler|wdt)|css|images|js)/
-                security: false
-
-            # Firewall for the admin area of the URL
             admin:
-                anonymous: true
+                lazy: true
                 pattern: /admin(.*)
                 provider: sonata_user_bundle
                 context: user
@@ -212,8 +173,12 @@ Then, add a new custom firewall handlers for the admin:
                 logout:
                     path: sonata_user_admin_security_logout
                     target: sonata_user_admin_security_login
+                remember_me:
+                    secret: '%env(APP_SECRET)%'
+                    lifetime: 2629746
+                    path: /admin
 
-Add role hierarchy and provider, if you are not using ACL also add the encoder:
+Add role hierarchy, hasher and provider:
 
 .. code-block:: yaml
 
@@ -223,11 +188,9 @@ Add role hierarchy and provider, if you are not using ACL also add the encoder:
         role_hierarchy:
             ROLE_ADMIN: [ROLE_USER, ROLE_SONATA_ADMIN]
             ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
-            SONATA:
-                - ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT  # if you are using acl then this line must be commented
 
-        encoders:
-            Sonata\UserBundle\Model\UserInterface: bcrypt
+        password_hashers:
+            Sonata\UserBundle\Model\UserInterface: auto
 
         providers:
             sonata_user_bundle:
@@ -242,16 +205,52 @@ The last part is to define 4 new access control rules:
     security:
         access_control:
             # Admin login page needs to be accessed without credential
-            - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/admin/login_check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/admin/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/admin/login$, role: PUBLIC_ACCESS }
+            - { path: ^/admin/logout$, role: PUBLIC_ACCESS }
+            - { path: ^/admin/login_check$, role: PUBLIC_ACCESS }
+            - { path: ^/admin/request$, role: PUBLIC_ACCESS }
+            - { path: ^/admin/check-email$, role: PUBLIC_ACCESS }
+            - { path: ^/admin/reset/.*$, role: PUBLIC_ACCESS }
 
             # Secured part of the site
             # This config requires being logged for the whole site and having the admin role for the admin part.
             # Change these rules to adapt them to your needs
-            - { path: ^/admin/, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
-            - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/admin/, role: ROLE_ADMIN }
+            - { path: ^/.*, role: PUBLIC_ACCESS }
+
+Mailer Configuration
+--------------------
+
+You can define a custom mailer to send reset password emails.
+Your mailer will have to implement ``Sonata\UserBundle\Mailer\MailerInterface``.
+
+.. code-block:: yaml
+
+    # config/packages/sonata_user.yaml
+
+    sonata_user:
+        mailer: custom.mailer.service.id
+
+ACL Configuration
+-----------------
+
+When using ACL, the ``UserBundle`` can prevent `normal` users to change
+settings of `super-admin` users, to enable this use the following configuration:
+
+.. code-block:: yaml
+
+    # config/packages/sonata_user.yaml
+
+    sonata_user:
+        security_acl: true
+
+.. code-block:: yaml
+
+    # config/packages/security.yaml
+
+    security:
+        acl:
+            connection: default
 
 Using the roles
 ---------------
