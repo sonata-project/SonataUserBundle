@@ -45,13 +45,10 @@ You can set the ``show_in_roles_matrix`` option to ``false``, like this:
         services:
             app.admin.post:
                 class: App\Admin\PostAdmin
-                arguments:
-                    - ~
-                    - App\Entity\Post
-                    - ~
                 tags:
                     -
                         name: sonata.admin
+                        model_class: App\Entity\Post
                         manager_type: orm
                         label: 'Post'
                         show_in_roles_matrix: false

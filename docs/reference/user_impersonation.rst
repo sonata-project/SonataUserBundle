@@ -10,16 +10,15 @@ to role switch from has the ``ROLE_ALLOWED_TO_SWITCH`` role.
 
 .. code-block:: yaml
 
-    role_hierarchy:
-        # ...
-        ROLE_SUPER_ADMIN: [ROLE_SONATA_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+    # config/packages/security.yaml
 
-    firewalls:
-        main:
-            # ...
-        admin:
-            # ...
-            switch_user: true
+    security:
+        role_hierarchy:
+            ROLE_SUPER_ADMIN: [ROLE_SONATA_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+        firewalls:
+            admin:
+                switch_user: true
 
 Please note that sessions are not shared by default over different firewalls (for example, if you
 are trying to switch to a user who is authenticated on another firewall, such as ``main`` given in
@@ -32,8 +31,9 @@ in the ``SonataUserBundle`` configuration:
 
 .. code-block:: yaml
 
+    # config/packages/sonata_user.yaml
+
     sonata_user:
-        ...
         impersonating:
             route: sonata_admin_dashboard
 
