@@ -178,6 +178,12 @@ Then, add a new custom firewall handlers for the admin:
                     lifetime: 2629746
                     path: /admin
 
+.. note::
+
+    If you run under the old authentication system (Symfony 4.4 or
+    Symfony 5.4 with `enable_authenticator_manager` set to `false`)
+    you should add `anonymous` set to `true` inside the admin firewall.
+
 Add role hierarchy, hasher and provider:
 
 .. code-block:: yaml
@@ -195,6 +201,11 @@ Add role hierarchy, hasher and provider:
         providers:
             sonata_user_bundle:
                 id: sonata.user.security.user_provider
+
+.. note::
+
+    If you run under Symfony 4.4, `password_hashers` keyword inside `security`
+    does not exist, instead replace on the above configuration with `encoders`.
 
 The last part is to define 4 new access control rules:
 
@@ -217,6 +228,11 @@ The last part is to define 4 new access control rules:
             # Change these rules to adapt them to your needs
             - { path: ^/admin/, role: ROLE_ADMIN }
             - { path: ^/.*, role: PUBLIC_ACCESS }
+
+.. note::
+
+    If you run under Symfony 4.4, `PUBLIC_ACCESS` role does not exist, instead
+    replace on the above configuration with `IS_AUTHENTICATED_ANONYMOUSLY`.
 
 Mailer Configuration
 --------------------
