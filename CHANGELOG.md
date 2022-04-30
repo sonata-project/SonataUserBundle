@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [5.1.0](https://github.com/sonata-project/SonataUserBundle/compare/5.0.0...5.1.0) - 2022-04-29
+### Changed
+- [[#1533](https://github.com/sonata-project/SonataUserBundle/pull/1533)] Changed UserAdmin classnameLabel. This affects the breadcrumb translation generation. With this change Sonata will always pick the SonataUserBundle breadcrumbs translations by default. ([@aerrasti](https://github.com/aerrasti))
+
 ## [5.0.0](https://github.com/sonata-project/SonataUserBundle/compare/5.0.0-rc.1...5.0.0) - 2022-03-13
 ### Fixed
 - [[#1517](https://github.com/sonata-project/SonataUserBundle/pull/1517)] Added validation translation to fix untranslated content. ([@jordisala1991](https://github.com/jordisala1991))
