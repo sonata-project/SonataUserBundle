@@ -55,6 +55,8 @@ final class UserProviderTest extends TestCase
 
     /**
      * TODO: Simplify exception expectation when dropping support for Symfony 4.4.
+     *
+     * @psalm-suppress UndefinedClass, PossiblyInvalidArgument
      */
     public function testLoadUserByInvalidUsername(): void
     {
@@ -86,6 +88,8 @@ final class UserProviderTest extends TestCase
 
     /**
      * TODO: Simplify exception expectation when dropping support for Symfony 4.4.
+     *
+     * @psalm-suppress UndefinedClass, PossiblyInvalidArgument
      */
     public function testRefreshDeleted(): void
     {
