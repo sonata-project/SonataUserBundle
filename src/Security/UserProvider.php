@@ -85,7 +85,7 @@ final class UserProvider implements UserProviderInterface
     /**
      * TODO: Simplify when dropping support for Symfony 4.
      *
-     * @psalm-suppress UndefinedClass
+     * @psalm-suppress UndefinedClass, InvalidReturnType, InvalidReturnStatement
      */
     private function buildUserNotFoundException(string $message): AuthenticationException
     {
