@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Form\Type;
 
+use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Security\RolesBuilder\ExpandableRolesBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -42,6 +43,7 @@ final class RolesMatrixType extends AbstractType
 
                 $roles = $this->rolesBuilder->getRoles($options['choice_translation_domain']);
                 $roles = array_keys($roles);
+                $roles = array_diff($roles, $options["exclude"]);
 
                 return array_combine($roles, $roles);
             },
@@ -73,6 +75,7 @@ final class RolesMatrixType extends AbstractType
 
                     return $value;
                 },
+            'exclude' => [UserInterface::ROLE_DEFAULT],
             'data_class' => null,
         ]);
     }

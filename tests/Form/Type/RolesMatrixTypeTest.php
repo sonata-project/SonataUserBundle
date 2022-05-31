@@ -15,6 +15,7 @@ namespace Sonata\UserBundle\Tests\Form\Type;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use Sonata\UserBundle\Form\Type\RolesMatrixType;
+use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Security\RolesBuilder\ExpandableRolesBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormExtensionInterface;
@@ -38,7 +39,8 @@ final class RolesMatrixTypeTest extends TypeTestCase
 
         $this->roleBuilder->method('getRoles')->willReturn([
             'ROLE_FOO' => 'ROLE_FOO',
-            'ROLE_USER' => 'ROLE_USER',
+            # Not returned by the RolesMatrix because it can't be changed
+            UserInterface::ROLE_DEFAULT => UserInterface::ROLE_DEFAULT,
             'ROLE_ADMIN' => 'ROLE_ADMIN: ROLE_USER',
         ]);
 
@@ -53,7 +55,9 @@ final class RolesMatrixTypeTest extends TypeTestCase
         $type->configureOptions($optionResolver);
 
         $options = $optionResolver->resolve();
-        static::assertCount(3, $options['choices']);
+        $choices = $options['choices'];
+        static::assertCount(2, $choices);
+        static::assertNotContains(UserInterface::ROLE_DEFAULT, $choices);
     }
 
     public function testGetParent(): void
