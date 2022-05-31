@@ -39,7 +39,7 @@ final class RolesMatrixTypeTest extends TypeTestCase
 
         $this->roleBuilder->method('getRoles')->willReturn([
             'ROLE_FOO' => 'ROLE_FOO',
-            # Not returned by the RolesMatrix because it can't be changed
+            // Not returned by the RolesMatrix because it can't be changed
             UserInterface::ROLE_DEFAULT => UserInterface::ROLE_DEFAULT,
             'ROLE_ADMIN' => 'ROLE_ADMIN: ROLE_USER',
         ]);
