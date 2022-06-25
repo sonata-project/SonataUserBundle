@@ -17,6 +17,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Sonata\UserBundle\Tests\App\AppKernel;
 use Sonata\UserBundle\Tests\App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 final class RequestActionTest extends WebTestCase
 {
@@ -89,7 +90,7 @@ final class RequestActionTest extends WebTestCase
     }
 
     /**
-     * @return class-string<\Symfony\Component\HttpKernel\KernelInterface>
+     * @return class-string<KernelInterface>
      */
     protected static function getKernelClass(): string
     {

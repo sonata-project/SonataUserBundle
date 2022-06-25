@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Form\Type;
 
+use Sonata\UserBundle\Model\UserInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -22,12 +23,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class ResettingFormType extends AbstractType
 {
     /**
-     * @phpstan-var class-string<\Sonata\UserBundle\Model\UserInterface>
+     * @phpstan-var class-string<UserInterface>
      */
     private string $class;
 
     /**
-     * @phpstan-param class-string<\Sonata\UserBundle\Model\UserInterface> $class
+     * @phpstan-param class-string<UserInterface> $class
      */
     public function __construct(string $class)
     {

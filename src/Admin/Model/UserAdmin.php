@@ -20,11 +20,12 @@ use Sonata\AdminBundle\FieldDescription\FieldDescriptionInterface;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\UserBundle\Form\Type\RolesMatrixType;
+use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**
- * @phpstan-extends AbstractAdmin<\Sonata\UserBundle\Model\UserInterface>
+ * @phpstan-extends AbstractAdmin<UserInterface>
  */
 class UserAdmin extends AbstractAdmin
 {
@@ -108,8 +109,9 @@ class UserAdmin extends AbstractAdmin
     protected function configureExportFields(): array
     {
         // Avoid sensitive properties to be exported.
-        return array_filter(parent::configureExportFields(), static function (string $v): bool {
-            return !\in_array($v, ['password', 'salt'], true);
-        });
+        return array_filter(
+            parent::configureExportFields(),
+            static fn (string $v): bool => !\in_array($v, ['password', 'salt'], true)
+        );
     }
 }
