@@ -27,7 +27,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand(name: 'sonata:user:create', description: 'Create a user')]
 final class CreateUserCommand extends Command
 {
-    // TODO: Remove static properties when support for Symfony < 6.0 is dropped.
+    // TODO: Remove static properties when support for Symfony < 5.4 is dropped.
     protected static $defaultName = 'sonata:user:create';
     protected static $defaultDescription = 'Create a user';
 

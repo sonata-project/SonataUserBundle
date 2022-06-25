@@ -26,7 +26,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand(name: 'sonata:user:activate', description: 'Activate a user')]
 final class ActivateUserCommand extends Command
 {
-    // TODO: Remove static properties when support for Symfony < 6.0 is dropped.
+    // TODO: Remove static properties when support for Symfony < 5.4 is dropped.
     protected static $defaultName = 'sonata:user:activate';
     protected static $defaultDescription = 'Activate a user';
 
