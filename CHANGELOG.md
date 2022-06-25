@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [5.2.0](https://github.com/sonata-project/SonataUserBundle/compare/5.1.0...5.2.0) - 2022-06-25
+### Added
+- [[#1543](https://github.com/sonata-project/SonataUserBundle/pull/1543)] Add compatibility with `doctrine/persistence` ^3.0. ([@jordisala1991](https://github.com/jordisala1991))
+
+### Removed
+- [[#1543](https://github.com/sonata-project/SonataUserBundle/pull/1543)] Avoid deprecations with lazy commands on Symfony 6.1. ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1541](https://github.com/sonata-project/SonataUserBundle/pull/1541)] Support of Symfony 5.3 ([@franmomu](https://github.com/franmomu))
+
 ## [5.1.0](https://github.com/sonata-project/SonataUserBundle/compare/5.0.0...5.1.0) - 2022-04-29
 ### Changed
 - [[#1533](https://github.com/sonata-project/SonataUserBundle/pull/1533)] Changed UserAdmin classnameLabel. This affects the breadcrumb translation generation. With this change Sonata will always pick the SonataUserBundle breadcrumbs translations by default. ([@aerrasti](https://github.com/aerrasti))
