@@ -19,6 +19,7 @@ use Sonata\UserBundle\Tests\App\AppKernel;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 class CreateUserCommandTest extends KernelTestCase
 {
@@ -79,7 +80,7 @@ class CreateUserCommandTest extends KernelTestCase
     }
 
     /**
-     * @return class-string<\Symfony\Component\HttpKernel\KernelInterface>
+     * @return class-string<KernelInterface>
      */
     protected static function getKernelClass(): string
     {
