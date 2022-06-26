@@ -240,9 +240,7 @@ final class ResetActionTest extends TestCase
 
         $this->translator
             ->method('trans')
-            ->willReturnCallback(static function (string $message): string {
-                return $message;
-            });
+            ->willReturnCallback(static fn (string $message): string => $message);
 
         $this->userManager
             ->method('findUserByConfirmationToken')

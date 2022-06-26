@@ -16,7 +16,7 @@ namespace Sonata\UserBundle\Model;
 use Sonata\Doctrine\Model\ManagerInterface;
 
 /**
- * @phpstan-extends ManagerInterface<\Sonata\UserBundle\Model\UserInterface>
+ * @phpstan-extends ManagerInterface<UserInterface>
  */
 interface UserManagerInterface extends ManagerInterface
 {

@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Command;
 
 use Sonata\UserBundle\Model\UserManagerInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -23,8 +24,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * @internal
  */
+#[AsCommand(name: 'sonata:user:promote', description: 'Promotes a user by adding a role')]
 final class PromoteUserCommand extends Command
 {
+    // TODO: Remove static properties when support for Symfony < 5.4 is dropped.
     protected static $defaultName = 'sonata:user:promote';
     protected static $defaultDescription = 'Promotes a user by adding a role';
 
@@ -42,6 +45,7 @@ final class PromoteUserCommand extends Command
         \assert(null !== static::$defaultDescription);
 
         $this
+            // TODO: Remove setDescription when support for Symfony < 5.4 is dropped.
             ->setDescription(static::$defaultDescription)
             ->setDefinition([
                 new InputArgument('username', InputArgument::REQUIRED, 'The username'),

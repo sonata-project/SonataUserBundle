@@ -8,6 +8,7 @@ framework:
         enabled: true
     translator:
         enabled: true
+    http_method_override: false
 
 security:
     role_hierarchy: null
