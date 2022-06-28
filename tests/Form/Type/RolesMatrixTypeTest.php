@@ -68,7 +68,7 @@ final class RolesMatrixTypeTest extends TypeTestCase
         $type->configureOptions($optionResolver);
 
         $options = $optionResolver->resolve([
-            'excluded_roles' => ['ROLE_FOO']
+            'excluded_roles' => ['ROLE_FOO'],
         ]);
         $choices = $options['choices'];
         static::assertCount(2, $choices);
@@ -84,7 +84,7 @@ final class RolesMatrixTypeTest extends TypeTestCase
         $type->configureOptions($optionResolver);
 
         $options = $optionResolver->resolve([
-            'excluded_roles' => ['ROLE_BAR']
+            'excluded_roles' => ['ROLE_BAR'],
         ]);
         $choices = $options['choices'];
         static::assertCount(3, $choices);
@@ -135,7 +135,7 @@ final class RolesMatrixTypeTest extends TypeTestCase
             'multiple' => true,
             'expanded' => true,
             'required' => false,
-            'excluded_roles' => ['ROLE_FOO']
+            'excluded_roles' => ['ROLE_FOO'],
         ]);
 
         $form->submit([0 => 'ROLE_FOO']);
