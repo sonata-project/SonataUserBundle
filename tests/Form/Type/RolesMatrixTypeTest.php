@@ -60,6 +60,39 @@ final class RolesMatrixTypeTest extends TypeTestCase
         static::assertNotContains(UserInterface::ROLE_DEFAULT, $choices);
     }
 
+    public function testDifferentExcludedRoles(): void
+    {
+        $type = new RolesMatrixType($this->roleBuilder);
+
+        $optionResolver = new OptionsResolver();
+        $type->configureOptions($optionResolver);
+
+        $options = $optionResolver->resolve([
+            'excluded_roles' => ['ROLE_FOO']
+        ]);
+        $choices = $options['choices'];
+        static::assertCount(2, $choices);
+        static::assertNotContains('ROLE_FOO', $choices);
+        static::assertContains(UserInterface::ROLE_DEFAULT, $choices);
+    }
+
+    public function testNotExistExcludedRoles(): void
+    {
+        $type = new RolesMatrixType($this->roleBuilder);
+
+        $optionResolver = new OptionsResolver();
+        $type->configureOptions($optionResolver);
+
+        $options = $optionResolver->resolve([
+            'excluded_roles' => ['ROLE_BAR']
+        ]);
+        $choices = $options['choices'];
+        static::assertCount(3, $choices);
+        static::assertContains('ROLE_FOO', $choices);
+        static::assertNotContains('ROLE_BAR', $choices);
+        static::assertContains(UserInterface::ROLE_DEFAULT, $choices);
+    }
+
     public function testGetParent(): void
     {
         $type = new RolesMatrixType($this->roleBuilder);
@@ -91,6 +124,21 @@ final class RolesMatrixTypeTest extends TypeTestCase
         ]);
 
         $form->submit([0 => 'ROLE_NOT_EXISTS']);
+
+        static::assertFalse($form->isValid());
+        static::assertSame([], $form->getData());
+    }
+
+    public function testSubmitExcludedData(): void
+    {
+        $form = $this->factory->create(RolesMatrixType::class, null, [
+            'multiple' => true,
+            'expanded' => true,
+            'required' => false,
+            'excluded_roles' => ['ROLE_FOO']
+        ]);
+
+        $form->submit([0 => 'ROLE_FOO']);
 
         static::assertFalse($form->isValid());
         static::assertSame([], $form->getData());
