@@ -34,6 +34,8 @@ final class RolesMatrixType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
+        $resolver->addAllowedTypes('excluded_roles', 'string[]');
+
         $resolver->setDefaults([
             'expanded' => true,
             'choices' => function (Options $options, ?array $parentChoices): array {
