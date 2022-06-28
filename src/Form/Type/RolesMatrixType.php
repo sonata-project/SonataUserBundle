@@ -43,7 +43,7 @@ final class RolesMatrixType extends AbstractType
 
                 $roles = $this->rolesBuilder->getRoles($options['choice_translation_domain']);
                 $roles = array_keys($roles);
-                $roles = array_diff($roles, $options['exclude']);
+                $roles = array_diff($roles, $options['excluded_roles']);
 
                 return array_combine($roles, $roles);
             },
@@ -75,7 +75,7 @@ final class RolesMatrixType extends AbstractType
 
                     return $value;
                 },
-            'exclude' => [UserInterface::ROLE_DEFAULT],
+            'excluded_roles' => [UserInterface::ROLE_DEFAULT],
             'data_class' => null,
         ]);
     }
