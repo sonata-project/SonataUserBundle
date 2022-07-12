@@ -52,3 +52,9 @@ You can set the ``show_in_roles_matrix`` option to ``false``, like this:
                         manager_type: orm
                         label: 'Post'
                         show_in_roles_matrix: false
+
+How to exclude roles
+--------------------
+
+When using the Form Type, you can use ``excluded_roles`` to not show them in the matrix.
+By default, only ``UserInterface::ROLE_DEFAULT`` aka ``ROLE_USER`` is not shown.

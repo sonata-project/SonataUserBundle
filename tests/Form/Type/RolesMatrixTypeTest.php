@@ -15,6 +15,7 @@ namespace Sonata\UserBundle\Tests\Form\Type;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use Sonata\UserBundle\Form\Type\RolesMatrixType;
+use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Security\RolesBuilder\ExpandableRolesBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormExtensionInterface;
@@ -38,7 +39,8 @@ final class RolesMatrixTypeTest extends TypeTestCase
 
         $this->roleBuilder->method('getRoles')->willReturn([
             'ROLE_FOO' => 'ROLE_FOO',
-            'ROLE_USER' => 'ROLE_USER',
+            // Not returned by the RolesMatrix because it can't be changed
+            UserInterface::ROLE_DEFAULT => UserInterface::ROLE_DEFAULT,
             'ROLE_ADMIN' => 'ROLE_ADMIN: ROLE_USER',
         ]);
 
@@ -53,7 +55,42 @@ final class RolesMatrixTypeTest extends TypeTestCase
         $type->configureOptions($optionResolver);
 
         $options = $optionResolver->resolve();
-        static::assertCount(3, $options['choices']);
+        $choices = $options['choices'];
+        static::assertCount(2, $choices);
+        static::assertNotContains(UserInterface::ROLE_DEFAULT, $choices);
+    }
+
+    public function testDifferentExcludedRoles(): void
+    {
+        $type = new RolesMatrixType($this->roleBuilder);
+
+        $optionResolver = new OptionsResolver();
+        $type->configureOptions($optionResolver);
+
+        $options = $optionResolver->resolve([
+            'excluded_roles' => ['ROLE_FOO'],
+        ]);
+        $choices = $options['choices'];
+        static::assertCount(2, $choices);
+        static::assertNotContains('ROLE_FOO', $choices);
+        static::assertContains(UserInterface::ROLE_DEFAULT, $choices);
+    }
+
+    public function testNotExistExcludedRoles(): void
+    {
+        $type = new RolesMatrixType($this->roleBuilder);
+
+        $optionResolver = new OptionsResolver();
+        $type->configureOptions($optionResolver);
+
+        $options = $optionResolver->resolve([
+            'excluded_roles' => ['ROLE_BAR'],
+        ]);
+        $choices = $options['choices'];
+        static::assertCount(3, $choices);
+        static::assertContains('ROLE_FOO', $choices);
+        static::assertNotContains('ROLE_BAR', $choices);
+        static::assertContains(UserInterface::ROLE_DEFAULT, $choices);
     }
 
     public function testGetParent(): void
@@ -87,6 +124,21 @@ final class RolesMatrixTypeTest extends TypeTestCase
         ]);
 
         $form->submit([0 => 'ROLE_NOT_EXISTS']);
+
+        static::assertFalse($form->isValid());
+        static::assertSame([], $form->getData());
+    }
+
+    public function testSubmitExcludedData(): void
+    {
+        $form = $this->factory->create(RolesMatrixType::class, null, [
+            'multiple' => true,
+            'expanded' => true,
+            'required' => false,
+            'excluded_roles' => ['ROLE_FOO'],
+        ]);
+
+        $form->submit([0 => 'ROLE_FOO']);
 
         static::assertFalse($form->isValid());
         static::assertSame([], $form->getData());
