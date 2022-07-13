@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [5.3.0](https://github.com/sonata-project/SonataUserBundle/compare/5.2.0...5.3.0) - 2022-07-12
+### Added
+- [[#1540](https://github.com/sonata-project/SonataUserBundle/pull/1540)] Added `RoleMatrixType:exclude` Option to hide choices. ([@Hanmac](https://github.com/Hanmac))
+
 ## [5.2.0](https://github.com/sonata-project/SonataUserBundle/compare/5.1.0...5.2.0) - 2022-06-25
 ### Added
 - [[#1543](https://github.com/sonata-project/SonataUserBundle/pull/1543)] Add compatibility with `doctrine/persistence` ^3.0. ([@jordisala1991](https://github.com/jordisala1991))
