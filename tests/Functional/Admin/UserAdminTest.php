@@ -17,8 +17,14 @@ use Doctrine\ORM\EntityManagerInterface;
 use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Tests\App\AppKernel;
 use Sonata\UserBundle\Tests\App\Entity\User;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\BrowserKit\Cookie;
+use Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 final class UserAdminTest extends WebTestCase
 {
@@ -113,6 +119,28 @@ final class UserAdminTest extends WebTestCase
         static::assertSame('new_password', $user->getPassword());
     }
 
+    public function testRoleMatrixExcludedDefaultRoleIsNotVisible(): void
+    {
+        $client = self::createClient();
+
+        // TODO: Remove this line when the issue gets solved: https://github.com/symfony/symfony/issues/45580
+        $client->disableReboot();
+
+        $user = $this->prepareData();
+        $token = $this->loginUser($user, $client);
+
+        static::assertSame([UserInterface::ROLE_SUPER_ADMIN, UserInterface::ROLE_DEFAULT], $user->getRoles());
+        static::assertSame([UserInterface::ROLE_SUPER_ADMIN, UserInterface::ROLE_DEFAULT], $token->getRoleNames());
+
+        $client->request('GET', '/admin/tests/app/user/1/edit', [
+            'uniqid' => 'user',
+        ]);
+
+        self::assertResponseIsSuccessful();
+        static::assertStringContainsString(UserInterface::ROLE_SUPER_ADMIN, (string) $client->getResponse()->getContent());
+        static::assertStringNotContainsString(UserInterface::ROLE_DEFAULT, (string) $client->getResponse()->getContent());
+    }
+
     /**
      * @return class-string<KernelInterface>
      */
@@ -162,5 +190,37 @@ final class UserAdminTest extends WebTestCase
         \assert(null !== $user);
 
         return $user;
+    }
+
+    private function loginUser(UserInterface $user, KernelBrowser $client): TokenInterface
+    {
+        // TODO: Simplify this when dropping support for Symfony 4.
+        /** @psalm-suppress UndefinedPropertyFetch */
+        // @phpstan-ignore-next-line
+        $container = method_exists(static::class, 'getContainer') ? static::getContainer() : static::$container;
+        $tokenStorage = $container->get('security.token_storage');
+        \assert($tokenStorage instanceof TokenStorageInterface);
+
+        /** @psalm-suppress UndefinedPropertyFetch, TooManyArguments, NullArgument, InvalidArgument, UnusedPsalmSuppress */
+        // @phpstan-ignore-next-line
+        $token = method_exists(UsernamePasswordToken::class, 'getCredentials') ? new UsernamePasswordToken($user, null, 'main', $user->getRoles()) : new UsernamePasswordToken($user, 'main', $user->getRoles());
+        $tokenStorage->setToken($token);
+
+        $sessionId = 'test-sonata-user-bundle';
+
+        $cookie = new Cookie('MOCKSESSID', $sessionId);
+        $client->getCookieJar()->set($cookie);
+
+        $mockSession = new MockFileSessionStorage($client->getKernel()->getCacheDir().'/sessions');
+        $mockSession->setId($sessionId);
+        $mockSession->start();
+        $mockSession->setSessionData([
+            '_sf2_attributes' => [
+                '_security_user' => serialize($token),
+            ],
+        ]);
+        $mockSession->save();
+
+        return $token;
     }
 }
