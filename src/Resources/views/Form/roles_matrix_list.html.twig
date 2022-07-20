@@ -9,6 +9,7 @@ file that was distributed with this source code.
 
 #}
 {% for role, attributes in roles|sort %}
+{% if attributes.form is defined %}
     <li>{{ form_widget(attributes.form, {label: attributes.role_translated, value: attributes.role}) }}</li>
     {% if not attributes.is_granted %}
         <script>
@@ -18,4 +19,5 @@ file that was distributed with this source code.
             });
         </script>
     {% endif %}
+{% endif %}
 {% endfor %}
