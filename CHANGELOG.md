@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [5.3.1](https://github.com/sonata-project/SonataUserBundle/compare/5.3.0...5.3.1) - 2022-07-20
+### Fixed
+- [[#1553](https://github.com/sonata-project/SonataUserBundle/pull/1553)] Fix user edit page to check for a form attribute before rendering the role matrix. ([@wluijt-endertech](https://github.com/wluijt-endertech))
+
 ## [5.3.0](https://github.com/sonata-project/SonataUserBundle/compare/5.2.0...5.3.0) - 2022-07-12
 ### Added
 - [[#1540](https://github.com/sonata-project/SonataUserBundle/pull/1540)] Added `RoleMatrixType:exclude` Option to hide choices. ([@Hanmac](https://github.com/Hanmac))
