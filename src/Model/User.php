@@ -55,7 +55,7 @@ abstract class User implements UserInterface
 
     public function __toString(): string
     {
-        return $this->getUsername();
+        return $this->getUserIdentifier();
     }
 
     /**
