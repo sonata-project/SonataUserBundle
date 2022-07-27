@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [5.3.2](https://github.com/sonata-project/SonataUserBundle/compare/5.3.1...5.3.2) - 2022-07-27
+### Fixed
+- [[#1556](https://github.com/sonata-project/SonataUserBundle/pull/1556)] `User::getUsername` return the real value in database (and can return null). ([@VincentLanglet](https://github.com/VincentLanglet))
+
 ## [5.3.1](https://github.com/sonata-project/SonataUserBundle/compare/5.3.0...5.3.1) - 2022-07-20
 ### Fixed
 - [[#1553](https://github.com/sonata-project/SonataUserBundle/pull/1553)] Fix user edit page to check for a form attribute before rendering the role matrix. ([@wluijt-endertech](https://github.com/wluijt-endertech))
