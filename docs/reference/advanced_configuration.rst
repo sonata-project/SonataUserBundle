@@ -1,6 +1,7 @@
 .. index::
     single: Advanced configuration
     single: Options
+    single: Override Service
 
 Advanced Configuration
 ======================
@@ -38,3 +39,30 @@ Full configuration options:
                 template: '@SonataUser/Admin/Security/Resetting/email.html.twig'
                 address: ~
                 sender_name: ~
+
+Override Service
+======================
+
+If you need to override the service of Sonata User admin, you can do it during the service declaration:
+
+.. code-block:: yaml
+
+    # config/services.yaml
+
+    services:
+        sonata.user.admin.user:
+            class: Sonata\UserBundle\Admin\Entity\UserAdmin
+            tags:
+                - name: sonata.admin
+                  model_class: '%sonata.user.user.class%'
+                  controller: '%sonata.user.admin.user.controller%'
+                  manager_type: orm
+                  group: sonata_user
+                  label: users
+                  translation_domain: SonataUserBundle
+                  label_translator_strategy: sonata.admin.label.strategy.underscore
+                  icon: '<i class=\'fa fa-users\'></i>'
+            arguments:
+                - '@sonata.user.manager.user'
+
+Please note that parameter ``%sonata.user.user.class%`` and ``%sonata.user.admin.user.controller`` refers to configuration options.
