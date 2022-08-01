@@ -61,7 +61,7 @@ If you need to override the service of Sonata User admin, you can do it during t
                   label: users
                   translation_domain: SonataUserBundle
                   label_translator_strategy: sonata.admin.label.strategy.underscore
-                  icon: '<i class=\'fa fa-users\'></i>'
+                  icon: "<i class='fa fa-users'></i>"
             arguments:
                 - '@sonata.user.manager.user'
 
