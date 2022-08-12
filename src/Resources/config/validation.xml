@@ -3,7 +3,7 @@
     <class name="Sonata\UserBundle\Model\User">
         <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
             <option name="fields">email</option>
-	    <option name="groups">
+            <option name="groups">
                 <value>Registration</value>
                 <value>Profile</value>
             </option>
