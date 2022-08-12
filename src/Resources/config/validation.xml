@@ -21,7 +21,6 @@
             </constraint>
         </property>
         <property name="email">
-	    <constraint name="Email"/>
             <constraint name="NotBlank">
                 <option name="groups">
                     <value>Registration</value>
