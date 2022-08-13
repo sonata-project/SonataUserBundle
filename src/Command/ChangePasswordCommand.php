@@ -52,11 +52,11 @@ final class ChangePasswordCommand extends Command
             ])
             ->setHelp(
                 <<<'EOT'
-The <info>%command.full_name%</info> command changes the password of a user:
+                    The <info>%command.full_name%</info> command changes the password of a user:
 
-  <info>php %command.full_name% matthieu mypassword</info>
+                      <info>php %command.full_name% matthieu mypassword</info>
 
-EOT
+                    EOT
             );
     }
 

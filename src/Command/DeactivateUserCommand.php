@@ -51,10 +51,10 @@ final class DeactivateUserCommand extends Command
             ])
             ->setHelp(
                 <<<'EOT'
-The <info>%command.full_name%</info> command deactivates a user (so they will be unable to log in):
+                    The <info>%command.full_name%</info> command deactivates a user (so they will be unable to log in):
 
-  <info>php %command.full_name% matthieu</info>
-EOT
+                      <info>php %command.full_name% matthieu</info>
+                    EOT
             );
     }
 

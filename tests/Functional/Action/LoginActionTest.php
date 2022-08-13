@@ -45,7 +45,6 @@ final class LoginActionTest extends WebTestCase
         static::assertRouteSame('sonata_admin_dashboard');
     }
 
-    /** @test */
     public function testItSubmitsLoginFormWithDisabledUser(): void
     {
         $client = static::createClient();
