@@ -57,8 +57,7 @@ final class RequestActionTest extends WebTestCase
         static::assertRouteSame('sonata_user_admin_resetting_check_email');
     }
 
-    /** @test */
-    public function itSubmitsResetPasswordRequest(): void
+    public function testItSubmitsResetPasswordRequest(): void
     {
         $client = static::createClient();
 
