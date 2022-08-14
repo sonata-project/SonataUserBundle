@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [5.3.3](https://github.com/sonata-project/SonataUserBundle/compare/5.3.2...5.3.3) - 2022-08-13
+### Added
+- [[#1560](https://github.com/sonata-project/SonataUserBundle/pull/1560)] Add support for `sonata-project/doctrine-extensions` ^2.0. ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1560](https://github.com/sonata-project/SonataUserBundle/pull/1560)] Add support for `sonata-project/twig-extensions` ^2.0. ([@jordisala1991](https://github.com/jordisala1991))
+
+### Fixed
+- [[#1562](https://github.com/sonata-project/SonataUserBundle/pull/1562)] Add UniqueEntity constraint to email field in order to prevent UniqueConstraintViolationException exception. ([@m-ar-c](https://github.com/m-ar-c))
+
 ## [5.3.2](https://github.com/sonata-project/SonataUserBundle/compare/5.3.1...5.3.2) - 2022-07-27
 ### Fixed
 - [[#1556](https://github.com/sonata-project/SonataUserBundle/pull/1556)] `User::getUsername` return the real value in database (and can return null). ([@VincentLanglet](https://github.com/VincentLanglet))
