@@ -15,10 +15,8 @@ namespace Sonata\UserBundle\Tests\Functional\Action;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Sonata\UserBundle\Model\UserInterface;
-use Sonata\UserBundle\Tests\App\AppKernel;
 use Sonata\UserBundle\Tests\App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 final class ResetActionTest extends WebTestCase
 {
@@ -82,14 +80,6 @@ final class ResetActionTest extends WebTestCase
         static::assertNull($user->getPasswordRequestedAt());
         static::assertNull($user->getConfirmationToken());
         static::assertSame($user->getPassword(), 'new_password');
-    }
-
-    /**
-     * @return class-string<KernelInterface>
-     */
-    protected static function getKernelClass(): string
-    {
-        return AppKernel::class;
     }
 
     /**

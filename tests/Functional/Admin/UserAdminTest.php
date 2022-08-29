@@ -15,13 +15,11 @@ namespace Sonata\UserBundle\Tests\Functional\Admin;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Sonata\UserBundle\Model\UserInterface;
-use Sonata\UserBundle\Tests\App\AppKernel;
 use Sonata\UserBundle\Tests\App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage;
-use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -139,14 +137,6 @@ final class UserAdminTest extends WebTestCase
         self::assertResponseIsSuccessful();
         static::assertStringContainsString(UserInterface::ROLE_SUPER_ADMIN, (string) $client->getResponse()->getContent());
         static::assertStringNotContainsString(UserInterface::ROLE_DEFAULT, (string) $client->getResponse()->getContent());
-    }
-
-    /**
-     * @return class-string<KernelInterface>
-     */
-    protected static function getKernelClass(): string
-    {
-        return AppKernel::class;
     }
 
     /**

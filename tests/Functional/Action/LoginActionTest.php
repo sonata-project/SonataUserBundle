@@ -14,10 +14,8 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\Functional\Action;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Sonata\UserBundle\Tests\App\AppKernel;
 use Sonata\UserBundle\Tests\App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 final class LoginActionTest extends WebTestCase
 {
@@ -62,14 +60,6 @@ final class LoginActionTest extends WebTestCase
         $client->followRedirect();
 
         static::assertRouteSame('sonata_user_admin_security_login');
-    }
-
-    /**
-     * @return class-string<KernelInterface>
-     */
-    protected static function getKernelClass(): string
-    {
-        return AppKernel::class;
     }
 
     /**
