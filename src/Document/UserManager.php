@@ -45,9 +45,9 @@ final class UserManager extends BaseDocumentManager implements UserManagerInterf
      *
      * @psalm-suppress UndefinedDocblockClass
      *
-     * @phpstan-param class-string<UserInterface> $class
-     *
      * @param UserPasswordEncoderInterface|UserPasswordHasherInterface $userPasswordHasher
+     *
+     * @phpstan-param class-string<UserInterface> $class
      */
     public function __construct(
         string $class,

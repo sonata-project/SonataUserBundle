@@ -45,9 +45,9 @@ final class UserManager extends BaseEntityManager implements UserManagerInterfac
      *
      * @psalm-suppress UndefinedDocblockClass
      *
-     * @phpstan-param class-string<UserInterface> $class
-     *
      * @param UserPasswordEncoderInterface|UserPasswordHasherInterface $userPasswordHasher
+     *
+     * @phpstan-param class-string<UserInterface> $class
      */
     public function __construct(
         string $class,
