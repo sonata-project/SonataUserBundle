@@ -36,19 +36,10 @@ use Symfony\Component\Security\Http\Authentication\AuthenticatorManager;
 
 /**
  * @author Javier Spagnoletti <phansys@gmail.com>
- *
- * @psalm-suppress PropertyNotSetInConstructor
- *
- * @see https://github.com/psalm/psalm-plugin-symfony/pull/220
  */
 final class AppKernel extends Kernel
 {
     use MicroKernelTrait;
-
-    public function __construct()
-    {
-        parent::__construct('test', false);
-    }
 
     public function registerBundles(): iterable
     {

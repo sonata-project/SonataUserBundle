@@ -15,11 +15,9 @@ namespace Sonata\UserBundle\Tests\Functional\Command;
 
 use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
-use Sonata\UserBundle\Tests\App\AppKernel;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 class CreateUserCommandTest extends KernelTestCase
 {
@@ -77,14 +75,6 @@ class CreateUserCommandTest extends KernelTestCase
         $createdUser = $this->find('sonata-user-test');
 
         static::assertTrue($createdUser->isSuperAdmin());
-    }
-
-    /**
-     * @return class-string<KernelInterface>
-     */
-    protected static function getKernelClass(): string
-    {
-        return AppKernel::class;
     }
 
     /**
