@@ -4,7 +4,7 @@ UPGRADE FROM 4.x to 5.0
 ## `SecurityRolesType` and related classes removed
 
 Now the UserAdmin uses `RolesMatrixType` by default to render the roles on the
-User edit form. The old `SecurityRolesType` and its related clasess are removed.
+User edit form. The old `SecurityRolesType` and its related classes are removed.
 If you are customising the UserAdmin, please change your form type for
 the roles to `SecurityRolesType`.
 
