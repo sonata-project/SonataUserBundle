@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [5.4.0](https://github.com/sonata-project/SonataUserBundle/compare/5.3.3...5.4.0) - 2022-10-09
+### Changed
+- [[#1572](https://github.com/sonata-project/SonataUserBundle/pull/1572)] Password field is now of type PasswordType (was TextType). ([@m-ar-c](https://github.com/m-ar-c))
+
+### Fixed
+- [[#1567](https://github.com/sonata-project/SonataUserBundle/pull/1567)] Add UniqueEntity constraint to username field in order to prevent UniqueConstraintViolationException exception. ([@m-ar-c](https://github.com/m-ar-c))
+
 ## [5.3.3](https://github.com/sonata-project/SonataUserBundle/compare/5.3.2...5.3.3) - 2022-08-13
 ### Added
 - [[#1560](https://github.com/sonata-project/SonataUserBundle/pull/1560)] Add support for `sonata-project/doctrine-extensions` ^2.0. ([@jordisala1991](https://github.com/jordisala1991))
