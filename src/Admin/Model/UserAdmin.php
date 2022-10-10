@@ -22,7 +22,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\UserBundle\Form\Type\RolesMatrixType;
 use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 /**
  * @phpstan-extends AbstractAdmin<UserInterface>
@@ -92,7 +92,7 @@ class UserAdmin extends AbstractAdmin
             ->with('general', ['class' => 'col-md-4'])
                 ->add('username')
                 ->add('email')
-                ->add('plainPassword', TextType::class, [
+                ->add('plainPassword', PasswordType::class, [
                     'required' => (!$this->hasSubject() || null === $this->getSubject()->getId()),
                 ])
                 ->add('enabled', null)

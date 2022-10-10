@@ -8,6 +8,13 @@
                 <value>Profile</value>
             </option>
         </constraint>
+        <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
+            <option name="fields">username</option>
+            <option name="groups">
+                <value>Registration</value>
+                <value>Profile</value>
+            </option>
+        </constraint>
         <property name="username">
             <constraint name="NotBlank">
                 <option name="groups">
