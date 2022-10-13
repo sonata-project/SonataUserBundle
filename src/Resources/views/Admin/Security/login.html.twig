@@ -88,7 +88,9 @@ file that was distributed with this source code.
                     </div>
                 </form>
 
+                {% if reset_route|default %}
                 <a href="{{ reset_route }}">{{ 'forgotten_password'|trans({}, 'SonataUserBundle') }}</a>
+                {% endif %}
             {% endblock %}
         </div>
     </div>

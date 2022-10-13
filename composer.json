@@ -11,7 +11,7 @@
         {
             "name": "Thomas Rabaix",
             "email": "thomas.rabaix@sonata-project.org",
-            "homepage": "http://sonata-project.org"
+            "homepage": "https://sonata-project.org"
         },
         {
             "name": "Sonata Community",
@@ -35,8 +35,6 @@
         "symfony/framework-bundle": "^5.4 || ^6.2",
         "symfony/http-foundation": "^5.4 || ^6.2",
         "symfony/http-kernel": "^5.4 || ^6.2",
-        "symfony/mailer": "^5.4 || ^6.2",
-        "symfony/mime": "^5.4 || ^6.2",
         "symfony/options-resolver": "^5.4 || ^6.2",
         "symfony/routing": "^5.4 || ^6.2",
         "symfony/security-acl": "^3.0",
@@ -72,6 +70,8 @@
         "symfony/console": "^5.4 || ^6.2",
         "symfony/filesystem": "^5.4 || ^6.2",
         "symfony/intl": "^5.4 || ^6.2",
+        "symfony/mailer": "^5.4 || ^6.2",
+        "symfony/mime": "^5.4 || ^6.2",
         "symfony/phpunit-bridge": "^6.2",
         "vimeo/psalm": "^5.0"
     },
@@ -82,7 +82,9 @@
     },
     "suggest": {
         "sonata-project/admin-bundle": "For admin dashboard to manage users and other entities",
-        "sonata-project/doctrine-orm-admin-bundle": "For persisting entities"
+        "sonata-project/doctrine-orm-admin-bundle": "For persisting entities",
+        "symfony/mailer": "For sending reset emails",
+        "symfony/mime": "For sending reset emails"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
