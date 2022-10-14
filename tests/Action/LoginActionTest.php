@@ -228,7 +228,8 @@ final class LoginActionTest extends TestCase
             $this->templateRegistry,
             $this->tokenStorage,
             $this->translator,
-            $this->csrfTokenManager
+            $this->csrfTokenManager,
+            true,
         );
     }
 }
