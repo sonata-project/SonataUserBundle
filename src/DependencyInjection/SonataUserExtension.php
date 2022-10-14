@@ -78,7 +78,7 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
         if (isset($bundles['SonataAdminBundle'])) {
             $this->configureAdmin($config['admin'], $container);
             // check for reset configuration
-            if (isset($config['resetting']['email']['address']) && isset($config['resetting']['email']['sender_name'])) {
+            if (isset($config['resetting']['email']['address'], $config['resetting']['email']['sender_name'])) {
                 $loader->load('actions_resetting.php');
                 $mailerNeeded = true;
                 $resetting = true;
