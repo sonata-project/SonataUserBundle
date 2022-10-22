@@ -77,12 +77,12 @@ final class AdminRolesBuilder implements AdminRolesBuilderInterface
     public function getRoles(?string $domain = null): array
     {
         $adminRoles = [];
-        foreach ($this->pool->getAdminServiceIds() as $id) {
-            if (\in_array($id, $this->excludeAdmins, true)) {
+        foreach ($this->pool->getAdminServiceCodes() as $code) {
+            if (\in_array($code, $this->excludeAdmins, true)) {
                 continue;
             }
 
-            $admin = $this->pool->getInstance($id);
+            $admin = $this->pool->getInstance($code);
             $securityHandler = $admin->getSecurityHandler();
             $baseRole = $securityHandler->getBaseRole($admin);
             foreach (array_keys($admin->getSecurityInformation()) as $key) {
