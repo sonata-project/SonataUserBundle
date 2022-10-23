@@ -66,7 +66,7 @@
         "psalm/plugin-phpunit": "^0.17",
         "psalm/plugin-symfony": "^3.0",
         "rector/rector": "^0.14",
-        "sonata-project/admin-bundle": "^4.9",
+        "sonata-project/admin-bundle": "^4.20",
         "sonata-project/block-bundle": "^4.11",
         "sonata-project/doctrine-orm-admin-bundle": "^4.0",
         "symfony/browser-kit": "^4.4 || ^5.4 || ^6.0",
@@ -77,7 +77,7 @@
         "vimeo/psalm": "^4.9.2"
     },
     "conflict": {
-        "sonata-project/admin-bundle": "<4.9",
+        "sonata-project/admin-bundle": "<4.20",
         "sonata-project/block-bundle": "<4.11",
         "sonata-project/doctrine-orm-admin-bundle": "<4.0"
     },
