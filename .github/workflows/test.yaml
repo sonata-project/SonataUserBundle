@@ -27,6 +27,12 @@ jobs:
         env:
             SYMFONY_REQUIRE: ${{matrix.symfony-require}}
 
+        services:
+            mongo:
+                image: mongo
+                ports:
+                    - 27017:27017
+
         strategy:
             matrix:
                 php-version:
@@ -73,6 +79,7 @@ jobs:
                   php-version: ${{ matrix.php-version }}
                   coverage: pcov
                   tools: composer:v2
+                  extensions: mongodb
 
             - name: Add PHPUnit matcher
               run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
