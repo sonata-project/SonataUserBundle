@@ -72,7 +72,19 @@ final class AdminRolesBuilderTest extends TestCase
         $container = new Container();
         $container->set('sonata.admin.bar', $this->admin);
 
-        $this->pool = new Pool($container, ['sonata.admin.bar']);
+        $adminGroups = [
+            'bar' => [
+                'label' => 'Bar',
+                'translation_domain' => '',
+                'icon' => '<i class="fas fa-edit"></i>',
+                'items' => [['admin' => 'sonata.admin.bar', 'roles' => [], 'route_absolute' => false, 'route_params' => []]],
+                'keep_open' => false,
+                'on_top' => false,
+                'roles' => [],
+            ],
+        ];
+
+        $this->pool = new Pool($container, ['sonata.admin.bar'], $adminGroups);
         $this->configuration = new SonataConfiguration('title', 'logo', [
             'confirm_exit' => true,
             'default_admin_route' => 'show',
@@ -170,6 +182,9 @@ final class AdminRolesBuilderTest extends TestCase
                 'role_translated' => 'ROLE_SONATA_FOO_GUEST',
                 'is_granted' => false,
                 'admin_label' => 'Foo',
+                'admin_code' => 'sonata.admin.bar',
+                'group_label' => 'Foo',
+                'group_code' => 'bar',
             ],
             'ROLE_SONATA_FOO_STAFF' => [
                 'role' => 'ROLE_SONATA_FOO_STAFF',
@@ -177,6 +192,9 @@ final class AdminRolesBuilderTest extends TestCase
                 'role_translated' => 'ROLE_SONATA_FOO_STAFF',
                 'is_granted' => false,
                 'admin_label' => 'Foo',
+                'admin_code' => 'sonata.admin.bar',
+                'group_label' => 'Foo',
+                'group_code' => 'bar',
             ],
             'ROLE_SONATA_FOO_EDITOR' => [
                 'role' => 'ROLE_SONATA_FOO_EDITOR',
@@ -184,6 +202,9 @@ final class AdminRolesBuilderTest extends TestCase
                 'role_translated' => 'ROLE_SONATA_FOO_EDITOR',
                 'is_granted' => false,
                 'admin_label' => 'Foo',
+                'admin_code' => 'sonata.admin.bar',
+                'group_label' => 'Foo',
+                'group_code' => 'bar',
             ],
             'ROLE_SONATA_FOO_ADMIN' => [
                 'role' => 'ROLE_SONATA_FOO_ADMIN',
@@ -191,6 +212,9 @@ final class AdminRolesBuilderTest extends TestCase
                 'role_translated' => 'ROLE_SONATA_FOO_ADMIN',
                 'is_granted' => false,
                 'admin_label' => 'Foo',
+                'admin_code' => 'sonata.admin.bar',
+                'group_label' => 'Foo',
+                'group_code' => 'bar',
             ],
         ];
 

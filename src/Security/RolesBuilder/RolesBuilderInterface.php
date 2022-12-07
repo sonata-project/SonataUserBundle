@@ -21,7 +21,10 @@ namespace Sonata\UserBundle\Security\RolesBuilder;
  *     role_translated: string,
  *     is_granted: boolean,
  *     label?: string,
- *     admin_label?: string
+ *     admin_label?: string,
+ *     admin_code?: string,
+ *     group_label?: string,
+ *     group_code?: string
  * }
  */
 interface RolesBuilderInterface

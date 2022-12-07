@@ -201,6 +201,9 @@ final class RolesMatrixExtensionTest extends TestCase
                 'role_translated' => 'ROLE FOO TRANSLATED',
                 'admin_label' => 'fooadmin',
                 'is_granted' => true,
+                'admin_code' => 'fooadmin',
+                'group_label' => 'BarGroup',
+                'group_code' => 'bargroup',
             ],
         ];
         $this->rolesBuilder
@@ -226,14 +229,19 @@ final class RolesMatrixExtensionTest extends TestCase
             ->method('render')
             ->with('@SonataUser/Form/roles_matrix.html.twig', [
                 'grouped_roles' => [
-                    'fooadmin' => [
-                        'BASE_ROLE_FOO_EDIT' => [
-                            'role' => 'BASE_ROLE_FOO_EDIT',
-                            'label' => 'EDIT',
-                            'role_translated' => 'ROLE FOO TRANSLATED',
-                            'admin_label' => 'fooadmin',
-                            'is_granted' => true,
-                            'form' => $form,
+                    'bargroup' => [
+                        'fooadmin' => [
+                            'BASE_ROLE_FOO_EDIT' => [
+                                'role' => 'BASE_ROLE_FOO_EDIT',
+                                'label' => 'EDIT',
+                                'role_translated' => 'ROLE FOO TRANSLATED',
+                                'admin_label' => 'fooadmin',
+                                'is_granted' => true,
+                                'admin_code' => 'fooadmin',
+                                'group_label' => 'BarGroup',
+                                'group_code' => 'bargroup',
+                                'form' => $form,
+                            ],
                         ],
                     ],
                 ],
@@ -254,6 +262,9 @@ final class RolesMatrixExtensionTest extends TestCase
                 'role_translated' => 'ROLE FOO TRANSLATED',
                 'admin_label' => 'fooadmin',
                 'is_granted' => true,
+                'admin_code' => 'fooadmin',
+                'group_label' => 'BarGroup',
+                'group_code' => 'bargroup',
             ],
         ];
         $this->rolesBuilder
@@ -279,13 +290,18 @@ final class RolesMatrixExtensionTest extends TestCase
             ->method('render')
             ->with('@SonataUser/Form/roles_matrix.html.twig', [
                 'grouped_roles' => [
-                    'fooadmin' => [
-                        'BASE_ROLE_FOO_%s' => [
-                            'role' => 'BASE_ROLE_FOO_EDIT',
-                            'label' => 'EDIT',
-                            'role_translated' => 'ROLE FOO TRANSLATED',
-                            'admin_label' => 'fooadmin',
-                            'is_granted' => true,
+                    'bargroup' => [
+                        'fooadmin' => [
+                            'BASE_ROLE_FOO_%s' => [
+                                'role' => 'BASE_ROLE_FOO_EDIT',
+                                'label' => 'EDIT',
+                                'role_translated' => 'ROLE FOO TRANSLATED',
+                                'admin_label' => 'fooadmin',
+                                'is_granted' => true,
+                                'admin_code' => 'fooadmin',
+                                'group_label' => 'BarGroup',
+                                'group_code' => 'bargroup',
+                            ],
                         ],
                     ],
                 ],

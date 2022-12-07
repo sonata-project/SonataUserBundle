@@ -12,16 +12,25 @@ file that was distributed with this source code.
     <thead>
     <tr>
         <th></th>
+        <th></th>
         {% for label in permission_labels|sort %}
             <th> {{ label }} </th>
         {% endfor %}
     </tr>
     </thead>
     <tbody>
-    {% for admin_label, roles in grouped_roles %}
-        <tr>
-            <th>{{ admin_label }}</th>
+    {% for group_code, admin_roles in grouped_roles %}
+        {% set new_group = true %}
+        {% for admin_code, roles in admin_roles %}
+            <tr>
             {% for role, attributes in roles|sort %}
+                {% if loop.first %}
+                    {% if new_group %}
+                        {% set new_group = false %}
+                        <th rowspan="{{ admin_roles|length }}" scope="rowgroup">{{ attributes.group_label|default('') }}</th>
+                    {% endif %}
+                    <th>{{ attributes.admin_label|default('') }}</th>
+                {% endif %}
                 <td>
                     {{ form_widget(attributes.form, { label: false }) }}
                     {% if not attributes.is_granted %}
@@ -34,7 +43,8 @@ file that was distributed with this source code.
                     {% endif %}
                 </td>
             {% endfor %}
-        </tr>
+            </tr>
+        {% endfor %}
     {% endfor %}
     </tbody>
 </table>

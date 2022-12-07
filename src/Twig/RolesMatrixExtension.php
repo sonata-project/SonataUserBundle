@@ -71,14 +71,15 @@ final class RolesMatrixExtension extends AbstractExtension
     {
         $groupedRoles = [];
         foreach ($this->rolesBuilder->getRoles() as $role => $attributes) {
-            if (!isset($attributes['admin_label'])) {
+            if (!isset($attributes['admin_code'])) {
                 continue;
             }
 
-            $groupedRoles[$attributes['admin_label']][$role] = $attributes;
+            $groupCode = $attributes['group_code'] ?? '_';
+            $groupedRoles[$groupCode][$attributes['admin_code']][$role] = $attributes;
             foreach ($form->getIterator() as $child) {
                 if ($child->vars['value'] === $role) {
-                    $groupedRoles[$attributes['admin_label']][$role]['form'] = $child;
+                    $groupedRoles[$groupCode][$attributes['admin_code']][$role]['form'] = $child;
                 }
             }
         }
