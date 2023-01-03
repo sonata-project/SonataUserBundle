@@ -100,11 +100,9 @@ final class AdminRolesBuilder implements AdminRolesBuilderInterface
             }
         }
 
-        // admin with config "show_in_dashboard" set "false" does not have group
-        $defaultGroupLabelTranslated = $this->translator->trans('_', [], $domain);
-        $defaultGroupCode = '_';
+        // admin with config "show_in_dashboard" set "false" or group not set, does not have group
         foreach ($adminServiceCodes as $code) {
-            $adminRoles = array_merge($adminRoles, $this->getAdminRolesByAdminCode($code, $domain, $defaultGroupLabelTranslated, $defaultGroupCode));
+            $adminRoles = array_merge($adminRoles, $this->getAdminRolesByAdminCode($code, $domain));
         }
 
         return $adminRoles;
@@ -115,7 +113,7 @@ final class AdminRolesBuilder implements AdminRolesBuilderInterface
      *
      * @phpstan-return array<string, Role>
      */
-    private function getAdminRolesByAdminCode(string $code, ?string $domain = null, string $groupLabelTranslated = '_', string $groupCode = '_'): array
+    private function getAdminRolesByAdminCode(string $code, ?string $domain = null, string $groupLabelTranslated = '', string $groupCode = ''): array
     {
         $adminRoles = [];
         $admin = $this->pool->getInstance($code);
