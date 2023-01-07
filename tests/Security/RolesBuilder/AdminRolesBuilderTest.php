@@ -117,7 +117,9 @@ final class AdminRolesBuilderTest extends TestCase
 
     public function testGetPermissionLabels(): void
     {
-        $this->translator->method('trans');
+        $this->translator->method('trans')->willReturnCallback(
+            static fn (string $key): string => $key
+        );
 
         $this->securityHandler->method('getBaseRole')
             ->willReturn('ROLE_SONATA_FOO_%s');
