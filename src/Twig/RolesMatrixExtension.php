@@ -71,14 +71,27 @@ final class RolesMatrixExtension extends AbstractExtension
     {
         $groupedRoles = [];
         foreach ($this->rolesBuilder->getRoles() as $role => $attributes) {
-            if (!isset($attributes['admin_label'])) {
-                continue;
+            if (!isset($attributes['admin_code'])) {
+                // NEXT_MAJOR: Remove those lines and uncomment the last one.
+                if (!isset($attributes['admin_label'])) {
+                    continue;
+                }
+
+                @trigger_error(
+                    'Not setting the "admin_code" attribute to admin role is deprecated since sonata-project/user-bundle 5.5'
+                    .' and without it admin role will be skipped in version 6.0.',
+                    \E_USER_DEPRECATED
+                );
+
+                $attributes['admin_code'] = $attributes['admin_label'];
+                // continue;
             }
 
-            $groupedRoles[$attributes['admin_label']][$role] = $attributes;
+            $groupCode = $attributes['group_code'] ?? '';
+            $groupedRoles[$groupCode][$attributes['admin_code']][$role] = $attributes;
             foreach ($form->getIterator() as $child) {
                 if ($child->vars['value'] === $role) {
-                    $groupedRoles[$attributes['admin_label']][$role]['form'] = $child;
+                    $groupedRoles[$groupCode][$attributes['admin_code']][$role]['form'] = $child;
                 }
             }
         }
