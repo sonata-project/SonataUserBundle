@@ -2,6 +2,15 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [5.5.0](https://github.com/sonata-project/SonataUserBundle/compare/5.4.0...5.5.0) - 2023-02-06
+### Changed
+- [[#1587](https://github.com/sonata-project/SonataUserBundle/pull/1587)] RolesBuilder: add attributes "admin_code", "group_label", "group_code". ([@piddubnij](https://github.com/piddubnij))
+
+### Fixed
+- [[#1587](https://github.com/sonata-project/SonataUserBundle/pull/1587)] Fix RolesBuilder attribute "admin_label" set admin translation domain ([@piddubnij](https://github.com/piddubnij))
+- [[#1587](https://github.com/sonata-project/SonataUserBundle/pull/1587)] Fix roles matrix attribute "admin_label" can repeat not even in different groups but also in the same group ([@piddubnij](https://github.com/piddubnij))
+- [[#1577](https://github.com/sonata-project/SonataUserBundle/pull/1577)] Sonata-admin 4.20 deprecation ([@VincentLanglet](https://github.com/VincentLanglet))
+
 ## [5.4.0](https://github.com/sonata-project/SonataUserBundle/compare/5.3.3...5.4.0) - 2022-10-09
 ### Changed
 - [[#1572](https://github.com/sonata-project/SonataUserBundle/pull/1572)] Password field is now of type PasswordType (was TextType). ([@m-ar-c](https://github.com/m-ar-c))
