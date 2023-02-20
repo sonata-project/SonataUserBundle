@@ -78,21 +78,20 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
             $this->configureAdmin($config['admin'], $container);
             // check for reset configuration
             if (isset($config['resetting']['email']['address'], $config['resetting']['email']['sender_name'])) {
-                $loader->load('actions_resetting.php');
                 $resetting = true;
+                $loader->load('actions_resetting.php');
+                $loader->load('mailer.php');
+                $this->configureMailer($config, $container);
+                // needs to be done after mailer
+                $this->configureResetting($config['resetting'], $container);
             }
+            $container->getDefinition('sonata.user.action.login')
+                ->replaceArgument(8, $resetting);
         }
 
-        if ($resetting) {
-            $loader->load('mailer.php');
-            $this->configureMailer($config, $container);
-            // needs to be done after mailer
-            $this->configureResetting($config['resetting'], $container);
+        if ($this->isConfigEnabled($container, $config['impersonating'])) {
+            $this->configureImpersonation($config['impersonating'], $container);
         }
-        $container->getDefinition('sonata.user.action.login')
-            ->replaceArgument(8, $resetting);
-
-        $this->configureImpersonation($config['impersonating'], $container);
     }
 
     /**
