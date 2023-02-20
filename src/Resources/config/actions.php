@@ -31,7 +31,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 service('security.token_storage'),
                 service('translator'),
                 service('security.csrf.token_manager')->nullOnInvalid(),
-                false,
+                true,
             ])
 
         ->set('sonata.user.action.check_login', CheckLoginAction::class)
