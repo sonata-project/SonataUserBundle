@@ -94,6 +94,7 @@ final class ResetAction
             $user->setPasswordRequestedAt(null);
             $user->setEnabled(true);
 
+            // @phpstan-ignore-next-line Use instanceof FlashBagAwareSessionInterface when dropping Symfony 5 support
             $request->getSession()->getFlashBag()->add(
                 'success',
                 $this->translator->trans('resetting.flash.success', [], 'SonataUserBundle')

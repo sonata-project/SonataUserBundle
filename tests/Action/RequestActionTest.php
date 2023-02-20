@@ -236,10 +236,10 @@ final class RequestActionTest extends TestCase
         $this->tokenGenerator->expects(static::once())->method('generateToken')->willReturn('user-token');
         $this->mailer->expects(static::once())->method('sendResettingEmailMessage');
 
-        $this->urlGenerator->method('generate')->withConsecutive([
+        $this->urlGenerator->method('generate')->with(
             'sonata_user_admin_resetting_check_email',
             ['username' => 'bar'],
-        ])->willReturnOnConsecutiveCalls('/check-email');
+        )->willReturn('/check-email');
 
         $action = $this->getAction();
         $result = $action(new Request());
