@@ -103,7 +103,6 @@ final class Configuration implements ConfigurationInterface
         $node
             ->children()
                 ->arrayNode('resetting')
-                    ->isRequired()
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->integerNode('retry_ttl')->defaultValue(7200)->end()
