@@ -44,14 +44,6 @@ final class SonataUserExtensionNoResettingTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderNotHasService('sonata.user.mailer');
     }
 
-    /**
-     * @return array
-     */
-    protected function getMinimalConfiguration(): array
-    {
-        return [];
-    }
-
     protected function getContainerExtensions(): array
     {
         return [
