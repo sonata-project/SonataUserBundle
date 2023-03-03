@@ -89,9 +89,7 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
                 ->replaceArgument(8, $resetting);
         }
 
-        if ($this->isConfigEnabled($container, $config['impersonating'])) {
-            $this->configureImpersonation($config['impersonating'], $container);
-        }
+        $this->configureImpersonation($config['impersonating'], $container);
     }
 
     /**

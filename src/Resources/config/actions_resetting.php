@@ -57,6 +57,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             service('sonata.user.manager.user'),
             service('translator'),
             abstract_arg('token ttl'),
-        ])
-    ;
+        ]);
 };
