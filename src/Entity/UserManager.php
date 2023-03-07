@@ -31,8 +31,6 @@ final class UserManager extends BaseEntityManager implements UserManagerInterfac
     /**
      * TODO: Simplify this once support for Symfony 4.4 is dropped.
      *
-     * @psalm-suppress UndefinedDocblockClass
-     *
      * @param UserPasswordEncoderInterface|UserPasswordHasherInterface $userPasswordHasher
      *
      * @phpstan-param class-string<UserInterface> $class
