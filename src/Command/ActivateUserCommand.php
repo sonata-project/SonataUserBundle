@@ -30,13 +30,9 @@ final class ActivateUserCommand extends Command
     protected static $defaultName = 'sonata:user:activate';
     protected static $defaultDescription = 'Activate a user';
 
-    private UserManagerInterface $userManager;
-
-    public function __construct(UserManagerInterface $userManager)
+    public function __construct(private UserManagerInterface $userManager)
     {
         parent::__construct();
-
-        $this->userManager = $userManager;
     }
 
     protected function configure(): void

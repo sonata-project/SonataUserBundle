@@ -81,7 +81,7 @@ final class UserProviderTest extends TestCase
             ->willReturn($refreshedUser);
         $this->userManager->expects(static::atLeastOnce())
             ->method('getClass')
-            ->willReturn(\get_class($user));
+            ->willReturn($user::class);
 
         static::assertSame($refreshedUser, $this->userProvider->refreshUser($user));
     }
@@ -98,7 +98,7 @@ final class UserProviderTest extends TestCase
         $this->userManager->expects(static::once())->method('findOneBy');
         $this->userManager->expects(static::atLeastOnce())
             ->method('getClass')
-            ->willReturn(\get_class($user));
+            ->willReturn($user::class);
 
         // @phpstan-ignore-next-line
         $this->expectException(class_exists(UserNotFoundException::class) ? UserNotFoundException::class : UsernameNotFoundException::class);
@@ -122,7 +122,7 @@ final class UserProviderTest extends TestCase
 
         $this->userManager->expects(static::atLeastOnce())
             ->method('getClass')
-            ->willReturn(\get_class($user));
+            ->willReturn($user::class);
 
         $this->expectException(UnsupportedUserException::class);
 

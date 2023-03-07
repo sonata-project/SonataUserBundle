@@ -15,7 +15,7 @@ namespace Sonata\UserBundle\Model;
 
 use Symfony\Component\Security\Core\User\UserInterface as SymfonyUserInterface;
 
-abstract class User implements UserInterface
+abstract class User implements UserInterface, \Stringable
 {
     /**
      * @var int|string|null

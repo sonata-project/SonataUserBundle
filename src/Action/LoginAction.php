@@ -28,40 +28,16 @@ use Twig\Environment;
 
 final class LoginAction
 {
-    private Environment $twig;
-
-    private UrlGeneratorInterface $urlGenerator;
-
-    private AuthenticationUtils $authenticationUtils;
-
-    private Pool $adminPool;
-
-    private TemplateRegistryInterface $templateRegistry;
-
-    private TokenStorageInterface $tokenStorage;
-
-    private TranslatorInterface $translator;
-
-    private ?CsrfTokenManagerInterface $csrfTokenManager;
-
     public function __construct(
-        Environment $twig,
-        UrlGeneratorInterface $urlGenerator,
-        AuthenticationUtils $authenticationUtils,
-        Pool $adminPool,
-        TemplateRegistryInterface $templateRegistry,
-        TokenStorageInterface $tokenStorage,
-        TranslatorInterface $translator,
-        ?CsrfTokenManagerInterface $csrfTokenManager = null
+        private Environment $twig,
+        private UrlGeneratorInterface $urlGenerator,
+        private AuthenticationUtils $authenticationUtils,
+        private Pool $adminPool,
+        private TemplateRegistryInterface $templateRegistry,
+        private TokenStorageInterface $tokenStorage,
+        private TranslatorInterface $translator,
+        private ?CsrfTokenManagerInterface $csrfTokenManager = null
     ) {
-        $this->twig = $twig;
-        $this->urlGenerator = $urlGenerator;
-        $this->authenticationUtils = $authenticationUtils;
-        $this->adminPool = $adminPool;
-        $this->templateRegistry = $templateRegistry;
-        $this->tokenStorage = $tokenStorage;
-        $this->translator = $translator;
-        $this->csrfTokenManager = $csrfTokenManager;
     }
 
     public function __invoke(Request $request): Response

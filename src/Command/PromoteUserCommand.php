@@ -31,13 +31,9 @@ final class PromoteUserCommand extends Command
     protected static $defaultName = 'sonata:user:promote';
     protected static $defaultDescription = 'Promotes a user by adding a role';
 
-    private UserManagerInterface $userManager;
-
-    public function __construct(UserManagerInterface $userManager)
+    public function __construct(private UserManagerInterface $userManager)
     {
         parent::__construct();
-
-        $this->userManager = $userManager;
     }
 
     protected function configure(): void

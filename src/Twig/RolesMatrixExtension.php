@@ -26,11 +26,8 @@ use Twig\TwigFunction;
  */
 final class RolesMatrixExtension extends AbstractExtension
 {
-    private MatrixRolesBuilderInterface $rolesBuilder;
-
-    public function __construct(MatrixRolesBuilderInterface $rolesBuilder)
+    public function __construct(private MatrixRolesBuilderInterface $rolesBuilder)
     {
-        $this->rolesBuilder = $rolesBuilder;
     }
 
     public function getFunctions(): array

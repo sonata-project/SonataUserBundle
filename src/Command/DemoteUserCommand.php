@@ -31,13 +31,9 @@ final class DemoteUserCommand extends Command
     protected static $defaultName = 'sonata:user:demote';
     protected static $defaultDescription = 'Demotes a user by removing a role';
 
-    private UserManagerInterface $userManager;
-
-    public function __construct(UserManagerInterface $userManager)
+    public function __construct(private UserManagerInterface $userManager)
     {
         parent::__construct();
-
-        $this->userManager = $userManager;
     }
 
     protected function configure(): void

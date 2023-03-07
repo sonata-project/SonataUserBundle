@@ -25,11 +25,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class RolesMatrixType extends AbstractType
 {
-    private ExpandableRolesBuilderInterface $rolesBuilder;
-
-    public function __construct(ExpandableRolesBuilderInterface $rolesBuilder)
+    public function __construct(private ExpandableRolesBuilderInterface $rolesBuilder)
     {
-        $this->rolesBuilder = $rolesBuilder;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -47,34 +44,28 @@ final class RolesMatrixType extends AbstractType
 
                 return array_combine($roles, $roles);
             },
-            'choice_translation_domain' =>
-                /**
-                 * @param bool|string|null $value
-                 *
-                 * @return bool|string|null
-                 */
-                static function (Options $options, $value) {
-                    // if choice_translation_domain is true, then it's the same as translation_domain
-                    if (true === $value) {
-                        $value = $options['translation_domain'];
-                    }
+            'choice_translation_domain' => static function (Options $options, bool|string|null $value): bool|string|null {
+                // if choice_translation_domain is true, then it's the same as translation_domain
+                if (true === $value) {
+                    $value = $options['translation_domain'];
+                }
 
-                    if (null === $value) {
-                        // no translation domain yet, try to ask sonata admin
-                        $admin = null;
-                        if (isset($options['sonata_admin'])) {
-                            $admin = $options['sonata_admin'];
-                        }
-                        if (null === $admin && isset($options['sonata_field_description'])) {
-                            $admin = $options['sonata_field_description']->getAdmin();
-                        }
-                        if (null !== $admin) {
-                            $value = $admin->getTranslationDomain();
-                        }
+                if (null === $value) {
+                    // no translation domain yet, try to ask sonata admin
+                    $admin = null;
+                    if (isset($options['sonata_admin'])) {
+                        $admin = $options['sonata_admin'];
                     }
+                    if (null === $admin && isset($options['sonata_field_description'])) {
+                        $admin = $options['sonata_field_description']->getAdmin();
+                    }
+                    if (null !== $admin) {
+                        $value = $admin->getTranslationDomain();
+                    }
+                }
 
-                    return $value;
-                },
+                return $value;
+            },
             'excluded_roles' => [UserInterface::ROLE_DEFAULT],
             'data_class' => null,
         ]);

@@ -29,48 +29,18 @@ use Twig\Environment;
 
 final class RequestAction
 {
-    private Environment $twig;
-
-    private UrlGeneratorInterface $urlGenerator;
-
-    private AuthorizationCheckerInterface $authorizationChecker;
-
-    private Pool $adminPool;
-
-    private TemplateRegistryInterface $templateRegistry;
-
-    private FormFactoryInterface $formFactory;
-
-    private UserManagerInterface $userManager;
-
-    private MailerInterface $mailer;
-
-    private TokenGeneratorInterface $tokenGenerator;
-
-    private int $retryTtl;
-
     public function __construct(
-        Environment $twig,
-        UrlGeneratorInterface $urlGenerator,
-        AuthorizationCheckerInterface $authorizationChecker,
-        Pool $adminPool,
-        TemplateRegistryInterface $templateRegistry,
-        FormFactoryInterface $formFactory,
-        UserManagerInterface $userManager,
-        MailerInterface $mailer,
-        TokenGeneratorInterface $tokenGenerator,
-        int $retryTtl
+        private Environment $twig,
+        private UrlGeneratorInterface $urlGenerator,
+        private AuthorizationCheckerInterface $authorizationChecker,
+        private Pool $adminPool,
+        private TemplateRegistryInterface $templateRegistry,
+        private FormFactoryInterface $formFactory,
+        private UserManagerInterface $userManager,
+        private MailerInterface $mailer,
+        private TokenGeneratorInterface $tokenGenerator,
+        private int $retryTtl
     ) {
-        $this->twig = $twig;
-        $this->urlGenerator = $urlGenerator;
-        $this->authorizationChecker = $authorizationChecker;
-        $this->adminPool = $adminPool;
-        $this->templateRegistry = $templateRegistry;
-        $this->formFactory = $formFactory;
-        $this->userManager = $userManager;
-        $this->mailer = $mailer;
-        $this->tokenGenerator = $tokenGenerator;
-        $this->retryTtl = $retryTtl;
     }
 
     public function __invoke(Request $request): Response
