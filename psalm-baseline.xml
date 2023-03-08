@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="4.30.0@d0bc6e25d89f649e4f36a534f330f8bb4643dd69">
+    <file src="src/Document/UserManager.php">
+        <UndefinedDocblockClass occurrences="1">
+            <code>UserPasswordEncoderInterface|UserPasswordHasherInterface</code>
+        </UndefinedDocblockClass>
+    </file>
+    <file src="src/Entity/UserManager.php">
+        <UndefinedDocblockClass occurrences="1">
+            <code>UserPasswordEncoderInterface|UserPasswordHasherInterface</code>
+        </UndefinedDocblockClass>
+    </file>
+</files>

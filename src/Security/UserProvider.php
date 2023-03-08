@@ -24,11 +24,8 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 final class UserProvider implements UserProviderInterface
 {
-    private UserManagerInterface $userManager;
-
-    public function __construct(UserManagerInterface $userManager)
+    public function __construct(private UserManagerInterface $userManager)
     {
-        $this->userManager = $userManager;
     }
 
     /**
@@ -53,11 +50,11 @@ final class UserProvider implements UserProviderInterface
     public function refreshUser(SecurityUserInterface $user): SecurityUserInterface
     {
         if (!$user instanceof UserInterface) {
-            throw new UnsupportedUserException(sprintf('Expected an instance of %s, but got "%s".', UserInterface::class, \get_class($user)));
+            throw new UnsupportedUserException(sprintf('Expected an instance of %s, but got "%s".', UserInterface::class, $user::class));
         }
 
-        if (!$this->supportsClass(\get_class($user))) {
-            throw new UnsupportedUserException(sprintf('Expected an instance of %s, but got "%s".', $this->userManager->getClass(), \get_class($user)));
+        if (!$this->supportsClass($user::class)) {
+            throw new UnsupportedUserException(sprintf('Expected an instance of %s, but got "%s".', $this->userManager->getClass(), $user::class));
         }
 
         if (null === $reloadedUser = $this->userManager->findOneBy(['id' => $user->getId()])) {

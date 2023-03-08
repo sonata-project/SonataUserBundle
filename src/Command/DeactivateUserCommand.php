@@ -30,13 +30,9 @@ final class DeactivateUserCommand extends Command
     protected static $defaultName = 'sonata:user:deactivate';
     protected static $defaultDescription = 'Deactivate a user';
 
-    private UserManagerInterface $userManager;
-
-    public function __construct(UserManagerInterface $userManager)
+    public function __construct(private UserManagerInterface $userManager)
     {
         parent::__construct();
-
-        $this->userManager = $userManager;
     }
 
     protected function configure(): void

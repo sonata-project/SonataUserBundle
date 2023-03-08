@@ -21,34 +21,16 @@ use Twig\Environment;
 
 final class Mailer implements MailerInterface
 {
-    private UrlGeneratorInterface $urlGenerator;
-
-    private Environment $twig;
-
-    private SymfonyMailerInterface $mailer;
-
-    /**
-     * @var array<string, string>
-     */
-    private array $fromEmail;
-
-    private string $emailTemplate;
-
     /**
      * @param array<string, string> $fromEmail
      */
     public function __construct(
-        UrlGeneratorInterface $urlGenerator,
-        Environment $twig,
-        SymfonyMailerInterface $mailer,
-        array $fromEmail,
-        string $emailTemplate
+        private UrlGeneratorInterface $urlGenerator,
+        private Environment $twig,
+        private SymfonyMailerInterface $mailer,
+        private array $fromEmail,
+        private string $emailTemplate
     ) {
-        $this->urlGenerator = $urlGenerator;
-        $this->twig = $twig;
-        $this->mailer = $mailer;
-        $this->fromEmail = $fromEmail;
-        $this->emailTemplate = $emailTemplate;
     }
 
     public function sendResettingEmailMessage(UserInterface $user): void

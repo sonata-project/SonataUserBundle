@@ -41,7 +41,7 @@ final class UserAclVoter extends AclVoter
      */
     public function vote(TokenInterface $token, $subject, array $attributes): int
     {
-        if (!\is_object($subject) || !$this->supportsClass(\get_class($subject))) {
+        if (!\is_object($subject) || !$this->supportsClass($subject::class)) {
             return self::ACCESS_ABSTAIN;
         }
 

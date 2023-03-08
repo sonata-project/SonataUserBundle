@@ -20,20 +20,11 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  */
 final class MatrixRolesBuilder implements MatrixRolesBuilderInterface
 {
-    private TokenStorageInterface $tokenStorage;
-
-    private AdminRolesBuilderInterface $adminRolesBuilder;
-
-    private ExpandableRolesBuilderInterface $securityRolesBuilder;
-
     public function __construct(
-        TokenStorageInterface $tokenStorage,
-        AdminRolesBuilderInterface $adminRolesBuilder,
-        ExpandableRolesBuilderInterface $securityRolesBuilder
+        private TokenStorageInterface $tokenStorage,
+        private AdminRolesBuilderInterface $adminRolesBuilder,
+        private ExpandableRolesBuilderInterface $securityRolesBuilder
     ) {
-        $this->tokenStorage = $tokenStorage;
-        $this->adminRolesBuilder = $adminRolesBuilder;
-        $this->securityRolesBuilder = $securityRolesBuilder;
     }
 
     public function getRoles(?string $domain = null): array

@@ -30,13 +30,9 @@ final class ChangePasswordCommand extends Command
     protected static $defaultName = 'sonata:user:change-password';
     protected static $defaultDescription = 'Change the password of a user';
 
-    private UserManagerInterface $userManager;
-
-    public function __construct(UserManagerInterface $userManager)
+    public function __construct(private UserManagerInterface $userManager)
     {
         parent::__construct();
-
-        $this->userManager = $userManager;
     }
 
     protected function configure(): void
