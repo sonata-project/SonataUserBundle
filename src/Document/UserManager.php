@@ -39,10 +39,7 @@ final class UserManager extends BaseDocumentManager implements UserManagerInterf
         string $class,
         ManagerRegistry $registry,
         private CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater,
-        /**
-         * @phpstan-ignore-next-line
-         * @psalm-suppress UndefinedDocblockClass
-         */
+        // @phpstan-ignore-next-line
         private object $userPasswordHasher
     ) {
         parent::__construct($class, $registry);
