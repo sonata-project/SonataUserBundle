@@ -30,16 +30,10 @@ use Sonata\UserBundle\Util\CanonicalFieldsUpdaterInterface;
  */
 final class UserListener implements EventSubscriber
 {
-    private CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater;
-
-    private UserManagerInterface $userManager;
-
     public function __construct(
-        CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater,
-        UserManagerInterface $userManager
+        private CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater,
+        private UserManagerInterface $userManager
     ) {
-        $this->canonicalFieldsUpdater = $canonicalFieldsUpdater;
-        $this->userManager = $userManager;
     }
 
     public function getSubscribedEvents(): array
@@ -87,7 +81,7 @@ final class UserListener implements EventSubscriber
 
     private function recomputeChangeSet(ObjectManager $om, UserInterface $user): void
     {
-        $meta = $om->getClassMetadata(\get_class($user));
+        $meta = $om->getClassMetadata($user::class);
 
         if ($om instanceof EntityManager) {
             \assert($meta instanceof ORMClassMetadata);

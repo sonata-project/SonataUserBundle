@@ -28,22 +28,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 final class UserManager extends BaseDocumentManager implements UserManagerInterface
 {
-    private CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater;
-
     /**
      * TODO: Simplify this once support for Symfony 4.4 is dropped.
-     *
-     * @psalm-suppress UndefinedDocblockClass
-     * @phpstan-ignore-next-line
-     *
-     * @var UserPasswordEncoderInterface|UserPasswordHasherInterface
-     */
-    private object $userPasswordHasher;
-
-    /**
-     * TODO: Simplify this once support for Symfony 4.4 is dropped.
-     *
-     * @psalm-suppress UndefinedDocblockClass
      *
      * @param UserPasswordEncoderInterface|UserPasswordHasherInterface $userPasswordHasher
      *
@@ -52,14 +38,11 @@ final class UserManager extends BaseDocumentManager implements UserManagerInterf
     public function __construct(
         string $class,
         ManagerRegistry $registry,
-        CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater,
+        private CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater,
         // @phpstan-ignore-next-line
-        object $userPasswordHasher
+        private object $userPasswordHasher
     ) {
         parent::__construct($class, $registry);
-
-        $this->canonicalFieldsUpdater = $canonicalFieldsUpdater;
-        $this->userPasswordHasher = $userPasswordHasher;
     }
 
     /**

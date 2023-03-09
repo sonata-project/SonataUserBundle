@@ -21,34 +21,16 @@ use Sonata\AdminBundle\Admin\Pool;
  */
 final class GlobalVariables
 {
-    private ?Pool $pool;
-
-    private string $defaultAvatar;
-
-    private bool $impersonatingEnabled;
-
-    private string $impersonatingRoute;
-
-    /**
-     * @var array<string, mixed>
-     */
-    private array $impersonatingRouteParameters;
-
     /**
      * @param array<string, mixed> $impersonatingRouteParameters
      */
     public function __construct(
-        ?Pool $pool,
-        string $defaultAvatar,
-        bool $impersonatingEnabled,
-        string $impersonatingRoute,
-        array $impersonatingRouteParameters = []
+        private ?Pool $pool,
+        private string $defaultAvatar,
+        private bool $impersonatingEnabled,
+        private string $impersonatingRoute,
+        private array $impersonatingRouteParameters = []
     ) {
-        $this->pool = $pool;
-        $this->defaultAvatar = $defaultAvatar;
-        $this->impersonatingEnabled = $impersonatingEnabled;
-        $this->impersonatingRoute = $impersonatingRoute;
-        $this->impersonatingRouteParameters = $impersonatingRouteParameters;
     }
 
     /**

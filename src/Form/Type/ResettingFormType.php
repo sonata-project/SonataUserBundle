@@ -23,16 +23,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class ResettingFormType extends AbstractType
 {
     /**
-     * @phpstan-var class-string<UserInterface>
-     */
-    private string $class;
-
-    /**
      * @phpstan-param class-string<UserInterface> $class
      */
-    public function __construct(string $class)
+    public function __construct(private string $class)
     {
-        $this->class = $class;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

@@ -29,13 +29,11 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
  */
 class UserAdmin extends AbstractAdmin
 {
-    protected UserManagerInterface $userManager;
     protected $classnameLabel = 'user';
 
-    public function __construct(UserManagerInterface $userManager)
+    public function __construct(protected UserManagerInterface $userManager)
     {
         parent::__construct();
-        $this->userManager = $userManager;
     }
 
     protected function preUpdate(object $object): void

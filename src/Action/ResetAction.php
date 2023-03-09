@@ -29,44 +29,17 @@ use Twig\Environment;
 
 final class ResetAction
 {
-    private Environment $twig;
-
-    private UrlGeneratorInterface $urlGenerator;
-
-    private AuthorizationCheckerInterface $authorizationChecker;
-
-    private Pool $adminPool;
-
-    private TemplateRegistryInterface $templateRegistry;
-
-    private FormFactoryInterface $formFactory;
-
-    private UserManagerInterface $userManager;
-
-    private TranslatorInterface $translator;
-
-    private int $tokenTtl;
-
     public function __construct(
-        Environment $twig,
-        UrlGeneratorInterface $urlGenerator,
-        AuthorizationCheckerInterface $authorizationChecker,
-        Pool $adminPool,
-        TemplateRegistryInterface $templateRegistry,
-        FormFactoryInterface $formFactory,
-        UserManagerInterface $userManager,
-        TranslatorInterface $translator,
-        int $tokenTtl
+        private Environment $twig,
+        private UrlGeneratorInterface $urlGenerator,
+        private AuthorizationCheckerInterface $authorizationChecker,
+        private Pool $adminPool,
+        private TemplateRegistryInterface $templateRegistry,
+        private FormFactoryInterface $formFactory,
+        private UserManagerInterface $userManager,
+        private TranslatorInterface $translator,
+        private int $tokenTtl
     ) {
-        $this->twig = $twig;
-        $this->urlGenerator = $urlGenerator;
-        $this->authorizationChecker = $authorizationChecker;
-        $this->adminPool = $adminPool;
-        $this->templateRegistry = $templateRegistry;
-        $this->formFactory = $formFactory;
-        $this->userManager = $userManager;
-        $this->translator = $translator;
-        $this->tokenTtl = $tokenTtl;
     }
 
     public function __invoke(Request $request, string $token): Response
