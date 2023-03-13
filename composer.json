@@ -49,7 +49,7 @@
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^6.7",
-        "doctrine/annotations": "^1.13.2",
+        "doctrine/annotations": "^1.13.2 || ^2.0",
         "doctrine/doctrine-bundle": "^2.3.2",
         "doctrine/mongodb-odm": "^2.2",
         "doctrine/orm": "^2.9",
