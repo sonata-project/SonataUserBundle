@@ -95,7 +95,7 @@ final class AppKernel extends Kernel
 
         if (class_exists(IsGranted::class)) {
             $loader->load(__DIR__.'/config/config_sf6.yaml');
-        } else if (class_exists(AuthenticatorManager::class)) {
+        } elseif (class_exists(AuthenticatorManager::class)) {
             $loader->load(__DIR__.'/config/config_sf5.yaml');
         } else {
             $loader->load(__DIR__.'/config/config_sf4.yaml');
