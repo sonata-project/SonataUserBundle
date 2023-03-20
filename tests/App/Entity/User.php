@@ -13,20 +13,17 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Sonata\UserBundle\Entity\BaseUser;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="user__user")
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'user__user')]
 class User extends BaseUser
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\Column(type: Types::INTEGER)]
+    #[ORM\GeneratedValue]
     protected $id;
 
     public function setId(?int $id): void

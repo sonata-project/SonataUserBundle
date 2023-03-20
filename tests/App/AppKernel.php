@@ -32,6 +32,7 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Security\Http\Authentication\AuthenticatorManager;
 
 /**
@@ -82,7 +83,7 @@ final class AppKernel extends Kernel
      */
     protected function configureRoutes($routes): void
     {
-        $routes->import(__DIR__.'/Resources/config/routing/routes.yaml');
+        $routes->import(__DIR__.'/config/routes.yaml');
     }
 
     /**
@@ -90,16 +91,18 @@ final class AppKernel extends Kernel
      */
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
     {
-        $loader->load(__DIR__.'/Resources/config/config.yaml');
+        $loader->load(__DIR__.'/config/config.yaml');
 
-        if (class_exists(AuthenticatorManager::class)) {
-            $loader->load(__DIR__.'/Resources/config/config_sf5.yaml');
+        if (class_exists(IsGranted::class)) {
+            $loader->load(__DIR__.'/config/config_sf6.yaml');
+        } else if (class_exists(AuthenticatorManager::class)) {
+            $loader->load(__DIR__.'/config/config_sf5.yaml');
         } else {
-            $loader->load(__DIR__.'/Resources/config/config_sf4.yaml');
+            $loader->load(__DIR__.'/config/config_sf4.yaml');
         }
 
         if (class_exists(HttpCacheHandler::class)) {
-            $loader->load(__DIR__.'/Resources/config/config_sonata_block_v4.yaml');
+            $loader->load(__DIR__.'/config/config_sonata_block_v4.yaml');
         }
 
         $container->setParameter('app.base_dir', $this->getBaseDir());
