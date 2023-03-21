@@ -21,6 +21,8 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * @author Jordi Sala <jordism91@gmail.com>
+ *
+ * @psalm-suppress MissingTemplateParam https://github.com/phpstan/phpstan-symfony/issues/320
  */
 final class ResetPasswordRequestFormType extends AbstractType
 {
