@@ -7,7 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - [[#1599](https://github.com/sonata-project/SonataUserBundle/pull/1599)] Support for `doctrine/collections` 2 ([@gremo](https://github.com/gremo))
 
 ### Removed
-- [[#1606](https://github.com/sonata-project/SonataUserBundle/pull/1606)] Drop `doctrine/persistence` 2.0. ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1606](https://github.com/sonata-project/SonataUserBundle/pull/1606)] Support for `doctrine/persistence` 2.x ([@jordisala1991](https://github.com/jordisala1991))
 
 ## [5.5.0](https://github.com/sonata-project/SonataUserBundle/compare/5.4.0...5.5.0) - 2023-02-06
 ### Changed
