@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [5.6.0](https://github.com/sonata-project/SonataUserBundle/compare/5.5.0...5.6.0) - 2023-03-22
+### Added
+- [[#1599](https://github.com/sonata-project/SonataUserBundle/pull/1599)] Support for `doctrine/collections` 2 ([@gremo](https://github.com/gremo))
+
+### Removed
+- [[#1606](https://github.com/sonata-project/SonataUserBundle/pull/1606)] Support for `doctrine/persistence` 2.x ([@jordisala1991](https://github.com/jordisala1991))
+
 ## [5.5.0](https://github.com/sonata-project/SonataUserBundle/compare/5.4.0...5.5.0) - 2023-02-06
 ### Changed
 - [[#1587](https://github.com/sonata-project/SonataUserBundle/pull/1587)] RolesBuilder: add attributes "admin_code", "group_label", "group_code". ([@piddubnij](https://github.com/piddubnij))
