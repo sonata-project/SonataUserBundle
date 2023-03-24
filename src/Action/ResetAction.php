@@ -72,7 +72,7 @@ final class ResetAction
              *
              * @phpstan-ignore-next-line
              * @psalm-suppress UndefinedInterfaceMethod
-             */ 
+             */
             $request->getSession()->getFlashBag()->add(
                 'success',
                 $this->translator->trans('resetting.flash.success', [], 'SonataUserBundle')
