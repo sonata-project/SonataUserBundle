@@ -44,7 +44,7 @@ final class LoginAction
     {
         if ($this->isAuthenticated()) {
             /**
-             * Use instanceof FlashBagAwareSessionInterface when dropping Symfony 5 support
+             * TODO: Use instanceof FlashBagAwareSessionInterface when dropping Symfony 5 support.
              *
              * @phpstan-ignore-next-line
              * @psalm-suppress UndefinedInterfaceMethod
