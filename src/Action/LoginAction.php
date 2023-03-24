@@ -43,7 +43,12 @@ final class LoginAction
     public function __invoke(Request $request): Response
     {
         if ($this->isAuthenticated()) {
-            // @phpstan-ignore-next-line Use instanceof FlashBagAwareSessionInterface when dropping Symfony 5 support
+            /**
+             * Use instanceof FlashBagAwareSessionInterface when dropping Symfony 5 support
+             *
+             * @phpstan-ignore-next-line
+             * @psalm-suppress UndefinedInterfaceMethod
+             */
             $request->getSession()->getFlashBag()->add(
                 'sonata_user_error',
                 $this->translator->trans('sonata_user_already_authenticated', [], 'SonataUserBundle')
