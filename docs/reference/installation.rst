@@ -110,7 +110,7 @@ You have to create the corresponding document, ``src/Document/SonataUserUser``::
     #[ODM\Document]
     class SonataUserUser extends BaseUser
     {
-        #[MongoDB\Id]
+        #[ODM\Id]
         protected $id;
     }
 
