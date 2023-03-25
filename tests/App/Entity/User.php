@@ -25,14 +25,4 @@ class User extends BaseUser
     #[ORM\Column(type: Types::INTEGER)]
     #[ORM\GeneratedValue]
     protected $id;
-
-    public function setId(?int $id): void
-    {
-        $this->id = $id;
-    }
-
-    public function getId()
-    {
-        return $this->id;
-    }
 }
