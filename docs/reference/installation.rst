@@ -79,6 +79,7 @@ And then create the corresponding entity, ``src/Entity/SonataUserUser``::
 
     // src/Entity/SonataUserUser.php
 
+    use Doctrine\DBAL\Types\Types;
     use Doctrine\ORM\Mapping as ORM;
     use Sonata\UserBundle\Entity\BaseUser;
 
