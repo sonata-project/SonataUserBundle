@@ -82,17 +82,13 @@ And then create the corresponding entity, ``src/Entity/SonataUserUser``::
     use Doctrine\ORM\Mapping as ORM;
     use Sonata\UserBundle\Entity\BaseUser;
 
-    /**
-     * @ORM\Entity
-     * @ORM\Table(name="sonata_user__user")
-     */
+    #[ORM\Entity]
+    #[ORM\Table(name: 'user__user')]
     class SonataUserUser extends BaseUser
     {
-        /**
-         * @ORM\Id
-         * @ORM\GeneratedValue
-         * @ORM\Column(type="integer")
-         */
+        #[ORM\Id]
+        #[ORM\Column(type: Types::INTEGER)]
+        #[ORM\GeneratedValue]
         protected $id;
     }
 
@@ -107,17 +103,13 @@ You have to create the corresponding document, ``src/Document/SonataUserUser``::
 
     // src/Document/SonataUserUser.php
 
-    use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+    use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
     use Sonata\UserBundle\Document\BaseUser;
 
-    /**
-     * @MongoDB\Document
-     */
+    #[ODM\Document]
     class SonataUserUser extends BaseUser
     {
-        /**
-         * @MongoDB\Id
-         */
+        #[MongoDB\Id]
         protected $id;
     }
 
