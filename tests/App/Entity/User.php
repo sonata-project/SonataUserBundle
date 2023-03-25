@@ -28,6 +28,6 @@ class User extends BaseUser
 
     public function setId(?int $id): void
     {
-         $this->id = $id;
+        $this->id = $id;
     }
 }
