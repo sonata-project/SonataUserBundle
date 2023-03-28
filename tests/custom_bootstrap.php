@@ -14,6 +14,7 @@ declare(strict_types=1);
 use Sonata\UserBundle\Tests\App\AppKernel;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -37,5 +38,10 @@ $input = new ArrayInput([
     'command' => 'doctrine:schema:create',
 ]);
 $application->run($input, new NullOutput());
+
+$input = new ArrayInput([
+    'command' => 'doctrine:schema:validate',
+]);
+$application->run($input, new ConsoleOutput());
 
 (new Filesystem())->remove([$kernel->getCacheDir()]);
