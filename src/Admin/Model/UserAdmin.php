@@ -67,6 +67,13 @@ class UserAdmin extends AbstractAdmin
                     'template' => '@SonataUser/Admin/Field/impersonating.html.twig',
                 ]);
         }
+
+        $list->add(ListMapper::NAME_ACTIONS, ListMapper::TYPE_ACTIONS, [
+            'translation_domain' => 'SonataAdminBundle',
+            'actions' => [
+                'edit' => [],
+            ],
+        ]);
     }
 
     protected function configureDatagridFilters(DatagridMapper $filter): void
