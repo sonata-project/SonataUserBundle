@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [5.6.1](https://github.com/sonata-project/SonataUserBundle/compare/5.6.0...5.6.1) - 2023-03-30
+### Fixed
+- [[#1615](https://github.com/sonata-project/SonataUserBundle/pull/1615)] Fix xml validation of MongoDB ODM mapping. ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1615](https://github.com/sonata-project/SonataUserBundle/pull/1615)] Avoid deprecation for enabled boolean field on MongoDB ODM. ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1616](https://github.com/sonata-project/SonataUserBundle/pull/1616)] Fix always show edit button on user admin list page. ([@jordisala1991](https://github.com/jordisala1991))
+
 ## [5.6.0](https://github.com/sonata-project/SonataUserBundle/compare/5.5.0...5.6.0) - 2023-03-22
 ### Added
 - [[#1599](https://github.com/sonata-project/SonataUserBundle/pull/1599)] Support for `doctrine/collections` 2 ([@gremo](https://github.com/gremo))
