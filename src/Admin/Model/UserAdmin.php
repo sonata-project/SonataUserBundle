@@ -36,11 +36,6 @@ class UserAdmin extends AbstractAdmin
         parent::__construct();
     }
 
-    protected function preUpdate(object $object): void
-    {
-        $this->userManager->updatePassword($object);
-    }
-
     protected function configureFormOptions(array &$formOptions): void
     {
         $formOptions['validation_groups'] = ['Default'];
