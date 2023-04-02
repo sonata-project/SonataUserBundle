@@ -107,7 +107,7 @@ final class UserAdminTest extends WebTestCase
             'uniqid' => 'user',
         ]);
         $client->submitForm('btn_update_and_list', [
-            'user[enabled]' => false
+            'user[enabled]' => false,
             'user[plainPassword]' => 'new_password',
         ]);
         $client->followRedirect();
