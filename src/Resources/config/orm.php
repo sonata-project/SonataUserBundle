@@ -12,6 +12,7 @@ declare(strict_types=1);
  */
 
 use Sonata\UserBundle\Entity\UserManager;
+use Sonata\UserBundle\Listener\UserListener;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator;
 use Symfony\Component\Security\Http\Authentication\AuthenticatorManager;
@@ -33,4 +34,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 new ReferenceConfigurator('sonata.user.util.canonical_fields_updater'),
                 new ReferenceConfigurator($passwordHasherId),
             ]);
+
+        ->set('sonata.user.listener.user', UserListener::class)
+            ->tag('doctrine.event_subscriber')
+            ->args([
+                new ReferenceConfigurator('sonata.user.util.canonical_fields_updater'),
+                new ReferenceConfigurator('sonata.user.manager.user'),
+            ])
 };
