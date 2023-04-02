@@ -260,6 +260,9 @@ abstract class User implements UserInterface, \Stringable
     public function setPlainPassword(?string $password): void
     {
         $this->plainPassword = $password;
+        // Do not remove this, it will trigger preUpdate doctrine event
+        // when you only change the password, since plainPassword 
+        // is not persisted on the entity, doctrine does not watch for it.
         $this->updatedAt = new \DateTime();
     }
 
