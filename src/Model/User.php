@@ -260,6 +260,7 @@ abstract class User implements UserInterface, \Stringable
     public function setPlainPassword(?string $password): void
     {
         $this->plainPassword = $password;
+        $this->updatedAt = new \DateTime();
     }
 
     public function setLastLogin(?\DateTimeInterface $time = null): void
