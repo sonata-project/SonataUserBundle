@@ -36,7 +36,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ])
 
         ->set('sonata.user.listener.user', UserListener::class)
-            ->tag('doctrine.event_subscriber')
+           // ->tag('doctrine.event_subscriber')
             ->args([
                 new ReferenceConfigurator('sonata.user.util.canonical_fields_updater'),
                 new ReferenceConfigurator('sonata.user.manager.user'),
