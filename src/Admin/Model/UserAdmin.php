@@ -32,7 +32,7 @@ class UserAdmin extends AbstractAdmin
     protected $classnameLabel = 'user';
 
     /**
-     * NEXT_MAJOR: Remove $userManager dependency and construct
+     * NEXT_MAJOR: Remove $userManager dependency and construct.
      */
     public function __construct(protected UserManagerInterface $userManager)
     {
