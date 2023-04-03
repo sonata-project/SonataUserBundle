@@ -27,9 +27,10 @@ file that was distributed with this source code.
         </li>
 
         <li class="user-footer">
+            {% if sonata_user.userAdmin.hasAccess('edit', app.user) or sonata_user.userAdmin.hasAccess('show', app.user) %}
             <div class="pull-left">
                 <a href="{{
-                    sonata_user.userAdmin.isGranted('EDIT', app.user) ?
+                    sonata_user.userAdmin.hasAccess('edit', app.user) ?
                         sonata_user.userAdmin.generateUrl('edit', {id: app.user.id}) :
                         sonata_user.userAdmin.generateUrl('show', {id: app.user.id})
                 }}" class="btn btn-default btn-flat">
@@ -37,6 +38,7 @@ file that was distributed with this source code.
                     {{ 'user_block_profile'|trans({}, 'SonataUserBundle') }}
                 </a>
             </div>
+            {% endif %}
 
             <div class="pull-right">
                 <a href="{{ _logout_uri }}" class="btn btn-default btn-flat">
