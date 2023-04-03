@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [5.6.2](https://github.com/sonata-project/SonataUserBundle/compare/5.6.1...5.6.2) - 2023-04-03
+### Fixed
+- [[#1624](https://github.com/sonata-project/SonataUserBundle/pull/1624)] XML validation of MongoDB ODM mapping. ([@landure](https://github.com/landure))
+- [[#1620](https://github.com/sonata-project/SonataUserBundle/pull/1620)] Generate the profile link only if the logged user has access to it (edit or show permissions) ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1621](https://github.com/sonata-project/SonataUserBundle/pull/1621)] Ensure password is updated when it is the only field edited ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1621](https://github.com/sonata-project/SonataUserBundle/pull/1621)] Register doctrine event subscribers both for ORM and ODM ([@jordisala1991](https://github.com/jordisala1991))
+
 ## [5.6.1](https://github.com/sonata-project/SonataUserBundle/compare/5.6.0...5.6.1) - 2023-03-30
 ### Fixed
 - [[#1615](https://github.com/sonata-project/SonataUserBundle/pull/1615)] Fix xml validation of MongoDB ODM mapping. ([@jordisala1991](https://github.com/jordisala1991))
