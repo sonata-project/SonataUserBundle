@@ -53,6 +53,7 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
         }
 
         $loader->load(sprintf('%s.php', $config['manager_type']));
+        $container->setParameter('sonata.user.manager_type', $config['manager_type']);
 
         $loader->load('twig.php');
         $loader->load('commands.php');
