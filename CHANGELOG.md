@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [5.6.3](https://github.com/sonata-project/SonataUserBundle/compare/5.6.2...5.6.3) - 2023-04-12
+### Fixed
+- [[#1628](https://github.com/sonata-project/SonataUserBundle/pull/1628)] ORM schema mapping does not give errors about validation root ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1626](https://github.com/sonata-project/SonataUserBundle/pull/1626)] Validation for unique `username` and `email` is applied to `usernameCanonical` and `emailCanonical` fields ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1626](https://github.com/sonata-project/SonataUserBundle/pull/1626)] Validation for MongoDB persistence ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1627](https://github.com/sonata-project/SonataUserBundle/pull/1627)] Avoid deprecation on the check for is impersonator granted on Symfony >= 5.4 ([@jordisala1991](https://github.com/jordisala1991))
+
 ## [5.6.2](https://github.com/sonata-project/SonataUserBundle/compare/5.6.1...5.6.2) - 2023-04-03
 ### Fixed
 - [[#1624](https://github.com/sonata-project/SonataUserBundle/pull/1624)] XML validation of MongoDB ODM mapping. ([@landure](https://github.com/landure))
