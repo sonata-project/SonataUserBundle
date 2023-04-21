@@ -19,7 +19,6 @@ use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
 use Sonata\UserBundle\Util\CanonicalFieldsUpdaterInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
@@ -29,25 +28,17 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 final class UserManager extends BaseDocumentManager implements UserManagerInterface
 {
     /**
-     * TODO: Simplify this once support for Symfony 4.4 is dropped.
-     *
-     * @param UserPasswordEncoderInterface|UserPasswordHasherInterface $userPasswordHasher
-     *
      * @phpstan-param class-string<UserInterface> $class
      */
     public function __construct(
         string $class,
         ManagerRegistry $registry,
         private CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater,
-        // @phpstan-ignore-next-line
-        private object $userPasswordHasher
+        private UserPasswordHasherInterface $userPasswordHasher
     ) {
         parent::__construct($class, $registry);
     }
 
-    /**
-     * @psalm-suppress UndefinedDocblockClass
-     */
     public function updatePassword(UserInterface $user): void
     {
         $plainPassword = $user->getPlainPassword();
@@ -56,12 +47,7 @@ final class UserManager extends BaseDocumentManager implements UserManagerInterf
             return;
         }
 
-        if ($this->userPasswordHasher instanceof UserPasswordHasherInterface) {
-            $password = $this->userPasswordHasher->hashPassword($user, $plainPassword);
-        } else {
-            // @phpstan-ignore-next-line
-            $password = $this->userPasswordHasher->encodePassword($user, $plainPassword);
-        }
+        $password = $this->userPasswordHasher->hashPassword($user, $plainPassword);
 
         $user->setPassword($password);
         $user->eraseCredentials();

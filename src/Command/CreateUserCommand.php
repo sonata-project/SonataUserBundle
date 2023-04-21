@@ -27,10 +27,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand(name: 'sonata:user:create', description: 'Create a user')]
 final class CreateUserCommand extends Command
 {
-    // TODO: Remove static properties when support for Symfony < 5.4 is dropped.
-    protected static $defaultName = 'sonata:user:create';
-    protected static $defaultDescription = 'Create a user';
-
     public function __construct(private UserManagerInterface $userManager)
     {
         parent::__construct();
@@ -38,11 +34,7 @@ final class CreateUserCommand extends Command
 
     protected function configure(): void
     {
-        \assert(null !== static::$defaultDescription);
-
         $this
-            // TODO: Remove setDescription when support for Symfony < 5.4 is dropped.
-            ->setDescription(static::$defaultDescription)
             ->setDefinition([
                 new InputArgument('username', InputArgument::REQUIRED, 'The username'),
                 new InputArgument('email', InputArgument::REQUIRED, 'The email'),

@@ -77,15 +77,9 @@ class CreateUserCommandTest extends KernelTestCase
         static::assertTrue($createdUser->isSuperAdmin());
     }
 
-    /**
-     * @psalm-suppress UndefinedPropertyFetch
-     */
     private function find(string $username): UserInterface
     {
-        // TODO: Simplify this when dropping support for Symfony 4.
-        // @phpstan-ignore-next-line
-        $container = method_exists(static::class, 'getContainer') ? static::getContainer() : static::$container;
-        $manager = $container->get('sonata.user.manager.user');
+        $manager = static::getContainer()->get('sonata.user.manager.user');
         \assert($manager instanceof UserManagerInterface);
 
         $user = $manager->findUserByUsername($username);

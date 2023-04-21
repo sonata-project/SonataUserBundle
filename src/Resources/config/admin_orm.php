@@ -11,17 +11,15 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator;
+namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    // Use "param" function for creating references to parameters when dropping support for Symfony 5.1
     $containerConfigurator->services()
 
         ->set('sonata.user.admin.user')
             ->tag('sonata.admin', [
-                'model_class' => '%sonata.user.user.class%',
-                'controller' => '%sonata.user.admin.user.controller%',
+                'model_class' => (string) param('sonata.user.user.class'),
+                'controller' => (string) param('sonata.user.admin.user.controller'),
                 'manager_type' => 'orm',
                 'group' => 'sonata_user',
                 'label' => 'users',
@@ -30,6 +28,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'icon' => '<i class=\'fa fa-users\'></i>',
             ])
             ->args([
-                new ReferenceConfigurator('sonata.user.manager.user'),
+                service('sonata.user.manager.user'),
             ]);
 };
