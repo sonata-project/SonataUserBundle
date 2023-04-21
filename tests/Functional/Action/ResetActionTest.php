@@ -89,7 +89,7 @@ final class ResetActionTest extends WebTestCase
     {
         // TODO: Simplify this when dropping support for Symfony 4.
         // @phpstan-ignore-next-line
-        $container = method_exists(static::class, 'getContainer') ? static::getContainer() : static::$container;
+        $container = method_exists(self::class, 'getContainer') ? static::getContainer() : static::$container;
         $manager = $container->get('doctrine.orm.entity_manager');
         \assert($manager instanceof EntityManagerInterface);
 
@@ -115,7 +115,7 @@ final class ResetActionTest extends WebTestCase
     {
         // TODO: Simplify this when dropping support for Symfony 4.
         // @phpstan-ignore-next-line
-        $container = method_exists(static::class, 'getContainer') ? static::getContainer() : static::$container;
+        $container = method_exists(self::class, 'getContainer') ? static::getContainer() : static::$container;
         $manager = $container->get('doctrine.orm.entity_manager');
         \assert($manager instanceof EntityManagerInterface);
 

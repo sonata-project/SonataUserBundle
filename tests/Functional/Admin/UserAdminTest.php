@@ -146,7 +146,7 @@ final class UserAdminTest extends WebTestCase
     {
         // TODO: Simplify this when dropping support for Symfony 4.
         // @phpstan-ignore-next-line
-        $container = method_exists(static::class, 'getContainer') ? static::getContainer() : static::$container;
+        $container = method_exists(self::class, 'getContainer') ? static::getContainer() : static::$container;
         $manager = $container->get('doctrine.orm.entity_manager');
         \assert($manager instanceof EntityManagerInterface);
 
@@ -172,7 +172,7 @@ final class UserAdminTest extends WebTestCase
     {
         // TODO: Simplify this when dropping support for Symfony 4.
         // @phpstan-ignore-next-line
-        $container = method_exists(static::class, 'getContainer') ? static::getContainer() : static::$container;
+        $container = method_exists(self::class, 'getContainer') ? static::getContainer() : static::$container;
         $manager = $container->get('doctrine.orm.entity_manager');
         \assert($manager instanceof EntityManagerInterface);
 
@@ -187,7 +187,7 @@ final class UserAdminTest extends WebTestCase
         // TODO: Simplify this when dropping support for Symfony 4.
         /** @psalm-suppress UndefinedPropertyFetch */
         // @phpstan-ignore-next-line
-        $container = method_exists(static::class, 'getContainer') ? static::getContainer() : static::$container;
+        $container = method_exists(self::class, 'getContainer') ? static::getContainer() : static::$container;
         $tokenStorage = $container->get('security.token_storage');
         \assert($tokenStorage instanceof TokenStorageInterface);
 
