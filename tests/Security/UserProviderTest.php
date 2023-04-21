@@ -20,7 +20,6 @@ use Sonata\UserBundle\Security\UserProvider;
 use Sonata\UserBundle\Tests\App\Entity\User;
 use Sonata\UserBundle\Tests\Entity\User as EntityUser;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -53,17 +52,11 @@ final class UserProviderTest extends TestCase
         static::assertSame($user, $this->userProvider->loadUserByUsername('foobar'));
     }
 
-    /**
-     * TODO: Simplify exception expectation when dropping support for Symfony 4.4.
-     *
-     * @psalm-suppress UndefinedClass, PossiblyInvalidArgument
-     */
     public function testLoadUserByInvalidUsername(): void
     {
         $this->userManager->expects(static::once())->method('findUserByUsernameOrEmail');
 
-        // @phpstan-ignore-next-line
-        $this->expectException(class_exists(UserNotFoundException::class) ? UserNotFoundException::class : UsernameNotFoundException::class);
+        $this->expectException(UserNotFoundException::class);
 
         $this->userProvider->loadUserByUsername('foobar');
     }
@@ -86,11 +79,6 @@ final class UserProviderTest extends TestCase
         static::assertSame($refreshedUser, $this->userProvider->refreshUser($user));
     }
 
-    /**
-     * TODO: Simplify exception expectation when dropping support for Symfony 4.4.
-     *
-     * @psalm-suppress UndefinedClass, PossiblyInvalidArgument
-     */
     public function testRefreshDeleted(): void
     {
         $user = new User();
@@ -100,8 +88,7 @@ final class UserProviderTest extends TestCase
             ->method('getClass')
             ->willReturn($user::class);
 
-        // @phpstan-ignore-next-line
-        $this->expectException(class_exists(UserNotFoundException::class) ? UserNotFoundException::class : UsernameNotFoundException::class);
+        $this->expectException(UserNotFoundException::class);
 
         $this->userProvider->refreshUser($user);
     }

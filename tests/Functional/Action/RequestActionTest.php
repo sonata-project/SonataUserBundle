@@ -36,9 +36,6 @@ final class RequestActionTest extends WebTestCase
     {
         $client = static::createClient();
 
-        // TODO: Remove this line when the issue gets solved: https://github.com/symfony/symfony/issues/45580
-        $client->disableReboot();
-
         $client->request('GET', '/request');
 
         static::assertResponseIsSuccessful();
@@ -58,9 +55,6 @@ final class RequestActionTest extends WebTestCase
     public function testItSubmitsResetPasswordRequest(): void
     {
         $client = static::createClient();
-
-        // TODO: Remove this line when the issue gets solved: https://github.com/symfony/symfony/issues/45580
-        $client->disableReboot();
 
         $this->prepareData();
 
@@ -86,15 +80,9 @@ final class RequestActionTest extends WebTestCase
         static::assertRouteSame('sonata_user_admin_resetting_check_email');
     }
 
-    /**
-     * @psalm-suppress UndefinedPropertyFetch
-     */
     private function prepareData(): void
     {
-        // TODO: Simplify this when dropping support for Symfony 4.
-        // @phpstan-ignore-next-line
-        $container = method_exists(self::class, 'getContainer') ? static::getContainer() : static::$container;
-        $manager = $container->get('doctrine.orm.entity_manager');
+        $manager = static::getContainer()->get('doctrine.orm.entity_manager');
         \assert($manager instanceof EntityManagerInterface);
 
         $user = new User();
