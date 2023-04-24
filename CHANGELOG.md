@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [5.7.0](https://github.com/sonata-project/SonataUserBundle/compare/5.6.3...5.7.0) - 2023-04-24
+### Removed
+- [[#1632](https://github.com/sonata-project/SonataUserBundle/pull/1632)] Support for Symfony 4.4 ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1632](https://github.com/sonata-project/SonataUserBundle/pull/1632)] Support for Twig 2 ([@jordisala1991](https://github.com/jordisala1991))
+
 ## [5.6.3](https://github.com/sonata-project/SonataUserBundle/compare/5.6.2...5.6.3) - 2023-04-12
 ### Fixed
 - [[#1628](https://github.com/sonata-project/SonataUserBundle/pull/1628)] ORM schema mapping does not give errors about validation root ([@jordisala1991](https://github.com/jordisala1991))
