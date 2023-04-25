@@ -96,9 +96,6 @@ final class UserAdminTest extends WebTestCase
     {
         $client = self::createClient();
 
-        // TODO: Remove this line when the issue gets solved: https://github.com/symfony/symfony/issues/45580
-        $client->disableReboot();
-
         $user = $this->prepareData();
 
         static::assertSame('random_password', $user->getPassword());
@@ -121,9 +118,6 @@ final class UserAdminTest extends WebTestCase
     {
         $client = self::createClient();
 
-        // TODO: Remove this line when the issue gets solved: https://github.com/symfony/symfony/issues/45580
-        $client->disableReboot();
-
         $user = $this->prepareData();
         $token = $this->loginUser($user, $client);
 
@@ -139,15 +133,9 @@ final class UserAdminTest extends WebTestCase
         static::assertStringNotContainsString(UserInterface::ROLE_DEFAULT, (string) $client->getResponse()->getContent());
     }
 
-    /**
-     * @psalm-suppress UndefinedPropertyFetch
-     */
     private function prepareData(): UserInterface
     {
-        // TODO: Simplify this when dropping support for Symfony 4.
-        // @phpstan-ignore-next-line
-        $container = method_exists(static::class, 'getContainer') ? static::getContainer() : static::$container;
-        $manager = $container->get('doctrine.orm.entity_manager');
+        $manager = static::getContainer()->get('doctrine.orm.entity_manager');
         \assert($manager instanceof EntityManagerInterface);
 
         $user = new User();
@@ -165,15 +153,9 @@ final class UserAdminTest extends WebTestCase
         return $user;
     }
 
-    /**
-     * @psalm-suppress UndefinedPropertyFetch
-     */
     private function refreshUser(UserInterface $user): UserInterface
     {
-        // TODO: Simplify this when dropping support for Symfony 4.
-        // @phpstan-ignore-next-line
-        $container = method_exists(static::class, 'getContainer') ? static::getContainer() : static::$container;
-        $manager = $container->get('doctrine.orm.entity_manager');
+        $manager = static::getContainer()->get('doctrine.orm.entity_manager');
         \assert($manager instanceof EntityManagerInterface);
 
         $user = $manager->find(User::class, $user->getId());
@@ -184,16 +166,10 @@ final class UserAdminTest extends WebTestCase
 
     private function loginUser(UserInterface $user, KernelBrowser $client): TokenInterface
     {
-        // TODO: Simplify this when dropping support for Symfony 4.
-        /** @psalm-suppress UndefinedPropertyFetch */
-        // @phpstan-ignore-next-line
-        $container = method_exists(static::class, 'getContainer') ? static::getContainer() : static::$container;
-        $tokenStorage = $container->get('security.token_storage');
+        $tokenStorage = static::getContainer()->get('security.token_storage');
         \assert($tokenStorage instanceof TokenStorageInterface);
 
-        /** @psalm-suppress UndefinedPropertyFetch, TooManyArguments, NullArgument, InvalidArgument, UnusedPsalmSuppress */
-        // @phpstan-ignore-next-line
-        $token = method_exists(UsernamePasswordToken::class, 'getCredentials') ? new UsernamePasswordToken($user, null, 'main', $user->getRoles()) : new UsernamePasswordToken($user, 'main', $user->getRoles());
+        $token = new UsernamePasswordToken($user, 'main', $user->getRoles());
         $tokenStorage->setToken($token);
 
         $sessionId = 'test-sonata-user-bundle';

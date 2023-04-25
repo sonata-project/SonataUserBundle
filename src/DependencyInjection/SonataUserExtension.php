@@ -53,6 +53,7 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
         }
 
         $loader->load(sprintf('%s.php', $config['manager_type']));
+        $container->setParameter('sonata.user.manager_type', $config['manager_type']);
 
         $loader->load('twig.php');
         $loader->load('commands.php');
@@ -77,9 +78,7 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
             $this->configureResetting($config['resetting'], $container);
         }
 
-        if ($this->isConfigEnabled($container, $config['impersonating'])) {
-            $this->configureImpersonation($config['impersonating'], $container);
-        }
+        $this->configureImpersonation($config['impersonating'], $container);
     }
 
     /**
@@ -185,7 +184,7 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
     {
         $container->getDefinition('sonata.user.twig.global')
             ->replaceArgument(2, $config['enabled'])
-            ->replaceArgument(3, $config['route'])
-            ->replaceArgument(4, $config['parameters']);
+            ->replaceArgument(3, $config['route'] ?? '')
+            ->replaceArgument(4, $config['parameters'] ?? []);
     }
 }

@@ -56,9 +56,6 @@ final class ResetActionTest extends WebTestCase
     {
         $client = static::createClient();
 
-        // TODO: Remove this line when the issue gets solved: https://github.com/symfony/symfony/issues/45580
-        $client->disableReboot();
-
         $user = $this->prepareData();
         $confirmationToken = $user->getConfirmationToken();
         \assert(null !== $confirmationToken);
@@ -82,15 +79,9 @@ final class ResetActionTest extends WebTestCase
         static::assertSame($user->getPassword(), 'new_password');
     }
 
-    /**
-     * @psalm-suppress UndefinedPropertyFetch
-     */
     private function prepareData(): UserInterface
     {
-        // TODO: Simplify this when dropping support for Symfony 4.
-        // @phpstan-ignore-next-line
-        $container = method_exists(static::class, 'getContainer') ? static::getContainer() : static::$container;
-        $manager = $container->get('doctrine.orm.entity_manager');
+        $manager = static::getContainer()->get('doctrine.orm.entity_manager');
         \assert($manager instanceof EntityManagerInterface);
 
         $user = new User();
@@ -108,15 +99,9 @@ final class ResetActionTest extends WebTestCase
         return $user;
     }
 
-    /**
-     * @psalm-suppress UndefinedPropertyFetch
-     */
     private function refreshUser(UserInterface $user): UserInterface
     {
-        // TODO: Simplify this when dropping support for Symfony 4.
-        // @phpstan-ignore-next-line
-        $container = method_exists(static::class, 'getContainer') ? static::getContainer() : static::$container;
-        $manager = $container->get('doctrine.orm.entity_manager');
+        $manager = static::getContainer()->get('doctrine.orm.entity_manager');
         \assert($manager instanceof EntityManagerInterface);
 
         $user = $manager->find(User::class, $user->getId());

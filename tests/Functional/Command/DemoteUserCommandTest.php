@@ -113,16 +113,11 @@ class DemoteUserCommandTest extends KernelTestCase
     }
 
     /**
-     * @psalm-suppress UndefinedPropertyFetch
-     *
      * @param string[] $roles
      */
     private function prepareData(string $username, bool $superAdmin, array $roles): UserInterface
     {
-        // TODO: Simplify this when dropping support for Symfony 4.
-        // @phpstan-ignore-next-line
-        $container = method_exists(static::class, 'getContainer') ? static::getContainer() : static::$container;
-        $manager = $container->get('doctrine.orm.entity_manager');
+        $manager = static::getContainer()->get('doctrine.orm.entity_manager');
         \assert($manager instanceof EntityManagerInterface);
 
         $user = new User();
@@ -141,15 +136,9 @@ class DemoteUserCommandTest extends KernelTestCase
         return $user;
     }
 
-    /**
-     * @psalm-suppress UndefinedPropertyFetch
-     */
     private function refreshUser(UserInterface $user): UserInterface
     {
-        // TODO: Simplify this when dropping support for Symfony 4.
-        // @phpstan-ignore-next-line
-        $container = method_exists(static::class, 'getContainer') ? static::getContainer() : static::$container;
-        $manager = $container->get('doctrine.orm.entity_manager');
+        $manager = static::getContainer()->get('doctrine.orm.entity_manager');
         \assert($manager instanceof EntityManagerInterface);
 
         $user = $manager->find(User::class, $user->getId());

@@ -60,15 +60,9 @@ class ChangePasswordCommandTest extends KernelTestCase
         static::assertStringContainsString('Changed password for user "sonata-user-test".', $this->commandTester->getDisplay());
     }
 
-    /**
-     * @psalm-suppress UndefinedPropertyFetch
-     */
     private function prepareData(string $username, string $password): UserInterface
     {
-        // TODO: Simplify this when dropping support for Symfony 4.
-        // @phpstan-ignore-next-line
-        $container = method_exists(static::class, 'getContainer') ? static::getContainer() : static::$container;
-        $manager = $container->get('doctrine.orm.entity_manager');
+        $manager = static::getContainer()->get('doctrine.orm.entity_manager');
         \assert($manager instanceof EntityManagerInterface);
 
         $user = new User();
@@ -86,15 +80,9 @@ class ChangePasswordCommandTest extends KernelTestCase
         return $user;
     }
 
-    /**
-     * @psalm-suppress UndefinedPropertyFetch
-     */
     private function refreshUser(UserInterface $user): UserInterface
     {
-        // TODO: Simplify this when dropping support for Symfony 4.
-        // @phpstan-ignore-next-line
-        $container = method_exists(static::class, 'getContainer') ? static::getContainer() : static::$container;
-        $manager = $container->get('doctrine.orm.entity_manager');
+        $manager = static::getContainer()->get('doctrine.orm.entity_manager');
         \assert($manager instanceof EntityManagerInterface);
 
         $user = $manager->find(User::class, $user->getId());

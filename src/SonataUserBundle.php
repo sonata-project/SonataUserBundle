@@ -15,6 +15,7 @@ namespace Sonata\UserBundle;
 
 use Sonata\UserBundle\DependencyInjection\Compiler\GlobalVariablesCompilerPass;
 use Sonata\UserBundle\DependencyInjection\Compiler\RolesMatrixCompilerPass;
+use Sonata\UserBundle\DependencyInjection\Compiler\ValidationCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -24,5 +25,6 @@ final class SonataUserBundle extends Bundle
     {
         $container->addCompilerPass(new GlobalVariablesCompilerPass());
         $container->addCompilerPass(new RolesMatrixCompilerPass());
+        $container->addCompilerPass(new ValidationCompilerPass());
     }
 }

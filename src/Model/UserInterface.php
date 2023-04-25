@@ -14,9 +14,10 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Model;
 
 use Symfony\Component\Security\Core\User\EquatableInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface as SymfonyUserInterface;
 
-interface UserInterface extends SymfonyUserInterface, EquatableInterface, BCPasswordAuthenticatedUserInterface
+interface UserInterface extends SymfonyUserInterface, EquatableInterface, PasswordAuthenticatedUserInterface
 {
     public const ROLE_DEFAULT = 'ROLE_USER';
     public const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
@@ -49,7 +50,7 @@ interface UserInterface extends SymfonyUserInterface, EquatableInterface, BCPass
     public function setPassword(?string $password): void;
 
     /**
-     * TODO: Remove this method when dropping support for Symfony 4.
+     * TODO: Remove this method when dropping support for Symfony 5.
      */
     public function getPassword(): ?string;
 
