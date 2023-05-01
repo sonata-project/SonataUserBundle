@@ -33,6 +33,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 - [[#1606](https://github.com/sonata-project/SonataUserBundle/pull/1606)] Support for `doctrine/persistence` 2.x ([@jordisala1991](https://github.com/jordisala1991))
+- [[#1596](https://github.com/sonata-project/SonataUserBundle/pull/1596)] Support for PHP 7.4 ([@SonataCI](https://github.com/SonataCI))
+- [[#1596](https://github.com/sonata-project/SonataUserBundle/pull/1596)] Support for Symfony 6.0 and 6.1 ([@SonataCI](https://github.com/SonataCI))
 
 ## [5.5.0](https://github.com/sonata-project/SonataUserBundle/compare/5.4.0...5.5.0) - 2023-02-06
 ### Changed
