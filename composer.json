@@ -84,6 +84,8 @@
         "sonata-project/admin-bundle": "For admin dashboard to manage users and other entities",
         "sonata-project/doctrine-orm-admin-bundle": "For persisting entities"
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "Sonata\\UserBundle\\": "src/"
