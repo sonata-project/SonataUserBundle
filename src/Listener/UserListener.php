@@ -84,10 +84,12 @@ final class UserListener implements EventSubscriber
         $meta = $om->getClassMetadata($user::class);
 
         if ($om instanceof EntityManager) {
+            /** @phpstan-var ORMClassMetadata<UserInterface> $meta */
             \assert($meta instanceof ORMClassMetadata);
 
             $om->getUnitOfWork()->recomputeSingleEntityChangeSet($meta, $user);
         } elseif ($om instanceof DocumentManager) {
+            /** @phpstan-var ODMClassMetadata<UserInterface> $meta */
             \assert($meta instanceof ODMClassMetadata);
 
             $om->getUnitOfWork()->recomputeSingleDocumentChangeSet($meta, $user);
