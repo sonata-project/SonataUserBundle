@@ -36,22 +36,20 @@ How to exclude an admin
 
 You can set the ``show_in_roles_matrix`` option to ``false``, like this:
 
-.. configuration-block::
+.. code-block:: yaml
 
-    .. code-block:: yaml
+    # config/services.yaml
 
-        # config/services.yaml
-
-        services:
-            app.admin.post:
-                class: App\Admin\PostAdmin
-                tags:
-                    -
-                        name: sonata.admin
-                        model_class: App\Entity\Post
-                        manager_type: orm
-                        label: 'Post'
-                        show_in_roles_matrix: false
+    services:
+        app.admin.post:
+            class: App\Admin\PostAdmin
+            tags:
+                -
+                    name: sonata.admin
+                    model_class: App\Entity\Post
+                    manager_type: orm
+                    label: 'Post'
+                    show_in_roles_matrix: false
 
 How to exclude roles
 --------------------
