@@ -28,7 +28,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ])
 
         ->set('sonata.user.listener.user', UserListener::class)
-            ->tag('doctrine_mongodb.odm.event_subscriber')
+            ->tag('doctrine_mongodb.odm.event_listener', [
+                'event' => 'prePersist',
+            ])
+            ->tag('doctrine_mongodb.odm.event_listener', [
+                'event' => 'preUpdate',
+            ])
             ->args([
                 service('sonata.user.util.canonical_fields_updater'),
                 service('sonata.user.manager.user'),
