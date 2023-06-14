@@ -27,6 +27,8 @@ use Sonata\UserBundle\Util\CanonicalFieldsUpdaterInterface;
 
 /**
  * @internal
+ *
+ * NEXT_MAJOR: do not implement EventSubscriber interface anymore
  */
 final class UserListener implements EventSubscriber
 {
@@ -36,6 +38,9 @@ final class UserListener implements EventSubscriber
     ) {
     }
 
+    /**
+     * NEXT_MAJOR: remove this method.
+     */
     public function getSubscribedEvents(): array
     {
         return [
