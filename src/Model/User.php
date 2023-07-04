@@ -13,9 +13,10 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Model;
 
+use Symfony\Component\Security\Core\User\LegacyPasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface as SymfonyUserInterface;
 
-abstract class User implements UserInterface, \Stringable
+abstract class User implements LegacyPasswordAuthenticatedUserInterface, UserInterface, \Stringable
 {
     /**
      * @var int|string|null
