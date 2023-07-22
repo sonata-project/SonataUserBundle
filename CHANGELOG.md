@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [5.10.0](https://github.com/sonata-project/SonataUserBundle/compare/5.9.0...5.10.0) - 2023-07-22
+### Changed
+- [[#1653](https://github.com/sonata-project/SonataUserBundle/pull/1653)] User implements LegacyPasswordAuthenticatedUserInterface ([@Hanmac](https://github.com/Hanmac))
+
+### Fixed
+- [[#1651](https://github.com/sonata-project/SonataUserBundle/pull/1651)] Deprecation of Event Subscribers on Symfony 6.3. The UserListener now uses Event Listeners ([@Hanmac](https://github.com/Hanmac))
+
 ## [5.9.0](https://github.com/sonata-project/SonataUserBundle/compare/5.8.0...5.9.0) - 2023-06-03
 ### Added
 - [[#1646](https://github.com/sonata-project/SonataUserBundle/pull/1646)] Support for SonataBlockBundle 5.0 ([@jordisala1991](https://github.com/jordisala1991))
