@@ -80,9 +80,6 @@ final class AppKernel extends Kernel
         $routes->import(__DIR__.'/config/routes.yaml');
     }
 
-    /**
-     * @psalm-suppress DeprecatedClass
-     */
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
     {
         $loader->load(__DIR__.'/config/config.yaml');
@@ -91,6 +88,9 @@ final class AppKernel extends Kernel
             $loader->load(__DIR__.'/config/config_sf5.yaml');
         }
 
+        /*
+         * TODO: Remove when dropping support for sonatablock 4
+         */
         if (class_exists(HttpCacheHandler::class)) {
             $loader->load(__DIR__.'/config/config_sonata_block_v4.yaml');
         }
