@@ -68,7 +68,7 @@ final class MailerTest extends TestCase
     }
 
     /**
-     * @dataProvider emailTemplateData
+     * @dataProvider provideSendResettingEmailMessageCases
      */
     public function testSendResettingEmailMessage(string $template, string $subject, string $body): void
     {
@@ -111,15 +111,13 @@ final class MailerTest extends TestCase
      *
      * @phpstan-return iterable<array{string, string, string}>
      */
-    public function emailTemplateData(): iterable
+    public function provideSendResettingEmailMessageCases(): iterable
     {
-        return [
-            'CR' => ["Subject\rFirst line\rSecond line", 'Subject', "First line\rSecond line"],
-            'LF' => ["Subject\nFirst line\nSecond line", 'Subject', "First line\nSecond line"],
-            'CRLF' => ["Subject\r\nFirst line\r\nSecond line", 'Subject', "First line\r\nSecond line"],
-            'LFLF' => ["Subject\n\nFirst line\n\nSecond line", 'Subject', "\nFirst line\n\nSecond line"],
-            'CRCR' => ["Subject\r\rFirst line\r\rSecond line", 'Subject', "\rFirst line\r\rSecond line"],
-        ];
+        yield 'CR' => ["Subject\rFirst line\rSecond line", 'Subject', "First line\rSecond line"];
+        yield 'LF' => ["Subject\nFirst line\nSecond line", 'Subject', "First line\nSecond line"];
+        yield 'CRLF' => ["Subject\r\nFirst line\r\nSecond line", 'Subject', "First line\r\nSecond line"];
+        yield 'LFLF' => ["Subject\n\nFirst line\n\nSecond line", 'Subject', "\nFirst line\n\nSecond line"];
+        yield 'CRCR' => ["Subject\r\rFirst line\r\rSecond line", 'Subject', "\rFirst line\r\rSecond line"];
     }
 
     private function getMailer(): Mailer

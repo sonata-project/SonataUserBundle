@@ -134,7 +134,7 @@ final class LoginActionTest extends TestCase
     }
 
     /**
-     * @dataProvider unauthenticatedProvider
+     * @dataProvider provideUnauthenticatedCases
      */
     public function testUnauthenticated(string $lastUsername, ?AuthenticationException $errorMessage = null): void
     {
@@ -208,14 +208,11 @@ final class LoginActionTest extends TestCase
      *
      * @phpstan-return iterable<array{string, AuthenticationException|null}>
      */
-    public function unauthenticatedProvider(): iterable
+    public function provideUnauthenticatedCases(): iterable
     {
         $error = new AuthenticationException('An error');
-
-        return [
-            ['', null],
-            ['FooUser', $error],
-        ];
+        yield ['', null];
+        yield ['FooUser', $error];
     }
 
     private function getAction(): LoginAction
