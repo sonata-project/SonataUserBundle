@@ -54,7 +54,7 @@ final class UserAdminTest extends WebTestCase
     }
 
     /**
-     * @dataProvider provideFormUrlsCases
+     * @dataProvider provideFormsUrlsCases
      *
      * @param array<string, mixed> $parameters
      * @param array<string, mixed> $fieldValues
@@ -77,7 +77,7 @@ final class UserAdminTest extends WebTestCase
      *
      * @phpstan-return iterable<array{0: string, 1: array<string, mixed>, 2: string, 3?: array<string, mixed>}>
      */
-    public static function provideFormUrlsCases(): iterable
+    public static function provideFormsUrlsCases(): iterable
     {
         yield 'Create User' => ['/admin/tests/app/user/create', [
             'uniqid' => 'user',
