@@ -58,6 +58,8 @@ final class RolesMatrixTypeTest extends TypeTestCase
         $choices = $options['choices'];
         static::assertCount(2, $choices);
         static::assertNotContains(UserInterface::ROLE_DEFAULT, $choices);
+        static::assertTrue($options['expanded']);
+        static::assertTrue($options['multiple']);
     }
 
     public function testDifferentExcludedRoles(): void
