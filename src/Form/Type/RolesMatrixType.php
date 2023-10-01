@@ -35,6 +35,7 @@ final class RolesMatrixType extends AbstractType
     {
         $resolver->setDefaults([
             'expanded' => true,
+            'multiple' => true,
             'choices' => function (Options $options, ?array $parentChoices): array {
                 if (null !== $parentChoices && [] !== $parentChoices) {
                     return [];
