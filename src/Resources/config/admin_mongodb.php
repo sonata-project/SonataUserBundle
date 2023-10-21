@@ -27,6 +27,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'label_translator_strategy' => 'sonata.admin.label.strategy.underscore',
                 'icon' => '<i class=\'fa fa-users\'></i>',
             ])
+            ->autowire(true)
+            ->autoconfigure(true)
             ->args([
                 service('sonata.user.manager.user'),
             ]);
