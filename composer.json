@@ -72,7 +72,7 @@
         "symfony/console": "^5.4 || ^6.2 || ^7.0",
         "symfony/filesystem": "^5.4 || ^6.2 || ^7.0",
         "symfony/intl": "^5.4 || ^6.2 || ^7.0",
-        "symfony/phpunit-bridge": " ^6.2 || ^7.0",
+        "symfony/phpunit-bridge": "^6.2 || ^7.0",
         "vimeo/psalm": "^5.0"
     },
     "conflict": {
