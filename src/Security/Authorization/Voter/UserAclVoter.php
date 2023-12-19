@@ -36,8 +36,6 @@ final class UserAclVoter extends AclVoter
     /**
      * @param mixed   $subject
      * @param mixed[] $attributes
-     *
-     * @return self::ACCESS_*
      */
     public function vote(TokenInterface $token, $subject, array $attributes): int
     {
