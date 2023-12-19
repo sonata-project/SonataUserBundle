@@ -20,6 +20,9 @@ use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
+/**
+ * @phpstan-implements UserProviderInterface<UserInterface>
+ */
 final class UserProvider implements UserProviderInterface
 {
     public function __construct(private UserManagerInterface $userManager)
