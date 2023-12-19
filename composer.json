@@ -48,7 +48,7 @@
         "twig/twig": "^3.0"
     },
     "require-dev": {
-        "dama/doctrine-test-bundle": "^7.0 || ^8.0",
+        "dama/doctrine-test-bundle": "^8.0",
         "doctrine/doctrine-bundle": "^2.7",
         "doctrine/mongodb-odm": "^2.3",
         "doctrine/orm": "^2.14",
