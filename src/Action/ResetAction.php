@@ -70,8 +70,8 @@ final class ResetAction
             /**
              * TODO: Use instanceof FlashBagAwareSessionInterface when dropping Symfony 5 support.
              *
-             * @phpstan-ignore-next-line
              * @psalm-suppress UndefinedInterfaceMethod
+             * @phpstan-ignore-next-line
              */
             $request->getSession()->getFlashBag()->add(
                 'success',
