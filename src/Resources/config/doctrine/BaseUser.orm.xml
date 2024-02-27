@@ -11,7 +11,7 @@
         <field name="lastLogin" column="last_login" type="datetime" nullable="true"/>
         <field name="confirmationToken" column="confirmation_token" type="string" length="180" unique="true" nullable="true"/>
         <field name="passwordRequestedAt" column="password_requested_at" type="datetime" nullable="true"/>
-        <field name="roles" column="roles" type="array"/>
+        <field name="roles" column="roles" type="json"/>
         <field name="createdAt" type="datetime" column="created_at"/>
         <field name="updatedAt" type="datetime" column="updated_at"/>
         <lifecycle-callbacks>
