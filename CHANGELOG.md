@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [5.11.0](https://github.com/sonata-project/SonataUserBundle/compare/5.10.0...5.11.0) - 2024-03-08
+### Added
+- [[#1661](https://github.com/sonata-project/SonataUserBundle/pull/1661)] Default value `true` for the "multiple" option at `RolesMatrixType` form type ([@phansys](https://github.com/phansys))
+
+### Changed
+- [[#1661](https://github.com/sonata-project/SonataUserBundle/pull/1661)] `RolesMatrixType` form type allows multiple values by default ([@phansys](https://github.com/phansys))
+
 ## [5.10.0](https://github.com/sonata-project/SonataUserBundle/compare/5.9.0...5.10.0) - 2023-07-22
 ### Changed
 - [[#1653](https://github.com/sonata-project/SonataUserBundle/pull/1653)] User implements LegacyPasswordAuthenticatedUserInterface ([@Hanmac](https://github.com/Hanmac))
