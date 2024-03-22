@@ -154,7 +154,7 @@ final class RolesMatrixTypeTest extends TypeTestCase
         $childType = new RolesMatrixType($this->roleBuilder);
 
         return [new PreloadedExtension([
-          $childType,
+            $childType,
         ], [])];
     }
 }
