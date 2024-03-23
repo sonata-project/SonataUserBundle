@@ -14,10 +14,10 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Security\Authorization\Voter;
 
 use Sonata\UserBundle\Model\UserInterface;
-use Symfony\Component\Security\Acl\Voter\AclVoter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
-final class UserAclVoter extends AclVoter
+final class UserAclVoter implements VoterInterface
 {
     public function supportsClass($class): bool
     {
@@ -34,12 +34,11 @@ final class UserAclVoter extends AclVoter
     }
 
     /**
-     * @param mixed   $subject
      * @param mixed[] $attributes
      *
      * @return self::ACCESS_ABSTAIN|self::ACCESS_DENIED
      */
-    public function vote(TokenInterface $token, $subject, array $attributes): int
+    public function vote(TokenInterface $token, mixed $subject, array $attributes): int
     {
         if (!\is_object($subject) || !$this->supportsClass($subject::class)) {
             return self::ACCESS_ABSTAIN;
