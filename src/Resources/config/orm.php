@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use Sonata\UserBundle\Entity\UserManager;
+use Sonata\UserBundle\Listener\DoctrineMappingListener;
 use Sonata\UserBundle\Listener\UserListener;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
@@ -37,5 +38,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ->args([
                 service('sonata.user.util.canonical_fields_updater'),
                 service('sonata.user.manager.user'),
+            ])
+
+        ->set('sonata.user.doctrine.mapping_listener', DoctrineMappingListener::class)
+            ->tag('doctrine.event_listener', [
+                'event' => 'loadClassMetadata',
+            ])
+            ->args([
+                param('sonata.user.user.class'),
             ]);
 };

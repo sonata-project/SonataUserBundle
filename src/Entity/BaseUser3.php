@@ -13,18 +13,10 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Entity;
 
-use Sonata\UserBundle\Model\User as AbstractedUser;
-
-class BaseUser3 extends AbstractedUser
+/**
+ * This class is used to avoid error for users that have installed the version
+ * 5.12.0 of the SonataUserBundle and have not updated the User class.
+ */
+class BaseUser3 extends BaseUser
 {
-    public function prePersist(): void
-    {
-        $this->createdAt = new \DateTime();
-        $this->updatedAt = new \DateTime();
-    }
-
-    public function preUpdate(): void
-    {
-        $this->updatedAt = new \DateTime();
-    }
 }
