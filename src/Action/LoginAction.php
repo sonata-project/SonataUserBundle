@@ -36,7 +36,8 @@ final class LoginAction
         private TemplateRegistryInterface $templateRegistry,
         private TokenStorageInterface $tokenStorage,
         private TranslatorInterface $translator,
-        private ?CsrfTokenManagerInterface $csrfTokenManager = null
+        private ?CsrfTokenManagerInterface $csrfTokenManager = null,
+        private bool $resetMail = true
     ) {
     }
 
@@ -68,7 +69,7 @@ final class LoginAction
             'csrf_token' => $csrfToken,
             'error' => $this->authenticationUtils->getLastAuthenticationError(),
             'last_username' => $this->authenticationUtils->getLastUsername(),
-            'reset_route' => $this->urlGenerator->generate('sonata_user_admin_resetting_request'),
+            'reset_route' => $this->resetMail ? $this->urlGenerator->generate('sonata_user_admin_resetting_request') : null,
         ]));
     }
 
