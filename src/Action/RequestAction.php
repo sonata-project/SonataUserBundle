@@ -66,9 +66,7 @@ final class RequestAction
                 $this->userManager->save($user);
             }
 
-            return new RedirectResponse($this->urlGenerator->generate('sonata_user_admin_resetting_check_email', [
-                'username' => $username,
-            ]));
+            return new RedirectResponse($this->urlGenerator->generate('sonata_user_admin_resetting_check_email'));
         }
 
         return new Response($this->twig->render('@SonataUser/Admin/Security/Resetting/request.html.twig', [
