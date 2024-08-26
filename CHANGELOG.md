@@ -2,6 +2,16 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [5.13.0](https://github.com/sonata-project/SonataUserBundle/compare/5.12.0...5.13.0) - 2024-08-26
+### Changed
+- [[#1576](https://github.com/sonata-project/SonataUserBundle/pull/1576)] Make Reset Password Optional ([@Hanmac](https://github.com/Hanmac))
+
+### Fixed
+- [[#1689](https://github.com/sonata-project/SonataUserBundle/pull/1689)] Symfony 7.1 deprecation about `Symfony\Component\HttpKernel\DependencyInjection\Extension` usage ([@VincentLanglet](https://github.com/VincentLanglet))
+
+### Removed
+- [[#1695](https://github.com/sonata-project/SonataUserBundle/pull/1695)] After requesting new passwort the username isn't passed to CheckEmailAction anymode ([@VincentLanglet](https://github.com/VincentLanglet))
+
 ## [5.12.0](https://github.com/sonata-project/SonataUserBundle/compare/5.11.0...5.12.0) - 2024-04-18
 ### Added
 - [[#1677](https://github.com/sonata-project/SonataUserBundle/pull/1677)] BaseUser3 with roles mapped type as `json` to be compatible with ORM 3 ([@RobinDev](https://github.com/RobinDev))
