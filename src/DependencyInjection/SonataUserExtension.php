@@ -121,7 +121,7 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
             ->replaceArgument(9, $config['retry_ttl']);
 
         $container->getDefinition('sonata.user.action.check_email')
-            ->replaceArgument(4, $config['token_ttl']);
+            ->replaceArgument(3, $config['token_ttl']);
 
         $container->getDefinition('sonata.user.action.reset')
             ->replaceArgument(8, $config['token_ttl']);
