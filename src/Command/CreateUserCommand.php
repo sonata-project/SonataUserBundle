@@ -77,7 +77,7 @@ final class CreateUserCommand extends Command
 
         $this->userManager->save($user);
 
-        $output->writeln(sprintf('Created user "%s".', $username));
+        $output->writeln(\sprintf('Created user "%s".', $username));
 
         return 0;
     }

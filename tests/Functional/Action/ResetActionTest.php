@@ -39,7 +39,7 @@ final class ResetActionTest extends WebTestCase
 
         static::assertSame($user->getPassword(), 'random_password');
 
-        $client->request('GET', sprintf('/reset/%s', $confirmationToken));
+        $client->request('GET', \sprintf('/reset/%s', $confirmationToken));
 
         static::assertResponseIsSuccessful();
 
@@ -62,7 +62,7 @@ final class ResetActionTest extends WebTestCase
 
         static::assertSame($user->getPassword(), 'random_password');
 
-        $client->request('GET', sprintf('/reset/%s', $confirmationToken));
+        $client->request('GET', \sprintf('/reset/%s', $confirmationToken));
 
         $client->submitForm('submit', [
             'resetting_form[plainPassword][first]' => 'new_password',

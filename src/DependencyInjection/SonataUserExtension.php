@@ -48,11 +48,11 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
 
         if (isset($bundles['SonataAdminBundle'])) {
             $loader->load('admin.php');
-            $loader->load(sprintf('admin_%s.php', $config['manager_type']));
+            $loader->load(\sprintf('admin_%s.php', $config['manager_type']));
             $loader->load('actions.php');
         }
 
-        $loader->load(sprintf('%s.php', $config['manager_type']));
+        $loader->load(\sprintf('%s.php', $config['manager_type']));
         $container->setParameter('sonata.user.manager_type', $config['manager_type']);
 
         $loader->load('twig.php');
@@ -139,7 +139,7 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
         $managerType = $config['manager_type'];
 
         if (!\in_array($managerType, ['orm', 'mongodb'], true)) {
-            throw new \InvalidArgumentException(sprintf('Invalid manager type "%s".', $managerType));
+            throw new \InvalidArgumentException(\sprintf('Invalid manager type "%s".', $managerType));
         }
 
         $this->prohibitModelTypeMapping(
@@ -162,7 +162,7 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
     ): void {
         if (is_a($actualModelClass, $prohibitedModelClass, true)) {
             throw new \InvalidArgumentException(
-                sprintf(
+                \sprintf(
                     'Model class "%s" does not correspond to manager type "%s".',
                     $actualModelClass,
                     $managerType

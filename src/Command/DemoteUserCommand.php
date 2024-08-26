@@ -67,19 +67,19 @@ final class DemoteUserCommand extends Command
         $user = $this->userManager->findUserByUsername($username);
 
         if (null === $user) {
-            throw new \InvalidArgumentException(sprintf('User identified by "%s" username does not exist.', $username));
+            throw new \InvalidArgumentException(\sprintf('User identified by "%s" username does not exist.', $username));
         }
 
         if ($superAdmin) {
             $user->setSuperAdmin(false);
 
-            $output->writeln(sprintf('User "%s" has been demoted as a simple user. This change will not apply until the user logs out and back in again.', $username));
+            $output->writeln(\sprintf('User "%s" has been demoted as a simple user. This change will not apply until the user logs out and back in again.', $username));
         } elseif ($user->hasRole($role)) {
             $user->removeRole($role);
 
-            $output->writeln(sprintf('Role "%s" has been removed from user "%s". This change will not apply until the user logs out and back in again.', $role, $username));
+            $output->writeln(\sprintf('Role "%s" has been removed from user "%s". This change will not apply until the user logs out and back in again.', $role, $username));
         } else {
-            $output->writeln(sprintf('User "%s" didn\'t have "%s" role.', $username, $role));
+            $output->writeln(\sprintf('User "%s" didn\'t have "%s" role.', $username, $role));
         }
 
         $this->userManager->save($user);

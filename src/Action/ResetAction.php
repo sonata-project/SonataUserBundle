@@ -51,7 +51,7 @@ final class ResetAction
         $user = $this->userManager->findUserByConfirmationToken($token);
 
         if (null === $user) {
-            throw new NotFoundHttpException(sprintf('The user with "confirmation token" does not exist for value "%s"', $token));
+            throw new NotFoundHttpException(\sprintf('The user with "confirmation token" does not exist for value "%s"', $token));
         }
 
         if (!$user->isPasswordRequestNonExpired($this->tokenTtl)) {

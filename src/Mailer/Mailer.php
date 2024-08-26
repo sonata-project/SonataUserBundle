@@ -55,7 +55,7 @@ final class Mailer implements MailerInterface
 
         $this->mailer->send(
             (new Email())
-                ->from(sprintf('%s <%s>', $fromName, $fromAddress))
+                ->from(\sprintf('%s <%s>', $fromName, $fromAddress))
                 ->to((string) $user->getEmail())
                 ->subject($subject)
                 ->html($body)

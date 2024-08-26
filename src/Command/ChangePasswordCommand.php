@@ -56,7 +56,7 @@ final class ChangePasswordCommand extends Command
         $user = $this->userManager->findUserByUsername($username);
 
         if (null === $user) {
-            throw new \InvalidArgumentException(sprintf('User identified by "%s" username does not exist.', $username));
+            throw new \InvalidArgumentException(\sprintf('User identified by "%s" username does not exist.', $username));
         }
 
         $user->setPlainPassword($password);
@@ -64,7 +64,7 @@ final class ChangePasswordCommand extends Command
         $this->userManager->updatePassword($user);
         $this->userManager->save($user);
 
-        $output->writeln(sprintf('Changed password for user "%s".', $username));
+        $output->writeln(\sprintf('Changed password for user "%s".', $username));
 
         return 0;
     }
