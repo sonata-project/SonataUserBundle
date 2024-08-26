@@ -238,7 +238,7 @@ final class RequestActionTest extends TestCase
 
         $this->urlGenerator->method('generate')->with(
             'sonata_user_admin_resetting_check_email',
-            ['username' => 'bar'],
+            [],
         )->willReturn('/check-email');
 
         $action = $this->getAction();
