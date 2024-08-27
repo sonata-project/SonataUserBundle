@@ -53,14 +53,14 @@ final class DeactivateUserCommand extends Command
         $user = $this->userManager->findUserByUsername($username);
 
         if (null === $user) {
-            throw new \InvalidArgumentException(sprintf('User identified by "%s" username does not exist.', $username));
+            throw new \InvalidArgumentException(\sprintf('User identified by "%s" username does not exist.', $username));
         }
 
         $user->setEnabled(false);
 
         $this->userManager->save($user);
 
-        $output->writeln(sprintf('User "%s" has been activated.', $username));
+        $output->writeln(\sprintf('User "%s" has been activated.', $username));
 
         return 0;
     }

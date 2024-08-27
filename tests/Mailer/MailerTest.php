@@ -94,7 +94,7 @@ final class MailerTest extends TestCase
         $fromAddress = current(array_keys($this->emailFrom));
 
         $email = (new Email())
-            ->from(sprintf('%s <%s>', $fromName, $fromAddress))
+            ->from(\sprintf('%s <%s>', $fromName, $fromAddress))
             ->to((string) $user->getEmail())
             ->subject($subject)
             ->html($body);

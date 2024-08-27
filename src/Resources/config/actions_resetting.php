@@ -39,7 +39,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->public()
         ->args([
             service('twig'),
-            service('router'),
             service('sonata.admin.pool'),
             service('sonata.admin.global_template_registry'),
             abstract_arg('token ttl'),
