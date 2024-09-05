@@ -89,7 +89,7 @@ abstract class User implements LegacyPasswordAuthenticatedUserInterface, UserInt
             $this->enabled,
             $this->id,
             $this->email,
-            $this->emailCanonical
+            $this->emailCanonical,
         ] = $data;
     }
 

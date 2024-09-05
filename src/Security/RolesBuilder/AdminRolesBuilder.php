@@ -35,7 +35,7 @@ final class AdminRolesBuilder implements AdminRolesBuilderInterface
         private AuthorizationCheckerInterface $authorizationChecker,
         private Pool $pool,
         private SonataConfiguration $configuration,
-        private TranslatorInterface $translator
+        private TranslatorInterface $translator,
     ) {
     }
 

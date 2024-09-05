@@ -31,7 +31,7 @@ final class SecurityRolesBuilder implements ExpandableRolesBuilderInterface
         private AuthorizationCheckerInterface $authorizationChecker,
         private SonataConfiguration $configuration,
         private TranslatorInterface $translator,
-        private array $rolesHierarchy = []
+        private array $rolesHierarchy = [],
     ) {
     }
 

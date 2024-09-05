@@ -29,7 +29,7 @@ final class Mailer implements MailerInterface
         private Environment $twig,
         private SymfonyMailerInterface $mailer,
         private array $fromEmail,
-        private string $emailTemplate
+        private string $emailTemplate,
     ) {
     }
 

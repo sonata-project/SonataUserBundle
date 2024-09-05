@@ -158,7 +158,7 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
     private function prohibitModelTypeMapping(
         string $actualModelClass,
         string $prohibitedModelClass,
-        string $managerType
+        string $managerType,
     ): void {
         if (is_a($actualModelClass, $prohibitedModelClass, true)) {
             throw new \InvalidArgumentException(
