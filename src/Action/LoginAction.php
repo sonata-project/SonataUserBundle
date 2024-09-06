@@ -37,7 +37,7 @@ final class LoginAction
         private TokenStorageInterface $tokenStorage,
         private TranslatorInterface $translator,
         private ?CsrfTokenManagerInterface $csrfTokenManager = null,
-        private bool $resetMail = true
+        private bool $resetMail = true,
     ) {
     }
 

@@ -38,7 +38,7 @@ final class ResetAction
         private FormFactoryInterface $formFactory,
         private UserManagerInterface $userManager,
         private TranslatorInterface $translator,
-        private int $tokenTtl
+        private int $tokenTtl,
     ) {
     }
 

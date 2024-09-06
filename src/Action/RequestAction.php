@@ -39,7 +39,7 @@ final class RequestAction
         private UserManagerInterface $userManager,
         private MailerInterface $mailer,
         private TokenGeneratorInterface $tokenGenerator,
-        private int $retryTtl
+        private int $retryTtl,
     ) {
     }
 
