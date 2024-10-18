@@ -29,7 +29,7 @@ final class GlobalVariables
         private string $defaultAvatar,
         private bool $impersonatingEnabled,
         private string $impersonatingRoute,
-        private array $impersonatingRouteParameters = []
+        private array $impersonatingRouteParameters = [],
     ) {
     }
 

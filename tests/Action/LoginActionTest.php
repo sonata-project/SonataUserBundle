@@ -126,7 +126,7 @@ final class LoginActionTest extends TestCase
             ->with('sonata_admin_dashboard')
             ->willReturn('/foo');
 
-        $action = $this->getAction();
+        $action = $this->getAction(true);
         $result = $action($request);
 
         static::assertInstanceOf(RedirectResponse::class, $result);
@@ -136,7 +136,7 @@ final class LoginActionTest extends TestCase
     /**
      * @dataProvider provideUnauthenticatedCases
      */
-    public function testUnauthenticated(string $lastUsername, ?AuthenticationException $errorMessage = null): void
+    public function testUnauthenticated(string $lastUsername, ?AuthenticationException $errorMessage = null, bool $resetting = true): void
     {
         $session = $this->createMock(Session::class);
         $sessionParameters = [
@@ -162,7 +162,7 @@ final class LoginActionTest extends TestCase
             'csrf_token' => 'csrf-token',
             'error' => $errorMessage,
             'last_username' => $lastUsername,
-            'reset_route' => '/foo',
+            'reset_route' => $resetting ? '/foo' : null,
         ];
 
         $csrfToken = $this->createMock(CsrfToken::class);
@@ -175,6 +175,7 @@ final class LoginActionTest extends TestCase
             ->willReturn(null);
 
         $this->urlGenerator
+            ->expects($resetting ? static::once() : static::never())
             ->method('generate')
             ->with('sonata_user_admin_resetting_request')
             ->willReturn('/foo');
@@ -197,7 +198,7 @@ final class LoginActionTest extends TestCase
             ->with('@SonataUser/Admin/Security/login.html.twig', $parameters)
             ->willReturn('template content');
 
-        $action = $this->getAction();
+        $action = $this->getAction($resetting);
         $result = $action($request);
 
         static::assertSame('template content', $result->getContent());
@@ -206,16 +207,18 @@ final class LoginActionTest extends TestCase
     /**
      * @return iterable<mixed[]>
      *
-     * @phpstan-return iterable<array{string, AuthenticationException|null}>
+     * @phpstan-return iterable<array{string, AuthenticationException|null, boolean}>
      */
     public function provideUnauthenticatedCases(): iterable
     {
         $error = new AuthenticationException('An error');
-        yield ['', null];
-        yield ['FooUser', $error];
+        yield ['', null, true];
+        yield ['FooUser', $error, true];
+        yield ['', null, false];
+        yield ['FooUser', $error, false];
     }
 
-    private function getAction(): LoginAction
+    private function getAction(bool $resetting): LoginAction
     {
         return new LoginAction(
             $this->templating,
@@ -225,7 +228,8 @@ final class LoginActionTest extends TestCase
             $this->templateRegistry,
             $this->tokenStorage,
             $this->translator,
-            $this->csrfTokenManager
+            $this->csrfTokenManager,
+            $resetting,
         );
     }
 }

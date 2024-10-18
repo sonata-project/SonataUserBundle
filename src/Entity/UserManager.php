@@ -34,7 +34,7 @@ final class UserManager extends BaseEntityManager implements UserManagerInterfac
         string $class,
         ManagerRegistry $registry,
         private CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater,
-        private UserPasswordHasherInterface $userPasswordHasher
+        private UserPasswordHasherInterface $userPasswordHasher,
     ) {
         parent::__construct($class, $registry);
     }

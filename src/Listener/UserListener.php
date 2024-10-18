@@ -34,7 +34,7 @@ final class UserListener implements EventSubscriber
 {
     public function __construct(
         private CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater,
-        private UserManagerInterface $userManager
+        private UserManagerInterface $userManager,
     ) {
     }
 

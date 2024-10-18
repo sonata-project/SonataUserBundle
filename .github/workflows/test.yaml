@@ -39,6 +39,7 @@ jobs:
                     - '8.0'
                     - '8.1'
                     - '8.2'
+                    - '8.3'
                 dependencies: [highest]
                 allowed-to-fail: [false]
                 symfony-require: ['']
@@ -48,17 +49,17 @@ jobs:
                       dependencies: lowest
                       allowed-to-fail: false
                       variant: normal
-                    - php-version: '8.2'
+                    - php-version: '8.3'
                       dependencies: highest
                       allowed-to-fail: false
                       symfony-require: 5.4.*
                       variant: symfony/symfony:"5.4.*"
-                    - php-version: '8.2'
+                    - php-version: '8.3'
                       dependencies: highest
                       allowed-to-fail: false
                       symfony-require: 6.3.*
                       variant: symfony/symfony:"6.3.*"
-                    - php-version: '8.2'
+                    - php-version: '8.3'
                       dependencies: highest
                       allowed-to-fail: false
                       symfony-require: 6.4.*
@@ -71,31 +72,25 @@ jobs:
 
         steps:
             - name: Checkout
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
 
             - name: Install PHP with extensions
               uses: shivammathur/setup-php@v2
               with:
                   php-version: ${{ matrix.php-version }}
                   coverage: pcov
-                  tools: composer:v2
+                  tools: composer:v2, flex
                   extensions: mongodb
 
             - name: Add PHPUnit matcher
               run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
-
-            - name: Globally install symfony/flex
-              if: matrix.symfony-require != ''
-              run: |
-                  composer global config --no-plugins allow-plugins.symfony/flex true
-                  composer global require --no-progress --no-scripts --no-plugins symfony/flex
 
             - name: Install variant
               if: matrix.variant != 'normal' && !startsWith(matrix.variant, 'symfony/symfony')
               run: composer require ${{ matrix.variant }} --no-update
 
             - name: Install Composer dependencies (${{ matrix.dependencies }})
-              uses: ramsey/composer-install@v2
+              uses: ramsey/composer-install@v3
               with:
                   dependency-versions: ${{ matrix.dependencies }}
 
@@ -103,6 +98,6 @@ jobs:
               run: make coverage
 
             - name: Send coverage to Codecov
-              uses: codecov/codecov-action@v3
+              uses: codecov/codecov-action@v4
               with:
                   files: build/logs/clover.xml

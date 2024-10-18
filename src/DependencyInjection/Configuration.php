@@ -103,7 +103,6 @@ final class Configuration implements ConfigurationInterface
         $node
             ->children()
                 ->arrayNode('resetting')
-                    ->isRequired()
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->integerNode('retry_ttl')->defaultValue(7200)->end()
@@ -113,8 +112,8 @@ final class Configuration implements ConfigurationInterface
                             ->addDefaultsIfNotSet()
                             ->children()
                                 ->scalarNode('template')->cannotBeEmpty()->defaultValue('@SonataUser/Admin/Security/Resetting/email.html.twig')->end()
-                                ->scalarNode('address')->isRequired()->cannotBeEmpty()->end()
-                                ->scalarNode('sender_name')->isRequired()->cannotBeEmpty()->end()
+                                ->scalarNode('address')->cannotBeEmpty()->end()
+                                ->scalarNode('sender_name')->cannotBeEmpty()->end()
                             ->end()
                         ->end()
                     ->end()

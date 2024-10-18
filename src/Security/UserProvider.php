@@ -42,7 +42,7 @@ final class UserProvider implements UserProviderInterface
         $user = $this->findUser($identifier);
 
         if (null === $user || !$user->isEnabled()) {
-            throw new UserNotFoundException(sprintf('Username "%s" does not exist.', $identifier));
+            throw new UserNotFoundException(\sprintf('Username "%s" does not exist.', $identifier));
         }
 
         return $user;
@@ -51,15 +51,15 @@ final class UserProvider implements UserProviderInterface
     public function refreshUser(SecurityUserInterface $user): SecurityUserInterface
     {
         if (!$user instanceof UserInterface) {
-            throw new UnsupportedUserException(sprintf('Expected an instance of %s, but got "%s".', UserInterface::class, $user::class));
+            throw new UnsupportedUserException(\sprintf('Expected an instance of %s, but got "%s".', UserInterface::class, $user::class));
         }
 
         if (!$this->supportsClass($user::class)) {
-            throw new UnsupportedUserException(sprintf('Expected an instance of %s, but got "%s".', $this->userManager->getClass(), $user::class));
+            throw new UnsupportedUserException(\sprintf('Expected an instance of %s, but got "%s".', $this->userManager->getClass(), $user::class));
         }
 
         if (null === $reloadedUser = $this->userManager->findOneBy(['id' => $user->getId()])) {
-            throw new UserNotFoundException(sprintf('User with ID "%s" could not be reloaded.', $user->getId() ?? ''));
+            throw new UserNotFoundException(\sprintf('User with ID "%s" could not be reloaded.', $user->getId() ?? ''));
         }
 
         return $reloadedUser;

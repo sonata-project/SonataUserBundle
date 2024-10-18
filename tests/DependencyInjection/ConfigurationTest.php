@@ -26,7 +26,7 @@ final class ConfigurationTest extends TestCase
 
     public function testMinimalConfigurationRequired(): void
     {
-        $this->assertConfigurationIsInvalid([]);
+        $this->assertConfigurationIsValid([]);
         $this->assertConfigurationIsValid([
             'sonata_user' => [
                 'resetting' => [

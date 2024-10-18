@@ -21,5 +21,6 @@
                 <referencedMethod name="Symfony\Component\Console\Helper\HelperInterface::ask"/>
             </errorLevel>
         </UndefinedInterfaceMethod>
+        <MissingClassConstType errorLevel="suppress"/>
     </issueHandlers>
 </psalm>

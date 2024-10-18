@@ -38,7 +38,7 @@ final class ResetAction
         private FormFactoryInterface $formFactory,
         private UserManagerInterface $userManager,
         private TranslatorInterface $translator,
-        private int $tokenTtl
+        private int $tokenTtl,
     ) {
     }
 
@@ -51,7 +51,7 @@ final class ResetAction
         $user = $this->userManager->findUserByConfirmationToken($token);
 
         if (null === $user) {
-            throw new NotFoundHttpException(sprintf('The user with "confirmation token" does not exist for value "%s"', $token));
+            throw new NotFoundHttpException(\sprintf('The user with "confirmation token" does not exist for value "%s"', $token));
         }
 
         if (!$user->isPasswordRequestNonExpired($this->tokenTtl)) {
@@ -70,8 +70,8 @@ final class ResetAction
             /**
              * TODO: Use instanceof FlashBagAwareSessionInterface when dropping Symfony 5 support.
              *
-             * @phpstan-ignore-next-line
              * @psalm-suppress UndefinedInterfaceMethod
+             * @phpstan-ignore-next-line
              */
             $request->getSession()->getFlashBag()->add(
                 'success',

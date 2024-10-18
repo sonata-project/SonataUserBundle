@@ -35,7 +35,7 @@ final class AdminRolesBuilder implements AdminRolesBuilderInterface
         private AuthorizationCheckerInterface $authorizationChecker,
         private Pool $pool,
         private SonataConfiguration $configuration,
-        private TranslatorInterface $translator
+        private TranslatorInterface $translator,
     ) {
     }
 
@@ -110,7 +110,7 @@ final class AdminRolesBuilder implements AdminRolesBuilderInterface
         $adminLabelTranslated = $admin->getTranslator()->trans($admin->getLabel() ?? '', [], $admin->getTranslationDomain());
         $isMasterAdmin = $this->isMaster($admin);
         foreach (array_keys($admin->getSecurityInformation()) as $key) {
-            $role = sprintf($baseRole, $key);
+            $role = \sprintf($baseRole, $key);
             $adminRoles[$role] = [
                 'role' => $role,
                 'label' => $key,

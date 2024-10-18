@@ -18,9 +18,9 @@ use Sonata\UserBundle\Entity\BaseUser as EntityUser;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
@@ -48,11 +48,11 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
 
         if (isset($bundles['SonataAdminBundle'])) {
             $loader->load('admin.php');
-            $loader->load(sprintf('admin_%s.php', $config['manager_type']));
+            $loader->load(\sprintf('admin_%s.php', $config['manager_type']));
             $loader->load('actions.php');
         }
 
-        $loader->load(sprintf('%s.php', $config['manager_type']));
+        $loader->load(\sprintf('%s.php', $config['manager_type']));
         $container->setParameter('sonata.user.manager_type', $config['manager_type']);
 
         $loader->load('twig.php');
@@ -70,12 +70,23 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
 
         $this->checkManagerTypeToModelTypesMapping($config);
 
+        $resetting = false;
+
         $this->configureClass($config, $container);
-        $this->configureMailer($config, $container);
         $this->configureDefaultAvatar($config['profile'], $container);
         if (isset($bundles['SonataAdminBundle'])) {
             $this->configureAdmin($config['admin'], $container);
-            $this->configureResetting($config['resetting'], $container);
+            // check for reset configuration
+            if (isset($config['resetting']['email']['address'], $config['resetting']['email']['sender_name'])) {
+                $resetting = true;
+                $loader->load('actions_resetting.php');
+                $loader->load('mailer.php');
+                $this->configureMailer($config, $container);
+                // needs to be done after mailer
+                $this->configureResetting($config['resetting'], $container);
+            }
+            $container->getDefinition('sonata.user.action.login')
+                ->replaceArgument(8, $resetting);
         }
 
         $this->configureImpersonation($config['impersonating'], $container);
@@ -110,7 +121,7 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
             ->replaceArgument(9, $config['retry_ttl']);
 
         $container->getDefinition('sonata.user.action.check_email')
-            ->replaceArgument(4, $config['token_ttl']);
+            ->replaceArgument(3, $config['token_ttl']);
 
         $container->getDefinition('sonata.user.action.reset')
             ->replaceArgument(8, $config['token_ttl']);
@@ -128,7 +139,7 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
         $managerType = $config['manager_type'];
 
         if (!\in_array($managerType, ['orm', 'mongodb'], true)) {
-            throw new \InvalidArgumentException(sprintf('Invalid manager type "%s".', $managerType));
+            throw new \InvalidArgumentException(\sprintf('Invalid manager type "%s".', $managerType));
         }
 
         $this->prohibitModelTypeMapping(
@@ -147,11 +158,11 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
     private function prohibitModelTypeMapping(
         string $actualModelClass,
         string $prohibitedModelClass,
-        string $managerType
+        string $managerType,
     ): void {
         if (is_a($actualModelClass, $prohibitedModelClass, true)) {
             throw new \InvalidArgumentException(
-                sprintf(
+                \sprintf(
                     'Model class "%s" does not correspond to manager type "%s".',
                     $actualModelClass,
                     $managerType
