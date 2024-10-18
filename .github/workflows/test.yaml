@@ -64,7 +64,7 @@ jobs:
                       allowed-to-fail: false
                       symfony-require: 6.4.*
                       variant: symfony/symfony:"6.4.*"
-                    - php-version: '8.2'
+                    - php-version: '8.3'
                       dependencies: highest
                       allowed-to-fail: false
                       symfony-require: 7.0.*
