@@ -47,7 +47,7 @@ class ChangePasswordCommandTest extends KernelTestCase
     {
         $user = $this->prepareData('sonata-user-test', 'old_password');
 
-        static::assertSame($user->getPassword(), 'old_password');
+        static::assertSame('old_password', $user->getPassword());
 
         $this->commandTester->execute([
             'username' => 'sonata-user-test',
@@ -56,7 +56,7 @@ class ChangePasswordCommandTest extends KernelTestCase
 
         $user = $this->refreshUser($user);
 
-        static::assertSame($user->getPassword(), 'new_password');
+        static::assertSame('new_password', $user->getPassword());
         static::assertStringContainsString('Changed password for user "sonata-user-test".', $this->commandTester->getDisplay());
     }
 

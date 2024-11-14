@@ -37,7 +37,7 @@ final class ResetActionTest extends WebTestCase
         $confirmationToken = $user->getConfirmationToken();
         \assert(null !== $confirmationToken);
 
-        static::assertSame($user->getPassword(), 'random_password');
+        static::assertSame('random_password', $user->getPassword());
 
         $client->request('GET', \sprintf('/reset/%s', $confirmationToken));
 
@@ -60,7 +60,7 @@ final class ResetActionTest extends WebTestCase
         $confirmationToken = $user->getConfirmationToken();
         \assert(null !== $confirmationToken);
 
-        static::assertSame($user->getPassword(), 'random_password');
+        static::assertSame('random_password', $user->getPassword());
 
         $client->request('GET', \sprintf('/reset/%s', $confirmationToken));
 
@@ -76,7 +76,7 @@ final class ResetActionTest extends WebTestCase
 
         static::assertNull($user->getPasswordRequestedAt());
         static::assertNull($user->getConfirmationToken());
-        static::assertSame($user->getPassword(), 'new_password');
+        static::assertSame('new_password', $user->getPassword());
     }
 
     private function prepareData(): UserInterface
