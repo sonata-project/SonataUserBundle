@@ -123,7 +123,12 @@ abstract class User implements LegacyPasswordAuthenticatedUserInterface, UserInt
 
     public function getUserIdentifier(): string
     {
-        return $this->getUsername() ?? '-';
+        $username = $this->getUsername();
+        if (null === $username || '' === $username) {
+            return '-';
+        }
+
+        return $username;
     }
 
     public function getUsernameCanonical(): ?string
