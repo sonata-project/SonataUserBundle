@@ -18,7 +18,7 @@ use Sonata\UserBundle\Action\CheckLoginAction;
 
 final class CheckLoginActionTest extends TestCase
 {
-    public function testAction(): void
+    public function testAction(): never
     {
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('You must configure the check path to be handled by the firewall using form_login in your security firewall configuration.');

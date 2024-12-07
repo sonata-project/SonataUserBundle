@@ -18,7 +18,7 @@ use Sonata\UserBundle\Action\LogoutAction;
 
 final class LogoutActionTest extends TestCase
 {
-    public function testAction(): void
+    public function testAction(): never
     {
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('You must activate the logout in your security firewall configuration.');

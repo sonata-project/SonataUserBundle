@@ -15,7 +15,7 @@ namespace Sonata\UserBundle\Action;
 
 final class LogoutAction
 {
-    public function __invoke(): void
+    public function __invoke(): never
     {
         throw new \RuntimeException('You must activate the logout in your security firewall configuration.');
     }
