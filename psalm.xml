@@ -15,12 +15,7 @@
         <!-- Psalm equivalent of PHPStan config `treatPhpDocTypesAsCertain: false` -->
         <DocblockTypeContradiction errorLevel="suppress"/>
         <RedundantConditionGivenDocblockType errorLevel="suppress"/>
-        <UndefinedInterfaceMethod>
-            <errorLevel type="suppress">
-                <!-- https://github.com/psalm/psalm-plugin-symfony/issues/287 -->
-                <referencedMethod name="Symfony\Component\Console\Helper\HelperInterface::ask"/>
-            </errorLevel>
-        </UndefinedInterfaceMethod>
         <MissingClassConstType errorLevel="suppress"/>
+        <MissingOverrideAttribute errorLevel="suppress"/>
     </issueHandlers>
 </psalm>

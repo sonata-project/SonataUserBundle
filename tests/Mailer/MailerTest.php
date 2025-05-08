@@ -91,7 +91,9 @@ final class MailerTest extends TestCase
             ->willReturn($template);
 
         $fromName = current($this->emailFrom);
+        \assert(false !== $fromName);
         $fromAddress = current(array_keys($this->emailFrom));
+        \assert(false !== $fromAddress);
 
         $email = (new Email())
             ->from(\sprintf('%s <%s>', $fromName, $fromAddress))

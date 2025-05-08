@@ -18,6 +18,7 @@ use Sonata\UserBundle\Validator\UserInitializer;
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->services()
 
+        // @phpstan-ignore-next-line classConstant.internalClass
         ->set('sonata.user.validator.user_initializer', UserInitializer::class)
             ->tag('validator.initializer')
             ->args([

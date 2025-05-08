@@ -50,8 +50,11 @@ final class Mailer implements MailerInterface
 
         $subject = array_shift($renderedLines);
         $body = implode('', $renderedLines);
+
         $fromName = current($this->fromEmail);
+        \assert(false !== $fromName);
         $fromAddress = current(array_keys($this->fromEmail));
+        \assert(false !== $fromAddress);
 
         $this->mailer->send(
             (new Email())

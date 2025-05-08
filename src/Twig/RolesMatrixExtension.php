@@ -53,6 +53,7 @@ final class RolesMatrixExtension extends AbstractExtension
 
             $roles[$role] = $attributes;
             foreach ($form->getIterator() as $child) {
+                \assert(null !== $child);
                 if ($child->vars['value'] === $role) {
                     $roles[$role]['form'] = $child;
                 }
@@ -87,6 +88,7 @@ final class RolesMatrixExtension extends AbstractExtension
             $groupCode = $attributes['group_code'] ?? '';
             $groupedRoles[$groupCode][$attributes['admin_code']][$role] = $attributes;
             foreach ($form->getIterator() as $child) {
+                \assert(null !== $child);
                 if ($child->vars['value'] === $role) {
                     $groupedRoles[$groupCode][$attributes['admin_code']][$role]['form'] = $child;
                 }

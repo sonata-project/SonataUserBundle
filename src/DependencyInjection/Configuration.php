@@ -37,6 +37,7 @@ final class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->getRootNode();
 
         $supportedManagerTypes = ['orm', 'mongodb'];
+        $encodedSupportedManagerTypes = json_encode($supportedManagerTypes);
 
         $rootNode
             ->children()
@@ -57,7 +58,7 @@ final class Configuration implements ConfigurationInterface
                     ->defaultValue('orm')
                     ->validate()
                         ->ifNotInArray($supportedManagerTypes)
-                        ->thenInvalid('The manager type %s is not supported. Please choose one of '.json_encode($supportedManagerTypes))
+                        ->thenInvalid('The manager type %s is not supported. Please choose one of '.$encodedSupportedManagerTypes)
                     ->end()
                 ->end()
                 ->arrayNode('class')

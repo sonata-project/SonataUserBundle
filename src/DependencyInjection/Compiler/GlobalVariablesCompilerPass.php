@@ -19,6 +19,10 @@ use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ *
+ * NEXT_MAJOR: Declare the class as final.
+ *
+ * @final since 5.15.0
  */
 class GlobalVariablesCompilerPass implements CompilerPassInterface
 {

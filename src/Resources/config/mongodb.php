@@ -27,6 +27,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 service('security.password_hasher'),
             ])
 
+        // @phpstan-ignore-next-line classConstant.internalClass
         ->set('sonata.user.listener.user', UserListener::class)
             ->tag('doctrine_mongodb.odm.event_listener', [
                 'event' => 'prePersist',

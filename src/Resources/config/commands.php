@@ -23,36 +23,42 @@ use Sonata\UserBundle\Command\PromoteUserCommand;
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->services()
 
+        // @phpstan-ignore-next-line classConstant.internalClass
         ->set('sonata.user.command.activate_user', ActivateUserCommand::class)
             ->tag('console.command')
             ->args([
                 service('sonata.user.manager.user'),
             ])
 
+        // @phpstan-ignore-next-line classConstant.internalClass
         ->set('sonata.user.command.change_password', ChangePasswordCommand::class)
             ->tag('console.command')
             ->args([
                 service('sonata.user.manager.user'),
             ])
 
+        // @phpstan-ignore-next-line classConstant.internalClass
         ->set('sonata.user.command.create_user', CreateUserCommand::class)
             ->tag('console.command')
             ->args([
                 service('sonata.user.manager.user'),
             ])
 
+        // @phpstan-ignore-next-line classConstant.internalClass
         ->set('sonata.user.command.deactivate_user', DeactivateUserCommand::class)
             ->tag('console.command')
             ->args([
                 service('sonata.user.manager.user'),
             ])
 
+        // @phpstan-ignore-next-line classConstant.internalClass
         ->set('sonata.user.command.promote_user', PromoteUserCommand::class)
             ->tag('console.command')
             ->args([
                 service('sonata.user.manager.user'),
             ])
 
+        // @phpstan-ignore-next-line classConstant.internalClass
         ->set('sonata.user.command.demote_user', DemoteUserCommand::class)
             ->tag('console.command')
             ->args([
