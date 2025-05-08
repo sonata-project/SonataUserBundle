@@ -95,7 +95,7 @@ final class UserProviderTest extends TestCase
 
     public function testRefreshInvalidUser(): void
     {
-        $user = $this->createStub(UserInterface::class);
+        $user = static::createStub(UserInterface::class);
 
         $this->expectException(UnsupportedUserException::class);
 

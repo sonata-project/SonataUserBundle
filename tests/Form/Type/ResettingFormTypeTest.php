@@ -57,7 +57,7 @@ final class ResettingFormTypeTest extends TypeTestCase
      */
     protected function getTypeExtensions(): array
     {
-        $validator = $this->createStub(ValidatorInterface::class);
+        $validator = static::createStub(ValidatorInterface::class);
         $validator->method('validate')->willReturn(new ConstraintViolationList());
 
         return [

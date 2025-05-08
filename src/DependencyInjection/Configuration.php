@@ -38,6 +38,7 @@ final class Configuration implements ConfigurationInterface
 
         $supportedManagerTypes = ['orm', 'mongodb'];
         $encodedSupportedManagerTypes = json_encode($supportedManagerTypes);
+        \assert(false !== $encodedSupportedManagerTypes);
 
         $rootNode
             ->children()

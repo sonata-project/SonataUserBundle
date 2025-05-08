@@ -146,7 +146,7 @@ final class LoginActionTest extends TestCase
         $session
             ->method('get')
             ->willReturnCallback(
-                static fn (string $key) => $sessionParameters[$key] ?? null
+                static fn (string $key): mixed => $sessionParameters[$key] ?? null
             );
         $session
             ->method('has')

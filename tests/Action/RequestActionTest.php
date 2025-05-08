@@ -107,8 +107,8 @@ final class RequestActionTest extends TestCase
 
     public function testUnauthenticated(): void
     {
-        $form = $this->createStub(FormInterface::class);
-        $formView = $this->createStub(FormView::class);
+        $form = static::createStub(FormInterface::class);
+        $formView = static::createStub(FormView::class);
         $form->method('createView')->willReturn($formView);
 
         $parameters = [
@@ -132,8 +132,8 @@ final class RequestActionTest extends TestCase
 
     public function testUnknownUsername(): void
     {
-        $usernameForm = $this->createStub(FormInterface::class);
-        $form = $this->createStub(FormInterface::class);
+        $usernameForm = static::createStub(FormInterface::class);
+        $form = static::createStub(FormInterface::class);
 
         $form->method('isSubmitted')->willReturn(true);
         $form->method('isValid')->willReturn(true);
@@ -154,8 +154,8 @@ final class RequestActionTest extends TestCase
 
     public function testPasswordRequestNonExpired(): void
     {
-        $usernameForm = $this->createStub(FormInterface::class);
-        $form = $this->createStub(FormInterface::class);
+        $usernameForm = static::createStub(FormInterface::class);
+        $form = static::createStub(FormInterface::class);
 
         $form->method('isSubmitted')->willReturn(true);
         $form->method('isValid')->willReturn(true);
@@ -180,8 +180,8 @@ final class RequestActionTest extends TestCase
 
     public function testAccountLocked(): void
     {
-        $usernameForm = $this->createStub(FormInterface::class);
-        $form = $this->createStub(FormInterface::class);
+        $usernameForm = static::createStub(FormInterface::class);
+        $form = static::createStub(FormInterface::class);
 
         $form->method('isSubmitted')->willReturn(true);
         $form->method('isValid')->willReturn(true);
@@ -209,8 +209,8 @@ final class RequestActionTest extends TestCase
     {
         $storedToken = null;
 
-        $usernameForm = $this->createStub(FormInterface::class);
-        $form = $this->createStub(FormInterface::class);
+        $usernameForm = static::createStub(FormInterface::class);
+        $form = static::createStub(FormInterface::class);
 
         $form->method('isSubmitted')->willReturn(true);
         $form->method('isValid')->willReturn(true);

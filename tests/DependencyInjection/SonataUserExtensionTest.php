@@ -94,7 +94,7 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
 
     public function testTwigConfigParameterIsSet(): void
     {
-        $fakeTwigExtension = $this->createStub(TwigExtension::class);
+        $fakeTwigExtension = static::createStub(TwigExtension::class);
 
         $fakeTwigExtension
             ->method('getAlias')
