@@ -72,7 +72,7 @@ final class MailerTest extends TestCase
      */
     public function testSendResettingEmailMessage(string $template, string $subject, string $body): void
     {
-        $user = $this->createStub(UserInterface::class);
+        $user = static::createStub(UserInterface::class);
         $user
             ->method('getConfirmationToken')
             ->willReturn('user-token');
@@ -91,7 +91,9 @@ final class MailerTest extends TestCase
             ->willReturn($template);
 
         $fromName = current($this->emailFrom);
+        \assert(false !== $fromName);
         $fromAddress = current(array_keys($this->emailFrom));
+        \assert(false !== $fromAddress);
 
         $email = (new Email())
             ->from(\sprintf('%s <%s>', $fromName, $fromAddress))

@@ -18,6 +18,7 @@ use Sonata\UserBundle\Listener\LastLoginListener;
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->services()
 
+        // @phpstan-ignore-next-line classConstant.internalClass
         ->set('sonata.user.listener.last_login', LastLoginListener::class)
             ->tag('kernel.event_subscriber')
             ->args([

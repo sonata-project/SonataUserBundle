@@ -24,7 +24,7 @@ final class UserAdminTest extends TestCase
 {
     public function testInstance(): void
     {
-        $admin = new UserAdmin($this->createStub(UserManagerInterface::class));
+        $admin = new UserAdmin(static::createStub(UserManagerInterface::class));
 
         static::assertNotEmpty($admin);
     }

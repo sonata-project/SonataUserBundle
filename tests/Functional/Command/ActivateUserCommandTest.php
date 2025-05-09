@@ -20,7 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
-class ActivateUserCommandTest extends KernelTestCase
+final class ActivateUserCommandTest extends KernelTestCase
 {
     private CommandTester $commandTester;
 

@@ -13,6 +13,11 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Util;
 
+/**
+ * NEXT_MAJOR: Declare the class as final.
+ *
+ * @final since 5.15.0
+ */
 class TokenGenerator implements TokenGeneratorInterface
 {
     public function generateToken(): string

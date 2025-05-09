@@ -33,6 +33,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\UX\StimulusBundle\StimulusBundle;
 
 /**
  * @author Javier Spagnoletti <phansys@gmail.com>
@@ -57,6 +58,7 @@ final class AppKernel extends Kernel
             new KnpMenuBundle(),
             new SonataAdminBundle(),
             new SonataUserBundle(),
+            new StimulusBundle(),
         ];
     }
 
