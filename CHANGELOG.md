@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [5.15.0](https://github.com/sonata-project/SonataUserBundle/compare/5.14.0...5.15.0) - 2025-05-16
+### Deprecated
+- [[#1710](https://github.com/sonata-project/SonataUserBundle/pull/1710)] Extending GlobalVariablesCompilerPass ([@VincentLanglet](https://github.com/VincentLanglet))
+
 ## [5.14.0](https://github.com/sonata-project/SonataUserBundle/compare/5.13.0...5.14.0) - 2024-10-18
 ### Added
 - [[#1669](https://github.com/sonata-project/SonataUserBundle/pull/1669)] Add support for Symfony 7. ([@jordisala1991](https://github.com/jordisala1991))
