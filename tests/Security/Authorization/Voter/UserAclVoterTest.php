@@ -24,6 +24,12 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\User\UserInterface as SonataUserInterface;
 
+/**
+ * Not a real legacy test but a deprecation from Symfony is reported
+ * as a self deprecation notices rather than an indirect one.
+ *
+ * @group legacy
+ */
 final class UserAclVoterTest extends TestCase
 {
     public function testVoteWillAbstainWhenAUserIsLoggedInAndASuperAdmin(): void
