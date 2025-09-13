@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [5.16.0](https://github.com/sonata-project/SonataUserBundle/compare/5.15.0...5.16.0) - 2025-09-13
+### Added
+- [[#1716](https://github.com/sonata-project/SonataUserBundle/pull/1716)] Added compatability to doctrine/persistence 4 ([@cngJo](https://github.com/cngJo))
+
 ## [5.15.0](https://github.com/sonata-project/SonataUserBundle/compare/5.14.0...5.15.0) - 2025-05-16
 ### Deprecated
 - [[#1710](https://github.com/sonata-project/SonataUserBundle/pull/1710)] Extending GlobalVariablesCompilerPass ([@VincentLanglet](https://github.com/VincentLanglet))
