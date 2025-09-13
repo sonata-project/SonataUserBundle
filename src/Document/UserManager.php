@@ -50,6 +50,9 @@ final class UserManager extends BaseDocumentManager implements UserManagerInterf
         $password = $this->userPasswordHasher->hashPassword($user, $plainPassword);
 
         $user->setPassword($password);
+        /**
+         * @psalm-suppress DeprecatedMethod for BC reasons.
+         */
         $user->eraseCredentials();
     }
 

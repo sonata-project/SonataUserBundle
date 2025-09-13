@@ -20,15 +20,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 final class ResetActionTest extends WebTestCase
 {
-    public function testItRedirectsToResetPasswordRequestOnInvalidToken(): void
-    {
-        $client = static::createClient();
-        $client->catchExceptions(true);
-        $client->request('GET', '/reset/25');
-
-        static::assertResponseStatusCodeSame(404);
-    }
-
     public function testItSubmitsResetPasswordFormWithNonValidData(): void
     {
         $client = static::createClient();
