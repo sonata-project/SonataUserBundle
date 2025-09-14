@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Security\Authorization\Voter;
 
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Security\Authorization\Voter\UserAclVoter;
@@ -27,9 +28,8 @@ use Symfony\Component\Security\Core\User\UserInterface as SonataUserInterface;
 /**
  * Not a real legacy test but a deprecation from Symfony is reported
  * as a self deprecation notices rather than an indirect one.
- *
- * @group legacy
  */
+#[Group('legacy')]
 final class UserAclVoterTest extends TestCase
 {
     public function testVoteWillAbstainWhenAUserIsLoggedInAndASuperAdmin(): void

@@ -57,6 +57,7 @@ final class RolesMatrixTypeTest extends TypeTestCase
         $options = $optionResolver->resolve();
         $choices = $options['choices'];
         static::assertCount(2, $choices);
+        static::assertIsArray($choices);
         static::assertNotContains(UserInterface::ROLE_DEFAULT, $choices);
         static::assertTrue($options['expanded']);
         static::assertTrue($options['multiple']);
@@ -74,6 +75,7 @@ final class RolesMatrixTypeTest extends TypeTestCase
         ]);
         $choices = $options['choices'];
         static::assertCount(2, $choices);
+        static::assertIsArray($choices);
         static::assertNotContains('ROLE_FOO', $choices);
         static::assertContains(UserInterface::ROLE_DEFAULT, $choices);
     }
@@ -90,6 +92,7 @@ final class RolesMatrixTypeTest extends TypeTestCase
         ]);
         $choices = $options['choices'];
         static::assertCount(3, $choices);
+        static::assertIsArray($choices);
         static::assertContains('ROLE_FOO', $choices);
         static::assertNotContains('ROLE_BAR', $choices);
         static::assertContains(UserInterface::ROLE_DEFAULT, $choices);

@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use Sonata\UserBundle\Admin\Entity\UserAdmin as EntityUserAdmin;
 use Sonata\UserBundle\DependencyInjection\SonataUserExtension;
 use Sonata\UserBundle\Entity\BaseUser as EntityBaseUser;
@@ -40,9 +41,7 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
         ]);
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
+    #[DoesNotPerformAssertions]
     public function testLoadDefault(): void
     {
         $this->load();
@@ -123,25 +122,19 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
         static::assertArrayNotHasKey(0, $twigConfigurations);
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
+    #[DoesNotPerformAssertions]
     public function testCorrectModelClass(): void
     {
         $this->load(['class' => ['user' => EntityUser::class]]);
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
+    #[DoesNotPerformAssertions]
     public function testCorrectAdminClass(): void
     {
         $this->load(['admin' => ['user' => ['class' => EntityUserAdmin::class]]]);
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
+    #[DoesNotPerformAssertions]
     public function testCorrectModelClassWithNotDefaultManagerType(): void
     {
         $this->load([
@@ -155,9 +148,7 @@ final class SonataUserExtensionTest extends AbstractExtensionTestCase
         ]);
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
+    #[DoesNotPerformAssertions]
     public function testSonataUserBundleModelClasses(): void
     {
         $this->load(['manager_type' => 'orm', 'class' => [
