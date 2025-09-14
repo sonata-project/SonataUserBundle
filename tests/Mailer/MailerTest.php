@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\DependencyInjection;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Mailer\Mailer;
@@ -67,9 +68,7 @@ final class MailerTest extends TestCase
         $this->getMailer()->sendConfirmationEmailMessage($user);
     }
 
-    /**
-     * @dataProvider provideSendResettingEmailMessageCases
-     */
+    #[DataProvider('provideSendResettingEmailMessageCases')]
     public function testSendResettingEmailMessage(string $template, string $subject, string $body): void
     {
         $user = static::createStub(UserInterface::class);
@@ -113,7 +112,7 @@ final class MailerTest extends TestCase
      *
      * @phpstan-return iterable<array{string, string, string}>
      */
-    public function provideSendResettingEmailMessageCases(): iterable
+    public static function provideSendResettingEmailMessageCases(): iterable
     {
         yield 'CR' => ["Subject\rFirst line\rSecond line", 'Subject', "First line\rSecond line"];
         yield 'LF' => ["Subject\nFirst line\nSecond line", 'Subject', "First line\nSecond line"];

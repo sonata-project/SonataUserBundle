@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Action;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\AdminBundle\Admin\Pool;
@@ -133,9 +134,7 @@ final class LoginActionTest extends TestCase
         static::assertSame('/foo', $result->getTargetUrl());
     }
 
-    /**
-     * @dataProvider provideUnauthenticatedCases
-     */
+    #[DataProvider('provideUnauthenticatedCases')]
     public function testUnauthenticated(string $lastUsername, ?AuthenticationException $errorMessage = null, bool $resetting = true): void
     {
         $session = $this->createMock(Session::class);
@@ -209,7 +208,7 @@ final class LoginActionTest extends TestCase
      *
      * @phpstan-return iterable<array{string, AuthenticationException|null, boolean}>
      */
-    public function provideUnauthenticatedCases(): iterable
+    public static function provideUnauthenticatedCases(): iterable
     {
         $error = new AuthenticationException('An error');
         yield ['', null, true];
