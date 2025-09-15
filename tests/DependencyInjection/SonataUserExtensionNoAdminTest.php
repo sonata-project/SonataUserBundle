@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use Sonata\UserBundle\DependencyInjection\SonataUserExtension;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Reference;
@@ -32,9 +33,7 @@ final class SonataUserExtensionNoAdminTest extends AbstractExtensionTestCase
         ]);
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
+    #[DoesNotPerformAssertions]
     public function testLoadDefault(): void
     {
         $this->load();
