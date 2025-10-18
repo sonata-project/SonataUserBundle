@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <routes xmlns="http://symfony.com/schema/routing" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
-    <route id="sonata_user_admin_security_login" path="/login" controller="sonata.user.action.login"/>
-    <route id="sonata_user_admin_security_check" path="/login_check" methods="POST" controller="sonata.user.action.check_login"/>
-    <route id="sonata_user_admin_security_logout" path="/logout" controller="sonata.user.action.logout"/>
+    <import resource="admin_security.php" type="php"/>
 </routes>

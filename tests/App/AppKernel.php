@@ -32,7 +32,6 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\UX\StimulusBundle\StimulusBundle;
 
 /**
@@ -85,10 +84,6 @@ final class AppKernel extends Kernel
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
     {
         $loader->load(__DIR__.'/config/config.yaml');
-
-        if (!class_exists(IsGranted::class)) {
-            $loader->load(__DIR__.'/config/config_sf5.yaml');
-        }
 
         /*
          * TODO: Remove when dropping support for sonatablock 4
