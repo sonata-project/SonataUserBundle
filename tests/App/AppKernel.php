@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\App;
 
 use DAMA\DoctrineTestBundle\DAMADoctrineTestBundle;
+use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\CacheCompatibilityPass;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Knp\Bundle\MenuBundle\KnpMenuBundle;
 use Sonata\AdminBundle\SonataAdminBundle;
@@ -32,7 +33,6 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\UX\StimulusBundle\StimulusBundle;
 
 /**
@@ -86,8 +86,17 @@ final class AppKernel extends Kernel
     {
         $loader->load(__DIR__.'/config/config.yaml');
 
-        if (!class_exists(IsGranted::class)) {
-            $loader->load(__DIR__.'/config/config_sf5.yaml');
+        if (class_exists(CacheCompatibilityPass::class)) {
+            // doctrine-bundle v2
+            $container->loadFromExtension('doctrine', [
+                'dbal' => [
+                    'use_savepoints' => true,
+                ],
+                'orm' => [
+                    'auto_generate_proxy_classes' => true,
+                    'report_fields_where_declared' => true,
+                ],
+            ]);
         }
 
         /*

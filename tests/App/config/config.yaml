@@ -13,7 +13,9 @@ framework:
     http_method_override: false
     session:
         storage_factory_id: session.storage.factory.mock_file
-    assets:
+    assets: ~
+    profiler:
+        collect: true
 
 security:
     role_hierarchy: null
@@ -58,7 +60,6 @@ doctrine:
     dbal:
         driver: pdo_sqlite
         path: '%app.base_dir%/sonata_user_test.db3'
-        use_savepoints: true
     orm:
         entity_managers:
             default:

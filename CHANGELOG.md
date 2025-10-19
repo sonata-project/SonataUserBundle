@@ -2,6 +2,15 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [5.17.0](https://github.com/sonata-project/SonataUserBundle/compare/5.16.0...5.17.0) - 2025-10-18
+### Added
+- [[#1723](https://github.com/sonata-project/SonataUserBundle/pull/1723)] Added `admin_resetting.php` routing config ([@dmaicher](https://github.com/dmaicher))
+- [[#1723](https://github.com/sonata-project/SonataUserBundle/pull/1723)] Added `admin_security.php` routing config ([@dmaicher](https://github.com/dmaicher))
+
+### Deprecated
+- [[#1723](https://github.com/sonata-project/SonataUserBundle/pull/1723)] Deprecated `admin_resetting.xml` routing config ([@dmaicher](https://github.com/dmaicher))
+- [[#1723](https://github.com/sonata-project/SonataUserBundle/pull/1723)] Deprecated `admin_security.xml` routing config ([@dmaicher](https://github.com/dmaicher))
+
 ## [5.16.0](https://github.com/sonata-project/SonataUserBundle/compare/5.15.0...5.16.0) - 2025-09-13
 ### Added
 - [[#1716](https://github.com/sonata-project/SonataUserBundle/pull/1716)] Added compatability to doctrine/persistence 4 ([@cngJo](https://github.com/cngJo))
