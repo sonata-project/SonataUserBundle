@@ -118,7 +118,7 @@ final class DemoteUserCommandTest extends KernelTestCase
     private function prepareData(string $username, bool $superAdmin, array $roles): UserInterface
     {
         $manager = static::getContainer()->get('doctrine.orm.entity_manager');
-        \assert($manager instanceof EntityManagerInterface);
+        static::assertInstanceOf(EntityManagerInterface::class, $manager);
 
         $user = new User();
         $user->setUsername($username);
@@ -139,7 +139,7 @@ final class DemoteUserCommandTest extends KernelTestCase
     private function refreshUser(UserInterface $user): UserInterface
     {
         $manager = static::getContainer()->get('doctrine.orm.entity_manager');
-        \assert($manager instanceof EntityManagerInterface);
+        static::assertInstanceOf(EntityManagerInterface::class, $manager);
 
         $user = $manager->find(User::class, $user->getId());
         \assert(null !== $user);

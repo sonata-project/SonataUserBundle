@@ -83,7 +83,7 @@ final class RequestActionTest extends WebTestCase
     private function prepareData(): void
     {
         $manager = static::getContainer()->get('doctrine.orm.entity_manager');
-        \assert($manager instanceof EntityManagerInterface);
+        static::assertInstanceOf(EntityManagerInterface::class, $manager);
 
         $user = new User();
         $user->setUsername('username');
