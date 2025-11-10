@@ -80,7 +80,7 @@ final class CreateUserCommandTest extends KernelTestCase
     private function find(string $username): UserInterface
     {
         $manager = static::getContainer()->get('sonata.user.manager.user');
-        \assert($manager instanceof UserManagerInterface);
+        static::assertInstanceOf(UserManagerInterface::class, $manager);
 
         $user = $manager->findUserByUsername($username);
         \assert(null !== $user);
