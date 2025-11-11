@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [5.18.0](https://github.com/sonata-project/SonataUserBundle/compare/5.17.0...5.18.0) - 2025-11-10
+### Changed
+- [[#1727](https://github.com/sonata-project/SonataUserBundle/pull/1727)] Rector use `assertInstanceOf` in tests ([@Hanmac](https://github.com/Hanmac))
+
+### Removed
+- [[#1726](https://github.com/sonata-project/SonataUserBundle/pull/1726)] Twig spaceless filter ([@Hanmac](https://github.com/Hanmac))
+
 ## [5.17.0](https://github.com/sonata-project/SonataUserBundle/compare/5.16.0...5.17.0) - 2025-10-18
 ### Added
 - [[#1723](https://github.com/sonata-project/SonataUserBundle/pull/1723)] Added `admin_resetting.php` routing config ([@dmaicher](https://github.com/dmaicher))
