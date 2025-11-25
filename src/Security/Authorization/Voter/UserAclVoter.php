@@ -16,6 +16,7 @@ namespace Sonata\UserBundle\Security\Authorization\Voter;
 use Sonata\UserBundle\Model\UserInterface;
 use Symfony\Component\Security\Acl\Voter\AclVoter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 
 final class UserAclVoter extends AclVoter
 {
@@ -38,7 +39,7 @@ final class UserAclVoter extends AclVoter
      *
      * @return self::ACCESS_ABSTAIN|self::ACCESS_DENIED
      */
-    public function vote(TokenInterface $token, mixed $subject, array $attributes): int
+    public function vote(TokenInterface $token, mixed $subject, array $attributes, ?Vote $vote = null): int
     {
         if (!\is_object($subject) || !$this->supportsClass($subject::class)) {
             return self::ACCESS_ABSTAIN;
