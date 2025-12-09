@@ -29,7 +29,14 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
 {
     public function prepend(ContainerBuilder $container): void
     {
-        if ($container->hasExtension('twig')) {
+        if (!$container->hasExtension('twig')) {
+            return;
+        }
+
+        $bundles = $container->getParameter('kernel.bundles');
+        \assert(\is_array($bundles));
+
+        if (isset($bundles['SonataAdminBundle'])) {
             // add custom form widgets
             $container->prependExtensionConfig('twig', ['form_themes' => ['@SonataUser/Form/form_admin_fields.html.twig']]);
         }
