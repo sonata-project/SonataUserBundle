@@ -211,7 +211,6 @@ final class SecurityRolesBuilderTest extends TestCase
         static::assertSame($expected, $securityRolesBuilder->getExpandedRoles());
     }
 
-
     public function testGetRolesNoConfiguration(): void
     {
         $securityRolesBuilder = new SecurityRolesBuilder(

@@ -143,6 +143,7 @@ final class AdminRolesBuilder implements AdminRolesBuilderInterface
         if (null === $this->configuration) {
             return false;
         }
+
         return $this->authorizationChecker->isGranted($this->configuration->getOption('role_super_admin'));
     }
 
