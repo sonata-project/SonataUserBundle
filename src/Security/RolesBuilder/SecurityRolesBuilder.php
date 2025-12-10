@@ -84,7 +84,7 @@ final class SecurityRolesBuilder implements ExpandableRolesBuilderInterface
      */
     private function getHierarchy(): array
     {
-        if (!$this->configuration) {
+        if (null === $this->configuration) {
            return $this->rolesHierarchy;
         }
         $roleSuperAdmin = $this->configuration->getOption('role_super_admin');

@@ -106,7 +106,7 @@ final class AdminRolesBuilder implements AdminRolesBuilderInterface
      */
     private function getAdminRolesByAdminCode(string $code, ?string $domain = null, string $groupLabelTranslated = '', string $groupCode = ''): array
     {
-        if (!$this->pool) {
+        if (null === $this->pool) {
             return [];
         }
         $adminRoles = [];
@@ -140,7 +140,7 @@ final class AdminRolesBuilder implements AdminRolesBuilderInterface
         if ($admin->isGranted('MASTER') || $admin->isGranted('OPERATOR')) {
             return true;
         }
-        if (!$this->configuration) {
+        if (null === $this->configuration) {
             return false;
         }
         return $this->authorizationChecker->isGranted($this->configuration->getOption('role_super_admin'));
