@@ -32,15 +32,15 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->set('sonata.user.admin_roles_builder', AdminRolesBuilder::class)
             ->args([
                 service('security.authorization_checker'),
-                service('sonata.admin.pool'),
-                service('sonata.admin.configuration'),
+                service('sonata.admin.pool')->nullOnInvalid(),
+                service('sonata.admin.configuration')->nullOnInvalid(),
                 service('translator'),
             ])
 
         ->set('sonata.user.security_roles_builder', SecurityRolesBuilder::class)
             ->args([
                 service('security.authorization_checker'),
-                service('sonata.admin.configuration'),
+                service('sonata.admin.configuration')->nullOnInvalid(),
                 service('translator'),
                 param('security.role_hierarchy.roles'),
             ])

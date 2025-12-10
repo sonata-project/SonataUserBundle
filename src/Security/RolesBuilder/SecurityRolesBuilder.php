@@ -29,7 +29,7 @@ final class SecurityRolesBuilder implements ExpandableRolesBuilderInterface
      */
     public function __construct(
         private AuthorizationCheckerInterface $authorizationChecker,
-        private SonataConfiguration $configuration,
+        private ?SonataConfiguration $configuration,
         private TranslatorInterface $translator,
         private array $rolesHierarchy = [],
     ) {
@@ -84,6 +84,9 @@ final class SecurityRolesBuilder implements ExpandableRolesBuilderInterface
      */
     private function getHierarchy(): array
     {
+        if (!$this->configuration) {
+           return $this->rolesHierarchy;
+        }
         $roleSuperAdmin = $this->configuration->getOption('role_super_admin');
         \assert(\is_string($roleSuperAdmin));
 
