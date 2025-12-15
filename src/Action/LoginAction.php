@@ -19,6 +19,7 @@ use Sonata\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\FlashBagAwareSessionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
@@ -44,16 +45,12 @@ final class LoginAction
     public function __invoke(Request $request): Response
     {
         if ($this->isAuthenticated()) {
-            /**
-             * TODO: Use instanceof FlashBagAwareSessionInterface when dropping Symfony 5 support.
-             *
-             * @psalm-suppress UndefinedInterfaceMethod
-             * @phpstan-ignore-next-line
-             */
-            $request->getSession()->getFlashBag()->add(
-                'sonata_user_error',
-                $this->translator->trans('sonata_user_already_authenticated', [], 'SonataUserBundle')
-            );
+            if (($session = $request->getSession()) instanceof FlashBagAwareSessionInterface) {
+                $session->getFlashBag()->add(
+                    'sonata_user_error',
+                    $this->translator->trans('sonata_user_already_authenticated', [], 'SonataUserBundle')
+                );
+            }
 
             return new RedirectResponse($this->urlGenerator->generate('sonata_admin_dashboard'));
         }

@@ -21,6 +21,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\FlashBagAwareSessionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -67,16 +68,12 @@ final class ResetAction
             $user->setPasswordRequestedAt(null);
             $user->setEnabled(true);
 
-            /**
-             * TODO: Use instanceof FlashBagAwareSessionInterface when dropping Symfony 5 support.
-             *
-             * @psalm-suppress UndefinedInterfaceMethod
-             * @phpstan-ignore-next-line
-             */
-            $request->getSession()->getFlashBag()->add(
-                'success',
-                $this->translator->trans('resetting.flash.success', [], 'SonataUserBundle')
-            );
+            if (($session = $request->getSession()) instanceof FlashBagAwareSessionInterface) {
+                $session->getFlashBag()->add(
+                    'success',
+                    $this->translator->trans('resetting.flash.success', [], 'SonataUserBundle')
+                );
+            }
 
             $response = new RedirectResponse($this->urlGenerator->generate('sonata_admin_dashboard'));
 

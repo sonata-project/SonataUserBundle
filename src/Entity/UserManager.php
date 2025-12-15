@@ -50,9 +50,6 @@ final class UserManager extends BaseEntityManager implements UserManagerInterfac
         $password = $this->userPasswordHasher->hashPassword($user, $plainPassword);
 
         $user->setPassword($password);
-        /**
-         * @psalm-suppress DeprecatedMethod for BC reasons.
-         */
         $user->eraseCredentials();
     }
 

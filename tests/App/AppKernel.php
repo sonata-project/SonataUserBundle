@@ -18,7 +18,6 @@ use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\CacheCompatibili
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Knp\Bundle\MenuBundle\KnpMenuBundle;
 use Sonata\AdminBundle\SonataAdminBundle;
-use Sonata\BlockBundle\Cache\HttpCacheHandler;
 use Sonata\BlockBundle\SonataBlockBundle;
 use Sonata\Doctrine\Bridge\Symfony\SonataDoctrineBundle;
 use Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle;
@@ -97,13 +96,6 @@ final class AppKernel extends Kernel
                     'report_fields_where_declared' => true,
                 ],
             ]);
-        }
-
-        /*
-         * TODO: Remove when dropping support for sonatablock 4
-         */
-        if (class_exists(HttpCacheHandler::class)) {
-            $loader->load(__DIR__.'/config/config_sonata_block_v4.yaml');
         }
 
         $container->setParameter('app.base_dir', $this->getBaseDir());
