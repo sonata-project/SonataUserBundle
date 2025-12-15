@@ -50,6 +50,17 @@ final class SonataUserExtensionNoAdminTest extends AbstractExtensionTestCase
         );
     }
 
+    public function testGetMatrixService(): void
+    {
+        $this->load();
+
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+            'sonata.user.matrix_roles_builder',
+            1,
+            new Reference('sonata.user.admin_roles_builder', ContainerInterface::NULL_ON_INVALID_REFERENCE)
+        );
+    }
+
     /**
      * @return mixed[]
      */

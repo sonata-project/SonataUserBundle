@@ -210,4 +210,70 @@ final class SecurityRolesBuilderTest extends TestCase
 
         static::assertSame($expected, $securityRolesBuilder->getExpandedRoles());
     }
+
+    public function testGetRolesNoConfiguration(): void
+    {
+        $securityRolesBuilder = new SecurityRolesBuilder(
+            $this->authorizationChecker,
+            null,
+            $this->translator,
+            $this->rolesHierarchy
+        );
+
+        $this->authorizationChecker->method('isGranted')
+            ->willReturn(true);
+
+        $expected = [
+            'ROLE_FOO' => [
+                'role' => 'ROLE_FOO',
+                'role_translated' => 'ROLE_FOO: ROLE_BAR, ROLE_ADMIN',
+                'is_granted' => true,
+            ],
+            'ROLE_BAR' => [
+                'role' => 'ROLE_BAR',
+                'role_translated' => 'ROLE_BAR',
+                'is_granted' => true,
+            ],
+            'ROLE_ADMIN' => [
+                'role' => 'ROLE_ADMIN',
+                'role_translated' => 'ROLE_ADMIN',
+                'is_granted' => true,
+            ],
+        ];
+
+        static::assertSame($expected, $securityRolesBuilder->getExpandedRoles());
+    }
+
+    public function testGetRolesNotExpandedNoConfiguration(): void
+    {
+        $securityRolesBuilder = new SecurityRolesBuilder(
+            $this->authorizationChecker,
+            null,
+            $this->translator,
+            $this->rolesHierarchy
+        );
+
+        $this->authorizationChecker->method('isGranted')
+            ->willReturn(true);
+
+        $expected = [
+            'ROLE_FOO' => [
+                'role' => 'ROLE_FOO',
+                'role_translated' => 'ROLE_FOO',
+                'is_granted' => true,
+            ],
+            'ROLE_BAR' => [
+                'role' => 'ROLE_BAR',
+                'role_translated' => 'ROLE_BAR',
+                'is_granted' => true,
+            ],
+            'ROLE_ADMIN' => [
+                'role' => 'ROLE_ADMIN',
+                'role_translated' => 'ROLE_ADMIN',
+                'is_granted' => true,
+            ],
+        ];
+
+        static::assertSame($expected, $securityRolesBuilder->getRoles(null));
+    }
 }
