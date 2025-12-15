@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Twig;
 
-use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Security\RolesBuilder\MatrixRolesBuilderInterface;
@@ -257,7 +257,7 @@ final class RolesMatrixExtensionTest extends TestCase
     /**
      * NEXT_MAJOR: Remove this test.
      */
-    #[Group('legacy')]
+    #[IgnoreDeprecations]
     public function testRenderMatrixWithoutAdminCode(): void
     {
         $roles = [
