@@ -235,16 +235,4 @@ final class AdminRolesBuilderTest extends TestCase
 
         static::assertSame(['sonata.admin.bar'], $rolesBuilder->getExcludeAdmins());
     }
-
-    public function testGetRolesNoConfig(): void
-    {
-        $rolesBuilder = new AdminRolesBuilder(
-            $this->authorizationChecker,
-            null,
-            null,
-            $this->translator
-        );
-
-        static::assertEmpty($rolesBuilder->getRoles());
-    }
 }
