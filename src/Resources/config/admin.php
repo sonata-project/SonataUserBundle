@@ -13,11 +13,7 @@ declare(strict_types=1);
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use Sonata\UserBundle\Form\Type\RolesMatrixType;
 use Sonata\UserBundle\Security\RolesBuilder\AdminRolesBuilder;
-use Sonata\UserBundle\Security\RolesBuilder\MatrixRolesBuilder;
-use Sonata\UserBundle\Security\RolesBuilder\SecurityRolesBuilder;
-use Sonata\UserBundle\Twig\RolesMatrixExtension;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->services()
