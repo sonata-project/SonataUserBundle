@@ -22,8 +22,8 @@ final class MatrixRolesBuilder implements MatrixRolesBuilderInterface
 {
     public function __construct(
         private TokenStorageInterface $tokenStorage,
-        private AdminRolesBuilderInterface $adminRolesBuilder,
-        private ExpandableRolesBuilderInterface $securityRolesBuilder,
+        private ?AdminRolesBuilderInterface $adminRolesBuilder,
+        private ?ExpandableRolesBuilderInterface $securityRolesBuilder,
     ) {
     }
 
@@ -34,8 +34,8 @@ final class MatrixRolesBuilder implements MatrixRolesBuilderInterface
         }
 
         return array_merge(
-            $this->securityRolesBuilder->getRoles($domain),
-            $this->adminRolesBuilder->getRoles($domain)
+            $this->securityRolesBuilder?->getRoles($domain) ?? [],
+            $this->adminRolesBuilder?->getRoles($domain) ?? []
         );
     }
 
@@ -46,13 +46,13 @@ final class MatrixRolesBuilder implements MatrixRolesBuilderInterface
         }
 
         return array_merge(
-            $this->securityRolesBuilder->getExpandedRoles($domain),
-            $this->adminRolesBuilder->getRoles($domain)
+            $this->securityRolesBuilder?->getExpandedRoles($domain) ?? [],
+            $this->adminRolesBuilder?->getRoles($domain) ?? []
         );
     }
 
     public function getPermissionLabels(): array
     {
-        return $this->adminRolesBuilder->getPermissionLabels();
+        return $this->adminRolesBuilder?->getPermissionLabels() ?? [];
     }
 }

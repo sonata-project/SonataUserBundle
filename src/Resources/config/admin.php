@@ -22,39 +22,11 @@ use Sonata\UserBundle\Twig\RolesMatrixExtension;
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->services()
 
-        ->set('sonata.user.matrix_roles_builder', MatrixRolesBuilder::class)
-            ->args([
-                service('security.token_storage'),
-                service('sonata.user.admin_roles_builder'),
-                service('sonata.user.security_roles_builder'),
-            ])
-
         ->set('sonata.user.admin_roles_builder', AdminRolesBuilder::class)
             ->args([
                 service('security.authorization_checker'),
                 service('sonata.admin.pool')->nullOnInvalid(),
                 service('sonata.admin.configuration')->nullOnInvalid(),
                 service('translator'),
-            ])
-
-        ->set('sonata.user.security_roles_builder', SecurityRolesBuilder::class)
-            ->args([
-                service('security.authorization_checker'),
-                service('sonata.admin.configuration')->nullOnInvalid(),
-                service('translator'),
-                param('security.role_hierarchy.roles'),
-            ])
-
-        ->set('sonata.user.form.roles_matrix_type', RolesMatrixType::class)
-            ->public()
-            ->tag('form.type')
-            ->args([
-                service('sonata.user.matrix_roles_builder'),
-            ])
-
-        ->set('sonata.user.roles_matrix_extension', RolesMatrixExtension::class)
-            ->tag('twig.extension')
-            ->args([
-                service('sonata.user.matrix_roles_builder'),
             ]);
 };

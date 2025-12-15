@@ -46,8 +46,8 @@ final class SonataUserExtension extends Extension implements PrependExtensionInt
 
         $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
-        $loader->load('admin.php');
         if (isset($bundles['SonataAdminBundle'])) {
+            $loader->load('admin.php');
             $loader->load(\sprintf('admin_%s.php', $config['manager_type']));
             $loader->load('actions.php');
         }

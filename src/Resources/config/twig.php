@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use Sonata\UserBundle\Twig\GlobalVariables;
+use Sonata\UserBundle\Twig\RolesMatrixExtension;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->services()
@@ -25,5 +26,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 abstract_arg('impersonating enabled'),
                 abstract_arg('impersonating route'),
                 abstract_arg('impersonating route parameters'),
-            ]);
+            ])
+
+        ->set('sonata.user.roles_matrix_extension', RolesMatrixExtension::class)
+            ->tag('twig.extension')
+            ->args([
+                service('sonata.user.matrix_roles_builder'),
+            ])
+    ;
 };

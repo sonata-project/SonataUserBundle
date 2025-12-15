@@ -33,8 +33,8 @@ final class AdminRolesBuilder implements AdminRolesBuilderInterface
 
     public function __construct(
         private AuthorizationCheckerInterface $authorizationChecker,
-        private ?Pool $pool,
-        private ?SonataConfiguration $configuration,
+        private Pool $pool,
+        private SonataConfiguration $configuration,
         private TranslatorInterface $translator,
     ) {
     }
@@ -66,9 +66,6 @@ final class AdminRolesBuilder implements AdminRolesBuilderInterface
 
     public function getRoles(?string $domain = null): array
     {
-        if (null === $this->pool || null === $this->configuration) {
-            return [];
-        }
         $adminServiceCodes = array_diff($this->pool->getAdminServiceCodes(), $this->excludeAdmins);
 
         // get groups and admins sort by config
