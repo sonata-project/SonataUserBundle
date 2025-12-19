@@ -2,6 +2,19 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [5.19.0](https://github.com/sonata-project/SonataUserBundle/compare/5.18.0...5.19.0) - 2025-12-18
+### Added
+- [[#1730](https://github.com/sonata-project/SonataUserBundle/pull/1730)] Support for Symfony 8 ([@dmaicher](https://github.com/dmaicher))
+
+### Changed
+- [[#1733](https://github.com/sonata-project/SonataUserBundle/pull/1733)] Makes references to `service('sonata.admin.pool')` and `service('sonata.admin.configuration')` optional. ([@Hanmac](https://github.com/Hanmac))
+- [[#1733](https://github.com/sonata-project/SonataUserBundle/pull/1733)] Makes references to `service('sonata.user.admin_roles_builder')` and `service('sonata.user.security_roles_builder')` optional. ([@Hanmac](https://github.com/Hanmac))
+
+### Removed
+- [[#1734](https://github.com/sonata-project/SonataUserBundle/pull/1734)] Support for PHP 8.1 ([@dmaicher](https://github.com/dmaicher))
+- [[#1734](https://github.com/sonata-project/SonataUserBundle/pull/1734)] Support for Symfony 7.1 and 7.2 ([@dmaicher](https://github.com/dmaicher))
+- [[#1734](https://github.com/sonata-project/SonataUserBundle/pull/1734)] Support for `sonata-project/block-bundle` v4 ([@dmaicher](https://github.com/dmaicher))
+
 ## [5.18.0](https://github.com/sonata-project/SonataUserBundle/compare/5.17.0...5.18.0) - 2025-11-10
 ### Changed
 - [[#1727](https://github.com/sonata-project/SonataUserBundle/pull/1727)] Rector use `assertInstanceOf` in tests ([@Hanmac](https://github.com/Hanmac))
