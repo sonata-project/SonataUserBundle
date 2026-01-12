@@ -65,6 +65,7 @@ abstract class User implements LegacyPasswordAuthenticatedUserInterface, UserInt
     public function __serialize(): array
     {
         $this->plainPassword = null;
+
         return [
             $this->password,
             $this->salt,
