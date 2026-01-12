@@ -64,6 +64,7 @@ abstract class User implements LegacyPasswordAuthenticatedUserInterface, UserInt
      */
     public function __serialize(): array
     {
+        $this->plainPassword = null;
         return [
             $this->password,
             $this->salt,
@@ -106,9 +107,9 @@ abstract class User implements LegacyPasswordAuthenticatedUserInterface, UserInt
         }
     }
 
+    #[\Deprecated]
     public function eraseCredentials(): void
     {
-        $this->plainPassword = null;
     }
 
     public function getId()
@@ -252,6 +253,7 @@ abstract class User implements LegacyPasswordAuthenticatedUserInterface, UserInt
     public function setPassword(?string $password): void
     {
         $this->password = $password;
+        $this->plainPassword = null;
     }
 
     public function setSuperAdmin(bool $boolean): void
