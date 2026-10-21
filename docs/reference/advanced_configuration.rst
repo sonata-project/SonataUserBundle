@@ -20,7 +20,7 @@ Full configuration options:
             parameters: { path: / }
 
         class: # Entity Classes
-            user: Sonata\UserBundle\Entity\BaseUser
+            user: Sonata\UserBundle\Entity\BaseUser3
 
         admin: # Admin Classes
             user:

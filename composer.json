@@ -49,7 +49,7 @@
         "dama/doctrine-test-bundle": "^8.0",
         "doctrine/doctrine-bundle": "^2.17 || ^3.0",
         "doctrine/mongodb-odm": "^2.3",
-        "doctrine/orm": "^2.14 || ^3.0",
+        "doctrine/orm": "^3.0",
         "egulias/email-validator": "^3.1 || ^4.0",
         "friendsofphp/php-cs-fixer": "^3.4",
         "matthiasnoback/symfony-config-test": "^6.1",

@@ -81,12 +81,11 @@ And then create the corresponding entity, ``src/Entity/SonataUserUser``::
 
     use Doctrine\DBAL\Types\Types;
     use Doctrine\ORM\Mapping as ORM;
-    use Sonata\UserBundle\Entity\BaseUser;
-    // or `Sonata\UserBundle\Entity\BaseUser3` as BaseUser if you upgrade to doctrine/orm ^3
+    use Sonata\UserBundle\Entity\BaseUser3;
 
     #[ORM\Entity]
     #[ORM\Table(name: 'user__user')]
-    class SonataUserUser extends BaseUser
+    class SonataUserUser extends BaseUser3
     {
         #[ORM\Id]
         #[ORM\Column(type: Types::INTEGER)]
