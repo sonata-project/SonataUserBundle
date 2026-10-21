@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\Security\RolesBuilder;
 
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Admin\Pool;
@@ -30,28 +31,28 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 final class AdminRolesBuilderTest extends TestCase
 {
     /**
-     * @var MockObject&SecurityHandlerInterface
+     * @var Stub&SecurityHandlerInterface
      */
-    private MockObject $securityHandler;
+    private Stub $securityHandler;
 
     /**
-     * @var MockObject&AuthorizationCheckerInterface
+     * @var Stub&AuthorizationCheckerInterface
      */
-    private MockObject $authorizationChecker;
+    private Stub $authorizationChecker;
 
     /**
-     * @var MockObject&AdminInterface<object>
+     * @var Stub&AdminInterface<object>
      */
-    private MockObject $admin;
+    private Stub $admin;
 
     private Pool $pool;
 
     private SonataConfiguration $configuration;
 
     /**
-     * @var MockObject&TranslatorInterface
+     * @var Stub&TranslatorInterface
      */
-    private MockObject $translator;
+    private Stub $translator;
 
     /**
      * @var array<string, string[]>
@@ -65,9 +66,9 @@ final class AdminRolesBuilderTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->securityHandler = $this->createMock(SecurityHandlerInterface::class);
-        $this->authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
-        $this->admin = $this->createMock(AdminInterface::class);
+        $this->securityHandler = static::createStub(SecurityHandlerInterface::class);
+        $this->authorizationChecker = static::createStub(AuthorizationCheckerInterface::class);
+        $this->admin = static::createStub(AdminInterface::class);
 
         $container = new Container();
         $container->set('sonata.admin.bar', $this->admin);
@@ -112,7 +113,7 @@ final class AdminRolesBuilderTest extends TestCase
             'use_select2' => true,
             'use_stickyforms' => true,
         ]);
-        $this->translator = $this->createMock(TranslatorInterface::class);
+        $this->translator = static::createStub(TranslatorInterface::class);
     }
 
     public function testGetPermissionLabels(): void

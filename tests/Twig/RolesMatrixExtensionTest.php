@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Twig;
 
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -24,6 +25,7 @@ use Twig\Environment;
 /**
  * @author Silas Joisten <silasjoisten@hotmail.de>
  */
+#[AllowMockObjectsWithoutExpectations]
 final class RolesMatrixExtensionTest extends TestCase
 {
     /**

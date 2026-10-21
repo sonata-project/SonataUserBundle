@@ -35,19 +35,19 @@ final class UserAclVoterTest extends TestCase
     public function testVoteWillAbstainWhenAUserIsLoggedInAndASuperAdmin(): void
     {
         // Given
-        $user = $this->createMock(UserInterface::class);
+        $user = static::createStub(UserInterface::class);
         $user->method('isSuperAdmin')->willReturn(true);
 
-        $loggedInUser = $this->createMock(UserInterface::class);
+        $loggedInUser = static::createStub(UserInterface::class);
         $loggedInUser->method('isSuperAdmin')->willReturn(true);
 
-        $token = $this->createMock(TokenInterface::class);
+        $token = static::createStub(TokenInterface::class);
         $token->method('getUser')->willReturn($loggedInUser);
 
-        $aclProvider = $this->createMock(AclProviderInterface::class);
-        $oidRetrievalStrategy = $this->createMock(ObjectIdentityRetrievalStrategyInterface::class);
-        $sidRetrievalStrategy = $this->createMock(SecurityIdentityRetrievalStrategyInterface::class);
-        $permissionMap = $this->createMock(PermissionMapInterface::class);
+        $aclProvider = static::createStub(AclProviderInterface::class);
+        $oidRetrievalStrategy = static::createStub(ObjectIdentityRetrievalStrategyInterface::class);
+        $sidRetrievalStrategy = static::createStub(SecurityIdentityRetrievalStrategyInterface::class);
+        $permissionMap = static::createStub(PermissionMapInterface::class);
 
         $voter = new UserAclVoter($aclProvider, $oidRetrievalStrategy, $sidRetrievalStrategy, $permissionMap);
 
@@ -61,19 +61,19 @@ final class UserAclVoterTest extends TestCase
     public function testVoteWillDenyAccessWhenAUserIsLoggedInAndNotASuperAdmin(): void
     {
         // Given
-        $user = $this->createMock(UserInterface::class);
+        $user = static::createStub(UserInterface::class);
         $user->method('isSuperAdmin')->willReturn(true);
 
-        $loggedInUser = $this->createMock(UserInterface::class);
+        $loggedInUser = static::createStub(UserInterface::class);
         $loggedInUser->method('isSuperAdmin')->willReturn(false);
 
-        $token = $this->createMock(TokenInterface::class);
+        $token = static::createStub(TokenInterface::class);
         $token->method('getUser')->willReturn($loggedInUser);
 
-        $aclProvider = $this->createMock(AclProviderInterface::class);
-        $oidRetrievalStrategy = $this->createMock(ObjectIdentityRetrievalStrategyInterface::class);
-        $sidRetrievalStrategy = $this->createMock(SecurityIdentityRetrievalStrategyInterface::class);
-        $permissionMap = $this->createMock(PermissionMapInterface::class);
+        $aclProvider = static::createStub(AclProviderInterface::class);
+        $oidRetrievalStrategy = static::createStub(ObjectIdentityRetrievalStrategyInterface::class);
+        $sidRetrievalStrategy = static::createStub(SecurityIdentityRetrievalStrategyInterface::class);
+        $permissionMap = static::createStub(PermissionMapInterface::class);
 
         $voter = new UserAclVoter($aclProvider, $oidRetrievalStrategy, $sidRetrievalStrategy, $permissionMap);
 
@@ -87,18 +87,18 @@ final class UserAclVoterTest extends TestCase
     public function testVoteWillAbstainWhenAUserIsNotAvailable(): void
     {
         // Given
-        $user = $this->createMock(UserInterface::class);
+        $user = static::createStub(UserInterface::class);
         $user->method('isSuperAdmin')->willReturn(true);
 
         $loggedInUser = null;
 
-        $token = $this->createMock(TokenInterface::class);
+        $token = static::createStub(TokenInterface::class);
         $token->method('getUser')->willReturn($loggedInUser);
 
-        $aclProvider = $this->createMock(AclProviderInterface::class);
-        $oidRetrievalStrategy = $this->createMock(ObjectIdentityRetrievalStrategyInterface::class);
-        $sidRetrievalStrategy = $this->createMock(SecurityIdentityRetrievalStrategyInterface::class);
-        $permissionMap = $this->createMock(PermissionMapInterface::class);
+        $aclProvider = static::createStub(AclProviderInterface::class);
+        $oidRetrievalStrategy = static::createStub(ObjectIdentityRetrievalStrategyInterface::class);
+        $sidRetrievalStrategy = static::createStub(SecurityIdentityRetrievalStrategyInterface::class);
+        $permissionMap = static::createStub(PermissionMapInterface::class);
 
         $voter = new UserAclVoter($aclProvider, $oidRetrievalStrategy, $sidRetrievalStrategy, $permissionMap);
 
@@ -112,18 +112,18 @@ final class UserAclVoterTest extends TestCase
     public function testVoteWillAbstainWhenAUserIsLoggedInButIsNotASonataUser(): void
     {
         // Given
-        $user = $this->createMock(UserInterface::class);
+        $user = static::createStub(UserInterface::class);
         $user->method('isSuperAdmin')->willReturn(true);
 
-        $loggedInUser = $this->createMock(SonataUserInterface::class);
+        $loggedInUser = static::createStub(SonataUserInterface::class);
 
-        $token = $this->createMock(TokenInterface::class);
+        $token = static::createStub(TokenInterface::class);
         $token->method('getUser')->willReturn($loggedInUser);
 
-        $aclProvider = $this->createMock(AclProviderInterface::class);
-        $oidRetrievalStrategy = $this->createMock(ObjectIdentityRetrievalStrategyInterface::class);
-        $sidRetrievalStrategy = $this->createMock(SecurityIdentityRetrievalStrategyInterface::class);
-        $permissionMap = $this->createMock(PermissionMapInterface::class);
+        $aclProvider = static::createStub(AclProviderInterface::class);
+        $oidRetrievalStrategy = static::createStub(ObjectIdentityRetrievalStrategyInterface::class);
+        $sidRetrievalStrategy = static::createStub(SecurityIdentityRetrievalStrategyInterface::class);
+        $permissionMap = static::createStub(PermissionMapInterface::class);
 
         $voter = new UserAclVoter($aclProvider, $oidRetrievalStrategy, $sidRetrievalStrategy, $permissionMap);
 

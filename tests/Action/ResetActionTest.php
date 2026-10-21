@@ -13,7 +13,9 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Action;
 
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
@@ -34,6 +36,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
+#[AllowMockObjectsWithoutExpectations]
 final class ResetActionTest extends TestCase
 {
     /**
@@ -69,9 +72,9 @@ final class ResetActionTest extends TestCase
     private MockObject $userManager;
 
     /**
-     * @var MockObject&TranslatorInterface
+     * @var Stub&TranslatorInterface
      */
-    private MockObject $translator;
+    private Stub $translator;
 
     private Session $session;
 
@@ -86,7 +89,7 @@ final class ResetActionTest extends TestCase
         $this->templateRegistry = $this->createMock(TemplateRegistryInterface::class);
         $this->formFactory = $this->createMock(FormFactoryInterface::class);
         $this->userManager = $this->createMock(UserManagerInterface::class);
-        $this->translator = $this->createMock(TranslatorInterface::class);
+        $this->translator = static::createStub(TranslatorInterface::class);
         $this->session = new Session(new MockFileSessionStorage());
         $this->resetTtl = 60;
     }
@@ -131,7 +134,7 @@ final class ResetActionTest extends TestCase
     {
         $request = new Request();
 
-        $user = $this->createMock(User::class);
+        $user = static::createStub(User::class);
         $user
             ->method('isPasswordRequestNonExpired')
             ->willReturn(false);
@@ -165,7 +168,7 @@ final class ResetActionTest extends TestCase
             'admin_pool' => $this->pool,
         ];
 
-        $user = $this->createMock(User::class);
+        $user = static::createStub(User::class);
         $user
             ->method('isPasswordRequestNonExpired')
             ->willReturn(true);
@@ -230,7 +233,7 @@ final class ResetActionTest extends TestCase
             ->method('setEnabled')
             ->with(true);
 
-        $form = $this->createMock(Form::class);
+        $form = static::createStub(Form::class);
         $form
             ->method('isValid')
             ->willReturn(true);

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Action;
 
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\AdminBundle\Admin\Pool;
@@ -33,6 +34,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Twig\Environment;
 
+#[AllowMockObjectsWithoutExpectations]
 final class RequestActionTest extends TestCase
 {
     /**
@@ -162,7 +164,7 @@ final class RequestActionTest extends TestCase
         $form->method('get')->willReturn($usernameForm);
         $usernameForm->method('getData')->willReturn('bar');
 
-        $user = $this->createMock(UserInterface::class);
+        $user = static::createStub(UserInterface::class);
         $user->method('isPasswordRequestNonExpired')->willReturn(true);
 
         $this->formFactory->method('create')->with(ResetPasswordRequestFormType::class)->willReturn($form);
@@ -188,7 +190,7 @@ final class RequestActionTest extends TestCase
         $form->method('get')->willReturn($usernameForm);
         $usernameForm->method('getData')->willReturn('bar');
 
-        $user = $this->createMock(UserInterface::class);
+        $user = static::createStub(UserInterface::class);
         $user->method('isPasswordRequestNonExpired')->willReturn(false);
         $user->method('isAccountNonLocked')->willReturn(false);
 
@@ -217,7 +219,7 @@ final class RequestActionTest extends TestCase
         $form->method('get')->willReturn($usernameForm);
         $usernameForm->method('getData')->willReturn('bar');
 
-        $user = $this->createMock(UserInterface::class);
+        $user = static::createStub(UserInterface::class);
         $user->method('getEmail')->willReturn('user@sonata-project.org');
         $user->method('isPasswordRequestNonExpired')->willReturn(false);
         $user->method('isAccountNonLocked')->willReturn(true);
