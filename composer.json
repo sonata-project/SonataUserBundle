@@ -22,7 +22,7 @@
     "require": {
         "php": "^8.2",
         "doctrine/collections": "^1.6 || ^2.0",
-        "doctrine/common": "^3.1",
+        "doctrine/event-manager": "^2.1",
         "doctrine/persistence": "^3.0.2 || ^4.0",
         "sonata-project/doctrine-extensions": "^1.13 || ^2.0",
         "sonata-project/form-extensions": "^1.4 || ^2.0",
