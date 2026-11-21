@@ -13,8 +13,10 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Action;
 
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Templating\TemplateRegistryInterface;
@@ -35,6 +37,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
+#[AllowMockObjectsWithoutExpectations]
 final class LoginActionTest extends TestCase
 {
     /**
@@ -48,9 +51,9 @@ final class LoginActionTest extends TestCase
     private MockObject $urlGenerator;
 
     /**
-     * @var MockObject&AuthenticationUtils
+     * @var Stub&AuthenticationUtils
      */
-    private MockObject $authenticationUtils;
+    private Stub $authenticationUtils;
 
     private Pool $pool;
 
@@ -60,14 +63,14 @@ final class LoginActionTest extends TestCase
     private MockObject $templateRegistry;
 
     /**
-     * @var MockObject&TokenStorageInterface
+     * @var Stub&TokenStorageInterface
      */
-    private MockObject $tokenStorage;
+    private Stub $tokenStorage;
 
     /**
-     * @var MockObject&Session
+     * @var Stub&Session
      */
-    private MockObject $session;
+    private Stub $session;
 
     /**
      * @var MockObject&CsrfTokenManagerInterface
@@ -83,11 +86,11 @@ final class LoginActionTest extends TestCase
     {
         $this->templating = $this->createMock(Environment::class);
         $this->urlGenerator = $this->createMock(UrlGeneratorInterface::class);
-        $this->authenticationUtils = $this->createMock(AuthenticationUtils::class);
+        $this->authenticationUtils = static::createStub(AuthenticationUtils::class);
         $this->pool = new Pool(new Container());
         $this->templateRegistry = $this->createMock(TemplateRegistryInterface::class);
-        $this->tokenStorage = $this->createMock(TokenStorageInterface::class);
-        $this->session = $this->createMock(Session::class);
+        $this->tokenStorage = static::createStub(TokenStorageInterface::class);
+        $this->session = static::createStub(Session::class);
         $this->translator = $this->createMock(TranslatorInterface::class);
         $this->csrfTokenManager = $this->createMock(CsrfTokenManagerInterface::class);
     }
@@ -97,9 +100,9 @@ final class LoginActionTest extends TestCase
         $request = new Request();
         $request->setSession($this->session);
 
-        $user = $this->createMock(UserInterface::class);
+        $user = static::createStub(UserInterface::class);
 
-        $token = $this->createMock(TokenInterface::class);
+        $token = static::createStub(TokenInterface::class);
         $token
             ->method('getUser')
             ->willReturn($user);
@@ -137,7 +140,7 @@ final class LoginActionTest extends TestCase
     #[DataProvider('provideUnauthenticatedCases')]
     public function testUnauthenticated(string $lastUsername, ?AuthenticationException $errorMessage = null, bool $resetting = true): void
     {
-        $session = $this->createMock(Session::class);
+        $session = static::createStub(Session::class);
         $sessionParameters = [
             '_security.last_error' => $errorMessage,
             '_security.last_username' => $lastUsername,
@@ -164,7 +167,7 @@ final class LoginActionTest extends TestCase
             'reset_route' => $resetting ? '/foo' : null,
         ];
 
-        $csrfToken = $this->createMock(CsrfToken::class);
+        $csrfToken = static::createStub(CsrfToken::class);
         $csrfToken
             ->method('getValue')
             ->willReturn('csrf-token');

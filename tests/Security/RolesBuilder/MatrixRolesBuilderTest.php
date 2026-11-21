@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\Security\RolesBuilder;
 
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Security\RolesBuilder\AdminRolesBuilderInterface;
 use Sonata\UserBundle\Security\RolesBuilder\ExpandableRolesBuilderInterface;
@@ -27,31 +28,31 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 final class MatrixRolesBuilderTest extends TestCase
 {
     /**
-     * @var MockObject&TokenStorageInterface
+     * @var Stub&TokenStorageInterface
      */
-    private MockObject $tokenStorage;
+    private Stub $tokenStorage;
 
     /**
-     * @var MockObject&TokenInterface
+     * @var Stub&TokenInterface
      */
-    private MockObject $token;
+    private Stub $token;
 
     /**
-     * @var MockObject&AdminRolesBuilderInterface
+     * @var Stub&AdminRolesBuilderInterface
      */
-    private MockObject $adminRolesBuilder;
+    private Stub $adminRolesBuilder;
 
     /**
-     * @var MockObject&ExpandableRolesBuilderInterface
+     * @var Stub&ExpandableRolesBuilderInterface
      */
-    private MockObject $securityRolesBuilder;
+    private Stub $securityRolesBuilder;
 
     protected function setUp(): void
     {
-        $this->tokenStorage = $this->createMock(TokenStorageInterface::class);
-        $this->token = $this->createMock(TokenInterface::class);
-        $this->adminRolesBuilder = $this->createMock(AdminRolesBuilderInterface::class);
-        $this->securityRolesBuilder = $this->createMock(ExpandableRolesBuilderInterface::class);
+        $this->tokenStorage = static::createStub(TokenStorageInterface::class);
+        $this->token = static::createStub(TokenInterface::class);
+        $this->adminRolesBuilder = static::createStub(AdminRolesBuilderInterface::class);
+        $this->securityRolesBuilder = static::createStub(ExpandableRolesBuilderInterface::class);
     }
 
     public function testGetPermissionLabels(): void

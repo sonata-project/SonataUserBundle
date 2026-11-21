@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\DependencyInjection;
 
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -23,6 +24,7 @@ use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
 
+#[AllowMockObjectsWithoutExpectations]
 final class MailerTest extends TestCase
 {
     /**
@@ -63,7 +65,7 @@ final class MailerTest extends TestCase
         $this->expectException(\LogicException::class);
         $this->expectExceptionMessage('This method is not implemented.');
 
-        $user = $this->createMock(UserInterface::class);
+        $user = static::createStub(UserInterface::class);
 
         $this->getMailer()->sendConfirmationEmailMessage($user);
     }

@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\Security\RolesBuilder;
 
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Sonata\AdminBundle\SonataConfiguration;
 use Sonata\UserBundle\Security\RolesBuilder\SecurityRolesBuilder;
@@ -26,16 +27,16 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 final class SecurityRolesBuilderTest extends TestCase
 {
     /**
-     * @var MockObject&AuthorizationCheckerInterface
+     * @var Stub&AuthorizationCheckerInterface
      */
-    private MockObject $authorizationChecker;
+    private Stub $authorizationChecker;
 
     private SonataConfiguration $configuration;
 
     /**
-     * @var MockObject&TranslatorInterface
+     * @var Stub&TranslatorInterface
      */
-    private MockObject $translator;
+    private Stub $translator;
 
     /**
      * @var array<string, string[]>
@@ -44,7 +45,7 @@ final class SecurityRolesBuilderTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
+        $this->authorizationChecker = static::createStub(AuthorizationCheckerInterface::class);
         $this->configuration = new SonataConfiguration('title', 'logo', [
             'confirm_exit' => true,
             'default_admin_route' => 'show',
@@ -72,7 +73,7 @@ final class SecurityRolesBuilderTest extends TestCase
             'use_select2' => true,
             'use_stickyforms' => true,
         ]);
-        $this->translator = $this->createMock(TranslatorInterface::class);
+        $this->translator = static::createStub(TranslatorInterface::class);
     }
 
     public function testGetRoles(): void

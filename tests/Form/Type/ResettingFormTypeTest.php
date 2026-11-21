@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Form\Type;
 
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use Sonata\UserBundle\Form\Type\ResettingFormType;
 use Sonata\UserBundle\Tests\App\Entity\User;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
@@ -22,6 +23,7 @@ use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+#[AllowMockObjectsWithoutExpectations]
 final class ResettingFormTypeTest extends TypeTestCase
 {
     public function testSubmit(): void

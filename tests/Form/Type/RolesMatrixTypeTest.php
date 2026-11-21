@@ -13,7 +13,9 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Form\Type;
 
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use Sonata\UserBundle\Form\Type\RolesMatrixType;
 use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Security\RolesBuilder\ExpandableRolesBuilderInterface;
@@ -26,16 +28,17 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * @author Silas Joisten <silasjoisten@hotmail.de>
  */
+#[AllowMockObjectsWithoutExpectations]
 final class RolesMatrixTypeTest extends TypeTestCase
 {
     /**
-     * @var MockObject&ExpandableRolesBuilderInterface
+     * @var Stub&ExpandableRolesBuilderInterface
      */
-    private MockObject $roleBuilder;
+    private Stub $roleBuilder;
 
     protected function setUp(): void
     {
-        $this->roleBuilder = $this->createMock(ExpandableRolesBuilderInterface::class);
+        $this->roleBuilder = static::createStub(ExpandableRolesBuilderInterface::class);
 
         $this->roleBuilder->method('getRoles')->willReturn([
             'ROLE_FOO' => 'ROLE_FOO',
