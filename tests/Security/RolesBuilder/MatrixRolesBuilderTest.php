@@ -121,6 +121,6 @@ final class MatrixRolesBuilderTest extends TestCase
             $this->securityRolesBuilder
         );
 
-        static::assertEmpty($matrixRolesBuilder->getRoles());
+        static::assertSame([], $matrixRolesBuilder->getRoles());
     }
 }

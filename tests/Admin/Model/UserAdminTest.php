@@ -26,6 +26,6 @@ final class UserAdminTest extends TestCase
     {
         $admin = new UserAdmin(static::createStub(UserManagerInterface::class));
 
-        static::assertNotEmpty($admin);
+        static::assertInstanceOf(UserAdmin::class, $admin);
     }
 }

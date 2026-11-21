@@ -50,7 +50,7 @@ final class UserManager extends BaseEntityManager implements UserManagerInterfac
         $password = $this->userPasswordHasher->hashPassword($user, $plainPassword);
 
         $user->setPassword($password);
-        $user->eraseCredentials();
+        $user->setPlainPassword(null);
     }
 
     public function findUserByUsername(string $username): ?UserInterface
