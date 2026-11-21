@@ -2,6 +2,20 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [5.20.0](https://github.com/sonata-project/SonataUserBundle/compare/5.19.0...5.20.0) - 2026-11-21
+### Added
+- [[#1746](https://github.com/sonata-project/SonataUserBundle/pull/1746)] Dependency on `doctrine/event-manager` ([@DuaelFr](https://github.com/DuaelFr))
+
+### Changed
+- [[#1747](https://github.com/sonata-project/SonataUserBundle/pull/1747)] `UserManager::updatePassword()` clears the plain password with `setPlainPassword(null)` instead of calling `eraseCredentials()` ([@dmaicher](https://github.com/dmaicher))
+
+### Fixed
+- [[#1747](https://github.com/sonata-project/SonataUserBundle/pull/1747)] Fatal error in `UserManager::updatePassword()` with Symfony 8 for user classes that don't implement `eraseCredentials()` ([@dmaicher](https://github.com/dmaicher))
+
+### Removed
+- [[#1746](https://github.com/sonata-project/SonataUserBundle/pull/1746)] Dependency on `doctrine/common` ([@DuaelFr](https://github.com/DuaelFr))
+- [[#1747](https://github.com/sonata-project/SonataUserBundle/pull/1747)] Support for Symfony 7.3 and 8.0 ([@dmaicher](https://github.com/dmaicher))
+
 ## [5.19.0](https://github.com/sonata-project/SonataUserBundle/compare/5.18.0...5.19.0) - 2025-12-18
 ### Added
 - [[#1730](https://github.com/sonata-project/SonataUserBundle/pull/1730)] Support for Symfony 8 ([@dmaicher](https://github.com/dmaicher))
