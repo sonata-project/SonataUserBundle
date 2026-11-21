@@ -50,7 +50,7 @@ final class UserManager extends BaseDocumentManager implements UserManagerInterf
         $password = $this->userPasswordHasher->hashPassword($user, $plainPassword);
 
         $user->setPassword($password);
-        $user->eraseCredentials();
+        $user->setPlainPassword(null);
     }
 
     public function findUserByUsername(string $username): ?UserInterface

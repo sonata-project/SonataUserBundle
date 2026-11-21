@@ -54,6 +54,7 @@ final class SecurityRolesBuilderTest extends TestCase
             'dropdown_number_groups_per_colums' => 1,
             'form_type' => 'horizontal',
             'html5_validate' => true,
+            'icon_prefixes' => ['fa', 'fas', 'far', 'fab', 'fal', 'fad'],
             'javascripts' => [],
             'js_debug' => true,
             'list_action_button_content' => 'text',
