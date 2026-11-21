@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Sonata\UserBundle\Tests\Form\Type;
 
 use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use Sonata\UserBundle\Form\Type\RolesMatrixType;
 use Sonata\UserBundle\Model\UserInterface;

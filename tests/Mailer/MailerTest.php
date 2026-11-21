@@ -93,8 +93,8 @@ final class MailerTest extends TestCase
 
         $fromName = current($this->emailFrom);
         \assert(false !== $fromName);
-        $fromAddress = current(array_keys($this->emailFrom));
-        \assert(false !== $fromAddress);
+        $fromAddress = array_key_first($this->emailFrom);
+        \assert(null !== $fromAddress);
 
         $email = (new Email())
             ->from(\sprintf('%s <%s>', $fromName, $fromAddress))

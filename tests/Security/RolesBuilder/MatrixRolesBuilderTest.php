@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Tests\Security\RolesBuilder;
 
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Sonata\UserBundle\Security\RolesBuilder\AdminRolesBuilderInterface;
